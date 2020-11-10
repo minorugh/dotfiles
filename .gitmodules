@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/vim-colorschemes"]
 	path = .vim/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule ".vim/bundle/vimshell_3787e5"]
+	path = .vim/bundle/vimshell_3787e5
+	url = https://github.com/Shougo/vimshell.git
