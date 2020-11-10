@@ -136,7 +136,7 @@ emacs-devel: ## Install development version of emacs
 	sudo make install;\
 	rm -rf ${HOME}/.emacs.d/elpa
 
-allinstall: rclone ssh cica emacsmozc init base install cups
+allinstall: ssh cica emacsmozc init base install cups
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
