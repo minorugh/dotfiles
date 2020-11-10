@@ -1,0 +1,8 @@
+! .Xmodmap for key remap
+
+remove Lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add Control = Control_L
+
+keycode 107 = Alt_R
+keycode  97 = underscore
