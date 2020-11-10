@@ -16,6 +16,10 @@
 (add-hook
  'view-mode-hook
  (lambda ()
+   (define-key view-mode-map "<down>" 'next-line)
+   (define-key view-mode-map "<up>" 'previous-line)
+   (define-key view-mode-map "<right>" 'forward-char)
+   (define-key view-mode-map "<left>" 'backward-char)
    (define-key view-mode-map "i" 'View-exit)
    (define-key view-mode-map "," 'View-exit)
    (define-key view-mode-map "g" 'beginning-of-buffer)
@@ -59,6 +63,10 @@
    ("a" seq-home)
    ("e" seq-end)
    ("j" goto-line)
+   ("<down>" next-line)
+   ("<up>" previous-line)
+   ("<right>" forward-char)
+   ("<left>" backward-char)
    ;; misc
    ("i" View-exit :exit t)
    ("," View-exit :exit t)
