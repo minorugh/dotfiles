@@ -1,1 +1,2 @@
 emacs-ja.info filter=git-crypt diff=git-crypt
+elisp-ja.info filter=git-crypt diff=git-crypt
