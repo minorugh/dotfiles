@@ -1,3 +1,6 @@
 .gitconfig filter=git-crypt diff=git-crypt
 .netrc filter=git-crypt diff=git-crypt
 
+tex/* linguist-vendored=false
+mozc/* linguist-vendored=false
+.vim linguist-vendored=false
