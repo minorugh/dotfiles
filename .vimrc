@@ -9,7 +9,6 @@ set runtimepath+=/home/minoru/.vim/bundle/neobundle.vim/
 " Required:
 call neobundle#begin(expand('/home/minoru/.vim/bundle'))
 
-
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -20,11 +19,10 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'scrooloose/nerdtree'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-NeoBundle 'scrooloose/nerdtree'
 
 " Required:
 call neobundle#end()
@@ -37,29 +35,9 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+map <C-e> :NERDTreeToggle<CR>
 
-
-"NERDTree settings----------------
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-" Open NERDTree after opening vim with no arguments,
-" If there is an argument, NERDTree will not start and the file passed as an argument will be opened.
-autocmd vimenter * if !argc() | NERDTree | endif
-
-" If NERDTree is open when all other buffers are closed, NERDTree is also closed.
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Show hidden files by default
-let NERDTreeShowHidden = 1
-
-" Automatically close NERDtree when opening a file
-let g:NERDTreeQuitOnOpen = 1
-"End NERDTree settings----------------
-
-" colorscheme iceberg
+colorscheme iceberg
 
 set encoding=utf-8
 set fileencoding=utf-8
