@@ -27,12 +27,6 @@ export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/pe
 ## Make install
 ## =====================================================================
 ## 1st stage for make allinstall
-rclone: ## Init rclone
-	sudo apt install -y rclone
-	chmod 600 ${PWD}/.config/rclone/rclone.conf
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
-
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
 	mkdir -p ${HOME}/.gnupg
