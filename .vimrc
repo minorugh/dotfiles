@@ -59,7 +59,7 @@ let NERDTreeShowHidden = 1
 let g:NERDTreeQuitOnOpen = 1
 "End NERDTree settings----------------
 
-colorscheme iceberg
+" colorscheme iceberg
 
 set encoding=utf-8
 set fileencoding=utf-8
