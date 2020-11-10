@@ -37,6 +37,17 @@ NeoBundleCheck
 
 map <C-e> :NERDTreeToggle<CR>
 
+" デフォルトで隠しファイルを表示
+let NERDTreeShowHidden = 1
+" ファイル指定なしでVimを起動した場合だけ表示
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" The NERD Treeのウィンドウだけが残るような場合にVimを終了
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" ブックマークメニューをデフォルトで表示
+let NERDTreeShowBookmarks=1
+" ファイルを開くときにNERDtreeを自動的に閉じる
+let g:NERDTreeQuitOnOpen = 1
+
 colorscheme iceberg
 
 set encoding=utf-8

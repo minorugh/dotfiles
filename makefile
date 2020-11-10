@@ -75,8 +75,9 @@ install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub \
 	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh python3-pip \
-	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen \
-	keychain mosh compizconfig-settings-manager compiz-plugins
+	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
+	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
+	xscreensaver xscreensaver-gl-extra
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
@@ -118,8 +119,8 @@ filezilla:  ## Install filezilla and auto start selected myserver.
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	sudo apt install -y keepassxc
-	# sudo apt install -y secret-tool
-	# secret-tool store --label "KeePassXC master password" type kbd ## asked for a password, so enter 'gospel'
+	sudo apt install -y libsecret-tools
+# secret-tool store --label "KeePassXC master password" type kbd ## asked for a password, so enter 'gospel'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
 ### Copy favorite wallpaper to the user picture folder
