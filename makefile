@@ -9,8 +9,9 @@ export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/pe
 ## 1. Log in as root
 ## Register username to sudoers
 # | gpasswd -a minoru sudo
-# | exit
+# | log out
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
+# | log out
 
 ## 2. Log in with ${USER}
 ## Make home directory English
@@ -18,10 +19,12 @@ export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/pe
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
 # | sudo apt install -y zsh git nautilus chromium chromium-l10n
+# | bash to zsh
+# | chsh -s /bin/zsh
 
 ## Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
-# | ~/.dropbox-dist/dropboxd
+# | Launch from Menu for install & setting
 
 ## =====================================================================
 ## Make install
@@ -33,7 +36,7 @@ gnupg: ## Deploy gnupg (Run after rclone)
 	ln -vsf ${PWD}/.gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 
 ssh: ## Init ssh
-		mkdir -p ${HOME}/.ssh
+	mkdir -p ${HOME}/.ssh
 	ln -vsf ${PWD}/.ssh/.gitattributes ${HOME}/.ssh/.gitattributes
 	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
 	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
