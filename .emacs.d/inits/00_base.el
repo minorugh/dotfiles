@@ -41,8 +41,8 @@
   (setq savehist-file "~/Dropbox/emacs/savehist")
   (setq save-place-file "~/Dropbox/emacs/places")
   (setq undohist-directory "~/Dropbox/emacs/undohist")
-  (setq transient-history-file "~/Dropbox/emacs/transient/history.el")
-  (setq prescient-save-file	"~/Dropbox/emacs/var/prescient-save.el")
+  (setq transient-history-file "~/Dropbox/emacs/history.el")
+  (setq prescient-save-file	"~/Dropbox/emacs/prescient-save.el")
   (setq auto-save-list-file-prefix nil)
 
   ;; Hack emacs-init-time
