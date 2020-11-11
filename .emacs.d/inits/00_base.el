@@ -86,6 +86,7 @@
   (bind-key "<S-return>" 'my:root-dir)
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
+  (bind-key "C-q" 'other-window-or-split)
   (bind-key "s-c" 'cool-copy)
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)
@@ -97,6 +98,15 @@
 	:doc "simple but helpful copy tool"
 	:config
 	(setq cool-copy-show 'posframe))
+
+  (defun other-window-or-split ()
+	"If there is one window, open split window.
+If there are two or more windows, it will go to another window."
+	(interactive)
+	(when (one-window-p)
+	  ;; (split-window-horizontally))
+	  (follow-delete-other-windows-and-split))
+	(other-window 1))
 
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
