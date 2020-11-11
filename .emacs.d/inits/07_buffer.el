@@ -29,16 +29,6 @@
   (setq tempbuf-kill-message nil))
 
 
-(leaf iflipb
-  :ensure t
-  :config
-  (bind-key "M-]" 'iflipb-next-buffer)
-  (bind-key "M-[" 'iflipb-previous-buffer)
-  :init
-  (setq iflipb-wrap-around t
-		iflipb-ignore-buffers (list "^[*]" "^magit" "dir]$" ".emacs.d" "GH" ".org$")))
-
-
 (leaf undohist
   :ensure t
   :hook (emacs-startup-hook . undohist-initialize)
