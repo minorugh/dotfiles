@@ -14,7 +14,11 @@
   (setq default-input-method "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title "♡かな")
-
+  (set-cursor-color "#BD93F9")
+  (add-hook 'input-method-activate-hook
+			(lambda() (set-cursor-color "#CC3333")))
+  (add-hook 'input-method-inactivate-hook
+  			(lambda() (set-cursor-color "#BD93F9")))
   ;; Confirmed immediately
   (define-key mozc-mode-map "," '(lambda () (interactive) (mozc-insert-str "、")))
   (define-key mozc-mode-map "." '(lambda () (interactive) (mozc-insert-str "。")))
@@ -35,16 +39,6 @@
 	  (setq input-method-function input-method-function-save)))
 
   :init
-  (leaf mozc-cursor-color
-	:el-get iRi-E/mozc-el-extensions
-	:doc "set cursor color corresponding to mozc's input state"
-	:require t
-	:config
-	(setq mozc-cursor-color-alist
-		  '((direct . "#BD93F9")
-			(read-only . "#84A0C6")
-			(hiragana . "#CC3333"))))
-
   (leaf mozc-cand-posframe :ensure t
 	:require t
 	:config
