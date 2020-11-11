@@ -62,8 +62,8 @@
    "
   📝 Work Menu
   --------------^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------
-    Work: _a_:合評^^   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
-    Tool: _g_ist:_l_   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf   print_:_   _f_tp:🐾   scale_+_   package_@_"
+    Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
+    Tool: _l_epton   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf  print_:_   _f_tp:🐾   scale_+_   package_@_"
    ("a" my:apsh)
    ("A" my:apsh-new-post)
    ("e" easy-hugo)
@@ -82,8 +82,8 @@
    ("k" my:m_kukai)
    ("b" my:backupall)
    ("B" my:backup-dir)
-   ("g" gist-region-or-buffer)
-   ("l" gist-list)
+   ("c" open-cacher)
+   ("l" open-lepton)
    ("r" counsel-rg)
    ("@" hydra-package/body)
    ("p" open-keepass)
@@ -118,6 +118,11 @@
       (compile "/mnt/c/\"Program Files\"/\"FileZilla FTP Client\"/filezilla.exe"))
     (unless (getenv "WSENV")
       (compile "filezilla -s")))
+
+  (defun open-lepton ()
+    "Open Ftp application."
+    (interactive)
+	(compile "lepton"))
 
   (defun open-keepass ()
     "Narrow the only espy command in M-x."
