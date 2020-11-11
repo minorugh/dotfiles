@@ -12,6 +12,7 @@
 (setq inhibit-startup-message t)
 (setq byte-compile-warnings '(cl-functions))
 
+;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
