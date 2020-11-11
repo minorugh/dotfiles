@@ -30,32 +30,6 @@
   :global-minor-mode (global-diff-hl-mode diff-hl-margin-mode))
 
 
-(leaf gist
-  :ensure t
-  :config
-  (bind-key "C-c g" 'gist-region-or-buffer)
-  (bind-key "C-c l" 'gist-list)
-  (bind-key "." 'hydra-gist-help/body tabulated-list-mode-map)
-  :hydra
-  (hydra-gist-help ()
-				   "
-  🎲 Function for gist
-     M-x gist-list: Lists your gists in a new buffer
-     M-x gist-region-or-buffer: Post either the current region or buffer
-    -----------------------------
-  🎲 In gist-list buffer
-     RET:fetch  e:edit-description  g:list-reload  b:browse current  y:print current url
-     +:add file to current  -:remove file from current  k:delete current
-    -----------------------------
-  🎲 In fetch file buffer
-     C-x C-s : save a new version of the gist
-     C-x C-w : rename some file
-    -----------------------------
-  🎲 In dired buffer
-     @ : make a gist out of marked files"
-				   ("." nil)))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
