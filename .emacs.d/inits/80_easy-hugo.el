@@ -26,7 +26,6 @@
   (setq easy-hugo--sort-time-flg nil)
   (setq easy-hugo--sort-publishday-flg 1)
   :init
-  (leaf toml-mode :ensure t)
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/repo/xsrv.jp/xsrv/")
   (setq easy-hugo-url "https://minorugh.xsrv.jp")
