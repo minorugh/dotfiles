@@ -57,6 +57,7 @@ set fileformats=unix,dos,mac
 set ambiwidth=double
 set wildmenu
 set clipboard=unnamedplus
+set clipboard=autoselect
 set number
 set title
 set hidden
