@@ -68,7 +68,6 @@
 
   :init
   (leaf markdown-toc :ensure t)
-  (leaf edit-indirect :ensure t)
   (leaf poly-markdown :ensure t
 	:mode ("\\.md" . poly-markdown-mode))
 
