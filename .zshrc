@@ -283,6 +283,7 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 export GOPATH=$HOME
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:/usr/sbin"
+export PATH="$PATH:/snap/bin"
 export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
 # PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
