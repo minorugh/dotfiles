@@ -11,9 +11,9 @@
    (:hint nil :exit t)
    "
   🐳 Quick Menu
-  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------------------------------------------
-    _d_ropbox^^   _e_macs.d^^   _i_nits^^   _x_srv.jp^^^^   GH:_h_   _._files   _b_marks   _g_ithub   _r_estart   _m_arkdown   _u_ndotree   howm:_@_
-    _t_ramp:_q_   git:_[_._]_   tw_1_._2_   _y_as:_n_:_v_   _a_g🐾   _f_lychk   _s_earch   make:_k_   _c_ompile   _o_pen-url   capture_,_   pinky_:_"
+  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------
+   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _._files   howm:_@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree
+   init_l_og   git:_[_._]_   _t_ramp   _y_as:_n_:_v_   _a_g🐾   _f_lyERR   _s_earch   make:_k_   _c_ompile   _o_pen-url   capture_,_"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
    ("t" counsel-tramp)
@@ -47,9 +47,7 @@
    ("_" delete-other-windows)
    ("[" hydra-magit/body)
    ("]" magit-status)
-   ("1" twit-1)
-   ("2" twit-2)
-   ("3" browse-tweetdeck)
+   ("l" init-loader-show-log)
    ("<muhenkan>" nil)
    ("M-." nil)))
 
