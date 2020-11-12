@@ -4,7 +4,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf user-utility-for-buffer
+(leaf utility-for-buffer
   :init
   (leaf auto-save-buffers-enhanced
 	:ensure t
@@ -51,7 +51,6 @@
 	(setq undo-tree-auto-save-history nil)
 	(setq undo-tree-history-directory-alist
 		  `(("." . ,(concat user-emacs-directory "undo-tree-hist/")))))
-
   :config
   (bind-key "s-s" 'toggle-scratch)
   (defun toggle-scratch ()
@@ -69,11 +68,10 @@
     (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
     (when (get-buffer "*tramp/scp xsrv*")
       (counsel-tramp-quit))
-    (message "Killed Other Buffers!"))
-  )
+    (message "Killed Other Buffers!")))
 
 
-(leaf user-utility-for-misc
+(leaf utility-for-misc
   :init
   (leaf migemo
 	:ensure t
@@ -127,11 +125,10 @@
 	  (interactive "r")
 	  ;; (shell-command-on-region begin end my:pdfout-command-format)))
 	  (shell-command-on-region begin end (format my:pdfout-command-format
-												 (concat (read-from-minibuffer "File name:") ".pdf")))))
-  )
+												 (concat (read-from-minibuffer "File name:") ".pdf"))))))
 
 
-(leaf user-utils-functions
+(leaf utils-user-functions
   :config
   (bind-key "<f3>" 'filer-current-dir-open)
   (bind-key "<f4>" 'term-current-dir-open)
@@ -205,8 +202,7 @@
   (defun browse-slack ()
     "Open slack with chrome."
     (interactive)
-    (browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/"))
-  )
+    (browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/")))
 
 
 ;; Local Variables:

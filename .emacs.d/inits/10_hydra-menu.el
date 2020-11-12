@@ -61,7 +61,7 @@
   📝 Work Menu
   --------------^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------
     Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
-    Tool: _l_epton   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf  print_:_   _f_tp:🐾   scale_+_   package_@_"
+    Tool: _l_epton   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf  _i_❤IMG   _f_tp:🐾   scale_+_   package_@_"
    ("a" my:apsh)
    ("A" my:apsh-new-post)
    ("e" easy-hugo)
@@ -82,6 +82,7 @@
    ("B" my:backup-dir)
    ("c" open-cacher)
    ("l" open-lepton)
+   ("i" (browse-url "https://www.iloveimg.com/ja"))
    ("r" counsel-rg)
    ("@" hydra-package/body)
    ("p" open-keepass)
@@ -96,7 +97,6 @@
    ("j" open-junk-file)
    ("J" open-last-junk-file)
    ("v" view-mode)
-   ("i" my:inits-doc)
    ("f" ftp-client)
    ("<muhenkan>" nil)
    ("<henkan>" nil)))
