@@ -87,6 +87,7 @@
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
   (bind-key "C-q" 'other-window-or-split)
+  (bind-key "M-/" 'kill-buffer)
   (bind-key "s-c" 'cool-copy)
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)

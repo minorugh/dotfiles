@@ -1,4 +1,4 @@
-;;; 20_hydra-misc.el --- hydra for misc  -*- lexical-binding: t -*-
+;;; 10_hydra-misc.el --- hydra for misc  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -90,4 +90,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 20_hydra-misc.el ends here
+;;; 10_hydra-misc.el ends here

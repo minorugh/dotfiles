@@ -1,4 +1,4 @@
-;;; 40_dired.el --- dired settings  -*- lexical-binding: t -*-
+;;; 30_dired.el --- dired settings  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -125,4 +125,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 40_dired.el ends here
+;;; 30_dired.el ends here

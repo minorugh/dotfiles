@@ -1,4 +1,4 @@
-;;; 60_howm.el --- memo tools  -*- lexical-binding: t -*-
+;;; 50_howm.el --- memo tools  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -83,4 +83,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 60_howm.el ends here
+;;; 50_howm.el ends here
