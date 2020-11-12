@@ -262,8 +262,6 @@ alias ifconfig='/sbin/ifconfig'
 alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
 
-alias dotbackup='rm -rf ${HOME}/Dropbox/backup/dotfiles/`ls -rt ${HOME}/Dropbox/backup/dotfiles | head -n 1`; tar cfzp ${HOME}/Dropbox/backup/dotfiles/`date '+%Y%m%d%H%M%S'`.tar.gz -C ${HOME}/Dropbox/repo/github.com/minorugh dotfiles'
-
 ## get api token from github
 function get-github-api () {
 curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
@@ -542,7 +540,7 @@ function optimize-png() {
 # zsh-completions for aws
 # source ~/.local/bin/aws_zsh_completer.sh
 # password
-# source ~/Dropbox/backup/zsh/env.sh
+source ~/Dropbox/backup/zsh/env.sh
 
 # nvm
 # source /usr/share/nvm/init-nvm.sh
