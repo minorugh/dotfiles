@@ -93,9 +93,9 @@
   (bind-key "C-w" 'clipboard-kill-region)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
+
   (leaf cool-copy :require t
 	:el-get blue0513/cool-copy.el
-	:doc "simple but helpful copy tool"
 	:config
 	(setq cool-copy-show 'posframe))
 
