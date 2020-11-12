@@ -41,6 +41,7 @@ ssh: ## Init ssh
 	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
 	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${PWD}/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
 	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
