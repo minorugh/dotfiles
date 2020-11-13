@@ -35,15 +35,10 @@
 	(setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
   (leaf undo-tree
-	:ensure t
-	:hook ((prog-mode-hook text-mode-hook) . undo-tree-mode)
-	:global-minor-mode t
+  	:ensure t
 	:config
-	(bind-key* "C-_" 'undo-tree-undo)
-	(bind-key* "C-\\" 'undo-tree-undo)
-	(bind-key* "C-/" 'undo-tree-redo)
+	(global-undo-tree-mode t)
 	(key-chord-define-global "uu" 'undo-tree-visualize)
-	:init
 	(make-variable-buffer-local 'undo-tree-visualizer-diff)
 	(setq-default undo-tree-visualizer-diff t)
 	(setq undo-tree-visualizer-timestamps t)
