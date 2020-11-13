@@ -36,9 +36,9 @@
 
   (leaf undo-tree
   	:ensure t
+	:chord ("uu" . undo-tree-visualize)
 	:config
 	(global-undo-tree-mode t)
-	(key-chord-define-global "uu" 'undo-tree-visualize)
 	(make-variable-buffer-local 'undo-tree-visualizer-diff)
 	(setq-default undo-tree-visualizer-diff t)
 	(setq undo-tree-visualizer-timestamps t)
