@@ -37,38 +37,38 @@
   (leaf undo-tree
 	:ensure t
 	:hook ((prog-mode-hook text-mode-hook) . undo-tree-mode)
+	:global-minor-mode t
 	:config
 	(bind-key* "C-_" 'undo-tree-undo)
 	(bind-key* "C-\\" 'undo-tree-undo)
 	(bind-key* "C-/" 'undo-tree-redo)
-	(bind-key* "C-x u" 'undo-tree-visualize)
+	(key-chord-define-global "uu" 'undo-tree-visualize)
 	:init
 	(make-variable-buffer-local 'undo-tree-visualizer-diff)
 	(setq-default undo-tree-visualizer-diff t)
 	(setq undo-tree-visualizer-timestamps t)
 	(setq undo-tree-visualizer-diff t)
 	(setq undo-tree-enable-undo-in-region nil)
-	(setq undo-tree-auto-save-history nil)
-	(setq undo-tree-history-directory-alist
-		  `(("." . ,(concat user-emacs-directory "undo-tree-hist/")))))
+	(setq undo-tree-auto-save-history nil))
+
   :config
   (bind-key "s-s" 'toggle-scratch)
   (defun toggle-scratch ()
-    "Toggle current buffer and *scratch* buffer."
-    (interactive)
-    (if (not (string= "*scratch*" (buffer-name)))
-  		(progn
-  		  (setq toggle-scratch-prev-buffer (buffer-name))
-  		  (switch-to-buffer "*scratch*"))
+	"Toggle current buffer and *scratch* buffer."
+	(interactive)
+	(if (not (string= "*scratch*" (buffer-name)))
+		(progn
+		  (setq toggle-scratch-prev-buffer (buffer-name))
+		  (switch-to-buffer "*scratch*"))
 	  (switch-to-buffer toggle-scratch-prev-buffer)))
 
   (defun kill-other-buffers ()
-    "Kill all other buffers."
-    (interactive)
-    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-    (when (get-buffer "*tramp/scp xsrv*")
-      (counsel-tramp-quit))
-    (message "Killed Other Buffers!")))
+	"Kill all other buffers."
+	(interactive)
+	(mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+	(when (get-buffer "*tramp/scp xsrv*")
+	  (counsel-tramp-quit))
+	(message "Killed Other Buffers!")))
 
 
 (leaf utility-for-misc
@@ -134,75 +134,80 @@
   (bind-key "<f4>" 'term-current-dir-open)
   :init
   (defun my:jpg2png ()
-	"Hoge"
+	"Convert jpg to ping with mogrify."
 	(interactive)
 	(compile "mkdir ~/Desktop/output | mogrify -path ~/Desktop/output  -format png *"))
 
-  (defun filer-current-dir-open ()
-    "Open filer in current dir."
+  (defun open-slack-app ()
+    "Open Slack application."
     (interactive)
-    (compile (concat "nautilus " default-directory)))
+    (compile "slack"))
+
+  (defun filer-current-dir-open ()
+	"Open filer in current dir."
+	(interactive)
+	(compile (concat "nautilus " default-directory)))
 
   (defun term-current-dir-open ()
-    "Open terminal application in current dir."
-    (interactive)
-    (let ((dir (directory-file-name default-directory)))
-      (compile (concat "gnome-terminal --working-directory " dir))))
+	"Open terminal application in current dir."
+	(interactive)
+	(let ((dir (directory-file-name default-directory)))
+	  (compile (concat "gnome-terminal --working-directory " dir))))
 
   (defun my:delete-file-if-no-contents ()
-    "Automatic deletion for empty files (Valid in all modes)."
-    (when (and (buffer-file-name (current-buffer))
+	"Automatic deletion for empty files (Valid in all modes)."
+	(when (and (buffer-file-name (current-buffer))
 			   (= (point-min) (point-max)))
-      (delete-file
-       (buffer-file-name (current-buffer)))))
+	  (delete-file
+	   (buffer-file-name (current-buffer)))))
   (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
-      (setq after-save-hook
+	  (setq after-save-hook
 			(cons 'my:delete-file-if-no-contents after-save-hook)))
 
   (defun browse-calendar ()
-    "Open Google-calendar with chrome."
-    (interactive)
-    (browse-url "https://calendar.google.com/calendar/r"))
+	"Open Google-calendar with chrome."
+	(interactive)
+	(browse-url "https://calendar.google.com/calendar/r"))
 
   (defun browse-weather ()
-    "Open tenki.jp with chrome."
-    (interactive)
-    (browse-url "https://tenki.jp/week/6/31/"))
+	"Open tenki.jp with chrome."
+	(interactive)
+	(browse-url "https://tenki.jp/week/6/31/"))
 
   (defun browse-google-news ()
-    "Open Google-news with chrome."
-    (interactive)
-    (browse-url "https://news.google.com/topstories?hl=ja&gl=JP&ceid=JP:ja"))
+	"Open Google-news with chrome."
+	(interactive)
+	(browse-url "https://news.google.com/topstories?hl=ja&gl=JP&ceid=JP:ja"))
 
   (defun browse-pocket ()
-    "Open pocket with chrome."
-    (interactive)
-    (browse-url "https://getpocket.com/a/queue/"))
+	"Open pocket with chrome."
+	(interactive)
+	(browse-url "https://getpocket.com/a/queue/"))
 
   (defun browse-keep ()
-    "Open pocket with chrome."
-    (interactive)
-    (browse-url "https://keep.new/"))
+	"Open pocket with chrome."
+	(interactive)
+	(browse-url "https://keep.new/"))
 
   (defun browse-homepage ()
-    "Open my homepage with crome."
-    (interactive)
-    (browse-url "https://gospel-haiku.com/"))
+	"Open my homepage with crome."
+	(interactive)
+	(browse-url "https://gospel-haiku.com/"))
 
   (defun browse-gmail ()
-    "Open gmail with chrome."
-    (interactive)
-    (browse-url "https://mail.google.com/mail/"))
+	"Open gmail with chrome."
+	(interactive)
+	(browse-url "https://mail.google.com/mail/"))
 
   (defun browse-tweetdeck ()
-    "Open tweetdeck with chrome."
-    (interactive)
-    (browse-url "https://tweetdeck.twitter.com/"))
+	"Open tweetdeck with chrome."
+	(interactive)
+	(browse-url "https://tweetdeck.twitter.com/"))
 
   (defun browse-slack ()
-    "Open slack with chrome."
-    (interactive)
-    (browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/")))
+	"Open slack with chrome."
+	(interactive)
+	(browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/")))
 
 
 ;; Local Variables:
