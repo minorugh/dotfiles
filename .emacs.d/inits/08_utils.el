@@ -44,26 +44,7 @@
 	(setq undo-tree-visualizer-timestamps t)
 	(setq undo-tree-visualizer-diff t)
 	(setq undo-tree-enable-undo-in-region nil)
-	(setq undo-tree-auto-save-history nil))
-
-  :config
-  (bind-key "s-s" 'toggle-scratch)
-  (defun toggle-scratch ()
-	"Toggle current buffer and *scratch* buffer."
-	(interactive)
-	(if (not (string= "*scratch*" (buffer-name)))
-		(progn
-		  (setq toggle-scratch-prev-buffer (buffer-name))
-		  (switch-to-buffer "*scratch*"))
-	  (switch-to-buffer toggle-scratch-prev-buffer)))
-
-  (defun kill-other-buffers ()
-	"Kill all other buffers."
-	(interactive)
-	(mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-	(when (get-buffer "*tramp/scp xsrv*")
-	  (counsel-tramp-quit))
-	(message "Killed Other Buffers!")))
+	(setq undo-tree-auto-save-history nil)))
 
 
 (leaf utility-for-misc
@@ -127,16 +108,34 @@
   :config
   (bind-key "<f3>" 'filer-current-dir-open)
   (bind-key "<f4>" 'term-current-dir-open)
+  (bind-key "s-s" 'toggle-scratch)
   :init
+  (defun toggle-scratch ()
+	"Toggle current buffer and *scratch* buffer."
+	(interactive)
+	(if (not (string= "*scratch*" (buffer-name)))
+		(progn
+		  (setq toggle-scratch-prev-buffer (buffer-name))
+		  (switch-to-buffer "*scratch*"))
+	  (switch-to-buffer toggle-scratch-prev-buffer)))
+
+  (defun kill-other-buffers ()
+	"Kill all other buffers."
+	(interactive)
+	(mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+	(when (get-buffer "*tramp/scp xsrv*")
+	  (counsel-tramp-quit))
+	(message "Killed Other Buffers!"))
+
   (defun my:jpg2png ()
 	"Convert jpg to ping with mogrify."
 	(interactive)
 	(compile "mkdir ~/Desktop/output | mogrify -path ~/Desktop/output  -format png *"))
 
   (defun open-slack-app ()
-    "Open Slack application."
-    (interactive)
-    (compile "slack"))
+	"Open Slack application."
+	(interactive)
+	(compile "slack"))
 
   (defun filer-current-dir-open ()
 	"Open filer in current dir."
