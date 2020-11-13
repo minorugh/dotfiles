@@ -15,7 +15,7 @@
     (bind-key "k" 'browse-keep dashboard-mode-map)
     (bind-key "m" 'browse-gmail dashboard-mode-map)
     (bind-key "t" 'browse-tweetdeck dashboard-mode-map)
-    (bind-key "s" 'browse-slack dashboard-mode-map)
+    (bind-key "s" 'open-slack-app dashboard-mode-map)
     (bind-key "h" 'browse-homepage dashboard-mode-map)
     (bind-key "p" 'browse-pocket dashboard-mode-map)
     (bind-key "." 'hydra-browse/body dashboard-mode-map)
