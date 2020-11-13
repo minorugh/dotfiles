@@ -68,7 +68,7 @@
    ("h" browse-homepage)
    ("p" browse-pocket)
    ("t" browse-tweetdeck)
-   ("," browse-slack)
+   ("," open-slack-app)
    ("<muhenkan>" nil)
    ("." nil)))
 
