@@ -70,7 +70,7 @@
   (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
   (leaf counsel-projectile
     :ensure t
-    :global-minor-mode t))
+	:global-minor-mode t))
 
 
 (leaf yasnippet
