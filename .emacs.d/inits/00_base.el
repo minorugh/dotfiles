@@ -14,7 +14,6 @@
   (winner-mode)
   (global-font-lock-mode)
   (global-visual-line-mode)
-
   ;; Misc
   (setq frame-title-format (concat "%b - emacs@" (system-name)))
   (setq ring-bell-function 'ignore)
