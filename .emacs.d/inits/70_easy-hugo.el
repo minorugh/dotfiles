@@ -11,9 +11,6 @@
   (bind-key "C-x p" 'easy-hugo-preview)
   (bind-key "C-x P" 'easy-hugo-publish)
   (bind-key "C-c d" 'inseart-date)
-  (when (require 'popup nil t)
-	(bind-key "C-x C-t" 'easy-hugo-complete-tags)
-	(bind-key "C-x C-c" 'easy-hugo-complete-categories))
   (with-eval-after-load 'easy-hugo
     (bind-key [tab] 'easy-hugo-no-help easy-hugo-mode-map)
     (bind-key "v" 'easy-hugo-view-other-window easy-hugo-mode-map)
@@ -77,7 +74,7 @@
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
     (interactive)
-    (find-file "~/.emacs.d/inits/80_easy-hugo.el")
+    (find-file "~/.emacs.d/inits/70_easy-hugo.el")
     (forword-line 2))
 
   (defun inseart-date ()
