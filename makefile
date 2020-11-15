@@ -68,20 +68,28 @@ init: ## Initial deploy dotfiles
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
 	libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev \
-	libgtk2.0-dev libncurses-dev gnutls-dev libgtk-3-dev libgnutls28-dev \
+	libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev \
 	autoconf automake libtool xorg-dev libncurses5-dev python3-pip \
 	libdbus-1-dev libm17n-dev librsvg2-dev libotf-dev libxml2-dev \
 	libmagickwand-dev libc6-dev libtiff5-dev xaw3dg-dev \
 	zlib1g-dev libice-dev libsm-dev libxext-dev libxi-dev libxmu-dev \
-	libxmuu-dev libxrandr-dev libxt-dev libxtst-dev libxv-dev patch
+	libxmuu-dev libxrandr-dev libxt-dev libxtst-dev libxv-dev patch \
+	libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 \
+	libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0 libxcomposite1 \
+	libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0
 
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub \
-	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh python3-pip \
+	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh snapd \
 	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
 	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
 	xscreensaver xscreensaver-gl-extra nodejs npm menulibre
+
+pip3:
+	sudo apt install -y python3-pip python3-sphinx
+	pip3 install recommonmark
+
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
@@ -141,7 +149,7 @@ emacs-devel: ## Install development version of emacs
 	sudo make install;\
 	rm -rf ${HOME}/.emacs.d/elpa
 
-allinstall: ssh cica emacsmozc init base install cups
+allinstall: ssh cica emacsmozc init base install pip3 cups
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
