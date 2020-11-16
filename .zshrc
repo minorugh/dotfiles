@@ -226,7 +226,7 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # autoload passphrase
 $HOME/Dropbox/backup/zsh/env.sh
 # keychain config
-/usr/bin/keychain -q $HOME/.ssh/id_rsa
+/usr/bin/keychain $HOME/.ssh/id_rsa
 source $HOME/.keychain/$HOST-sh
 
 

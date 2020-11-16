@@ -71,7 +71,7 @@ base: ## Install base and base-devel package
 	libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev \
 	autoconf automake libtool xorg-dev libncurses5-dev python3-pip \
 	libdbus-1-dev libm17n-dev librsvg2-dev libotf-dev libxml2-dev \
-	libmagickwand-dev libc6-dev libtiff5-dev xaw3dg-dev \
+	libmagickwand-dev libc6-dev libtiff5-dev xaw3dg-dev pwgen \
 	zlib1g-dev libice-dev libsm-dev libxext-dev libxi-dev libxmu-dev \
 	libxmuu-dev libxrandr-dev libxt-dev libxtst-dev libxv-dev patch \
 	libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 \
