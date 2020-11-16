@@ -223,9 +223,10 @@ esac
 # Delete by word with C-w
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-
+# autoload passphrase
+$HOME/Dropbox/backup/zsh/env.sh
 # keychain config
-/usr/bin/keychain $HOME/.ssh/id_rsa
+/usr/bin/keychain -q $HOME/.ssh/id_rsa
 source $HOME/.keychain/$HOST-sh
 
 
@@ -249,6 +250,7 @@ alias ex='exit'
 alias cl='clear'
 alias gi='gedit ~/.emacs.d/init.el'
 alias v='vim'
+alias vim='gnome-terminal --maximize | vim'
 alias vi='vim ~/.emacs.d/init.el'
 alias vz='vim ~/.zshrc'
 alias e='emacsclient'
@@ -540,7 +542,7 @@ function optimize-png() {
 # zsh-completions for aws
 # source ~/.local/bin/aws_zsh_completer.sh
 # password
-source ~/Dropbox/backup/zsh/env.sh
+# source ~/Dropbox/backup/zsh/env.sh
 
 # nvm
 # source /usr/share/nvm/init-nvm.sh
