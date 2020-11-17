@@ -170,6 +170,11 @@
 	(interactive)
 	(find-file "/"))
 
+  (defun my:home-dir ()
+	"Open home dir."
+	(interactive)
+	(find-file "~/"))
+
   (defun my:dropbox ()
 	"Open dropbox dir."
 	(interactive)
@@ -199,11 +204,6 @@
 	"Open backup dir."
 	(interactive)
 	(find-file "~/Dropbox/backup/"))
-
-  (defun my:home-dir ()
-	"Open book dir."
-	(interactive)
-	(find-file "~/"))
 
   (defun my:junk-file-dir ()
 	"Open junk-file dir."
