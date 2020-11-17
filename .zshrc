@@ -226,8 +226,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # autoload passphrase
 $HOME/Dropbox/backup/zsh/env.sh
 # keychain config
-/usr/bin/keychain $HOME/.ssh/id_rsa
-source $HOME/.keychain/$HOST-sh
+# /usr/bin/keychain $HOME/.ssh/id_rsa
+# source $HOME/.keychain/$HOST-sh
 
 
 # completion mosh
@@ -254,7 +254,10 @@ alias vi='vim ~/.emacs.d/init.el'
 alias vz='vim ~/.zshrc'
 alias e='emacsclient'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
-alias syncdrive='time rclone sync ${HOME}/Dropbox/GH gdrive:GH'
+alias pw12='pwgen 12 16'
+alias pw24='pwgen 24 8'
+alias pw40='pwgen 40 4'
+
 
 ## apt install net-tools to use ifconfig on Debian and set $PATH
 alias ifconfig='/sbin/ifconfig'
