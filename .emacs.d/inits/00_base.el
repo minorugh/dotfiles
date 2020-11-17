@@ -82,7 +82,6 @@
 
   ;; key modifiers
   (bind-key* "<muhenkan>" 'minibuffer-keyboard-quit ivy-minibuffer-map)
-  (bind-key "<S-return>" 'my:root-dir)
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
   (bind-key "C-q" 'other-window-or-split)

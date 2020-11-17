@@ -86,6 +86,7 @@
    ("r" counsel-rg)
    ("@" hydra-package/body)
    ("p" open-keepass)
+   ("P" passwd-gen)
    ("2" pdfout-select)
    (":" my:ps-print)
    ("+" text-scale-adjust)
