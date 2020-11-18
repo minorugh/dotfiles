@@ -37,7 +37,6 @@ gnupg: ## Deploy gnupg (Run after rclone)
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${PWD}/.ssh/.gitattributes ${HOME}/.ssh/.gitattributes
 	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
 	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
@@ -52,17 +51,14 @@ cica: ## Initial font cica ricty
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	ln -vsf ${PWD}/.gitattributes ${HOME}/.gitattributes
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
 	ln -vsf ${PWD}/.tmuc.conf ${HOME}/.tmux.conf
 	ln -vsf ${PWD}/.Xmodmap ${HOME}/.Xmodmap
-	ln -vsf ${PWD}/.Xmodmap_default ${HOME}/.Xmodmap_default
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
-	ln -vsf ${PWD}/.config/.gitattributes ${HOME}/.config/.gitattributes
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
 
 base: ## Install base and base-devel package
@@ -71,7 +67,7 @@ base: ## Install base and base-devel package
 	libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev \
 	autoconf automake libtool xorg-dev libncurses5-dev python3-pip \
 	libdbus-1-dev libm17n-dev librsvg2-dev libotf-dev libxml2-dev \
-	libmagickwand-dev libc6-dev libtiff5-dev xaw3dg-dev pwgen \
+	libmagickwand-dev libc6-dev libtiff5-dev xaw3dg-dev \
 	zlib1g-dev libice-dev libsm-dev libxext-dev libxi-dev libxmu-dev \
 	libxmuu-dev libxrandr-dev libxt-dev libxtst-dev libxv-dev patch \
 	libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0 \
@@ -84,7 +80,7 @@ install: ## Install debian linux packages using apt
 	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh snapd \
 	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
 	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
-	xscreensaver xscreensaver-gl-extra nodejs npm menulibre
+	xscreensaver xscreensaver-gl-extra nodejs npm menulibre pwgen seahorse gnome-keyring
 
 pip3:
 	sudo apt install -y python3-pip python3-sphinx
