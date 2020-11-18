@@ -223,7 +223,7 @@ esac
 # Delete by word with C-w
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# autoload passphrase
+# Run ssh-add with passphrase auto input
 $HOME/Dropbox/backup/zsh/env.sh
 # keychain config
 # /usr/bin/keychain $HOME/.ssh/id_rsa
