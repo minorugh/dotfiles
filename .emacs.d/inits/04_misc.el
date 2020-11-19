@@ -19,15 +19,13 @@
   :bind ("C-@" . er/expand-region))
 
 
-(leaf flycheck
-  :ensure t
-  :hook (emacs-startup-hook . global-flycheck-mode)
+(leaf flymake
+  :hook (prog-mode-hook . flymake-mode)
   :config
-  (leaf flycheck-title :ensure t
-  	:global-minor-mode t)
-  (setq flycheck-global-modes
-  		'(not text-mode markdown-mode fundamental-mode lisp-interaction-mode
-  			  org-mode diff-mode toml-mode web-mode eshell-mode makefile-mode css-mode)))
+  (leaf flymake-diagnostic-at-point
+	:ensure t
+	:require t
+	:hook (flymake-mode-hook . flymake-diagnostic-at-point-mode)))
 
 
 (leaf key-chord
