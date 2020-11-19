@@ -81,7 +81,7 @@ install: ## Install debian linux packages using apt
 	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh\
 	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
 	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
-	xscreensaver xscreensaver-gl-extra nodejs npm menulibre pwgen seahorse gnome-keyring
+	xscreensaver xscreensaver-gl-extra nodejs npm menulibre pwgen seahorse
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
