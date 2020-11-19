@@ -60,6 +60,7 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
+	xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
@@ -77,15 +78,10 @@ base: ## Install base and base-devel package
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub \
-	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh snapd \
+	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh\
 	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
 	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
 	xscreensaver xscreensaver-gl-extra nodejs npm menulibre pwgen seahorse gnome-keyring
-
-pip3:
-	sudo apt install -y python3-pip python3-sphinx
-	pip3 install recommonmark
-
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
@@ -95,6 +91,13 @@ emacsmozc: ## Install emacs mozc
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
 
+pipinstall: ## Install python packages
+	sudo apt install -y python3-pip python3-sphinx
+	pip3 install recommonmark
+
+snapinstall: ## Install snap packages
+	sudo apt install -y snapd
+	sudo snap install lepton spotify
 
 ### 2nd stage for make step by step
 texlive: ## Install tevlive full
@@ -145,7 +148,7 @@ emacs-devel: ## Install development version of emacs
 	sudo make install;\
 	rm -rf ${HOME}/.emacs.d/elpa
 
-allinstall: ssh cica emacsmozc init base install pip3 cups
+allinstall: ssh cica emacsmozc init base install cups pipinstall snapinstall
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
