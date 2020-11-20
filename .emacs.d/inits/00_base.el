@@ -83,6 +83,8 @@
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
   (bind-key "C-q" 'other-window-or-split)
+  (bind-key "C-z" 'nil)	;; Do not use suspend-frame
+  (bind-key "M-d" 'my:kill-word-at-point)
   (bind-key "M-/" 'kill-buffer)
   (bind-key "s-c" 'cool-copy)
   (bind-key "s-v" 'clipboard-yank)
@@ -95,6 +97,15 @@
 	:el-get blue0513/cool-copy.el
 	:config
 	(setq cool-copy-show 'posframe))
+
+  (defun my:kill-word-at-point ()
+	"delete word at under cursor. If spaces was under the cursor, delete horizontal spaces"
+	(interactive)
+	(let ((char (char-to-string (char-after (point)))))
+	  (cond
+	   ((string= " " char) (delete-horizontal-space))
+	   ((string-match "[\t\n -@\[-`{-~]" char) (kill-word 1))
+	   (t (forward-char) (backward-word) (kill-word 1)))))
 
   (defun other-window-or-split ()
 	"If there is one window, open split window.
@@ -156,11 +167,9 @@ If there are two or more windows, it will go to another window."
 	:global-minor-mode global-hl-line-mode)
 
   (leaf paren
-	:config
-	(setq show-paren-delay '0.1)
-	(setq show-paren-style 'mixed)
-	;; (setq show-paren-style 'parenthesis)
-	:global-minor-mode show-paren-mode)
+  	:global-minor-mode show-paren-mode
+  	:config
+  	(setq show-paren-style 'mixed))
 
   (leaf uniquify
 	:config
