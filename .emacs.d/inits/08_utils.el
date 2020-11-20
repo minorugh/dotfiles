@@ -146,7 +146,7 @@
 	"Open terminal application in current dir."
 	(interactive)
 	(let ((dir (directory-file-name default-directory)))
-	  (compile (concat "gnome-terminal --working-directory " dir))))
+	  (compile (concat "gnome-terminal --maximize --working-directory " dir))))
 
   (defun my:delete-file-if-no-contents ()
 	"Automatic deletion for empty files (Valid in all modes)."
