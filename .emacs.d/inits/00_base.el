@@ -8,7 +8,6 @@
   :config
   ;; Basic modes
   (savehist-mode)
-  (save-place-mode)
   (global-auto-revert-mode)
   (blink-cursor-mode)
   (winner-mode)
@@ -38,7 +37,6 @@
   (setq recentf-save-file "~/Dropbox/emacs/recentf")
   (setq tramp-persistency-file-name "~/Dropbox/emacs/tram")
   (setq savehist-file "~/Dropbox/emacs/savehist")
-  (setq save-place-file "~/Dropbox/emacs/places")
   (setq undohist-directory "~/Dropbox/emacs/undohist")
   (setq transient-history-file "~/Dropbox/emacs/history.el")
   (setq prescient-save-file	"~/Dropbox/emacs/prescient-save.el")
