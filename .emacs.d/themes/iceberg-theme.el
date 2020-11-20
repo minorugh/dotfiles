@@ -267,12 +267,6 @@
    `(doom-modeline-bar ((t (:background nil))))
    `(doom-modeline-bar-inactive ((t (:background nil))))
 
-   ;; show-paren-mode
-   ;; `(show-paren-match ((t (:background ,foreground :foreground ,background))))
-   `(show-paren-match ((t (:background ,background :foreground ,red :weight bold))))
-   `(show-paren-mismatch ((t (:background ,background :foreground ,red :weight bold))))
-   )
-
   (custom-theme-set-variables
    'iceberg
    ;; TODO ANSI colors
