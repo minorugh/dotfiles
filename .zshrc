@@ -300,8 +300,8 @@ export XDG_CONFIG_HOME=$HOME/.config
 # export LIBVA_DRIVER_NAME=iHD
 # export GTAGSCONF=/usr/share/gtags/gtags.conf
 # export GTAGSLABEL=pygments
-# export PAGER=less
-# export LESS='-g -i -M -R -S -W -z-4 -x4'
+export PAGER=less
+export LESS='-g -i -M -R -S -W -z-4 -x4'
 # export RBENV_ROOT="${HOME}/.rbenv"
 # if [ -d "${RBENV_ROOT}" ]; then
 #   export PATH="${RBENV_ROOT}/bin:${PATH}"
