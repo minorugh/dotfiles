@@ -87,6 +87,21 @@
 		(delete-blank-lines)))))
 
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
+ '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
+ '(markdown-code-face ((t (:inherit nil))))
+ '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
+ '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
+ '(show-paren-match ((t (:foreground nil :background nil :underline "SkyBlue" :weight bold))))
+ '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
+(put 'dired-find-alternate-file 'disabled nil)
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
