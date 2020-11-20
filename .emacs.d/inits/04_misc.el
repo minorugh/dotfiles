@@ -23,9 +23,8 @@
   :hook (prog-mode-hook . flymake-mode)
   :config
   (leaf flymake-diagnostic-at-point
-	:ensure t
-	:require t
-	:hook (flymake-mode-hook . flymake-diagnostic-at-point-mode)))
+  	:ensure t
+  	:hook (flymake-mode-hook . flymake-diagnostic-at-point-mode)))
 
 
 (leaf key-chord
