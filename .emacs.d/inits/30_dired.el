@@ -9,7 +9,6 @@
   :config
   (bind-key "<left>" 'dired-up-alternate-directory dired-mode-map)
   (bind-key "<right>" 'dired-open-in-accordance-with-situation dired-mode-map)
-  (bind-key "RET" 'dired-open-in-accordance-with-situation dired-mode-map)
   (bind-key "SPC" 'my:dired-toggle-mark dired-mode-map)
   (bind-key "C-g" 'my:dired-unmark-all dired-mode-map)
   (bind-key "f" 'counsel-find-file dired-mode-map)
@@ -21,7 +20,6 @@
   (bind-key "t" 'counsel-tramp dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
-  (bind-key "," 'dired dired-mode-map)
   ;; Use dired as 2-screen filer
   (setq dired-dwim-target t)
   ;; Always to perform the delete/copy of directories recursively
@@ -71,15 +69,6 @@
     "`quit-window 'according to screen division."
     (interactive)
     (quit-window (not (delq (selected-window) (get-buffer-window-list)))))
-
-  ;; http://nishikawasasaki.hatenablog.com/entry/20120222/1329932699
-  (defun dired-open-in-accordance-with-situation ()
-    "Files are opened in separate buffers, directories are opened in the same buffer."
-    (interactive)
-    (let ((file (dired-get-filename)))
-      (if (file-directory-p file)
-		  (dired-find-alternate-file)
-		(dired-find-file))))
 
   (defun dired-up-alternate-directory ()
     "Move to higher directory without make new buffer."
