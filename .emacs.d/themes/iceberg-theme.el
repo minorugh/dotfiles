@@ -144,6 +144,9 @@
    '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
    '(mozc-cand-posframe-footer-face ((t (:background "#282D43" :foreground "#454D73"))))
 
+   ;; popup
+   '(popup-tip-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
+
    ;; isearch
    `(isearch ((t (:foreground ,background :weight bold :background ,blue))))
    `(isearch-fail ((t (:foreground ,background :weight bold :background ,red))))
