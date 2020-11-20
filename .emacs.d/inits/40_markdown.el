@@ -8,6 +8,7 @@
   :ensure t
   :mode ("\\.md\\'" . markdown-mode)
   :config
+  (leaf markdown-toc :ensure t)
   (setq markdown-command "pandoc")
   (setq markdown-italic-underscore t)
   (setq markdown-asymmetric-header t)
@@ -67,10 +68,6 @@
    ("<muhenkan>" nil))
 
   :init
-  (leaf markdown-toc :ensure t)
-  (leaf poly-markdown :ensure t
-	:mode ("\\.md" . poly-markdown-mode))
-
   (defun md2pdf ()
 	"Generate pdf from currently open markdown."
 	(interactive)
