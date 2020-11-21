@@ -21,15 +21,6 @@
   (setq company-dabbrev-downcase nil))
 
 
-(leaf company-quickhelp
-  :ensure t
-  :global-minor-mode t
-  :config
-  (setq company-quickhelp-color-foreground "#C7C9D1")
-  (setq company-quickhelp-color-background "#161822")
-  (setq company-quickhelp-max-lines 5))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
