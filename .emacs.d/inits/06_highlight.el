@@ -4,19 +4,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf smartparens
-  :ensure t
-  :global-minor-mode smartparens-global-mode
+(leaf hl-line
   :config
-  (sp-pair "`" nil :actions :rem)
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "[" nil :actions :rem))
+  (make-variable-buffer-local 'global-hl-line-mode)
+  (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil)))
+  :global-minor-mode global-hl-line-mode)
 
-
-(leaf aggressive-indent
-  :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
-
+(leaf paren
+  :global-minor-mode show-paren-mode
+  :config
+  (setq show-paren-style 'mixed))
 
 (leaf beacon
   :ensure t
