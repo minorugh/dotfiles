@@ -160,17 +160,6 @@ If there are two or more windows, it will go to another window."
 	:bind ("<f9>" . display-line-numbers-mode)
 	:hook ((prog-mode-hook text-mode-hook) . display-line-numbers-mode))
 
-  (leaf hl-line
-	:config
-	(make-variable-buffer-local 'global-hl-line-mode)
-	(add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil)))
-	:global-minor-mode global-hl-line-mode)
-
-  (leaf paren
-  	:global-minor-mode show-paren-mode
-  	:config
-  	(setq show-paren-style 'mixed))
-
   (leaf uniquify
 	:config
 	(setq uniquify-buffer-name-style 'post-forward-angle-brackets))
