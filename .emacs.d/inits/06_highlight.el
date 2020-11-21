@@ -21,16 +21,13 @@
   :config
   (setq beacon-color "yellow"))
 
-
 (leaf rainbow-delimiters
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-
 (leaf rainbow-mode
   :ensure t
   :bind ("C-c r" . rainbow-mode))
-
 
 (leaf volatile-highlights
   :ensure t
@@ -42,7 +39,6 @@
 		"Pulse the changes."
 		(pulse-momentary-highlight-region beg end face))
       (advice-add #'vhl/.make-hl :override #'my-vhl-pulse))))
-
 
 (leaf dimmer
   :ensure t
@@ -60,7 +56,6 @@
 	  (dimmer-process-all))
 	(add-hook 'focus-out-hook #'dimmer-off)
 	(add-hook 'focus-in-hook #'dimmer-on)))
-
 
 (leaf whitespace
   :ensure t
@@ -82,7 +77,6 @@
 		(widen)
 		(goto-char (point-max))
 		(delete-blank-lines)))))
-
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
