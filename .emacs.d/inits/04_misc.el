@@ -32,13 +32,14 @@
 
 
 (leaf prescient :ensure t
-  :config
+  :global-minor-mode prescient-persist-mode
+  :init
   (leaf company-prescient :ensure t
-	:after company
-	:global-minor-mode t)
+    :after prescient company
+    :global-minor-mode t)
   (leaf ivy-prescient :ensure t
-	:after ivy
-	:global-minor-mode t))
+    :after prescient ivy
+    :global-minor-mode t))
 
 
 (leaf quickrun :ensure t
@@ -53,6 +54,7 @@
 
 
 (leaf projectile :ensure t
+  :global-minor-mode t
   :config
   (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
   (leaf counsel-projectile
