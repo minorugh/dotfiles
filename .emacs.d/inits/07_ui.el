@@ -44,6 +44,20 @@
   (leaf all-the-icons-ivy-rich :ensure t))
 
 
+(leaf smartparens
+  :ensure t
+  :global-minor-mode smartparens-global-mode
+  :config
+  (sp-pair "`" nil :actions :rem)
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "[" nil :actions :rem))
+
+
+(leaf aggressive-indent
+  :ensure t
+  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
+
 (leaf darkroom
   :ensure t
   :bind ("<f12>" . my:darkroom-mode-in)
