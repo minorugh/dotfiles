@@ -20,14 +20,6 @@
 	:config
 	(persistent-scratch-setup-default))
 
-  (leaf tempbuf
-	:el-get (tempbuf.el
-			 :url "https://www.emacswiki.org/emacs/download/tempbuf.el")
-	:hook ((dired-mode-hook direx:direx-mode magit-mode compilation-mode)
-		   . turn-on-tempbuf-mode)
-	:config
-	(setq tempbuf-kill-message nil))
-
   (leaf undohist
 	:ensure t
 	:hook (emacs-startup-hook . undohist-initialize)
@@ -132,11 +124,6 @@
 	(interactive)
 	(compile "mkdir ~/Desktop/output | mogrify -path ~/Desktop/output  -format png *"))
 
-  (defun open-slack-app ()
-	"Open Slack application."
-	(interactive)
-	(compile "slack"))
-
   (defun filer-current-dir-open ()
 	"Open filer in current dir."
 	(interactive)
@@ -146,7 +133,7 @@
 	"Open terminal application in current dir."
 	(interactive)
 	(let ((dir (directory-file-name default-directory)))
-	  (compile (concat "gnome-terminal --maximize --working-directory " dir))))
+	  (compile (concat "gnome-terminal --working-directory " dir))))
 
   (defun my:delete-file-if-no-contents ()
 	"Automatic deletion for empty files (Valid in all modes)."
