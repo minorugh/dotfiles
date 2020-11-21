@@ -86,17 +86,12 @@
   (bind-key "C-z" 'nil)	;; Do not use suspend-frame
   (bind-key "M-d" 'my:kill-word-at-point)
   (bind-key "M-/" 'kill-buffer)
-  (bind-key "s-c" 'cool-copy)
+  (bind-key "s-c" 'clipboard-kill-ring-save)
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)
   (bind-key "C-w" 'clipboard-kill-region)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
-
-  (leaf cool-copy :require t
-	:el-get blue0513/cool-copy.el
-	:config
-	(setq cool-copy-show 'posframe))
 
   (defun my:kill-word-at-point ()
 	"delete word at under cursor. If spaces was under the cursor, delete horizontal spaces"
@@ -119,7 +114,11 @@ If there are two or more windows, it will go to another window."
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
   (defun Info-find-node--info-ja (orig-fn filename &rest args)
-  	"Info as ORIG-FN FILENAME ARGS."
+  	"Info as ORIG-FN FILENAME ARGS."emacsの設定をダイエット中。設定はしたもののほとんど使う機会のないものは断捨離した。
+
+	emacsの設定をダイエット中。設定はしたもののほとんど使う機会のないものは断捨離した。
+
+
   	(apply orig-fn
   		   (pcase filename
   			 ("emacs" "emacs-ja.info")
