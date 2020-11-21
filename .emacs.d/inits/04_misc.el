@@ -55,10 +55,10 @@
 
 (leaf projectile :ensure t
   :global-minor-mode t
-  :config
+  :init
   (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
-  (leaf counsel-projectile
-	:ensure t
+  (leaf counsel-projectile :ensure t
+	:after projectile
 	:global-minor-mode t))
 
 
