@@ -12,7 +12,7 @@
    "
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------
-   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _._files   howm:_@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree
+   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _<home>_   howm:_@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree
    init_l_og   git:_[_._]_   _t_ramp   _y_as:_n_:_v_   _a_g🐾   _f_lyERR   _s_earch   make:_k_   _c_ompile   _o_pen-url   capture_,_"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
@@ -32,7 +32,7 @@
    ("s" counsel-web-suggest)
    ("m" hydra-markdown/body)
    (":" hydra-pinky/body)
-   ("." my:dotfiles-dir)
+   ;; ("." my:dotfiles-dir)
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
@@ -49,20 +49,19 @@
    ("[" hydra-magit/body)
    ("]" magit-status)
    ("l" init-loader-show-log)
-   ("<muhenkan>" nil)
-   ("M-." nil)))
+   ("." hydra-work/body)
+   ("<muhenkan>" nil)))
 
 
 (leaf hydra-work-menu
-  :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
    (:hint nil :exit t)
    "
   📝 Work Menu
   --------------^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------
-    Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
-    Tool: _l_epton   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf   _i_❤IMG   _f_tp:🐾   scale_+_   package_@_"
+   Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
+   Tool: _l_epton   _e_:Hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf   _i_❤IMG   _f_tp:🐾   scale_+_   package_@_"
    ("a" my:apsh)
    ("A" my:apsh-new-post)
    ("e" easy-hugo)
@@ -99,8 +98,8 @@
    ("J" open-last-junk-file)
    ("v" view-mode)
    ("f" ftp-client)
-   ("<muhenkan>" nil)
-   ("<henkan>" nil)))
+   ("." hydra-quick-menu/body)
+   ("<muhenkan>" nil)))
 
 
 (leaf user-defined-function
