@@ -1,4 +1,4 @@
-;;; 20_translate.el --- emacs interface to google translate  -*- lexical-binding: t -*-
+;;; 30_translate.el --- emacs interface to google translate  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -61,4 +61,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 20_translate.el ends here
+;;; 30_translate.el ends here

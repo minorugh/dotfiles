@@ -1,4 +1,4 @@
-;;; 70_easy-hugo.el --- write blogs made with hugo  -*- lexical-binding: t -*-
+;;; 80_easy-hugo.el --- write blogs made with hugo  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -87,4 +87,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 70_easy-hugo.el ends here
+;;; 80_easy-hugo.el ends here

@@ -40,7 +40,7 @@
    ("@" howm-list-all)
    ("," org-capture)
    ("k" my:make-k)
-   ("f" counsel-flycheck)
+   ("f" flymake-goto-next-error)
    ("u" undo-tree-visualize)
    (";" hydra-work/body)
    ("w" my:mozc-word-regist)

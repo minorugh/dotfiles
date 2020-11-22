@@ -1,4 +1,4 @@
-;;; 10_pinky.el --- view-mode & pinky settings  -*- lexical-binding: t -*-
+;;; 10_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -9,7 +9,7 @@
  (defhydra hydra-pinky
    (:color red :hint nil)
    "
-  🐳 page:_SPC_:_b_:_l_  goto:_j_._w_  window:_0_:_1_:_2_:_3_:_o_:_x_  _d_iff:_n_:_p_  zoom:_-__.__+_  buffer:_[__:__]_  _s_wiper"
+  🐳 page:_SPC_:_b_:_l_  goto:_j_._w_  window:_0_:_1_:_o_:_x_  _d_iff:_n_:_p_  zoom:_-__.__+_  buffer:_[__:__]_  _f_ile  _s_wiper"
    ;; move page
    ("SPC" scroll-up-command)
    ("f" scroll-up-command)
@@ -18,6 +18,7 @@
    ("<prior>" scroll-down-command)
    ("g" beginning-of-buffer)
    ("G" end-of-buffer)
+   ("l" recenter-top-bottom)
    ;; move line
    ("<down>" next-line)
    ("<up>" previous-line)
@@ -30,8 +31,6 @@
    ("<up>" previous-line)
    ("<right>" forward-char)
    ("<left>" backward-char)
-   ;; misc
-   ("l" recenter-top-bottom)
    ;; window
    ("+" text-scale-increase)
    ("-" text-scale-decrease)
@@ -41,18 +40,19 @@
    ("2" split-window-below)
    ("3" split-window-right)
    ("x" window-swap-states)
+   ("o" other-window-or-split)
+   ;; diff-hl
    ("d" vc-diff)
    ("n" diff-hl-next-hunk)
    ("p" diff-hl-previous-hunk)
    ;; buffer
    (":" counsel-switch-buffer)
-   ("[" previous-buffer)
-   ("]" next-buffer)
+   ("[" winner-undo)
+   ("]" winner-redo)
    ;; avy
    ("w" avy-goto-word-1)
    ;; Others
-   ("o" other-window-or-split)
-   ("t" direx:jump-to-project-directory)
+   ("f" counsel-find-file)
    ("s" swiper)))
 
 
