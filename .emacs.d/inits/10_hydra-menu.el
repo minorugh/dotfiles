@@ -50,10 +50,12 @@
    ("]" magit-status)
    ("l" init-loader-show-log)
    ("." hydra-work/body)
+   ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil)))
 
 
 (leaf hydra-work-menu
+  :bind ("<henkan>" . hydra-quick-menu/body)
   :hydra
   (hydra-work
    (:hint nil :exit t)
@@ -99,6 +101,7 @@
    ("v" view-mode)
    ("f" ftp-client)
    ("." hydra-quick-menu/body)
+   ("<henkan>" hydra-quick-menu/body)
    ("<muhenkan>" nil)))
 
 
