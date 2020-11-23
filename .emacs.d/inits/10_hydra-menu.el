@@ -12,8 +12,8 @@
    "
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------
-   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _<home>_   howm:_@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree
-   init_l_og   git:_[_._]_   _t_ramp   _y_as:_n_:_v_   _a_g🐾   _f_lyERR   _s_earch   make:_k_   _c_ompile   _o_pen-url   capture_,_"
+   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _<home>_   howm_,__@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree
+   init_l_og   git:_[_._]_   _t_ramp   _y_as:_n_:_v_   _a_g🐾   _f_lyErr   _s_earch^^   make:_k_   _c_ompile   _o_pen-url   dotfiles_._"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
    ("t" counsel-tramp)
@@ -32,7 +32,6 @@
    ("s" counsel-web-suggest)
    ("m" hydra-markdown/body)
    (":" hydra-pinky/body)
-   ;; ("." my:dotfiles-dir)
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
@@ -49,7 +48,8 @@
    ("[" hydra-magit/body)
    ("]" magit-status)
    ("l" init-loader-show-log)
-   ("." hydra-work/body)
+   ("." my:dotfiles-dir)
+   ("M-." hydra-work/body)
    ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil)))
 
@@ -100,7 +100,6 @@
    ("J" open-last-junk-file)
    ("v" view-mode)
    ("f" ftp-client)
-   ("." hydra-quick-menu/body)
    ("<henkan>" hydra-quick-menu/body)
    ("<muhenkan>" nil)))
 
