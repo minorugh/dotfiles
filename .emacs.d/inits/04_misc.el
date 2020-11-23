@@ -58,7 +58,6 @@
   :init
   (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
   (leaf counsel-projectile :ensure t
-	:after projectile
 	:global-minor-mode t))
 
 
@@ -67,7 +66,6 @@
   :config
   (yas-global-mode)
   (setq yas-snippet-dirs '("~/Dropbox/emacs.d/snippets"))
-  :init
   (leaf ivy-yasnippet :ensure t))
 
 
