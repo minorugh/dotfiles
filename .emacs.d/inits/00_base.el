@@ -38,7 +38,6 @@
   (setq recentf-save-file "~/Dropbox/emacs/recentf")
   (setq tramp-persistency-file-name "~/Dropbox/emacs/tram")
   (setq savehist-file "~/Dropbox/emacs/savehist")
-  (setq save-place-file "~/Dropbox/emacs/places")
   (setq undohist-directory "~/Dropbox/emacs/undohist")
   (setq transient-history-file "~/Dropbox/emacs/history.el")
   (setq prescient-save-file	"~/Dropbox/emacs/prescient-save.el")
@@ -66,7 +65,7 @@
   (prefer-coding-system 'utf-8)
 
   ;; Font
-  (add-to-list 'default-frame-alist '(font . "Cica-18.5"))
+  (add-to-list 'default-frame-alist '(font . "Cica-18"))
   (when (string-match "x250" (shell-command-to-string "uname -n"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
@@ -116,11 +115,7 @@ If there are two or more windows, it will go to another window."
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
   (defun Info-find-node--info-ja (orig-fn filename &rest args)
-  	"Info as ORIG-FN FILENAME ARGS."emacsの設定をダイエット中。設定はしたもののほとんど使う機会のないものは断捨離した。
-
-	emacsの設定をダイエット中。設定はしたもののほとんど使う機会のないものは断捨離した。
-
-
+  	"Info as ORIG-FN FILENAME ARGS."
   	(apply orig-fn
   		   (pcase filename
   			 ("emacs" "emacs-ja.info")
