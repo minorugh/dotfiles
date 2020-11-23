@@ -38,12 +38,10 @@
   :ensure t
   :init
   (leaf bind-key :ensure t)
-  (leaf el-get :ensure t)
   (leaf hydra :ensure t)
   :config
   (leaf-keywords-init)
   (setq load-prefer-newer t)
-  (setq el-get-dir "~/.emacs.d/el-get")
   (setq custom-file (locate-user-emacs-file "custom.el")))
 
 
