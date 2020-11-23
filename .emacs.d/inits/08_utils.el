@@ -14,11 +14,11 @@
 	(auto-save-buffers-enhanced t))
 
   (leaf persistent-scratch
-	:ensure t
-	:init
-	(setq persistent-scratch-save-file "~/Dropbox/emacs/persistent-scratch")
-	:config
-	(persistent-scratch-setup-default))
+  	:ensure t
+  	:init
+  	(setq persistent-scratch-save-file "~/Dropbox/emacs/persistent-scratch")
+  	:config
+  	(persistent-scratch-setup-default))
 
   (leaf undohist
 	:ensure t
