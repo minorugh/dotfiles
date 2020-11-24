@@ -11,14 +11,16 @@
 	:config
 	(setq auto-save-buffers-enhanced-exclude-regexps '("^/ssh:" "^/scp:" "/sudo:"))
 	(setq auto-save-buffers-enhanced-quiet-save-p t)
-	(auto-save-buffers-enhanced t))
-
-  (leaf persistent-scratch
-  	:ensure t
-  	:init
-  	(setq persistent-scratch-save-file "~/Dropbox/emacs/persistent-scratch")
-  	:config
-  	(persistent-scratch-setup-default))
+	(setq auto-save-buffers-enhanced-save-scratch-buffer-to-file-p t)
+	(setq auto-save-buffers-enhanced-file-related-with-scratch-buffer "~/Dropbox/emacs/scratch")
+	(auto-save-buffers-enhanced t)
+   	(defun read-scratch-data ()
+	  (let ((file "~/Dropbox/emacs/scratch"))
+		(when (file-exists-p file)
+		  (set-buffer (get-buffer "*scratch*"))
+		  (erase-buffer)
+		  (insert-file-contents file))))
+	(read-scratch-data))
 
   (leaf undohist
 	:ensure t
