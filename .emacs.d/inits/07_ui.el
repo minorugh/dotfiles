@@ -25,12 +25,12 @@
 	:ensure t
 	:hook ((dashboard-mode-hook imenu-list-minor-mode-hook direx:direx-mode-hook) . hide-mode-line-mode))
   (leaf nyan-mode
-	:ensure t
-	:global-minor-mode t
-	:config
-	(autoload 'nyan-mode "nyan-mode" nil t)
-	(setq nyan-cat-face-number 4)
-	(setq nyan-animate-nyancat t)))
+  	:ensure t
+  	:global-minor-mode t
+  	:config
+  	(autoload 'nyan-mode "nyan-mode" nil t)
+  	(setq nyan-cat-face-number 4)
+  	(nyan-start-animation)))
 
 
 (leaf all-the-icons
