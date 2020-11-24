@@ -25,10 +25,6 @@
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(leaf rainbow-mode
-  :ensure t
-  :bind ("C-c r" . rainbow-mode))
-
 (leaf volatile-highlights
   :ensure t
   :global-minor-mode t
