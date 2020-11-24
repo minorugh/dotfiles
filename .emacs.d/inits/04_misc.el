@@ -17,9 +17,7 @@
 
 
 (leaf flymake
-  :hook
-  (prog-mode-hook . flymake-mode)
-  (lisp-interaction-mode-hook . flymake-mode 0)
+  :hook (prog-mode-hook . flymake-mode)
   :config
   (leaf flymake-diagnostic-at-point
   	:ensure t
