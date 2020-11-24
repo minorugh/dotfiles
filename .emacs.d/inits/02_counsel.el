@@ -77,12 +77,6 @@
 
 
 ;; counsel-misc
-(leaf counsel-web
-  :ensure t
-  :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google))
-
 (leaf counsel-tramp
   :ensure t
   :config
