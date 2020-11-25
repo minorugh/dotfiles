@@ -9,8 +9,6 @@
   (with-eval-after-load 'dashboard
     (bind-key "<home>" 'open-dashboard)
     (bind-key "c" 'browse-calendar dashboard-mode-map)
-    (bind-key "1" 'twit-1 dashboard-mode-map)
-    (bind-key "2" 'twit-2 dashboard-mode-map)
     (bind-key "n" 'browse-google-news dashboard-mode-map)
     (bind-key "k" 'browse-keep dashboard-mode-map)
     (bind-key "m" 'browse-gmail dashboard-mode-map)
