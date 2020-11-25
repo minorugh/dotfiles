@@ -32,16 +32,16 @@
   (setq-default tab-width 4)
   (add-to-list 'default-frame-alist '(alpha . (1.0 0.9)))
 
-  ;; Change the location of the save tmp files
-  (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
-  (setq savehist-file "~/.emacs.d/tmp/history")
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
-  (setq savehist-file "~/.emacs.d/tmp/savehist")
-  (setq save-place-file "~/.emacs.d/tmp/places")
-  (setq undohist-directory "~/.emacs.d/tmp/undohist")
-  (setq transient-history-file "~/.emacs.d/tmp/history.el")
-  (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save.el")
+  ;; Change the location of the tmp files
+  (setq bookmark-file "~/Dropbox/emacs/bookmarks")
+  (setq savehist-file "~/Dropbox/emacs/history")
+  (setq recentf-save-file "~/Dropbox/emacs/recentf")
+  (setq tramp-persistency-file-name "~/Dropbox/emacs/tram")
+  (setq savehist-file "~/Dropbox/emacs/savehist")
+  (setq save-place-file "~/Dropbox/emacs/places")
+  (setq undohist-directory "~/Dropbox/emacs/undohist")
+  (setq transient-history-file "~/Dropbox/emacs/history.el")
+  (setq prescient-save-file	"~/Dropbox/emacs/prescient-save.el")
   (setq auto-save-list-file-prefix nil)
 
   ;; Hack emacs-init-time
@@ -150,7 +150,7 @@ If there are two or more windows, it will go to another window."
   	(setq recentf-auto-cleanup 'never)
   	(setq recentf-exclude
   		  '("recentf" "COMMIT_EDITMSG" "bookmarks" "\\.gitignore"
-  			"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$" ".howm-keys" "^/tmp/" "^/scp:"
+  			"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$" ".howm-keys" "^//" "^/scp:"
   			(lambda (file) (file-in-directory-p file package-user-dir)))))
 
   (leaf display-line-numbers
