@@ -1,4 +1,4 @@
-;;; 01_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t -*-_
+;;; 02_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t -*-_
 ;;; Commentary:
 
 ;;; Code:
@@ -34,4 +34,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 01_git.el ends here
+;;; 02_git.el ends here

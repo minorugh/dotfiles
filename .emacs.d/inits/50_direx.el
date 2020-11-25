@@ -1,4 +1,4 @@
-;;; 40_direx.el --- simple directory explorer  -*- lexical-binding: t -*-
+;;; 50_direx.el --- simple directory explorer  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -41,4 +41,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 40_direx.el ends here
+;;; 50_direx.el ends here

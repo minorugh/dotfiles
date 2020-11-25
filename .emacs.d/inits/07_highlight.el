@@ -1,4 +1,4 @@
-;;; 06_highlight.el --- highlight tools  -*- lexical-binding: t -*-
+;;; 07_highlight.el --- highlight tools  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -93,4 +93,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 06_highlight.el ends here
+;;; 07_highlight.el ends here

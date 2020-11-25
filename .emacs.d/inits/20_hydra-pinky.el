@@ -1,4 +1,4 @@
-;;; 10_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
+;;; 20_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -60,4 +60,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 10_hydra-pinky.el ends here
+;;; 20_hydra-pinky.el ends here

@@ -1,4 +1,4 @@
-;;; 03_company.el --- Modular text completion framework  -*- lexical-binding: t -*-
+;;; 04_company.el --- Modular text completion framework  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -25,4 +25,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 03_company.el ends here
+;;; 04_company.el ends here

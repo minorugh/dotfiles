@@ -1,4 +1,4 @@
-;;; 08_utils.el --- misc utils  -*- lexical-binding: t -*-
+;;; 09_utils.el --- misc utils  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -102,7 +102,6 @@
   :config
   (bind-key "<f3>" 'filer-current-dir-open)
   (bind-key "<f4>" 'term-current-dir-open)
-  (bind-key "<S-return>" 'toggle-scratch)
   :init
   (defun toggle-scratch ()
 	"Toggle current buffer and *scratch* buffer."
@@ -197,4 +196,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 08_utils.el ends here
+;;; 09_utils.el ends here

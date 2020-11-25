@@ -1,4 +1,4 @@
-;;; 04_misc.el --- misc tools  -*- lexical-binding: t -*-
+;;; 05_misc.el --- misc tools  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -54,11 +54,11 @@
 
 
 (leaf projectile :ensure t
-  :global-minor-mode t
+  :hook (emacs-startup-hook . projectile-mode)
   :init
   (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
   (leaf counsel-projectile :ensure t
-	:global-minor-mode t))
+	:hook (emacs-startup-hook . counsel-projectile-mode)))
 
 
 (leaf yasnippet :ensure t
@@ -81,4 +81,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 04_misc.el ends here
+;;; 05_misc.el ends here

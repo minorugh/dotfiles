@@ -1,4 +1,4 @@
-;;; 10_hydra-menu.el --- hydra for work menu  -*- lexical-binding: t -*-
+;;; 20_hydra-menu.el --- hydra for work menu  -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -19,7 +19,6 @@
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
-   ("<end>" my:root-dir)
    ("d" my:dropbox)
    ("i" my:inits-dir)
    ("e" my:emacs-dir)
@@ -145,4 +144,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 10_hydra-menu.el ends here
+;;; 20_hydra-menu.el ends here

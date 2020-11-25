@@ -1,4 +1,4 @@
-;;; 90_dashboard.el --- startup screen extracted  -*- lexical-binding: t -*-
+;;; 01_dashboard.el --- startup screen extracted  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -107,4 +107,4 @@
 ;; no-byte-compile: t
 ;; End:
 
-;;; 90_dashboard.el ends here
+;;; 01_dashboard.el ends here
