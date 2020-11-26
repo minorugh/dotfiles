@@ -79,7 +79,6 @@
 ;; counsel-misc
 (leaf counsel-web
   :ensure t
-  :bind ("s-s" . counsel-web-suggest)
   :config
   (setq counsel-web-search-action #'browse-url)
   (setq counsel-web-engine 'google))
