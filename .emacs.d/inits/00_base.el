@@ -39,8 +39,8 @@
   (setq savehist-file "~/.emacs.d/tmp/savehist")
   (setq save-place-file "~/.emacs.d/tmp/places")
   (setq undohist-directory "~/.emacs.d/tmp/undohist")
-  (setq transient-history-file "~/.emacs.d/tmp/transient/history")
-  (setq prescient-save-file	"~/.emacs.d/tmp/var/prescient-save")
+  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
+  (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
   (setq auto-save-list-file-prefix nil)
 
   ;; Hack emacs-init-time
