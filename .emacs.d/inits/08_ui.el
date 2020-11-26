@@ -46,11 +46,7 @@
 
 (leaf smartparens
   :ensure t
-  :global-minor-mode smartparens-global-mode
-  :config
-  (sp-pair "`" nil :actions :rem)
-  (sp-pair "'" nil :actions :rem)
-  (sp-pair "[" nil :actions :rem))
+  :hook (emacs-startup-hook . smartparens-global-mode))
 
 
 (leaf aggressive-indent
