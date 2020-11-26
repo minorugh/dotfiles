@@ -35,9 +35,9 @@
 
 
 ;; Fix error of "Failed to search TKK"
-;; (defun google-translate--get-b-d1 ()
-;;   "Search TKK."
-;;   (list 427110 1469889687))
+(defun google-translate--get-b-d1 ()
+  "Search TKK."
+  (list 427110 1469889687))
 
 
 ;; Fix error of "args out of range"
