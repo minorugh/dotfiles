@@ -165,10 +165,12 @@
 	(find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/")
 	(setq dired-listing-switches "-lgGhF"))
 
-  (defun my:root-dir ()
-	"Open root dir."
-	(interactive)
-	(find-file "/"))
+  (bind-key
+   "S-<return>"
+   (defun my:root-dir ()
+	 "Open root dir."
+	 (interactive)
+	 (find-file "/")))
 
   (defun my:home-dir ()
 	"Open home dir."
