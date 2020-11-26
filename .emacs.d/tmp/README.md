@@ -12,6 +12,5 @@ Place temporary files that emacs spits out in this folder
   (setq undohist-directory "~/.emacs.d/tmp/undohist")
   (setq transient-history-file "~/.emacs.d/tmp/transient-history")
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
-  (setq auto-save-list-file-prefix nil)
 
 ```
