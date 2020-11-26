@@ -102,6 +102,7 @@
   :config
   (bind-key "<f3>" 'filer-current-dir-open)
   (bind-key "<f4>" 'term-current-dir-open)
+  (bind-key "s-s" 'toggle-scratch)
   :init
   (defun toggle-scratch ()
 	"Toggle current buffer and *scratch* buffer."
