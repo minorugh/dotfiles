@@ -33,15 +33,14 @@
   (add-to-list 'default-frame-alist '(alpha . (1.0 0.9)))
 
   ;; Change the location of the tmp files
-  (setq bookmark-file "~/Dropbox/emacs/bookmarks")
-  (setq savehist-file "~/Dropbox/emacs/history")
-  (setq recentf-save-file "~/Dropbox/emacs/recentf")
-  (setq tramp-persistency-file-name "~/Dropbox/emacs/tram")
-  (setq savehist-file "~/Dropbox/emacs/savehist")
-  (setq save-place-file "~/Dropbox/emacs/places")
-  (setq undohist-directory "~/Dropbox/emacs/undohist")
-  (setq transient-history-file "~/Dropbox/emacs/history.el")
-  (setq prescient-save-file	"~/Dropbox/emacs/prescient-save.el")
+  (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
+  (setq savehist-file "~/.emacs.d/tmp/savehist")
+  (setq save-place-file "~/.emacs.d/tmp/places")
+  (setq undohist-directory "~/.emacs.d/tmp/undohist")
+  (setq transient-history-file "~/.emacs.d/tmp/transient/history")
+  (setq prescient-save-file	"~/.emacs.d/tmp/var/prescient-save")
   (setq auto-save-list-file-prefix nil)
 
   ;; Hack emacs-init-time
