@@ -26,6 +26,7 @@
   (setq mouse-drag-copy-region t)
   (setq make-backup-files nil)
   (setq auto-save-default nil)
+  (setq auto-save-list-file-prefix nil)
   (setq create-lockfiles nil)
   (setq vc-follow-symlinks t)
   (setq-default bidi-display-reordering nil)
@@ -33,6 +34,9 @@
   (add-to-list 'default-frame-alist '(alpha . (1.0 0.9)))
 
   ;; Change the location of the tmp files
+  (setq url-configuration-directory "~/.emacs.d/tmp/url")
+  (setq request-storage-directory "~/.emacs.d/tmp/request")
+  (setq eshell-directory-name "~/.emacs.d/tmp/eshell")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
@@ -41,7 +45,6 @@
   (setq undohist-directory "~/.emacs.d/tmp/undohist")
   (setq transient-history-file "~/.emacs.d/tmp/transient-history")
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
-  (setq auto-save-list-file-prefix nil)
 
   ;; Hack emacs-init-time
   (with-eval-after-load "time"
