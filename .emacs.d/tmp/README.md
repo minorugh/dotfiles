@@ -1,9 +1,9 @@
-# TMP folder
+# tmp folder
 
 Place temporary files that emacs spits out in this folder
 
 ```emacs-lisp
- ;; Change the location of the tmp files
+ ;; Change the location of the tmporary files
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
