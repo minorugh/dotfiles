@@ -34,3 +34,4 @@
 /tramp
 /.persistent-*
 /tmp
+!/tmp/README.md
