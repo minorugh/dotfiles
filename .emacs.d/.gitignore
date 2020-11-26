@@ -33,5 +33,5 @@
 /recentf*
 /tramp
 /.persistent-*
-/tmp
-!/tmp/undohist
+/tmp/*
+!/tmp/README.md
