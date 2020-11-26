@@ -34,5 +34,3 @@
 /tramp
 /.persistent-*
 /tmp
-!/tmp/undohist
-!/tmp/recentf
