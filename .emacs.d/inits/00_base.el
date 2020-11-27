@@ -86,9 +86,7 @@
   (bind-key* "<muhenkan>" 'minibuffer-keyboard-quit ivy-minibuffer-map)
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
-  (bind-key "C-q" 'other-window-or-split)
   (bind-key "C-z" 'nil)	;; Do not use suspend-frame
-  (bind-key "M-d" 'my:kill-word-at-point)
   (bind-key "M-/" 'kill-buffer)
   (bind-key "s-c" 'clipboard-kill-ring-save)
   (bind-key "s-v" 'clipboard-yank)
@@ -96,24 +94,6 @@
   (bind-key "C-w" 'clipboard-kill-region)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
-
-  (defun my:kill-word-at-point ()
-	"delete word at under cursor. If spaces was under the cursor, delete horizontal spaces"
-	(interactive)
-	(let ((char (char-to-string (char-after (point)))))
-	  (cond
-	   ((string= " " char) (delete-horizontal-space))
-	   ((string-match "[\t\n -@\[-`{-~]" char) (kill-word 1))
-	   (t (forward-char) (backward-word) (kill-word 1)))))
-
-  (defun other-window-or-split ()
-	"If there is one window, open split window.
-If there are two or more windows, it will go to another window."
-	(interactive)
-	(when (one-window-p)
-	  ;; (split-window-horizontally))
-	  (follow-delete-other-windows-and-split))
-	(other-window 1))
 
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
