@@ -42,7 +42,7 @@
   :config
   (leaf-keywords-init)
   (setq load-prefer-newer t)
-  (setq custom-file (locate-user-emacs-file "custom.el")))
+  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 
 (leaf init-loader
