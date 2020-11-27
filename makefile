@@ -23,7 +23,7 @@
 
 ## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
-# | Launch dropbox from Menu for install & setting
+# | Launch dropbox from Menu then install & setting
 
 ## =====================================================================
 ## Make install
