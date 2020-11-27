@@ -13,6 +13,7 @@
 (leaf paren
   :global-minor-mode show-paren-mode
   :config
+  (setq show-paren-delay 0)
   (setq show-paren-style 'mixed))
 
 (leaf beacon
