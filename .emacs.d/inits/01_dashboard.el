@@ -30,7 +30,7 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents  . 10)
+  (setq dashboard-items '((recents  . 8)
   						  (agenda . 5)))
   ;; for sub machine
   (when (string-match "x250" (shell-command-to-string "uname -n"))
