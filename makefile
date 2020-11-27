@@ -30,6 +30,8 @@ export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/pe
 ## Make install
 ## =====================================================================
 ## 1st stage for make allinstall
+allinstall: gnupg ssh cica emacsmozc init base install cups pipinstall snapinstall
+
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
 	mkdir -p ${HOME}/.gnupg
@@ -99,7 +101,8 @@ snapinstall: ## Install snap packages
 	sudo apt install -y snapd
 	sudo snap install lepton spotify
 
-### 2nd stage for make step by step
+### -----------------------------------------------------------------------------
+### next stage for make step by step
 texlive: ## Install tevlive full
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz
@@ -147,8 +150,6 @@ emacs-devel: ## Install development version of emacs
 	make;\
 	sudo make install;\
 	rm -rf ${HOME}/.emacs.d/elpa
-
-allinstall: ssh cica emacsmozc init base install cups pipinstall snapinstall
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
