@@ -121,11 +121,6 @@
 	  (counsel-tramp-quit))
 	(message "Killed Other Buffers!"))
 
-  (defun my:jpg2png ()
-	"Convert jpg to ping with mogrify."
-	(interactive)
-	(compile "mkdir ~/Desktop/output | mogrify -path ~/Desktop/output  -format png *"))
-
   (defun filer-current-dir-open ()
 	"Open filer in current dir."
 	(interactive)
