@@ -55,6 +55,15 @@
    ("f" counsel-find-file)
    ("s" swiper)))
 
+(defun other-window-or-split ()
+  "If there is one window, open split window.
+If there are two or more windows, it will go to another window."
+  (interactive)
+  (when (one-window-p)
+	;; (split-window-horizontally))
+	(follow-delete-other-windows-and-split))
+  (other-window 1))
+
 
 ;; Local Variables:
 ;; no-byte-compile: t
