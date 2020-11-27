@@ -160,10 +160,8 @@
   (defun my:dotfiles-dir ()
 	"Open dotfiles dir."
 	(interactive)
-	(setq dired-listing-switches "-lgGhF")
 	(setq dired-listing-switches "-lgGhFA")
-	(find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/")
-	(setq dired-listing-switches "-lgGhF"))
+	(find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/"))
 
   (bind-key
    "S-<return>"
