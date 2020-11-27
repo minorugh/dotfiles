@@ -1,19 +1,18 @@
-export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/perl5/perlbrew/bin:${HOME}/perl5/perlbrew/perls/perl-5.30.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:${HOME}/bin
-
 ### Debian 10 Restore Settings
-### Boot from install usb to install debian
 
 ## =====================================================================
 ## Manual setting procedure
 ## =====================================================================
-## 1. Log in as root
+## 1. Boot from install usb to install debian
+##
+## 2. Log in as root
 ## Register username to sudoers
 # | gpasswd -a minoru sudo
 # | log out
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
-
-## 2. Log in with ${USER}
+##
+## 3. Log in with ${USER}
 ## Make home directory English
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
@@ -22,9 +21,9 @@ export PATH := ${HOME}/.zinit/polaris/sbin:${HOME}/.zinit/polaris/bin:${HOME}/pe
 # | bash to zsh
 # | chsh -s /bin/zsh
 
-## Install dropbox & setting
+## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
-# | Launch from Menu for install & setting
+# | Launch dropbox from Menu for install & setting
 
 ## =====================================================================
 ## Make install
