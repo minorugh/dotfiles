@@ -3,7 +3,7 @@
 ## =====================================================================
 ## Manual setting procedure
 ## =====================================================================
-## 1. Boot from install usb to install debian
+## 1. Boot from install-usb to install debian
 ##
 ## 2. Log in as root
 ## Register username to sudoers
@@ -23,7 +23,7 @@
 
 ## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
-# | Launch dropbox from Menu then install & setting
+# | Launch dropbox from Menu then install and setting
 
 ## =====================================================================
 ## Make install
