@@ -9,12 +9,11 @@
   (setq dired-listing-switches "-lgGhFA")
   (find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/"))
 
-(bind-key
- "S-<return>"
- (defun my:root-dir ()
-   "Open root dir."
-   (interactive)
-   (find-file "/")))
+(defun my:root-dir ()
+  "Open root dir."
+  (interactive)
+  (find-file "/"))
+(bind-key  "S-<return>" 'my:root-dir)
 
 (defun my:home-dir ()
   "Open home dir."
