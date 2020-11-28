@@ -1,6 +1,5 @@
 ;;; 05_misc.el --- misc tools  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -80,5 +79,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 05_misc.el ends here

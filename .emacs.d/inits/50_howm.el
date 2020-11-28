@@ -1,6 +1,5 @@
-;;; 70_howm.el --- memo tools  -*- lexical-binding: t -*-
+;;; 50_howm.el --- memo tools  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -82,5 +81,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 70_howm.el ends here
+;;; 50_howm.el ends here

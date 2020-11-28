@@ -1,6 +1,5 @@
 ;;; 03_counsel.el --- Various completion functions using Ivy  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -113,5 +112,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 03_counsel.el ends here

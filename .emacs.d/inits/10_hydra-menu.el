@@ -1,6 +1,5 @@
-;;; 20_hydra-menu.el --- hydra for work menu  -*- lexical-binding: t -*-
+;;; 10_hydra-menu.el --- hydra for work menu  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -143,5 +142,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 20_hydra-menu.el ends here
+;;; 10_hydra-menu.el ends here

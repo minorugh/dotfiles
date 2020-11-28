@@ -1,6 +1,5 @@
-;;; 60_markdown.el --- Markdown configurations.  -*- lexical-binding: t -*-
+;;; 40_markdown.el --- Markdown configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -103,5 +102,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 60_markdown.el ends here
+;;; 40_markdown.el ends here

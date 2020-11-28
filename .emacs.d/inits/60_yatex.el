@@ -1,6 +1,5 @@
-;;; 80_yatex.el --- yet another tex-mode for emacs  -*- lexical-binding: t -*-
+;;; 60_yatex.el --- yet another tex-mode for emacs  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -51,4 +50,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 80_yatex.el ends here
+;;; 60_yatex.el ends here

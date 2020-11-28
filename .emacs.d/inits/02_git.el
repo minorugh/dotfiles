@@ -1,6 +1,5 @@
 ;;; 02_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t -*-_
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-erro t)
 
@@ -33,5 +32,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 02_git.el ends here

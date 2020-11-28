@@ -1,6 +1,5 @@
 ;;; 08_ui.el --- UI tools  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -79,5 +78,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 08_ui.el ends here

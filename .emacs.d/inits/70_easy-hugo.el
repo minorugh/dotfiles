@@ -1,6 +1,5 @@
-;;; 90_easy-hugo.el --- write blogs made with hugo  -*- lexical-binding: t -*-
+;;; 70_easy-hugo.el --- write blogs made with hugo  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -86,5 +85,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 90_easy-hugo.el ends here
+;;; 70_easy-hugo.el ends here

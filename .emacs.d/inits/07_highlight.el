@@ -1,6 +1,5 @@
 ;;; 07_highlight.el --- highlight tools  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -93,5 +92,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 07_highlight.el ends here

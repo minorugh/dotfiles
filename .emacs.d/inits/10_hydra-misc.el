@@ -1,6 +1,5 @@
-;;; 20_hydra-misc.el --- hydra for misc  -*- lexical-binding: t -*-
+;;; 10_hydra-misc.el --- hydra for misc  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -18,12 +17,7 @@
    ("a" package-utils-upgrade-all-and-restart)
    ("l" package-list-packages)
    ("e" select-elget-command)
-   ("<muhenkan>" nil))
-  :init
-  (defun select-elget-command ()
-    "Narrow the only el-get command in M-x."
-    (interactive)
-    (counsel-M-x "^el-get ")))
+   ("<muhenkan>" nil)))
 
 
 (leaf open-favorite-on-browse
@@ -64,30 +58,16 @@
    ("8" (browse-url "https://photos.google.com/?pageId=none"))
    ("c" (browse-url "https://google.com"))
    ("l" (browse-url "https://minorugh.tumblr.com"))
-   ("w" browse-weather)
-   ("h" browse-homepage)
-   ("p" browse-pocket)
-   ("t" browse-tweetdeck)
-   ("," browse-slack)
+   ("w" chromium-weather)
+   ("h" chromium-homepage)
+   ("p" chromium-pocket)
+   ("t" chromium-tweetdeck)
+   ("," chromium-slack)
    ("<muhenkan>" nil)
    ("." nil)))
-
-
-(leaf browse-url-in-WSL
-  :url "https://adam.kruszewski.name/2017/09/emacs-in-wsl-and-opening-links/"
-  :if (getenv "WSLENV")
-  :config
-  (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
-		(cmd-args '("/c" "start")))
-    (when (file-exists-p cmd-exe)
-      (setq browse-url-generic-program  cmd-exe
-			browse-url-generic-args     cmd-args
-			browse-url-browser-function 'browse-url-generic
-			search-web-default-browser 'browse-url-generic))))
 
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 20_hydra-misc.el ends here
+;;; 10_hydra-misc.el ends here

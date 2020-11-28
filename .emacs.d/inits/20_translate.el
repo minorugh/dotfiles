@@ -1,6 +1,5 @@
-;;; 40_translate.el --- emacs interface to google translate  -*- lexical-binding: t -*-
+;;; 20_translate.el --- emacs interface to google translate  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -63,5 +62,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 40_translate.el ends here
+;;; 20_translate.el ends here

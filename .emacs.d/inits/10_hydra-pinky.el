@@ -1,8 +1,19 @@
-;;; 20_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
+;;; 10_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;;(setq debug-on-error t)
+
+(bind-key
+ "C-q"
+ (defun other-window-or-split ()
+   "If there is one window, open split window.
+If there are two or more windows, it will go to another window."
+   (interactive)
+   (when (one-window-p)
+	 ;; (split-window-horizontally))
+	 (follow-delete-other-windows-and-split))
+   (other-window 1)))
+
 
 (key-chord-define-global
  "::"
@@ -55,18 +66,8 @@
    ("f" counsel-find-file)
    ("s" swiper)))
 
-(defun other-window-or-split ()
-  "If there is one window, open split window.
-If there are two or more windows, it will go to another window."
-  (interactive)
-  (when (one-window-p)
-	;; (split-window-horizontally))
-	(follow-delete-other-windows-and-split))
-  (other-window 1))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
-;;; 20_hydra-pinky.el ends here
+;;; 10_hydra-pinky.el ends here

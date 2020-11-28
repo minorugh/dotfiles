@@ -1,6 +1,5 @@
 ;;; 00_base.el --- Emacs base settings  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -149,5 +148,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 00_base.el ends here

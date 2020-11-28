@@ -1,6 +1,5 @@
 ;;; 06_mozc.el --- minor mode to input japanese with mozc  -*- lexical-binding: t -*-
 ;;; Commentary:
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -79,5 +78,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-
 ;;; 06_mozc.el ends here
