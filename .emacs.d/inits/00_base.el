@@ -67,7 +67,7 @@
   (prefer-coding-system 'utf-8)
 
   ;; Font
-  (add-to-list 'default-frame-alist '(font . "Cica-19"))
+  (add-to-list 'default-frame-alist '(font . "Cica-18"))
   (when (string-match "x250" (shell-command-to-string "uname -n"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
