@@ -31,12 +31,8 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents  . 8)
+  (setq dashboard-items '((recents  . 5)
   						  (agenda . 5)))
-  ;; for sub machine
-  (when (string-match "x250" (shell-command-to-string "uname -n"))
-	(setq dashboard-items '((recents  . 5)
-							(agenda . 5))))
   ;; Set the footer
   (setq dashboard-footer-icon
 		(all-the-icons-octicon "dashboard" :height 1.1 :v-adjust -0.05 :face 'font-lock-keyword-face))
