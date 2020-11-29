@@ -1,4 +1,4 @@
-;;; 30_direx.el --- simple directory explorer  -*- lexical-binding: t -*-
+;;; 40_direx.el --- simple directory explorer  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -39,4 +39,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_direx.el ends here
+;;; 40_direx.el ends here

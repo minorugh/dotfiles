@@ -1,4 +1,4 @@
-;;; 90_chromium.el --- hydra for compile command  -*- lexical-binding: t -*-
+;;; 90_my:chromium.el --- user chromium settings  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,4 +71,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 90_chromium.el ends here
+;;; 99_my:chromium.el ends here
