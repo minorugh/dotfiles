@@ -3,13 +3,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf cycle-theme-setting
+(leaf doom-themes
+  :ensure t
   :bind ("s-t" . my:cycle-theme)
+  :config
+  (doom-themes-neotree-config)
+  (doom-themes-org-config)
   :init
-  (leaf doom-themes :ensure t)
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (setq my-themes (list 'iceberg 'doom-dracula)
-		curr-theme my-themes)
+  (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
   (load-theme (car curr-theme) t)
   (defun my:cycle-theme ()
 	"Cycle custom theme."
