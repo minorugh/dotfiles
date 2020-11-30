@@ -15,6 +15,7 @@
   :init
   (setq-default neo-keymap-style 'concise)
   :config
+  (setq neo-show-hidden-files t)
   (setq neo-create-file-auto-open t)
   (doom-themes-neotree-config)
   (setq neo-window-width 30)
