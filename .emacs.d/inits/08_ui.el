@@ -3,10 +3,22 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf custom-theme
-  :config
+(leaf cycle-theme-setting
+  :bind ("s-t" . my:cycle-theme)
+  :init
+  (leaf doom-themes :ensure t)
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (load-theme 'iceberg t))
+  (setq my-themes (list 'iceberg 'doom-dracula)
+		curr-theme my-themes)
+  (load-theme (car curr-theme) t)
+  (defun my:cycle-theme ()
+	"Cycle custom theme."
+	(interactive)
+	(disable-theme (car curr-theme))
+	(setq curr-theme (cdr curr-theme))
+	(if (null curr-theme) (setq curr-theme my-themes))
+	(load-theme (car curr-theme) t)
+	(message "%s" (car curr-theme))))
 
 
 (leaf doom-modeline
