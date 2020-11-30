@@ -6,9 +6,6 @@
 (leaf doom-themes
   :ensure t
   :bind ("s-t" . my:cycle-theme)
-  :config
-  (doom-themes-neotree-config)
-  (doom-themes-org-config)
   :init
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
   (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
