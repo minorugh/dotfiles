@@ -79,6 +79,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mozc-cand-posframe-normal-face ((t (:background "#282D43" :foreground "#C7C9D1"))))
+ '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
+ '(mozc-cand-posframe-footer-face ((t (:background "#282D43" :foreground "#454D73"))))
  '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
  '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
  '(markdown-code-face ((t (:inherit nil))))
