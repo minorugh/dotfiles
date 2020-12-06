@@ -5,6 +5,7 @@
 
 (leaf dashboard
   :ensure t
+  :when window-system
   :config
   (with-eval-after-load 'dashboard
     (bind-key "<home>" 'open-dashboard)
