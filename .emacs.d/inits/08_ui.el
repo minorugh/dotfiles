@@ -36,6 +36,7 @@
 	:hook ((dashboard-mode-hook imenu-list-minor-mode-hook direx:direx-mode-hook) . hide-mode-line-mode))
   (leaf nyan-mode
   	:ensure t
+	:when window-system
   	:global-minor-mode t
   	:config
   	(autoload 'nyan-mode "nyan-mode" nil t)
