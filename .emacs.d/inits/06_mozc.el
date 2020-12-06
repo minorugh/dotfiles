@@ -39,6 +39,7 @@
 
   :init
   (leaf mozc-cand-posframe :ensure t
+	:when window-system
 	:require t
 	:config
 	(setq mozc-candidate-style 'posframe)))
