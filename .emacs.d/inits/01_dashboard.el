@@ -14,6 +14,7 @@
     (bind-key "k" 'chromium-keep dashboard-mode-map)
     (bind-key "K" 'chromium-keep-new dashboard-mode-map)
     (bind-key "m" 'chromium-gmail dashboard-mode-map)
+    (bind-key "g" 'thunderbird-open dashboard-mode-map)
     (bind-key "t" 'chromium-tweetdeck dashboard-mode-map)
     (bind-key "s" 'chromium-slack dashboard-mode-map)
     (bind-key "h" 'chromium-homepage dashboard-mode-map)
@@ -52,7 +53,7 @@
 	(interactive)
 	(insert (if (display-graphic-p)
 				(all-the-icons-faicon "google" :height 1.2 :v-adjust -0.05 :face 'dashboard-heading) " "))
-	(insert "    Calendar: (c)   📰 News: (n)   📝 Keep: (k)    Mail: (m)    Twitter: (t)    Pocket: (p)    Slack: (s)    GH: (h) "))
+	(insert "    Calendar: (c)   📰 News: (n)   📝 Keep: (k)    Mail: (m.g)    Twitter: (t)    Pocket: (p)    Slack: (s)    GH: (h) "))
 
   (defvar dashboard-recover-layout-p nil
 	"Wether recovers the layout.")
