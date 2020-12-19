@@ -118,10 +118,10 @@
 	(switch-to-buffer toggle-scratch-prev-buffer)))
 (bind-key "s-s" 'toggle-scratch)
 
-(defun thunderbird-open ()
+(defun sylpheed-open ()
   "Open thunderbird."
   (interactive)
-  (compile "/usr/bin/thunderbird -%u"))
+  (compile "sylpheed"))
 
 (defun filer-current-dir-open ()
   "Open filer in current dir."
