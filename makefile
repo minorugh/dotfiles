@@ -18,7 +18,6 @@
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
 # | sudo apt install -y zsh git nautilus chromium chromium-l10n
-# | bash to zsh
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
@@ -29,7 +28,7 @@
 ## Make install
 ## =====================================================================
 ## 1st stage for make allinstall
-allinstall: gnupg ssh cica emacsmozc init base install cups pipinstall snapinstall
+allinstall: gnupg ssh cica emacsmozc init base install sylpheed cups pipinstall snapinstall
 
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
@@ -99,6 +98,11 @@ pipinstall: ## Install python packages
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
 	sudo snap install lepton spotify
+
+sylpheed:## Init sylpheed
+	sudo apt install -y sylpheed
+	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
+	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0   ${HOME}/.sylpheed-2.0
 
 ### -----------------------------------------------------------------------------
 ### next stage for make step by step
