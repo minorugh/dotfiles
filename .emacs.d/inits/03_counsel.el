@@ -10,8 +10,8 @@
   (css-mode-hook . counsel-css-imenu-setup)
   :config
   (ivy-mode 1)
-  (bind-key "C-r" 'swiper)
-  (bind-key "C-s" 'swiper-thing-at-point)
+  (bind-key "C-r" 'swiper-thing-at-point)
+  (bind-key "C-s" 'swiper-region)
   (bind-key "C-:" 'counsel-switch-buffer)
   (bind-key "C-x C-b" 'switch-to-buffer)
   (bind-key "C-x C-f" 'counsel-find-file)
@@ -40,20 +40,30 @@
   (leaf ivy-rich :ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
 
+  (defun swiper-region ()
+	"If region is selected, `swiper-isearch' with the keyword selected in region.
+If the region isn't selected, `swiper-isearch'."
+	(interactive)
+	(if (not (use-region-p))
+		(swiper)
+	  (swiper-thing-at-point)))
+
+  ;; Ivy-migemo without using avy-migemo
+  ;; https://www.yewton.net/2020/05/21/migemo-ivy/
   (defun my:ivy-migemo-re-builder (str)
     "Own ivy-migemo-re-build for swiper."
     (let* ((sep " \\|\\^\\|\\.\\|\\*")
-		   (splitted (--map (s-join "" it)
-							(--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
-											(s-split "" str t)))))
+  		   (splitted (--map (s-join "" it)
+  							(--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
+  											(s-split "" str t)))))
       (s-join "" (--map (cond ((s-equals? it " ") ".*?")
-							  ((s-matches? sep it) it)
-							  (t (migemo-get-pattern it)))
-						splitted))))
+  							  ((s-matches? sep it) it)
+  							  (t (migemo-get-pattern it)))
+  						splitted))))
   (setq ivy-re-builders-alist
-		'((t . ivy--regex-plus)
-		  (counsel-web . my:ivy-migemo-re-builder)
-		  (swiper . my:ivy-migemo-re-builder)))
+  		'((t . ivy--regex-plus)
+  		  (counsel-web . my:ivy-migemo-re-builder)
+  		  (swiper . my:ivy-migemo-re-builder)))
 
   (defun my:ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."
