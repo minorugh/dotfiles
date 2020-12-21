@@ -80,7 +80,7 @@ install: ## Install debian linux packages using apt
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gwenview \
 	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh autokey-gtk autokey-common \
 	inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en screen keychain \
-	mosh compizconfig-settings-manager compiz-plugins libsecret-tools \
+	mosh compizconfig-settings-manager compiz-plugins libsecret-tools pinta \
 	xscreensaver xscreensaver-gl-extra nodejs npm menulibre pwgen seahorse
 
 emacsmozc: ## Install emacs mozc
