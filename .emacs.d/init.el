@@ -4,6 +4,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Quiet start
 (set-frame-parameter nil 'fullscreen 'maximized)
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
@@ -24,6 +25,7 @@
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
 
+;; Packages
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
