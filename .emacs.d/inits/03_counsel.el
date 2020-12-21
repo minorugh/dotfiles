@@ -48,10 +48,9 @@ If the region isn't selected, `swiper-isearch'."
 		(swiper)
 	  (swiper-thing-at-point)))
 
-  ;; Ivy-migemo without using avy-migemo
+  ;; Ivy-migemo without avy-migemo
   ;; https://www.yewton.net/2020/05/21/migemo-ivy/
   (defun my:ivy-migemo-re-builder (str)
-    "Own ivy-migemo-re-build for swiper."
     (let* ((sep " \\|\\^\\|\\.\\|\\*")
   		   (splitted (--map (s-join "" it)
   							(--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
