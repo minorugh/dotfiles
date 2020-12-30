@@ -119,10 +119,10 @@
   (forward-char 1))
 
 
-(defun my:apsh-new-post ()
+(defun my:apvoice-new-post ()
   "Open apsh file and insert template."
   (interactive)
-  (find-file (expand-file-name "apsh.txt" "~/Dropbox/GH/apsh/"))
+  (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (defvar string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -134,12 +134,14 @@
   (forward-line)
   (insert
    ";--------------------------------------------------------------------\n"
-   (format-time-string "*[%Y%m%d]%-m月%-d日\n")
+   (format-time-string "*[%Y%m%d]\n")
    ";--------------------------------------------------------------------\n"
-   (format-time-string "-*[%Y%m%d%H%M%S]\n")
-   "<small>\n()\n</small>\n-(\n=[\n= 合評\n-[\n- 投稿いただいた記事は編集してここに転記されます。\n-]\n=]\n-)\n-elink\n")
-  (forward-line -13)
-  (forward-char 18))
+   (format-time-string "-*[%Y%m%d%H%M%S]阿波野青畝\n")
+   "<div style=\"margin:1em\">\n()\n</div>\n-(\n--\n=[\n= 合評\n-[\n- 投稿いただいた記事は編集してここに転記されます。\n-]\n=]\n-)\n-elink\n")
+  (goto-char (point-min))
+  (forward-line 2)
+  (forward-char 11)
+  )
 
 
 (defun my:haiku-note ()
