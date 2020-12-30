@@ -73,7 +73,7 @@
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
     (interactive)
-    (find-file "~/.emacs.d/inits/70_easy-hugo.el")
+    (find-file "~/.emacs.d/inits/80_easy-hugo.el")
     (forword-line 2))
 
   (defun inseart-date ()
