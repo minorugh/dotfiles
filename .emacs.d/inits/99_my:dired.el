@@ -103,10 +103,10 @@
   (find-file "~/Dropbox/GH/otibo/tex/otibo.txt")
   (goto-char (point-min)))
 
-(defun my:apsh ()
-  "Open apsh file."
+(defun my:apvoice ()
+  "Open apvoice file."
   (interactive)
-  (find-file "~/Dropbox/GH/apsh/apsh.txt")
+  (find-file "~/Dropbox/GH/apvoice/apvoice.txt")
   (goto-char (point-min)))
 
 
