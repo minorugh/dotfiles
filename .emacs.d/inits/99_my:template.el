@@ -136,7 +136,7 @@
    ";--------------------------------------------------------------------\n"
    (format-time-string "*[%Y%m%d]\n")
    ";--------------------------------------------------------------------\n"
-   (format-time-string "-*[%Y%m%d%H%M%S]阿波野青畝\n")
+   (format-time-string "-*[%Y%m%d%H%M%S]南上加代子\n")
    "<div style=\"margin:1em\">\n()\n</div>\n-(\n--\n=[\n= 合評\n-[\n- 投稿いただいた記事は編集してここに転記されます。\n-]\n=]\n-)\n-elink\n")
   (goto-char (point-min))
   (forward-line 2)
