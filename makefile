@@ -3,15 +3,16 @@
 ## =====================================================================
 ## Manual setting procedure
 ## =====================================================================
+
 ## 1. Boot from install-usb to install debian
-##
+
 ## 2. Log in as root
 ## Register username to sudoers
 # | gpasswd -a minoru sudo
 # | log out
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
-##
+
 ## 3. Log in with ${USER}
 ## Make home directory English
 # | sudo apt install -y xdg-user-dirs-gtk
@@ -28,6 +29,7 @@
 ## Make install
 ## =====================================================================
 ## 1st stage for make allinstall
+
 allinstall: gnupg ssh cica emacsmozc init base install sylpheed cups pipinstall snapinstall
 
 gnupg: ## Deploy gnupg (Run after rclone)
@@ -110,8 +112,9 @@ albert:## Install albert
 	sudo apt update
 	sudo apt install albert
 
-### -----------------------------------------------------------------------------
-### next stage for make step by step
+## =====================================================================
+## next stage for make step by step
+
 texlive: ## Install tevlive full
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz
