@@ -7,7 +7,7 @@
   "Open dotfiles dir."
   (interactive)
   (setq dired-listing-switches "-lgGhFA")
-  (find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/"))
+  (find-file "~/src/github.com/minorugh/dotfiles/"))
 
 (defun my:root-dir ()
   "Open root dir."
@@ -33,7 +33,7 @@
 (defun my:emacs-dir ()
   "Open .emacs.d dir."
   (interactive)
-  (find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/.emacs.d/"))
+  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
 
 (defun my:gh-dir ()
   "Open GH dir."
@@ -43,7 +43,7 @@
 (defun my:inits-dir ()
   "Open inits dir."
   (interactive)
-  (find-file "~/Dropbox/repo/github.com/minorugh/dotfiles/.emacs.d/inits/"))
+  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
 
 (defun my:backup-dir ()
   "Open backup dir."
