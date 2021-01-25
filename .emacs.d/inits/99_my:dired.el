@@ -28,7 +28,7 @@
 (defun my:xsrv-dir ()
   "Open Web dir."
   (interactive)
-  (find-file "~/Dropbox/repo/xsrv.jp/"))
+  (find-file "~/Dropbox/xsrv/"))
 
 (defun my:emacs-dir ()
   "Open .emacs.d dir."
@@ -53,7 +53,7 @@
 (defun my:junk-file-dir ()
   "Open junk-file dir."
   (interactive)
-  (find-file "~/Dropbox/howm/junk/"))
+  (find-file "~/howm/junk/"))
 
 (defun my:diary ()
   "Open diary dir."
