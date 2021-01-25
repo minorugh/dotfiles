@@ -23,7 +23,7 @@
   (setq easy-hugo--sort-publishday-flg 1)
   :init
   ;; Main blog (=blog1)
-  (setq easy-hugo-basedir "~/Dropbox/repo/xsrv.jp/xsrv/")
+  (setq easy-hugo-basedir "~/Dropbox/xsrv/xsrv/")
   (setq easy-hugo-url "https://minorugh.xsrv.jp")
   (setq easy-hugo-sshdomain "xsrv")
   (setq easy-hugo-root "/home/minorugh/minorugh.xsrv.jp/public_html/")
@@ -31,32 +31,32 @@
   ;; Bloglist
   (setq easy-hugo-bloglist
 		;; blog2 setting
-		'(((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/topics/")
+		'(((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/topics/")
 		   (easy-hugo-url . "https://topics.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/topics/"))
 		  ;; blog3 setting
-		  ((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/blog/")
+		  ((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/blog/")
 		   (easy-hugo-url . "https://blog.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/blog/"))
 		  ;; blog4 setting
-		  ((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/essay/")
+		  ((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/essay/")
 		   (easy-hugo-url . "https://essay.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/essay/"))
 		  ;; blog5 setting
-		  ((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/bible/")
+		  ((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/bible/")
 		   (easy-hugo-url . "https://bible.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/bible/"))
 		  ;; blog6 setting
-		  ((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/tube/")
+		  ((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/tube/")
 		   (easy-hugo-url . "https://tube.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/tube/"))
 		  ;; blog7 setting
-		  ((easy-hugo-basedir . "~/Dropbox/repo/xsrv.jp/wegh/ryo/")
+		  ((easy-hugo-basedir . "~/Dropbox/xsrv/wegh/ryo/")
 		   (easy-hugo-url . "https://ryo.wegh.net")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/wegh.net/public_html/ryo/"))))
