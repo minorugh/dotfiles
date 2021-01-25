@@ -23,7 +23,7 @@
   (setq easy-hugo--sort-publishday-flg 1)
   :init
   ;; Main blog (=blog1)
-  (setq easy-hugo-basedir "~/Dropbox/xsrv/xsrv/")
+  (setq easy-hugo-basedir "~/Dropbox/xsrv/xsrv.jp/")
   (setq easy-hugo-url "https://minorugh.xsrv.jp")
   (setq easy-hugo-sshdomain "xsrv")
   (setq easy-hugo-root "/home/minorugh/minorugh.xsrv.jp/public_html/")
