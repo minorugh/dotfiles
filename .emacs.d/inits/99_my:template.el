@@ -6,7 +6,7 @@
 (defun my:diary-new-post ()
   "Open diary file and insert template."
   (interactive)
-  (find-file (expand-file-name "diary.txt" "~/GH/dia/"))
+  (find-file (expand-file-name "diary.txt" "~/Dropbox/GH/dia/"))
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (defvar string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -29,21 +29,21 @@
 (defun my:teirei-new-post ()
   "Open teirei file and insert template."
   (interactive)
-  (find-file "~/GH/teirei/tex/teirei.txt")
+  (find-file "~/Dropbox/GH/teirei/tex/teirei.txt")
   (my:minoru_sen))
 
 
 (defun my:swan-new-post ()
   "Open swan file and insert template."
   (interactive)
-  (find-file "~/GH/swan/tex/swan.txt")
+  (find-file "~/Dropbox/GH/swan/tex/swan.txt")
   (my:minoru_sen))
 
 
 (defun my:otibo-new-post ()
   "Open otibo file and insert template."
   (interactive)
-  (find-file "~/GH/otibo/tex/otibo.txt")
+  (find-file "~/Dropbox/GH/otibo/tex/otibo.txt")
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (defvar string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -73,7 +73,7 @@
 (defun my:kinnei-new-post ()
   "Open kinnei file and insert template."
   (interactive)
-  (find-file "~/GH/kinnei/kinnei.txt")
+  (find-file "~/Dropbox/GH/kinnei/kinnei.txt")
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (defvar string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -122,7 +122,7 @@
 (defun my:apvoice-new-post ()
   "Open apsh file and insert template."
   (interactive)
-  (find-file (expand-file-name "apvoice.txt" "~/GH/apvoice/"))
+  (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (defvar string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -147,14 +147,14 @@
 (defun my:haiku-note ()
   "Open haiku note file."
   (interactive)
-  (find-file (format-time-string "~/howm/haiku/haikunote.%Y.md"))
+  (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.md"))
   (goto-char (point-min)))
 
 
 (defun my:haiku-note-post ()
   "Insert template."
   (interactive)
-  (find-file (format-time-string "~/howm/haiku/haikunote.%Y.md"))
+  (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.md"))
   (goto-char (point-min))
   ;; (forward-line 2)
   (insert
