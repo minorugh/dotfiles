@@ -101,11 +101,6 @@ snapinstall: ## Install snap packages
 	sudo apt install -y snapd
 	sudo snap install lepton spotify
 
-sylpheed:## Init sylpheed
-	sudo apt install -y sylpheed
-	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
-	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0   ${HOME}/.sylpheed-2.0
-
 albert:## Install albert
 	echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
 	curl -fsSL https://download.opensuse.org/repositories/home:manuelschneid3r/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg > /dev/null
