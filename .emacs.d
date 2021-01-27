@@ -1,1 +1,0 @@
-/home/minoru/Dropbox/backup/.emacs.d
