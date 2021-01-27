@@ -44,8 +44,11 @@ ssh: ## Init ssh
 	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
 	ln -vsf ${PWD}/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${PWD}/.ssh/github_id_rsa ${HOME}/.ssh/github_id_rsa
+	ln -vsf ${PWD}/.ssh/github_id_rsa.pub ${HOME}/.ssh/github_id_rsa.pub
 	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
+	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 else
 ssh: ## Init ssh
@@ -74,7 +77,7 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
-	xmodmap ${HOME}/.Xmodmap
+	# xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
