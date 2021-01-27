@@ -40,24 +40,24 @@ gnupg: ## Deploy gnupg (Run after rclone)
 ifeq ($(shell uname -n),x250)
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${PWD}/.ssh/config-x250 ${HOME}/.ssh/config
-	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
-	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
-	ln -vsf ${PWD}/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
-	ln -vsf ${PWD}/.ssh/github_id_rsa ${HOME}/.ssh/github_id_rsa
-	ln -vsf ${PWD}/.ssh/github_id_rsa.pub ${HOME}/.ssh/github_id_rsa.pub
-	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config-x250 ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/known_hosts ${HOME}/.ssh/known_hosts
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/github_id_rsa ${HOME}/.ssh/github_id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/github_id_rsa.pub ${HOME}/.ssh/github_id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 else
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
-	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
-	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
-	ln -vsf ${PWD}/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
-	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/known_hosts ${HOME}/.ssh/known_hosts
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 endif
@@ -74,9 +74,9 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.tmuc.conf ${HOME}/.tmux.conf
 	ln -vsf ${PWD}/.Xmodmap ${HOME}/.Xmodmap
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
-	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
-	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
-	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
+	ln -vsf ${HOME}/Dropbox/backup/conf/.gitconfig ${HOME}/.gitconfig
+	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
+	ln -vsf ${HOME}//Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
 	# xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
