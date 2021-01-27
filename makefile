@@ -76,7 +76,11 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
 	ln -vsf ${HOME}/Dropbox/backup/conf/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
+<<<<<<< HEAD
 	ln -vsf ${HOME}/Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
+=======
+	ln -vsf ${HOME}//Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
+>>>>>>> c28ebcf7a7f5c76cc881f0cf105df337112451bc
 	# xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
