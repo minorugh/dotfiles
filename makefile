@@ -40,24 +40,24 @@ gnupg: ## Deploy gnupg (Run after rclone)
 ifeq ($(shell uname -n),x250)
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config-x250 ${HOME}/.ssh/config
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/known_hosts ${HOME}/.ssh/known_hosts
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa ${HOME}/.ssh/id_rsa
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/github_id_rsa ${HOME}/.ssh/github_id_rsa
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/github_id_rsa.pub ${HOME}/.ssh/github_id_rsa.pub
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/config-x250 ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/known_hosts ${HOME}/.ssh/known_hosts
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/github_id_rsa ${HOME}/.ssh/github_id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/github_id_rsa.pub ${HOME}/.ssh/github_id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 else
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config ${HOME}/.ssh/config
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/known_hosts ${HOME}/.ssh/known_hosts
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa ${HOME}/.ssh/id_rsa
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
-	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/config ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/known_hosts ${HOME}/.ssh/known_hosts
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 endif
@@ -76,11 +76,8 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
 	ln -vsf ${HOME}/Dropbox/backup/conf/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
-<<<<<<< HEAD
 	ln -vsf ${HOME}/Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
-=======
-	ln -vsf ${HOME}//Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
->>>>>>> c28ebcf7a7f5c76cc881f0cf105df337112451bc
+	ln -vsf ${HOME}//Dropbox/backup/.config/hub ${HOME}/.config/hub
 	# xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
