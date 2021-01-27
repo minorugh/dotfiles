@@ -76,8 +76,14 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
 	ln -vsf ${HOME}/Dropbox/backup/conf/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
+<<<<<<< HEAD
 	ln -vsf ${HOME}//Dropbox/backup/.config/hub ${HOME}/.config/hub
 # xmodmap ${HOME}/.Xmodmap
+=======
+	ln -vsf ${HOME}/Dropbox/backup/conf/.config/hub ${HOME}/.config/hub
+	ln -vsf ${HOME}//Dropbox/backup/.config/hub ${HOME}/.config/hub
+	# xmodmap ${HOME}/.Xmodmap
+>>>>>>> ccdf73920890c8aafc4920d3681ef367d472f54f
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
