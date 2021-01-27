@@ -77,7 +77,7 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
-	# xmodmap ${HOME}/.Xmodmap
+	xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
