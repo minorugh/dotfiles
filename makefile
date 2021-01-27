@@ -30,7 +30,7 @@
 ## =====================================================================
 ## 1st stage for make allinstall
 
-allinstall: gnupg ssh cica emacsmozc init base install sylpheed cups pipinstall snapinstall
+allinstall: gnupg ssh cica emacsmozc init base install cups pipinstall snapinstall
 
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
