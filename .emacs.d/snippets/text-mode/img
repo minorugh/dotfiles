@@ -1,0 +1,8 @@
+# key: img
+# name: img
+# --
+=photo<
+<img src="%1">
+=photo>
+<br>
+--
