@@ -14,7 +14,9 @@ colors
 # last line (\n) probrem countermeasure
 unsetopt promptcr
 
-HISTFILE=~/.zsh_history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+shopt -u histappend
+HISTFILE=~/Dropbox/backup/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 # ask you if you have over 10000 history
