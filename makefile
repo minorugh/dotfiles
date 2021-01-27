@@ -55,7 +55,7 @@ ifeq ($(shell uname -n),x250)
 ssh-config: ## for x250
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/config.x250 ${HOME}/.ssh/config
 else
-ssh-config: ## for e59
+ssh-config: ## for e590
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/config.e590 ${HOME}/.ssh/config
 endif
 
