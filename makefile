@@ -74,8 +74,8 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.tmuc.conf ${HOME}/.tmux.conf
 	ln -vsf ${PWD}/.Xmodmap ${HOME}/.Xmodmap
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
-	ln -vsf ${HOME}/Dropbox/backup/conf/.gitconfig ${HOME}/.gitconfig
-	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
+	ln -vsf ${HOME}/Dropbox/backup/.conf/.gitconfig ${HOME}/.gitconfig
+	ln -vsf ${HOME}/Dropbox/backup/.conf/.netrc ${HOME}/.netrc
 	ln -vsf ${HOME}/Dropbox/backup/.config/hub ${HOME}/.config/hub
 # xmodmap ${HOME}/.Xmodmap
 
