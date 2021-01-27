@@ -37,6 +37,17 @@ gnupg: ## Deploy gnupg (Run after rclone)
 	mkdir -p ${HOME}/.gnupg
 	ln -vsf ${PWD}/.gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 
+ifeq ($(shell uname -n),x250)
+ssh: ## Init ssh
+	mkdir -p ${HOME}/.ssh
+	ln -vsf ${PWD}/.ssh/config-x250 ${HOME}/.ssh/config
+	ln -vsf ${PWD}/.ssh/known_hosts ${HOME}/.ssh/known_hosts
+	ln -vsf ${PWD}/.ssh/id_rsa ${HOME}/.ssh/id_rsa
+	ln -vsf ${PWD}/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
+	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
+	chmod 600 ${HOME}/.ssh/id_rsa
+	chmod 600 ${HOME}/.ssh/xsrv_rsa
+else
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
 	ln -vsf ${PWD}/.ssh/config ${HOME}/.ssh/config
@@ -46,6 +57,7 @@ ssh: ## Init ssh
 	ln -vsf ${PWD}/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
+endif
 
 cica: ## Initial font cica ricty
 	ln -vsfn ${PWD}/.fonts ${HOME}/.fonts
