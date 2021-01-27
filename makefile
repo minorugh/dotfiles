@@ -39,7 +39,7 @@ gnupg: ## Deploy gnupg (Run after rclone)
 
 ssh: ssh-common ssh-config
 
-ssh-common:
+ssh-common: ## ssh commom files
 	mkdir -p ${HOME}/.ssh
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa ${HOME}/.ssh/id_rsa
