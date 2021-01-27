@@ -37,10 +37,10 @@ gnupg: ## Deploy gnupg (Run after rclone)
 	mkdir -p ${HOME}/.gnupg
 	ln -vsf ${PWD}/.gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 
-ifeq ($(shell uname -n),x250)
-ssh: ## Init ssh
+ssh: ssh-common ssh-config
+
+ssh-common:
 	mkdir -p ${HOME}/.ssh
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/config-x250 ${HOME}/.ssh/config
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/known_hosts ${HOME}/.ssh/known_hosts
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa ${HOME}/.ssh/id_rsa
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
@@ -50,16 +50,13 @@ ssh: ## Init ssh
 	chmod 600 ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
+
+ifeq ($(shell uname -n),x250)
+ssh-config: ## for x250
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/config.x250 ${HOME}/.ssh/config
 else
-ssh: ## Init ssh
-	mkdir -p ${HOME}/.ssh
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/config ${HOME}/.ssh/config
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/known_hosts ${HOME}/.ssh/known_hosts
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa ${HOME}/.ssh/id_rsa
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/id_rsa.pub ${HOME}/.ssh/id_rsa.pub
-	ln -vsf ${HOME}/Dropbox/backup/.ssh/xsrv_rsa ${HOME}/.ssh/xsrv_rsa
-	chmod 600 ${HOME}/.ssh/id_rsa
-	chmod 600 ${HOME}/.ssh/xsrv_rsa
+ssh-config: ## for e59
+	ln -vsf ${HOME}/Dropbox/backup/.ssh/config.e590 ${HOME}/.ssh/config
 endif
 
 cica: ## Initial font cica ricty
