@@ -14,10 +14,9 @@ colors
 # last line (\n) probrem countermeasure
 unsetopt promptcr
 
-HISTFILE=~/Dropbox/backup/zsh/.zsh_history
+HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-setopt share_history
 
 # ask you if you have over 10000 history
 LISTMAX=10000
