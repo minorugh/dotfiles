@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: youtube
-# key: youtube
-# --
-{{< youtube %0 >}}
