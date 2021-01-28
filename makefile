@@ -53,10 +53,10 @@ ssh-common: ## ssh commom files
 
 ## Branch setting of ssh by machine model
 ifeq ($(shell uname -n),x250)
-ssh-config: ## for x250
+ssh-config: ## for sub machine (Thinkpad X250)
 	ln -vsf ${HOME}/Dropbox/conf/.ssh/config.x250 ${HOME}/.ssh/config
 else
-ssh-config: ## for e590
+ssh-config: ## for main machine (Thinkpad E590)
 	ln -vsf ${HOME}/Dropbox/conf/.ssh/config.e590 ${HOME}/.ssh/config
 endif
 
