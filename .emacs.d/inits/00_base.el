@@ -34,32 +34,17 @@
   (add-to-list 'default-frame-alist '(alpha . (1.0 0.9)))
 
   ;; Change the location of the tmp files for maine machine e590
-  (when (string-match "e590" (shell-command-to-string "uname -n"))
-	(setq url-configuration-directory "~/.emacs.d/tmp/e590/url")
-	(setq request-storage-directory "~/.emacs.d/tmp/e590/request")
-	(setq eshell-directory-name "~/.emacs.d/tmp/e590/eshell")
-	(setq bookmark-file "~/.emacs.d/tmp/e590/bookmarks")
-	(setq recentf-save-file "~/.emacs.d/tmp/e590/recentf")
-	(setq tramp-persistency-file-name "~/.emacs.d/tmp/e590/tram")
-	(setq savehist-file "~/.emacs.d/tmp/e590/savehist")
-	(setq save-place-file "~/.emacs.d/tmp/e590/places")
-	(setq undohist-directory "~/.emacs.d/tmp/e590/undohist")
-	(setq transient-history-file "~/.emacs.d/tmp/e590/transient-history")
-	(setq prescient-save-file	"~/.emacs.d/tmp/e590/prescient-save"))
-
-  ;; Change the location of the tmp files for sub machine x250
-  (when (string-match "x250" (shell-command-to-string "uname -n"))
-	(setq url-configuration-directory "~/.emacs.d/tmp/x250/url")
-	(setq request-storage-directory "~/.emacs.d/tmp/x250/request")
-	(setq eshell-directory-name "~/.emacs.d/tmp/x250/eshell")
-	(setq bookmark-file "~/.emacs.d/tmp/x250/bookmarks")
-	(setq recentf-save-file "~/.emacs.d/tmp/x250/recentf")
-	(setq tramp-persistency-file-name "~/.emacs.d/tmp/x250/tram")
-	(setq savehist-file "~/.emacs.d/tmp/x250/savehist")
-	(setq save-place-file "~/.emacs.d/tmp/x250/places")
-	(setq undohist-directory "~/.emacs.d/tmp/x250/undohist")
-	(setq transient-history-file "~/.emacs.d/tmp/x250/transient-history")
-	(setq prescient-save-file	"~/.emacs.d/tmp/x250/prescient-save"))
+  (setq url-configuration-directory "~/.emacs.d/tmp/url")
+  (setq request-storage-directory "~/.emacs.d/tmp/request")
+  (setq eshell-directory-name "~/.emacs.d/tmp/eshell")
+  (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
+  (setq savehist-file "~/.emacs.d/tmp/savehist")
+  (setq save-place-file "~/.emacs.d/tmp/places")
+  (setq undohist-directory "~/.emacs.d/tmp/undohist")
+  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
+  (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
 
   ;; Hack emacs-init-time
   (with-eval-after-load "time"
