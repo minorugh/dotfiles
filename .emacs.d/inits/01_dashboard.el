@@ -1,7 +1,7 @@
 ;;; 01_dashboard.el --- startup screen extracted  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;;(setq debug-on-error t)
+;; (setq debug-on-error t)
 
 (leaf dashboard
   :ensure t
