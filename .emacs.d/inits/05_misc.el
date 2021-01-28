@@ -53,11 +53,11 @@
 
 
 (leaf projectile :ensure t
-  :hook (emacs-startup-hook . projectile-mode)
+  :global-minor-mode t
   :init
-  (setq projectile-known-projects-file "~/Dropbox/emacs/projectile-bookmarks.eld")
+  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld")
   (leaf counsel-projectile :ensure t
-	:hook (emacs-startup-hook . counsel-projectile-mode)))
+	:global-minor-mode t))
 
 
 (leaf yasnippet :ensure t
