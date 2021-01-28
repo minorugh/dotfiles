@@ -66,7 +66,6 @@ cica: ## Initial font cica ricty
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	ln -vsf ${PWD}/.mozc/user_dictionary.db ${HOME}/.mozc/user_dictionary.db
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
@@ -100,8 +99,7 @@ install: ## Install debian linux packages using apt
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
-	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
+	ln -vsf ${HOME}/Dropbox/mozc/.mozc/user_dictionary.db ${HOME}/.mozc/user_dictionary.db
 
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
