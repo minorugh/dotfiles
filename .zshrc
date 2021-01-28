@@ -14,7 +14,7 @@ colors
 # last line (\n) probrem countermeasure
 unsetopt promptcr
 
-HISTFILE=~/.zsh_history
+HISTFILE=~/Dropbox/backup/zsh/history.`uname -n`/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
