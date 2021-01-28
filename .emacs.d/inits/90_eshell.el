@@ -5,7 +5,7 @@
 
 (leaf eshell
   :after popwin
-  :bind* ("s-z" . eshell)
+  :bind* ("C-z" . eshell)
   :init
   (push '("*eshell*" :height 0.6) popwin:special-display-config)
   :config
