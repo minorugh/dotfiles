@@ -51,6 +51,7 @@ ssh-common: ## ssh commom files
 	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 
+## Branch setting of ssh by machine model
 ifeq ($(shell uname -n),x250)
 ssh-config: ## for x250
 	ln -vsf ${HOME}/Dropbox/backup/.ssh/config.x250 ${HOME}/.ssh/config
@@ -75,7 +76,6 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${HOME}/Dropbox/backup/.conf/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${HOME}/Dropbox/backup/.conf/.netrc ${HOME}/.netrc
 	ln -vsf ${HOME}/Dropbox/backup/.config/hub ${HOME}/.config/hub
-# xmodmap ${HOME}/.Xmodmap
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
