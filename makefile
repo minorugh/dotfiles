@@ -99,8 +99,7 @@ install: ## Install debian linux packages using apt
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
-	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${PWD}/mozc/.mozc ${HOME}/.mozc
+	ln -vsf ${PWD}/mozc/.mozc/user_dictionary.db ${HOME}/.mozc/user_dictionary.db
 
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
