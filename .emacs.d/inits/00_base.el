@@ -117,6 +117,7 @@
 	:ensure t
 	:when (memq window-system '(mac ns x))
 	:config
+	(exec-path-from-shell-initialize)
 	(setq exec-path-from-shell-check-startup-files nil))
 
   (leaf browse-at-remote
