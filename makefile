@@ -100,7 +100,7 @@ install: ## Install debian linux packages using apt
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
+	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
 
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
