@@ -150,12 +150,12 @@ perlbrew: ## Install perlbrew
 thunderbird: ## Init thunderbird
 	sudo apt install -y thunderbird
 	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
-	ln -vsfn ${HOME}/Dropbox/backup/conf/thunderbird/.thunderbird ${HOME}/.thunderbird
+	ln -vsfn ${HOME}/Dropbox/backup/thunderbird/.thunderbird ${HOME}/.thunderbird
 
 filezilla:  ## Install filezilla and auto start selected myserver.
 	sudo apt install -y filezilla
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn ${HOME}/Dropbox/backup/conf/filezilla ${HOME}/.config/filezilla
+	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config/filezilla
 ## edit start command: 'filezilla -s'
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
