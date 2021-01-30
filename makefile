@@ -147,6 +147,11 @@ perlbrew: ## Install perlbrew
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
 
+thunderbird: ## Init thunderbird
+	sudo apt install -y thunderbird
+	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
+	ln -vsfn ${HOME}/Dropbox/backup/tunderbird/.thunderbird ${HOME}/.thunderbird
+
 filezilla:  ## Install filezilla and auto start selected myserver.
 	sudo apt install -y filezilla
 ## edit start command: 'filezilla -s'
