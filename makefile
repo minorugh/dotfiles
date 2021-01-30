@@ -154,6 +154,7 @@ thunderbird: ## Init thunderbird
 
 filezilla:  ## Install filezilla and auto start selected myserver.
 	sudo apt install -y filezilla
+	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn ${HOME}/Dropbox/backup/conf/filezilla ${HOME}/.config/filezilla
 ## edit start command: 'filezilla -s'
 
