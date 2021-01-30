@@ -155,14 +155,14 @@ thunderbird: ## Init thunderbird
 filezilla:  ## Install filezilla and auto start selected myserver.
 	sudo apt install -y filezilla
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn ${PWD}/.config/filezilla ${HOME}/.config/filezilla
+	ln -vsfn ${HIME}/Dropbox/backup/conf/filezilla ${HOME}/.config/filezilla
 ## edit start command: 'filezilla -s'
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	sudo apt install -y keepassxc
 	sudo apt install -y libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
-	ln -vsfn ${PWD}/.config/keepassxc ${HOME}/.config/keepassxc
+	ln -vsfn ${HOME}/Dropbox/backup/conf/keepassxc ${HOME}/.config/keepassxc
 # secret-tool store --label "KeePassXC master password" type kbd ## asked for a password, so enter 'gospel'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
