@@ -30,10 +30,10 @@
   (interactive)
   (find-file "~/Dropbox/xsrv/"))
 
-(defun my:wegh-dir ()
+(defun my:web-dir ()
   "Open Web dir."
   (interactive)
-  (find-file "~/Dropbox/wegh/"))
+  (find-file "~/src/github.com/minorugh/web/"))
 
 (defun my:emacs-dir ()
   "Open .emacs.d dir."
