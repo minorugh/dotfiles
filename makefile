@@ -163,7 +163,10 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 	sudo apt install -y libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn ${HOME}/Dropbox/backup/conf/keepassxc ${HOME}/.config/keepassxc
-# secret-tool store --label "KeePassXC master password" type kbd ## asked for a password, so enter 'gospel'
+## select-tool setup
+## | $ sudo secret-tool store --label "KeePassXC master password" type kbd
+## asked for a password so enter
+## popup panel for passward input so input 'gospel'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
 ### Copy favorite wallpaper to the user picture folder
