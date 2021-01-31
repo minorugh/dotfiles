@@ -76,7 +76,6 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
-	ln -vsfn ${PWD}/.local/share/keyrings ${HOME}/.local/share/keyrings  ## password and key
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf  ## auto-login
 
 base: ## Install base and base-devel package
