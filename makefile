@@ -79,6 +79,7 @@ init: ## Initial deploy dotfiles
 	ln -vsfn ${PWD}/.config/xfce4 ${HOME}/.config/xfce4
 	ln -vsfn ${PWD}/.local/share/keyrings ${HOME}/.local/share/keyrings  ## password and key
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf  ## auto-login
+	sudo ln -vsf ${PWD}/etc/hosts /etc/hosts
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
