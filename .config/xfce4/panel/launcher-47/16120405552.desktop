@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Name=Display
+Name[ja]=ディスプレイ
+Comment=Configure screen settings and layout
+Comment[ja]=画面の解像度とレイアウトを設定します
+Exec=xfce4-display-settings
+Icon=video-display
+Terminal=false
+Type=Application
+Categories=XFCE;GTK;Settings;DesktopSettings;X-XFCE-SettingsDialog;X-XFCE-HardwareSettings;
+StartupNotify=true
+OnlyShowIn=XFCE;
+X-XfcePluggable=true
+X-XfceHelpPage=display
+X-XFCE-Source=file:///usr/share/applications/xfce-display-settings.desktop
