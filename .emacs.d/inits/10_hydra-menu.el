@@ -40,7 +40,7 @@
    ("f" flymake-goto-next-error)
    ("u" undo-tree-visualize)
    (";" hydra-work/body)
-   ("w" my:wegh-dir)
+   ("w" my:web-dir)
    ("/" kill-other-buffers)
    ("_" delete-other-windows)
    ("[" hydra-magit/body)
