@@ -34,9 +34,22 @@
   (bind-key "C-c c" 'org-capture)
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
-  (setq org-agenda-span 10)
   (setq org-src-fontify-natively t)
+  ;; Agenda Settings
   (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
+  (setq org-agenda-span 30)
+  (defadvice org-agenda (around org-agenda-fullscreen activate)
+    "Agenda open fullscreen."
+    (interactive)
+    (window-configuration-to-register :org-agenda-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+  (defadvice org-agenda-quit (around org-agenda-quit-fullscreen activate)
+    "Agenda quit fullscreen."
+    (interactive)
+    ad-do-it
+    (jump-to-register :org-agenda-fullscreen))
+  ;; Caputure Settings
   (setq org-capture-templates
 		'(("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "Task")
 		   "** TODO %?\n SCHEDULED: %^t \n" :prepend t)
@@ -50,6 +63,7 @@
 		   "# emacs: %?\n%U %i\n\n```emacs-lisp\n%i\n```")
 		  ("l" "★ Linux" plain (file my:howm-create-file)
 		   "# linux: %?\n%U %i")))
+
   :init
   ;; Maximize the org-capture buffer
   (defvar my:org-capture-before-config nil
