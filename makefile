@@ -110,17 +110,6 @@ cups: ## Install cups & lpr
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
 	pip3 install recommonmark
-
-snapinstall: ## Install snap packages
-	sudo apt install -y snapd
-	sudo snap install lepton spotify
-
-albert:## Install albert
-	echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
-	curl -fsSL https://download.opensuse.org/repositories/home:manuelschneid3r/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg > /dev/null
-	sudo apt update
-	sudo apt install albert
-
 ## =====================================================================
 ## next stage for make step by step
 
@@ -148,8 +137,22 @@ perlbrew: ## Install perlbrew
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
 
+snapinstall: ## Install snap packages
+	sudo apt install -y snapd
+	sudo snap install lepton spotify
+
+albert: ## Install albert
+	cd ${HOME}/Downloads;\
+	echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
+	curl -fsSL https://download.opensuse.org/repositories/home:manuelschneid3r/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg > /dev/null
+	sudo apt update
+	sudo apt install albert
+	cd ${HOME}/src/github.com/minorugh/dotfiles;\
+	ln -vsf ${PWD}/.config/albert/albert.conf ${HOME}/.config/albert/albert.conf
+
 zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
 	cd ${HOME}/Downloads;\
+	wget https://zoom.us/client/latest/zoom_amd64.deb
 	sudo apt install ./zoom_amd64.deb ## in Downloas folder
 	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
