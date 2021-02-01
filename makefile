@@ -30,7 +30,7 @@
 ## =====================================================================
 ## 1st stage for make allinstall
 
-allinstall: gnupg ssh base install keyring tlp cica emacsmozc cups pipinstall snapinstall
+allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
 
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
@@ -169,11 +169,6 @@ zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
 	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
-thunderbird: ## Init thunderbird
-	sudo apt install -y thunderbird
-	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
-	ln -vsfn ${HOME}/Dropbox/backup/thunderbird/.thunderbird ${HOME}/.thunderbird
-
 filezilla:  ## Install filezilla and auto start selected myserver.
 	sudo apt install -y filezilla
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
@@ -190,6 +185,12 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 ## asked for a password so enter
 ## popup panel for passward input so input 'gospel'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
+
+sylpheed: ## Init sylpheed
+	sudo apt install -y sylpheed
+	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
+	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
+
 
 ### Copy favorite wallpaper to the user picture folder
 wallpaper:
