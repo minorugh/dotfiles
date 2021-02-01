@@ -148,8 +148,10 @@ perlbrew: ## Install perlbrew
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
 
-zoom: ## Download DEB from https://zoom.us/download?os=linux
-	sudo apt install .zoom_amd64.deb ## in Downloas folder
+zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
+	cd ${HOME}/Downloads;\
+	sudo apt install ./zoom_amd64.deb ## in Downloas folder
+	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
 thunderbird: ## Init thunderbird
