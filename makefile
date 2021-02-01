@@ -37,7 +37,7 @@ gnupg: ## Deploy gnupg (Run after rclone)
 	mkdir -p ${HOME}/.gnupg
 	ln -vsf ${PWD}/.gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 
-ssh: ssh-common ssh-config
+ssh: ssh-common thinkpad
 
 ssh-common: ## ssh commom files
 	mkdir -p ${HOME}/.ssh
@@ -51,13 +51,17 @@ ssh-common: ## ssh commom files
 	chmod 600 ${HOME}/.ssh/github_id_rsa
 	chmod 600 ${HOME}/.ssh/xsrv_rsa
 
-## Branch setting of ssh by machine model
+## Branch setting by machine model
 ifeq ($(shell uname -n),x250)
-ssh-config: ## for sub machine (Thinkpad X250)
+thinkpad: ## for sub machine (Thinkpad X250)
 	ln -vsf ${PWD}/.ssh/config.x250 ${HOME}/.ssh/config
+	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
+	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.x250 ${HOME}/.config/xfce4
 else
-ssh-config: ## for main machine (Thinkpad E590)
+thinkpad: ## for main machine (Thinkpad E590)
 	ln -vsf ${PWD}/.ssh/config.e590 ${HOME}/.ssh/config
+	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
+	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.e590 ${HOME}/.config/xfce4
 endif
 
 cica: ## Initial font cica ricty
