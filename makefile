@@ -30,7 +30,7 @@
 ## =====================================================================
 ## 1st stage for make allinstall
 
-allinstall: gnupg ssh cica emacsmozc init base install cups pipinstall snapinstall
+allinstall: gnupg ssh base install keyring tlp cica emacsmozc cups pipinstall snapinstall
 
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
@@ -104,12 +104,27 @@ emacsmozc: ## Install emacs mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
 
+tlp: ## Setting for power saving and preventing battery deterioration
+	sudo apt install -y tlp tlp-rdw powertop
+	sudo ln -vsf ${PWD}/etc/default/tlp /etc/default/tlp
+	sudo tlp start
+
+keyring: ## Init gnome keyrings
+	sudo apt install -y seahorse
+	mkdir -p ${HOME}/.local/share
+	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
+	ln -vsfn ${HOME}/Dropbox/backup/conf/keyrings ${HOME}/.local/share/keyrings
+
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
 
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
 	pip3 install recommonmark
+
+snapinstall: ## Install snap packages
+	sudo apt install -y snapd
+	sudo snap install lepton spotify
 
 ## =====================================================================
 ## next stage for make step by step
@@ -137,10 +152,6 @@ perlbrew: ## Install perlbrew
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
-
-snapinstall: ## Install snap packages
-	sudo apt install -y snapd
-	sudo snap install lepton spotify
 
 albert: ## Install albert
 	cd ${HOME}/Downloads;\
