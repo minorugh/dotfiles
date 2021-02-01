@@ -75,7 +75,6 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
 	ln -vsf ${PWD}/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
-	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf  ## auto-login
 
 base: ## Install base and base-devel package
@@ -98,7 +97,7 @@ install: ## Install debian linux packages using apt
 	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
-	menulibre pwgen seahorse
+	menulibre pwgen
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
@@ -148,6 +147,10 @@ perlbrew: ## Install perlbrew
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
+
+zoom: ## Download DEB from https://zoom.us/download?os=linux
+	sudo apt install .zoom_amd64.deb ## in Downloas folder
+	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
 thunderbird: ## Init thunderbird
 	sudo apt install -y thunderbird
