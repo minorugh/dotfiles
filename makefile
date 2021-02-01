@@ -110,6 +110,7 @@ cups: ## Install cups & lpr
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
 	pip3 install recommonmark
+
 ## =====================================================================
 ## next stage for make step by step
 
