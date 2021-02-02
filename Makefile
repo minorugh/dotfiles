@@ -204,12 +204,6 @@ sxiv: ## Init sxiv
 	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/sxiv/exec/image-info
 	chmod +x ${HOME}/.config/sxiv/exec/image-info
 
-zeal: ## Deploy zeal config and docsets
-	sudo apt install -y zeal qt5-style-plugins qt5ct
-	sudo ln -vsf ${PWD}/etc/environment /etc/environment
-	mkdir -p ${HOME}/.config/Zeal
-	ln -vsf ${PWD}/.config/Zeal/Zeal.conf ${HOME}/.config/Zeal/Zeal.conf
-
 wallpaper: ## Copy favorite wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
 
@@ -226,7 +220,7 @@ emacs-devel: ## Install development version of emacs
 
 allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
 
-nextinstall: albert zoom filezilla keepassxc sylpheed sxiv zeal wallpaper
+nextinstall: albert zoom filezilla keepassxc sylpheed sxiv wallpaper
 
 
 
