@@ -198,6 +198,18 @@ sylpheed: ## Init sylpheed
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
+sxiv: ## Init sxiv
+	sudo apt install -y sxiv
+	mkdir -p ${HOME}/.config/sxiv/exec
+	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/sxiv/exec/image-info
+	chmod +x ${HOME}/.config/sxiv/exec/image-info
+
+zeal: ## Deploy zeal config and docsets
+	sudo apt install -y zeal qt5-style-plugins qt5ct
+	sudo ln -vsf ${PWD}/etc/environment /etc/environment
+	mkdir -p ${HOME}/.config/Zeal
+	ln -vsf ${PWD}/.config/Zeal/Zeal.conf ${HOME}/.config/Zeal/Zeal.conf
+
 ### Copy favorite wallpaper to the user picture folder
 wallpaper:
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
