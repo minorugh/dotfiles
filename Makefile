@@ -129,7 +129,7 @@ pipinstall: ## Install python packages
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
 	sudo snap install lepton spotify
-	sudo ln -vsf /var/lib/snapd/desktop/applications/Spotify ${HOME}/.local/share/applications/Spotify
+	# sudo ln -vsf /var/lib/snapd/desktop/applications/Spotify ${HOME}/.local/share/applications/Spotify
 
 ## =====================================================================
 ## next stage for make step by step
