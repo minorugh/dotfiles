@@ -128,7 +128,7 @@ pipinstall: ## Install python packages
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install lepton spotify
+	sudo snap install lepton
 
 ## =====================================================================
 ## next stage for make step by step
@@ -194,7 +194,6 @@ sylpheed: ## Init sylpheed
 	sudo apt install -y sylpheed
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
-
 
 ### Copy favorite wallpaper to the user picture folder
 wallpaper:
