@@ -116,7 +116,7 @@
 		(setq toggle-scratch-prev-buffer (buffer-name))
 		(switch-to-buffer "*scratch*"))
 	(switch-to-buffer toggle-scratch-prev-buffer)))
-(bind-key "s-s" 'toggle-scratch)
+(bind-key "S-<return>" 'toggle-scratch)
 
 (defun filer-current-dir-open ()
   "Open filer in current dir."
