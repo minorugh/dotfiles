@@ -128,7 +128,7 @@ pipinstall: ## Install python packages
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install lepton
+	sudo snap install lepton spotify
 
 ## =====================================================================
 ## next stage for make step by step
