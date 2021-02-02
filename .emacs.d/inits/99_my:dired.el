@@ -13,7 +13,6 @@
   "Open root dir."
   (interactive)
   (find-file "/"))
-(bind-key  "S-<return>" 'my:root-dir)
 
 (defun my:home-dir ()
   "Open home dir."
