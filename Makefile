@@ -176,17 +176,17 @@ zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
 	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
-filezilla:  ## Install filezilla and auto start selected myserver.
+filezilla:  ## Install filezilla and set "Filezilla -s" to start selected myserver
 	sudo apt install -y filezilla
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn ${HOME}/Dropbox/backup/conf/filezilla ${HOME}/.config/filezilla
-## edit start command: 'filezilla -s'
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	sudo apt install -y keepassxc
 	sudo apt install -y libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn ${HOME}/Dropbox/backup/conf/keepassxc ${HOME}/.config/keepassxc
+
 ## select-tool setup
 ## | $ sudo secret-tool store --label "KeePassXC master password" type kbd
 ## asked for a password so enter
@@ -210,8 +210,7 @@ zeal: ## Deploy zeal config and docsets
 	mkdir -p ${HOME}/.config/Zeal
 	ln -vsf ${PWD}/.config/Zeal/Zeal.conf ${HOME}/.config/Zeal/Zeal.conf
 
-### Copy favorite wallpaper to the user picture folder
-wallpaper:
+wallpaper: ## Copy favorite wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
 
 emacs-devel: ## Install development version of emacs
@@ -231,4 +230,4 @@ help:
 
 .DEFAULT_GOAL := help
 
-# update 2021.1.31
+# update 2021.2.2
