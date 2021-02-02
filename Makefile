@@ -30,8 +30,6 @@
 ## =====================================================================
 ## 1st stage for make allinstall
 
-allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
-
 gnupg: ## Deploy gnupg (Run after rclone)
 	sudo apt install -y git-crypt gnupg
 	mkdir -p ${HOME}/.gnupg
@@ -137,6 +135,7 @@ snapinstall: ## Install snap packages
 ## next stage for make step by step
 
 texlive: ## Install tevlive full
+	cd ${HOME}/Downloads;\
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz
 	cd install-tl*
@@ -154,6 +153,7 @@ dvpd: ## Symbolic for dvpd.sh
 	sudo chmod +x /usr/local/bin/dvpd.sh
 
 perlbrew: ## Install perlbrew
+	cd ${HOME}/Downloads;\
 	curl -L http://install.perlbrew.pl | bash
 	perlbrew install 5.30.3
 	perlbrew switch 5.30.3
@@ -222,6 +222,13 @@ emacs-devel: ## Install development version of emacs
 	make;\
 	sudo make install;\
 	rm -rf ${HOME}/.emacs.d/elpa
+
+
+allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
+
+nextinstall: albert zoom filezilla keepassxc sylpheed sxiv zeal wallpaper
+
+
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
