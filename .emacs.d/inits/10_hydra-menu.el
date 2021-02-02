@@ -41,7 +41,7 @@
    ("u" undo-tree-visualize)
    (";" hydra-work/body)
    ("w" my:web-dir)
-   ("/" kill-other-buffers)
+   ("/" my:root-dir)
    ("_" delete-other-windows)
    ("[" hydra-magit/body)
    ("]" magit-status)
