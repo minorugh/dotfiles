@@ -169,12 +169,6 @@ albert: ## Install albert
 	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/albert/albert.conf ${HOME}/.config/albert/albert.conf
 
-google-earth:
-	cd ${HOME}/Downloads;\
-	wget https://www.google.co.jp/earth/download/thanks.html#os=linux#version=pro#linux_dl=deb_64
-	cd ${HOME}/Downloads;\
-	sudo apt install ./google-earth-pro-stable_current_amd64.deb
-
 zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
 	cd ${HOME}/Downloads;\
 	wget https://zoom.us/client/latest/zoom_amd64.deb
