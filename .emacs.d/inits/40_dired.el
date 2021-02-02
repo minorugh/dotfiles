@@ -18,6 +18,7 @@
   (bind-key "a" 'toggle-dired-listing-switches dired-mode-map)
   (bind-key "q" 'dired-dwim-quit-window dired-mode-map)
   (bind-key "t" 'counsel-tramp dired-mode-map)
+  (bind-key "x" 'call-sxiv dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
   (bind-key "<" 'beginning-of-buffer dired-mode-map)
@@ -118,7 +119,43 @@
 	"Dired unmark all."
 	(interactive)
 	(call-interactively 'dired-unmark-all-marks)
-	(call-interactively 'revert-buffer)))
+	(call-interactively 'revert-buffer))
+
+  (defun call-sxiv ()
+	"Call sxiv for all imags in current dir."
+	(interactive)
+	(let ((image-files ;; List of image file names
+		   (delq nil   ;; Is this area replaced with a filter macro around emacs26?
+				 (mapcar
+				  (lambda (f)
+					(when (string-match
+						   "\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"
+						   f )
+					  f ))
+				  (directory-files default-directory) )))) ;; List of filenames in the current directory
+	  (start-process-shell-command ;; Asynchronous execution of shell commands
+	   "sxiv"
+	   nil	;; Do not open buffer for process
+	   (format "sxiv -f -n %s %s"
+			   (length image-files) ;; Number of image files = last image file
+			   (mapconcat 'identity image-files " ") )))) ;; Concatenate lists separated by spaces
+
+  ;; <enter> イメージモード と サムネールモード を切り替え
+
+  ;; サムネールモードで左ダブルクリック　→　イメージモードへ
+  ;; イメージモードで右クリック　→　サムネールモードへ
+
+  ;; イメージモード
+  ;; <n> 	n 	次の画像を表示する 	<space>
+  ;; <n> 	p 	前の画像を表示する 	<backspace>
+  ;; g 	最初のイメージへジャンプする
+  ;; <n> 	G 	最後のイメージ あるいは <n>番めのイメージへジャンプする
+  ;; + 	ズームイン
+  ;; - 	ズームアウト
+  ;; <n> 	= 	100％ あるいは <n>％ の大きさにする
+  ;; W 	ウィンドウの大きさに合わせる
+  ;; q 	終了
+  )
 
 
 ;; Local Variables:
