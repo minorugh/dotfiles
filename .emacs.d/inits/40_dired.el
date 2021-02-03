@@ -20,6 +20,7 @@
   (bind-key "t" 'counsel-tramp dired-mode-map)
   (bind-key "i" 'call-sxiv dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
+  (bind-key "S" 'mousepad-sudo-open dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
   (bind-key "<" 'beginning-of-buffer dired-mode-map)
   (bind-key ">" 'end-of-buffer dired-mode-map)
