@@ -275,7 +275,7 @@ curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.gi
 
 # create howm memo with vim
 function memo () {
-echo "# memo: 
+echo "# memo:
 [`date '+%Y-%m-%d %a %H:%M'`]" > ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 chmod 755 ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
@@ -521,8 +521,8 @@ function blog-jpg() {
     if [ $# = 1 ]; then
 	fname_ext=$1
 	fname="${fname_ext%.*}"
-	convert $1 -resize 600x zzz_${fname}.jpg
-	rm -rf $1
+	convert $1 -resize 600x blog_${fname}.jpg
+	# rm -rf $1
     else
 	echo 'usage: blog-jpg sample.jpg'
     fi
