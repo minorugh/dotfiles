@@ -18,7 +18,7 @@
   (bind-key "a" 'toggle-dired-listing-switches dired-mode-map)
   (bind-key "q" 'dired-dwim-quit-window dired-mode-map)
   (bind-key "t" 'counsel-tramp dired-mode-map)
-  (bind-key "x" 'call-sxiv dired-mode-map)
+  (bind-key "i" 'call-sxiv dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
   (bind-key "<" 'beginning-of-buffer dired-mode-map)
