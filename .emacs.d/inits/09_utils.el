@@ -124,7 +124,6 @@
   (compile (concat "nautilus " default-directory)))
 (bind-key "<f3>" 'filer-current-dir-open)
 
-
 (defun term-current-dir-open ()
   "Open terminal application in current dir."
   (interactive)
