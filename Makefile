@@ -95,7 +95,7 @@ base: ## Install base and base-devel package
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gwenview \
-	ruby gedit gnome-terminal nautilus xclip vim tmux unrar zsh autokey-gtk \
+	ruby gnome-terminal nautilus xclip vim tmux unrar zsh autokey-gtk \
 	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
