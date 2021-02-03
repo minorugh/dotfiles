@@ -529,6 +529,13 @@ function blog-jpg() {
 }
 
 
+# Resize all in directory
+function resize() {
+	mkdir resize
+	mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
+}
+
+
 function optimize-png() {
     if [ $# = 1 ]; then
 	fname_ext=$1
