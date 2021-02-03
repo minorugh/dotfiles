@@ -131,7 +131,6 @@
 	(compile (concat "gnome-terminal --working-directory " dir))))
 (bind-key "<f4>" 'term-current-dir-open)
 
-
 (defun my:delete-file-if-no-contents ()
   "Automatic deletion for empty files (Valid in all modes)."
   (when (and (buffer-file-name (current-buffer))
