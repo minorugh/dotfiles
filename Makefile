@@ -127,9 +127,10 @@ pipinstall: ## Install python packages
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
 	sudo snap install core
-	sudo snap install lepton spotify
+	sudo snap install lepton spotify snap-store
 	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
 	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
+	sudo ln -vsf /var/lib/snapd/desktop/applications/snap-store_snap-store.desktop ${HOME}/.local/share/applications/snap-store_snap-store.desktop
 
 ## =====================================================================
 ## next stage for make step by step
