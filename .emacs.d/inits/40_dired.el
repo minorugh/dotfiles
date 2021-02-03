@@ -20,6 +20,7 @@
   (bind-key "t" 'counsel-tramp dired-mode-map)
   (bind-key "i" 'call-sxiv dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
+  (bind-key "S" 'mousepad-sudo-open dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
   (bind-key "<" 'beginning-of-buffer dired-mode-map)
   (bind-key ">" 'end-of-buffer dired-mode-map)
@@ -105,6 +106,12 @@
       ;; use wsl-utils:https://github.com/smzht/wsl-utils
       (when (getenv "WSLENV")
 		(call-process "wslstart" nil 0 nil file))))
+
+  (defun mousepad-sudo-open ()
+	"Open filer in current dir."
+	(interactive)
+	(let ((file (dired-get-filename)))
+	  (compile (concat "sudo mousepad " file))))
 
   (defun my:dired-toggle-mark (arg)
     "Toggle the current next files."
