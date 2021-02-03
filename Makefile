@@ -208,6 +208,18 @@ sxiv: ## Init sxiv
 wallpaper: ## Copy favorite wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
 
+google-erath: ## install google erath
+# Download deb file for debian from the url below
+# https://www.google.co.jp/earth/download/gep/agree.html
+	cd ${HOME}/Downloads;\
+	sudo apt install ./google-erath-pro-stable_current_amd64.deb
+
+edge: ## install microsoft edge
+# Download deb file for debian from the url below
+# https://www.microsoftedgeinsider.com/ja-jp/
+	cd ${HOME}/Downloads;\
+	sudo dpkg -i microsoft-edge-*.deb
+
 emacs-devel: ## Install development version of emacs
 	cd ${HOME}/src;\
 	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git;\
