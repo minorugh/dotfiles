@@ -521,7 +521,7 @@ function blog-jpg() {
     if [ $# = 1 ]; then
 	fname_ext=$1
 	fname="${fname_ext%.*}"
-	convert $1 -resize 600x blog_${fname}.jpg
+	convert $1 -resize 600x re_${fname}.jpg
 	# rm -rf $1
     else
 	echo 'usage: blog-jpg sample.jpg'
@@ -530,7 +530,7 @@ function blog-jpg() {
 
 
 # Resize all in directory
-function resize() {
+function resize-all() {
 	mkdir resize
 	mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
 }
