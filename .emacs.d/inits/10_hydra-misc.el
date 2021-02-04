@@ -49,7 +49,7 @@
    (":" (browse-url "http://blog.wegh.net/"))
    ("e" (browse-url "http://essay.wegh.net/"))
    ("b" (browse-url "https://minorugh.xsrv.jp/"))
-   ("s" (browse-url "http://www.sanyo-bus.co.jp/pdf/20200401tarusan_schedule.pdf"))
+   ("s" (browse-url "http://www.sanyo-bus.co.jp/pdf/20201124tarusan_schedule.pdf"))
    ("i" (browse-url "https://www.instagram.com/"))
    ("j" (browse-url "https://www.jorudan.co.jp/"))
    ("n" (browse-url "https://news.yahoo.co.jp/"))
