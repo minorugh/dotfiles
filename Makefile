@@ -99,7 +99,7 @@ install: ## Install debian linux packages using apt
 	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
-	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi korganizer
+	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 
 emacsmozc: ## Install emacs mozc
 	sudo apt install -y fcitx-mozc emacs-mozc
