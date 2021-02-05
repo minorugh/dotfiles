@@ -10,9 +10,9 @@
    (:hint nil :exit t)
    "
   🐳 Quick Menu
-  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------------------------------------------
-   _d_ropbox   _e_macs.d^^   _i_nits   _x_srv.jp^^^^   GH:_h_   _<home>_   howm_,_list_@_   _g_ithub   _r_estart   _m_arkdown   _u_ndotree   root:_/_
-   init_l_og   git:_[_._]_   _t_ramp   _y_as:_n_:_v_   _a_g🐾   _f_lyERR   _s_earch-web^^   make:_k_   _c_ompile   _o_pen-url   dotfiles_._  memo:_,_"
+  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown  _u_ndotree  root:_/_  _p_inky
+  init_l_og  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url  dotfiles_._ memo:_,_  _z_shrc"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
    ("t" counsel-tramp)
@@ -42,10 +42,12 @@
    (";" hydra-work/body)
    ("w" my:web-dir)
    ("/" my:root-dir)
+   ("p" hydra-pinky/body)
    ("_" delete-other-windows)
    ("[" hydra-magit/body)
    ("]" magit-status)
    ("l" init-loader-show-log)
+   ("z" my:edit-zshrc)
    ("." my:dotfiles-dir)
    ("M-." hydra-work/body)
    ("<henkan>" hydra-work/body)
@@ -108,6 +110,12 @@
     "Narrow the only counsel-command in M-x."
     (interactive)
     (counsel-M-x "^ps-print "))
+
+  (defun my:edit-zshrc ()
+    "Edit zshrc file."
+    (interactive)
+    (find-file "~/.zshrc")
+	(goto-char (point-min)))
 
   (defun ftp-client ()
     "Open Ftp application."
