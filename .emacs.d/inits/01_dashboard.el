@@ -54,7 +54,7 @@
 	(interactive)
 	(insert (if (display-graphic-p)
 				(all-the-icons-faicon "google" :height 1.2 :v-adjust -0.05 :face 'dashboard-heading) " "))
-	(insert "  📖 Bible: (b)    Calendar: (c)   ⛅ Weather: (w)   📰 News: (n)    Mail: (m)    Twitter: (t)    Pocket: (p)    Slack: (s)    GH: (h) "))
+	(insert "   GH: (h)    Calendar: (c)   ⛅ Weather: (w)   📰 News: (n)    Mail: (m)    Twitter: (t)    Pocket: (p)    Slack: (s) "))
 
   (defvar dashboard-recover-layout-p nil
 	"Wether recovers the layout.")
