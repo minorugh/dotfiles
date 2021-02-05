@@ -67,6 +67,11 @@
   (interactive)
   (browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/"))
 
+(defun chromium-bible ()
+  "Open slack with chrome."
+  (interactive)
+  (browse-url "https://j-bible.jimdofree.com/"))
+
 
 ;; Local Variables:
 ;; no-byte-compile: t

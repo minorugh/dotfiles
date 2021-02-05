@@ -9,6 +9,7 @@
   :config
   (with-eval-after-load 'dashboard
     (bind-key "<home>" 'open-dashboard)
+    (bind-key "b" 'chromium-bible dashboard-mode-map)
     (bind-key "c" 'chromium-calendar dashboard-mode-map)
     (bind-key "w" 'chromium-weather dashboard-mode-map)
     (bind-key "n" 'chromium-google-news dashboard-mode-map)
@@ -53,7 +54,7 @@
 	(interactive)
 	(insert (if (display-graphic-p)
 				(all-the-icons-faicon "google" :height 1.2 :v-adjust -0.05 :face 'dashboard-heading) " "))
-	(insert "    Calendar: (c)  ⛅ Weather: (w)   📰 News: (n)    Mail: (m)    Twitter: (t)    Pocket: (p)    Slack: (s)    GH: (h) "))
+	(insert "  📖 Bible: (b)    Calendar: (c)   ⛅ Weather: (w)   📰 News: (n)    Mail: (m)    Twitter: (t)    Pocket: (p)    Slack: (s)    GH: (h) "))
 
   (defvar dashboard-recover-layout-p nil
 	"Wether recovers the layout.")
