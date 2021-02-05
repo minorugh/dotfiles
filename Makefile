@@ -68,10 +68,11 @@ cica: ## Initial font cica ricty
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
+	ln -vsf ${PWD}/.zprofile ${HOME}/.zprofile
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
-	ln -vsf ${PWD}/.tmuc.conf ${HOME}/.tmux.conf
+	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
 	ln -vsf ${PWD}/.Xmodmap ${HOME}/.Xmodmap
 	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
 	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
