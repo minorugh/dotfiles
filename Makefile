@@ -139,6 +139,15 @@ snapinstall: ## Install snap packages
 	sudo ln -vsf /var/lib/snapd/desktop/applications/snap-store_snap-store.desktop ${HOME}/.local/share/applications/snap-store_snap-store.desktop
 	sudo ln -vsf /var/lib/snapd/desktop/applications/simplescreenrecorder-brlin_simplescreenrecorder-brlin.desktop ${HOME}/.local/share/applications/simplescreenrecorder-brlin_simplescreenrecorder-brlin.desktop
 
+flatpak: ## Install flatpak package
+	sudo apt install -y flatpak gnome-software-plugin-flatpak
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	sudo reboot
+
+gimpse: ## Install Glimpse from flatpak
+	flatpak install flathub org.glimpse_editor.Glimpse
+
+
 ## =====================================================================
 ## next stage for make step by step
 
