@@ -121,10 +121,10 @@ keyring: ## Init gnome keyrings
 cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
 	test -L /etc/cups/ppp || rm -rf /etc/cups/ppp
-	ln -vsfn ${PWD}/Dropbox/backup/cups/ppp /etc/cups/ppp
-	ln -vsf ${PW}/etc/cups/cups-files.conf /etc/cups/cups-files.conf
-	ln -vsf ${PWD}/etc/cups/cupsd.conf /etc/cups/cupsd.conf
-	ln -vsf ${PWD}/etc/cups/printers.conf /etc/cups/printers.conf
+	sudo ln -vsfn ${PWD}/Dropbox/backup/cups/ppp /etc/cups/ppp
+	sudo ln -vsf ${PW}/etc/cups/cups-files.conf /etc/cups/cups-files.conf
+	sudo ln -vsf ${PWD}/etc/cups/cupsd.conf /etc/cups/cupsd.conf
+	sudo ln -vsf ${PWD}/etc/cups/printers.conf /etc/cups/printers.conf
 
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
@@ -132,12 +132,9 @@ pipinstall: ## Install python packages
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install core
-	sudo snap install lepton spotify snap-store simplescreenrecorder-brlin
+	sudo snap install lepton spotify
 	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
 	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
-	sudo ln -vsf /var/lib/snapd/desktop/applications/snap-store_snap-store.desktop ${HOME}/.local/share/applications/snap-store_snap-store.desktop
-	sudo ln -vsf /var/lib/snapd/desktop/applications/simplescreenrecorder-brlin_simplescreenrecorder-brlin.desktop ${HOME}/.local/share/applications/simplescreenrecorder-brlin_simplescreenrecorder-brlin.desktop
 
 flatpak: ## Install flatpak package
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
