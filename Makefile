@@ -96,7 +96,7 @@ base: ## Install base and base-devel package
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gwenview \
-	ruby gnome-terminal nautilus xclip vim tmux unrar zsh autokey-gtk \
+	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
 	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
@@ -144,6 +144,10 @@ flatpak: ## Install flatpak package
 gimpse: ## Install Glimpse from flatpak
 	flatpak install flathub org.glimpse_editor.Glimpse
 
+frogr:
+	flatpak install --from \
+    https://flathub.org/repo/appstream/org.gnome.frogr.flatpakref
+	flatpak update org.gnome.frogr
 
 ## =====================================================================
 ## next stage for make step by step
