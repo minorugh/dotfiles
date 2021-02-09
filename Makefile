@@ -144,10 +144,6 @@ flatpak: ## Install flatpak package
 gimpse: ## Install Glimpse from flatpak
 	flatpak install flathub org.glimpse_editor.Glimpse
 
-frogr:
-	flatpak install --from \
-    https://flathub.org/repo/appstream/org.gnome.frogr.flatpakref
-	flatpak update org.gnome.frogr
 
 ## =====================================================================
 ## next stage for make step by step
