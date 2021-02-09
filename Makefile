@@ -53,11 +53,13 @@ ssh-common: ## ssh commom files
 ifeq ($(shell uname -n),x250)
 thinkpad: ## for sub machine (Thinkpad X250)
 	ln -vsf ${PWD}/.ssh/config.x250 ${HOME}/.ssh/config
+	ln -vsf ${PWD}/.zprofile.x250 ${HOME}/.zprofile
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.x250 ${HOME}/.config/xfce4
 else
 thinkpad: ## for main machine (Thinkpad E590)
 	ln -vsf ${PWD}/.ssh/config.e590 ${HOME}/.ssh/config
+	ln -vsf ${PWD}/.zprofile ${HOME}/.zprofile
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.e590 ${HOME}/.config/xfce4
 endif
@@ -68,7 +70,6 @@ cica: ## Initial font cica ricty
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	ln -vsf ${PWD}/.zprofile ${HOME}/.zprofile
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
 	ln -vsf ${PWD}/.bashrc ${HOME}/.bashrc
