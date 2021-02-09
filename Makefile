@@ -95,7 +95,7 @@ base: ## Install base and base-devel package
 
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
-	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gwenview \
+	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gimp \
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
 	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
@@ -139,10 +139,6 @@ snapinstall: ## Install snap packages
 flatpak: ## Install flatpak package
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	sudo reboot
-
-gimpse: ## Install Glimpse from flatpak
-	flatpak install flathub org.glimpse_editor.Glimpse
 
 
 ## =====================================================================
@@ -218,8 +214,9 @@ sxiv: ## Init sxiv
 	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/sxiv/exec/image-info
 	chmod +x ${HOME}/.config/sxiv/exec/image-info
 
-wallpaper: ## Copy favorite wallpaper to the user picture folder
+images: ## Copy favorite wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
+	ln -vsf ${HOME}/Dropbox/backup/icons ${HOME}/Pictures
 
 google-erath: ## install google erath
 # Download deb file for debian from the url below
@@ -246,7 +243,7 @@ emacs-devel: ## Install development version of emacs
 
 allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
 
-nextinstall: albert zoom filezilla keepassxc sylpheed sxiv wallpaper
+nextinstall: albert zoom filezilla keepassxc sylpheed sxiv images
 
 
 
