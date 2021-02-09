@@ -86,7 +86,7 @@
   (defun pdfout-select ()
 	"PDF out select menu."
 	(interactive)
-	(counsel-M-x "^my:pdfout "))
+	(counsel-M-x "my:pdfout "))
   (defun my:pdfout-buffer ()
 	"PDF out from buffer."
 	(interactive)
