@@ -110,7 +110,7 @@
   (defun mousepad-sudo-open ()
 	"Get file and open mousepad with sudo."
 	(interactive)
-	(let ((file (dired-get-filename)))
+	(let ((file (dired-get-filename nil t)))
 	  (compile (concat "sudo mousepad " file))))
 
   (defun my:dired-toggle-mark (arg)
