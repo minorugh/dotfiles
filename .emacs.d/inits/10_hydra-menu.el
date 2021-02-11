@@ -63,12 +63,14 @@
   📝 Work Menu
   --------------^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------
    Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
-   Tool: _l_epton   _e_:hugo   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf   _i_❤IMG   _f_tp:🐾   scale_+_   package_@_"
+   Tool: _e_:hugo   _g_ist🐾   _j_unk🐾   _b_ackup   _p_asswd   ps_2_pdf   _i_❤IMG   _f_tp:🐾   scale_+_   package_@_"
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
+   ("g" (browse-url "https://gist.github.com/minorugh"))
+   ("G" gist-from-buffer)
    ("o" my:otibo)
    ("O" my:otibo-new-post)
    ("t" my:teirei)
