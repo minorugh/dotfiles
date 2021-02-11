@@ -138,6 +138,7 @@ flatpakinstall: ## Install flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub com.spotify.Client
+	flatpak install flathub org.inkscape.Inkscape
 	flatpak install flathub us.zoom.Zoom
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
