@@ -133,16 +133,11 @@ pipinstall: ## Install python packages
 gistinstall: ## Gist install | $ gist --login from terminal at first
 	sudo gem install gist
 
-snapinstall: ## Install snap packages
-	sudo apt install -y snapd
-	sudo snap install lepton
-	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
-
 flatpak: ## Install flatpak
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-fkatpak-app:
+flatpak-app:
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub com.spotify.Client
 	flatpak install flathub us.zoom.Zoom
