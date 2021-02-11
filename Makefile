@@ -95,9 +95,9 @@ base: ## Install base and base-devel package
 
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
-	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub gimp \
+	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub \
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
-	autokey-common inkscape darktable lhasa ruby zsh fzf tree aspell aspell-en \
+	autokey-common darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
@@ -130,16 +130,23 @@ pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
 	pip3 install recommonmark
 
+gistinstall: ## Gist install | $ gist --login from terminal at first
+	sudo gem install gist
+
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install lepton spotify
+	sudo snap install lepton
 	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
-	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
 
-flatpak: ## Install flatpak package
+flatpak: ## Install flatpak
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+fkatpak-app:
+	flatpak install flathub org.gimp.GIMP
+	flatpak install flathub com.spotify.Client
+	flatpak install flathub us.zoom.Zoom
+	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
 ## =====================================================================
 ## next stage for make step by step
@@ -178,13 +185,6 @@ albert: ## Install albert
 	sudo apt install albert
 	cd ${HOME}/src/github.com/minorugh/dotfiles;\
 	ln -vsf ${PWD}/.config/albert/albert.conf ${HOME}/.config/albert/albert.conf
-
-zoom: ## Download the DEB file for Debian from https://zoom.us/download?os=linux
-	cd ${HOME}/Downloads;\
-	wget https://zoom.us/client/latest/zoom_amd64.deb
-	sudo apt install ./zoom_amd64.deb ## in Downloas folder
-	cd ${HOME}/src/github.com/minorugh/dotfiles;\
-	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected myserver
 	sudo apt install -y filezilla
