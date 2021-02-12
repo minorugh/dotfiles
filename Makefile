@@ -99,7 +99,7 @@ install: ## Install debian linux packages using apt
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
 	autokey-common darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
-	libsecret-tools pinta xscreensaver xscreensaver-gl-extra nodejs npm \
+	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
 
 emacsmozc: ## Install emacs mozc
@@ -139,7 +139,7 @@ flatpakinstall: ## Install flatpak
 	flatpak install flathub com.spotify.Client
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub org.inkscape.Inkscape
-	latpak install flathub com.github.PintaProject.Pinta
+	flatpak install flathub com.github.PintaProject.Pinta
 	flatpak install flathub us.zoom.Zoom
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
@@ -238,7 +238,7 @@ emacs-devel: ## Install development version of emacs
 
 allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
 
-nextinstall: albert zoom filezilla keepassxc sylpheed sxiv images
+nextinstall: albert filezilla keepassxc sylpheed sxiv images
 
 
 
