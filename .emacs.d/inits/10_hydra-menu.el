@@ -85,7 +85,6 @@
    ("b" my:backupall)
    ("B" my:backup-dir)
    ("c" open-cacher)
-   ("l" open-lepton)
    ("i" (browse-url "https://www.iloveimg.com/ja"))
    ("r" counsel-rg)
    ("@" hydra-package/body)
@@ -127,25 +126,26 @@
     (unless (getenv "WSENV")
       (compile "filezilla -s")))
 
-  (defun open-lepton ()
-    "Open Ftp application."
-    (interactive)
-	(compile "lepton"))
+  (defun gist-from-buffer ()
+	"Gist from current buffer, then open chromium."
+	(interactive)
+	(let ((file (buffer-file-name (current-buffer))))
+	  (compile (concat "gist -o " file))))
 
   (defun open-keepass ()
-    "Narrow the only espy command in M-x."
-    (interactive)
-    (compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx"))
+	"Narrow the only espy command in M-x."
+	(interactive)
+	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx"))
 
   (defun open-calculator ()
-    "Narrow the only espy command in M-x."
-    (interactive)
-    (compile "gnome-calculator"))
+	"Narrow the only espy command in M-x."
+	(interactive)
+	(compile "gnome-calculator"))
 
   (defun my:backupall ()
-    "Backup for melpa package."
-    (interactive)
-  	(let* ((default-directory (expand-file-name "~/Dropbox/backup")))
+	"Backup for melpa package."
+	(interactive)
+	(let* ((default-directory (expand-file-name "~/Dropbox/backup")))
 	  (compile "make -k"))))
 
 
