@@ -118,12 +118,6 @@
 	(switch-to-buffer toggle-scratch-prev-buffer)))
 (bind-key "S-<return>" 'toggle-scratch)
 
-(defun gist-from-buffer ()
-  "Gist from current buffer, then open chromium."
-  (interactive)
-  (let ((file (buffer-file-name (current-buffer))))
-	(compile (concat "gist -o " file))))
-
 (defun filer-current-dir-open ()
   "Open filer in current dir."
   (interactive)
