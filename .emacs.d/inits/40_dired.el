@@ -20,7 +20,8 @@
   (bind-key "t" 'counsel-tramp dired-mode-map)
   (bind-key "i" 'call-sxiv dired-mode-map)
   (bind-key "s" 'sudo-edit dired-mode-map)
-  (bind-key "S" 'mousepad-sudo-open dired-mode-map)
+  (bind-key "p" 'mousepad-open dired-mode-map)
+  (bind-key "P" 'mousepad-sudo-open dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
   (bind-key "<" 'beginning-of-buffer dired-mode-map)
   (bind-key ">" 'end-of-buffer dired-mode-map)
@@ -106,6 +107,12 @@
       ;; use wsl-utils:https://github.com/smzht/wsl-utils
       (when (getenv "WSLENV")
 		(call-process "wslstart" nil 0 nil file))))
+
+  (defun mousepad-open ()
+	"Get file and open mousepad with sudo."
+	(interactive)
+	(let ((file (dired-get-filename nil t)))
+	  (compile (concat "mousepad " file))))
 
   (defun mousepad-sudo-open ()
 	"Get file and open mousepad with sudo."
