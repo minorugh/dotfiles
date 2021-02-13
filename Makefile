@@ -99,7 +99,7 @@ install: ## Install debian linux packages using apt
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
 	autokey-common darktable lhasa ruby zsh fzf tree aspell aspell-en \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
-	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm \
+	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm albert \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
 
 emacsmozc: ## Install emacs mozc
@@ -176,15 +176,6 @@ perlbrew: ## Install perlbrew
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
-
-albert: ## Install albert
-	cd ${HOME}/Downloads;\
-	echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
-	curl -fsSL https://download.opensuse.org/repositories/home:manuelschneid3r/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg > /dev/null
-	sudo apt update
-	sudo apt install albert
-	cd ${HOME}/src/github.com/minorugh/dotfiles;\
-	ln -vsf ${PWD}/.config/albert/albert.conf ${HOME}/.config/albert/albert.conf
 
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected myserver
 	sudo apt install -y filezilla
