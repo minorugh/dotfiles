@@ -205,6 +205,12 @@ sxiv: ## Init sxiv
 	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/sxiv/exec/image-info
 	chmod +x ${HOME}/.config/sxiv/exec/image-info
 
+darktableinstall: ## Install darktable for Debian 10
+	echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
+	curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
+	sudo apt update
+	sudo apt install darktable
+
 images: ## Copy favorite wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/backup/wallpaper ${HOME}/Pictures
 	ln -vsf ${HOME}/Dropbox/backup/icons ${HOME}/Pictures
