@@ -133,16 +133,16 @@ pipinstall: ## Install python packages
 gistinstall: ## Gist install | $ gist --login from terminal at first
 	sudo gem install gist
 
-snapinstall: ## Install snap packages
-	sudo apt install -y snapd
-	sudo snap install lepton spotify pinta
-	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
-	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
-	sudo ln -vsf /var/lib/snapd/desktop/applications/pinta_pinta.desktop ${HOME}/.local/share/applications/pinta_pinta.desktop
+# snapinstall: ## Install snap packages
+# 	sudo apt install -y snapd
+# 	sudo snap install lepton spotify
+# 	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
+# 	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
 
 flatpakinstall: ## Install flatpak
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak install flathub com.spotify.Client
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub org.inkscape.Inkscape
 	flatpak install flathub org.remmina.Remmina
