@@ -47,13 +47,13 @@
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 
-(leaf init-loader
-  :ensure t
-  :config
-  (custom-set-variables '(init-loader-show-log-after-init 'error-only))
-  (add-hook 'after-init-hook
-			(lambda ()
-			  (init-loader-load))))
+ (leaf init-loader
+   :ensure t
+   :config
+   (custom-set-variables '(init-loader-show-log-after-init 'error-only))
+   (add-hook 'after-init-hook
+ 			(lambda ()
+ 			  (init-loader-load))))
 
 
 (provide 'init)
