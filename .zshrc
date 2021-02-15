@@ -262,7 +262,8 @@ alias sm='sudo mousepad'
 alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
-# flatpak
+# flatpak applications
+alias sptify='flatpak run com.spotify.Client'
 alias gimp='flatpak run org.gimp.GIMP'
 alias inkscape='flatpak run org.inkscape.Inkscape'
 alias remmina='flatpak run org.remmina.Remmina'
