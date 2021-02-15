@@ -135,10 +135,11 @@ gistinstall: ## Gist install | $ gist --login from terminal at first
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install lepton spotify pinta
+	sudo snap install lepton spotify pinta remmina
 	sudo ln -vsf /var/lib/snapd/desktop/applications/lepton_lepton.desktop ${HOME}/.local/share/applications/lepton_lepton.desktop
 	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
 	sudo ln -vsf /var/lib/snapd/desktop/applications/pinta_pinta.desktop ${HOME}/.local/share/applications/pinta_pinta.desktop
+	sudo ln -vsf /var/lib/snapd/desktop/applications/remmina_remmina.desktop ${HOME}/.local/share/applications/remmina_remmina.desktop
 
 flatpakinstall: ## Install flatpak
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
@@ -205,7 +206,7 @@ sxiv: ## Init sxiv
 	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/sxiv/exec/image-info
 	chmod +x ${HOME}/.config/sxiv/exec/image-info
 
-darktableinstall: ## Install darktable for Debian 10
+darktable: ## Install darktable for Debian 10
 	echo 'deb http://download.opensuse.org/repositories/graphics:/darktable/Debian_10/ /' | sudo tee /etc/apt/sources.list.d/graphics:darktable.list
 	curl -fsSL https://download.opensuse.org/repositories/graphics:darktable/Debian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/graphics_darktable.gpg > /dev/null
 	sudo apt update
