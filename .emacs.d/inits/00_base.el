@@ -42,7 +42,6 @@
   (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
   (setq savehist-file "~/.emacs.d/tmp/savehist")
   (setq save-place-file "~/.emacs.d/tmp/places")
-  (setq undohist-directory "~/.emacs.d/tmp/undohist")
   (setq transient-history-file "~/.emacs.d/tmp/transient-history")
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
 
