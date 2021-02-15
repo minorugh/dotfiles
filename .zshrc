@@ -262,6 +262,11 @@ alias sm='sudo mousepad'
 alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
+# flatpak
+alias gimp='flatpak run org.gimp.GIMP'
+alias inkscape='flatpak run org.inkscape.Inkscape'
+alias remmina='flatpak run org.remmina.Remmina'
+alias zoom='flatpak run us.zoom.Zoom'
 
 
 ## apt install net-tools to use ifconfig on Debian and set $PATH
