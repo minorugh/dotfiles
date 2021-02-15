@@ -24,6 +24,7 @@
   :ensure t
   :hook (emacs-startup-hook . undohist-initialize)
   :config
+  (setq undohist-directory "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
