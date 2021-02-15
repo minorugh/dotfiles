@@ -88,7 +88,7 @@
    (format-time-string "*[%Y%m%d]%Y年%-m月%-d日\n")
    ";-------------------------------------------------------------------\n"
    (format-time-string "-*[%Y%m%d%H%M%S]\n")
-   "-(\n<div class=\"vertical\">\n"
+   "-(\n<div class=\"box\">\n<div class=\"vertical\">\n"
    "<p style=\"letter-spacing:5px\">\n1\n</p>"
    "<p style=\"letter-spacing:5px\">\n2\n</p>"
    "<p style=\"letter-spacing:5px\">\n3\n</p>"
@@ -98,7 +98,7 @@
    "<p style=\"letter-spacing:5px\">\n7\n</p>"
    "<p style=\"letter-spacing:5px\">\n8\n</p>"
    "<p style=\"letter-spacing:5px\">\n9\n</p>\n"
-   "</div>\n--\n-((\n\n-))\n-)\n\n")
+   "</div></div>\n--\n-((\n\n-))\n-)\n\n")
   (goto-char (point-min))
   (forward-line 4)
   (forward-char 18))
