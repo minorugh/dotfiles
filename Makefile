@@ -142,6 +142,7 @@ flatpakinstall: ## Install flatpak
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub org.inkscape.Inkscape
 	flatpak install flathub org.remmina.Remmina
+	flatpak install flathub org.gnu.emacs
 	flatpak install flathub us.zoom.Zoom
 	ln -vsf ${PWD}/.config/zoomus.conf ${HOME}/.config/zoomus.conf
 
