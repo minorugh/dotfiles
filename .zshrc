@@ -277,6 +277,10 @@ alias ifconfig='/sbin/ifconfig'
 alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
 
+## sudo reboot
+alias rb='sudo reboot'
+
+
 ## get api token from github
 function get-github-api () {
 curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
