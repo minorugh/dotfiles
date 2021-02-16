@@ -52,12 +52,12 @@ ssh-common: ## ssh commom files
 ## Branch setting by machine model
 ifeq ($(shell uname -n),x250)
 thinkpad: ## for sub machine (Thinkpad X250)
-	ln -vsf ${PWD}/.ssh/config.x250 ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config.x250 ${HOME}/.ssh/config
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.x250 ${HOME}/.config/xfce4
 else
 thinkpad: ## for main machine (Thinkpad E590)
-	ln -vsf ${PWD}/.ssh/config.e590 ${HOME}/.ssh/config
+	ln -vsf ${HOME}/Dropbox/backup/conf/.ssh/config.e590 ${HOME}/.ssh/config
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	ln -vsfn ${HOME}/Dropbox/backup/conf/xfce4.e590 ${HOME}/.config/xfce4
 endif
@@ -94,10 +94,10 @@ base: ## Install base and base-devel package
 	libxcb-keysyms1 libxcb-xtest0
 
 install: ## Install debian linux packages using apt
-	sudo apt install -y silversearcher-ag hugo nkf wget curl gcc golang \
-	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub \
+	sudo apt install -y silversearcher-ag hugo nkf wget curl unar gcc golang \
+	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect \
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
-	autokey-common darktable lhasa ruby zsh fzf tree aspell aspell-en \
+	autokey-common lhasa ruby zsh fzf tree aspell aspell-en arc-theme \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm albert \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
@@ -118,13 +118,10 @@ keyring: ## Init gnome keyrings
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/Dropbox/backup/conf/keyrings ${HOME}/.local/share/keyrings
 
-cups: ## Install cups & lpr
-	sudo apt install -y cups lpr
-	test -L /etc/cups/ppp || rm -rf /etc/cups/ppp
-	sudo ln -vsfn ${PWD}/Dropbox/backup/cups/ppp /etc/cups/ppp
-	sudo ln -snf ${PW}/etc/cups/cups-files.conf /etc/cups/cups-files.conf
-	sudo ln -snf ${PWD}/etc/cups/cupsd.conf /etc/cups/cupsd.conf
-	sudo ln -snf ${PWD}/etc/cups/printers.conf /etc/cups/printers.conf
+printer: ## Install cups printer driver
+# Download installer https://www.brother.co.jp/download/software/index.aspx#printer
+# Unzip gz file
+	sudo bash linux-brjprinter-installer-2.2.2-1 HL-5250DN
 
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
