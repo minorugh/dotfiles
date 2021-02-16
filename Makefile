@@ -122,9 +122,9 @@ cups: ## Install cups & lpr
 	sudo apt install -y cups lpr
 	test -L /etc/cups/ppp || rm -rf /etc/cups/ppp
 	sudo ln -vsfn ${PWD}/Dropbox/backup/cups/ppp /etc/cups/ppp
-	sudo ln -vsf ${PW}/etc/cups/cups-files.conf /etc/cups/cups-files.conf
-	sudo ln -vsf ${PWD}/etc/cups/cupsd.conf /etc/cups/cupsd.conf
-	sudo ln -vsf ${PWD}/etc/cups/printers.conf /etc/cups/printers.conf
+	sudo ln -snf ${PW}/etc/cups/cups-files.conf /etc/cups/cups-files.conf
+	sudo ln -snf ${PWD}/etc/cups/cupsd.conf /etc/cups/cupsd.conf
+	sudo ln -snf ${PWD}/etc/cups/printers.conf /etc/cups/printers.conf
 
 pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx

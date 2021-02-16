@@ -1,92 +1,65 @@
-"NeoBundle Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=/home/minoru/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('/home/minoru/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'scrooloose/nerdtree'
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-" Required:
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
-
-map <C-e> :NERDTreeToggle<CR>
-
-" デフォルトで隠しファイルを表示
-let NERDTreeShowHidden = 1
-" ファイル指定なしでVimを起動した場合だけ表示
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" The NERD Treeのウィンドウだけが残るような場合にVimを終了
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" ブックマークメニューをデフォルトで表示
-let NERDTreeShowBookmarks=1
-" ファイルを開くときにNERDtreeを自動的に閉じる
-let g:NERDTreeQuitOnOpen = 1
-
-colorscheme iceberg
-
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=ucs-boms,utf-8,euc-jp,cp932
-set fileformats=unix,dos,mac
-set ambiwidth=double
-set wildmenu
-set clipboard=unnamedplus
-set clipboard=autoselect
-set number
-set title
-set hidden
-set showmatch
-set expandtab
-set tabstop=4
+" setting
+"文字コードをUFT-8に設定
+set fenc=utf-8
+" バックアップファイルを作らない
+set nobackup
+" スワップファイルを作らない
 set noswapfile
-set shiftwidth=4
-set smartindent
-set ignorecase
-set smartcase
-set nowrapscan
-set hlsearch
-set wrap
-set incsearch
-set ruler
-set showcmd
+" 編集中のファイルが変更されたら自動で読み直す
+set autoread
+" バッファが編集中でもその他のファイルを開けるように
 set hidden
-set history=2000
-inoremap <silent> jj <esc>
-set sh=zsh
+" 入力中のコマンドをステータスに表示する
+set showcmd
+
+
+" 見た目系
+" 行番号を表示
+set number
+" 現在の行を強調表示
+set cursorline
+" 現在の行を強調表示（縦）
+set cursorcolumn
+" 行末の1文字先までカーソルを移動できるように
+set virtualedit=onemore
+" インデントはスマートインデント
+set smartindent
+" ビープ音を可視化
+set visualbell
+" 括弧入力時の対応する括弧を表示
+set showmatch
+" ステータスラインを常に表示
 set laststatus=2
-set statusline=%F%m%=[%p%%]\ (%l,%c)\ %{'['.(&fenc!=''?&fenc:&enc).']\ ['.&fileformat.']'}
-set nocompatible
-filetype plugin indent on
+" コマンドラインの補完
+set wildmode=list:longest
+" 折り返し時に表示行単位での移動できるようにする
+nnoremap j gj
+nnoremap k gk
+" シンタックスハイライトの有効化
 syntax enable
-syntax on
-highlight StatusLine term=none cterm=none ctermfg=white ctermbg=black
-let _curfile=expand("%:r")
-if _curfile == 'Makefile'
-  set noexpandtab
-endif
+
+
+" Tab系
+" 不可視文字を可視化(タブが「▸-」と表示される)
+set list listchars=tab:\▸\-
+" Tab文字を半角スペースにする
+set expandtab
+" 行頭以外のTab文字の表示幅（スペースいくつ分）
+set tabstop=2
+" 行頭でのTab文字の表示幅
+set shiftwidth=2
+
+
+" 検索系
+" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
+set ignorecase
+" 検索文字列に大文字が含まれている場合は区別して検索する
+set smartcase
+" 検索文字列入力時に順次対象文字列にヒットさせる
+set incsearch
+" 検索時に最後まで行ったら最初に戻る
+set wrapscan
+" 検索語をハイライト表示
+set hlsearch
+" ESC連打でハイライト解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
