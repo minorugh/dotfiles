@@ -23,6 +23,7 @@
 (push '(column-number-mode . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
+(setq site-run-file nil)
 (setq inhibit-startup-message t)
 (setq frame-inhibit-implied-resize t)
 
