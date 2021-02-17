@@ -22,6 +22,7 @@
 (push '(blink-cursor-mode . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
+(setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq frame-inhibit-implied-resize t)
 (setq byte-compile-warnings '(cl-functions))
