@@ -99,8 +99,8 @@ base: ## Install base and base-devel package
 install: ## Install debian linux packages using apt
 	sudo apt install -y silversearcher-ag hugo nkf wget curl unar gcc golang \
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect \
-	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh autokey-gtk \
-	autokey-common lhasa ruby zsh fzf tree aspell aspell-en arc-theme \
+	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh \
+	autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme \
 	screen keychain mosh compizconfig-settings-manager compiz-plugins \
 	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm albert \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
@@ -130,10 +130,9 @@ pipinstall: ## Install python packages
 	sudo apt install -y python3-pip python3-sphinx
 	pip3 install recommonmark
 
-gistinstall: ## Gist install | $ gist --login from terminal at first
-	sudo apt-get install ruby
-	sudo apt-get install gem
-	sudo gem install gist
+gistinstall: ## Gist install
+# $ gist --login from terminal at first
+	sudo apt install -y ruby gem gist
 	gist --login
 
 snapinstall: ## Install snap packages
