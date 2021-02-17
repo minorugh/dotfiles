@@ -144,7 +144,6 @@ snapinstall: ## Install snap packages
 flatpakinstall: ## Install flatpak
 	sudo apt install -y flatpak gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub org.gnu.emacs
 	flatpak install flathub org.gimp.GIMP
 	flatpak install flathub org.inkscape.Inkscape
 	flatpak install flathub org.remmina.Remmina
