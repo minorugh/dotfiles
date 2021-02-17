@@ -16,7 +16,7 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
+(set-frame-parameter nil 'fullscreen 'maximized)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(blink-cursor-mode  . 0) default-frame-alist)
@@ -25,7 +25,6 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq site-run-file nil)
 (setq inhibit-startup-message t)
-(set-frame-parameter nil 'fullscreen 'maximized)
 (setq byte-compile-warnings '(cl-functions))
 (setq frame-inhibit-implied-resize t)
 
