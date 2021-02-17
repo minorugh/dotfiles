@@ -9,7 +9,6 @@
   (savehist-mode)
   (save-place-mode)
   (global-auto-revert-mode)
-  (blink-cursor-mode)
   (winner-mode)
   (global-font-lock-mode)
   (global-visual-line-mode)
