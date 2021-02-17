@@ -25,6 +25,8 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq site-run-file nil)
 (setq inhibit-startup-message t)
+(set-frame-parameter nil 'fullscreen 'maximized)
+(setq byte-compile-warnings '(cl-functions))
 (setq frame-inhibit-implied-resize t)
 
 
