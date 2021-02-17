@@ -131,7 +131,10 @@ pipinstall: ## Install python packages
 	pip3 install recommonmark
 
 gistinstall: ## Gist install | $ gist --login from terminal at first
+	sudo apt-get install ruby
+	sudo apt-get install gem
 	sudo gem install gist
+	gist --login
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
