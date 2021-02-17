@@ -52,11 +52,11 @@
   (hydra-markdown
    (:color red :hint nil)
    "
-    Markdown: _i_talic  消線:_x_  _f_ootnote  _t_able  t_o_c  _e_dit-code:_a_bort  pre_v_iew  md2_p_df  md2_d_ocx"
+    Markdown: _i_talic  消線:_x_  _f_ootnote  _t_able  _e_dit-code:_a_bort  pre_v_iew  md2_p_df  md2_d_ocx"
    ("i" markdown-insert-italic)
    ("x" markdown-insert-strike-through)
    ("t" markdown-insert-table)
-   ("o" markdown-toc-generate-or-refresh-toc)
+   ;; ("o" markdown-toc-generate-or-refresh-toc)
    ("f" markdown-insert-footnote)
    ("e" markdown-edit-code-block)
    ("a" edit-indirect-abort)
