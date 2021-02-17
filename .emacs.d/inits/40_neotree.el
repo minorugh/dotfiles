@@ -14,7 +14,6 @@
 		  ("<f10>" . neotree-hide)))
   :config
   (setq-default neo-keymap-style 'concise)
-  ;; (setq neo-show-hidden-files t)
   (setq neo-create-file-auto-open t)
   (doom-themes-neotree-config)
   (setq neo-window-width 30)
