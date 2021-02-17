@@ -79,6 +79,9 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${HOME}/Dropbox/backup/conf/.netrc ${HOME}/.netrc
 	ln -vsf ${PWD}/.config/hub ${HOME}/.config/hub
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf  ## auto-login
+	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf  ## not sleep if closed lid
+	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub  ## change grub console screen size
+	sudo update-grub2
 
 base: ## Install base and base-devel package
 	sudo apt install -y openssl libssl-dev zlib1g-dev build-essential texinfo \
