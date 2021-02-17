@@ -17,8 +17,8 @@
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
 
-(push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(blink-cursor-mode . 0) default-frame-alist)
