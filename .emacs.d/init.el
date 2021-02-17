@@ -24,7 +24,6 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
 ;; Packages
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
