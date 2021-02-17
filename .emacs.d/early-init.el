@@ -17,7 +17,6 @@
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
 
-(menu-bar-mode -1)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(blink-cursor-mode  . 0) default-frame-alist)
