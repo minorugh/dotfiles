@@ -19,9 +19,8 @@
 
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
-(push '(scroll-bar-mode   . 0) default-frame-alist)
 (push '(blink-cursor-mode . 0) default-frame-alist)
-;;(push '(vertical-scroll-bars) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 (setq frame-inhibit-implied-resize t)
