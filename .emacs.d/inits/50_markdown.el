@@ -56,7 +56,6 @@
    ("i" markdown-insert-italic)
    ("x" markdown-insert-strike-through)
    ("t" markdown-insert-table)
-   ;; ("o" markdown-toc-generate-or-refresh-toc)
    ("f" markdown-insert-footnote)
    ("e" markdown-edit-code-block)
    ("a" edit-indirect-abort)
