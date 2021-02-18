@@ -39,6 +39,7 @@
   (setq savehist-file "~/.emacs.d/tmp/savehist")
   (setq save-place-file "~/.emacs.d/tmp/places")
   (setq transient-history-file "~/.emacs.d/tmp/transient-history")
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
 
   ;; Hack emacs-init-time
   (with-eval-after-load "time"
@@ -122,7 +123,6 @@
   (leaf recentf
 	:global-minor-mode t
 	:config
-	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
 	(setq recentf-max-saved-items 200)
 	(setq recentf-auto-cleanup 'never)
 	(setq recentf-exclude
