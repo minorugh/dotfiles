@@ -35,12 +35,12 @@
 
 
 (leaf prescient :ensure t
+  :global-minor-mode prescient-persist-mode
   :config
-  (prescient-persist-mode 1)
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
   :init
   (leaf ivy-prescient :ensure t
-	:global-minor-mode t)
+	:global-minor-mode ivy-prescient-mode)
   (leaf company-prescient :ensure t
 	:global-minor-mode t))
 
