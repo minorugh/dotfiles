@@ -8,12 +8,26 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Package initialization is automatic,
-;; but prevent Emacs from doing that early.
+
+;; Read .el when .el is newer than .elc
+(setq load-prefer-newer t)
+
+
+;; Export destination of custom.el
+(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
+
+
+;; Package initialize automatically, after `early-init-file'
+(customize-set-variable
+ 'package-archives '(("org"   . "https://orgmode.org/elpa/")
+					 ("melpa" . "https://melpa.org/packages/")
+ 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
+
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
+
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
