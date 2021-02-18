@@ -23,6 +23,7 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
+(setq byte-compile-warnings '(cl-functions))
 
 
 (provide 'early-init)
