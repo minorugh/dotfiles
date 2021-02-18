@@ -5,13 +5,13 @@
 
 (leaf hl-line
   :config
+  (global-hl-line-mode 1)
   (make-variable-buffer-local 'global-hl-line-mode)
-  (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil)))
-  :global-minor-mode global-hl-line-mode)
+  (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil))))
 
 (leaf paren
-  :global-minor-mode show-paren-mode
   :config
+  (show-paren-mode 1)
   (setq show-paren-delay 0)
   (setq show-paren-style ''parenthesis))
 
@@ -21,14 +21,14 @@
 
 (leaf volatile-highlights
   :ensure t
-  :global-minor-mode t
   :config
+  (volatile-highlights-mode t)
   (with-no-warnings
-    (when (fboundp 'pulse-momentary-highlight-region)
-      (defun my-vhl-pulse (beg end &optional _buf face)
+	(when (fboundp 'pulse-momentary-highlight-region)
+	  (defun my-vhl-pulse (beg end &optional _buf face)
 		"Pulse the changes."
 		(pulse-momentary-highlight-region beg end face))
-      (advice-add #'vhl/.make-hl :override #'my-vhl-pulse))))
+	  (advice-add #'vhl/.make-hl :override #'my-vhl-pulse))))
 
 (leaf whitespace
   :ensure t
