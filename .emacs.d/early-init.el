@@ -16,7 +16,6 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -26,7 +25,6 @@
 (setq inhibit-startup-message t)
 (setq frame-inhibit-implied-resize t)
 (setq byte-compile-warnings '(cl-functions))
-
 
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")

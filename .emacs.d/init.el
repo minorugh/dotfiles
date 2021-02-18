@@ -8,8 +8,6 @@
   (set-frame-parameter nil 'fullscreen 'maximized)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  (setq inhibit-splash-screen t)
-  (setq inhibit-startup-message t)
   (load (concat user-emacs-directory "early-init.el")))
 
 (package-initialize)
