@@ -9,6 +9,7 @@
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
+(setq gc-cons-threshold most-positive-fixnum)
 (setq gc-cons-threshold (* 1024 1024 100))
 (add-hook 'emacs-startup-hook
 		  (lambda ()
@@ -22,9 +23,9 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(blink-cursor-mode . 0) default-frame-alist)
+(setq frame-inhibit-implied-resize t)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq frame-inhibit-implied-resize t)
 (setq byte-compile-warnings '(cl-functions))
 
 
