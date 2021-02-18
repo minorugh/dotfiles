@@ -9,20 +9,6 @@
 (setq gc-cons-threshold most-positive-fixnum)
 
 
-;; Package
-(customize-set-variable
- 'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					 ("melpa" . "https://melpa.org/packages/")
- 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
-(setq package-enable-at-startup nil)
-(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
-(setq load-prefer-newer t)
-
-
-;; Inhibit resizing frame
-(setq frame-inhibit-implied-resize t)
-
-
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
@@ -31,6 +17,20 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq byte-compile-warnings '(cl-functions))
+
+
+;; Inhibit resizing frame
+(setq frame-inhibit-implied-resize t)
+
+
+;; Package
+(customize-set-variable
+ 'package-archives '(("org"   . "https://orgmode.org/elpa/")
+					 ("melpa" . "https://melpa.org/packages/")
+ 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
+(setq package-enable-at-startup nil)
+(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
+(setq load-prefer-newer t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
