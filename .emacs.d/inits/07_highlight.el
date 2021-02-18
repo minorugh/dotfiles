@@ -13,7 +13,7 @@
   :global-minor-mode show-paren-mode
   :config
   (setq show-paren-delay 0)
-  (setq show-paren-style 'mixed))
+  (setq show-paren-style ''parenthesis))
 
 (leaf rainbow-delimiters
   :ensure t
