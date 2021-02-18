@@ -35,14 +35,13 @@
 
 
 (leaf prescient :ensure t
-  :global-minor-mode prescient-persist-mode
+  :config
+  (prescient-persist-mode 1)
   :init
-  (leaf company-prescient :ensure t
-    :after prescient company
-    :global-minor-mode t)
   (leaf ivy-prescient :ensure t
-    :after prescient ivy
-    :global-minor-mode t))
+	:global-minor-mode t)
+  (leaf company-prescient :ensure t
+	:global-minor-mode t))
 
 
 (leaf quickrun :ensure t
