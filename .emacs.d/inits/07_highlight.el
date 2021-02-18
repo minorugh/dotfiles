@@ -41,7 +41,7 @@
   :global-minor-mode t
   :config
   (setq dimmer-exclusion-regexp-list
-		'(".*Minibuf.*" ".*which-key.*" "*direx:direx.*" "*Messages.*" ".*LV.*" ".*howm.*" ".*magit.*" ".*org.*" "*undo-tree*" "posframe")
+		'(".*Minibuf.*" ".*which-key.*" "*direx:direx.*" "*Messages.*" ".*LV.*" ".*howm.*" ".*magit.*" ".*org.*" "*undo-tree*")
 		dimmer-fraction 0.5)
   (with-eval-after-load "dimmer"
 	(defun dimmer-off ()
@@ -50,6 +50,7 @@
 	(defun dimmer-on ()
 	  (dimmer-mode 1)
 	  (dimmer-process-all))
+	(add-hook 'input-method-activate-hook #'dimmer-off)
 	(add-hook 'focus-out-hook #'dimmer-off)
 	(add-hook 'focus-in-hook #'dimmer-on)))
 
