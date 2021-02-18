@@ -13,6 +13,7 @@
   (setq eshell-ask-to-save-history (quote always))
   (setq eshell-cmpl-cycle-completions t)
   (setq eshell-cmpl-cycle-cutoff-length 5)
+  (setq eshell-directory-name "~/.emacs.d/tmp/eshell")
   (setq eshell-history-file-name "~/Dropbox/backup/zsh/.zsh_history") ;; zsh history and sharing
   (setq eshell-hist-ignoredups t)
   (setq eshell-prompt-function 'my:eshell-prompt)

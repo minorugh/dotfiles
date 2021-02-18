@@ -35,14 +35,10 @@
   ;; Change the location of the tmp files for maine machine e590
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq request-storage-directory "~/.emacs.d/tmp/request")
-  (setq eshell-directory-name "~/.emacs.d/tmp/eshell")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tram")
   (setq savehist-file "~/.emacs.d/tmp/savehist")
   (setq save-place-file "~/.emacs.d/tmp/places")
   (setq transient-history-file "~/.emacs.d/tmp/transient-history")
-  (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
 
   ;; Hack emacs-init-time
   (with-eval-after-load "time"
@@ -126,6 +122,7 @@
   (leaf recentf
 	:global-minor-mode t
 	:config
+	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
 	(setq recentf-max-saved-items 200)
 	(setq recentf-auto-cleanup 'never)
 	(setq recentf-exclude

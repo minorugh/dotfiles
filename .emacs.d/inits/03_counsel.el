@@ -96,6 +96,7 @@ If the region isn't selected, `swiper-isearch'."
   :config
   (bind-key "C-c t" 'counsel-tramp)
   (bind-key "C-c q" 'my:tramp-quit)
+  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tramp")
   (setq tramp-default-method "scp"
 		counsel-tramp-custom-connections
 		'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/))
