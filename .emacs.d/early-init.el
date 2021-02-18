@@ -8,11 +8,8 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Package
-(customize-set-variable
- 'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					 ("melpa" . "https://melpa.org/packages/")
- 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
+;; Package initialization is automatic,
+;; but prevent Emacs from doing that early.
 (setq package-enable-at-startup nil)
 
 ;; Inhibit resizing frame
