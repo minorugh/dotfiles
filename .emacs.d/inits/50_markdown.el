@@ -7,7 +7,6 @@
   :ensure t
   :mode ("\\.md\\'" . markdown-mode)
   :config
-  (leaf markdown-toc :ensure t)
   (setq markdown-command "pandoc")
   (setq markdown-italic-underscore t)
   (setq markdown-asymmetric-header t)
