@@ -36,7 +36,6 @@
 	(let ((input-method-function-save input-method-function))
 	  ad-do-it
 	  (setq input-method-function input-method-function-save)))
-
   :init
   (leaf mozc-cand-posframe :ensure t
 	:when window-system
