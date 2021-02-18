@@ -15,12 +15,6 @@
   (setq show-paren-delay 0)
   (setq show-paren-style 'mixed))
 
-(leaf beacon
-  :ensure t
-  :global-minor-mode t
-  :config
-  (setq beacon-color "yellow"))
-
 (leaf rainbow-delimiters
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
