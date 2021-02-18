@@ -132,15 +132,14 @@
 		  '("recentf" "COMMIT_EDITMSG" "bookmarks" "\\.gitignore"
 			"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$" ".howm-keys" "^//" "^/scp:"
 			(lambda (file) (file-in-directory-p file package-user-dir))))
-	;; Do not display recentf messages in the echo area (minibuffer)
-	;; (Output to *Messages* buffer)
-	(defun recentf-save-list-inhibit-message:around (orig-func &rest args)
+	(defun recentf-suppress-messages (orig-func &rest args)
+	  "Suppress message output in minibuffer."
 	  (setq inhibit-message t)
 	  (apply orig-func args)
 	  (setq inhibit-message nil)
 	  'around)
-	(advice-add 'recentf-cleanup   :around 'recentf-save-list-inhibit-message:around)
-	(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around))
+	(advice-add 'recentf-cleanup   :around 'recentf-suppress-messages)
+	(advice-add 'recentf-save-list :around 'recentf-suppress-messages))
 
   (leaf display-line-numbers
 	:bind ("<f9>" . display-line-numbers-mode)
