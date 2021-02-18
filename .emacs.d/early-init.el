@@ -5,36 +5,30 @@
 ;;
 ;;; Code:
 
-(defvar default-file-name-handler-alist file-name-handler-alist)
-(defvar default-gc-cons-threshold gc-cons-threshold)
-(setq file-name-handler-alist nil)
+;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
-(setq gc-cons-threshold (* 1024 1024 100))
-(add-hook 'emacs-startup-hook
-		  (lambda ()
-			"Restore defalut values after startup."
-			(setq file-name-handler-alist default-file-name-handler-alist)
-			(setq gc-cons-threshold default-gc-cons-threshold)))
 
+;; Package initialize occurs automatically, before `user-init-file' is
+;; loaded, but after `early-init-file'. We handle package
+;; initialization, so we must prevent Emacs from doing it early!
+(setq package-enable-at-startup nil)
 
+;; Inhibit resizing frame
+(setq frame-inhibit-implied-resize t)
+
+;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
-(push '(blink-cursor-mode . 0) default-frame-alist)
-(setq frame-inhibit-implied-resize t)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq byte-compile-warnings '(cl-functions))
-
-
-(customize-set-variable
- 'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					 ("melpa" . "https://melpa.org/packages/")
- 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
-(setq package-enable-at-startup nil)
 
 
 (provide 'early-init)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 
 ;;; early-init.el ends here
