@@ -4,8 +4,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+
+;; Settings for Emacs 26.3
 (when (version< emacs-version "27")
-  ;; Settings for Emacs 26.3
   (set-frame-parameter nil 'fullscreen 'maximized)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
