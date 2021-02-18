@@ -1,4 +1,4 @@
-;;; 00_base.el --- Emacs base settings  -*- lexical-binding: t -*-
+;;; 00_base.el --- Emacs base settings  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -153,7 +153,5 @@
   (leaf generic-x :require t))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here

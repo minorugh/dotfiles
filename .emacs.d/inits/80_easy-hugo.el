@@ -1,4 +1,4 @@
-;;; 80_easy-hugo.el --- write blogs made with hugo  -*- lexical-binding: t -*-
+;;; 80_easy-hugo.el --- Write blogs made with hugo  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -82,7 +82,5 @@
     (insert (format-time-string "%Y-%m-%dT%H:%M:%S+09:00"))))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 80_easy-hugo.el ends here

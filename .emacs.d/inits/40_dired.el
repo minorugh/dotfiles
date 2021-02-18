@@ -1,4 +1,4 @@
-;;; 40_dired.el --- dired settings  -*- lexical-binding: t -*-
+;;; 40_dired.el --- Dired settings  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -165,7 +165,5 @@
   )
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 40_dired.el ends here

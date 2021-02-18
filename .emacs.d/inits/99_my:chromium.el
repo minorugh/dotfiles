@@ -1,4 +1,4 @@
-;;; 90_my:chromium.el --- user chromium settings  -*- lexical-binding: t -*-
+;;; 90_my:chromium.el --- User chromium settings  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -73,7 +73,5 @@
   (browse-url "https://j-bible.jimdofree.com/"))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 99_my:chromium.el ends here

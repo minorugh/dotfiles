@@ -1,4 +1,4 @@
-;;; 99_my:dired.el --- defun user dired  -*- lexical-binding: t -*-
+;;; 99_my:dired.el --- Defun user dired  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -114,8 +114,5 @@
   (goto-char (point-min)))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 99_my:dired.el ends here

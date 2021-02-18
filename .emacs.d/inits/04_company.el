@@ -1,4 +1,4 @@
-;;; 04_company.el --- Modular text completion framework  -*- lexical-binding: t -*-
+;;; 04_company.el --- Modular text completion framework  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -20,7 +20,5 @@
   (setq company-dabbrev-downcase nil))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 04_company.el ends here

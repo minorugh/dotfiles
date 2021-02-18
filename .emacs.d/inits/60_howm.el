@@ -1,4 +1,4 @@
-;;; 60_howm.el --- memo tools  -*- lexical-binding: t -*-
+;;; 60_howm.el --- Memo tools  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -93,7 +93,5 @@
 				(file-name-as-directory junk-file-dir)
 				"*.*.*"))))))))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 60_howm.el ends here

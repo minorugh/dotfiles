@@ -1,4 +1,4 @@
-;;; 08_ui.el --- UI tools  -*- lexical-binding: t -*-
+;;; 08_ui.el --- UI tools  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -87,7 +87,5 @@
     (display-line-numbers-mode 1)))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 08_ui.el ends here

@@ -1,4 +1,4 @@
-;;; 20_selected.el --- keymap for when region is active  -*- lexical-binding: t -*-
+;;; 20_selected.el --- Keymap for when region is active  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,7 +71,5 @@
 	(buffer-substring-no-properties (region-beginning) (region-end))))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 20_selected.el ends here

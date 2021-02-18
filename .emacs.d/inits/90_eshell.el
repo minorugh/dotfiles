@@ -1,4 +1,4 @@
-;;; 90_eshell.el --- emacs command shell  -*- lexical-binding: t -*-
+;;; 90_eshell.el --- Emacs command shell  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -48,7 +48,5 @@
 		(eshell-emit-prompt)))))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 90_eshell.el ends here

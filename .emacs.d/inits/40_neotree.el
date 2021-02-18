@@ -1,4 +1,4 @@
-;;; 40_neotree.el --- Yet another dired for tree display  -*- lexical-binding: t -*-
+;;; 40_neotree.el --- Yet another dired for tree display  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -46,8 +46,6 @@ The description of ARG is in `neo-buffer--execute'."
 	(neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 40_neotree.el ends here
 

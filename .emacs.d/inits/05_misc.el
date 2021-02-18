@@ -1,4 +1,4 @@
-;;; 05_misc.el --- misc tools  -*- lexical-binding: t -*-
+;;; 05_misc.el --- Misc tools  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -82,7 +82,5 @@
   :mode "\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 05_misc.el ends here

@@ -1,4 +1,4 @@
-;;; 02_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t -*-_
+;;; 02_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t no-byte-compile: t -*-_
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -29,7 +29,5 @@
   :global-minor-mode (global-diff-hl-mode diff-hl-margin-mode))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 02_git.el ends here

@@ -1,4 +1,4 @@
-;;; 99_my:template.el --- user template  -*- lexical-binding: t -*-
+;;; 99_my:template.el --- User template  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -165,8 +165,5 @@
   (forward-char 6))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 99_my:template.el ends here

@@ -1,4 +1,4 @@
-;;; 10_hydra-make.el --- hydra for compile command  -*- lexical-binding: t -*-
+;;; 10_hydra-make.el --- Hydra for compile command  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -70,7 +70,5 @@
 	(compile "make clean")))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 10_hydra-make.el ends here

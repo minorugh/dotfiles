@@ -1,4 +1,4 @@
-;;; 07_highlight.el --- highlight tools  -*- lexical-binding: t -*-
+;;; 07_highlight.el --- highlight tools  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -69,7 +69,5 @@
 (put 'dired-find-alternate-file 'disabled nil)
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 07_highlight.el ends here

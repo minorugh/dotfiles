@@ -1,4 +1,4 @@
-;;; 50_markdown.el --- Markdown configurations.  -*- lexical-binding: t -*-
+;;; 50_markdown.el --- Markdown configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -97,7 +97,5 @@
 			   ".docx")))))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 50_markdown.el ends here

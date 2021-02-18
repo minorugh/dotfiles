@@ -1,4 +1,4 @@
-;;; 30_translate.el --- emacs interface to google translate  -*- lexical-binding: t -*-
+;;; 30_translate.el --- Emacs interface to google translate  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -59,7 +59,6 @@
 		  (browse-url
 		   (concat "https://translate.google.com/?source=gtx#ja/en/" (url-hexify-string string))))))))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 30_translate.el ends here

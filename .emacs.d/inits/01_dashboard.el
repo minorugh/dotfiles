@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- startup screen extracted  -*- lexical-binding: t -*-
+;;; 01_dashboard.el --- Startup screen extracted  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -106,7 +106,5 @@
   (compile "sylpheed"))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 01_dashboard.el ends here

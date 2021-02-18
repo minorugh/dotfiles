@@ -1,4 +1,4 @@
-;;; 09_utils.el --- misc utils  -*- lexical-binding: t -*-
+;;; 09_utils.el --- Misc utils  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -143,7 +143,5 @@
 		  (cons 'my:delete-file-if-no-contents after-save-hook)))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 09_utils.el ends here

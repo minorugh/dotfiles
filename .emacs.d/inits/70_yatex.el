@@ -1,4 +1,4 @@
-;;; 70_yatex.el --- yet another tex-mode for emacs  -*- lexical-binding: t -*-
+;;; 70_yatex.el --- Yet another tex-mode for emacs  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -47,7 +47,5 @@
 ;; ------------------------------------------------------------------------
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 70_yatex.el ends here

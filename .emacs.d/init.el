@@ -1,4 +1,4 @@
-;;; init.el --- emacs initial setting  -*- lexical-binding: t -*-
+;;; init.el --- A Fancy and Fast Emacs Configuration.	-*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 
 ;;; Code:
@@ -54,10 +54,5 @@
 			  (init-loader-load))))
 
 
-(provide 'init)
-
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

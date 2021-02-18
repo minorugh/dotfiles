@@ -1,4 +1,4 @@
-;;; 10_hydra-pinky.el --- pinky settings  -*- lexical-binding: t -*-
+;;; 10_hydra-pinky.el --- pinky settings  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -67,7 +67,5 @@ If there are two or more windows, it will go to another window."
    ("s" swiper)))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 10_hydra-pinky.el ends here

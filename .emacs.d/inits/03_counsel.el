@@ -1,4 +1,4 @@
-;;; 03_counsel.el --- Various completion functions using Ivy  -*- lexical-binding: t -*-
+;;; 03_counsel.el --- Various completion functions using Ivy  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -118,7 +118,5 @@ If the region isn't selected, `swiper-isearch'."
   (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 03_counsel.el ends here
