@@ -124,14 +124,23 @@
 	(defalias 'my:github-show 'browse-at-remote))
 
   (leaf recentf
-  	:global-minor-mode t
-  	:config
-  	(setq recentf-max-saved-items 200)
-  	(setq recentf-auto-cleanup 'never)
-  	(setq recentf-exclude
-  		  '("recentf" "COMMIT_EDITMSG" "bookmarks" "\\.gitignore"
-  			"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$" ".howm-keys" "^//" "^/scp:"
-  			(lambda (file) (file-in-directory-p file package-user-dir)))))
+	:global-minor-mode t
+	:config
+	(setq recentf-max-saved-items 200)
+	(setq recentf-auto-cleanup 'never)
+	(setq recentf-exclude
+		  '("recentf" "COMMIT_EDITMSG" "bookmarks" "\\.gitignore"
+			"\\.\\(?:gz\\|gif\\|svg\\|png\\|jpe?g\\)$" ".howm-keys" "^//" "^/scp:"
+			(lambda (file) (file-in-directory-p file package-user-dir))))
+	;; Do not display recentf messages in the echo area (minibuffer)
+	;; (Output to *Messages* buffer)
+	(defun recentf-save-list-inhibit-message:around (orig-func &rest args)
+	  (setq inhibit-message t)
+	  (apply orig-func args)
+	  (setq inhibit-message nil)
+	  'around)
+	(advice-add 'recentf-cleanup   :around 'recentf-save-list-inhibit-message:around)
+	(advice-add 'recentf-save-list :around 'recentf-save-list-inhibit-message:around))
 
   (leaf display-line-numbers
 	:bind ("<f9>" . display-line-numbers-mode)
