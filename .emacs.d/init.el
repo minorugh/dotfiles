@@ -7,10 +7,10 @@
 
 ;; Settings for Emacs 26.3
 (when (version< emacs-version "27")
-  (set-frame-parameter nil 'fullscreen 'maximized)
+;;  (set-frame-parameter nil 'fullscreen 'maximized)
+  (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  (scroll-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
 ;; Speed up startup
