@@ -1,8 +1,7 @@
 ;;; early-init.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Emacs27 introduces early-init.el, which is run before init.el,
-;; before package and UI initialization happens.
+;; Emacs 27 introduces early-init.el, which is run before init.el,
 ;;
 ;;; Code:
 
