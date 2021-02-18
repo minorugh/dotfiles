@@ -9,20 +9,14 @@
 (setq gc-cons-threshold most-positive-fixnum)
 
 
-;; Read .el when .el is newer than .elc
-(setq load-prefer-newer t)
-
-
-;; Export destination of custom.el
-(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
-
-
-;; Package initialize automatically, after `early-init-file'
+;; Package
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
+(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
+(setq load-prefer-newer t)
 
 
 ;; Inhibit resizing frame
