@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;
 ;; Emacs 27 introduces early-init.el, which is run before init.el,
+;; before package and UI initialization happens.
 ;;
 ;;; Code:
 
@@ -16,11 +17,8 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq byte-compile-warnings '(cl-functions))
-
-
-;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
+(setq byte-compile-warnings '(cl-functions))
 
 
 ;; Package
@@ -29,8 +27,8 @@
 					 ("melpa" . "https://melpa.org/packages/")
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
-(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq load-prefer-newer t)
+(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
