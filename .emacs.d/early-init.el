@@ -18,6 +18,7 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
+
 ;; GUI settings
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
