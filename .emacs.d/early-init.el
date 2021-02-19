@@ -6,7 +6,7 @@
 ;;
 ;;; Code:
 
-;; Speed up startup
+;; Speed up settings
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
@@ -28,7 +28,7 @@
 (setq frame-inhibit-implied-resize t)
 
 
-;; Package
+;; Package settings
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
