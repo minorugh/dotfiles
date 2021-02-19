@@ -4,7 +4,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-
 ;; Settings for Emacs 26.3
 (when (version< emacs-version "27")
   (set-frame-parameter nil 'fullscreen 'maximized)
@@ -35,15 +34,6 @@
   (package-refresh-contents)
   (package-install 'leaf))
 
-;; El-get
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-	  (url-retrieve-synchronously
-	   "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-	(goto-char (point-max))
-	(eval-print-last-sexp)))
-
-
 (leaf leaf-keywords
   :ensure t
   :init
@@ -52,7 +42,6 @@
   (leaf el-get :ensure t)
   :config
   (leaf-keywords-init))
-
 
 (leaf init-loader
   :ensure t
