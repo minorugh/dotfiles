@@ -22,12 +22,11 @@
 
 (leaf doom-modeline
   :ensure t
-  :config
+  :hook  :config
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
   (setq doom-modeline-icon t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes nil)
-  (doom-modeline-mode 1)
   (line-number-mode 0)
   (column-number-mode 0)
   :init
