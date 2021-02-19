@@ -5,6 +5,7 @@
 ;; (setq debug-on-error t)
 
 (when (version< emacs-version "27")
+  ;; Settings for Emacs 26.3
   (set-frame-parameter nil 'fullscreen 'maximized)
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
