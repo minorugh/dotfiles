@@ -21,11 +21,6 @@
 (setq byte-compile-warnings '(cl-functions))
 
 
-;; Package
-(customize-set-variable
- 'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					 ("melpa" . "https://melpa.org/packages/")
- 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
 (setq load-prefer-newer t)
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
