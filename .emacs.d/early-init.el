@@ -18,11 +18,11 @@
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq frame-inhibit-implied-resize t)
-(setq byte-compile-warnings '(cl-functions))
 
 
 (setq package-enable-at-startup nil)
 (setq load-prefer-newer t)
+(setq byte-compile-warnings '(cl-functions))
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 
 
