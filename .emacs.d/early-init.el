@@ -20,6 +20,7 @@
 (setq frame-inhibit-implied-resize t)
 (setq package-enable-at-startup nil)
 
+
 (setq load-prefer-newer t)
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
