@@ -4,7 +4,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Settings for Emacs 26.3
 (when (version< emacs-version "27")
   (set-frame-parameter nil 'fullscreen 'maximized)
   (scroll-bar-mode 0)
@@ -12,7 +11,6 @@
   (tool-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
-;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
@@ -24,11 +22,6 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-;; Package
-(customize-set-variable
- 'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					 ("melpa" . "https://melpa.org/packages/")
- 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
@@ -39,7 +32,6 @@
   :init
   (leaf bind-key :ensure t)
   (leaf hydra :ensure t)
-  (leaf el-get :ensure t)
   :config
   (leaf-keywords-init))
 
