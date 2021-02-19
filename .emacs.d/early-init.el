@@ -18,8 +18,7 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
-;; Quietly start
+;; GUI settings
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -37,7 +36,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; Base settings
+;; Custom settings
 (setq load-prefer-newer t)
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
