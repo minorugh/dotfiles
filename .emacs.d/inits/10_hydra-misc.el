@@ -10,13 +10,19 @@
   (hydra-package
    (:color red :hint nil)
    "
- 📦 Package: _l_ist   _i_nstall   _u_pgrade-list   _a_ll-upgrade   _r_emove"
+ 📦 Package: _l_ist  _i_nstall  _u_pgrade-list  _a_ll-upgrade  _r_emove  _e_l-get"
    ("i" package-install)
    ("u" package-utils-list-upgrades)
    ("r" package-utils-remove-by-name)
    ("a" package-utils-upgrade-all-and-restart)
    ("l" package-list-packages)
-   ("<muhenkan>" nil)))
+   ("e" select-elget-command)
+   ("<muhenkan>" nil))
+  :config
+  (defun select-elget-command ()
+    "Narrow the only el-get command in `M-x'."
+    (interactive)
+    (counsel-M-x "^el-get ")))
 
 
 (leaf open-favorite-on-browse

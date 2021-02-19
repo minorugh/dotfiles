@@ -13,7 +13,6 @@
   (tool-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
-
 ;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
@@ -26,7 +25,6 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
 ;; Package
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
@@ -37,12 +35,21 @@
   (package-refresh-contents)
   (package-install 'leaf))
 
+;; El-get
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+	  (url-retrieve-synchronously
+	   "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+	(goto-char (point-max))
+	(eval-print-last-sexp)))
+
 
 (leaf leaf-keywords
   :ensure t
   :init
   (leaf bind-key :ensure t)
   (leaf hydra :ensure t)
+  (leaf el-get :ensure t)
   :config
   (leaf-keywords-init))
 
