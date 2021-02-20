@@ -4,14 +4,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Settings for Emacs 26.3
 (when (version< emacs-version "27")
-  ;; Settings for Emacs 26.3
   (set-frame-parameter nil 'fullscreen 'maximized)
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
+;; Package
 (package-initialize)
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
@@ -25,6 +26,7 @@
   :config
   (leaf-keywords-init))
 
+;; init loader
 (leaf init-loader
   :ensure t
   :config
