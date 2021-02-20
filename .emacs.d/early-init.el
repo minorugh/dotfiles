@@ -33,13 +33,10 @@
 					 ("melpa" . "https://melpa.org/packages/")
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
-
-;; Custom
 (setq load-prefer-newer t)
-(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
 
-;; Load user template
+;; Load user elisp
 (add-to-list 'load-path "~/.emacs.d/template")
 (require 'my:dired)
 (require 'my:template)
