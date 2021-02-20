@@ -38,5 +38,10 @@
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
 
+;; Load user template
+(add-to-list 'load-path "~/.emacs.d/template")
+(require 'my:dired)
+(require 'my:template)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
