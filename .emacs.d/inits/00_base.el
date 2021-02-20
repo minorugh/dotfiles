@@ -111,8 +111,8 @@
   (leaf exec-path-from-shell
 	:ensure t
 	:when (memq window-system '(mac ns x))
-	:hook (emacs-startup-hook . exec-path-from-shell-initialize)
 	:config
+	(exec-path-from-shell-initialize)
 	(setq exec-path-from-shell-check-startup-files nil))
 
   (leaf browse-at-remote
