@@ -6,7 +6,7 @@
 ;;
 ;;; Code:
 
-;; Speed up settings
+;; Speed up
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
@@ -19,7 +19,7 @@
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
 
-;; GUI settings
+;; GUI
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -29,7 +29,7 @@
 (setq frame-inhibit-implied-resize t)
 
 
-;; Package settings
+;; Package
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
@@ -37,7 +37,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; Custom settings
+;; Custom
 (setq load-prefer-newer t)
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
