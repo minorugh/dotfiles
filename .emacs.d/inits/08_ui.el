@@ -53,7 +53,7 @@
   :config
   (setq all-the-icons-scale-factor 1.0)
   (all-the-icons-ivy-rich-mode)
-  :init
+  :preface
   (leaf all-the-icons-dired :ensure t)
   (leaf all-the-icons-ivy-rich :ensure t))
 
