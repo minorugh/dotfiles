@@ -41,5 +41,6 @@
 (require 'my:dired)
 (require 'my:template)
 
+(provide 'early-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here

@@ -165,6 +165,5 @@
   (forward-char 6))
 
 (provide 'my:template)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; my:template.el ends here
