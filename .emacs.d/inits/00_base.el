@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf emacs-startup-setting
+(leaf emacs-default-setting
   :config
   ;; Basic modes
   (savehist-mode)
