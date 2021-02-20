@@ -57,6 +57,7 @@
   (leaf all-the-icons-dired :ensure t)
   (leaf all-the-icons-ivy-rich :ensure t))
 
+
 (leaf smartparens
   :ensure t
   :config
