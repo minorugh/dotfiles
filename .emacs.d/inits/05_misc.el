@@ -35,8 +35,8 @@
 
 
 (leaf prescient :ensure t
-  :global-minor-mode prescient-persist-mode
   :config
+  (prescient-persist-mode 1)
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
   :init
   (leaf ivy-prescient :ensure t
@@ -59,9 +59,10 @@
 (leaf projectile :ensure t
   :global-minor-mode t
   :init
-  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld"))
-(leaf counsel-projectile :ensure t
-  :global-minor-mode t)
+  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld")
+  (leaf counsel-projectile :ensure t
+	:global-minor-mode t))
+
 
 
 (leaf yasnippet :ensure t
