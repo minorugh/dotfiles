@@ -27,14 +27,15 @@
 (setq inhibit-splash-screen t)
 (setq frame-inhibit-implied-resize t)
 
+(setq load-prefer-newer t)
+(setq byte-compile-warnings '(cl-functions))
+
 ;; Package
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
-(setq load-prefer-newer t)
-(setq byte-compile-warnings '(cl-functions))
 
 ;; Load user elisp
 (add-to-list 'load-path "~/.emacs.d/template")
