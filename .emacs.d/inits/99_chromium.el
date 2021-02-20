@@ -1,4 +1,4 @@
-;;; my:chromium.el --- User chromium configuration.  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 99_chromium.el --- User chromium configuration.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -72,7 +72,6 @@
   (interactive)
   (browse-url "https://j-bible.jimdofree.com/"))
 
-(provide 'my:chromium)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 99_my:chromium.el ends here
+;;; 99_chromium.el ends here
