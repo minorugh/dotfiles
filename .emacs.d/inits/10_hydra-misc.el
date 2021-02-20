@@ -1,4 +1,4 @@
-;;; 10_hydra-misc.el --- Hydra for misc  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 10_hydra-misc.el --- Hydra configuration for misc utils. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

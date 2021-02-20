@@ -1,4 +1,4 @@
-;;; 50_markdown.el --- Markdown configurations.  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 50_markdown.el --- Markdown configurations. -*- lexical-binding: t no-byte-com -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 99_my:dired.el --- Defun user dired  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 99_my:dired.el --- User dired configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 09_utils.el --- Misc utils  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 09_utils.el --- Misc utils configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

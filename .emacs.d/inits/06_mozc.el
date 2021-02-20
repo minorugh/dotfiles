@@ -1,4 +1,4 @@
-;;; 06_mozc.el --- minor mode to input japanese with mozc  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 06_mozc.el --- japanese mozc configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

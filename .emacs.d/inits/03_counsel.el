@@ -1,4 +1,4 @@
-;;; 03_counsel.el --- Various completion functions using Ivy  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 03_counsel.el --- counsel & ivy configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

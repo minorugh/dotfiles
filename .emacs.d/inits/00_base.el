@@ -1,4 +1,4 @@
-;;; 00_base.el --- Emacs base settings  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 00_base.el --- Better default configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

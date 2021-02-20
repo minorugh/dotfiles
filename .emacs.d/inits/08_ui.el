@@ -1,4 +1,4 @@
-;;; 08_ui.el --- UI tools  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 08_ui.el --- Better lookings and appearances. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

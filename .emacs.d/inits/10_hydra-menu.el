@@ -1,4 +1,4 @@
-;;; 10_hydra-menu.el --- Hydra for work menu  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 10_hydra-menu.el --- Hydra configuration for work menu. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

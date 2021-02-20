@@ -1,4 +1,4 @@
-;;; 07_highlight.el --- highlight tools  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 07_highlight.el --- Highlighting configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

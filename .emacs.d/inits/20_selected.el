@@ -1,4 +1,4 @@
-;;; 20_selected.el --- Keymap for when region is active  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 20_selected.el --- Select configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 90_eshell.el --- Emacs command shell  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 90_eshell.el --- Eshell configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

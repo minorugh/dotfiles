@@ -1,4 +1,4 @@
-;;; 02_git.el  --- Git porcelain inside Emacs  -*- lexical-binding: t no-byte-compile: t -*-_
+;;; 02_git.el  --- Magit configurations. -*- lexical-binding: t no-byte-compile: t -*-_
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)

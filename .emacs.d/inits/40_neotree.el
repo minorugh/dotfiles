@@ -1,4 +1,4 @@
-;;; 40_neotree.el --- Yet another dired for tree display  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 40_neotree.el --- Neotree configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

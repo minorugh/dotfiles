@@ -1,4 +1,4 @@
-;;; init.el --- A Fancy and Fast Emacs Configuration.	-*- lexical-binding: t no-byte-compile: t -*-
+;;; init.el --- Emacs first Configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 
 ;;; Code:

@@ -1,4 +1,4 @@
-;;; 99_my:template.el --- User template  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 99_my:template.el --- User template configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

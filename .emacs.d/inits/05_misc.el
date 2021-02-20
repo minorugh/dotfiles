@@ -1,4 +1,4 @@
-;;; 05_misc.el --- Misc tools  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 05_misc.el --- Misc tools configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

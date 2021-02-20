@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- Startup screen extracted  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

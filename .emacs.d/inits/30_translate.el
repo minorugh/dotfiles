@@ -1,4 +1,4 @@
-;;; 30_translate.el --- Emacs interface to google translate  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 30_translate.el --- Google translate configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

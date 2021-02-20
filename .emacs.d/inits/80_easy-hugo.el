@@ -1,4 +1,4 @@
-;;; 80_easy-hugo.el --- Write blogs made with hugo  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 80_easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

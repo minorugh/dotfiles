@@ -1,4 +1,4 @@
-;;; 60_howm.el --- Memo tools  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 60_howm.el --- Howm & Org configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
