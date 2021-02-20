@@ -22,7 +22,7 @@
 
 (leaf doom-modeline
   :ensure t
-  :hook  :config
+  :config
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
   (setq doom-modeline-icon t)
   (setq doom-modeline-major-mode-icon nil)
@@ -30,6 +30,7 @@
   (line-number-mode 0)
   (column-number-mode 0)
   :init
+  (doom-modeline-mode 1)
   (leaf hide-mode-line
 	:ensure t
 	:hook ((dashboard-mode-hook imenu-list-minor-mode-hook direx:direx-mode-hook) . hide-mode-line-mode))
@@ -53,10 +54,10 @@
   (leaf all-the-icons-dired :ensure t)
   (leaf all-the-icons-ivy-rich :ensure t))
 
-
 (leaf smartparens
   :ensure t
-  :config  smartparens-global-mode)
+  :config
+  (smartparens-global-mode 1))
 
 
 (leaf aggressive-indent
