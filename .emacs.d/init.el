@@ -12,12 +12,10 @@
   (tool-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
-
 (package-initialize)
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
   (package-install 'leaf))
-
 
 (leaf leaf-keywords
   :ensure t
@@ -27,7 +25,6 @@
   :config
   (leaf-keywords-init))
 
-
 (leaf init-loader
   :ensure t
   :config
@@ -35,7 +32,6 @@
   (add-hook 'after-init-hook
 			(lambda ()
 			  (init-loader-load))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

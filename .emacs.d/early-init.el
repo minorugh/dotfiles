@@ -18,7 +18,6 @@
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
-
 ;; GUI
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
@@ -27,7 +26,6 @@
 (setq inhibit-splash-screen t)
 (setq frame-inhibit-implied-resize t)
 
-
 ;; Package
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
@@ -35,12 +33,10 @@
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
 
-
 ;; Custom
 (setq load-prefer-newer t)
 (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
 (setq byte-compile-warnings '(cl-functions))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
