@@ -46,10 +46,10 @@
 
 (leaf all-the-icons
   :ensure t
-  :hook (dired-mode-hook . all-the-icons-dired-mode)
   :init
   (unless (member "all-the-icons" (font-family-list))
     (all-the-icons-install-fonts t))
+  :hook (dired-mode-hook . all-the-icons-dired-mode)
   :config
   (setq all-the-icons-scale-factor 1.0)
   (all-the-icons-ivy-rich-mode)
