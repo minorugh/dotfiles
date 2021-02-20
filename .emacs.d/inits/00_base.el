@@ -148,6 +148,11 @@
 
   (leaf generic-x :require t))
 
+;; Load user template
+(add-to-list 'load-path "~/.emacs.d/template")
+(require 'my:chromium)
+(require 'my:dired)
+(require 'my:template)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here
