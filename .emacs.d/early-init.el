@@ -27,6 +27,7 @@
 (setq inhibit-splash-screen t)
 (setq frame-inhibit-implied-resize t)
 
+;; Compile
 (setq load-prefer-newer t)
 (setq byte-compile-warnings '(cl-functions))
 
