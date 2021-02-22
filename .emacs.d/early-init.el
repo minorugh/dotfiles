@@ -11,7 +11,7 @@
 (defvar default-gc-cons-threshold gc-cons-threshold)
 (setq file-name-handler-alist nil)
 (setq gc-cons-threshold most-positive-fixnum)
-(setq gc-cons-threshold (* 1024 1024 100))
+(run-with-idle-timer 60.0 t #'garbage-collect)
 (add-hook 'emacs-startup-hook
 		  (lambda ()
 			"Restore defalut values after startup."
