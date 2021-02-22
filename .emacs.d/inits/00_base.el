@@ -44,9 +44,9 @@
   ;; Hack emacs-init-time
   (with-eval-after-load "time"
     (defun ad:emacs-init-time ()
-      "Return a string giving the duration of the Emacs initialization."
-      (interactive)
-      (let ((str
+	  "Return a string giving the duration of the Emacs initialization."
+	  (interactive)
+	  (let ((str
 			 (format "%.3f seconds"
 					 (float-time
 					  (time-subtract after-init-time before-init-time)))))
