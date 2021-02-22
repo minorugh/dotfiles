@@ -22,15 +22,6 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq inhibit-splash-screen t)
 
-;; Compile
-(setq load-prefer-newer t)
-(setq byte-compile-warnings '(cl-functions))
-
-;; Load user elisp
-(add-to-list 'load-path "~/.emacs.d/template")
-(require 'my:dired)
-(require 'my:template)
-
 (provide 'early-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here

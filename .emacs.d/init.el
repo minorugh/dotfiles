@@ -10,7 +10,8 @@
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  (load (concat user-emacs-directory "early-init.el")))
+  ;; (load (concat user-emacs-directory "early-init.el")))
+  )
 
 ;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
@@ -22,6 +23,15 @@
 			"Restore defalut values after startup."
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
+
+;; Compile
+(setq load-prefer-newer t)
+(setq byte-compile-warnings '(cl-functions))
+
+;; Load user elisp
+(add-to-list 'load-path "~/.emacs.d/template")
+(require 'my:dired)
+(require 'my:template)
 
 ;; Package
 (customize-set-variable
