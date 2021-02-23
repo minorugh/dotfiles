@@ -4,14 +4,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Settings for Emacs 26.3
-(when (version< emacs-version "27")
-  (set-frame-parameter nil 'fullscreen 'maximized)
-  (scroll-bar-mode 0)
-  (menu-bar-mode 0)
-  (tool-bar-mode 0)
-  (load (concat user-emacs-directory "early-init.el")))
-
 ;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
 (defvar default-gc-cons-threshold gc-cons-threshold)
@@ -22,6 +14,14 @@
 			"Restore defalut values after startup."
 			(setq file-name-handler-alist default-file-name-handler-alist)
 			(setq gc-cons-threshold default-gc-cons-threshold)))
+
+;; Settings for Emacs 26.3
+(when (version< emacs-version "27")
+  (set-frame-parameter nil 'fullscreen 'maximized)
+  (scroll-bar-mode 0)
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (load (concat user-emacs-directory "early-init.el")))
 
 ;; Compile
 (setq load-prefer-newer t)
