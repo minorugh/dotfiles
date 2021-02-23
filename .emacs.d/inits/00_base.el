@@ -82,7 +82,7 @@
   (bind-key "C-," 'xref-find-references)
   (bind-key "C-." 'xref-find-definitions)
   (bind-key "C-z" 'nil)	;; Do not use suspend-frame
-  (bind-key "C-c C-k" 'kill-buffer)
+  (bind-key "M-/" 'kill-buffer)
   (bind-key "s-c" 'clipboard-kill-ring-save)
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)
