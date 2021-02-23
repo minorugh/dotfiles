@@ -33,7 +33,7 @@
   (doom-modeline-mode 1)
   (leaf hide-mode-line
 	:ensure t
-	:hook ((dashboard-mode-hook imenu-list-minor-mode-hook neotree-mode-hook) . hide-mode-line-mode))
+	:hook ((imenu-list-minor-mode-hook neotree-mode-hook) . hide-mode-line-mode))
   (leaf nyan-mode
   	:ensure t
 	:when window-system
