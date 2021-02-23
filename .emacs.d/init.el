@@ -10,8 +10,7 @@
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  ;; (load (concat user-emacs-directory "early-init.el")))
-  )
+  (load (concat user-emacs-directory "early-init.el")))
 
 ;; Speed up startup
 (defvar default-file-name-handler-alist file-name-handler-alist)
