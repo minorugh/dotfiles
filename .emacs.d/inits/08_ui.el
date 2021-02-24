@@ -8,7 +8,7 @@
   :bind ("s-t" . my:cycle-theme)
   :init
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (setq my-themes (list 'doom-dracula 'iceberg)	curr-theme my-themes)
+  (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
   (load-theme (car curr-theme) t)
   (defun my:cycle-theme ()
 	"Cycle custom theme."
