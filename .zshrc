@@ -262,6 +262,7 @@ alias sm='sudo mousepad'
 alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
+alias off='xset dpms force standby'
 
 ## apt install net-tools to use ifconfig on Debian and set $PATH
 alias ifconfig='/sbin/ifconfig'
