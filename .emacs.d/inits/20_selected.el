@@ -18,6 +18,7 @@
   (bind-key "e" 'my:eijiro selected-keymap)
   (bind-key "w" 'my:weblio selected-keymap)
   (bind-key "t" 'google-translate-auto selected-keymap)
+  (bind-key "T" 'chromium-translate selected-keymap)
   (bind-key "g" 'my:google selected-keymap))
 
 
