@@ -249,20 +249,27 @@ alias free='free -h'
 alias iv='sxiv'
 alias ex='exit'
 alias cl='clear'
+alias kp='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
+alias se='sudo mousepad'
+alias fz='filezilla -s'
+
+# For vim
 alias v='vim'
 alias vi='vim ~/.emacs.d/init.el'
 alias vz='vim ~/.zshrc'
+
+# For emacs
 alias en='emacs -nw'
 alias e='emacsclient'
 alias eq='emacs -q -l ~/.emacs.d/minimal-init.el'
-alias kp='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
-alias se='sudo gedit'
-alias fz='filezilla -s'
-alias sm='sudo mousepad'
+
+# Password generator
 alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
-alias off='xset dpms force standby'
+
+# Put the display in standby mode
+alias xx='xset dpms force standby'
 
 ## apt install net-tools to use ifconfig on Debian and set $PATH
 alias ifconfig='/sbin/ifconfig'
