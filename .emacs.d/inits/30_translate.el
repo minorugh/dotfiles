@@ -5,8 +5,8 @@
 
 (leaf google-translate
   :ensure t
-  :bind (("C-t" . chromium-translate)
-		 ("C-c t" . google-translate-auto))
+  :bind (("C-c t" . chromium-translate)
+		 ("C-t" . google-translate-auto))
   :config
   (defun google-translate-auto ()
 	"Automatically recognize and translate Japanese and English."
