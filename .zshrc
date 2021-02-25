@@ -268,9 +268,6 @@ alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
 
-# Put the display in standby mode
-alias xx='xset dpms force standby'
-
 ## apt install net-tools to use ifconfig on Debian and set $PATH
 alias ifconfig='/sbin/ifconfig'
 
