@@ -230,15 +230,14 @@ edge: ## install microsoft edge
 	cd ${HOME}/Downloads;\
 	sudo dpkg -i microsoft-edge-*.deb
 
-emacs-devel: ## Install development version of emacs
+emacs-latest: ## Install latest version of emacs
 	cd ${HOME}/src;\
-	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git;\
-	cd emacs;\
-	./autogen.sh;\
+	wget https://ftp.gnu.org/pub/gnu/emacs/emacs-27.1.tar.gz;\
+	tar -xzvf emacs-27.1.tar.gz;\
+	cd emacs-27.1;\
 	./configure;\
 	make;\
 	sudo make install;\
-	rm -rf ${HOME}/.emacs.d/elpa
 
 
 allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
