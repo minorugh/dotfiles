@@ -6,14 +6,26 @@
 ;;
 ;;; Code:
 
-;; Defer garbage collection further back in the startup process
+;; Speed up startup
+(defvar default-file-name-handler-alist file-name-handler-alist)
+(defvar default-gc-cons-threshold gc-cons-threshold)
+(setq file-name-handler-alist nil)
 (setq gc-cons-threshold most-positive-fixnum)
+;; (setq gc-cons-threshold (* 1024 1024 100))
+(add-hook 'emacs-startup-hook
+		  (lambda ()
+			"Restore defalut values after startup."
+			(setq file-name-handler-alist default-file-name-handler-alist)
+			(setq gc-cons-threshold default-gc-cons-threshold)))
+
 
 ;; Package initialize occurs automatically, after `early-init-file'.
+(customize-set-variable
+ 'package-archives '(("org"   . "https://orgmode.org/elpa/")
+					 ("melpa" . "https://melpa.org/packages/")
+ 					 ("gnu"   . "https://elpa.gnu.org/packages/")))
 (setq package-enable-at-startup nil)
 
-;; Inhibit resizing frame
-(setq frame-inhibit-implied-resize t)
 
 ;; GUI
 (push '(fullscreen . maximized) default-frame-alist)
@@ -21,6 +33,17 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq inhibit-splash-screen t)
+(setq frame-inhibit-implied-resize t)
+
+;; Compile
+(setq load-prefer-newer t)
+(setq byte-compile-warnings '(cl-functions))
+
+;; Load user elisp
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(require 'my:dired)
+(require 'my:template)
+
 
 (provide 'early-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
