@@ -33,7 +33,7 @@
   :ensure t
   :hook (after-init-hook . init-loader-load)
   :config
-  (custom-set-variables '(init-loader-show-log-after-init 'error-only)))
+  (setq init-loader-show-log-after-init 'error-only))
 
 
 (provide 'init)
