@@ -38,6 +38,7 @@
 ;; Compile
 (setq load-prefer-newer t)
 (setq byte-compile-warnings '(cl-functions))
+(setq custom-file "~/.emacs.d/tmp/custom.el")
 
 
 ;; Load user elisp
