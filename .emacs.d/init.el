@@ -31,11 +31,9 @@
 ;; init loader
 (leaf init-loader
   :ensure t
+  :hook (after-init-hook . init-loader-load)
   :config
-  (custom-set-variables '(init-loader-show-log-after-init 'error-only))
-  (add-hook 'after-init-hook
-			(lambda ()
-			  (init-loader-load))))
+  (custom-set-variables '(init-loader-show-log-after-init 'error-only)))
 
 
 (provide 'init)
