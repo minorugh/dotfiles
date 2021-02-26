@@ -61,7 +61,10 @@
 (leaf smartparens
   :ensure t
   :config
-  (smartparens-global-mode 1))
+  (smartparens-global-mode 1)
+  (sp-pair "`" nil :actions :rem)
+  (sp-pair "'" nil :actions :rem)
+  (sp-pair "[" nil :actions :rem))
 
 
 (leaf aggressive-indent
