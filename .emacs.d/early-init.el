@@ -18,7 +18,7 @@
 			(setq gc-cons-threshold default-gc-cons-threshold)))
 
 
-;; Package initialize occurs automatically, after `early-init-file'.
+;; Package initialization after `early-init-file'.
 (customize-set-variable
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
@@ -34,9 +34,11 @@
 (setq inhibit-splash-screen t)
 (setq frame-inhibit-implied-resize t)
 
+
 ;; Compile
 (setq load-prefer-newer t)
 (setq byte-compile-warnings '(cl-functions))
+
 
 ;; Load user elisp
 (add-to-list 'load-path "~/.emacs.d/elisp")
