@@ -60,8 +60,8 @@
 
 (leaf smartparens
   :ensure t
-  :hook (after-init-hook . smartparens-global-mode)
   :config
+  (smartparens-global-mode)
   (sp-pair "`" nil :actions :rem)
   (sp-pair "'" nil :actions :rem)
   (sp-pair "[" nil :actions :rem))
