@@ -60,7 +60,7 @@
 
 (leaf smartparens
   :ensure t
-  :hook (emacs-startup-hook . smartparens-global-mode)
+  :hook (after-init-hook . smartparens-global-mode)
   :config
   (sp-pair "`" nil :actions :rem)
   (sp-pair "'" nil :actions :rem)
