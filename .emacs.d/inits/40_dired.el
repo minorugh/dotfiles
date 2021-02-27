@@ -145,24 +145,7 @@
 	   nil	;; Do not open buffer for process
 	   (format "sxiv -f -n %s %s"
 			   (length image-files) ;; Number of image files = last image file
-			   (mapconcat 'identity image-files " ") )))) ;; Concatenate lists separated by spaces
-
-  ;; <enter> イメージモード と サムネールモード を切り替え
-
-  ;; サムネールモードで左ダブルクリック　→　イメージモードへ
-  ;; イメージモードで右クリック　→　サムネールモードへ
-
-  ;; イメージモード
-  ;; <n> 	n 	次の画像を表示する 	<space>
-  ;; <n> 	p 	前の画像を表示する 	<backspace>
-  ;; g 	最初のイメージへジャンプする
-  ;; <n> 	G 	最後のイメージ あるいは <n>番めのイメージへジャンプする
-  ;; + 	ズームイン
-  ;; - 	ズームアウト
-  ;; <n> 	= 	100％ あるいは <n>％ の大きさにする
-  ;; W 	ウィンドウの大きさに合わせる
-  ;; q 	終了
-  )
+			   (mapconcat 'identity image-files " ")))))) ;; Concatenate lists separated by spaces
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
