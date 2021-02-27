@@ -64,6 +64,10 @@
 	:global-minor-mode t))
 
 
+(leaf aggressive-indent
+  :ensure t
+  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
 
 (leaf yasnippet :ensure t
   :commands yas-global-mode

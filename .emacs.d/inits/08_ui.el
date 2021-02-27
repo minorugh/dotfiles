@@ -58,11 +58,6 @@
   (leaf all-the-icons-ivy-rich :ensure t))
 
 
-(leaf aggressive-indent
-  :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
-
-
 (leaf darkroom
   :ensure t
   :bind ("<f12>" . my:darkroom-mode-in)
