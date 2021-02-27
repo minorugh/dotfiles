@@ -17,7 +17,6 @@
 	(bind-key "M-c" 'YaTeX-typeset-buffer)
 	(bind-key "M-l" 'YaTeX-lpr)))
 
-
 ;; Dviprint-command-format (YaTeX-lpr)
 ;; -----------------------------------------------------------------------
 ;; dvpd.sh for Linux
