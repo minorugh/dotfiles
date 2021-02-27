@@ -62,9 +62,9 @@
 
 (leaf sequential-command
   :ensure t
+  :require sequential-command-config
   :config
-  (leaf sequential-command-config
-	:hook (emacs-startup-hook . sequential-command-setup-keys)))
+  (sequential-command-setup-keys))
 
 
 (leaf ps-print-setting
