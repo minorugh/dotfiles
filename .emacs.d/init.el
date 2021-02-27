@@ -18,7 +18,6 @@
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
   (package-install 'leaf))
-
 (leaf leaf-keywords
   :ensure t
   :init
