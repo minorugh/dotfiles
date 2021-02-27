@@ -9,11 +9,13 @@
   (make-variable-buffer-local 'global-hl-line-mode)
   (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil))))
 
+
 (leaf paren
   :config
   (show-paren-mode 1)
   (setq show-paren-delay 0)
   (setq show-paren-style 'parenthesis))
+
 
 (leaf smartparens
   :ensure t
@@ -22,9 +24,11 @@
   :config
   (smartparens-global-mode t))
 
+
 (leaf rainbow-delimiters
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
+
 
 (leaf volatile-highlights
   :ensure t
@@ -36,6 +40,7 @@
 		"Pulse the changes."
 		(pulse-momentary-highlight-region beg end face))
 	  (advice-add #'vhl/.make-hl :override #'my-vhl-pulse))))
+
 
 (leaf whitespace
   :ensure t
@@ -57,6 +62,7 @@
 		(widen)
 		(goto-char (point-max))
 		(delete-blank-lines)))))
+
 
 (custom-set-faces
  '(mozc-cand-posframe-normal-face ((t (:background "#282D43" :foreground "#C7C9D1"))))
