@@ -13,7 +13,7 @@
   :config
   (show-paren-mode 1)
   (setq show-paren-delay 0)
-  (setq show-paren-style ''parenthesis))
+  (setq show-paren-style 'parenthesis))
 
 (leaf smartparens
   :ensure t
