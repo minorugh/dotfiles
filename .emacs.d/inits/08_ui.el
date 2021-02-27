@@ -60,13 +60,10 @@
 
 (leaf smartparens
   :ensure t
-  :require t
+  :require smartparens-config
+  :hook (prog-mode-hook . turn-on-smartparens-mode)
   :config
-  (leaf smartparens-config
-    :require t
-    :after smartparens
-    :hook
-    (prog-mode-hook . smartparens-mode)))
+  (smartparens-global-mode t))
 
 
 (leaf aggressive-indent
