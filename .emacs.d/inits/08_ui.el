@@ -58,14 +58,6 @@
   (leaf all-the-icons-ivy-rich :ensure t))
 
 
-(leaf smartparens
-  :ensure t
-  :require smartparens-config
-  :hook (prog-mode-hook . turn-on-smartparens-mode)
-  :config
-  (smartparens-global-mode t))
-
-
 (leaf aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))

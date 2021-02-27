@@ -15,6 +15,13 @@
   (setq show-paren-delay 0)
   (setq show-paren-style ''parenthesis))
 
+(leaf smartparens
+  :ensure t
+  :require smartparens-config
+  :hook (prog-mode-hook . turn-on-smartparens-mode)
+  :config
+  (smartparens-global-mode t))
+
 (leaf rainbow-delimiters
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
