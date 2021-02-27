@@ -59,10 +59,6 @@
 		(delete-blank-lines)))))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(mozc-cand-posframe-normal-face ((t (:background "#282D43" :foreground "#C7C9D1"))))
  '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
  '(mozc-cand-posframe-footer-face ((t (:background "#282D43" :foreground "#454D73"))))
@@ -71,7 +67,7 @@
  '(markdown-code-face ((t (:inherit nil))))
  '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
- '(show-paren-match ((t (:foreground nil :background nil :underline "SkyBlue" :weight bold))))
+ '(show-paren-match ((t (:foreground nil :background nil :underline "#fff" :weight bold))))
  '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
 (put 'dired-find-alternate-file 'disabled nil)
 
