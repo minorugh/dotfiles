@@ -14,13 +14,11 @@
 
 (leaf expand-region
   :ensure t
-  :leaf-defer t
   :bind ("C-@" . er/expand-region))
 
 
 (leaf beginend
   :ensure t
-  :leaf-defer t
   :config
   (beginend-global-mode))
 
@@ -54,7 +52,6 @@
 
 (leaf quickrun
   :ensure t
-  :leaf-defer t
   :bind ("<f5>" . quickrun))
 
 
