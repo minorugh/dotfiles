@@ -10,13 +10,6 @@
   (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil))))
 
 
-(leaf beacon
-  :ensure t
-  :config
-  (setq beacon-color "yellow")
-  (beacon-mode 1))
-
-
 (leaf paren
   :config
   (show-paren-mode 1)
