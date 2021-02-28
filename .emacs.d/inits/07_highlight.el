@@ -10,11 +10,18 @@
   (add-hook 'dashboard-mode-hook (lambda() (setq global-hl-line-mode nil))))
 
 
+(leaf beacon
+  :ensure t
+  :config
+  (setq beacon-color "yellow")
+  (beacon-mode 1))
+
+
 (leaf paren
   :config
   (show-paren-mode 1)
   (setq show-paren-delay 0)
-  (setq show-paren-style 'parenthesis))
+  (setq show-paren-style 'mixed))
 
 
 (leaf smartparens
@@ -74,7 +81,8 @@
  '(markdown-code-face ((t (:inherit nil))))
  '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
- '(show-paren-match ((t (:foreground "red" :background nil :underline "#fff" :weight bold))))
+ '(show-paren-match ((t (:foreground "#f1fa8c" :background "#44475a"))))
+ ;; '(show-paren-match ((t (:foreground "red" :background nil :underline "#fff" :weight bold))))
  '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
 (put 'dired-find-alternate-file 'disabled nil)
 
