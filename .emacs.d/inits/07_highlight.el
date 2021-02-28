@@ -27,6 +27,7 @@
 
 (leaf rainbow-delimiters
   :ensure t
+  :leaf-defer t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 

@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf popwin :ensure t
+(leaf popwin
+  :ensure t
   :global-minor-mode t)
 
 
@@ -11,11 +12,15 @@
   :bind ("C-;" . iedit-mode))
 
 
-(leaf expand-region :ensure t
+(leaf expand-region
+  :ensure t
+  :leaf-defer t
   :bind ("C-@" . er/expand-region))
 
 
-(leaf beginend :ensure t
+(leaf beginend
+  :ensure t
+  :leaf-defer t
   :config
   (beginend-global-mode))
 
@@ -27,14 +32,16 @@
   	:hook (flymake-mode-hook . flymake-diagnostic-at-point-mode)))
 
 
-(leaf key-chord :ensure t
+(leaf key-chord
+  :ensure t
   :global-minor-mode t
   :config
   (key-chord-define-global "df" 'counsel-descbinds)
   (key-chord-define-global "l;" 'init-loader-show-log))
 
 
-(leaf prescient :ensure t
+(leaf prescient
+  :ensure t
   :config
   (prescient-persist-mode 1)
   (setq prescient-save-file	"~/.emacs.d/tmp/prescient-save")
@@ -45,18 +52,22 @@
 	:global-minor-mode t))
 
 
-(leaf quickrun :ensure t
+(leaf quickrun
+  :ensure t
+  :leaf-defer t
   :bind ("<f5>" . quickrun))
 
 
-(leaf which-key :ensure t
+(leaf which-key
+  :ensure t
   :global-minor-mode t
   :config
   (setq which-key-max-description-length 40)
   (setq which-key-use-C-h-commands t))
 
 
-(leaf projectile :ensure t
+(leaf projectile
+  :ensure t
   :global-minor-mode t
   :init
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld")
@@ -69,7 +80,8 @@
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
-(leaf yasnippet :ensure t
+(leaf yasnippet
+  :ensure t
   :commands yas-global-mode
   :config
   (yas-global-mode)
@@ -79,11 +91,13 @@
   (leaf ivy-yasnippet :ensure t))
 
 
-(leaf restart-emacs :ensure t
+(leaf restart-emacs
+  :ensure t
   :bind ("C-x C-c" . restart-emacs))
 
 
-(leaf web-mode :ensure t
+(leaf web-mode
+  :ensure t
   :mode "\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
 
 

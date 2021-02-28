@@ -5,6 +5,7 @@
 
 (leaf markdown-mode
   :ensure t
+  :leaf-defer t
   :mode ("\\.md\\'" . markdown-mode)
   :config
   (setq markdown-command "pandoc")
