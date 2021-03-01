@@ -7,7 +7,6 @@
   :ensure t
   :bind (("M-g" . hydra-magit/body))
   :config
-  ;; magit status stops splitting windows
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :hydra
   (hydra-magit
@@ -20,9 +19,8 @@
    ("t" git-timemachine)
    ("<muhenkan>" nil))
   :init
-  (leaf git-timemachine :ensure t)
-  (leaf diff-hl
-	:ensure t
+  (leaf git-timemachine	:ensure t)
+  (leaf diff-hl	:ensure t
 	:hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
 	:global-minor-mode (global-diff-hl-mode diff-hl-margin-mode)))
 
