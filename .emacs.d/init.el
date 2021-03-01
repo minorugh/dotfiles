@@ -12,7 +12,6 @@
   (tool-bar-mode 0)
   (load (concat user-emacs-directory "early-init.el")))
 
-
 ;; Package
 (package-initialize)
 (unless (package-installed-p 'leaf)
@@ -26,14 +25,22 @@
   :config
   (leaf-keywords-init))
 
+;; Compile
+(setq load-prefer-newer t)
+(setq byte-compile-warnings '(cl-functions))
+(setq custom-file "~/.emacs.d/tmp/custom.el")
 
-;; init loader
+
+;; Load user elisp
 (leaf init-loader
   :ensure t
   :hook (after-init-hook . init-loader-load)
   :config
-  (setq init-loader-show-log-after-init 'error-only))
-
+  (setq init-loader-show-log-after-init 'error-only)
+  :init
+  (add-to-list 'load-path "~/.emacs.d/elisp")
+  (require 'my:dired)
+  (require 'my:template))
 
 (provide 'init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -35,18 +35,6 @@
 (setq frame-inhibit-implied-resize t)
 
 
-;; Compile
-(setq load-prefer-newer t)
-(setq byte-compile-warnings '(cl-functions))
-(setq custom-file "~/.emacs.d/tmp/custom.el")
-
-
-;; Load user elisp
-(add-to-list 'load-path "~/.emacs.d/elisp")
-(require 'my:dired)
-(require 'my:template)
-
-
 (provide 'early-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
