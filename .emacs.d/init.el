@@ -30,16 +30,18 @@
 (setq byte-compile-warnings '(cl-functions))
 (setq custom-file "~/.emacs.d/tmp/custom.el")
 
+;; Load user elisp
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(require 'my:dired)
+(require 'my:template)
+
 ;; Init-loader
 (leaf init-loader
   :ensure t
   :hook (after-init-hook . init-loader-load)
   :config
-  (setq init-loader-show-log-after-init 'error-only)
-  :init
-  (add-to-list 'load-path "~/.emacs.d/elisp")
-  (require 'my:dired)
-  (require 'my:template))
+  (setq init-loader-show-log-after-init 'error-only))
+
 
 (provide 'init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
