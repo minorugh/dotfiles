@@ -276,7 +276,7 @@ alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
 
 ## sudo reboot
-alias rb='sudo reboot'
+alias boot='sudo reboot'
 
 
 ## get api token from github
