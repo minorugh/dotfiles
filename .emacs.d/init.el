@@ -37,7 +37,6 @@
   :config
   (setq init-loader-show-log-after-init 'error-only)
   :init
-  ;; Load user elisp
   (add-to-list 'load-path "~/.emacs.d/elisp")
   (require 'my:dired)
   (require 'my:template))
