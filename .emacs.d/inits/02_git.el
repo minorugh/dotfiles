@@ -5,28 +5,26 @@
 
 (leaf magit
   :ensure t
+  :bind (("M-g" . hydra-magit/body))
   :config
-  (bind-key "C-x g" 'magit-status)
   ;; magit status stops splitting windows
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :hydra
   (hydra-magit
    (:color red :hint nil)
    "
- 📦 Git: _s_tatus  _b_lame  _t_imemachine  _d_iff"
+ 📦 Git: _s_tatus  _b_lame  _d_iff  _t_imemachine"
    ("s" magit-status :exit t)
    ("b" magit-blame :exit t)
+   ("d" magit-diff-working-tree)
    ("t" git-timemachine)
-   ("d" vc-diff)
    ("<muhenkan>" nil))
   :init
-  (leaf git-timemachine :ensure t))
-
-
-(leaf diff-hl
-  :ensure t
-  :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
-  :global-minor-mode (global-diff-hl-mode diff-hl-margin-mode))
+  (leaf git-timemachine :ensure t)
+  (leaf diff-hl
+	:ensure t
+	:hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+	:global-minor-mode (global-diff-hl-mode diff-hl-margin-mode)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
