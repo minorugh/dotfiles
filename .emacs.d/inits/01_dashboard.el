@@ -98,12 +98,12 @@
 	(when (and dashboard-recover-layout-p
 			   (bound-and-true-p winner-mode))
 	  (winner-undo)
-	  (setq dashboard-recover-layout-p nil))))
+	  (setq dashboard-recover-layout-p nil)))
 
-(defun open-sylpheed ()
-  "Open filer in current dir."
-  (interactive)
-  (compile "sylpheed"))
+  (defun open-sylpheed ()
+	"Open filer in current dir."
+	(interactive)
+	(compile "sylpheed")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
