@@ -48,35 +48,35 @@
   :ensure t
   :hook (dired-mode-hook . all-the-icons-dired-mode)
   :config
-  (setq all-the-icons-scale-factor 1.0)
+  (setq all-the-icons-scale-factor 0.9)
   (all-the-icons-ivy-rich-mode)
   :init
   (unless (member "all-the-icons" (font-family-list))
     (all-the-icons-install-fonts t))
-  (leaf all-the-icons-dired :ensure t)
+  (leaf all-the-icons-dired	:ensure t)
   (leaf all-the-icons-ivy-rich :ensure t))
 
 
-(leaf darkroom
-  :ensure t
-  :bind ("<f12>" . my:darkroom-mode-in)
-  :config
-  (defun my:darkroom-mode-in ()
-    (interactive)
-    (display-line-numbers-mode 0)
-    (diff-hl-mode 0)
-    (flymake-mode 0)
-    (setq line-spacing 0.4)
-    (darkroom-mode 1)
-    (bind-key "<f12>" 'my:darkroom-mode-out darkroom-mode-map))
+  (leaf darkroom
+	:ensure t
+	:bind ("<f12>" . my:darkroom-mode-in)
+	:config
+	(defun my:darkroom-mode-in ()
+      (interactive)
+      (display-line-numbers-mode 0)
+      (diff-hl-mode 0)
+      (flymake-mode 0)
+      (setq line-spacing 0.4)
+      (darkroom-mode 1)
+      (bind-key "<f12>" 'my:darkroom-mode-out darkroom-mode-map))
 
-  (defun my:darkroom-mode-out ()
-    (interactive)
-    (darkroom-mode 0)
-    (flymake-mode 1)
-    (diff-hl-mode 1)
-    (setq line-spacing 0.1)
-    (display-line-numbers-mode 1)))
+	(defun my:darkroom-mode-out ()
+      (interactive)
+      (darkroom-mode 0)
+      (flymake-mode 1)
+      (diff-hl-mode 1)
+      (setq line-spacing 0.1)
+      (display-line-numbers-mode 1)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
