@@ -13,11 +13,6 @@
   (load (concat user-emacs-directory "early-init.el")))
 
 
-;; Compile
-(setq load-prefer-newer t)
-(setq byte-compile-warnings '(cl-functions))
-
-
 ;; Package
 (package-initialize)
 (unless (package-installed-p 'leaf)
