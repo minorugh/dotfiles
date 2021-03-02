@@ -20,9 +20,12 @@
    ("<muhenkan>" nil))
   :init
   (leaf git-timemachine	:ensure t)
-  (leaf diff-hl	:ensure t
-	:hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
-	:global-minor-mode (global-diff-hl-mode diff-hl-margin-mode)))
+  (leaf diff-hl
+	:ensure t
+	:config
+	(global-diff-hl-mode)
+	(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+	(unless (window-system) (diff-hl-margin-mode))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
