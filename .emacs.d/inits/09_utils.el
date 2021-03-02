@@ -44,11 +44,11 @@
 (leaf migemo
   :ensure t
   :if (executable-find "cmigemo")
+  :hook (emacs-startup-hook . migemo-init)
   :config
   (setq migemo-command (executable-find "cmigemo"))
   (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-  (autoload 'migemo-init "migemo" nil t)
-  (migemo-init))
+  (autoload 'migemo-init "migemo" nil t))
 
 
 (leaf imenu-list
