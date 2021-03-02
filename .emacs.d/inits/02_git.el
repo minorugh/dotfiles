@@ -24,7 +24,8 @@
 	:ensure t
 	:config
 	(global-diff-hl-mode)
-	(diff-hl-margin-mode)))
+	;; (diff-hl-margin-mode)
+	))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
