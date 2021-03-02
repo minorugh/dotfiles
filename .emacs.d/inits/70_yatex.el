@@ -12,9 +12,10 @@
   (setq YaTeX-kanji-code nil)
   (setq YaTeX-latex-message-code 'utf-8)
   (setq YaTeX-default-pop-window-height 15)
-  (when (require 'yatexprc nil t)
-	(bind-key "M-c" 'YaTeX-typeset-buffer)
-	(bind-key "M-l" 'YaTeX-lpr)))
+  (leaf yatexprc
+	:bind (("M-c" . YaTeX-typeset-buffer)
+		   ("M-l" . YaTeX-lpr))))
+
 
 ;; Dviprint-command-format (YaTeX-lpr)
 ;; -----------------------------------------------------------------------
