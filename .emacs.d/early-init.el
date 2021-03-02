@@ -33,10 +33,6 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq inhibit-splash-screen t)
 (setq frame-inhibit-implied-resize t)
-
-
-;; Compile
-(setq load-prefer-newer t)
 (setq byte-compile-warnings '(cl-functions))
 
 

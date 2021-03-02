@@ -36,6 +36,7 @@
   (require 'my:dired)
   (require 'my:template)
   :config
+  (setq load-prefer-newer t)
   (setq custom-file "~/.emacs.d/tmp/custom.el")
   (setq init-loader-show-log-after-init 'error-only))
 
