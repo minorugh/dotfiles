@@ -100,47 +100,49 @@
 											   (concat (read-from-minibuffer "File name:") ".pdf")))))
 
 
-(defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-  (when (get-buffer "*tramp/scp xsrv*")
-	(counsel-tramp-quit))
-  (message "Killed Other Buffers!"))
+(leaf user-define-functions
+  :config
+  (defun kill-other-buffers ()
+	"Kill all other buffers."
+	(interactive)
+	(mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+	(when (get-buffer "*tramp/scp xsrv*")
+	  (counsel-tramp-quit))
+	(message "Killed Other Buffers!"))
 
+  (defun toggle-scratch ()
+	"Toggle current buffer and *scratch* buffer."
+	(interactive)
+	(if (not (string= "*scratch*" (buffer-name)))
+		(progn
+		  (setq toggle-scratch-prev-buffer (buffer-name))
+		  (switch-to-buffer "*scratch*"))
+	  (switch-to-buffer toggle-scratch-prev-buffer)))
+  (bind-key "S-<return>" 'toggle-scratch)
 
-(defun toggle-scratch ()
-  "Toggle current buffer and *scratch* buffer."
-  (interactive)
-  (if (not (string= "*scratch*" (buffer-name)))
-	  (progn
-		(setq toggle-scratch-prev-buffer (buffer-name))
-		(switch-to-buffer "*scratch*"))
-	(switch-to-buffer toggle-scratch-prev-buffer)))
-(bind-key "S-<return>" 'toggle-scratch)
+  (defun filer-current-dir-open ()
+	"Open filer in current dir."
+	(interactive)
+	(compile (concat "nautilus " default-directory)))
+  (bind-key "<f3>" 'filer-current-dir-open)
 
-(defun filer-current-dir-open ()
-  "Open filer in current dir."
-  (interactive)
-  (compile (concat "nautilus " default-directory)))
-(bind-key "<f3>" 'filer-current-dir-open)
+  (defun term-current-dir-open ()
+	"Open terminal application in current dir."
+	(interactive)
+	(let ((dir (directory-file-name default-directory)))
+	  (compile (concat "gnome-terminal --working-directory " dir))))
+  (bind-key "<f4>" 'term-current-dir-open)
 
-(defun term-current-dir-open ()
-  "Open terminal application in current dir."
-  (interactive)
-  (let ((dir (directory-file-name default-directory)))
-	(compile (concat "gnome-terminal --working-directory " dir))))
-(bind-key "<f4>" 'term-current-dir-open)
-
-(defun my:delete-file-if-no-contents ()
-  "Automatic deletion for empty files (Valid in all modes)."
-  (when (and (buffer-file-name (current-buffer))
-			 (= (point-min) (point-max)))
-	(delete-file
-	 (buffer-file-name (current-buffer)))))
-(if (not (memq 'my:delete-file-if-no-contents after-save-hook))
-	(setq after-save-hook
-		  (cons 'my:delete-file-if-no-contents after-save-hook)))
+  (defun my:delete-file-if-no-contents ()
+	"Automatic deletion for empty files (Valid in all modes)."
+	(when (and (buffer-file-name (current-buffer))
+			   (= (point-min) (point-max)))
+	  (delete-file
+	   (buffer-file-name (current-buffer)))))
+  (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
+	  (setq after-save-hook
+			(cons 'my:delete-file-if-no-contents after-save-hook)))
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
