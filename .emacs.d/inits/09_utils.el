@@ -102,6 +102,13 @@
 
 (leaf user-define-functions
   :config
+  (bind-key
+   "M-p"
+   (defun open-screenshooter ()
+	 "Narrow the only espy command in M-x."
+	 (interactive)
+	 (shell-command "xfce4-screenshooter")))
+
   (defun kill-other-buffers ()
 	"Kill all other buffers."
 	(interactive)
@@ -123,14 +130,14 @@
   (defun filer-current-dir-open ()
 	"Open filer in current dir."
 	(interactive)
-	(compile (concat "nautilus " default-directory)))
+	(shell-command (concat "nautilus " default-directory)))
   (bind-key "<f3>" 'filer-current-dir-open)
 
   (defun term-current-dir-open ()
 	"Open terminal application in current dir."
 	(interactive)
 	(let ((dir (directory-file-name default-directory)))
-	  (compile (concat "gnome-terminal --working-directory " dir))))
+	  (shell-command (concat "gnome-terminal --working-directory " dir))))
   (bind-key "<f4>" 'term-current-dir-open)
 
   (defun my:delete-file-if-no-contents ()

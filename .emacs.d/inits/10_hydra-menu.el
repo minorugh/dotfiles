@@ -141,13 +141,6 @@
 	(interactive)
 	(compile "gnome-calculator"))
 
-  (bind-key
-   "M-p"
-   (defun open-screenshooter ()
-	 "Narrow the only espy command in M-x."
-	 (interactive)
-	 (shell-command "xfce4-screenshooter")))
-
   (defun my:backupall ()
 	"Backup for melpa package."
 	(interactive)

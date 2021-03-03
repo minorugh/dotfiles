@@ -57,22 +57,22 @@
   (defun my:mozc-config-dialog ()
 	"Run the mozc-tool in the background."
 	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=config_dialog"))
+	(shell-command "/usr/lib/mozc/mozc_tool --mode=config_dialog"))
 
   (defun my:mozc-dictionary-tool ()
 	"Run the mozc-tool in the background."
 	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=dictionary_tool"))
+	(shell-command "/usr/lib/mozc/mozc_tool --mode=dictionary_tool"))
 
   (defun my:mozc-word-regist ()
 	"Run the mozc-tool in the background."
 	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog"))
+	(shell-command "/usr/lib/mozc/mozc_tool --mode=word_register_dialog"))
 
   (defun my:mozc-hand-writing ()
 	"Run the mozc-tool in the background."
 	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=hand_writing")))
+	(shell-command "/usr/lib/mozc/mozc_tool --mode=hand_writing")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
