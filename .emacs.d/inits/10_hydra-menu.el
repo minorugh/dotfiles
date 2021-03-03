@@ -11,8 +11,8 @@
    "
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  _z_shrc  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  init_l_og  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_inky  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url"
+  _d_ropbox  _e_macs.d  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  _z_shrc  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
+  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rtSc  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
    ("t" counsel-tramp)
@@ -33,7 +33,7 @@
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
-   ("g" my:github-show)
+   ("g" my:github-showq)
    ("@" howm-list-all)
    ("," org-capture)
    ("k" my:make-k)
@@ -42,10 +42,9 @@
    (";" hydra-work/body)
    ("w" my:web-dir)
    ("/" my:root-dir)
-   ("p" hydra-pinky/body)
+   (":" hydra-pinky/body)
    ("_" delete-other-windows)
-   ("[" hydra-magit/body)
-   ("]" magit-status)
+   ("p" counsel-linux-app)
    ("l" init-loader-show-log)
    ("z" my:edit-zshrc)
    ("." my:dotfiles-dir)
