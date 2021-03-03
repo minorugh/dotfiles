@@ -100,7 +100,6 @@
   			 (_ filename))
   		   args))
   (advice-add 'Info-find-node :around 'Info-find-node--info-ja)
-
   (defun Info-find-node--elisp-ja (orig-fn filename &rest args)
   	"Info as ORIG-FN FILENAME ARGS."
 	(apply orig-fn
