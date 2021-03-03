@@ -101,7 +101,7 @@ install: ## Install debian linux packages using apt
 	pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect \
 	ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh \
 	autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme \
-	screen keychain mosh compizconfig-settings-manager compiz-plugins \
+	screen keychain mosh compizconfig-settings-manager compiz-plugins cups cups-bsd\
 	libsecret-tools xscreensaver xscreensaver-gl-extra nodejs npm albert \
 	menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
 
