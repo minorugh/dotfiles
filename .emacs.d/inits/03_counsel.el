@@ -30,7 +30,7 @@
 
   :init
   (leaf avy :ensure t
-	:bind ("C-r" . avy-goto-word-1))
+	:bind ("C-c r" . avy-goto-word-1))
   (leaf ivy-xref :ensure t
   	:init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
   (leaf amx :ensure t
