@@ -13,6 +13,7 @@
   (bind-key "C-r" 'swiper-thing-at-point)
   (bind-key "C-s" 'swiper-region)
   (bind-key "C-:" 'counsel-switch-buffer)
+  (bind-key "s-a" 'counsel-linux-app)
   (bind-key "C-x C-b" 'switch-to-buffer)
   (bind-key "C-x C-f" 'counsel-find-file)
   (bind-key "C-x C-r" 'counsel-recentf)
