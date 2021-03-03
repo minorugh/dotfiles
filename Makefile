@@ -240,7 +240,7 @@ emacs-latest: ## Install latest version of emacs
 	sudo make install;\
 
 
-allinstall: gnupg ssh base install init keyring tlp cica emacsmozc cups pipinstall snapinstall
+allinstall: gnupg ssh base install init keyring tlp cica emacsmozc pipinstall
 
 nextinstall: albert filezilla keepassxc sylpheed sxiv images
 
