@@ -33,7 +33,7 @@
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
-   ("g" my:github-showq)
+   ("g" my:github-show)
    ("@" howm-list-all)
    ("," org-capture)
    ("k" my:make-k)
