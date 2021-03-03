@@ -12,7 +12,7 @@
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
   _d_ropbox  _e_macs.d  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  _z_shrc  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rtSc  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url"
+  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url"
    ("a" counsel-ag)
    ("o" browse-url-at-point)
    ("t" counsel-tramp)
@@ -44,7 +44,7 @@
    ("/" my:root-dir)
    (":" hydra-pinky/body)
    ("_" delete-other-windows)
-   ("p" counsel-linux-app)
+   ("p" ps-print-buffer)
    ("l" init-loader-show-log)
    ("z" my:edit-zshrc)
    ("." my:dotfiles-dir)
@@ -140,6 +140,13 @@
 	"Narrow the only espy command in M-x."
 	(interactive)
 	(compile "gnome-calculator"))
+
+  (bind-key
+   "M-p"
+   (defun open-screenshooter ()
+	 "Narrow the only espy command in M-x."
+	 (interactive)
+	 (shell-command "xfce4-screenshooter")))
 
   (defun my:backupall ()
 	"Backup for melpa package."
