@@ -33,8 +33,7 @@
   :config
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c c" 'org-capture)
-  (bind-key "C-c o" 'browse-url-at-point)
-  (bind-key "C-c o" 'org-open-at-point org-mode-map)
+  (bind-key "S-<return>" 'org-open-at-point org-mode-map)
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
   (setq org-src-fontify-natively t)
