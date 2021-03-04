@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=org-protocol
+Exec=emacsclient %u
+Type=Application
+Terminal=false
+Categories=System;
+MimeType=x-scheme-handler/org-protocol;
+Icon=/home/minoru/Dropbox/backup/icons/icon-256x256.png
+Comment=org-capture extention
+Path=
+StartupNotify=false
