@@ -111,7 +111,7 @@
 	"Get file and open gedit with sudo."
 	(interactive)
 	(let ((file (dired-get-filename nil t)))
-	  (compile (concat "sudo mousepad " file))))
+	  (shell-command (concat "sudo mousepad " file))))
 
   (defun my:dired-toggle-mark (arg)
     "Toggle the current next files."
