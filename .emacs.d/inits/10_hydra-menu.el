@@ -11,10 +11,11 @@
    "
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  _z_shrc  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint  _s_earch-web^^  make:_k_  _c_ompile  _o_rg-file"
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  view_:_  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
+  shell:_z_  magit_[__]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint^  _s_earch-web^^  make:_k_  _c_ompile  _o_rg:_l_ink"
    ("a" counsel-ag)
    ("o" my:org-dir)
+   ("l" my:org-link-file)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
@@ -29,7 +30,7 @@
    ("r" restart-emacs)
    ("s" counsel-web-suggest)
    ("m" hydra-markdown/body)
-   (":" hydra-pinky/body)
+   (":" view-mode)
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
@@ -39,14 +40,14 @@
    ("k" my:make-k)
    ("f" flymake-goto-next-error)
    ("u" undo-tree-visualize)
-   (";" hydra-work/body)
    ("w" my:web-dir)
    ("/" my:root-dir)
-   (":" hydra-pinky/body)
+   (";" hydra-work/body)
    ("_" delete-other-windows)
    ("p" ps-print-buffer)
-   ("l" init-loader-show-log)
-   ("z" my:edit-zshrc)
+   ("[" hydra-magit/body)
+   ("]" magit-statu)
+   ("z" eshell)
    ("." my:dotfiles-dir)
    ("M-." hydra-work/body)
    ("<henkan>" hydra-work/body)
@@ -93,13 +94,13 @@
    ("+" text-scale-adjust)
    ("/" kill-other-buffers)
    ("_" delete-other-windows)
-   (";" hydra-quick-menu/body)
    ("[" my:haiku-note)
    ("]" my:haiku-note-post)
    ("j" open-junk-file)
    ("J" open-last-junk-file)
    ("v" view-mode)
    ("f" ftp-client)
+   (";" hydra-quick-menu/body)
    ("<henkan>" hydra-quick-menu/body)
    ("<muhenkan>" nil)))
 
