@@ -59,10 +59,10 @@
   (interactive)
   (find-file "~/Dropbox/org/"))
 
-(defun my:junk-file-dir ()
-  "Open junk-file dir."
+(defun my:org-link-file ()
+  "Open org-link-file."
   (interactive)
-  (find-file "~/Dropbox/howm/junk/"))
+  (find-file "~/Dropbox/org/link.org"))
 
 (defun my:diary ()
   "Open diary dir."
