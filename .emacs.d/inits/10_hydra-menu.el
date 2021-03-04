@@ -15,7 +15,7 @@
   shell:_z_  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint^  _s_earch-web^^  make:_k_  _c_ompile  _o_rg:_l_ink"
    ("a" counsel-ag)
    ("o" my:org-dir)
-   ("l" my:org-link-file)
+   ("l" my:org-notes)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
