@@ -12,9 +12,9 @@
   🐳 Quick Menu
   ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
   _d_ropbox  _e_macs.d  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  _z_shrc  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint  _s_earch-web^^  make:_k_  _c_ompile  _o_pen-url"
+  init_l_og  pinky:_:_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint  _s_earch-web^^  make:_k_  _c_ompile  _o_rg-file"
    ("a" counsel-ag)
-   ("o" browse-url-at-point)
+   ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
