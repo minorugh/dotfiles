@@ -29,14 +29,18 @@
 
 
 (leaf org
+  :require org-protocol
   :config
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c c" 'org-capture)
+  (bind-key "C-c o" 'browse-url-at-point)
+  (bind-key "C-c o" 'org-open-at-point org-mode-map)
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
   (setq org-src-fontify-natively t)
+  (setq org-startup-folded 'content)
   ;; Agenda Settings
-  (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
+  (setq org-agenda-files '("~/Dropbox/org/task.org"))
   (setq org-agenda-span 30)
   (defadvice org-agenda (around org-agenda-fullscreen activate)
     "Agenda open fullscreen."
@@ -51,26 +55,30 @@
     (jump-to-register :org-agenda-fullscreen))
   ;; Caputure Settings
   (setq org-capture-templates
-		'(("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "Task")
+		'(("t" " Task" entry (file+headline "~/Dropbox/org/task.org" "Task")
 		   "** TODO %?\n SCHEDULED: %^t \n" :prepend t)
 		  ("m" " Memo" plain (file my:howm-create-file)
-		   "# memo: %?\n%U %i")
+		   i"# memo: %?\n%U %i")
 		  ("n" " Note" plain (file my:howm-create-file)
 		   "# note: %?\n%U %i")
-		  ("p" "★ Perl" plain (file my:howm-create-file)
-		   "# Perl: %?\n%U %i\n\n>>>\n\n```perl\n%i\n```")
+		  ("c" "★ Code" plain (file my:howm-create-file)
+		   "# Code: %?\n%U %i\n\n>>>\n\n```perl\n%i\n```")
 		  ("e" "★ Emacs" plain (file my:howm-create-file)
 		   "# emacs: %?\n%U %i\n\n```emacs-lisp\n%i\n```")
 		  ("l" "★ Linux" plain (file my:howm-create-file)
-		   "# linux: %?\n%U %i")))
+		   "# linux: %?\n%U %i")
+		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/org/code.org" "Code")
+		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_QUOTE emacs-lisp\n%i\n#+END_QUOTE\n" :prepend t)
+		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/org/link.org" "Link")
+		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)))
 
   :init
   ;; Maximize the org-capture buffer
   (defvar my:org-capture-before-config nil
-    "Window configuration before 'org-capture'.")
+	"Window configuration before 'org-capture'.")
   (defadvice org-capture (before save-config activate)
-    "Save the window configuration before 'org-capture'."
-    (setq my:org-capture-before-config (current-window-configuration)))
+	"Save the window configuration before 'org-capture'."
+	(setq my:org-capture-before-config (current-window-configuration)))
   (add-hook 'org-capture-mode-hook 'delete-other-windows))
 
 
