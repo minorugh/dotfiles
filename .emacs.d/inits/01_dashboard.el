@@ -103,7 +103,7 @@
   (defun open-sylpheed ()
 	"Open filer in current dir."
 	(interactive)
-	(shell-command "sylpheed")))
+	(compile "sylpheed")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
