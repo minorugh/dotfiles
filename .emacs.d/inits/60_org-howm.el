@@ -22,7 +22,7 @@
   (setq howm-user-font-lock-keywords
 		'(("memo:" . (0 'gnus-group-mail-3))
 		  ("note:" . (0 'epa-mark))
-		  ("perl:" . (0 'diff-refine-added))
+		  ("code:" . (0 'diff-refine-added))
 		  ("haiku:" . (0 'compilation-mode-line-exit))
 		  ("emacs:" . (0 'compilation-info))
 		  ("linux:" . (0 'compilation-error)))))
@@ -67,10 +67,11 @@
 		   "# emacs: %?\n%U %i\n\n```emacs-lisp\n%i\n```")
 		  ("l" "★ Linux" plain (file my:howm-create-file)
 		   "# linux: %?\n%U %i")
-		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/org/code.org" "Code")
+		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/org/notes.org" "Inbox")
 		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_QUOTE emacs-lisp\n%i\n#+END_QUOTE\n" :prepend t)
-		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/org/link.org" "Link")
-		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)))
+		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/org/notes.org" "Inbox")
+		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)
+		  ))
 
   :init
   ;; Maximize the org-capture buffer
