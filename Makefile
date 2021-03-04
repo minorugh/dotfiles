@@ -190,12 +190,17 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 	sudo apt install -y libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn ${HOME}/Dropbox/backup/conf/keepassxc ${HOME}/.config/keepassxc
-
 ## select-tool setup
 ## | $ sudo secret-tool store --label "KeePassXC master password" type kbd
 ## asked for a password so enter
 ## popup panel for passward input so input 'gospel'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
+
+org-protocol:
+# The extentsion itself is available at the Chrome App Store.
+# https://github.com/sprig/org-capture-extension
+	ln -vsf ${PWD}/.local/share/applications/org-protocol.desktop ${HOME}/.local/share/applications/org-protocol.desktop
+	update-desktop-database ~/.local/share/applications/
 
 sylpheed: ## Init sylpheed
 	sudo apt install -y sylpheed
