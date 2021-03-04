@@ -54,10 +54,15 @@
   (interactive)
   (find-file "~/Dropbox/backup/"))
 
+(defun my:org-dir ()
+  "Open org-file dir."
+  (interactive)
+  (find-file "~/Dropbox/org/"))
+
 (defun my:junk-file-dir ()
   "Open junk-file dir."
   (interactive)
-  (find-file "~/howm/junk/"))
+  (find-file "~/Dropbox/howm/junk/"))
 
 (defun my:diary ()
   "Open diary dir."
