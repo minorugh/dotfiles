@@ -5,7 +5,6 @@
 
 (leaf markdown-mode
   :ensure t
-  :leaf-defer t
   :mode ("\\.md\\'" . markdown-mode)
   :config
   (setq markdown-command "pandoc")
@@ -66,6 +65,7 @@
    ("<muhenkan>" nil))
 
   :init
+  (leaf edit-indirect :ensure t)
   (defun md2pdf ()
 	"Generate pdf from currently open markdown."
 	(interactive)
