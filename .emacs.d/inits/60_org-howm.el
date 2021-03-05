@@ -68,7 +68,7 @@
 		   "* %? %U %i")
 		  ;; ("m" "Memo" entry (file+headline "~/Dropbox/howm/org/memo.org" "Memo")
 		  ;;  "* %? %U %i")
-		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
+		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/howm/org/code.org" "Capture")
 		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
 		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
 		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)
