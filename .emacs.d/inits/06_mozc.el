@@ -12,7 +12,7 @@
 	(bind-key* "<henkan>" 'toggle-input-method))
   (setq default-input-method "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
-  (setq mozc-leim-title "♡かな")
+  (setq mozc-leim-title "⌨かな")
   (set-cursor-color "#BD93F9")
   (add-hook 'input-method-activate-hook
 			(lambda() (set-cursor-color "#CC3333")))
