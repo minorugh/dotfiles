@@ -39,7 +39,7 @@
   (setq org-src-fontify-natively t)
   (setq org-startup-folded 'content)
   ;; Agenda Settings
-  (setq org-agenda-files '("~/Dropbox/org/task.org"))
+  (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
   (setq org-agenda-span 30)
   (defadvice org-agenda (around org-agenda-fullscreen activate)
     "Agenda open fullscreen."
@@ -54,23 +54,31 @@
     (jump-to-register :org-agenda-fullscreen))
   ;; Caputure Settings
   (setq org-capture-templates
-		'(("t" " Task" entry (file+headline "~/Dropbox/org/task.org" "Task")
-		   "** TODO %?\n SCHEDULED: %^t \n" :prepend t)
-		  ("m" " Memo" plain (file my:howm-create-file)
+		'(("m" " Memo" plain (file my:howm-create-file)
 		   i"# memo: %?\n%U %i")
 		  ("n" " Note" plain (file my:howm-create-file)
 		   "# note: %?\n%U %i")
-		  ("c" "★ Code" plain (file my:howm-create-file)
-		   "# Code: %?\n%U %i\n\n>>>\n\n```perl\n%i\n```")
-		  ("e" "★ Emacs" plain (file my:howm-create-file)
-		   "# emacs: %?\n%U %i\n\n```emacs-lisp\n%i\n```")
-		  ("l" "★ Linux" plain (file my:howm-create-file)
-		   "# linux: %?\n%U %i")
-		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/org/notes.org" "Inbox")
-		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_QUOTE emacs-lisp\n%i\n#+END_QUOTE\n" :prepend t)
-		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/org/notes.org" "Inbox")
+		  ("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "Task")
+		   "** TODO %?\n SCHEDULED: %^t \n" :prepend t)
+		  ("e" "💣 Experiment" entry (file+headline "~/Dropbox/howm/org/code.org" "Experiment")
+		   "* %? %U %i\n#+BEGIN_SRC\n\n#+END_SRC")
+		  ("i" "✌ Idea" entry (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
+		   "* %? %U %i")
+		  ("r" "🐾 Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
+		   "* %? %U %i")
+		  ;; ("m" "Memo" entry (file+headline "~/Dropbox/howm/org/memo.org" "Memo")
+		  ;;  "* %? %U %i")
+		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
+		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
+		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
 		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)
 		  ))
+  (setq org-refile-targets
+		(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
+				("~/Dropbox/howm/org/remember.org" :level . 1)
+				("~/Dropbox/howm/org/pocket.org" :level . 1)
+				("~/Dropbox/howm/org/idea.org" :level . 1)
+				("~/Dropbox/howm/org/task.org" :level . 1))))
 
   :init
   ;; Maximize the org-capture buffer
@@ -82,25 +90,5 @@
   (add-hook 'org-capture-mode-hook 'delete-other-windows))
 
 
-(leaf open-junk-file :ensure t
-  :config
-  (setq open-junk-file-format "~/Dropbox/howm/junk/%Y%m%d.")
-  (setq open-junk-file-find-file-function 'find-file)
-  :init
-  ;; https://qiita.com/zonkyy/items/eba6bc64f66d278f0032
-  (leaf em-glob	:require t
-	:config
-	(defvar junk-file-dir "~/Dropbox/howm/junk/")
-	(defun open-last-junk-file ()
-	  "Open last created junk-file."
-	  (interactive)
-	  (find-file
-	   (car
-		(last (eshell-extended-glob
-			   (concat
-				(file-name-as-directory junk-file-dir)
-				"*.*.*"))))))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 60_howm.el ends here
+;;; 60_org-howm.el ends here
