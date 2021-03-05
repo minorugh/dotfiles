@@ -10,9 +10,9 @@
    (:hint nil :exit t)
    "
   🐳 Quick Menu
-  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root:_/_  dotfiles_._  view_:_  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  shell:_z_  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _f_lyERR  memo:_,_  _u_ndotree   _p_rint^  _s_earch-web^^  make:_k_  _c_ompile  _o_rg:_l_ink"
+  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root_/_  dotfiles_._  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
+  shell:_z_  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  _s_wiper  _p_rint  _u_ndotree   _w_eb-search^^  make:_k_  _c_ompile  _o_rg:_l_ink"
    ("a" counsel-ag)
    ("o" my:org-dir)
    ("l" my:open-link.org)
@@ -28,9 +28,8 @@
    ("n" yas/new-snippet)
    ("v" yas/visit-snippet-file)
    ("r" restart-emacs)
-   ("s" counsel-web-suggest)
+   ("w" counsel-web-suggest)
    ("m" hydra-markdown/body)
-   (":" view-mode)
    ("c" hydra-compile/body)
    ("b" counsel-bookmark)
    ("B" bookmark-set)
@@ -38,15 +37,14 @@
    ("@" howm-list-all)
    ("," org-capture)
    ("k" my:make-k)
-   ("f" flymake-goto-next-error)
    ("u" undo-tree-visualize)
-   ("w" my:web-dir)
    ("/" my:root-dir)
    (";" hydra-work/body)
    ("_" delete-other-windows)
    ("p" ps-print-buffer)
    ("[" hydra-magit/body)
    ("]" magit-statu)
+   ("s" swiper-thing-at-point)
    ("z" eshell)
    ("." my:dotfiles-dir)
    ("M-." hydra-work/body)
@@ -89,7 +87,6 @@
    ("@" hydra-package/body)
    ("p" open-keepass)
    ("2" pdfout-select)
-   (":" my:ps-print)
    ("+" text-scale-adjust)
    ("/" kill-other-buffers)
    ("_" delete-other-windows)
@@ -105,17 +102,6 @@
 
 (leaf user-defined-function
   :config
-  (defun my:ps-print ()
-    "Narrow the only counsel-command in M-x."
-    (interactive)
-    (counsel-M-x "^ps-print "))
-
-  (defun my:edit-zshrc ()
-    "Edit zshrc file."
-    (interactive)
-    (find-file "~/.zshrc")
-	(goto-char (point-min)))
-
   (defun ftp-client ()
     "Open Ftp application."
     (interactive)
@@ -139,6 +125,11 @@
 	"Narrow the only espy command in M-x."
 	(interactive)
 	(shell-command "gnome-calculator"))
+
+  (defun print-screen ()
+	"Narrow the only espy command in M-x."
+	(interactive)
+	(shell-command "xfce4-screenshooter"))
 
   (defun my:backupall ()
 	"Backup for melpa package."
