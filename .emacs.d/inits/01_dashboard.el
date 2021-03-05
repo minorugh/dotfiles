@@ -101,9 +101,9 @@
 	  (setq dashboard-recover-layout-p nil)))
 
   (defun open-sylpheed ()
-	"Open filer in current dir."
+	"Open sylpheed."
 	(interactive)
-	(compile "sylpheed")))
+	(compile "sylpheed"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
