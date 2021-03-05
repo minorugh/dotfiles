@@ -62,7 +62,7 @@
   📝 Work Menu
   --------------^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------
    Work: _a_:合評   _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   _o_:落穂   _n_:近詠   創作:_[_:_]_
-   Tool: _e_:hugo   _g_ist🐾   _j_unk🐾   _b_ackup   _p_assxc   ps_2_pdf   PrtSc_:_   _f_tp:🐾   scale_+_   package_@_"
+   Tool: _e_:hugo   _g_ist🐾   _j_unk🐾   _b_ackup   _p_assxc   ps_2_pdf   pinky_:_   _f_tp:🐾   scale_+_   package_@_"
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("e" easy-hugo)
@@ -94,7 +94,7 @@
    ("]" my:haiku-note-post)
    ("j" my:open-code.org)
    ("f" ftp-client)
-   (":" print-screen)
+   (":" hydra-pinky/body)
    (";" hydra-quick-menu/body)
    ("<henkan>" hydra-quick-menu/body)
    ("<muhenkan>" nil)))
@@ -125,11 +125,6 @@
 	"Open calculator."
 	(interactive)
 	(shell-command "gnome-calculator"))
-
-  (defun print-screen ()
-	"Narrow the only espy command in M-x."
-	(interactive)
-	(shell-command "xfce4-screenshooter"))
 
   (defun my:backupall ()
 	"Backup for melpa package."
