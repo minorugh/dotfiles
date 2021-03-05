@@ -10,8 +10,9 @@
   (css-mode-hook . counsel-css-imenu-setup)
   :config
   (ivy-mode 1)
+  (bind-key "C-r" 'swiper-thing-at-point)
   (bind-key "C-s" 'swiper-region)
-  (bind-key "C-:" 'counsel-switch-buffer)
+  (bind-key "M-:" 'counsel-switch-buffer)
   (bind-key "s-a" 'counsel-linux-app)
   (bind-key "C-x C-b" 'switch-to-buffer)
   (bind-key "C-x C-f" 'counsel-find-file)
