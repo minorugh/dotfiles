@@ -57,12 +57,17 @@
 (defun my:org-dir ()
   "Open org-file dir."
   (interactive)
-  (find-file "~/Dropbox/org/"))
+  (find-file "~/Dropbox/howm/org/"))
 
-(defun my:org-notes ()
-  "Open org-link-file."
+(defun my:open-link.org ()
+  "Open pocket.org-file."
   (interactive)
-  (find-file "~/Dropbox/org/notes.org"))
+  (find-file "~/Dropbox/howm/org/link.org"))
+
+(defun my:open-code.org ()
+  "Open junk.org-file."
+  (interactive)
+  (find-file "~/Dropbox/howm/org/code.org"))
 
 (defun my:diary ()
   "Open diary dir."
