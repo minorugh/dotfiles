@@ -16,34 +16,16 @@
 	:bind (("M-c" . YaTeX-typeset-buffer)
 		   ("M-l" . YaTeX-lpr))))
 
-
 ;; Dviprint-command-format (YaTeX-lpr)
 ;; -----------------------------------------------------------------------
 ;; dvpd.sh for Linux
 ;; Create dvpd.sh and execute 'chmod +x', and place it in `/usr/local/bin'
 ;;
-;; for Mac
-;; | #!/bin/bash
-;; | name=$1
-;; | dvipdfmx $1 && open -a preview.app ${name%.*}.pdf
-;; | # Delete unnecessary files
-;; | rm *.aux *.dvi *.log
-;;
-;; for Linux
 ;; | #!/bin/bash
 ;; | name=$1
 ;; | dvipdfmx $1 && evince ${name%.*}.pdf
 ;; | # Delete unnecessary files
 ;; | rm *.aux *.dvi *.log
-;;
-;; for WSL
-;; | #!/bin/bash
-;; | name=$1
-;; | dvipdfmx $1 && wslstart ${name%.*}.pdf
-;; | # Delete unnecessary files
-;; | rm *.aux *.dvi *.log
-;;
-;; ------------------------------------------------------------------------
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
