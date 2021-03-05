@@ -103,7 +103,7 @@
   (defun open-sylpheed ()
 	"Open sylpheed."
 	(interactive)
-	(compile "sylpheed"))
+	(compile "sylpheed")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
