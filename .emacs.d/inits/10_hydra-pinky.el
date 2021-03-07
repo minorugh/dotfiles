@@ -15,8 +15,8 @@ If there are two or more windows, it will go to another window."
    (other-window 1)))
 
 
-(bind-key
- "C-:"
+(key-chord-define-global
+ "::"
  (defhydra hydra-pinky
    (:color red :hint nil)
    "
