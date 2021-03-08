@@ -255,8 +255,10 @@ alias fz='filezilla -s'
 
 # For vim
 alias v='vim'
-alias vi='vim ~/.emacs.d/init.el'
-alias vz='vim ~/.zshrc'
+alias vearly='vim ~/.emacs.d/early-init.el'
+alias vinit='vim ~/.emacs.d/init.el'
+alias vmake='vim ~/src/github.com/minorugh/dotfiles/Makefile'
+alias vzsh='vim ~/.zshrc'
 
 # For emacs
 alias en='emacs -nw'
