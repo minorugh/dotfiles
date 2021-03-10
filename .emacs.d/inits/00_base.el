@@ -32,11 +32,6 @@
   (setq-default tab-width 4)
   (add-to-list 'default-frame-alist '(alpha . (1.0 0.9)))
 
-  ;; ediff
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain
-		ediff-split-window-function 'split-window-horizontally
-		ediff-diff-options "-twB")
-
   ;; Change the location of the tmp files for maine machine e590
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq request-storage-directory "~/.emacs.d/tmp/request")
