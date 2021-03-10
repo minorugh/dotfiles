@@ -7,7 +7,8 @@
   :ensure t
   :bind ("s-t" . my:cycle-theme)
   :init
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+  (leaf iceberg-emacs :el-get minorugh/iceberge-emacs)
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/iceberge-emacs")
   (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
   (load-theme (car curr-theme) t)
   (defun my:cycle-theme ()
@@ -53,8 +54,9 @@
   :init
   (unless (member "all-the-icons" (font-family-list))
     (all-the-icons-install-fonts t))
-  (leaf all-the-icons-dired	:ensure t)
-  (leaf all-the-icons-ivy-rich :ensure t))
+  (leaf all-the-icons-ivy-rich :ensure t)
+  (leaf all-the-icons-dired
+	:el-get jtbm37/all-the-icons-dired))
 
 
   (leaf darkroom
