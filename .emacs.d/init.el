@@ -32,10 +32,6 @@
 (leaf init-loader
   :ensure t
   :hook (after-init-hook . init-loader-load)
-  :init
-  (add-to-list 'load-path "~/.emacs.d/elisp")
-  (require 'my:dired)
-  (require 'my:template)
   :config
   (setq load-prefer-newer t)
   (setq custom-file "~/.emacs.d/tmp/custom.el")
