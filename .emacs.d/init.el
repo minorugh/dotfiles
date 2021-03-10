@@ -22,6 +22,7 @@
   :ensure t
   :init
   (leaf bind-key :ensure t)
+  (leaf el-get :ensure t)
   (leaf hydra :ensure t)
   :config
   (leaf-keywords-init))
