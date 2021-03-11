@@ -7,8 +7,8 @@
   :ensure t
   :bind ("s-t" . my:cycle-theme)
   :init
-  (leaf iceberg-emacs :el-get minorugh/iceberge-emacs)
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/iceberge-emacs")
+  (leaf iceberg-emacs :el-get minorugh/iceberg.emacs)
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/iceberg.emacs")
   (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
   (load-theme (car curr-theme) t)
   (defun my:cycle-theme ()
