@@ -32,7 +32,7 @@
 
 (leaf rainbow-mode
   :ensure t
-  :hook (prog-mode-hook . rainbow-mode))
+  :bind ("C-c r" . rainbow-mode))
 
 
 (leaf volatile-highlights
