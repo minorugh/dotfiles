@@ -27,8 +27,12 @@
 
 (leaf rainbow-delimiters
   :ensure t
-  :leaf-defer t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
+
+
+(leaf rainbow-mode
+  :ensure t
+  :hook (prog-mode-hook . rainbow-mode))
 
 
 (leaf volatile-highlights
@@ -66,9 +70,6 @@
 
 
 (custom-set-faces
- '(mozc-cand-posframe-normal-face ((t (:background "#282D43" :foreground "#C7C9D1"))))
- '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
- '(mozc-cand-posframe-footer-face ((t (:background "#282D43" :foreground "#454D73"))))
  '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
  '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
  '(markdown-code-face ((t (:inherit nil))))
