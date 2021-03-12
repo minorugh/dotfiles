@@ -11,7 +11,7 @@
   (bind-key "d" 'clipboard-kill-region selected-keymap)
   (bind-key "f" 'describe-function selected-keymap)
   (bind-key "v" 'describe-variable selected-keymap)
-  (bind-key "c" 'clipboard-kill-ring-save selected-keymap)
+  (bind-key "c" 'cool-copy selected-keymap)
   (bind-key "i" 'iedit-mode selected-keymap)
   (bind-key "s" 'swiper-thing-at-point selected-keymap)
   (bind-key "k" 'my:koujien selected-keymap)
