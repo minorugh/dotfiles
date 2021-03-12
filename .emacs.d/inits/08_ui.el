@@ -55,8 +55,7 @@
   (unless (member "all-the-icons" (font-family-list))
     (all-the-icons-install-fonts t))
   (leaf all-the-icons-ivy-rich :ensure t)
-  (leaf all-the-icons-dired
-	:el-get jtbm37/all-the-icons-dired))
+  (leaf all-the-icons-dired	:el-get jtbm37/all-the-icons-dired))
 
 
   (leaf darkroom
