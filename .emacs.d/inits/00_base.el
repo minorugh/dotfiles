@@ -83,13 +83,17 @@
   (bind-key "C-." 'xref-find-definitions)
   (bind-key "C-z" 'nil)	;; Do not use suspend-frame
   (bind-key "M-/" 'kill-buffer)
-  (bind-key "s-c" 'clipboard-kill-ring-save)
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)
   (bind-key "C-w" 'clipboard-kill-region)
   (bind-key "C-c o" 'browse-url-at-point)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
+  (leaf cool-copy :el-get blue0513/cool-copy.el
+	:bind ("s-c" . cool-copy)
+	:config
+	(setq cool-copy-show 'posframe)
+	(setq cool-copy-posframe-background "#454D73"))
 
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
