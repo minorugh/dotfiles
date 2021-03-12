@@ -63,9 +63,9 @@
 		  ;;  "* %? %U %i")
 		  ;; ("r" "🐾 Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
 		  ;;  "* %? %U %i")
-		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/howm/org/code.org" "Capture")
+		  ("p" " Code capture" entry (file+headline "~/Dropbox/howm/org/code.org" "Capture")
 		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
-		  ("L" "Link capture with Chrome" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
+		  ("L" " Link capture" entry (file+headline "~/Dropbox/howm/org/link.org" "Inbox")
 		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)
 		  ))
   (setq org-refile-targets
