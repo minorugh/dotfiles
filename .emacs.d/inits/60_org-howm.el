@@ -20,12 +20,9 @@
   (setq howm-view-summary-persistent nil)
   (setq howm-normalizer 'howm-sort-items-by-reverse-date)
   (setq howm-user-font-lock-keywords
-		'(("memo:" . (0 'gnus-group-mail-3))
+		'(("memo:" . (0 'compilation-info))
 		  ("note:" . (0 'epa-mark))
-		  ("code:" . (0 'diff-refine-added))
-		  ("haiku:" . (0 'compilation-mode-line-exit))
-		  ("emacs:" . (0 'compilation-info))
-		  ("linux:" . (0 'compilation-error)))))
+		  ("haiku:" . (0 'compilation-mode-line-exit)))))
 
 
 (leaf org
@@ -54,16 +51,16 @@
     (jump-to-register :org-agenda-fullscreen))
   ;; Caputure Settings
   (setq org-capture-templates
-		'(("m" " Memo" plain (file my:howm-create-file)
-		   "# memo: %?\n%U %i")
-		  ("n" " Note" plain (file my:howm-create-file)
-		   "# note: %?\n%U %i")
-		  ("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "Task")
+		'(("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "Task")
 		   "** TODO %?\n SCHEDULED: %^t \n" :prepend t)
+		  ("m" " Memo" plain (file my:howm-create-file)
+		   "# memo: %?\n%U %i")
+		  ("n" " Tech Note" plain (file my:howm-create-file)
+		   "# note: %?\n%U %i")
 		  ("e" "💣 Experiment" entry (file+headline "~/Dropbox/howm/org/code.org" "Experiment")
 		   "* %? %U %i\n#+BEGIN_SRC\n\n#+END_SRC")
-		  ("i" "✌ Idea" entry (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
-		   "* %? %U %i")
+		  ;; ("i" "✌ Idea" plain (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
+		  ;;  "* %? %U %i")
 		  ("r" "🐾 Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
 		   "* %? %U %i")
 		  ("p" "Code capture with Chrome" entry (file+headline "~/Dropbox/howm/org/code.org" "Capture")
