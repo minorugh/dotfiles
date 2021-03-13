@@ -90,6 +90,7 @@
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
   (leaf cool-copy :el-get blue0513/cool-copy.el
+	:doc "clipboard-kill-ring-save thing at point."
 	:bind ("s-c" . cool-copy)
 	:config
 	(setq cool-copy-show 'posframe)
