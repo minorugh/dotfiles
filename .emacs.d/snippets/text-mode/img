@@ -2,7 +2,6 @@
 # name: img
 # --
 =photo<
-<img src="%1">
+<img src="">
 =photo>
 <br>
---
