@@ -73,7 +73,8 @@
   (setq ps-multibyte-buffer 'non-latin-printer)
   (setq ps-paper-type 'a4)
   (setq ps-font-size 9)
-  ;; (setq ps-font-family 'Helvetica)
+  (setq ps-font-family 'Helvetica)
+  (setq ps-line-number-font 'Courier)
   (setq ps-printer-name nil)
   (setq ps-print-header nil)
   (setq ps-show-n-of-n t)
@@ -83,7 +84,7 @@
 
 (leaf pdfout-from-emacs
   :config
-  (setq my:pdfout-command-format "nkf -e | e2ps -a4 -p -nh | ps2pdf - %s")
+  (setq my:pdfout-command-format "nkf -e | e2ps -a4 -p -nh -line | ps2pdf - %s")
   :init
   (defun pdfout-select ()
 	"PDF out select menu."
