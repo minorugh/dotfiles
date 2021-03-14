@@ -5,6 +5,12 @@
 
 (leaf mozc
   :ensure t
+  :init
+  (leaf mozc-cand-posframe :ensure t
+	:when window-system
+	:require t
+	:config
+	(setq mozc-candidate-style 'posframe))
   :config
   (unless (getenv "WSLENV")
 	(bind-key* "<hiragana-katakana>" 'toggle-input-method))
@@ -35,13 +41,7 @@
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
 	  ad-do-it
-	  (setq input-method-function input-method-function-save)))
-  :init
-  (leaf mozc-cand-posframe :ensure t
-	:when window-system
-	:require t
-	:config
-	(setq mozc-candidate-style 'posframe)))
+	  (setq input-method-function input-method-function-save))))
 
 
 (leaf mozc-tool-setting
