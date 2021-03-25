@@ -138,8 +138,7 @@ gistinstall: ## Gist install
 
 snapinstall: ## Install snap packages
 	sudo apt install -y snapd
-	sudo snap install pinta spotify
-	sudo ln -vsf /var/lib/snapd/desktop/applications/pinta_pinta.desktop ${HOME}/.local/share/applications/pinta_pinta.desktop
+	sudo snap install spotify
 	sudo ln -vsf /var/lib/snapd/desktop/applications/spotify_spotify.desktop ${HOME}/.local/share/applications/spotify_spotify.desktop
 
 flatpakinstall: ## Install flatpak
