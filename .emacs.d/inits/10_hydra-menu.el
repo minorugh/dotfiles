@@ -107,23 +107,23 @@
     (when (getenv "WSLENV")
       (compile "/mnt/c/\"Program Files\"/\"FileZilla FTP Client\"/filezilla.exe"))
     (unless (getenv "WSENV")
-      (shell-command "filezilla -s")))
+      (compile "filezilla -s")))
 
   (defun gist-from-buffer ()
 	"Gist from current buffer, then open chromium."
 	(interactive)
 	(let ((file (buffer-file-name (current-buffer))))
-	  (shell-command (concat "gist -o " file))))
+	  (compile (concat "gist -o " file))))
 
   (defun open-keepass ()
 	"Open keepassxc withe auto passwd input."
 	(interactive)
-	(shell-command "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx"))
+	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx"))
 
   (defun open-calculator ()
 	"Open calculator."
 	(interactive)
-	(shell-command "gnome-calculator"))
+	(compile "gnome-calculator"))
 
   (defun my:backupall ()
 	"Backup for melpa package."
