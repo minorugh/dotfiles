@@ -534,7 +534,7 @@ function blog-jpg() {
     if [ $# = 1 ]; then
 	fname_ext=$1
 	fname="${fname_ext%.*}"
-	convert $1 -resize 600x re_${fname}.jpg
+	convert $1 -resize 800x re_${fname}.jpg
 	# rm -rf $1
     else
 	echo 'usage: blog-jpg sample.jpg'
