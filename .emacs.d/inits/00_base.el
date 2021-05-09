@@ -89,12 +89,6 @@
   (bind-key "C-c o" 'browse-url-at-point)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
-  (leaf cool-copy :el-get blue0513/cool-copy.el
-	:doc "clipboard-kill-ring-save thing at point."
-	:bind ("s-c" . cool-copy)
-	:config
-	(setq cool-copy-show 'posframe)
-	(setq cool-copy-posframe-background "#454D73"))
 
   ;; M-x info-emacs-manual (C-h r or F1+r)
   (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
