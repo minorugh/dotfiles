@@ -6,12 +6,12 @@
 (leaf neotree
   :ensure t
   :bind (("<f10>" . neotree-find)
-		 ("C-e" . neotree-toggle)
 		 (:neotree-mode-map
 		  ("RET" . neotree-enter-hide)
 		  ("a" . neotree-hidden-file-toggle)
 		  ("<left>" . neotree-select-up-node)
-		  ("<right>" . neotree-change-root)))
+		  ("<right>" . neotree-change-root)
+		  ("<f10>" . neotree-toggle)))
   :config
   (setq-default neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
