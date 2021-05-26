@@ -16,8 +16,9 @@
   (setq-default neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
   ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  ;; (setq neo-theme 'icons)
   (doom-themes-neotree-config)
-  (setq neo-window-width 30)
+  (setq neo-window-width 25)
 
   ;; Change neotree's font size
   ;; Tips from https://github.com/jaypei/emacs-neotree/issues/218
@@ -25,7 +26,7 @@
 	"Text scale for neotree."
 	(interactive)
 	(text-scale-adjust 0)
-	(text-scale-decrease .5)
+	(text-scale-decrease .8)
 	(message nil))
   (add-hook 'neo-after-create-hook
 			(lambda (_)
