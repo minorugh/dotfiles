@@ -26,7 +26,7 @@
 	"Text scale for neotree."
 	(interactive)
 	(text-scale-adjust 0)
-	(text-scale-decrease .8)
+	(text-scale-decrease .6)
 	(message nil))
   (add-hook 'neo-after-create-hook
 			(lambda (_)
