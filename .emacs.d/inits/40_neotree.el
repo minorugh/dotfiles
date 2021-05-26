@@ -16,7 +16,6 @@
   (setq-default neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
   ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  ;; (setq neo-theme 'icons)
   (doom-themes-neotree-config)
   (setq neo-window-width 25)
 
