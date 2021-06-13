@@ -42,12 +42,10 @@
   (leaf ivy-rich :ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
   (leaf ivy-with-migemo
-	:doc https://qiita.com/ballforest/items/866e784de5ec0d37ca16
 	:global-minor-mode t
 	:config
 	(setq ivy-with-migemo-enable-command
 		  '(swiper swiper-isearch)))
-
 
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.
@@ -56,7 +54,6 @@ If the region isn't selected, `swiper' with migemo."
 	(if (not (use-region-p))
 		(swiper)
 	  (swiper-thing-at-point)))
-
 
   (defun my:ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."
