@@ -42,6 +42,7 @@
   (leaf ivy-rich :ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
   (leaf ivy-with-migemo
+	:doc https://qiita.com/ballforest/items/866e784de5ec0d37ca16
 	:global-minor-mode t
 	:config
 	(setq ivy-with-migemo-enable-command
