@@ -29,18 +29,24 @@
   (setq counsel-yank-pop-separator
 		"\n------------------------------------------------------------\n"
 		ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
-  :init
+
   (leaf avy
 	:ensure t
 	:bind ("C-c r" . avy-goto-word-1))
+
   (leaf ivy-xref :ensure t
-  	:init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-  (leaf amx :ensure t
+	:init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
+  (leaf amx
+	:ensure t
 	:init
 	(setq amx-save-file "~/.emacs.d/tmp/amx-items")
 	(setq amx-history-length 20))
-  (leaf ivy-rich :ensure t
+
+  (leaf ivy-rich
+	:ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
+
   (leaf ivy-with-migemo
 	:global-minor-mode t
 	:config
@@ -56,23 +62,23 @@ If the region isn't selected, `swiper' with migemo."
 	  (swiper-thing-at-point)))
 
   (defun my:ivy-format-function-arrow (cands)
-    "Transform into a string for minibuffer."
-    (ivy--format-function-generic
-     (lambda (str)
+	"Transform into a string for minibuffer."
+	(ivy--format-function-generic
+	 (lambda (str)
        (concat (if (display-graphic-p)
 				   (all-the-icons-octicon "chevron-right" :height 0.8 :v-adjust -0.05)
 				 ">")
 			   (propertize " " 'display `(space :align-to 2))
 			   (ivy--add-face str 'ivy-current-match)))
-     (lambda (str)
+	 (lambda (str)
        (concat (propertize " " 'display `(space :align-to 2)) str))
-     cands
-     "\n"))
+	 cands
+	 "\n"))
 
   (defun select-counsel-command ()
-    "Narrow the only counsel-command in `M-x'."
-    (interactive)
-    (counsel-M-x "^counsel ")))
+	"Narrow the only counsel-command in `M-x'."
+	(interactive)
+	(counsel-M-x "^counsel ")))
 
 
 ;; counsel-misc

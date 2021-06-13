@@ -150,8 +150,7 @@
 	   (buffer-file-name (current-buffer)))))
   (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
 	  (setq after-save-hook
-			(cons 'my:delete-file-if-no-contents after-save-hook)))
-  )
+			(cons 'my:delete-file-if-no-contents after-save-hook))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
