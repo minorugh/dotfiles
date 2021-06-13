@@ -20,6 +20,7 @@
   (bind-key [remap dired] 'counsel-dired)
   (bind-key "<f6>" 'select-counsel-command)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  (setq search-default-mode nil)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-use-selectable-prompt t)
   (setq enable-recursive-minibuffers t)
@@ -42,28 +43,33 @@
 	:hook (ivy-mode-hook . ivy-rich-mode))
 
   (defun swiper-region ()
-	"If region is selected, `swiper-isearch' with the keyword selected in region.
-If the region isn't selected, `swiper-isearch'."
+	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.
+If the region isn't selected, `swiper' with migemo."
 	(interactive)
 	(if (not (use-region-p))
 		(swiper)
 	  (swiper-thing-at-point)))
 
+  (require 'ivy-with-migemo)
+  (setq ivy-with-migemo-enable-command
+		'(swiper swiper-isearch))
+  (global-ivy-with-migemo-mode 1)
+
   ;; Ivy-migemo without avy-migemo
   ;; https://www.yewton.net/2020/05/21/migemo-ivy/
-  (defun my:ivy-migemo-re-builder (str)
-    (let* ((sep " \\|\\^\\|\\.\\|\\*")
-  		   (splitted (--map (s-join "" it)
-  							(--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
-  											(s-split "" str t)))))
-      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
-  							  ((s-matches? sep it) it)
-  							  (t (migemo-get-pattern it)))
-  						splitted))))
-  (setq ivy-re-builders-alist
-  		'((t . ivy--regex-plus)
-  		  (counsel-web . my:ivy-migemo-re-builder)
-  		  (swiper . my:ivy-migemo-re-builder)))
+  ;; (defun my:ivy-migemo-re-builder (str)
+  ;;   (let* ((sep " \\|\\^\\|\\.\\|\\*")
+  ;; 		   (splitted (--map (s-join "" it)
+  ;; 							(--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
+  ;; 											(s-split "" str t)))))
+  ;;     (s-join "" (--map (cond ((s-equals? it " ") ".*?")
+  ;; 							  ((s-matches? sep it) it)
+  ;; 							  (t (migemo-get-pattern it)))
+  ;; 						splitted))))
+  ;; (setq ivy-re-builders-alist
+  ;; 		'((t . ivy--regex-plus)
+  ;; 		  (counsel-web . my:ivy-migemo-re-builder)
+  ;; 		  (swiper . my:ivy-migemo-re-builder)))
 
   (defun my:ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."

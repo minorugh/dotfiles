@@ -59,30 +59,29 @@
   :init
   (unless (member "all-the-icons" (font-family-list))
     (all-the-icons-install-fonts t))
-  (leaf all-the-icons-ivy-rich :ensure t)
-  (leaf all-the-icons-dired	:el-get jtbm37/all-the-icons-dired))
+  (leaf all-the-icons-ivy-rich :ensure t))
 
 
-  (leaf darkroom
-	:ensure t
-	:bind ("<f12>" . my:darkroom-mode-in)
-	:config
-	(defun my:darkroom-mode-in ()
-      (interactive)
-      (display-line-numbers-mode 0)
-      (diff-hl-mode 0)
-      (flymake-mode 0)
-      (setq line-spacing 0.4)
-      (darkroom-mode 1)
-      (bind-key "<f12>" 'my:darkroom-mode-out darkroom-mode-map))
+(leaf darkroom
+  :ensure t
+  :bind ("<f12>" . my:darkroom-mode-in)
+  :config
+  (defun my:darkroom-mode-in ()
+    (interactive)
+    (display-line-numbers-mode 0)
+    (diff-hl-mode 0)
+    (flymake-mode 0)
+    (setq line-spacing 0.4)
+    (darkroom-mode 1)
+    (bind-key "<f12>" 'my:darkroom-mode-out darkroom-mode-map))
 
-	(defun my:darkroom-mode-out ()
-      (interactive)
-      (darkroom-mode 0)
-      (flymake-mode 1)
-      (diff-hl-mode 1)
-      (setq line-spacing 0.1)
-      (display-line-numbers-mode 1)))
+  (defun my:darkroom-mode-out ()
+    (interactive)
+    (darkroom-mode 0)
+    (flymake-mode 1)
+    (diff-hl-mode 1)
+    (setq line-spacing 0.1)
+    (display-line-numbers-mode 1)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
