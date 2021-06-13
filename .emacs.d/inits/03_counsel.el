@@ -41,6 +41,12 @@
 	(setq amx-history-length 20))
   (leaf ivy-rich :ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
+  (leaf ivy-with-migemo
+	:global-minor-mode t
+	:config
+	(setq ivy-with-migemo-enable-command
+		  '(swiper swiper-isearch)))
+
 
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.
@@ -50,10 +56,6 @@ If the region isn't selected, `swiper' with migemo."
 		(swiper)
 	  (swiper-thing-at-point)))
 
-  (require 'ivy-with-migemo)
-  (setq ivy-with-migemo-enable-command
-		'(swiper swiper-isearch))
-  (global-ivy-with-migemo-mode 1)
 
   ;; Ivy-migemo without avy-migemo
   ;; https://www.yewton.net/2020/05/21/migemo-ivy/
