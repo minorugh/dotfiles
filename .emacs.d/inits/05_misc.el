@@ -8,7 +8,8 @@
   :global-minor-mode t)
 
 
-(leaf iedit :ensure t
+(leaf iedit
+  :ensure t
   :bind ("C-;" . iedit-mode))
 
 
