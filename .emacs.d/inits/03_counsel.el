@@ -33,25 +33,20 @@
   (leaf avy
 	:ensure t
 	:bind ("C-c r" . avy-goto-word-1))
-
   (leaf ivy-xref :ensure t
 	:init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-
   (leaf amx
 	:ensure t
 	:init
 	(setq amx-save-file "~/.emacs.d/tmp/amx-items")
 	(setq amx-history-length 20))
-
   (leaf ivy-rich
 	:ensure t
 	:hook (ivy-mode-hook . ivy-rich-mode))
+  (leaf swiper-migemo
+	:el-get tam17aki/swiper-migemo
+	:global-minor-mode t)
 
-  (leaf ivy-with-migemo
-	:global-minor-mode t
-	:config
-	(setq ivy-with-migemo-enable-command
-		  '(swiper swiper-isearch)))
 
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.

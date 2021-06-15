@@ -23,7 +23,6 @@
  'package-archives '(("org"   . "https://orgmode.org/elpa/")
 					 ("melpa" . "https://melpa.org/packages/")
  					 ("gnu"   . "https://elpa.gnu.org/packages/")))
-(add-to-list 'load-path "~/.emacs.d/elisp")
 (setq package-enable-at-startup nil)
 
 

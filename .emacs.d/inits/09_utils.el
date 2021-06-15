@@ -61,7 +61,7 @@
 
 
 (leaf sequential-command
-  :ensure t
+  :el-get HKey/sequential-command
   :require sequential-command-config
   :config
   (sequential-command-setup-keys))

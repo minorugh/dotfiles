@@ -18,12 +18,6 @@
   :bind ("C-@" . er/expand-region))
 
 
-(leaf beginend
-  :ensure t
-  :config
-  (beginend-global-mode))
-
-
 (leaf flymake
   :hook (prog-mode-hook . flymake-mode)
   :config
