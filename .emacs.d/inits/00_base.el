@@ -86,6 +86,7 @@
   (bind-key "s-v" 'clipboard-yank)
   (bind-key "M-w" 'clipboard-kill-ring-save)
   (bind-key "C-w" 'clipboard-kill-region)
+  (bind-key "C-c o" 'browse-url-at-point)
   (setq select-enable-clipboard t)
   (setq select-enable-primary t)
 
@@ -124,7 +125,6 @@
 
   (leaf browse-at-remote
 	:ensure t
-	:bind ("C-c o" . browse-url-at-point)
 	:config
 	(defalias 'my:github-show 'browse-at-remote))
 
