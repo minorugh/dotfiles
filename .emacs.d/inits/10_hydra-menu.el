@@ -10,9 +10,9 @@
    (:hint nil :exit t)
    "
   🐳 Quick Menu
-  ---^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root_/_  _._dotfiles  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown
-  shell:_z_  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  pinky_:_  _p_rint  _u_ndo-tree  _w_eb-search^^  make:_k_  _c_ompile  _o_rg:_l_ink"
+  ---^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_srv.jp^^^^  GH:_h_  _<home>_  root_/_  _._dotfiles  howm_,_list_@_  _g_ithub  _r_estart  _m_arkdown  _s_cratch
+  shell:_z_  git:_[_._]_  _t_ramp  _y_as:_n_:_v_  _a_g🐾  pinky_:_  _p_rint  _u_ndo-tree  _w_eb-search^^  make:_k_  _c_ompile  _o_rg:_l_ink  _b_rowse@"
    ("a" counsel-ag)
    ("o" my:org-dir)
    ("l" my:open-link.org)
@@ -31,8 +31,7 @@
    ("w" counsel-web-suggest)
    ("m" hydra-markdown/body)
    ("c" hydra-compile/body)
-   ("b" counsel-bookmark)
-   ("B" bookmark-set)
+   ("b" browse-url-at-point)
    ("g" my:github-show)
    ("@" howm-list-all)
    ("," org-capture)
@@ -43,7 +42,7 @@
    ("_" delete-other-windows)
    ("[" hydra-magit/body)
    ("]" magit-status)
-   ("s" swiper-thing-at-point)
+   ("s" toggle-scratch)
    ("z" eshell)
    (":" hydra-pinky/body)
    ("p" ps-print-buffer)
