@@ -29,7 +29,6 @@
   (setq counsel-yank-pop-separator
 		"\n------------------------------------------------------------\n"
 		ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
-
   :init
   (leaf avy
 	:ensure t
@@ -47,7 +46,6 @@
   (leaf swiper-migemo
 	:el-get tam17aki/swiper-migemo
 	:global-minor-mode t)
-
   :preface
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.
