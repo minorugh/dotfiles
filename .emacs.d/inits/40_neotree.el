@@ -15,9 +15,7 @@
   :config
   (setq-default neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
-  ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (doom-themes-neotree-config)
-  (setq neo-window-width 25)
 
   ;; Change neotree's font size
   ;; Tips from https://github.com/jaypei/emacs-neotree/issues/218
