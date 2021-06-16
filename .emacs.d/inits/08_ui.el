@@ -20,11 +20,6 @@
 	(load-theme (car curr-theme) t)
 	(message "%s" (car curr-theme))))
 
-;; (leaf iceberg-emacs
-;;   :el-get minorugh/iceberg.emacs
-;;   :config
-;;   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/iceberg.emacs")
-;;   (load-theme 'iceberg t))
 
 (leaf doom-modeline
   :ensure t
