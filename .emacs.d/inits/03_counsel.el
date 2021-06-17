@@ -30,23 +30,6 @@
 		"\n------------------------------------------------------------\n"
 		ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
   :init
-  (leaf avy
-	:ensure t
-	:bind ("C-c r" . avy-goto-word-1))
-  (leaf ivy-xref :ensure t
-	:init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
-  (leaf amx
-	:ensure t
-	:init
-	(setq amx-save-file "~/.emacs.d/tmp/amx-items")
-	(setq amx-history-length 20))
-  (leaf ivy-rich
-	:ensure t
-	:hook (ivy-mode-hook . ivy-rich-mode))
-  (leaf swiper-migemo
-	:el-get tam17aki/swiper-migemo
-	:global-minor-mode t)
-  :preface
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point' with the keyword selected in region.
 If the region isn't selected, `swiper' with migemo."
@@ -75,12 +58,37 @@ If the region isn't selected, `swiper' with migemo."
 	(counsel-M-x "^counsel ")))
 
 
-;; counsel-misc
+(leaf avy
+  :ensure t
+  :bind ("C-c r" . avy-goto-word-1))
+
+(leaf ivy-xref :ensure t
+  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
+(leaf amx
+  :ensure t
+  :init
+  (setq amx-save-file "~/.emacs.d/tmp/amx-items")
+  (setq amx-history-length 20))
+
+(leaf ivy-rich
+  :ensure t
+  :hook (ivy-mode-hook . ivy-rich-mode))
+
+(leaf swiper-migemo
+  :el-get tam17aki/swiper-migemo
+  :global-minor-mode t)
+
 (leaf counsel-web
   :ensure t
   :config
   (setq counsel-web-search-action #'browse-url)
   (setq counsel-web-engine 'google))
+
+(leaf counsel-css
+  :ensure t
+  :config
+  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
 
 (leaf counsel-tramp
   :ensure t
@@ -103,11 +111,6 @@ If the region isn't selected, `swiper' with migemo."
 	  (tramp-cleanup-all-connections)
 	  (counsel-tramp-quit)
 	  (message "Tramp Quit!"))))
-
-(leaf counsel-css
-  :ensure t
-  :config
-  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
