@@ -1,4 +1,4 @@
-;;; 99_chromium.el --- User chromium configuration.  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 90_chromium.el --- User chromium configuration.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -74,4 +74,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 99_chromium.el ends here
+;;; 90_chromium.el ends here
