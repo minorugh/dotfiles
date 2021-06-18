@@ -22,8 +22,6 @@
   (bind-key "s" 'sudo-edit dired-mode-map)
   (bind-key "e" 'sudo-mousepad dired-mode-map)
   (bind-key "." 'magit-status dired-mode-map)
-  (bind-key "<" 'beginning-of-buffer dired-mode-map)
-  (bind-key ">" 'end-of-buffer dired-mode-map)
   ;; Use dired as 2-screen filer
   (setq dired-dwim-target t)
   ;; Always to perform the delete/copy of directories recursively
@@ -33,10 +31,6 @@
   :init
   (leaf sudo-edit :ensure t)
   (leaf wdired :require t)
-  (leaf dired-x :require t
-    :config
-    (setq dired-omit-mode t)
-	(setq dired-omit-files "^\\desktop.ini"))
   ;; Show directory first
   (leaf ls-lisp
     :require t
