@@ -26,7 +26,7 @@
 
 
 (leaf key-chord
-  :ensure t
+  :el-get zk-phi/key-chord
   :global-minor-mode t
   :config
   (key-chord-define-global "df" 'counsel-descbinds)
