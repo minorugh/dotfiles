@@ -7,7 +7,8 @@
   :ensure t
   :bind ("s-t" . my:cycle-theme)
   :init
-  (leaf iceberg-emacs :el-get minorugh/iceberg.emacs)
+  (leaf iceberg-emacs
+	:el-get minorugh/iceberg.emacs)
   (add-to-list 'custom-theme-load-path "~/.emacs.d/el-get/iceberg.emacs")
   (setq my-themes (list 'iceberg 'doom-dracula)	curr-theme my-themes)
   (load-theme (car curr-theme) t)
@@ -47,7 +48,6 @@
 
 (leaf all-the-icons
   :ensure t
-  :hook (dired-mode-hook . all-the-icons-dired-mode)
   :config
   (setq all-the-icons-scale-factor 0.9)
   (all-the-icons-ivy-rich-mode)
@@ -56,7 +56,9 @@
     (all-the-icons-install-fonts t))
   (leaf all-the-icons-ivy-rich :ensure t)
   (leaf all-the-icons-dired
-	:el-get jtbm37/all-the-icons-dired))
+	:el-get jtbm37/all-the-icons-dired
+	:hook (dired-mode-hook . all-the-icons-dired-mode)
+	))
 
 
 (leaf darkroom
