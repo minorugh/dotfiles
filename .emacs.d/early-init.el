@@ -26,7 +26,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; GUI
+;; Disabling some annoying GUI stuff emacs has enabled by default.
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
