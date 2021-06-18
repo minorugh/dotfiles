@@ -26,7 +26,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; Disabling some annoying GUI stuff emacs has enabled by default.
+;; Prevent the glimpse of un-styled Emacs by disabling these UI elements early.
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
