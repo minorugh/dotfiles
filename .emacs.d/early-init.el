@@ -26,7 +26,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; Prevent the glimpse of un-styled Emacs by disabling these UI elements early.
+;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
