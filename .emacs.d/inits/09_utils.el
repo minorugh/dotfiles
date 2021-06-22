@@ -60,13 +60,11 @@
   (setq imenu-list-focus-after-activation t))
 
 
-(add-hook 'emacs-startup-hook
-		  (lambda ()
-			(leaf sequential-command
-			  :el-get HKey/sequential-command
-			  :require sequential-command-config
-			  :config
-			  (sequential-command-setup-keys))))
+(leaf sequential-command
+  :el-get HKey/sequential-command
+  :require sequential-command-config
+  :config
+  (sequential-command-setup-keys))
 
 
 (leaf ps-print-setting
@@ -153,6 +151,7 @@
   (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
 	  (setq after-save-hook
 			(cons 'my:delete-file-if-no-contents after-save-hook))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
