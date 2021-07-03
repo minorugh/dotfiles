@@ -20,7 +20,7 @@ If there are two or more windows, it will go to another window."
  (defhydra hydra-pinky
    (:color red :hint nil)
    "
-  🐳 page:_SPC_:_b_  :_h_._l_._j_._k_  :_0_:_1_:_o_:_x_  _d_iff:_n_:_p_  :_-__.__+_  buffer:_[__:__]_  _f_ile  _s_wiper"
+  🐳 :_SPC_:_b_  :_h_._l_._j_._k_  :_0_:_1_:_o_:_x_  :_-__.__+_  _d_iff:_n_:_p_  buffer:_[__:__]_  _f_ile  _s_wiper"
    ;; move page
    ("h" backward-char)
    ("j" next-line)
