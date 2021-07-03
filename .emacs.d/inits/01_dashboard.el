@@ -1,4 +1,4 @@
-;;; 90_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -108,4 +108,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 90_dashboard.el ends here
+;;; 01_dashboard.el ends here
