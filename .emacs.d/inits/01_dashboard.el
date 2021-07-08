@@ -16,8 +16,7 @@
     (bind-key "n" 'chromium-google-news dashboard-mode-map)
     (bind-key "k" 'chromium-keep dashboard-mode-map)
     (bind-key "K" 'chromium-keep-new dashboard-mode-map)
-    (bind-key "m" 'chromium-gmail
-			  dashboard-mode-map)
+    (bind-key "m" 'chromium-gmail dashboard-mode-map)
 	(bind-key "t" 'chromium-tweetdeck dashboard-mode-map)
     (bind-key "s" 'chromium-slack dashboard-mode-map)
     (bind-key "h" 'chromium-homepage dashboard-mode-map)
