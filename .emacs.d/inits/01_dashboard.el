@@ -6,6 +6,7 @@
 (leaf dashboard
   :ensure t
   :when window-system
+  :hook (emacs-startup-hook . dashboard-setup-startup-hook)
   :config
   (with-eval-after-load 'dashboard
     (bind-key "<home>" 'open-dashboard)
@@ -22,13 +23,13 @@
     (bind-key "h" 'chromium-homepage dashboard-mode-map)
     (bind-key "p" 'chromium-pocket dashboard-mode-map)
     (bind-key "." 'hydra-browse/body dashboard-mode-map)
-    (bind-key "<home>" 'quit-dashboard dashboard-mode-map))
+    (bind-key "<home>" 'quit-dashboard dashboard-mode-map)
+	(open-dashboard))
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
 				(car (split-string (shell-command-to-string "uname -r")))  " Debian "
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
-  (dashboard-setup-startup-hook)
   (global-page-break-lines-mode)
   ;; Set the banner
   (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory))
