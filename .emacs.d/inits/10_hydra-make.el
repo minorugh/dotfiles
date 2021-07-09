@@ -38,7 +38,7 @@
 			(lambda ()
 			  (fset 'makefile-warn-suspicious-lines 'ignore)))
 
-  ;; User-make-commands
+  ;; Extended make commands
   (defun my:make-k ()
 	"Make command default."
 	(interactive)
