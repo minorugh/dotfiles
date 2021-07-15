@@ -24,6 +24,7 @@
 
 (leaf doom-modeline
   :ensure t
+  :hook (emacs-startup-hook . doom-modeline-mode)
   :config
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
   (setq doom-modeline-icon t)
@@ -32,18 +33,17 @@
   (line-number-mode 0)
   (column-number-mode 0)
   :init
-  (doom-modeline-mode 1)
   (leaf hide-mode-line
 	:ensure t
 	:hook ((imenu-list-minor-mode-hook neotree-mode-hook) . hide-mode-line-mode))
   (leaf nyan-mode
-  	:ensure t
+	:ensure t
 	:when window-system
-  	:global-minor-mode t
-  	:config
-  	(autoload 'nyan-mode "nyan-mode" nil t)
-  	(setq nyan-cat-face-number 4)
-  	(nyan-start-animation)))
+	:global-minor-mode t
+	:config
+	(autoload 'nyan-mode "nyan-mode" nil t)
+	(setq nyan-cat-face-number 4)
+	(nyan-start-animation)))
 
 
 (leaf all-the-icons
@@ -57,8 +57,7 @@
   (leaf all-the-icons-ivy-rich :ensure t)
   (leaf all-the-icons-dired
 	:el-get jtbm37/all-the-icons-dired
-	:hook (dired-mode-hook . all-the-icons-dired-mode)
-	))
+	:hook (dired-mode-hook . all-the-icons-dired-mode)))
 
 
 (leaf darkroom
