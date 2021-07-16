@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t no-byte-compile: t -*-
+;;; 09_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -22,14 +22,14 @@
     (bind-key "p" 'chromium-pocket dashboard-mode-map)
     (bind-key "." 'hydra-browse/body dashboard-mode-map)
     (bind-key "<home>" 'quit-dashboard dashboard-mode-map))
+  (dashboard-setup-startup-hook)
+  (global-page-break-lines-mode)
+  (setq dashboard-page-separator "\n\f\n")
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
 				(car (split-string (shell-command-to-string "uname -r")))  " Debian "
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
-  (dashboard-setup-startup-hook)
-  (global-page-break-lines-mode)
-  (setq dashboard-page-separator "\n\f\n")
   ;; Set the banner
   (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory))
   (setq dashboard-set-heading-icons t)
@@ -108,4 +108,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 01_dashboard.el ends here
+;;; 09_dashboard.el ends here

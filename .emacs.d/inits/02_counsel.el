@@ -1,4 +1,4 @@
-;;; 03_counsel.el --- counsel & ivy configurations. -*- lexical-binding: t no-byte-compile: t -*-
+;;; 02_counsel.el --- counsel & ivy configurations. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -114,4 +114,4 @@ If the region isn't selected, `swiper' with migemo."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 03_counsel.el ends here
+;;; 02_counsel.el ends here
