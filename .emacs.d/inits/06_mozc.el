@@ -1,4 +1,4 @@
-;;; 05_mozc.el --- japanese mozc configuration. -*- lexical-binding: t no-byte-compile: t -*-
+;;; 06_mozc.el --- japanese mozc configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -80,4 +80,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 05_mozc.el ends here
+;;; 06_mozc.el ends here

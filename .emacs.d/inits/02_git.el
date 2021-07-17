@@ -1,4 +1,4 @@
-;;; 01_git.el  --- Magit configurations. -*- lexical-binding: t no-byte-compile: t -*-_
+;;; 02_git.el  --- Magit configurations. -*- lexical-binding: t no-byte-compile: t -*-_
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -30,4 +30,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 01_git.el ends here
+;;; 02_git.el ends here
