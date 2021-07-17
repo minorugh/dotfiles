@@ -58,13 +58,15 @@
   (setq which-key-use-C-h-commands t))
 
 
-(leaf projectile
-  :ensure t
-  :global-minor-mode t
-  :init
-  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld")
-  (leaf counsel-projectile :ensure t
-	:global-minor-mode t))
+(add-hook 'emacs-startup-hook
+		  (lambda ()
+			(leaf projectile
+			  :ensure t
+			  :global-minor-mode t
+			  :init
+			  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile-bookmarks.eld")
+			  (leaf counsel-projectile :ensure t
+				:global-minor-mode t))))
 
 
 (leaf aggressive-indent
