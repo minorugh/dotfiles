@@ -60,11 +60,13 @@
   (setq imenu-list-focus-after-activation t))
 
 
-(leaf sequential-command
-  :el-get HKey/sequential-command
-  :require sequential-command-config
-  :config
-  (sequential-command-setup-keys))
+(add-hook 'emacs-startup-hook
+		  (lambda ()
+			(leaf sequential-command
+			  :el-get HKey/sequential-command
+			  :require sequential-command-config
+			  :config
+			  (sequential-command-setup-keys))))
 
 
 (leaf ps-print-setting
