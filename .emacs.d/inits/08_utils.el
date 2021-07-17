@@ -155,6 +155,5 @@
 			(cons 'my:delete-file-if-no-contents after-save-hook))))
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 08_utils.el ends here
