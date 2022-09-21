@@ -1,0 +1,255 @@
+% jdkintou.sty 
+% by Shinsaku Fujita 
+% Copyright (C) S. Fujita (1999). All rights reserved. 
+% Version 1.00 1999/12/31
+%
+%  作成者: 藤田眞作
+%          fujitas@chem.kit.ac.jp
+%
+%   藤田眞作著「入門・縦横文書術」所載
+%
+%\typeout{Option Style `jdkintou.sty' by S. Fujita}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\j@urnalname{jdkintou}
+\def\versi@ndate{December 31, 1999}
+\def\versi@nno{ver1.00}
+\def\copyrighth@lder{SF} % Shinsaku Fujita
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\typeout{Option Style `\j@urnalname' (\versi@nno) <\versi@ndate>\space 
+[\copyrighth@lder]}
+\typeout{藤田眞作著「LaTeXまくろの八衢」所載}
+\typeout{藤田眞作著「続LaTeX2e階梯・縦組編」所載}
+\typeout{藤田眞作著「入門・縦横文書術」所載}
+% **************
+% * 自動均等割 * tatebook.cls(S. Fujita)より
+% **************
+\newif\ifjidoukintou \jidoukintoutrue
+%
+% \kintou
+% by Shinsaku Fujita 1995/05/27
+% 藤田眞作著「\LaTeX{}まくろの八衢」第24章参照。
+% \leavevmode追加
+%
+\def\kintou#1#2{\leavevmode\hbox to#1{%
+ \kanjiskip=0pt plus 1fill minus 1fill
+ \xkanjiskip=\kanjiskip #2}}
+%
+% \jidoukintou 
+% by Shinsaku Fujita 1995/05/27
+% 藤田眞作著「\LaTeX{}まくろの八衢」第24章参照。
+% \leavevmode追加
+%
+\def\jidoukintou#1{%自動均等割
+%\settowidth{\@tempdima}{#1}%文字列の長さを測る
+%\@jidoukintou{\@tempdima}{#1}}
+\setbox9=\hbox{#1}%文字列の長さを測る
+\leavevmode
+\@jidoukintou{\wd9}{#1}}
+\def\@jidoukintou#1#2{%条件判断の内部マクロ
+\ifjidoukintou
+ \ifdim#1<1.2zw \hbox{#2}%1文字
+ \else\ifdim#1<2.4zw \kintou{4zw}{#2}%2文字
+ \else\ifdim#1<3.4zw \kintou{5zw}{#2}%3文字
+ \else\ifdim#1<4.4zw \kintou{6zw}{#2}%4文字
+ \else\ifdim#1<5.4zw \kintou{6zw}{#2}%5文字
+ \else #2%6文字以上
+\fi\fi\fi\fi\fi\else #2\fi}
+% **************
+% * 自動均等割 *
+% **************
+% \jidoukintouII
+% by Shinsaku Fujita 1998/09/06
+% 藤田眞作著「続\LaTeXe{}階梯・縦組編」第9章参照。
+%
+\def\jidoukintouII#1{%自動均等割
+\setbox9=\hbox{#1}%文字列の長さを測る
+\leavevmode
+\@jidoukintouII{\wd9}{#1}}
+\def\@jidoukintouII#1#2{%条件判断の内部マクロ
+\ifjidoukintou
+ \ifdim#1<1.2zw \hbox{#2}%1文字
+ \else\ifdim#1<2.4zw \kintou{4zw}{#2}%2文字
+ \else\ifdim#1<3.4zw \kintou{5zw}{#2}%3文字
+ \else\ifdim#1<4.4zw \kintou{5.5zw}{#2}%4文字
+ \else\ifdim#1<5.4zw \kintou{6zw}{#2}%5文字
+ \else #2%6文字以上
+\fi\fi\fi\fi\fi\fi}
+% ********
+% * 字割 *
+% ********
+% \zenkakuwari 全角割
+% \nibuwari 二分割
+% \yonbuwari 四分割
+% by Shinsaku Fujita 1999/12/31
+\def\zenkakuwari#1{\leavevmode\hbox{%
+\kanjiskip=1zw plus .5zw minus 0.125zw
+\let\xkanjiskip=\kanjiskip #1}}
+\def\nibuwari#1{\leavevmode\hbox{%
+\kanjiskip=0.5zw plus .25zw minus 0.0625zw
+\let\xkanjiskip=\kanjiskip #1}}
+\def\yonbuwari#1{\leavevmode\hbox{%
+\kanjiskip=0.25zw plus .125zw minus 0.031zw
+\let\xkanjiskip=\kanjiskip #1}}
+%
+% ************
+% * 文字扱い *
+% ************
+% \Mojiatukai
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+%
+\newcount\kakkocnt%流用
+\newif\ifyosokuon\yosokuonfalse
+\def\zenkaku{\char\jis"2121}%全角アキ
+\def\mojiatukai#1{\zenkaku\kern-1zw#1\kern-1zw\zenkaku}
+\let\kanjiatukai=\mojiatukai%同義
+\def\Mojiatukai#1{%
+\if\noexpand#1\relax\else
+\kakkocnt=`#1\relax\yosokuonfalse
+\ifnum\kakkocnt=\jis"2139\relax
+\yosokuontrue%
+\else\ifnum\kakkocnt=\jis"2138\relax
+\yosokuontrue%
+\else
+\ifnum\kakkocnt>\jis"2132\relax
+ \ifnum\kakkocnt<\jis"2137\relax \yosokuontrue\else
+  \ifnum\kakkocnt>\jis"2420\relax
+   \ifnum\kakkocnt<\jis"242A\relax
+    \ifodd\kakkocnt\relax \yosokuontrue\fi%%%%%
+   \else
+    \ifnum\kakkocnt=\jis"2443\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2463\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2465\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2467\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"246E\relax \yosokuontrue\else
+  \ifnum\kakkocnt>\jis"2520\relax
+   \ifnum\kakkocnt<\jis"252A\relax
+    \ifodd\kakkocnt \else\yosokuontrue\fi%%%%%
+   \else
+    \ifnum\kakkocnt=\jis"2543\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2563\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2565\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2567\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"256E\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2575\relax \yosokuontrue\else
+    \ifnum\kakkocnt=\jis"2576\relax \yosokuontrue%%%%%
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+\fi\fi\fi\fi\fi\fi\fi\fi\fi
+\ifyosokuon\mojiatukai{#1}\else#1\fi}
+%
+% **********
+% * 均等割 *
+% **********
+% \KinTou
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+%
+\def\KinTou#1#2{\leavevmode\kintou{#1}{%
+\@tfor\mojimemb:=#2\do{%
+\expandafter\Mojiatukai\mojimemb}}}
+%
+% ************
+% * 文字判断 *
+% ************
+% \mojihandan
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+% 該当の文字が和字であれば\wajiswtrueを返す
+%
+%\newcount\kakkocnt%流用
+\newif\ifwajisw\wajiswfalse
+\newif\ifoujisw\oujiswfalse
+\newif\ifowarisw \owariswfalse
+\def\mojihandan#1{%
+\if\noexpand#1\relax\else
+\kakkocnt=`#1\relax\wajiswfalse
+\ifnum\kakkocnt>\jis"2120\relax
+\wajiswtrue\fi\fi}
+%
+% **************************
+% * 強引な字割ためのグルー *
+% **************************
+% \kintouglue
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+% 直前の字と現在の字の間にグルーを入れる。
+%
+%  直前の字      現在の字
+%  \oujiswtrue   \wajiswtrue  --- \hss 挿入
+%  \oujiswfalse  \wajiswtrue  --- \hss 挿入
+%  \oujiswtrue   \wajiswfalse --- \hss 挿入せず
+%  \oujiswfalse  \wajiswfalse --- \hss 挿入
+%
+\def\kintouglue#1{\owariswfalse
+\wajiswfalse\oujiswfalse
+\@tfor\mojimemb:=#1\do{%
+\ifwajisw\oujiswfalse\else\oujiswtrue\fi
+\expandafter\mojihandan\mojimemb\relax
+\ifowarisw\ifwajisw\hss\else\ifoujisw\relax\else\hss\fi\fi\fi
+\mojimemb\owariswtrue}}
+%
+% **************
+% * 強引な字割 *
+% **************
+\def\KinTouI#1#2{\leavevmode\hbox to#1{\kintouglue{#2}}}
+%
+% ********
+% * 字割 *
+% ********
+% \ZenkakuWari 全角割
+% \NibuWari 二分割
+% \YonbuWari 四分割
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+%
+\def\YonbuWari#1{\leavevmode\yonbuwari{%
+\@tfor\mojimemb:=#1\do{%
+\expandafter\Mojiatukai\mojimemb}}}
+\def\NibuWari#1{\leavevmode\nibuwari{%
+\@tfor\mojimemb:=#1\do{%
+\expandafter\Mojiatukai\mojimemb}}}
+\def\ZenkakuWari#1{\leavevmode\zenkakuwari{%
+\@tfor\mojimemb:=#1\do{%
+\expandafter\Mojiatukai\mojimemb}}}
+%
+% \jidouKinTou 
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+%
+\def\jidouKinTou#1{%自動均等割
+\setbox9=\hbox{#1}%文字列の長さを測る
+\leavevmode
+\@jidouKinTou{\wd9}{#1}}
+\def\@jidouKinTou#1#2{%条件判断の内部マクロ
+\ifjidoukintou
+ \ifdim#1<1.2zw \hbox{#2}%1文字
+ \else\ifdim#1<2.4zw \KinTou{4zw}{#2}%2文字
+ \else\ifdim#1<3.4zw \KinTou{5zw}{#2}%3文字
+ \else\ifdim#1<4.4zw \KinTou{6zw}{#2}%4文字
+ \else\ifdim#1<5.4zw \KinTou{6zw}{#2}%5文字
+ \else #2%6文字以上
+\fi\fi\fi\fi\fi\else #2\fi}
+% **************
+% * 自動均等割 *
+% **************
+% \jidouKinTouII
+% by Shinsaku Fujita 1999/12/31
+% 藤田眞作著「入門・縦横文書術」(仮題)
+%
+\def\jidouKinTouII#1{%自動均等割
+\setbox9=\hbox{#1}%文字列の長さを測る
+\leavevmode
+\@jidouKinTouII{\wd9}{#1}}
+\def\@jidouKinTouII#1#2{%条件判断の内部マクロ
+\ifjidoukintou
+ \ifdim#1<1.2zw \hbox{#2}%1文字
+ \else\ifdim#1<2.4zw \KinTou{4zw}{#2}%2文字
+ \else\ifdim#1<3.4zw \KinTou{5zw}{#2}%3文字
+ \else\ifdim#1<4.4zw \KinTou{5.5zw}{#2}%4文字
+ \else\ifdim#1<5.4zw \KinTou{6zw}{#2}%5文字
+ \else #2%6文字以上
+\fi\fi\fi\fi\fi\fi}
+
+\endinput
+
+

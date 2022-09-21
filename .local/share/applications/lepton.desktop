@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Lepton
+Comment=Lepton
+Exec=/home/minoru/Appimage/Lepton-1.10.0.AppImage
+Terminal=false
+Type=Application
+Icon=/home/minoru/Dropbox/backup/icons/lepton.png
+StartupWMClass=Lepton
+X-AppImage-Version=1.43.2.3622
+Categories=Development;
