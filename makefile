@@ -186,7 +186,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
 sylpheed: ## Init sylpheed
-	$(APT) $@
+	$(APT) $@ bogofilter kakasi
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 	mkdir -p ${HOME}/.devilspie
@@ -196,6 +196,7 @@ sylpheed: ## Init sylpheed
 	sudo chmod +x /usr/local/bin/minimize_sylpheed.sh
 ## Start minimized on login → https://snap.minorugh.com/post/2022/0126-minimize-startup-sylpheed/
 ## You have to use the app-password
+## Choose bogofilter for spam filter
 
 sxiv: ## Init sxiv
 	$(APT) $@
@@ -241,10 +242,11 @@ perlbrew: ## Install perlbrew
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm
 	cpanm Net::FTPSSL
+	cpanm Net::SFTP::Foreign
 
 emacs-devel: ## Install development version of emacs
 	cd ${HOME}/src && \
-	git clone -b emacs-28 git@github.com:emacs-mirror/emacs.git && \
+	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git && \
 	cd emacs && ./autogen.sh &&	./configure && \
 	make
 	sudo make install
