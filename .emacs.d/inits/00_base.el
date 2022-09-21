@@ -73,7 +73,7 @@
 
 ;; Font
 (if (string-match "e590" (shell-command-to-string "uname -n"))
-	(add-to-list 'default-frame-alist '(font . "Cica-19.5"))
+	(add-to-list 'default-frame-alist '(font . "Cica-21"))
   ;; For submachine
   (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
