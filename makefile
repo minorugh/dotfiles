@@ -213,7 +213,7 @@ lepton: ## Init lepton
 zoom: ## install zoom
 	cd ${HOME}/Downloads && \
 	wget https://zoom.us/client/latest/zoom_amd64.deb
-	sudo gdebi zoom_amd.deb
+	sudo gdebi zoom_amd64.deb
 	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 
 ## From here, Step by step while interacting with SHELL
@@ -225,7 +225,7 @@ texlive: ## Install texlive full
 	cd install-tl* && \
 	sudo ./install-tl -no-gui -repository http://mirror.ctan.org/systems/texlive/tlnet/
 ## Asked for Actions, so enter `I` to start the installation
-	sudo /usr/local/texlive/????/bin/*/tlmgr path add
+	sudo /usr/local/texlive/2022/bin/*/tlmgr path add
 	sudo tlmgr update --self --all
 
 latex: ## Symbolic for dvpd.sh && mysty
@@ -252,6 +252,6 @@ emacs-devel: ## Install development version of emacs
 
 allinstall: rclone gnupg ssh base install init keyring tlp fcitx-mozc mozc gistinstall brewinstall images fontawesome
 
-nextinstall: filezilla keepassxc spotify sylpheed sxiv lepton zoom
+nextinstall: filezilla keepassxc sylpheed sxiv lepton zoom
 
 # update 2021.10.12
