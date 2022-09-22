@@ -1,5 +1,4 @@
 # zshrc
-
 plugins=(… zsh-completions)
 autoload -U compinit promptinit
 compinit
@@ -7,7 +6,6 @@ promptinit
 
 export LANG=ja_JP.UTF-8
 
-autoload -Uz compinit ; compinit
 autoload -Uz colors
 colors
 
@@ -220,14 +218,12 @@ in screen-256color)
        };;
 esac
 
-
 # Delete by word with C-w
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # keychain config
 # /usr/bin/keychain $HOME/.ssh/id_rsa
 # source $HOME/.keychain/$HOST-sh
-
 
 # completion mosh
 compdef mosh=ssh
@@ -301,7 +297,6 @@ chmod 755 ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
-
 # PATH
 export GOPATH=$HOME
 export PATH="$PATH:$GOPATH/bin:/usr/sbin"
@@ -335,19 +330,8 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 # export LOCAL_HOST_IP=`ifconfig wlp5s0 | grep inet | grep -v inet6 | sed -E "s/inet ([0-9]{1,3}.[0-9]{1,3}.[0-9].{1,3}.[0-9]{1,3}) .*$/\1/" | tr -d "\t"`
 
 # Ruby exports
-
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
-
-
-# vterm
-if [[ "$INSIDE_EMACS" = 'vterm' ]] \
-    && [[ -n ${EMACS_VTERM_PATH} ]] \
-    && [[ -f ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh ]]; then
-    source ${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh
-    # Initialize TITLE
-    print -Pn "\e]2;%m:%2~\a"
-fi
 
 # cdr
 autoload -Uz is-at-least
@@ -386,107 +370,6 @@ function cde() {
     cd "$EMACS_CWD"
 }
 
-function history-fzf() {
-    BUFFER=$(history -n -r 1 | fzf-tmux -d --reverse --no-sort +m --query "$LBUFFER" --prompt="History > ")
-    CURSOR=$#BUFFER
-}
-zle -N history-fzf
-bindkey '^r' history-fzf
-
-function cdr-fzf() {
-    local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf-tmux -d --reverse --prompt="cd > ")
-    if [ -n "$selected_dir" ]; then
-	BUFFER="cd ${selected_dir}"
-	zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N cdr-fzf
-bindkey '^xf' cdr-fzf
-bindkey '^x^f' cdr-fzf
-
-function ghq-fzf() {
-  local selected_dir=$(ghq list | fzf-tmux -d --reverse --query="$LBUFFER" --prompt="ghq list > ")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd $(ghq root)/${selected_dir}"
-    zle accept-line
-  fi
-  zle reset-prompt
-}
-zle -N ghq-fzf
-bindkey '^x^l' ghq-fzf
-bindkey '^xl' ghq-fzf
-
-function weather-fzf() {
-    curl wttr.in/$(echo -e "Sapporo\nSendai\nTokyo\nYokohama\nKawasaki\nNagano\nNagoya\nKanazawa\nKyoto\nOsaka-shi\nKobe\nOkayama-Shi\nHiroshima-Shi\nTakamatsu\nMatsuyama\nHakata" | fzf-tmux -d --reverse --prompt="Weather > ") | less -R
-}
-
-function gitlog-fzf() {
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | \
-  fzf-tmux -d --prompt="git log > " --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-FZF-EOF"
-}
-
-function ssh-fzf () {
-    local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf-tmux -d --reverse --prompt="ssh > " --query "$LBUFFER")
-
-    if [ -n "$selected_host" ]; then
-	BUFFER="ssh ${selected_host}"
-	zle accept-line
-    fi
-    zle reset-prompt
-}
-zle -N ssh-fzf
-bindkey '^\' ssh-fzf
-
-function fzf-checkout-pull-request () {
-    local selected_pr_id=$(gh pr list | fzf-tmux -d --reverse --prompt="pr > " --query "$LBUFFER" | awk '{ print $1 }')
-    if [ -n "$selected_pr_id" ]; then
-        BUFFER="gh pr checkout ${selected_pr_id}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N fzf-checkout-pull-request
-bindkey '^xg' fzf-checkout-pull-request
-bindkey '^x^g' fzf-checkout-pull-request
-
-function rails-routes-fzf() {
-    BUFFER=$(bin/rails routes | fzf-tmux -d --reverse --no-sort +m --query "$LBUFFER" --prompt="rails routes > ")
-    CURSOR=$#BUFFER
-}
-
-function gitroot() {
-    cd ./$(git rev-parse --show-cdup)
-    if [ $# = 1 ]; then
-	cd $1
-    fi
-}
-
-# function github-new() {
-#     if [ $# = 1 ]; then
-# 	ghq root && cat ~/.config/hub | grep user \
-# 	    && cd $(ghq root)/github.com/$(cat ~/.config/hub \
-# 					       | grep user | awk '{print $3}') && mkdir $1
-# 	if [ $? = 0 ]; then
-# 	    cd $1
-# 	    git init .
-# 	    hub create
-# 	    touch README.md
-# 	    git add README.md
-# 	    git commit -m 'first commit'
-# 	    git push origin master
-# 	fi
-#     else
-# 	echo 'usage: github-new reponame'
-#     fi
-# }
-
 function webm2gif() {
     if [ $# = 1 ]; then
 	fname_ext=$1
@@ -515,13 +398,6 @@ function md2docx() {
     else
 	echo 'usage: md2docx file.md'
     fi
-}
-
-function terminal-size() {
-    echo "width"
-    tput cols
-    echo "height"
-    tput lines
 }
 
 function optimize-jpg() {
@@ -566,22 +442,3 @@ function optimize-png() {
 # perlrew
 source ~/perl5/perlbrew/etc/bashrc
 
-# Github
-function github-new() {
-    if [ $# = 1 ]; then
-	ghq root && cat ~/.config/hub | grep user \
-	    && cd $(ghq root)/github.com/$(cat ~/.config/hub \
-					       | grep user | awk '{print $3}') && mkdir $1
-	if [ $? = 0 ]; then
-	    cd $1
-	    git init .
-	    hub create
-	    touch README.md
-	    git add README.md
-	    git commit -m 'first commit'
-	    git push origin master
-	fi
-    else
-	echo 'usage: github-new reponame'
-    fi
-}
