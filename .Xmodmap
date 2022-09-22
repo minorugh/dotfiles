@@ -1,11 +1,11 @@
 ! .Xmodmap for key remap
 
-remove LOCK = Caps_Lock
-keysym Caps_Lock = Control_L
+! remove LOCK = Caps_Lock
+! keysym Caps_Lock = Control_L
 add Control = Control_L
 
 keycode 107 = Alt_R
-keycode  97 = underscore
+keycode  97 = underscore backslash underscore backslash
 keycode 66 = Control_L
 
 ! 10keys
