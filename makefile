@@ -97,7 +97,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in zshrc vimrc bashrc tmux.conf Xmodmap Xresources autologin.sh; do
+	for item in zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources autologin.sh; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	chmod 600 ${HOME}/.autologin.sh
