@@ -566,53 +566,22 @@ function optimize-png() {
 # perlrew
 source ~/perl5/perlbrew/etc/bashrc
 
-# ### Added by Zinit's installer
-#if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-#    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-#    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-#    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-#        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-#        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-#fi
-
-# # source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-#source "$HOME/.zinit/bin/zinit.zsh"
-#autoload -Uz _zinit
-#(( ${+_comps} )) && _comps[zinit]=_zinit
-#zinit load momo-lab/zsh-abbrev-alias # 略語を展開する
-#zinit load zsh-users/zsh-syntax-highlighting # 実行可能なコマンドに色付け
-#zinit load zsh-users/zsh-completions # 補完
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-#zinit light-mode for \
-#    zinit-zsh/z-a-rust \
-#    zinit-zsh/z-a-as-monitor \
-#    zinit-zsh/z-a-patch-dl \
-#    zinit-zsh/z-a-bin-gem-node
-
-# ### End of Zinit's installer chunk
-
-# # Linuxbrew
-# export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-
-# GitHub CLI
-eval "$(gh completion -s zsh)"
-
-# Create a new repository and first commit
-function gh-new() {
-    echo "Type repository name: " && read name;
-	echo "# ${name}" >> README.md
-    git init && git add README.md && git commit -m "First commit"
-    gh repo create ${name}
-	git branch -M main
-	git remote rm origin
-    git remote add origin git@github.com:minorugh/${name}.git
-    git push -u origin main;
-}
-
-# Cloning a repository
-function gh-clone() {
-    echo "Type repository name: " && read name;
-    gh repo clone ${name}
+# Github
+function github-new() {
+    if [ $# = 1 ]; then
+	ghq root && cat ~/.config/hub | grep user \
+	    && cd $(ghq root)/github.com/$(cat ~/.config/hub \
+					       | grep user | awk '{print $3}') && mkdir $1
+	if [ $? = 0 ]; then
+	    cd $1
+	    git init .
+	    hub create
+	    touch README.md
+	    git add README.md
+	    git commit -m 'first commit'
+	    git push origin master
+	fi
+    else
+	echo 'usage: github-new reponame'
+    fi
 }
