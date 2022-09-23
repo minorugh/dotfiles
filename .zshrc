@@ -12,7 +12,7 @@ colors
 # last line (\n) probrem countermeasure
 unsetopt promptcr
 
-HISTFILE=~/Dropbox/backup/zsh/.zsh_history
+HISTFILE=~/backup/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -227,7 +227,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # completion mosh
 compdef mosh=ssh
-
 
 # aliases
 alias ls='ls -v -F --color=auto'
