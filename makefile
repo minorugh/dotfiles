@@ -21,7 +21,7 @@
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh git nautilus chromium chromium-l10n
+# | sudo apt install -y zsh git nautilus
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
@@ -126,12 +126,13 @@ emacs-mozc:  ## Install fcitx-mozc
 # Setup fcitx: Input im-config in terminal and ret → ret → check fcitx
 # Setup mozc: Open mozc settings from menu and import azik to romaji-table
 
+## symbolic link of mozc dictionary
 ifeq ($(shell uname -n),e590)
-mozc: ## mozc for e509
+mozc: ## for e509
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
 else
-mozc: ## mozc for submachine
+mozc: ## for submachine
 	cp -rf ~/Dropbox/mozc/.mozc ~/Dropbox/backup/mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
@@ -159,15 +160,16 @@ fontawesome: ##  Ini Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
+
 ## next install for applications
 ## =====================================================================
 chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	$(APT) /.google-chrome-stable_current_amd64.deb
+	$(APT) ./google-chrome-stable_current_amd64.deb
+	rm  ./google-chrome-stable_current_amd64.deb
 
 spotify: ## Install Spotify on Debian11
-	cd ${HOME}/Downloads && \
 	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
 	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 	sudo apt update
@@ -222,15 +224,21 @@ zoom: ## install zoom
 	sudo gdebi zoom_amd64.deb
 	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 
-Slack: ## install slack
+Slack: ## Install slack
 	cd ${HOME}/Downloads && \
 	wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
 	$(APT) ./slack-desktop-*.deb
+	rm ./slack-desktop-*.deb
 
-mattermost: ## install mattermost
-	cd ${HOME}/Downloads && \
+mattermost: ## Install mattermost
 	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
 	$(APT) mattermost-desktop
+
+google-earth: ## Install google-earth
+	cd ${HOME}/Downloads && \
+	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
+	sudo apt install ./google-earth-pro-stable_current_amd64.deb
+	rm ./google-earth-pro-stable_current_amd64.deb
 
 
 # From here, Step by step while interacting with SHELL
@@ -252,7 +260,6 @@ latex: ## Symbolic for dvpd.sh && mysty
 	sudo mktexlsr
 
 perlbrew: ## Install perlbrew
-	cd ${HOME}/Downloads && \
 	curl -L http://install.perlbrew.pl | bash
 	perlbrew install 5.30.3
 	perlbrew switch 5.30.3
