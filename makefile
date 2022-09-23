@@ -127,8 +127,8 @@ install: ## Install debian packages
 base: ## Install base-devel packages
 	$(APT) $(BASE_PKGS)
 
-emacs-mozc:  ## Install fcitx-mozc
-	$(APT) $@ fcitx-mozc emacs-mozc
+emacs-mozc:  ## Install emacs-mozc fcitx-mozc
+	$(APT) $@ fcitx-mozc
 # Setup fcitx: Input im-config in terminal and ret → ret → check fcitx
 # Setup mozc: Open mozc settings from menu and import azik to romaji-table
 
@@ -243,7 +243,7 @@ mattermost: ## Install mattermost
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
-	sudo apt install ./google-earth-pro-stable_current_amd64.deb
+	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
 
