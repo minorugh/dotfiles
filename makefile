@@ -42,7 +42,7 @@
 ## 1st stage for make allinstall
 ## =====================================================================
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
-PACKAGES	+= pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
+PACKAGES	+= pandoc rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
 PACKAGES	+= ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh
 PACKAGES	+= autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
