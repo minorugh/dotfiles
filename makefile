@@ -4,10 +4,10 @@
 ## =====================================================================
 ## Manual setting before executing make
 
-## 1. Boot from Live-USB to install debian
-## Download iso image file from https://www.debian.org/CD/live/
-## Create a Live USB stick,
-## https://www.archlinux.site/2018/03/linuxisoubuntulive-usb.html
+## 1. Boot from USB to netinstall Debian latest
+## Download iso image file from https://www.debian.org/CD/netinst/index.ja.html
+## Create a Install-USB stick by Rufs on Windows machine
+## Download Rufs from https://rufs.ie/ja/
 
 ## 2. Register username to sudoers
 ## Log in as root
@@ -21,7 +21,7 @@
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh git nautilus
+# | sudo apt install -y zsh git make nautilus
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
@@ -279,16 +279,18 @@ allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistin
 
 nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack mattermost
 
+
 ## Some settings
 #########################################
-## 設定マネージャー→ウインドウマネージャー
-# スタイル: select to Arc-Dark
-# キーボード: ウインドウ切り替え(Super+Alt) アプリケーション切り替え(Ctrl+Super)
+## Settings Manager -> Window Manager
+# style: select to Arc-Dark
+# keyboard: # keyboard: switch windows (Super+Alt) , switch applications  (Ctrl+Super)
 ##########################################
-## 外観
-# スタイル: select Arc-Dark
+## Exterior setting
+# style: select Arc-Dark
 ##########################################
-## 印刷設定 in Whisker menu
+## Print settings in Whisker menu
 # edit command: add sudo →sudo system-config-printer
 ##########################################
+
 # update 2022.09.22
