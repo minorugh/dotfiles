@@ -189,7 +189,6 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-
 # Tmux, pass the name of the command currently executed to screen
 case "${TERM}"
 in screen-256color)
