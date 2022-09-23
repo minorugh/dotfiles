@@ -43,12 +43,12 @@
 ## =====================================================================
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
 PACKAGES	+= pandoc rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
-PACKAGES	+= ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh
+PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar
 PACKAGES	+= autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
-PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs gimp darktable
-PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
-PACKAGES	+= cups cups-bsd
+PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
+PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
+PACKAGES	+= pinta gimp darktable inkscape shotwell cups cups-bsd
 
 BASE_PKGS	:= openssl libssl-dev zlib1g-dev build-essential texinfo
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
