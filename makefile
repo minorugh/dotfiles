@@ -76,6 +76,8 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
+allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
+nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack mattermost
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -167,7 +169,6 @@ fontawesome: ##  Ini Font Awesome
 
 
 ## install for applications
-## =====================================================================
 chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -247,7 +248,6 @@ google-earth: ## Install google-earth
 
 
 # From here, Step by step while interacting with SHELL
-## =====================================================================
 texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -281,10 +281,6 @@ emacs-devel: ## Install development version of emacs
 	sudo make install
 	rm -rf ${HOME}/.emacs.d/elpa
 
-allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
-
-nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack mattermost
-
 
 ## Some settings
 #############################################################
@@ -297,4 +293,14 @@ nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack 
 #############################################################
 ## Print settings in Whisker menu
 # edit command: add sudo →sudo system-config-printer
-#############################################################
+
+github: ## Git clone
+	mkdir -p ${HOME}/src/github.com/minorugh
+	cd ${HOME}/src/github.com/minorugh
+	git clone git@github.com:minorugh/GH.git
+	git clone git@github.com:minorugh/backup.git
+	git clone git@github.com:minorugh/.emacs.d.git
+	git clone git@github.com:minorugh/minorugh.github.io.git
+    git clone git@github.com:minorugh/emacs.d.git
+# GH.git & backup.git repository is deleted data other than `.git` folder.
+# These data are on dropbox.
