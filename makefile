@@ -1,5 +1,5 @@
 ### Dotfiles to restore Debian GNU/Linux
-# author Minoru Yamada. 2022.09.22
+# author Minoru Yamada. 2021.10.11
 
 ## =====================================================================
 ## Manual setting before executing make
@@ -47,7 +47,7 @@ PACKAGES	+= autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-t
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs gimp darktable
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi shotwell
-PACKAGES	+= cups cups-bsd cups-pdf
+PACKAGES	+= cups cups-bsd
 
 BASE_PKGS	:= openssl libssl-dev zlib1g-dev build-essential texinfo
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
@@ -121,8 +121,10 @@ base: ## Install base-devel packages
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 
-fxitx-mozc:  ## Install fcitx-mozc
-	$(APT) $@ fcitx-mozc
+emacs-mozc:  ## Install fcitx-mozc
+	$(APT) $@ fcitx-mozc emacs-mozc
+# Setup fcitx: Input im-config in terminal and ret → ret → check fcitx
+# Setup mozc: Open mozc settings from menu and import azik to romaji-table
 
 ifeq ($(shell uname -n),e590)
 mozc: ## mozc for e509
@@ -149,11 +151,6 @@ keyring: ## Init gnome keyrings
 gistinstall: ## Gist install | $ gist --login from terminal at first
 	sudo gem install gist
 
-brewinstall: ## Install Linuxbrew
-	echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >>  ~/.zshrc
-	source ~/.zshrc
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-
 images: ## Copy wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/images/wallpaper ${HOME}/Pictures
 	ln -vsf ${HOME}/Dropbox/images/icons ${HOME}/Pictures
@@ -164,6 +161,11 @@ fontawesome: ##  Ini Font Awesome
 
 ## next install for applications
 ## =====================================================================
+chrome: ## Install Google-chrome-stable
+	cd ${HOME}/Downloads && \
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	$(APT) /.google-chrome-stable_current_amd64.deb
+
 spotify: ## Install Spotify on Debian11
 	cd ${HOME}/Downloads && \
 	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
@@ -190,14 +192,16 @@ sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
+## Gmail security requires you to use the app password
+## Choose bogofilter for spam filter
+
+devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
 	sudo apt install devilspie
-	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/minimize_sylpheed.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/minimize_sylpheed.sh
-## Start minimized on login → https://snap.minorugh.com/post/2022/0126-minimize-startup-sylpheed/
-## You have to use the app-password
-## Choose bogofilter for spam filter
+	sudo ln -vsfn ${PWD}/devils/devils_startup.ds  ${HOME}/.devilspie
+	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
+	sudo chmod +x /usr/local/bin/devils_startup.sh
+## minimized startup  → https://snap.minorugh.com/post/2022/0126-minimize-startup-sylpheed/
 
 sxiv: ## Init sxiv
 	$(APT) $@
@@ -218,15 +222,18 @@ zoom: ## install zoom
 	sudo gdebi zoom_amd64.deb
 	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 
-gh: ## install GitGub CLI
-	curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-	&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] 		https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
+Slack: ## install slack
+	cd ${HOME}/Downloads && \
+	wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
+	$(APT) ./slack-desktop-*.deb
+
+mattermost: ## install mattermost
+	cd ${HOME}/Downloads && \
+	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
+	$(APT) mattermost-desktop
 
 
-## From here, Step by step while interacting with SHELL
+# From here, Step by step while interacting with SHELL
 ## =====================================================================
 texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
@@ -261,8 +268,20 @@ emacs-devel: ## Install development version of emacs
 	sudo make install
 	rm -rf ${HOME}/.emacs.d/elpa
 
-allinstall: rclone gnupg ssh base install init keyring tlp fcitx-mozc mozc gistinstall brewinstall images fontawesome
+allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
 
-nextinstall: filezilla keepassxc sylpheed sxiv lepton zoom
+nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack mattermost
 
-# update 2021.10.12
+## Some settings
+#########################################
+## 設定マネージャー→ウインドウマネージャー
+# スタイル: select to Arc-Dark
+# キーボード: ウインドウ切り替え(Super+Alt) アプリケーション切り替え(Ctrl+Super)
+##########################################
+## 外観
+# スタイル: select Arc-Dark
+##########################################
+## 印刷設定 in Whisker menu
+# edit command: add sudo →sudo system-config-printer
+##########################################
+# update 2022.09.22
