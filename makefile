@@ -248,11 +248,15 @@ texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz && \
+	rm -f install-tl-unx.tar.gz && \
 	cd install-tl* && \
 	sudo ./install-tl -no-gui -repository http://mirror.ctan.org/systems/texlive/tlnet/
 ## Asked for Actions, so enter `I` to start the installation
-	sudo /usr/local/texlive/2022/bin/*/tlmgr path add
+	sudo /usr/local/texlive/????/bin/*/tlmgr path add
 	sudo tlmgr update --self --all
+# ???? above is supposed to match 2022 and * matches x86_64-linux,
+# but if it does not work well, please specify a specific directory name as follows.
+# $ sudo /usr/local/texlive/2022/bin/x86_64-linux/tlmgr path add
 
 latex: ## Symbolic for dvpd.sh && mysty
 	sudo ln -vsfn ${PWD}/tex/dvpd.sh /usr/local/bin
