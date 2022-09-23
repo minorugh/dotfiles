@@ -39,8 +39,7 @@
 # | cd src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
-# | make install
-# | make init
+# | make allinstall
 
 
 ########################################################################
