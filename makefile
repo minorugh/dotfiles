@@ -6,19 +6,22 @@
 ## Manual setting before executing make
 
 ## 1. Boot from USB to netinstall Debian latest
-## Download iso image file from https://www.debian.org/CD/netinst/index.ja.html
-## Create a Install-USB stick by Rufs on Windows machine
-## Download Rufs from https://rufs.ie/ja/
+########################################################################
+# Download iso image file from https://www.debian.org/CD/netinst/index.ja.html
+# Create a Install-USB stick by Rufs on Windows machine
+# Download Rufs from https://rufs.ie/ja/
 
 ## 2. Register username to sudoers
-## Log in as root
+########################################################################
+# Log in as root
 # | gpasswd -a minoru sudo
 # | log out
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
 
 ## 3. Make HOME directory English
-## Log in with ${USER}
+########################################################################
+# Log in with ${USER}
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
@@ -26,10 +29,12 @@
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
+########################################################################
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and setting
 
 ## 5. Prepare dotfiles
+########################################################################
 # | mkdir -p ~/src/github.com/minorugh
 # | cd src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
@@ -38,12 +43,12 @@
 # | make init
 
 
+########################################################################
 ## Run make from here
-## 1st stage for make allinstall
-## =====================================================================
+########################################################################
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
 PACKAGES	+= pandoc rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
-PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar
+PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar zsh
 PACKAGES	+= autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
@@ -116,11 +121,11 @@ init: ## Initial deploy dotfiles
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
 	sudo update-grub2
 
-base: ## Install base-devel packages
-	$(APT) $(BASE_PKGS)
-
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
+
+base: ## Install base-devel packages
+	$(APT) $(BASE_PKGS)
 
 emacs-mozc:  ## Install fcitx-mozc
 	$(APT) $@ fcitx-mozc emacs-mozc
@@ -162,7 +167,7 @@ fontawesome: ##  Ini Font Awesome
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
 
-## next install for applications
+## install for applications
 ## =====================================================================
 chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
@@ -283,14 +288,14 @@ nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack 
 
 
 ## Some settings
-#########################################
+#############################################################
 ## Settings Manager -> Window Manager
 # style: select to Arc-Dark
 # keyboard: # keyboard: switch windows (Super+Alt) , switch applications  (Ctrl+Super)
-##########################################
+#############################################################
 ## Exterior setting
 # style: select Arc-Dark
-##########################################
+#############################################################
 ## Print settings in Whisker menu
 # edit command: add sudo →sudo system-config-printer
-##########################################
+#############################################################
