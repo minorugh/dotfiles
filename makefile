@@ -1,5 +1,6 @@
 ### Dotfiles to restore Debian GNU/Linux
 # author Minoru Yamada. 2021.10.11
+# update 2022.09.22
 
 ## =====================================================================
 ## Manual setting before executing make
@@ -36,10 +37,10 @@
 # | make install
 # | make init
 
+
 ## Run make from here
 ## 1st stage for make allinstall
 ## =====================================================================
-
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
 PACKAGES	+= pandoc make rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
 PACKAGES	+= ruby gnome-terminal nautilus nautilus-sendto xclip vim tmux unrar zsh
@@ -292,5 +293,3 @@ nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack 
 ## Print settings in Whisker menu
 # edit command: add sudo →sudo system-config-printer
 ##########################################
-
-# update 2022.09.22
