@@ -168,7 +168,7 @@ chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(APT) ./google-chrome-stable_current_amd64.deb
-	rm  ./google-chrome-stable_current_amd64.deb
+	rm -f ./google-chrome-stable_current_amd64.deb
 
 spotify: ## Install Spotify on Debian11
 	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
@@ -228,8 +228,8 @@ zoom: ## install zoom
 Slack: ## Install slack
 	cd ${HOME}/Downloads && \
 	wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
-	$(APT) ./slack-desktop-*.deb
-	rm ./slack-desktop-*.deb
+	$(APT) ./slack-desktop-4.0.2-amd64.deb
+	rm -f ./slack-desktop-4.0.2-amd64.deb
 
 mattermost: ## Install mattermost
 	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
@@ -239,7 +239,7 @@ google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
 	sudo apt install ./google-earth-pro-stable_current_amd64.deb
-	rm ./google-earth-pro-stable_current_amd64.deb
+	rm -f ./google-earth-pro-stable_current_amd64.deb
 
 
 # From here, Step by step while interacting with SHELL
@@ -252,16 +252,13 @@ texlive: ## Install texlive full
 	cd install-tl* && \
 	sudo ./install-tl -no-gui -repository http://mirror.ctan.org/systems/texlive/tlnet/
 ## Asked for Actions, so enter `I` to start the installation
-	sudo /usr/local/texlive/????/bin/*/tlmgr path add
+	sudo /usr/local/texlive/2022/bin/x86_64-linux/tlmgr path add
 	sudo tlmgr update --self --all
-# ???? above is supposed to match 2022 and * matches x86_64-linux,
-# but if it does not work well, please specify a specific directory name as follows.
-# $ sudo /usr/local/texlive/2022/bin/x86_64-linux/tlmgr path add
 
 latex: ## Symbolic for dvpd.sh && mysty
 	sudo ln -vsfn ${PWD}/tex/dvpd.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/dvpd.sh
-	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/????/texmf-dist/tex/platex
+	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/2022/texmf-dist/tex/platex
 	sudo mktexlsr
 
 perlbrew: ## Install perlbrew
