@@ -70,7 +70,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
-nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost
+nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
 SHELL = /bin/bash
