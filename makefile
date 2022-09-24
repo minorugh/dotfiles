@@ -40,30 +40,29 @@
 ## Run make from here
 ## =======================================================================
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
-PACKAGES	+= pandoc rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
-PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar zsh
-PACKAGES	+= autokey-gtk autokey-common lhasa zsh fzf tree aspell aspell-en arc-theme
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub expect
+PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar arc-theme
+PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES	+= pinta gimp darktable inkscape shotwell cups cups-bsd
 
-BASE_PKGS	:= openssl libssl-dev zlib1g-dev build-essential texinfo
+BASE_PKGS	:= automake  autoconf  texinfo openssl patch build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
-BASE_PKGS	+= libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev autoconf
-BASE_PKGS	+= automake libtool xorg-dev libncurses5-dev python3-pip libdbus-1-dev
+BASE_PKGS	+= libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev
+BASE_PKGS	+= libtool xorg-dev libncurses5-dev python3-pip libdbus-1-dev
 BASE_PKGS	+= libm17n-dev librsvg2-dev libotf-dev libxml2-dev libmagickwand-dev
 BASE_PKGS	+= libc6-dev libtiff5-dev flatpak zlib1g-dev libnet-sftp-foreign-perl
-BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev
-BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev patch libglib2.0-0
+BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
+BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
 
 APT			:= sudo apt install -y
-
 .DEFAULT_GOAL := help
-.PHONY: all allinstall nextinstall
 
+.PHONY: all allinstall nextinstall
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	| sort \
@@ -71,7 +70,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: rclone gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
-nextinstall: chrome spotify filezilla keepassxc sylpheed sxiv lepton zoom slack mattermost
+nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -130,11 +129,11 @@ emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 
 ## symbolic link of mozc dictionary
 ifeq ($(shell uname -n),e590)
-mozc: ## for e509
+mozc: ## for mainmachine (Thinkpad E590)
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
 else
-mozc: ## for submachine
+mozc: ## for submachine (Thinkpad X250)
 	cp -rf ~/Dropbox/mozc/.mozc ~/Dropbox/backup/mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
@@ -158,25 +157,25 @@ images: ## Copy wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/images/wallpaper ${HOME}/Pictures
 	ln -vsf ${HOME}/Dropbox/images/icons ${HOME}/Pictures
 
-fontawesome: ##  Ini Font Awesome
+fontawesome: ##  Init Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
 
 ## install for applications
-chrome: ## Install Google-chrome-stable
+google-chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(APT) ./google-chrome-stable_current_amd64.deb
 	rm -f ./google-chrome-stable_current_amd64.deb
 
-spotify: ## Install Spotify on Debian11
+spotify: ## Install Spotify for Debian
 	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
 	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 	sudo apt update
 	$(APT) spotify-client
 
-filezilla:  ## Install filezilla and set "Filezilla -s" to start selected myserver
+filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn {${PWD},${HOME}}/.config/filezilla
@@ -204,7 +203,6 @@ devilspie: ## Init devilspie for minimize_startup applications
 	sudo ln -vsfn ${PWD}/devils/devils_startup.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
-## minimized startup  → https://snap.minorugh.com/post/2022/0126-minimize-startup-sylpheed/
 
 sxiv: ## Init sxiv
 	$(APT) $@
@@ -219,7 +217,7 @@ lepton: ## Init lepton
 	chmod a+x Lepton-1.10.0.AppImage
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 
-zoom: ## install zoom
+zoom: ## Install zoom
 	cd ${HOME}/Downloads && \
 	wget https://zoom.us/client/latest/zoom_amd64.deb
 	sudo gdebi zoom_amd64.deb
@@ -268,7 +266,7 @@ perlbrew: ## Install perlbrew
 	cpanm Net::FTPSSL
 	cpanm Net::SFTP::Foreign
 
-emacs-devel: ## Install development version of emacs
+emacs-latest: ## Install the latest stable version of Emacs
 	cd ${HOME}/src && \
 	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git && \
 	cd emacs && ./autogen.sh &&	./configure && \
@@ -285,17 +283,17 @@ github: ## Git clone
 	git clone git@github.com:minorugh/minorugh.github.io.git
     git clone git@github.com:minorugh/emacs.d.git
 # GH.git & backup.git repository is deleted data other than `.git` folder.
-# These data are on dropbox.
+# These datas are restored from Dropbox
+
 
 ## ==========================================================
-## Some settings after Debian install
+## Some manual settings after Debian install
 ## ==========================================================
-# Caps to Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
-# Settings Manager>> Window Manager: style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (alt+f9 to end key)
-# Exterior setting>> style:select Arc-Dark, font:size14
-# Print setting >> edit command: sudo system-config-printer
-# Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z
-# Keyboad setting>> xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
-# Screen-saver>> select Atlantis & Only One mode
-# Settion>> minimized startup: command → devils_startup.sh
-# Restore xfce4>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
+# Replace key Caps with Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
+# Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
+# Exterior setting>> select style:Arc-Dark, font size:14
+# Print setting >> edit command: `sudo system-config-printer'
+# Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
+# Screen-saver>> select Atlantis with Only One mode
+# session & launch>> Add minimized startup, Set command:devils_startup.sh
+# Restore xfce4 panel>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
