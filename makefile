@@ -40,7 +40,7 @@
 ## =======================================================================
 ## Run make from here
 ## =======================================================================
-PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
+PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar unzip gcc golang npm
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub expect
 PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar arc-theme
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
