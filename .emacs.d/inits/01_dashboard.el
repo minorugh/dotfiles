@@ -12,7 +12,8 @@
 		  ("c" . chromium-calendar)
 		  ("A" . (lambda ()(interactive)(org-agenda nil "a")))
 		  ("p" . keepassxc)
-		  ("l" . logout)
+		  ("L" . logout)
+		  ("R" . reboot)
 		  ("y" . chromium-yahoo-japan)
 		  ("n" . chromium-nhk-news)
 		  ("w" . chromium-weather)
@@ -47,7 +48,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
 	(interactive)
-	(insert " GH: (h)    Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    Twit: (t)    (p)   (l)   (.)"))
+	(insert " GH: (h)    Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    Twit: (t)   (.)   (p)   (L.R)"))
 
   ;; Insert custom item
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
