@@ -12,7 +12,7 @@ colors
 # last line (\n) probrem countermeasure
 unsetopt promptcr
 
-HISTFILE=~/backup/zsh/.zsh_history
+HISTFILE=~/Dropbox/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
@@ -241,7 +241,7 @@ alias df='df -h'
 alias free='free -h'
 alias iv='sxiv'
 alias ex='exit'
-alias kp='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
+alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
 alias se='sudo mousepad'
 alias fz='filezilla -s'
 alias gdbackup='rclone sync ${HOME}/Dropbox/backup gd:/backup/backup'

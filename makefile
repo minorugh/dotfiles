@@ -107,6 +107,7 @@ init: ## Initial deploy dotfiles
 	for item in zprofile zshrc vimrc profile bashrc tmux.conf Xmodmap Xresources autologin.sh; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
+	xmodmap ${HOME}/.Xmodmap
 	chmod 600 ${HOME}/.autologin.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
@@ -184,14 +185,14 @@ spotify: ## Install Spotify on Debian11
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected myserver
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config/filezilla
+	ln -vsfn {${PWD},${HOME}}/.config/filezilla
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn {${PWD},${HOME}}/.config/keepassxc
 ## select-tool setup for password autoinmut
-## | $ sudo secret-tool store --label "KeePassXC master password" type kbd
+## $ sudo secret-tool store --label "KeePassXC master password" type kbd
 ## asked for a password so enter
 ## popup panel for passward input so input '<user passwd>'
 ## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
@@ -281,19 +282,6 @@ emacs-devel: ## Install development version of emacs
 	sudo make install
 	rm -rf ${HOME}/.emacs.d/elpa
 
-
-## Some settings
-#############################################################
-## Settings Manager -> Window Manager
-# style: select to Arc-Dark
-# keyboard: # keyboard: switch windows (Super+Alt) , switch applications  (Ctrl+Super)
-#############################################################
-## Exterior setting
-# style: select Arc-Dark
-#############################################################
-## Print settings in Whisker menu
-# edit command: add sudo →sudo system-config-printer
-
 github: ## Git clone
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh
@@ -304,3 +292,16 @@ github: ## Git clone
     git clone git@github.com:minorugh/emacs.d.git
 # GH.git & backup.git repository is deleted data other than `.git` folder.
 # These data are on dropbox.
+
+
+## Some settings after Debian install
+#############################################################
+# Caps to Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
+# Settings Manager>> Window Manager: style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super)
+# Exterior setting: style: select Arc-Dark
+# Print setting >> edit command: sudo system-config-printer
+# Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z
+# Keyboad setting>> xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
+# Screen-saver>> Atlantis:Only One mode
+# Settion>> minimized startup: command → devils_startup.sh
+# Restore xfce4>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
