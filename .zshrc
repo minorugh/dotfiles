@@ -275,12 +275,12 @@ alias upgrade='sudo apt -y upgrade'
 
 ## sudo shutdown
 alias sd='sudo shutdown -h now'
-
 ## sudo reboot
 alias boot='sudo reboot'
-
 ## standby mode
 alias by='xset dpms force standby'
+## Session logout
+alias logout='xfce4-session-logout'
 
 ## get api token from github
 function get-github-api () {
