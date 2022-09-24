@@ -292,11 +292,13 @@ github: ## Git clone
 ## ==========================================================
 ## Some manual settings after Debian install
 ## ==========================================================
-# Replace key Caps with Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
-# Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
-# Exterior setting>> select style:Arc-Dark, font size:14
-# Print setting >> edit command: `sudo system-config-printer'
-# Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
-# Screen-saver>> select Atlantis with Only One mode
-# session & launch>> Add minimized startup, Set command:devils_startup.sh
-# Restore xfce4 panel>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
+# Restore xfce4 session>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
+# By restore above, the following work may not be necessary
+# ------------------------------------------------------------------------
+# 1. Replace key Caps with Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
+# 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
+# 3. Exterior setting>> select style:Arc-Dark, font size:14
+# 4. Print setting >> edit command: `sudo system-config-printer'
+# 5. Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
+# 6. Screen-saver>> select Atlantis with Only One mode
+# 7. session & launch>> Add minimized startup, Set command:devils_startup.sh
