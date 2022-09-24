@@ -14,7 +14,7 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  passwd_x_^^^^  GH:_h_  root:_/_  _s_rcgith_u_b  _._files  File_z_illa   _m_d:pvie_w_^^   howm:_@__,__;_  _a_genda
+  _d_ropbox  _e_macs.d^^  _i_nits  passwd_x_^^^^  GH:_h_  root:_/_  _s_rcgith_u_b  _._files  File_z_illa   _m_d:pvie_w_^^   howm:_@__,__;_  _l_ogout
   _r_estart  magit_[__]_  _t_ramp  _y_as:_N_:_v_  _j_unk  _b_rowse  _o_rg:_C_apture  _<home>_  _n_extcloud   ma_k_e:_c_._g_   _j_ournal_:_^^  _p_asswd
 "
    ("p" keepassxc)
@@ -58,6 +58,7 @@
    ("u" my:github-dir)
    ("C" my:open-capture)
    ("z" filezilla)
+   ("l" logout)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 
@@ -136,6 +137,12 @@
 	(interactive)
 	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
 	(delete-other-windows)))
+
+(defun logout ()
+  "Xfce4 session logout."
+  (interactive)
+  (compile "xfce4-session-logout")
+  (delete-other-windows))
 
 
 ;; Local Variables:
