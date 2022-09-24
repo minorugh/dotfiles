@@ -29,9 +29,9 @@
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and setting
 
-## 5. Prepare dotfiles
+## 5. Restore dotfiles
 # | mkdir -p ~/src/github.com/minorugh
-# | cd src/github.com/minorugh
+# | cd ~/src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
 # | make allinstall
