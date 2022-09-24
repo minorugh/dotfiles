@@ -17,7 +17,7 @@
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
 
-## 3. Make HOME directory English
+## 3. Set home sub directorys to English notation
 # Log in with ${USER}
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
@@ -35,6 +35,7 @@
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
 # | make allinstall
+
 
 ## =======================================================================
 ## Run make from here
@@ -252,7 +253,7 @@ texlive: ## Install texlive full
 	sudo /usr/local/texlive/2022/bin/x86_64-linux/tlmgr path add
 	sudo tlmgr update --self --all
 
-latex: ## Symbolic for dvpd.sh && mysty
+latex: ## Symbolic link for dvpd.sh && mysty
 	sudo ln -vsfn ${PWD}/tex/dvpd.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/dvpd.sh
 	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/2022/texmf-dist/tex/platex
@@ -266,7 +267,7 @@ perlbrew: ## Install perlbrew
 	cpanm Net::FTPSSL
 	cpanm Net::SFTP::Foreign
 
-emacs-latest: ## Install the latest stable version of Emacs
+emacs-latest: ## Install Emacs of latest stable version
 	cd ${HOME}/src && \
 	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git && \
 	cd emacs && ./autogen.sh &&	./configure && \
