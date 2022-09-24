@@ -4,15 +4,13 @@
 
 ## =====================================================================
 ## Manual setting before executing make
-
+## =====================================================================
 ## 1. Boot from USB to netinstall Debian latest
-########################################################################
 # Download iso image file from https://www.debian.org/CD/netinst/index.ja.html
 # Create a Install-USB stick by Rufs on Windows machine
 # Download Rufs from https://rufs.ie/ja/
 
 ## 2. Register username to sudoers
-########################################################################
 # Log in as root
 # | gpasswd -a minoru sudo
 # | log out
@@ -20,7 +18,6 @@
 # | log out
 
 ## 3. Make HOME directory English
-########################################################################
 # Log in with ${USER}
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
@@ -29,22 +26,19 @@
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
-########################################################################
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and setting
 
 ## 5. Prepare dotfiles
-########################################################################
 # | mkdir -p ~/src/github.com/minorugh
 # | cd src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
 # | make allinstall
 
-
-########################################################################
+## =======================================================================
 ## Run make from here
-########################################################################
+## =======================================================================
 PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar gcc golang npm
 PACKAGES	+= pandoc rsync cmigemo git e2ps evince net-tools ntp wmctrl hub expect
 PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar zsh
@@ -293,11 +287,11 @@ github: ## Git clone
 # GH.git & backup.git repository is deleted data other than `.git` folder.
 # These data are on dropbox.
 
-
+## ==========================================================
 ## Some settings after Debian install
-#############################################################
+## ==========================================================
 # Caps to Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
-# Settings Manager>> Window Manager: style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super)
+# Settings Manager>> Window Manager: style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (alt+f9 to end key)
 # Exterior setting>> style:select Arc-Dark, font:size14
 # Print setting >> edit command: sudo system-config-printer
 # Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z

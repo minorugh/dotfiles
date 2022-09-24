@@ -125,8 +125,8 @@
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
-		 ("M-_" . delete-window)
-		 ("<end>" . suspend-frame)))
+		 ("M-_" . delete-window)))
+
 
 ;; Overwrite `C-w' to the whole-line-or-region
 (defun my:kill-whole-line-or-region ()
