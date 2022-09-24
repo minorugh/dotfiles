@@ -298,10 +298,10 @@ github: ## Git clone
 #############################################################
 # Caps to Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # Settings Manager>> Window Manager: style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super)
-# Exterior setting: style: select Arc-Dark
+# Exterior setting>> style:select Arc-Dark, font:size14
 # Print setting >> edit command: sudo system-config-printer
 # Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z
 # Keyboad setting>> xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
-# Screen-saver>> Atlantis:Only One mode
+# Screen-saver>> select Atlantis & Only One mode
 # Settion>> minimized startup: command → devils_startup.sh
 # Restore xfce4>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
