@@ -14,7 +14,7 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  passwd_x_^^^^  GH:_h_  root:_/_  _s_rcgith_u_b  _._files  File_z_illa   _m_d:pvie_w_^^   howm:_@__,__;_  _l_ogout
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_server^^^^  GH:_h_  root:_/_  _s_rcgith_u_b  _._files  File_z_illa   _m_d:pvie_w_^^   howm:_@__,__;_  _l_ogout
   _r_estart  magit_[__]_  _t_ramp  _y_as:_N_:_v_  _j_unk  _b_rowse  _o_rg:_C_apture  _<home>_  _n_extcloud   ma_k_e:_c_._g_   _j_ournal_:_^^  _p_asswd
 "
    ("p" keepassxc)
@@ -31,7 +31,7 @@
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
    ("n" my:nextcloud)
-   ("x" keepassxc)
+   ("x" chromium-xserver)
    ("y" company-yasnippet)
    ("N" yas/new-snippet)
    ("v" yas/visit-snippet-file)

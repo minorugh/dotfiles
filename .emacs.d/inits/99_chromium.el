@@ -74,6 +74,11 @@
   (interactive)
   (browse-url "https://minorugh.github.io/"))
 
+(defun chromium-xserver ()
+  "Chromium github.io."
+  (interactive)
+  (browse-url "https://www.xserver.ne.jp/"))
+
 (defun chromium-gmail ()
   "Chromium gmail."
   (interactive)
