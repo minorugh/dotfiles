@@ -296,13 +296,13 @@ github: ## Git clone
 xfce4: ## Restore xfce4 session
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	cp -rf ${HOME}/Dropbox/backup/xfce4/xfce4 ${HOME}/.config
-# Restore xfce4 session>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
+# Restore xfce4 session>> `tar -zxvf ~/Dropbox/backup/xfce4/**.tar.gz' then `make xfce4'
 
 ## ==========================================================
 ## Some manual settings after Debian install
-## (If restore xfce4 session, may not need)
+## (If restore xfce4 session, may be not needed)
 ## ==========================================================
-# 1. Replace key Caps with Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
+# 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
 # 4. Print setting >> edit command: `sudo system-config-printer'
