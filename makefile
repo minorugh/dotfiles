@@ -34,7 +34,7 @@
 # | cd ~/src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
-# | make allinstall
+# | make all
 
 
 ## =======================================================================
@@ -49,7 +49,7 @@ PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES	+= pinta gimp darktable inkscape shotwell cups cups-bsd
 
-BASE_PKGS	:= automake  autoconf  texinfo openssl patch build-essential
+BASE_PKGS	:= automake autoconf texinfo openssl patch build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
 BASE_PKGS	+= libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev
 BASE_PKGS	+= libtool xorg-dev libncurses5-dev python3-pip libdbus-1-dev
