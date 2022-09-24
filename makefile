@@ -223,6 +223,7 @@ zoom: ## Install zoom
 	wget https://zoom.us/client/latest/zoom_amd64.deb
 	sudo gdebi zoom_amd64.deb
 	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
+	rm -f ./zoom_amd64.deb
 
 Slack: ## Install slack
 	cd ${HOME}/Downloads && \
@@ -263,8 +264,8 @@ perlbrew: ## Install perlbrew
 	curl -L http://install.perlbrew.pl | bash
 	perlbrew install 5.30.3
 	perlbrew switch 5.30.3
-	perlbrew install-cpanm
-	cpanm Net::FTPSSL
+	perlbrew install-cpanm && \
+	cpanm Net::FTPSSL && \
 	cpanm Net::SFTP::Foreign
 
 emacs-latest: ## Install Emacs of latest stable version
@@ -277,12 +278,12 @@ emacs-latest: ## Install Emacs of latest stable version
 
 github: ## Git clone
 	mkdir -p ${HOME}/src/github.com/minorugh
-	cd ${HOME}/src/github.com/minorugh
-	git clone git@github.com:minorugh/GH.git
-	git clone git@github.com:minorugh/.emacs.d.git
-	git clone git@github.com:minorugh/minorugh.github.io.git
-    git clone git@github.com:minorugh/emacs.d.Git
-	git clone git@github.com:minorugh/upsftp.git
+	cd ${HOME}/src/github.com/minorugh && \
+	git clone git@github.com:minorugh/GH.git && \
+	git clone git@github.com:minorugh/.emacs.d.git && \
+	git clone git@github.com:minorugh/minorugh.github.io.git && \
+    git clone git@github.com:minorugh/emacs.d.Git && \
+	git clone git@github.com:minorugh/upsftp.git && \
 	git clone git@github.com:minorugh/iceberg-theme.git
 # GH.git saves `.git' folder only and removes other data.
 # They are restored from Dropbox.
