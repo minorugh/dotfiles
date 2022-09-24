@@ -288,13 +288,15 @@ github: ## Git clone
 # GH.git saves `.git' folder only and removes other data.
 # They are restored from Dropbox.
 
+xfce4: ## Restore xfce4 session
+	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
+	cp -rf ${HOME}/Dropbox/backup/xfce4/xfce4 ${HOME}/.config
+# Restore xfce4 session>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
 
 ## ==========================================================
 ## Some manual settings after Debian install
+## (If restore xfce4 session, may not need)
 ## ==========================================================
-# Restore xfce4 session>> unzip ~/Dropbox/backup/xfce4/<latest.zip> then cp to ~/.config
-# By restore above, the following work may not be necessary
-# ------------------------------------------------------------------------
 # 1. Replace key Caps with Ctrl>> sudo nano /etc/default/keyboard & edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
