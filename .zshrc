@@ -176,7 +176,6 @@ setopt correct
 # Permission when creating files
 umask 022
 
-
 # vcs_info
 RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
 autoload -Uz vcs_info
@@ -300,32 +299,8 @@ export GOPATH=$HOME
 export PATH="$PATH:$GOPATH/bin:/usr/sbin"
 export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
-export pATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-# PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
-# export PATH="$HOME/.cargo/bin:$PATH"
-# PATH="$HOME/.node_modules/bin:$PATH"
-# unset npm_config_prefix
-# PATH="$HOME/.local/bin:$PATH"
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-# export PATH="$PATH:$HOME/src/github.com/flutter/flutter/bin"
-# export PATH=$PATH:$HOME/.roswell/bin
-# export LIBVA_DRIVER_NAME=iHD
-# export GTAGSCONF=/usr/share/gtags/gtags.conf
-# export GTAGSLABEL=pygments
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
-# export RBENV_ROOT="${HOME}/.rbenv"
-# if [ -d "${RBENV_ROOT}" ]; then
-#   export PATH="${RBENV_ROOT}/bin:${PATH}"
-#   eval "$(rbenv init -)"
-# fi
-# export ANDROID_HOME=~/Android/Sdk
-# export PATH=${PATH}:${ANDROID_HOME}/tools
-# export PATH=${PATH}:${ANDROID_HOME}/platform-tools
-
-# export LOCAL_HOST_IP=`ifconfig wlp5s0 | grep inet | grep -v inet6 | sed -E "s/inet ([0-9]{1,3}.[0-9]{1,3}.[0-9].{1,3}.[0-9]{1,3}) .*$/\1/" | tr -d "\t"`
 
 # Ruby exports
 export GEM_HOME=$HOME/gems
@@ -419,13 +394,11 @@ function blog-jpg() {
     fi
 }
 
-
 # Resize all in directory
 function resize-all() {
 	mkdir resize
 	mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
 }
-
 
 function optimize-png() {
     if [ $# = 1 ]; then
@@ -437,9 +410,9 @@ function optimize-png() {
     fi
 }
 
-# zsh-syntax-highlighting| sudo apt install zsh-syntax-highlighting
+# zsh-syntax-highlighting : sudo apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# perlrew
+# Perlbrew : curl -L http://install.perlbrew.pl | bash
 source ~/perl5/perlbrew/etc/bashrc
 
