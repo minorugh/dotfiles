@@ -39,12 +39,12 @@
 ## =======================================================================
 ## Run make from here
 ## =======================================================================
-PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm
+PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm keychain
 PACKAGES	:= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
 PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
-PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
+PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES	+= pinta gimp darktable inkscape shotwell cups cups-bsd
