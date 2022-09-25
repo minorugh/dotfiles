@@ -129,8 +129,8 @@ base: ## Install base-devel packages
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
-# Setup fcitx: Input im-config in terminal and ret → ret → check fcitx
-# Setup mozc: Open mozc settings from menu and import azik to romaji-table
+# Set fcitx: Input im-config in terminal and ret → ret → check fcitx
+# Set mozc: Open mozc settings from menu and import azik to romaji-table
 
 ## symbolic link of mozc dictionary
 ifeq ($(shell uname -n),e590)
@@ -188,11 +188,11 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn {${PWD},${HOME}}/.config/keepassxc
-## select-tool setup at first
-## `sudo secret-tool store --label "KeePassXC master password" type kbd'
-## asked for a password so enter
-## popup panel for passward input so input '<user passwd>'
-## use shell: `secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
+# select-tool setup at first
+# | sudo secret-tool store --label "KeePassXC master password" type kbd
+# asked for a password so enter
+# popup panel for passward input so input '<user passwd>' && use shell
+# | secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
