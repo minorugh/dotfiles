@@ -192,7 +192,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 ## `sudo secret-tool store --label "KeePassXC master password" type kbd'
 ## asked for a password so enter
 ## popup panel for passward input so input '<user passwd>'
-## use command: `secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
+## use shell: `secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
@@ -227,7 +227,7 @@ zoom: ## Install zoom
 	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 	rm -f ./zoom_amd64.deb
 
-Slack: ## Install slack
+slack: ## Install slack
 	cd ${HOME}/Downloads && \
 	wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
 	$(APT) ./slack-desktop-4.0.2-amd64.deb
