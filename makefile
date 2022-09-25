@@ -141,7 +141,7 @@ else
 mozc: ## for submachine (Thinkpad X250)
 	cp -rf ~/Dropbox/mozc/.mozc ~/Dropbox/backup/mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
+	ln -vsfn ${HOME}/Dropbox/backup/mozc ${HOME}/.mozc
 endif
 
 tlp: ## Setting for power saving and preventing battery deterioration
