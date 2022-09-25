@@ -192,7 +192,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 # | sudo secret-tool store --label "KeePassXC master password" type kbd
 # asked for a password so enter
 # popup panel for passward input so input '<user passwd>' && use shell
-# | secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
+# use term| secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
@@ -286,8 +286,7 @@ github: ## Git clone
     git clone git@github.com:minorugh/emacs.d.Git && \
 	git clone git@github.com:minorugh/upsftp.git && \
 	git clone git@github.com:minorugh/iceberg-theme.git
-# GH.git saves `.git' folder only and removes other data.
-# They are restored from Dropbox.
+# GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
 
 xfce4: ## Restore xfce4 session
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
