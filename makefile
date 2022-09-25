@@ -82,7 +82,7 @@ rclone: ## Init rclone
 	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
 	ln -vsfn ${HOME}/Dropbox/backup/rclone ${HOME}/.config/rclone
 
-nextcloud-desktop: ## Init Nextclou
+nextcloud-desktop: ## Init Nextcloud desktop
 	$(APT) $@
 	test -L ${HOME}/.config/Nextcloud || rm -rf ${HOME}/.config/Nexicloud
 	ln -vsfn ${HOME}/Dropbox/backup/Nextcloud ${HOME}/.config/Nexicloud
@@ -97,8 +97,7 @@ ssh: ## Init ssh
 	for item in config known_hosts id_rsa github_id_rsa xsrv; do
 		ln -vsfn ${HOME}/Dropbox/backup/ssh/$$item ${HOME}/.ssh/$$item
 	done
-	chmod 600 ${HOME}/.ssh/id_rsa
-	chmod 600 ${HOME}/.ssh/github_id_rsa
+	chmod 600 ${HOME}/.ssh/id_rsa ${HOME}/.ssh/github_id_rsa
 
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
@@ -167,7 +166,6 @@ fontawesome: ##  Init Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
-
 ## install for applications
 google-chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
@@ -190,22 +188,21 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools
 	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
 	ln -vsfn {${PWD},${HOME}}/.config/keepassxc
-## select-tool setup for password autoinmut
-## $ sudo secret-tool store --label "KeePassXC master password" type kbd
+## select-tool setup at first
+## `sudo secret-tool store --label "KeePassXC master password" type kbd'
 ## asked for a password so enter
 ## popup panel for passward input so input '<user passwd>'
-## Set Start command: 'secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
+## use command: `secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb'
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 ## Gmail security requires you to use the app password
-## Choose bogofilter for spam filter
 
 devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
-	sudo apt install devilspie
+	$(APT) $@
 	sudo ln -vsfn ${PWD}/devils/devils_startup.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
@@ -246,8 +243,7 @@ google-earth: ## Install google-earth
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
-
-# From here, Step by step while interacting with SHELL
+## From here, Step by step while interacting with SHELL
 texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -299,9 +295,9 @@ xfce4: ## Restore xfce4 session
 # Restore xfce4 session>> `tar -zxvf ~/Dropbox/backup/xfce4/**.tar.gz' then `make xfce4'
 
 ## ==========================================================
-## Some manual settings after Debian install
-## (If restore xfce4 session, may be not needed)
+## Manual settings after Debian install
 ## ==========================================================
+## Some settings may be handled by xfce4-session restore
 # 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
