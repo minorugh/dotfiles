@@ -36,13 +36,13 @@
 # | cd dotfiles
 # | make all
 
-
 ## =======================================================================
 ## Run make from here
 ## =======================================================================
-PACKAGES	:= silversearcher-ag hugo nkf wget curl file unar unzip gcc golang npm
-PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub expect
-PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar arc-theme
+PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm
+PACKAGES	:= zsh-syntax-highlighting silversearcher-ag expect arc-theme
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
+PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen keychain mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs

@@ -437,6 +437,9 @@ function optimize-png() {
     fi
 }
 
+# zsh-syntax-highlighting| sudo apt install zsh-syntax-highlighting
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # perlrew
 source ~/perl5/perlbrew/etc/bashrc
 
