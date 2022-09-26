@@ -124,7 +124,6 @@ emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
 # Set fcitx: Input im-config in terminal and ret → ret → check fcitx
 
-## symbolic link of mozc dictionary
 ifeq ($(shell uname -n),e590)
 mozc: ## for mainmachine (Thinkpad E590)
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
@@ -297,9 +296,8 @@ xfce4: ## Restore xfce4 session
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	cp -rf ${HOME}/Dropbox/backup/xfce4 ${HOME}/.config
 
-## ==========================================================
+#####################################################################
 ## Manual settings after Debian install
-## ==========================================================
 # 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
