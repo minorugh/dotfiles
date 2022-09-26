@@ -64,7 +64,7 @@ How to restore with makefile,Please refer to
 ## My GNU Emacs configuration 
 Detailed explanation is written at the following URL.
 
-* [https://minorugh.github.io/docs/config](https://minorugh.github.io/docs/config) 
+* [https://minorugh.github.io/.emacs.d](https://minorugh.github.io/.emacs.d/) 
 
 ----
 
