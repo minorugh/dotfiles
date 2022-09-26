@@ -112,10 +112,9 @@ init: ## Initial deploy dotfiles
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/org-protocol.desktop
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
-	for item in gitconfig gist netrc; do
+	for item in gitconfig gist; do
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
 	done
-	ln -vsf ${HOME}/Dropbox/backup/hub ${HOME}/.config/hub
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
@@ -136,12 +135,10 @@ emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 ifeq ($(shell uname -n),e590)
 mozc: ## for mainmachine (Thinkpad E590)
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/mozc/.mozc ${HOME}/.mozc
+	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
 else
 mozc: ## for submachine (Thinkpad X250)
-	cp -rf ~/Dropbox/mozc/.mozc ~/Dropbox/backup/mozc
-	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/backup/mozc ${HOME}/.mozc
+	cp -rf ~/Dropbox/backup/mozc/.mozc ~/
 endif
 
 tlp: ## Setting for power saving and preventing battery deterioration
@@ -276,6 +273,23 @@ emacs-latest: ## Install Emacs of latest stable version
 	make
 	sudo make install
 	rm -rf ${HOME}/.emacs.d/elpa
+
+docker: ## Install docker
+	sudo apt -y install apt-transport-https ca-certificates curl gnupg lsb-release
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	sudo apt update
+	sudo apt -y install docker-ce docker-ce-cli containerd.io
+	sudo adduser $USER docker
+## logout && check `docker version'
+
+docker-compose: ## Install docker-compose
+	cd /usr/libexec/docker/cli-plugins/ && \
+	sudo wget https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-x86_64
+	sudo chmod +x  docker-compose-linux-x86_64
+	sudo mv docker-compose-linux-x86_64 docker-compose
+## chec `docker copose version`
 
 github: ## Git clone
 	mkdir -p ${HOME}/src/github.com/minorugh
