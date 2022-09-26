@@ -6,14 +6,14 @@
 ## Manual setting before executing make
 ## =====================================================================
 ## 1. Boot from USB to netinstall Debian latest
-# Download iso image file from https://www.debian.org/CD/netinst/index.ja.html
-# Create a Install-USB stick by Rufs on Windows machine
-# Download Rufs from https://rufs.ie/ja/
+# Create installation USB from netinst.iso, use Rufs.exe on Windows
+# Download firmware from https://bre.is/f2LBmD3t
+# Unzip firmware.zip, then paste to firmware directory of USB
 
 ## 2. Register username to sudoers
 # Log in as root
-# | gpasswd -a minoru sudo
-# | log out
+# | gpasswd -a ${USER} sudo
+# | logout
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
 
@@ -275,7 +275,7 @@ docker: ## Install docker
 	sudo gpasswd -a ${USER} docker
 	sudo systemctl enable --now docker
 
-docker-compose:
+docker-compose: ## Install docker-compose
 	sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
