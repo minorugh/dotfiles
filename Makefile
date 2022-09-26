@@ -5,9 +5,9 @@
 ## =====================================================================
 ## Manual setting before executing make
 ## =====================================================================
-## 1. Boot from USB to netinstall Debian latest
-# Create installation USB from netinst iso image, use Rufs.exe on Windows
-# Download firmware from https://bre.is/f2LBmD3t
+## 1. Boot from USB to install Debian latest
+# Create installation USB from netinst iso image. Use Rufs.exe on Windows
+# Download firmware from https://bre.is/f2LBmD3t for using WiFi
 # Unzip firmware.zip, then paste to firmware directory of install USB
 
 ## 2. Register username to sudoers
@@ -24,12 +24,12 @@
 # | sudo apt update
 # | sudo apt install -y zsh git make nautilus
 # | chsh -s /bin/zsh
-
+初期設定
 ## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
-# | Launch dropbox from Menu then install and setting
+# | Launch dropbox from Menu then install and initial settings
 
-## 5. Restore dotfiles
+## 5. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
@@ -70,7 +70,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: nextcloud gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
+allinstall: nextcloud gnupg ssh install init keyring tlp emac-mozc mozc images fontawesome gist livedown
 nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
@@ -116,8 +116,6 @@ init: ## Initial deploy dotfiles
 
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
-
-base: ## Install base-devel packages
 	$(APT) $(BASE_PKGS)
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
@@ -144,16 +142,18 @@ keyring: ## Init gnome keyrings
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/Dropbox/backup/keyrings ${HOME}/.local/share/keyrings
 
-images: ## Copy wallpaper to the user picture folder
-	ln -vsf ${HOME}/Dropbox/images/wallpaper ${HOME}/Pictures
-	ln -vsf ${HOME}/Dropbox/images/icons ${HOME}/Pictures
+images: ## Copy wallpaper & icons to picture folder
+	ln -vsf ${HOME}/Dropbox/images/* ${HOME}/Pictures
 
 fontawesome: ##  Init Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
-gistinstall: ## Gist install | $ gist --login from terminal at first
+gist: ## Install gist | $ gist --login from terminal at first
 	sudo gem install gist
+
+livedown: ## Install livedown for markdown previewer
+	npm install -g livedown
 
 ## install for applications
 google-chrome: ## Install Google-chrome-stable
