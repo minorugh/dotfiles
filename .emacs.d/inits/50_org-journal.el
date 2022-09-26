@@ -13,7 +13,7 @@
 		 ("C-c t" . journal-file-today)
 		 ("C-c y" . journal-file-yesterday))
   :custom
-  `((org-journal-dir . "~/Dropbox/org/journal/")
+  `((org-journal-dir . "~/Dropbox/howm/org/journal/")
 	(org-journal-file-format . "%Y%m%d.org")
 	(org-journal-date-format . "%Y-%m-%d (%A)")
 	(org-journal-find-file . 'find-file))
@@ -59,7 +59,7 @@
   :init
   ;; Auto Darkroom for journal dir
   (defvar my:journal-dirs nil)
-  (add-to-list 'my:journal-dirs "~/Dropbox/org/journal/")
+  (add-to-list 'my:journal-dirs "~/Dropbox/howm/org/journal/")
 
   (defun my:journal-auto-darkroom ()
 	"Enable `darkroom', disable `line-numbers'."

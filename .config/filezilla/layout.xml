@@ -12,7 +12,7 @@
 			<xrc file="certificate.xrc" date="1576700754" />
 		</Resources>
 		<Language id="ja_JP" date="1611225505">
-			<Font font="Sans 14" width="1196" height="23" />
+			<Font font="VL Pゴシック 14" width="1148" height="20" />
 		</Language>
 	</Layout>
 </FileZilla3>

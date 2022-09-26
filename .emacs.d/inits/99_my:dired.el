@@ -86,18 +86,18 @@
 (defun my:org-dir ()
   "Open org dir."
   (interactive)
-  (find-file "~/Dropbox/org/"))
+  (find-file "~/Dropbox/howm/org/"))
 
 (defun mozc-dir ()
   "Open mozc dir."
   (interactive)
   (setq dired-listing-switches "-lgGhFA")
-  (find-file "~/Dropbox/mozc/.mozc/"))
+  (find-file "~/Dropbox/backup/mozc/.mozc/"))
 
 (defun my:open-capture ()
   "Open `org-capture' file."
   (interactive)
-  (find-file "~/Dropbox/org/capture.org")
+  (find-file "~/Dropbox/howm/org/capture.org")
   (view-mode 1)
   (goto-char (point-min)))
 

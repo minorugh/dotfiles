@@ -70,20 +70,14 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: rclone nextcloud-desktop gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
+allinstall: nextcloud gnupg ssh base install init keyring tlp emac-mozc mozc gistinstall images fontawesome
 nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
 SHELL = /bin/bash
 
-rclone: ## Init rclone
-	$(APT) $@
-	chmod 600 ${HOME}/Dropbox/backup/rclone/rclone.conf
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${HOME}/Dropbox/backup/rclone ${HOME}/.config/rclone
-
-nextcloud-desktop: ## Init Nextcloud desktop
-	$(APT) $@
+nextcloud: ## Init Nextcloud desktop
+	$(APT) nextcloud-desktop
 	test -L ${HOME}/.config/Nextcloud || rm -rf ${HOME}/.config/Nexicloud
 	ln -vsfn ${HOME}/Dropbox/backup/Nextcloud ${HOME}/.config/Nexicloud
 
