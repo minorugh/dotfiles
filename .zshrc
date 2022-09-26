@@ -15,7 +15,6 @@ unsetopt promptcr
 HISTFILE=~/Dropbox/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-
 # ask you if you have over 10000 history
 LISTMAX=10000
 
@@ -219,6 +218,11 @@ esac
 # Delete by word with C-w
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+# If command not found then find it when using arch linux(sudo pacman -S pkgfile)
+# if [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+#     source /usr/share/doc/pkgfile/command-not-found.zsh
+# fi
+
 # keychain config
 # /usr/bin/keychain $HOME/.ssh/id_rsa
 # source $HOME/.keychain/$HOST-sh
@@ -238,9 +242,12 @@ alias rm='rm -i'
 alias du='du -h'
 alias df='df -h'
 alias free='free -h'
+alias iv='sxiv'
+alias is='whois'
+alias myip="ip -4 a show wlp2s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
+alias open='xdg-open'
 alias ex='exit'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
-alias gdbackup='rclone sync ${HOME}/Dropbox/backup gd:/backup/backup'
 alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
 alias xsrv='ssh xsrv'
 
@@ -412,4 +419,3 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Perlbrew : curl -L http://install.perlbrew.pl | bash
 source ~/perl5/perlbrew/etc/bashrc
-
