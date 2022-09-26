@@ -298,8 +298,8 @@ github: ## Git clone
 
 xfce4: ## Restore xfce4 session
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
-	cp -rf ${HOME}/Dropbox/backup/xfce4/xfce4 ${HOME}/.config
-# Restore xfce4 session>> `tar -zxvf ~/Dropbox/backup/xfce4/**.tar.gz' then `make xfce4'
+	cp -rf ${HOME}/Dropbox/backup/xfce4 ${HOME}/.config
+
 
 ## ==========================================================
 ## Manual settings after Debian install
