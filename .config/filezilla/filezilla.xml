@@ -155,7 +155,7 @@ txt /usr/bin/calibre %f</Setting>
 					<BypassProxy>0</BypassProxy>
 					<Name>Nextcloud</Name>
 					<Site>0/Nextcloud</Site>
-					<RemotePath>1 0 4 home 8 minorugh 16 minorugh.xsrv.jp 11 public_html 9 nextcloud 4 data 8 minorugh 5 files 6 backup 7 Dropbox 3 zsh</RemotePath>
+					<RemotePath>1 0 4 home 8 minorugh 16 minorugh.xsrv.jp 11 public_html 9 nextcloud 4 data 8 minorugh 5 files 6 backup 7 Dropbox 3 org</RemotePath>
 					<LocalPath>/home/minoru/Nextcloud/</LocalPath>
 				</Tab>
 			</Tabs>
