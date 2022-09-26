@@ -123,7 +123,6 @@ base: ## Install base-devel packages
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
 # Set fcitx: Input im-config in terminal and ret → ret → check fcitx
-# Set mozc: Open mozc settings from menu and import azik to romaji-table
 
 ## symbolic link of mozc dictionary
 ifeq ($(shell uname -n),e590)
@@ -146,9 +145,6 @@ keyring: ## Init gnome keyrings
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/Dropbox/backup/keyrings ${HOME}/.local/share/keyrings
 
-gistinstall: ## Gist install | $ gist --login from terminal at first
-	sudo gem install gist
-
 images: ## Copy wallpaper to the user picture folder
 	ln -vsf ${HOME}/Dropbox/images/wallpaper ${HOME}/Pictures
 	ln -vsf ${HOME}/Dropbox/images/icons ${HOME}/Pictures
@@ -156,6 +152,9 @@ images: ## Copy wallpaper to the user picture folder
 fontawesome: ##  Init Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
+
+gistinstall: ## Gist install | $ gist --login from terminal at first
+	sudo gem install gist
 
 ## install for applications
 google-chrome: ## Install Google-chrome-stable
@@ -224,15 +223,15 @@ slack: ## Install slack
 	$(APT) ./slack-desktop-4.0.2-amd64.deb
 	rm -f ./slack-desktop-4.0.2-amd64.deb
 
-mattermost: ## Install mattermost
-	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
-	$(APT) mattermost-desktop
-
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
+
+mattermost: ## Install mattermost
+	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
+	$(APT) mattermost-desktop
 
 ## From here, Step by step while interacting with SHELL
 texlive: ## Install texlive full
@@ -276,16 +275,14 @@ docker: ## Install docker
 	sudo apt update
 	sudo apt -y install docker-ce docker-ce-cli containerd.io
 	sudo adduser $USER docker
-## logout && check `docker version'
 
 docker-compose: ## Install docker-compose
 	cd /usr/libexec/docker/cli-plugins/ && \
 	sudo wget https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-x86_64
 	sudo chmod +x  docker-compose-linux-x86_64
 	sudo mv docker-compose-linux-x86_64 docker-compose
-## chec `docker copose version`
 
-github: ## Git clone
+github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh && \
 	git clone git@github.com:minorugh/GH.git && \
@@ -300,11 +297,9 @@ xfce4: ## Restore xfce4 session
 	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
 	cp -rf ${HOME}/Dropbox/backup/xfce4 ${HOME}/.config
 
-
 ## ==========================================================
 ## Manual settings after Debian install
 ## ==========================================================
-## Some settings may be handled by xfce4-session restore
 # 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
