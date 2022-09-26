@@ -11,7 +11,7 @@ This dot file is for Debian Linux. I created it by referring to
 
 Automation with Make is recommended as it is very easy to customize.
 
-## Debian System Restore is recommended for a clean install from Live-usb
+## First, do a clean install of debian from the install USB
 After a clean install, prepare manually before running make.
 The guidance is as follows:
 
@@ -19,37 +19,36 @@ The guidance is as follows:
 ## =====================================================================
 ## Manual setting before executing make
 ## =====================================================================
+## 1. Boot from USB to netinstall Debian latest
+# Create installation USB from netinst iso image, use Rufs.exe on Windows
+# Download firmware from https://bre.is/f2LBmD3t
+# Unzip firmware.zip, then paste to firmware directory of install USB
 
-## 1. Boot from Live-USB to install debian
-## Download iso image file from https://www.debian.org/CD/live/
-## Create a Live USB stick, https://www.archlinux.site/2018/03/linuxisoubuntulive-usb.html
-
-## 2. Log in as root
-## Register username to sudoers
-# | gpasswd -a minoru sudo
-# | log out
+## 2. Register username to sudoers
+# Log in as root
+# | gpasswd -a ${USER} sudo
+# | logout
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
 # | log out
 
-## 3. Log in with ${USER}
-## Make home directory English
+## 3. Set home sub directorys to English notation
+# Log in with ${USER}
 # | sudo apt install -y xdg-user-dirs-gtk
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh git nautilus chromium chromium-l10n
+# | sudo apt install -y zsh git make nautilus
 # | chsh -s /bin/zsh
 
 ## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and setting
 
-## 5. Prepare dotfiles
+## 5. Restore dotfiles
 # | mkdir -p ~/src/github.com/minorugh
-# | cd src/github.com/minorugh
+# | cd ~/src/github.com/minorugh
 # | git clone https://github.com/minorugh/dotfiles.git
 # | cd dotfiles
-# | make install
-# | make init
+# | make all
 
 ## =====================================================================
 ## Run make from here
@@ -57,6 +56,7 @@ The guidance is as follows:
 
 After this, refer to makefile
 ```
+
 ## Restore procedure with makefile
 How to restore with makefile,Please refer to 
 [masasam/dotfiles](https://github.com/masasam/dotfiles). 
