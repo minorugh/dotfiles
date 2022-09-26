@@ -55,7 +55,7 @@
 	"Copy mozc for submachine."
 	(interactive)
 	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/mozc/.mozc/* ~/Dropbox/backup/mozc")))
+	  (compile "cp -rf ~/Dropbox/mozc/.mozc ~/")))
   (add-hook 'emacs-startup-hook 'mozc-copy))
 
 
