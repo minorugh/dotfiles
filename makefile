@@ -6,9 +6,9 @@
 ## Manual setting before executing make
 ## =====================================================================
 ## 1. Boot from USB to netinstall Debian latest
-# Create installation USB from netinst.iso, use Rufs.exe on Windows
+# Create installation USB from netinst iso image, use Rufs.exe on Windows
 # Download firmware from https://bre.is/f2LBmD3t
-# Unzip firmware.zip, then paste to firmware directory of USB
+# Unzip firmware.zip, then paste to firmware directory of install USB
 
 ## 2. Register username to sudoers
 # Log in as root
