@@ -181,7 +181,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 # | sudo secret-tool store --label "KeePassXC master password" type kbd
 # asked for a password so enter
 # popup panel for passward input so input '<user passwd>' && use shell
-# use term| secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
+# use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
