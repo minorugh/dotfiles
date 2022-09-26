@@ -295,7 +295,7 @@ xfce4: ## Restore xfce4 session
 	cp -rf ${HOME}/Dropbox/backup/xfce4 ${HOME}/.config
 
 #####################################################################
-## Manual settings after Debian install
+## Custmize settings after Debian install
 #####################################################################
 # 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
@@ -303,4 +303,4 @@ xfce4: ## Restore xfce4 session
 # 4. Print setting >> edit command: `sudo system-config-printer'
 # 5. Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
 # 6. Screen-saver>> select Atlantis with Only One mode
-# 7. session & launch>> Add minimized startup, Set command:devils_startup.sh
+# 7. session & launch>> Add minimized startup for command:devils_startup.sh
