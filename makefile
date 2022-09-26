@@ -267,19 +267,17 @@ emacs-latest: ## Install Emacs of latest stable version
 	rm -rf ${HOME}/.emacs.d/elpa
 
 docker: ## Install docker
-	sudo apt -y install apt-transport-https ca-certificates curl gnupg lsb-release
+	sudo apt-get install ca-certificates lsb-release
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian  bullseye stable" | sudo tee /etc/apt/sources.list.d/docker.list
 	sudo apt update
-	sudo apt -y install docker-ce docker-ce-cli containerd.io
-	sudo adduser $USER docker
+	sudo apt install docker-ce docker-ce-cli containerd.io
+	sudo gpasswd -a ${USER} docker
+	sudo systemctl enable --now docker
 
-docker-compose: ## Install docker-compose
-	cd /usr/libexec/docker/cli-plugins/ && \
-	sudo wget https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-x86_64
-	sudo chmod +x  docker-compose-linux-x86_64
-	sudo mv docker-compose-linux-x86_64 docker-compose
+docker-compose:
+	sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
 
 github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
@@ -298,6 +296,7 @@ xfce4: ## Restore xfce4 session
 
 #####################################################################
 ## Manual settings after Debian install
+#####################################################################
 # 1. Replace key Caps with Ctrl>> `sudo nano /etc/default/keyboard' && edit to XKBOPTIONS="ctrl:nocaps" then reboot
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
