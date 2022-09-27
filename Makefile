@@ -24,7 +24,7 @@
 # | sudo apt update
 # | sudo apt install -y zsh git make nautilus
 # | chsh -s /bin/zsh
-初期設定
+
 ## 4. Install dropbox & setting
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
