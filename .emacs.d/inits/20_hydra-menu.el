@@ -13,9 +13,9 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^-------------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  _x_server^^^^  GH:_h_  root:_/_  _s_rcgith_u_b  _._files  File_z_illa   _m_d:pvie_w_^^   howm:_@__,__;_  _l_ogout
-  _r_estart  magit_[__]_  _t_ramp  _y_as:_N_:_v_  _j_unk  _b_rowse  _o_rg:_C_apture  _<home>_  _n_extcloud   ma_k_e:_c_._g_   _j_ournal_:_^^  _p_asswd
+  ^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  _x_server^^^^  GH:_h_  root:_/_  _s_rc::_u_  _._files  _f_:zilla   _m_d:pvie_w_^^   howm:_@__,__;_  term:_z_
+  _r_estart  magit_[__]_  _t_ramp  _y_as:_N_:_v_  _j_unk  _b_rowse  _o_rg:_l_ink  _<home>_  _n_ext    ma_k_e:_c_._g_   _j_ournal_:_^^  _p_asswd
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -56,9 +56,9 @@
    ("s" my:scr-dir)
    ("S" sudo-edit)
    ("u" my:github-dir)
-   ("C" my:open-capture)
-   ("z" filezilla)
-   ("l" logout)
+   ("l" my:open-capture)
+   ("f" filezilla)
+   ("z" terminal-open)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 

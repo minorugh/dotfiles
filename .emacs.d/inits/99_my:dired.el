@@ -86,7 +86,7 @@
 (defun my:org-dir ()
   "Open org dir."
   (interactive)
-  (find-file "~/Dropbox/howm/org/"))
+  (find-file "~/Dropbox/org/"))
 
 (defun mozc-dir ()
   "Open mozc dir."
@@ -97,7 +97,7 @@
 (defun my:open-capture ()
   "Open `org-capture' file."
   (interactive)
-  (find-file "~/Dropbox/howm/org/capture.org")
+  (find-file "~/Dropbox/org/capture.org")
   (view-mode 1)
   (goto-char (point-min)))
 

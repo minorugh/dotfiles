@@ -243,6 +243,7 @@ alias du='du -h'
 alias df='df -h'
 alias free='free -h'
 alias iv='sxiv'
+alias fz='filezilla -s'
 alias is='whois'
 alias myip="ip -4 a show wlp2s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
 alias open='xdg-open'
