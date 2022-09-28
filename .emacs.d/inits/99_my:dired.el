@@ -88,11 +88,10 @@
   (interactive)
   (find-file "~/Dropbox/org/"))
 
-(defun mozc-dir ()
-  "Open mozc dir."
+(defun my:docker-dir ()
+  "Open docker dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
-  (find-file "~/Dropbox/backup/mozc/.mozc/"))
+  (find-file "~/Dropbox/docker/"))
 
 (defun my:open-capture ()
   "Open `org-capture' file."

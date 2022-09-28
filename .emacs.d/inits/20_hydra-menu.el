@@ -13,9 +13,9 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  _x_server^^^^  GH:_h_  root:_/_  _s_rc::_u_  _._files  _f_:zilla   _m_d:pvie_w_^^   howm:_@__,__;_  term:_z_
-  _r_estart  magit_[__]_  _t_ramp  _y_as:_N_:_v_  _j_unk  _b_rowse  _o_rg:_l_ink  _<home>_  _n_ext    ma_k_e:_c_._g_   _j_ournal_:_^^  _p_asswd
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _f_zilla  _m_d:pvie_w_^^  howm:_@__,__;_  gith_u_b
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _n_cloud  ma_k_e:_c_._g_  _j_ournal_:_^^  _p_asswd
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -26,12 +26,12 @@
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
    ("d" my:dropbox)
+   ("D" my:docker-dir)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
    ("n" my:nextcloud)
-   ("x" chromium-xserver)
    ("y" company-yasnippet)
    ("N" yas/new-snippet)
    ("v" yas/visit-snippet-file)
@@ -58,7 +58,6 @@
    ("u" my:github-dir)
    ("l" my:open-capture)
    ("f" filezilla)
-   ("z" terminal-open)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 
@@ -73,9 +72,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  ------^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------
-  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題^^   _t_:定例   _s_:吟行^^   創作:_[_._]_   keep_;_   delete-this_/_
-  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:my^^   _p_rint:_r_e   _h_   minorugh_._com
+  ------^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------
+  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   keep_;_   _h_and
+  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:at^^   _p_rint:_r_e   pocket_._   _x_srv
 "
    ("p" ps-print-buffer)
    ("r" ps-print-region)
@@ -108,9 +107,10 @@
    ("_" my:delete-other-windows)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
-   ("." my:minorugh-dir)
+   ("." (browse-url "https://getpocket.com/a/queue/"))
    (";" (browse-url "https://keep.google.com/u/0/"))
    ("z" select-mozc-tool)
+   ("x" chromium-xserver)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
@@ -161,3 +161,4 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; 20_hydra-menu.el ends here
+t

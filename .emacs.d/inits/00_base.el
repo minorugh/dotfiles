@@ -44,8 +44,12 @@
 	;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
 	(set-mark-command-repeat-pop . t)
 	;; Use the X11 clipboard
-	(select-enable-clipboard  . t)))
-
+	(select-enable-clipboard  . t)
+	;; change-default-file-location
+	(save-place-file . "~/.emacs.d/tmp/places")
+	(savehist-file . "~/.emacs.d/tmp/history")
+	(url-configuration-directory . "~/.emacs.d/tmp/url")
+	(bookmark-file . "~/.emacs.d/tmp/bookmarks")))
 
 ;; Set default modes for startup hook
 (defun my:default-modes ()
@@ -100,22 +104,13 @@
   :custom
   `((recentf-auto-cleanup . 'never)
 	(recentf-exclude
-	 . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))))
+	 . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	(recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
 
 ;; defalias
 (defalias 'exit 'save-buffers-kill-emacs)
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-
-;; change-default-file-location
-(leaf change-default-file-location
-  :custom
-  `((recentf-save-file . "~/.emacs.d/tmp/recentf")
-	(save-place-file . "~/.emacs.d/tmp/places")
-	(savehist-file . "~/.emacs.d/tmp/history")
-	(url-configuration-directory . "~/.emacs.d/tmp/url")
-	(bookmark-file . "~/.emacs.d/tmp/bookmarks")))
 
 
 ;; Change global key bind
