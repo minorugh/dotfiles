@@ -13,9 +13,9 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _f_zilla  _m_d:pvie_w_^^  howm:_@__,__;_  gith_u_b
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _n_cloud  ma_k_e:_c_._g_  _j_ournal_:_^^  _p_asswd
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _f_zilla  _m_d:pvie_w_^^  howm_@__,__;_  gith_u_b
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _n_cloud  make:_c__k__g_  _j_ournal^^^^  _p_asswd
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -72,11 +72,12 @@
    (:hint nil :exit t)
    "
    Work Menu
-  ------^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------
-  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   keep_;_   _h_and
-  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:at^^   _p_rint:_r_e   pocket_._   _x_srv
+  ------^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
+  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   🐳🐳:_o_    _._
+  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:at^^   _p_rint:_r_e   :_h_   _x_srv
 "
    ("p" ps-print-buffer)
+   ("o" my:docker-dir)
    ("r" ps-print-region)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)

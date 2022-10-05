@@ -1,5 +1,0 @@
-(if (is (application_name) "sylpheed")
-	(begin (minimize))
-  (if (is (application_name) "emacs")
-	  (begin (minimize))
-	))

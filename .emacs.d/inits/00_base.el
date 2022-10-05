@@ -51,6 +51,7 @@
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks")))
 
+
 ;; Set default modes for startup hook
 (defun my:default-modes ()
   "Default mode hooks."

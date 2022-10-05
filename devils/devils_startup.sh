@@ -1,6 +1,6 @@
 #!/bin/bash
 devilspie &
-sylpheed &
 emacs &
+sylpheed &
 sleep 5s
 killall -9 devilspie

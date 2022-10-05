@@ -91,7 +91,7 @@
 (defun my:docker-dir ()
   "Open docker dir."
   (interactive)
-  (find-file "~/Dropbox/docker/"))
+  (find-file "~/docker/webcgi"))
 
 (defun my:open-capture ()
   "Open `org-capture' file."
