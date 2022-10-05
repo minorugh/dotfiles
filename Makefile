@@ -104,6 +104,8 @@ init: ## Initial deploy dotfiles
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/org-protocol.desktop
+	ln -vsf {${PWD},${HOME}}/.local/share/applications/keepass.desktop
+	ln -vsf {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
 	for item in gitconfig gist; do

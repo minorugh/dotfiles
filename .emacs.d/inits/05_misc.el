@@ -84,7 +84,8 @@
 ;; Aggressive indent
 (leaf aggressive-indent
   :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+  ;; :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+  :hook (css-mode-hook . aggressive-indent-mode))
 
 
 ;; Font-awesom
