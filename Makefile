@@ -176,9 +176,10 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	ln -vsfn {${PWD},${HOME}}/.config/filezilla
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
-	$(APT) $@ libsecret-tools
-	test -L ${HOME}/.config/keepassxc || rm -rf ${HOME}/.config/keepassxc
-	ln -vsfn {${PWD},${HOME}}/.config/keepassxc
+	# $(APT) $@ libsecret-tools
+	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/keepass.sh
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
 # select-tool setup at first
 # | sudo secret-tool store --label "KeePassXC master password" type kbd
 # asked for a password so enter
