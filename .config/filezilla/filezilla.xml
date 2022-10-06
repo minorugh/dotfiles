@@ -136,11 +136,11 @@ txt /usr/bin/calibre %f</Setting>
 		<Setting name="Show queue">1</Setting>
 		<Setting name="Already connected choice">0</Setting>
 		<Setting name="Remote filelist colwidths">405 112 137 217 150 193</Setting>
-		<Setting name="Persistent Choices">0</Setting>
 		<Setting name="Local filelist sortorder">0 0</Setting>
 		<Setting name="Window position and size">1 1920 0 1920 1139 </Setting>
+		<Setting name="Sitemanager last selected">0/Nextcloud</Setting>
+		<Setting name="Persistent Choices">1</Setting>
 		<Setting name="Site Manager position">1 2183 235 1394 760 </Setting>
-		<Setting name="Sitemanager last selected">0/docker</Setting>
 		<Setting name="Tab data" sensitive="1">
 			<Tabs>
 				<Tab connected="1" selected="1">
@@ -153,10 +153,10 @@ txt /usr/bin/calibre %f</Setting>
 					<Logontype>5</Logontype>
 					<EncodingType>Auto</EncodingType>
 					<BypassProxy>0</BypassProxy>
-					<Name>docker</Name>
-					<Site>0/docker</Site>
-					<RemotePath>1 0 4 home 8 minorugh 16 gospel-haiku.com 11 public_html 7 apvoice 3 log</RemotePath>
-					<LocalPath>/home/minoru/docker/webcgi/www/html/apvoice/log/</LocalPath>
+					<Name>Nextcloud</Name>
+					<Site>0/Nextcloud</Site>
+					<RemotePath>1 0 4 home 8 minorugh 16 minorugh.xsrv.jp 11 public_html</RemotePath>
+					<LocalPath>/home/minoru/Nextcloud/</LocalPath>
 				</Tab>
 			</Tabs>
 		</Setting>
