@@ -176,7 +176,7 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	ln -vsfn {${PWD},${HOME}}/.config/filezilla
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
-	# $(APT) $@ libsecret-tools
+	$(APT) $@ libsecret-tools
 	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/keepass.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
@@ -193,8 +193,8 @@ sylpheed: ## Init sylpheed
 ## Gmail security requires you to use the app password
 
 devilspie: ## Init devilspie for minimize_startup applications
-	# mkdir -p ${HOME}/.devilspie
-	# $(APT) $@
+	mkdir -p ${HOME}/.devilspie
+	$(APT) $@
 	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
