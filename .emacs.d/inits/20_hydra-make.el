@@ -33,7 +33,7 @@
 	(cond ((string-match "finished" string)
 		   (bury-buffer "*compilation*")
 		   (delete-other-windows)
-		   (message "Build successful."))
+		   (message "Compile successful."))
 		  (t (message "Compilation exited abnormally: %s" string)))))
 
 

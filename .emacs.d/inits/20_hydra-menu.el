@@ -14,8 +14,8 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _f_zilla  _m_d:pvie_w_^^  howm_@__,__;_  gith_u_b
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _n_cloud  make:_c__k__g_  _j_ournal^^^^  _p_asswd
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _z_illa  _m_d:pvie_w_^^  howm_@__,__;_  gith_u_b
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _n_extc  mk:_c_._k_._g_  _j_ournal^^^^  _p_asswd
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -57,7 +57,7 @@
    ("S" sudo-edit)
    ("u" my:github-dir)
    ("l" my:open-capture)
-   ("f" filezilla)
+   ("z" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 
@@ -73,7 +73,7 @@
    "
    Work Menu
   ------^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
-  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   🐳🐳:_o_    _._
+  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   D_o_cker    _._
   _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:at^^   _p_rint:_r_e   :_h_   _x_srv
 "
    ("p" ps-print-buffer)

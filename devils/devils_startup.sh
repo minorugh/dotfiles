@@ -2,5 +2,5 @@
 devilspie &
 emacs &
 sylpheed &
-sleep 5s
+sleep 3s
 killall -9 devilspie
