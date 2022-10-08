@@ -173,7 +173,7 @@ spotify: ## Install Spotify for Debian
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn {${PWD},${HOME}}/.config/filezilla
+	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools
