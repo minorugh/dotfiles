@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf flymake
-  :hook (prog-mode-hook . flymake-mode)
+  :hook (emacs-lisp-mode-hook . flymake-mode)
   :config
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   (leaf flymake-posframe

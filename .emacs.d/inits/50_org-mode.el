@@ -9,7 +9,6 @@
   :bind (("C-c a" . org-agenda)
 		 ("C-c c" . org-capture)
 		 ("C-c k" . org-capture-kill)
-		 ("C-c o" . org-open-at-point)
 		 ("C-c i" . org-edit-src-exit)
 		 (:org-mode-map
 		  ("C-c i" . org-edit-special)))

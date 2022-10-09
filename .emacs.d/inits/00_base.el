@@ -67,6 +67,12 @@
 (add-hook 'after-init-hook 'my:default-modes)
 
 
+;; goto-addr
+(progn
+  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+  (add-hook 'text-mode-hook 'goto-address-mode))
+
+
 ;; Display buffer name in title bar
 (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
 
