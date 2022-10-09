@@ -67,12 +67,6 @@
 (add-hook 'after-init-hook 'my:default-modes)
 
 
-;; goto-addr
-(progn
-  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-  (add-hook 'text-mode-hook 'goto-address-mode))
-
-
 ;; Display buffer name in title bar
 (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
 
@@ -138,6 +132,19 @@ If the region is inactive, to kill whole line."
   (if (use-region-p)
 	  (clipboard-kill-region (region-beginning) (region-end))
     (kill-whole-line)))
+
+
+;; Opens Links in Emacs ... C-c RET
+(progn
+  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+  (add-hook 'text-mode-hook 'goto-address-mode))
+
+
+;; Set buffer that can not be killed
+(with-current-buffer "*scratch*"
+  (emacs-lock-mode 'kill))
+(with-current-buffer "*Messages*"
+  (emacs-lock-mode 'kill))
 
 
 ;; M-x info-emacs-manual
