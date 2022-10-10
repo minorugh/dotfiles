@@ -83,20 +83,6 @@
       (winner-undo)
       (setq dashboard-recover-layout-p nil)))
 
-  ;; Return a string giving the duration of the Emacs initialization
-  (defun ad:emacs-init-time ()
-	"Advice `emacs-init-time'."
-	(interactive)
-	(let ((str
-		   (format "%.3f seconds"
-				   (float-time
-					(time-subtract after-init-time before-init-time)))))
-	  (if (called-interactively-p 'interactive)
-		  (message "%s" str)
-		str)))
-
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time)
-
   (defun sylpheed ()
 	"Open sylpheed."
 	(interactive)
