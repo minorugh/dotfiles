@@ -134,7 +134,7 @@ If the region is inactive, to kill whole line."
     (kill-whole-line)))
 
 
-;; Opens Links in Emacs ... C-c RET
+;; Opens Links in Emacs ... mouse click or "C-c RET"
 (progn
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
   (add-hook 'text-mode-hook 'goto-address-mode))
