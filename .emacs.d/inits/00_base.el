@@ -51,7 +51,6 @@
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks")))
 
-
 ;; Set default modes for startup hook
 (defun my:default-modes ()
   "Default mode hooks."
@@ -66,15 +65,12 @@
   (global-visual-line-mode 1))
 (add-hook 'after-init-hook 'my:default-modes)
 
-
 ;; Display buffer name in title bar
 (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
-
 
 ;; Save the file specified code with basic utf-8 if it exists
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
-
 
 ;; Font
 (if (string-match "e590" (shell-command-to-string "uname -n"))
@@ -82,14 +78,12 @@
   ;; For submachine
   (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-
 ;; Server start for emacs-client
 (leaf server
   :require t
   :config
   (unless (server-running-p)
     (server-start)))
-
 
 ;; exec-path-from-shell
 (leaf exec-path-from-shell
@@ -99,7 +93,6 @@
   :custom
   (exec-path-from-shell-check-startup-files . nil))
 
-
 ;; recentf
 (leaf recentf
   :custom
@@ -108,11 +101,9 @@
 	 . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
 	(recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
-
 ;; defalias
 (defalias 'exit 'save-buffers-kill-emacs)
 (defalias 'yes-or-no-p 'y-or-n-p)
-
 
 ;; Change global key bind
 (leaf cus-global-keybind
@@ -123,7 +114,6 @@
 		 ("M-/" . kill-this-buffer)
 		 ("M-_" . delete-window)))
 
-
 ;; Overwrite `C-w' to the whole-line-or-region
 (defun my:kill-whole-line-or-region ()
   "If the region is active, to kill region.
@@ -133,19 +123,16 @@ If the region is inactive, to kill whole line."
 	  (clipboard-kill-region (region-beginning) (region-end))
     (kill-whole-line)))
 
-
 ;; Opens Links in Emacs ... mouse click or "C-c RET"
 (progn
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
   (add-hook 'text-mode-hook 'goto-address-mode))
-
 
 ;; Set buffer that can not be killed
 (with-current-buffer "*scratch*"
   (emacs-lock-mode 'kill))
 (with-current-buffer "*Messages*"
   (emacs-lock-mode 'kill))
-
 
 ;; M-x info-emacs-manual
 (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
@@ -157,6 +144,19 @@ If the region is inactive, to kill whole line."
            (_ filename))
          args))
 (advice-add 'Info-find-node :around 'Info-find-node--info-ja)
+
+  ;; Return a string giving the duration of the Emacs initialization
+  (defun ad:emacs-init-time ()
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
+		   (format "%.3f seconds"
+				   (float-time
+					(time-subtract after-init-time before-init-time)))))
+	  (if (called-interactively-p 'interactive)
+		  (message "%s" str)
+		str)))
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time)
 
 
 ;; Local Variables:
