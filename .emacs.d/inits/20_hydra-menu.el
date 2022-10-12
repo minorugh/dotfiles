@@ -14,14 +14,12 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  f_z_illa  _m_d:pvie_w_^^  howm_@__,__;_  gith_u_b
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  scale_+_  mk:_c_._k_._g_  _j_ournal^^^^  _p_asswd
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:pvie_w_  howm_@__,__;_  f_z_illa
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _p_asswd  make._k_._g_  _c_ompile^^^^  scale_:_
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
-   ("+" text-scale-adjust)
-   ("j" org-journal-new-entry)
-   (":" org-journal-new-scheduled-entry)
+   (":" text-scale-adjust)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -46,8 +44,8 @@
    ("@" howm-list-all)
    ("," my:howm-create-memo)
    (";" my:howm-create-tech)
-   ("J" open-junk-file)
-   ("L" open-last-junk-file)
+   ("j" open-junk-file)
+   ("J" open-last-junk-file)
    ("k" my:make-k)
    ("g" my:make-git)
    ("/" my:root-dir)

@@ -57,6 +57,13 @@
 		(turn-on-tempbuf-mode)))))
 
 
+;; Set buffer that can not be killed
+(with-current-buffer "*scratch*"
+  (emacs-lock-mode 'kill))
+(with-current-buffer "*Messages*"
+  (emacs-lock-mode 'kill))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

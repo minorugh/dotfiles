@@ -128,12 +128,6 @@ If the region is inactive, to kill whole line."
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
   (add-hook 'text-mode-hook 'goto-address-mode))
 
-;; Set buffer that can not be killed
-(with-current-buffer "*scratch*"
-  (emacs-lock-mode 'kill))
-(with-current-buffer "*Messages*"
-  (emacs-lock-mode 'kill))
-
 ;; M-x info-emacs-manual
 (add-to-list 'Info-directory-list (expand-file-name "info" user-emacs-directory))
 (defun Info-find-node--info-ja (orig-fn filename &rest args)
