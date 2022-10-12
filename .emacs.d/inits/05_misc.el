@@ -95,7 +95,8 @@
 
 ;; atomic-chrome
 (leaf atomic-chrome
-  :hook (after-init-hook . atomic-chrome-start-server))
+  :hook (after-init-hook . atomic-chrome-start-server)
+  :custom ((atomic-chrome-buffer-open-style . 'full)))
 
 
 ;; Local Variables:
