@@ -95,6 +95,7 @@
 
 ;; atomic-chrome
 (leaf atomic-chrome
+  :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom ((atomic-chrome-buffer-open-style . 'full)))
 
