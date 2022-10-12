@@ -253,6 +253,7 @@ alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
 alias xsrv='ssh xsrv'
 
 # For docker-compose
+alias dcbd="docker-compose up -d --build"
 alias dcup="docker-compose up -d"
 alias dcdn="docker-compose down -v"
 alias dcex="docker container exec -it webcgi bash"
