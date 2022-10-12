@@ -93,6 +93,11 @@
   :bind ("s-f" . counsel-fontawesome))
 
 
+;; atomic-chrome
+(leaf atomic-chrome
+  :hook (after-init-hook . atomic-chrome-start-server))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
