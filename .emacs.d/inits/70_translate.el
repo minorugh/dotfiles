@@ -13,12 +13,13 @@
 		(gts-translator
 		 :picker (gts-noprompt-picker)
 		 :engines (list
-				   (gts-deepl-engine :auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil)
+				   (gts-deepl-engine
+					:auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil)
 				   (gts-google-engine))
  		 :render (gts-buffer-render))))
 
 
-;; Deepl translation with Google-Chrome
+;; Deepl translation on web page
 (leaf my:deeple-traqslate
   :bind ("C-c t" . my:deepl-translate)
   :preface
@@ -48,7 +49,7 @@
 ;; Also, the same content is copied to the clipboard
 (leaf deepl-translate
   :el-get minorugh/deepl-translate
-  :bind ("C-c C-d" . deepl-translate)
+  :bind ("C-c d" . deepl-translate)
   :custom (deepl-auth-key . "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx"))
 
 
