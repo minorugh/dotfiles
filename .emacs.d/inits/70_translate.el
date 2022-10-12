@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Go translate
+;; Deepl translate with go-translate
 (leaf go-translate
   :ensure t
   :bind ("C-t" . gts-do-translate)
@@ -11,17 +11,14 @@
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
 		(gts-translator
-		 :picker
-		 (gts-noprompt-picker)
-		 :engines
-		 (list
-          (gts-google-engine)
-          (gts-deepl-engine :auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil))
-		 :render
-		 (gts-buffer-render))))
+		 :picker (gts-noprompt-picker)
+		 :engines (list
+				   (gts-deepl-engine :auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil)
+				   (gts-google-engine))
+ 		 :render (gts-buffer-render))))
 
 
-;; Chromium deepl translate
+;; Deepl translation with Google-Chrome
 (leaf my:deeple-traqslate
   :bind ("C-c t" . my:deepl-translate)
   :preface
@@ -33,7 +30,7 @@
 				 (buffer-substring (region-beginning) (region-end)))
 				(t
 				 (save-excursion
-                   (let (s)
+				   (let (s)
 					 (forward-char 1)
 					 (backward-sentence)
 					 (setq s (point))
@@ -47,7 +44,8 @@
       ))))
 
 
-;; Deepl translate
+;; Deepl translation appears in minibuffer.
+;; Also, the same content is copied to the clipboard
 (leaf deepl-translate
   :el-get minorugh/deepl-translate
   :bind ("C-c C-d" . deepl-translate)
