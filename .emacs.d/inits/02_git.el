@@ -7,7 +7,8 @@
 (leaf magit
   :ensure t
   :bind (("M-g s" . magit-status)
-		 ("M-g b" . magit-blame)
+		 ("M-g l" . magit-log-buffer-file)
+		 ("M-g b" . magit-blame-addition)
 		 ("M-g t" . git-timemachine-toggle))
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
   :custom
