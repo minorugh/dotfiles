@@ -34,6 +34,12 @@
 	(imenu-list-focus-after-activation . t)))
 
 
+(leaf counsel-css
+  :ensure t
+  :config
+  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
+
+
 ;; Popup window
 (leaf popwin
   :ensure t
