@@ -57,11 +57,6 @@
   (interactive)
   (find-file "~/Dropbox/"))
 
-(defun my:nextcloud ()
-  "Open dropbox dir."
-  (interactive)
-  (find-file "~/Nextcloud/"))
-
 (defun my:xsrv-dir ()
   "Open xsrv dir."
   (interactive)
@@ -91,10 +86,10 @@
 (defun my:docker-dir ()
   "Open docker dir."
   (interactive)
-  (find-file "~/docker/webcgi"))
+  (find-file "~/docker"))
 
 (defun my:open-capture ()
-  "Open `org-capture' file."
+  "Open `org-caupture' file."
   (interactive)
   (find-file "~/Dropbox/org/capture.org")
   (view-mode 1)
