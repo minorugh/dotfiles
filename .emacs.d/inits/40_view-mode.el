@@ -1,7 +1,6 @@
 ;;; 40_view-mode.el --- View mode configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;;(setq debug-on-error t)
 
 (leaf view
   :chord ("::" . view-mode)
@@ -12,13 +11,13 @@
 		 ("e" . end-of-buffer)
 		 ("w" . forward-word)
 		 ("b" . scroll-down)
+		 ("D" . my:view-kill-region)
 		 ("c" . kill-ring-save)
 		 ("r" . xref-find-references)
 		 ("RET" . xref-find-definitions)
 		 ("x" . my:view-del-char)
 		 ("y" . my:view-yank)
-		 ("d" . my:view-kill-region)
-		 ("u" . my:view-undo)
+		 ("U" . my:view-undo)
 		 ("m" . magit-status)
 		 ("g" . my:google)
 		 ("s" . swiper-region)
@@ -40,7 +39,6 @@
 		 ("i" . View-exit-and-edit)
 		 ("]" . winner-undo)
 		 ("[" . winner-redo)
-		 ("." . hydra-view/body)
 		 ("?" . hydra-view/body))
   :init
   ;; Specific extension / directory
