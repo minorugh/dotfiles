@@ -3,19 +3,27 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf deepl-translate
+  :el-get minorugh/deepl-translate
+  :bind ("C-t" . deepl-translate)
+  :custom (deepl-auth-key . "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx"))
+
+
 ;; Deepl translate with go-translate
 (leaf go-translate
   :ensure t
-  :bind ("C-t" . gts-do-translate)
+  :bind ("s-x" . gts-do-translate)
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
 		(gts-translator
-		 :picker (gts-noprompt-picker)
+		 :picker
+		 (gts-noprompt-picker)
 		 :engines (list
+				   ;; (gts-google-engine)
+				   ;; (gts-bing-engine)
 				   (gts-deepl-engine
-					:auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil)
-				   (gts-google-engine))
+					:auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil))
  		 :render (gts-buffer-render))))
 
 
@@ -43,14 +51,6 @@
       "https://www.deepl.com/translator#en/ja/"
       (url-hexify-string string)
       ))))
-
-
-;; Deepl translation appears in minibuffer.
-;; Also, the same content is copied to the clipboard
-(leaf deepl-translate
-  :el-get minorugh/deepl-translate
-  :bind ("C-c d" . deepl-translate)
-  :custom (deepl-auth-key . "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx"))
 
 
 ;; Local Variables:
