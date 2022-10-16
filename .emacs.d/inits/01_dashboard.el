@@ -40,7 +40,7 @@
 
   ;; Set the footer
   (setq dashboard-footer-messages
-		'("Always be joyful. Never stop praying. Be thankful in all circumstances."))
+		'("Be joyful always. Pray constantly. Be thankful for everything."))
   (setq dashboard-footer-icon
 		(all-the-icons-octicon "dashboard" :height 1.0 :v-adjust -0.05 :face 'font-lock-keyword-face))
 
