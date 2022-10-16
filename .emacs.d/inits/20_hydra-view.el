@@ -13,16 +13,16 @@
    "
    View mode Help
   -----------------------^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------
-  _x_:del-chra   _u_:undo   winner:_[__]_   _s_wiper   :_o_._0_._1_._2_   _%_:paren   _-__\/__+_   help_._
-  _d_:del-line   _y_:yank   x_r_ef🐾_RET_   _g_oogle   _w_:for-word^^^^^^   _@_:point   _m_agit^^^^   ex_i_t_:_
+  _x_:del-chra   _U_:undo   winner:_[__]_   _s_wiper   :_o_._0_._1_._2_   _%_:paren   _-__\/__+_   help_._
+  _D_:del-line   _y_:yank   x_r_ef🐾_RET_   _g_oogle   _w_:for-word^^^^^^   _@_:point   _m_agit^^^^   ex_i_t_:_
 "
    ("r" xref-find-references)
    ("RET" xref-find-definitions)
    ("x" my:view-del-char)
    ("w" forward-word)
-   ("d" my:view-kill-region)
+   ("D" my:view-kill-region)
    ("y" my:view-yank)
-   ("u" my:view-undo)
+   ("U" my:view-undo)
    ("[" winner-undo)
    ("]" winner-redo)
    ("n" my:org-view-next-heading)
