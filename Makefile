@@ -200,6 +200,10 @@ devilspie: ## Init devilspie for minimize_startup applications
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
 
+gitk: ## Init gitk for git-gui
+	$(APT) $@
+	ln -vsfn {${PWD},${HOME}}/.config/git/gitk
+
 sxiv: ## Init sxiv
 	$(APT) $@
 	mkdir -p ${HOME}/.config/sxiv/exec

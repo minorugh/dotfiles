@@ -71,9 +71,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  ------^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
-  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例^^   _s_:吟行^^   創作:_[_._]_   D_o_cker    _._
-  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_ist:_L_   _@_:at^^   _p_rint._r_g   :_h_   _x_srv
+  ------^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
+  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行^^   創作:_[_._]_   D_o_cker   _p_rint._r_e
+  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   rsync_._   _g_ist:_L_   remote._@_^^   :_h_   _x_srv._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-dir)
@@ -81,7 +81,8 @@
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
-   ("b" my:backup-all)
+   ("b" my:backup)
+   ("." my:rsync)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
@@ -107,18 +108,23 @@
    ("_" my:delete-other-windows)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
-   ("." (browse-url "https://getpocket.com/a/queue/"))
    (";" (browse-url "https://keep.google.com/u/0/"))
-   ("z" select-mozc-tool)
-   ("x" chromium-xserver)
+   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
+   ("u" (browse-url "https://github.com/minorugh"))
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
-  (defun my:backup-all ()
+  (defun my:backup ()
 	"Backup all."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make -k")))
+	  (compile "make backup")))
+
+  (defun my:rsync ()
+	"Backup all."
+	(interactive)
+	(let* ((default-directory (expand-file-name "~/Dropbox")))
+	  (compile "make gh-rsync")))
 
   (defun filezilla ()
 	"Open filezilla."
@@ -161,4 +167,4 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; 20_hydra-menu.el ends here
-t
+

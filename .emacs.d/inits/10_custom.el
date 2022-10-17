@@ -31,9 +31,11 @@
   (defun gitk-open ()
 	"Open gitk with current dir."
 	(interactive)
-	(let ((dir (directory-file-name default-directory)))
-	  ;; (shell-command (concat "gnome-terminal --maximize --working-directory " dir))))
-	  (shell-command (concat "gitk & " dir))))
+	;; (let ((dir (directory-file-name default-directory)))
+	;; (shell-command (concat "gnome-terminal --maximize --working-directory " dir))))
+	;; (compile "gitk & "))
+	;; (delete-other-windows))
+	(shell-command "gitk &"))
 
   (defun my:delete-file-if-no-contents ()
 	"If the file is empty, it will be deleted automatically."
