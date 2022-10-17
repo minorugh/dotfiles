@@ -83,10 +83,10 @@
   (interactive)
   (find-file "~/Dropbox/org/"))
 
-(defun my:docker-dir ()
+(defun my:docker-compose ()
   "Open docker dir."
   (interactive)
-  (find-file "~/src/docker-compose"))
+  (find-file "~/src/xsrv/docker-compose"))
 
 (defun my:open-capture ()
   "Open `org-caupture' file."
