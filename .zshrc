@@ -424,12 +424,3 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Perlbrew : curl -L http://install.perlbrew.pl | bash
 source ~/perl5/perlbrew/etc/bashrc
 
-function gitxsrv-new() {
-	mkdir ~/src/xsrv/$1
-	cd ~/src/xsrv/$1 && \
-	git init
-	git add -A
-	git commit -m "first commit"
-	git remote add origin xsrv:/home/minorugh/git/$1.git
-	xsrv mkdir /home/minorugh/git/$1.git
-}
