@@ -86,7 +86,7 @@
 (defun my:docker-dir ()
   "Open docker dir."
   (interactive)
-  (find-file "~/docker"))
+  (find-file "~/src/docker-compose"))
 
 (defun my:open-capture ()
   "Open `org-caupture' file."
