@@ -9,7 +9,7 @@
 (leaf *user-custom-functions
   :bind	 (("<f3>" . thunar-open)
 		  ("<f4>" . terminal-open)
-		  ("<f5>" . gitk-open)
+		  ("<f6>" . gitk-open)
 		  ("<f8>" . toggle-menu-bar-mode-from-frame)
 		  ("C-x /" . my:delete-this-file)
 		  ("<muhenkan>" . minibuffer-keyboard-quit)
