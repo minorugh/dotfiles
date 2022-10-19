@@ -17,6 +17,7 @@
 		 ("a" . toggle-dired-listing-switches)
 		 ("q" . dired-dwim-quit-window)
 		 ("i" . call-sxiv)
+		 ("." . gitk-open)
 		 ("@" . dired-do-gist))
   :custom
   `((dired-dwim-target . t)
