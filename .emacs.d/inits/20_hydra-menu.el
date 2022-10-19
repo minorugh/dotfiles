@@ -76,7 +76,7 @@
   _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   rsync_._   _g_ist:_L_   remote._@_^^   :_h_and   _x_srv._u_
 "
    ("p" ps-print-buffer)
-   ("o" my:docker-dir)
+   ("o" my:docker-compose)
    ("r" ps-print-region)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
@@ -108,8 +108,8 @@
    ("_" my:delete-other-windows)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
-   ("x" (browse-url "https://www.xserver.ne.jp/"))
-   ("u" (browse-url "https://github.com/minorugh"))
+   ("x" my:xsrv-dir)
+   ("u" my:github-dir)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
