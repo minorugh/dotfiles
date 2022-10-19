@@ -55,7 +55,6 @@
 (defun my:default-modes ()
   "Default mode hooks."
   (interactive)
-  (recentf-mode 1)
   (save-place-mode 1)
   (savehist-mode 1)
   (winner-mode 1)
@@ -95,6 +94,7 @@
 
 ;; recentf
 (leaf recentf
+  :hook (after-init-hook . recentf-mode)
   :custom
   `((recentf-auto-cleanup . 'never)
 	(recentf-exclude
