@@ -18,17 +18,17 @@
   (setq dired-listing-switches "-lgGhFA")
   (find-file "/"))
 
-(defun my:minorugh-dir ()
-  "Open minorugh.com."
+(defun my:xsrv-dir ()
+  "Open xsrv dir."
   (interactive)
   (setq dired-listing-switches "-lgGhFA")
-  (find-file "~/Dropbox/minorugh.com/"))
+  (find-file "~/src/xsrv"))
 
-(defun my:github.io-dir ()
+(defun my:github-dir ()
   "Open root dir."
-  (interactive)
+  (interactive)i
   (setq dired-listing-switches "-lgGhFA")
-  (find-file "src/github.com/minorugh/minorugh.github.io/"))
+  (find-file "~/src/github.com/minorugh/"))
 
 (defun my:scr-dir ()
   "Open scr dir."
@@ -56,11 +56,6 @@
   "Open dropbox dir."
   (interactive)
   (find-file "~/Dropbox/"))
-
-(defun my:xsrv-dir ()
-  "Open xsrv dir."
-  (interactive)
-  (find-file "~/Dropbox/xsrv.jp/"))
 
 (defun my:emacs-dir ()
   "Open `.emacs.d' dir."
