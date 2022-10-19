@@ -42,7 +42,7 @@
 		 ("?" . hydra-view/body))
   :init
   ;; Specific extension / directory
-  (defvar my:auto-view-regexp "\\.php\\|\\.pl\\|\\.el.gz?\\|\\.tar.gz?\\'")
+  (defvar my:auto-view-regexp "\\makefile\\|\\.mak\\|\\.php\\|\\.pl\\|\\.el.gz?\\|\\.tar.gz?\\'")
 
   ;; Specific directory
   (defvar my:auto-view-dirs nil)
