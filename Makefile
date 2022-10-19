@@ -144,8 +144,8 @@ keyring: ## Init gnome keyrings
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/Dropbox/backup/keyrings ${HOME}/.local/share/keyrings
 
-images: ## Copy wallpaper & icons to picture folder
-	ln -vsf ${HOME}/Dropbox/images/* ${HOME}/Pictures
+icons: ## Copy icons to picture folder
+	ln -vsf ${HOME}/Dropbox/Documents/icons/* ${HOME}/Pictures
 
 fontawesome: ##  Init Font Awesome
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
