@@ -28,10 +28,10 @@
   ;; Bloglist
   (setq easy-hugo-bloglist
 		'(;; blog2 setting
-		  ((easy-hugo-basedir . "~/src/github.com/minorugh/.emacs.d/hugo/")
-		   (easy-hugo-url . "https://minorugh.github.io/.emacs.d")
+		  ((easy-hugo-basedir . "~/src/github.com/minorugh/emacs.d/hugo/")
+		   (easy-hugo-url . "https://minorugh.github.io/emacs.d")
 		   (easy-hugo-postdir . "content/startup")
-		   (easy-hugo-preview-url . "http://localhost:1313/.emacs.d/"))
+		   (easy-hugo-preview-url . "http://localhost:1313/emacs.d/"))
 		  ;; blog3 setting
 		  ((easy-hugo-basedir . "~/src/github.com/minorugh/minorugh.github.io/")
 		   (easy-hugo-url . "https://minorugh.github.io")
