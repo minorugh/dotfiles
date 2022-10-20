@@ -9,7 +9,6 @@
 (leaf *user-custom-functions
   :bind	 (("<f3>" . thunar-open)
 		  ("<f4>" . terminal-open)
-		  ("<f6>" . gitk-open)
 		  ("<f8>" . toggle-menu-bar-mode-from-frame)
 		  ("C-x /" . my:delete-this-file)
 		  ("<muhenkan>" . minibuffer-keyboard-quit)
@@ -27,12 +26,6 @@
 	(let ((dir (directory-file-name default-directory)))
 	  ;; (shell-command (concat "gnome-terminal --maximize --working-directory " dir))))
 	  (shell-command (concat "gnome-terminal --working-directory " dir))))
-
-  (defun gitk-open ()
-	"Open gitk with current dir."
-	(interactive)
-	(shell-command "gitk &")
-	(delete-other-windows))
 
   (defun my:delete-file-if-no-contents ()
 	"If the file is empty, it will be deleted automatically."
