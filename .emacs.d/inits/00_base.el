@@ -46,8 +46,6 @@
 	;; Use the X11 clipboard
 	(select-enable-clipboard  . t)
 	;; change-default-file-location
-	(save-place-file . "~/.emacs.d/tmp/places")
-	(savehist-file . "~/.emacs.d/tmp/history")
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks")))
 
@@ -55,8 +53,6 @@
 (defun my:default-modes ()
   "Default mode hooks."
   (interactive)
-  (save-place-mode 1)
-  (savehist-mode 1)
   (winner-mode 1)
   (global-auto-revert-mode 1)
   (global-font-lock-mode 1)
@@ -91,6 +87,16 @@
   :hook (after-init-hook . exec-path-from-shell-initialize)
   :custom
   (exec-path-from-shell-check-startup-files . nil))
+
+;; save-place
+(leaf save-place
+  :hook (after-init-hook . save-place-mode)
+  :custom (save-place-file . "~/.emacs.d/tmp/places"))
+
+;; save-hist
+(leaf save-hist
+  :hook (after-init-hook . save-hist-mode)
+  :custom (savehist-file . "~/.emacs.d/tmp/history"))
 
 ;; recentf
 (leaf recentf
