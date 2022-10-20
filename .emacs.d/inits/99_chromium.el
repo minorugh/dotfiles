@@ -48,12 +48,12 @@
   (interactive)
   (browse-url "https://keep.new/"))
 
-(defun chromium-github.io ()
+(defun chromium-github ()
   "Chromium github.io."
   (interactive)
-  (browse-url "https://minorugh.github.io/"))
+  (browse-url "https://github.com/minorugh"))
 
-(defun chromium-xserver ()
+(defun chromium-xsrv ()
   "Chromium github.io."
   (interactive)
   (browse-url "https://www.xserver.ne.jp/"))
