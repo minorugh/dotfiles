@@ -12,6 +12,11 @@
   (setq dired-listing-switches "-lgGhFA")
   (find-file "~/src/github.com/minorugh/dotfiles/"))
 
+(defun edit-bkmakefile ()
+  "Open bkmaikefile."
+  (interactive)
+  (find-file "~/Dropbox/makefile"))
+
 (defun my:root-dir ()
   "Open root dir."
   (interactive)
