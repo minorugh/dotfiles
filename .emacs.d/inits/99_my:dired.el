@@ -12,10 +12,15 @@
   (setq dired-listing-switches "-lgGhFA")
   (find-file "~/src/github.com/minorugh/dotfiles/"))
 
-(defun edit-bkmakefile ()
-  "Open bkmaikefile."
+(defun backup-makefile ()
+  "Open backup maikefile."
   (interactive)
   (find-file "~/Dropbox/makefile"))
+
+(defun my:zshrc ()
+  "Open zshrc."
+  (interactive)
+  (find-file "~/.zshrc"))
 
 (defun my:root-dir ()
   "Open root dir."
@@ -81,7 +86,7 @@
 (defun my:org-dir ()
   "Open org dir."
   (interactive)
-  (find-file "~/Dropbox/org/"))
+  (find-file "~/Dropbox/howm/org/"))
 
 (defun my:docker-compose ()
   "Open docker dir."
