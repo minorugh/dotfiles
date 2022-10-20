@@ -30,6 +30,12 @@
 	(interactive)
 	(shell-command "gitk &")
 	(delete-other-windows))
+
+  (defun git-gui-open ()
+	"Open gitk with current dir."
+	(interactive)
+	(shell-command "git gui &")
+	(delete-other-windows))
   :init
   (leaf diff-hl	:ensure t
 	:hook ((after-init-hook . global-diff-hl-mode)
