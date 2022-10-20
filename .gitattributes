@@ -1,2 +1,3 @@
 tex/* linguist-documentation 
 tex/platex/my-sty/* linguist-documentation
+.emacs.d/tmp/* filter=git-crypt diff=git-crypt
