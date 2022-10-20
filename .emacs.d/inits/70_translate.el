@@ -12,7 +12,7 @@
 ;; Deepl translate with go-translate
 (leaf go-translate
   :ensure t
-  :bind ("s-x" . gts-do-translate)
+  :bind ("s-t" . gts-do-translate)
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
