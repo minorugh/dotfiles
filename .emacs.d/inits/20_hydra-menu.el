@@ -72,8 +72,8 @@
    "
    Work Menu
   ------^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_e  _h_amd
-  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv._u_  magit_._
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_e  _h_amd
+  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv._u_  DeePL_._
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -101,7 +101,7 @@
    ("w" my:w_kukai)
    ("k" my:m_kukai)
    ("h" chromium-tegaki)
-   ("." magit-status)
+   ("." gts-do-translate)
    ("/" my:delete-this-file)
    ("f" flymake-show-diagnostics-buffer)
    ("+" text-scale-adjust)
