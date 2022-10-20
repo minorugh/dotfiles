@@ -32,3 +32,8 @@
 /recentf*
 /tramp
 /.persistent-*
+/tmp/history
+/tmp/places
+/tmp/prescient-save
+/tmp/recentf
+/tmp/transient-history
