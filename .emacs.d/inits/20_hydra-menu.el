@@ -72,8 +72,8 @@
    "
    Work Menu
   ------^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------
-  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行^^   創作:_[_._]_   _c_ompose   _p_rint._r_e
-  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   rsync_._   _g_ist:_L_   remote._@_^^   :_h_and   _x_srv._u_
+  _d_:日記   _m_:毎日   _w_:毎週   _k_:兼題   _t_:定例   _s_:吟行   創作:_[_._]_   c_o_mpose   _p_rint._r_e
+  _a_:合評   _n_:近詠   _e_:hugo   _b_ackup   _g_rsync   _c_ommit   g_i_st:_l_   remote_@_   _x_srv._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -81,24 +81,22 @@
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
-   ("b" my:backup)
-   ("." my:rsync)
+   ("b" make-backup)
+   ("g" make-grsync)
+   ("c" make-commit)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("g" gist-region-or-buffer)
-   ("L" lepton)
-   ("j" org-journal-new-entry)
-   ("h" chromium-tegaki)
-   ("l" open-last-junk-file)
+   ("i" gist-region-or-buffer)
+   ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
    ("T" my:teirei-new-post)
    ("s" my:swan)
    ("S" my:swan-new-post)
    ("N" my:kinnei)
    ("n" my:kinnei-draft)
-   ("c" my:docker-compose)
+   ("o" my:docker-compose)
    ("m" my:d_kukai)
    ("w" my:w_kukai)
    ("k" my:m_kukai)
@@ -113,17 +111,23 @@
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
-  (defun my:backup ()
+  (defun make-backup ()
 	"Backup all."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
 	  (compile "make backup")))
 
-  (defun my:rsync ()
-	"Backup all."
+  (defun make-grsync ()
+	"Sync GH data by rsync."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make gh-rsync")))
+	  (compile "make grsync")))
+
+  (defun make-commit ()
+	"Auto commit."
+	(interactive)
+	(let* ((default-directory (expand-file-name "~/Dropbox")))
+	  (compile "make commit")))
 
   (defun filezilla ()
 	"Open filezilla."
