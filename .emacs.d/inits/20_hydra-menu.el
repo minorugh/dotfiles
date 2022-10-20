@@ -70,9 +70,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -----^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_  gitk_._
-  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv_u_  _h_
+  ------------^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_  _z_shrc  link_,_
+  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv_u_  _h_  gitk_._
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -81,7 +81,7 @@
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
    ("b" make-backup)
-   ("B" edit-bkmakefile)
+   ("B" backup-makefile)
    ("g" make-grsync)
    ("c" make-commit)
    ("@" browse-at-remote)
@@ -102,6 +102,7 @@
    ("k" my:m_kukai)
    ("h" chromium-tegaki)
    ("." gitk-open)
+   ("," hydra-browse/body)
    ("/" my:delete-this-file)
    ("f" flymake-show-diagnostics-buffer)
    ("+" text-scale-adjust)
@@ -109,7 +110,10 @@
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("x" my:xsrv-dir)
+   ("X" chromium-xsrv)
    ("u" my:github-dir)
+   ("U" chromium-github)
+   ("z" my:zshrc)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
