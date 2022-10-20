@@ -13,8 +13,8 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:pvie_w_  howm_@__,__;_  f_z_illa
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:pvie_w_  howm_@__,__;_  _f_zilla
   _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _p_asswd  make._k_._g_  _c_ompile^^^^  scale_:_
 "
    ("p" keepassxc)
@@ -40,7 +40,6 @@
    ("W" livedown-kill)
    ("b" hydra-browse/body)
    ("c" hydra-make/body)
-   ("-" my:github-show)
    ("@" howm-list-all)
    ("," my:howm-create-memo)
    (";" my:howm-create-tech)
@@ -56,7 +55,7 @@
    ("S" sudo-edit)
    ("u" my:github-dir)
    ("l" my:open-capture)
-   ("z" filezilla)
+   ("f" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 
@@ -71,9 +70,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  ------^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_e  gitk:_,_
-  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv._u_  DeePL_._
+  -----^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_  gitk_._
+  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv_u_  _h_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -82,6 +81,7 @@
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
    ("b" make-backup)
+   ("B" edit-bkmakefile)
    ("g" make-grsync)
    ("c" make-commit)
    ("@" browse-at-remote)
@@ -101,9 +101,7 @@
    ("w" my:w_kukai)
    ("k" my:m_kukai)
    ("h" chromium-tegaki)
-   ("," gitk-open)
-   (";" git-gui-open)
-   ("." gts-do-translate)
+   ("." gitk-open)
    ("/" my:delete-this-file)
    ("f" flymake-show-diagnostics-buffer)
    ("+" text-scale-adjust)
