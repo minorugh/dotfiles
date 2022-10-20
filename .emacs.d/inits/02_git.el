@@ -6,11 +6,21 @@
 ;; Mgit configuration
 (leaf magit
   :ensure t
-  :bind (("M-g s" . magit-status)
-		 ("M-g l" . magit-log-buffer-file)
-		 ("M-g b" . magit-blame-addition)
-		 ("M-g t" . git-timemachine-toggle))
+  :bind ("s-x" . magit-status)
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+  :hydra
+  (hydra-git
+   (:color red :hint nil)
+   "
+ 📦 magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
+"
+   ("s" magit-status)
+   ("b" magit-blame-addition)
+   ("c" magit-file-checkout)
+   ("l" magit-log-buffer-file)
+   ("g" gitk-open)
+   ("t" git-timemachine-toggle)
+   ("<muhenkan>" nil))
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
   :init
