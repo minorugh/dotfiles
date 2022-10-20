@@ -5,14 +5,14 @@
 
 (leaf deepl-translate
   :el-get minorugh/deepl-translate
-  :bind ("C-t" . deepl-translate)
+  :bind ("C-c t" . deepl-translate)
   :custom (deepl-auth-key . "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx"))
 
 
 ;; Deepl translate with go-translate
 (leaf go-translate
   :ensure t
-  :bind ("s-t" . gts-do-translate)
+  :bind ("C-t" . gts-do-translate)
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
@@ -28,8 +28,8 @@
 
 
 ;; Deepl translation on web page
-(leaf my:deeple-traqslate
-  :bind ("C-c t" . my:deepl-translate)
+(leaf my:deeple-translate
+  :bind ("C-c C-t" . my:deepl-translate)
   :preface
   (defun my:deepl-translate (&optional string)
 	(interactive)
