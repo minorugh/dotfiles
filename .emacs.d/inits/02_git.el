@@ -13,7 +13,7 @@
   (hydra-git
    (:color red :hint nil)
    "
- 📦 magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
+  magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
 "
    ("s" magit-status)
    ("b" magit-blame-addition)
@@ -24,13 +24,17 @@
    ("<muhenkan>" nil))
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
+  :preface
+  (defun gitk-open ()
+	"Open gitk with current dir."
+	(interactive)
+	(shell-command "gitk &")
+	(delete-other-windows))
   :init
   (leaf diff-hl	:ensure t
 	:hook ((after-init-hook . global-diff-hl-mode)
 		   (after-init-hook . diff-hl-margin-mode)))
-
   (leaf git-timemachine	:ensure t)
-
   (leaf browse-at-remote :ensure t
 	:custom (browse-at-remote-prefer-symbolic . nil)))
 
