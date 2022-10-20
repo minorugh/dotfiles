@@ -6,7 +6,7 @@
 ;; Mgit configuration
 (leaf magit
   :ensure t
-  :bind ("s-x" . magit-status)
+  :bind ("M-g" . magit-status)
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
   :hydra
   (hydra-git
