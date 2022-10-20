@@ -38,8 +38,6 @@
 	(next-line-add-newlines . nil)
 	;; Make it easy to see when it is the same name file
 	(uniquify-buffer-name-style . 'post-forward-angle-brackets)
-	;; Don't clear kill-ring when restart emacs
-	(savehist-additional-variables . '(kill-ring))
 	;; It keeps going steadily the local mark ...  C-u C-SPC C-SPC
 	;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
 	(set-mark-command-repeat-pop . t)
@@ -94,9 +92,12 @@
   :custom (save-place-file . "~/.emacs.d/tmp/places"))
 
 ;; save-hist
-(leaf save-hist
-  :hook (after-init-hook . save-hist-mode)
-  :custom (savehist-file . "~/.emacs.d/tmp/history"))
+(leaf savehist
+  :hook (after-init-hook . savehist-mode)
+  :custom
+  `((savehist-file . "~/.emacs.d/tmp/history")
+	;; Don't clear kill-ring when restart emacs
+	(savehist-additional-variables . '(kill-ring))))
 
 ;; recentf
 (leaf recentf
