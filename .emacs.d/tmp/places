@@ -1,0 +1,31 @@
+;;; -*- coding: utf-8 -*-
+(("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/" . 715)
+ ("/home/minoru/src/github.com/" . 32)
+ ("/home/minoru/"
+  (dired-filename . "/home/minoru/.bogofilter"))
+ ("/home/minoru/src/github.com/minorugh/" . 625)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/"
+  (dired-filename . "/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/20_hydra-menu.el"))
+ ("/home/minoru/src/"
+  (dired-filename . "/home/minoru/src/github.com"))
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/20_hydra-menu.el" . 2332)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/early-init.el" . 306)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/70_translate.el" . 404)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/99_chromium.el" . 1559)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/02_git.el" . 227)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/Makefile" . 3870)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/"
+  (dired-filename . "/home/minoru/src/github.com/minorugh/dotfiles/.git"))
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/.gitignore" . 412)
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/tmp/"
+  (dired-filename . "/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/tmp/history"))
+ ("/home/minoru/Dropbox/howm/"
+  (dired-filename . "/home/minoru/Dropbox/howm/2020"))
+ ("/home/minoru/Dropbox/"
+  (dired-filename . "/home/minoru/Dropbox/howm"))
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/30_dired.el" . 135)
+ ("/home/minoru/Dropbox/Public/"
+  (dired-filename . "/home/minoru/Dropbox/Public/家庭集会"))
+ ("/home/minoru/Dropbox/GH/"
+  (dired-filename . "/home/minoru/Dropbox/GH/apvoice"))
+ ("/home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/inits/00_base.el" . 948))
