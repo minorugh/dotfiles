@@ -95,15 +95,6 @@
 	(blink-cursor-delay . 10)))
 
 
-(leaf counsel-web
-  :ensure t
-  :bind ("s-w" . counsel-web-search)
-  :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google)
-  (setq counsel-web-search-dynamic-update t))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
