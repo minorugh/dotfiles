@@ -70,7 +70,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install init keyring tlp emac-mozc mozc images fontawesome gist livedown
+allinstall: gnupg ssh install init keyring tlp emac-mozc mozc icons fontawesome gist livedown
 nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
