@@ -42,12 +42,12 @@
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm keychain
 PACKAGES	:= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
-PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux unrar
+PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
-PACKAGES	+= pinta gimp darktable inkscape shotwell cups cups-bsd
+PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd
 
 BASE_PKGS	:= automake autoconf texinfo openssl patch build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
@@ -70,7 +70,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install init keyring tlp emac-mozc mozc icons fontawesome gist livedown
+allinstall: gnupg ssh install base init keyring tlp emacs-mozc mozc icons fontawesome gist
 nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
@@ -113,6 +113,8 @@ init: ## Initial deploy dotfiles
 
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
+
+base: ## Install base
 	$(APT) $(BASE_PKGS)
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
