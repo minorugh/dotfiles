@@ -114,7 +114,7 @@ init: ## Initial deploy dotfiles
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 
-base: ## Install base
+base: ## Install debian base packages
 	$(APT) $(BASE_PKGS)
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
