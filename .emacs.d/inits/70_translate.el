@@ -4,8 +4,7 @@
 ;; (setq debug-on-error t)
 
 ;; Loads the deeepl API key data
-(load "~/Dropbox/backup/emacs/deepl-auth.el")
-;; (autoload 'go-translate "~/Dropbox/backup/emacs/deepl-auth.el" "hege" t)
+(load-file "~/Dropbox/backup/emacs/deepl-auth.el")
 
 ;; Deepl translate for mini-buffer display and kill-ring-save
 (leaf deepl-translate
