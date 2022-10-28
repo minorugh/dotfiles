@@ -3,29 +3,23 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf deepl-translate
-  :el-get minorugh/deepl-translate
-  :bind ("C-c t" . deepl-translate)
-  :custom (deepl-auth-key . "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx"))
+;; Loads the deeepl API key data
+(load "~/Dropbox/backup/emacs/deepl-auth.el")
+;; (autoload 'go-translate "~/Dropbox/backup/emacs/deepl-auth.el" "hege" t)
 
+;; Deepl translate for mini-buffer display and kill-ring-save
+(leaf deepl-translate
+  :doc "auth-key settings are read from a separate file"
+  :el-get minorugh/deepl-translate
+  :bind ("C-c t" . deepl-translate))
 
 ;; Deepl translate with go-translate
 (leaf go-translate
+  :doc "auth-key settings are read from a separate file"
   :ensure t
   :bind ("C-t" . gts-do-translate)
   :config
-  (setq gts-translate-list '(("en" "ja") ("ja" "en")))
-  (setq gts-default-translator
-		(gts-translator
-		 :picker
-		 (gts-noprompt-picker)
-		 :engines (list
-				   ;; (gts-google-engine)
-				   ;; (gts-bing-engine)
-				   (gts-deepl-engine
-					:auth-key "7f4efb81-0c38-589c-2da0-97ae1e7f2ff3:fx" :pro nil))
- 		 :render (gts-buffer-render))))
-
+  (setq gts-translate-list '(("en" "ja") ("ja" "en"))))
 
 ;; Deepl translation on web page
 (leaf my:deeple-translate
@@ -34,7 +28,7 @@
   (defun my:deepl-translate (&optional string)
 	(interactive)
 	(setq string
-          (cond ((stringp string) string)
+		  (cond ((stringp string) string)
 				((use-region-p)
 				 (buffer-substring (region-beginning) (region-end)))
 				(t
@@ -48,9 +42,9 @@
 	(run-at-time 0.1 nil 'deactivate-mark)
 	(browse-url
 	 (concat
-      "https://www.deepl.com/translator#en/ja/"
-      (url-hexify-string string)
-      ))))
+	  "https://www.deepl.com/translator#en/ja/"
+	  (url-hexify-string string)
+	  ))))
 
 
 ;; Local Variables:
