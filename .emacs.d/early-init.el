@@ -1,4 +1,4 @@
-;;; early-init.el --- Early Initialization. -*- lexical-binding: t; no-byte-compile: t -*-
+;;; early-init.el --- Early Initialization. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Emacs 27+ introduces early-init.el, which is run before init.el,
@@ -41,5 +41,7 @@
 
 
 (provide 'early-init)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; early-init.el ends here

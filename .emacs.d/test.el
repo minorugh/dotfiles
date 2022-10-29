@@ -1,4 +1,4 @@
-;;; test.el --- test-init -*- lexical-binding: t; no-byte-compile:t -*-
+;;; test.el --- test-init -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;; This will start with typing `eq' at shell with minimal Emacs.
@@ -120,5 +120,7 @@
 (require 'generic-x)
 
 (provide 'mini-init)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; test.el ends here
