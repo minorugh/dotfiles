@@ -96,7 +96,6 @@
   :hook (after-init-hook . savehist-mode)
   :custom
   `((savehist-file . "~/.emacs.d/tmp/history")
-	;; Don't clear kill-ring when restart emacs
 	(savehist-additional-variables . '(kill-ring))))
 
 ;; recentf
