@@ -3,20 +3,17 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Include auth-key settings from a separate file
-(add-to-list 'load-path "~/Dropbox/backup/emacs")
-(require 'deepl-auth)
-
 ;; Deepl translate for mini-buffer display and kill-ring-save
 (leaf deepl-translate
   :doc "auth-key settings are read from a separate file"
   :el-get minorugh/deepl-translate
-  :bind ("C-c t" . deepl-translate))
+  :bind ("C-c C-t" . deepl-translate)
+  :init (load-file "~/Dropbox/backup/emacs/deepl-auth.el"))
 
 ;; Deepl translation on web page
 (leaf my:deeple-translate
-  :bind ("C-c C-t" . my:deepl-translate)
-  :preface
+  :bind ("C-c t" . my:deepl-translate)
+  :init
   (defun my:deepl-translate (&optional string)
 	(interactive)
 	(setq string
