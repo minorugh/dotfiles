@@ -3,22 +3,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Loads the deeepl API key data
-(load-file "~/Dropbox/backup/emacs/deepl-auth.el")
+;; Include auth-key settings from a separate file
+(add-to-list 'load-path "~/Dropbox/backup/emacs")
+(require 'deepl-auth)
 
 ;; Deepl translate for mini-buffer display and kill-ring-save
 (leaf deepl-translate
   :doc "auth-key settings are read from a separate file"
   :el-get minorugh/deepl-translate
   :bind ("C-c t" . deepl-translate))
-
-;; Deepl translate with go-translate
-(leaf go-translate
-  :doc "auth-key settings are read from a separate file"
-  :ensure t
-  :bind ("C-t" . gts-do-translate)
-  :config
-  (setq gts-translate-list '(("en" "ja") ("ja" "en"))))
 
 ;; Deepl translation on web page
 (leaf my:deeple-translate

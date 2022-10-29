@@ -72,7 +72,7 @@
    Work Menu
   -------------^^^^^^^^^^^^^^^^^^^^^^^^^^----------------------------------------------------------------------
   _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _s_:吟行  創作:_[_._]_  c_o_mpose  _p_rint._r_  gitk_.__:_
-  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv_u_  web_,_^^
+  _a_:合評  _n_:近詠  _e_:hugo  _b_ackup  _g_rsync  _c_ommit  g_i_st:_l_  remote_@_  _x_srv_u_  web_,_^^
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
