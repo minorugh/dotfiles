@@ -24,7 +24,9 @@
 	"Open termninal with current dir."
 	(interactive)
 	(let ((dir (directory-file-name default-directory)))
-	  ;; (shell-command (concat "gnome-terminal --maximize --working-directory " dir))))
+	  (when (and (eq system-type 'gnu/linux)
+				 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+		(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
 	  (shell-command (concat "gnome-terminal --working-directory " dir))))
 
   (defun my:delete-file-if-no-contents ()
