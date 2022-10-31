@@ -3,12 +3,19 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Deepl translate for mini-buffer display and kill-ring-save
-(leaf deepl-translate
-  :doc "auth-key settings are read from a separate file"
-  :el-get minorugh/deepl-translate
-  :bind ("C-c C-t" . deepl-translate)
+;; Deepl & Google translate for other-buffer
+(leaf go-translate
+  ;; The detailed configulations are read from a separate file.
+  ;; Because it contains the authentication key.
+  :ensure t
   :init (load-file "~/Dropbox/backup/emacs/deepl-auth.el"))
+
+
+;; Deepl translate for mini-buffer
+(leaf deepl-translate
+  :el-get minorugh/deepl-translate
+  :bind ("C-c C-t" . deepl-translate))
+
 
 ;; Deepl translation on web page
 (leaf my:deeple-translate
