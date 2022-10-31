@@ -70,7 +70,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install base init keyring tlp emacs-mozc mozc icons fontawesome gist
+allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
 nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
@@ -106,10 +106,14 @@ init: ## Initial deploy dotfiles
 	for item in gitconfig gist; do
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
 	done
+
+ifeq ($(shell uname -n),e590)
+grub:
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
 	sudo update-grub2
+endif
 
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
