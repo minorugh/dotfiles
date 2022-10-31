@@ -28,12 +28,12 @@
 (unless (and (eq system-type 'gnu/linux)
 			 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
   (setq inhibit-redisplay t)
-  (setq inhibit-message t))
-(add-hook 'window-setup-hook
-		  (lambda ()
-			(setq inhibit-redisplay nil)
-			(setq inhibit-message nil)
-			(redisplay)))
+  (setq inhibit-message t)
+  (add-hook 'window-setup-hook
+			(lambda ()
+			  (setq inhibit-redisplay nil)
+			  (setq inhibit-message nil)
+			  (redisplay))))
 
 ;; Startup setting
 (setq inhibit-splash-screen t)
