@@ -25,8 +25,8 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 
 ;; Suppress flashing at startup
-(setq inhibit-redisplay t)
-(setq inhibit-message t)
+;; (setq inhibit-redisplay t)
+;; (setq inhibit-message t)
 (add-hook 'window-setup-hook
 		  (lambda ()
 			(setq inhibit-redisplay nil)
