@@ -25,8 +25,10 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 
 ;; Suppress flashing at startup
-;; (setq inhibit-redisplay t)
-;; (setq inhibit-message t)
+(unless (and (eq system-type 'gnu/linux)
+			 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+  (setq inhibit-redisplay t)
+  (setq inhibit-message t))
 (add-hook 'window-setup-hook
 		  (lambda ()
 			(setq inhibit-redisplay nil)
