@@ -69,6 +69,7 @@ Detailed explanation is written at the following URL.
 ----
 
 ## update infomeition
+* 2021.11.01 Remote repository also on xserver (simultaneous Push)
 * 2021.10.11 Content organization
 * 2021.08.26 Update to Debian 11(bullseye)
 * 2021.08.26 Update to emacs 27.2
