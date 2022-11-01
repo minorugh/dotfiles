@@ -3,12 +3,27 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf deepl-translate
+  :el-get minorugh/deepl-translate
+  :bind ("C-c t" . deepl-translate)
+  :init (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
+
+
 ;; Deepl & Google translate for other-buffer
 (leaf go-translate
-  ;; The detailed configulations are read from a separate file.
-  ;; Because it contains the authentication key.
-  :ensure t
-  :init (load-file "~/Dropbox/backup/emacs/deepl-auth.el"))
+  :bind ("C-t" . gts-do-translate)
+  :config
+  (setq gts-translate-list '(("en" "ja") ("ja" "en")))
+  (setq gts-default-translator
+		(gts-translator
+		 :picker
+		 (gts-noprompt-picker)
+		 :engines (list
+				   (gts-google-engine)
+				   ;; (gts-bing-engine)
+				   (gts-deepl-engine
+					:auth-key (format deepl-auth-key) :pro nil))
+		 :render (gts-buffer-render))))
 
 
 ;; Deepl translate for mini-buffer
