@@ -52,7 +52,7 @@
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/gospel-haiku.com/public_html/es/"))
 		  ;; blog7 setting
-		  ((easy-ugo-basedir . "~/Dropbox/minorugh.com/bible/")
+		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/bible/")
 		   (easy-hugo-url . "https://bible.minorugh.com")
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/bible/"))
