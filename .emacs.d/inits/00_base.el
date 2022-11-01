@@ -1,9 +1,8 @@
-;;; 00_base.el --- Default configurations.  -*- lexical-binding: t -*-
+;;; 00_base.el --- Basic configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Basic configurations
 (leaf cus-start
   :custom
   `(;; Faster rendering by not corresponding to right-to-left language
