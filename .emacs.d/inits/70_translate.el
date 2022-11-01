@@ -3,13 +3,17 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Load deepl api key
+(load-file "~/Dropbox/backup/emacs/deepl-api.el")
+
+
+;; Display translation results on minibuffer
 (leaf deepl-translate
   :el-get minorugh/deepl-translate
-  :bind ("C-c t" . deepl-translate)
-  :init (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
+  :bind ("C-c C-t" . deepl-translate))
 
 
-;; Deepl & Google translate for other-buffer
+;; Display Deepl and Google Translate results in other buffer
 (leaf go-translate
   :bind ("C-t" . gts-do-translate)
   :config
@@ -24,12 +28,6 @@
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
 		 :render (gts-buffer-render))))
-
-
-;; Deepl translate for mini-buffer
-(leaf deepl-translate
-  :el-get minorugh/deepl-translate
-  :bind ("C-c C-t" . deepl-translate))
 
 
 ;; Deepl translation on web page
