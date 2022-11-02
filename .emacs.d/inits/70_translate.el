@@ -15,6 +15,7 @@
 
 ;; Display Deepl and Google Translate results in other buffer
 (leaf go-translate
+  :ensure t
   :bind ("C-t" . gts-do-translate)
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
