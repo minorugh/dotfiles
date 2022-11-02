@@ -145,21 +145,22 @@ If the region is inactive, to kill whole line."
          args))
 (advice-add 'Info-find-node :around 'Info-find-node--info-ja)
 
-  ;; Return a string giving the duration of the Emacs initialization
-  (defun ad:emacs-init-time ()
-	"Advice `emacs-init-time'."
-	(interactive)
-	(let ((str
-		   (format "%.3f seconds"
-				   (float-time
-					(time-subtract after-init-time before-init-time)))))
-	  (if (called-interactively-p 'interactive)
-		  (message "%s" str)
-		str)))
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time)
+;; Return a string giving the duration of the Emacs initialization
+(defun ad:emacs-init-time ()
+  "Advice `emacs-init-time'."
+  (interactive)
+  (let ((str
+		 (format "%.3f seconds"
+				 (float-time
+				  (time-subtract after-init-time before-init-time)))))
+	(if (called-interactively-p 'interactive)
+		(message "%s" str)
+	  str)))
+(advice-add 'emacs-init-time :override #'ad:emacs-init-time)
 
 
 ;; Local Variables:
 ;; no-byte-compile: t
+;; byte-compile-warnings: (not mapcar)
 ;; End:
 ;;; 00_base.el ends here
