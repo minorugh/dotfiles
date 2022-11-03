@@ -25,13 +25,13 @@
 		 (gts-noprompt-picker)
 		 :engines (list
 				   (gts-google-engine)
-				   ;; (gts-bing-engine)
+				   (gts-bing-engine)
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
 		 :render (gts-buffer-render))))
 
 
-;; Deepl translation on web page
+;; Deepl translation in web page
 (leaf my:deeple-translate
   :bind ("C-c t" . my:deepl-translate)
   :init

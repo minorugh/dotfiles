@@ -13,7 +13,7 @@
 		 ("t" . deepl-translate)
 		 ("W" . my:weblio)
 		 ("k" . my:koujien)
-		 ("e" . my:eijiro)
+		 ("j" . my:eijiro)
 		 ("g" . my:google))
   :init
   (defvar my:ime-flag nil)
