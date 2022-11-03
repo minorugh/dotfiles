@@ -5,7 +5,8 @@
 
 (leaf migemo
   :ensure t
-  :hook (after-init-hook . migemo-init)
+  :defun (migemo-init)
+  ;; :hook (after-init-hook . migemo-init)
   :when (executable-find "cmigemo")
   :custom
   `((migemo-command . "cmigemo")
