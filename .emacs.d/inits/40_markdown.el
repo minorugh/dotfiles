@@ -23,7 +23,7 @@
 <style>
 body {
   box-sizing: border-box;
-  max-width: 740px;
+  max-width: 960px;
   width: 100%;
   margin: 40px auto;
   padding: 0 10px;
