@@ -155,9 +155,6 @@ fontawesome: ##  Init Font Awesome
 gist: ## Install gist | $ gist --login from terminal at first
 	sudo gem install gist
 
-livedown: ## Install livedown for markdown previewer
-	npm install -g livedown
-
 ## install for applications
 google-chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
