@@ -17,12 +17,16 @@
                 (setq file-name-handler-alist
                       (delete-dups (append file-name-handler-alist
                                            old-file-name-handler-alist)))))))
-
 ;; Defer garbage collection further back in the startup process
 (add-hook 'emacs-startup-hook
           (lambda ()
             "Recover GC values after startup."
             (setq gc-cons-threshold 800000)))
+
+;; Startup setting
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq byte-compile-warnings '(cl-functions))
 
 ;; Package
 (eval-and-compile
@@ -43,7 +47,6 @@
 	:config
 	(leaf-keywords-init)
 	(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))))
-
 
 ;; Load init files
 (leaf init-loader

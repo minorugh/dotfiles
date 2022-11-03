@@ -6,31 +6,31 @@
 (leaf cus-start
   :custom
   `(;; Faster rendering by not corresponding to right-to-left language
-    (bidi-display-reordering . nil)
-    ;; Do not make a backup file like *.~
-    (make-backup-files . nil)
-    ;; Do not use auto save
-    (auto-save-default . nil)
-    (auto-save-list-file-prefix . nil)
-    ;; Do not create lock file
-    (create-lockfiles . nil)
-    ;; Open symbolic link directly
-    (vc-follow-symlinks . t)
-    ;; Do not distinguish uppercase and lowercase letters on completion
-    (completion-ignore-case . t)
-    (read-file-name-completion-ignore-case . t)
-    ;; Point keeps its screen position when scroll
-    (scroll-preserve-screen-position . t)
-    ;; All warning sounds and flash are invalid
-    (ring-bell-function . 'ignore)
-    ;; Turn off warning sound screen flash
-    (visible-bell . nil)
-    ;; Copy text with mouse range selection
-    (mouse-drag-copy-region . t)
-    ;; Deleted files go to the trash
-    (delete-by-moving-to-trash . t)
-    ;; Tab width default
-    (tab-width . 4)
+	(bidi-display-reordering . nil)
+	;; Do not make a backup file like *.~
+	(make-backup-files . nil)
+	;; Do not use auto save
+	(auto-save-default . nil)
+	(auto-save-list-file-prefix . nil)
+	;; Do not create lock file
+	(create-lockfiles . nil)
+	;; Open symbolic link directly
+	(vc-follow-symlinks . t)
+	;; Do not distinguish uppercase and lowercase letters on completion
+	(completion-ignore-case . t)
+	(read-file-name-completion-ignore-case . t)
+	;; Point keeps its screen position when scroll
+	(scroll-preserve-screen-position . t)
+	;; All warning sounds and flash are invalid
+	(ring-bell-function . 'ignore)
+	;; Turn off warning sound screen flash
+	(visible-bell . nil)
+	;; Copy text with mouse range selection
+	(mouse-drag-copy-region . t)
+	;; Deleted files go to the trash
+	(delete-by-moving-to-trash . t)
+	;; Tab width default
+	(tab-width . 4)
 	;; Limit the final word to a line break code (automatically correct)
 	(require-final-newline . t)
 	;; Disallow adding new lines with newline at the end of the buffer
