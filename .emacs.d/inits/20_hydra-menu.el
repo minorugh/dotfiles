@@ -14,8 +14,8 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:pvie_w_  howm_@__,__;_  _f_zilla
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _p_asswd  make._k_._g_  _c_ompile^^^^  scale_:_
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:e_x_.v_w_  howm_@__,__;_  _f_zilla
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _p_asswd  make._k_._g_^^  _c_ompile^^^^  scale_:_
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -36,8 +36,8 @@
    ("v" yas/visit-snippet-file)
    ("r" restart-emacs)
    ("m" hydra-markdown/body)
-   ("w" livedown-preview)
-   ("W" livedown-kill)
+   ("w" markdown-preview)
+   ("x" markdown-export)
    ("b" hydra-browse/body)
    ("c" hydra-make/body)
    ("@" howm-list-all)
