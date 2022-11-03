@@ -9,20 +9,25 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
+
 ;; For slightly faster startup
 (setq package-enable-at-startup nil)
+
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
+
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
+
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+
 
 ;; Starts up quietly and quickly
 ;; Don't let it run when reinstalling the entire melpa package
