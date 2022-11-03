@@ -81,7 +81,7 @@
 (leaf exec-path-from-shell
   :ensure t
   :when (memq window-system '(mac ns x))
-  :hook (after-init-hook . exec-path-from-shell-initialize)
+  :defun (exec-path-from-shell-initialize)
   :custom
   (exec-path-from-shell-check-startup-files . nil))
 
