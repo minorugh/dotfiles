@@ -9,18 +9,13 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'")
-  :bind (:markdown-mode-map
-		 ("C-c C-c e" . markdown-export)
-		 ("C-c C-c p" . markdown-preview))
-  :chord (:markdown-mode-map
-		  (".." . hydra-markdown/body))
-  :config
-  (setq markdown-command "pandoc"
-		markdown-command-needs-filename t
-		markdown-content-type "application/xhtml+xml"
-		markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
-							 "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
-		markdown-xhtml-header-content "
+  :custom
+  `((markdown-command . "pandoc")
+	(markdown-command-needs-filename . t)
+	(markdown-content-type . "application/xhtml+xml")
+	(markdown-css-paths . '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+							"http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
+	(markdown-xhtml-header-content . "
 <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
 <!-- Bootstrap Core CSS -->
 <link rel='stylesheet' href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">
@@ -47,12 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-")
+"))
   :hydra
   (hydra-markdown
    (:color red :hint nil)
    "
-    Markdown: _i_talic  消線:_x_  foot_n_ote  _t_able  _m_arkup  pre_v_iew  _e_xport  md2:_p_df:_d_ocx"
+    Markdown: _i_talic  消線:_x_  ft_n_ote  toc:_g_._r_  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
    ("i" markdown-insert-italic)
    ("x" markdown-insert-strike-through)
    ("t" markdown-insert-table)
@@ -60,12 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
    ("m" markdown-toggle-markup-hiding)
    ("v" markdown-preview)
    ("e" markdown-export)
+   ("g" markdown-toc-generate-toc)
+   ("r" markdown-toc-refresh-toc)
    ;; Pndoc
    ("p" md2pdf)
    ("d" md2docx)
    ("<muhenkan>" nil))
   :init
-  (leaf emacs-livedown :el-get shime/emacs-livedown)
+  (leaf markdown-toc :ensure t)
   (custom-set-variables '(markdown-toc-user-toc-structure-manipulation-fn 'cdr))
   :config
   (defun md2pdf ()
