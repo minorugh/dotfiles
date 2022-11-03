@@ -9,23 +9,57 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'")
+  :bind (:markdown-mode-map
+		 ("C-c C-c e" . markdown-export)
+		 ("C-c C-c p" . markdown-preview))
   :chord (:markdown-mode-map
 		  (".." . hydra-markdown/body))
-  :custom
-  `((markdown-italic-underscore . t)
-    (markdown-asymmetric-header . t)
-	(markdown-fontify-code-blocks-natively . t))
+  :config
+  (setq markdown-command "pandoc"
+		markdown-command-needs-filename t
+		markdown-content-type "application/xhtml+xml"
+		markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+							 "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
+		markdown-xhtml-header-content "
+<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+<!-- Bootstrap Core CSS -->
+<link rel='stylesheet' href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">
+<link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">
+<style>
+body {
+  box-sizing: border-box;
+  max-width: 740px;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 10px;
+}
+h1 {
+border: 0;
+}
+</style>
+<script src='http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('markdown-body');
+  document.querySelectorAll('pre[lang] > code').forEach((code) => {
+    code.classList.add(code.parentElement.lang);
+    hljs.highlightBlock(code);
+  });
+});
+</script>
+")
   :hydra
   (hydra-markdown
    (:color red :hint nil)
    "
-    Markdown: _i_talic  消線:_x_  foot_n_ote  _t_able  _m_arkup  pre_v_iew  md2:_p_df:_d_ocx"
+    Markdown: _i_talic  消線:_x_  foot_n_ote  _t_able  _m_arkup  pre_v_iew  _e_xport  md2:_p_df:_d_ocx"
    ("i" markdown-insert-italic)
    ("x" markdown-insert-strike-through)
    ("t" markdown-insert-table)
    ("n" markdown-insert-footnote)
    ("m" markdown-toggle-markup-hiding)
-   ("v" livedown-preview)
+   ("v" markdown-preview)
+   ("e" markdown-export)
    ;; Pndoc
    ("p" md2pdf)
    ("d" md2docx)
