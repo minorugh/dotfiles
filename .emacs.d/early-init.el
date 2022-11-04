@@ -24,11 +24,10 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 
-;; Starts up quietly and quickly
-;; Don't let it run when reinstalling the entire melpa package
+;; Suppress flashing at startup
+;; But only if the package is already installed
 (if (file-directory-p "~/.emacs.d/elpa/")
 	(progn
-	  ;; Suppress flashing at startup
 	  (setq inhibit-redisplay t)
 	  (setq inhibit-message t)
 	  (add-hook 'window-setup-hook
@@ -36,7 +35,6 @@
 				  (setq inhibit-redisplay nil)
 				  (setq inhibit-message nil)
 				  (redisplay)))
-	  ;; Set backgrund first to suppress flashing
 	  (custom-set-faces '(default ((t (:background "#282a36")))))))
 
 
