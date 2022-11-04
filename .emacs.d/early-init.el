@@ -36,6 +36,7 @@
 				  (setq inhibit-redisplay nil)
 				  (setq inhibit-message nil)
 				  (redisplay)))
+	  ;; Set backgrund first to suppress flashing
 	  (custom-set-faces '(default ((t (:background "#282a36")))))))
 
 
