@@ -15,7 +15,8 @@
 	(interactive)
 	(unless (one-window-p)
 	  (if (setq my:dimmer-mode (not my:dimmer-mode))
-		  (dimmer-on) (dimmer-off))))
+		  (dimmer-on)
+		(dimmer-off))))
 
   (defun dimmer-off ()
 	(dimmer-process-all)
