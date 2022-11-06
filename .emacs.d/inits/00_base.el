@@ -161,6 +161,5 @@ If the region is inactive, to kill whole line."
 
 ;; Local Variables:
 ;; no-byte-compile: t
-;; byte-compile-warnings: (not mapcar)
 ;; End:
 ;;; 00_base.el ends here
