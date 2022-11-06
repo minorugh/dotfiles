@@ -5,6 +5,7 @@
 ;; before package and UI initialization happens.
 ;;
 ;;; Code:
+;; (setq debug-on-error t)
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -25,21 +26,18 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 
 ;; Suppress flashing at startup
-;; But only if the package is already installed
-(if (file-directory-p "~/.emacs.d/elpa/")
-	(progn
-	  (setq inhibit-redisplay t)
-	  (setq inhibit-message t)
-	  (add-hook 'window-setup-hook
-				(lambda ()
-				  (setq inhibit-redisplay nil)
-				  (setq inhibit-message nil)
-				  (redisplay)))
-	  (custom-set-faces '(default ((t (:background "#282a36")))))))
+(when (file-directory-p "~/.emacs.d/elpa/")
+  (setq inhibit-redisplay t)
+  (setq inhibit-message t)
+  (add-hook 'window-setup-hook
+			(lambda ()
+			  (setq inhibit-redisplay nil)
+			  (setq inhibit-message nil)
+			  (redisplay)))
+  (custom-set-faces '(default ((t (:background "#282a36"))))))
 
 
 (provide 'early-init)
 ;; Local Variables:
-;; no-byte-compile: t
 ;; End:
 ;;; early-init.el ends here
