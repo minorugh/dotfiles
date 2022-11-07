@@ -23,11 +23,6 @@
             "Recover GC values after startup."
             (setq gc-cons-threshold 800000)))
 
-;; Startup setting
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq byte-compile-warnings '(cl-functions))
-
 ;; Package
 (eval-and-compile
   (customize-set-variable
