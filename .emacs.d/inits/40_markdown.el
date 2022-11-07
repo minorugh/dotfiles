@@ -17,6 +17,8 @@
 							"http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
 	(markdown-xhtml-header-content . "
 <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+<link rel='icon' href=\"https://doc.gospel-haiku.com/favicon.png\">
+<link rel='apple-touch-icon' href=\"https://doc.gospel-haiku.com/favicon.png\" />
 <!-- Bootstrap Core CSS -->
 <link rel='stylesheet' href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">
 <link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">
