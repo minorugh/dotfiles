@@ -54,5 +54,6 @@
 
 (provide 'init)
 ;; Local Variables:
+;; no-byte-compile: t
 ;; End:
 ;;; init.el ends here
