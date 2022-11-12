@@ -9,12 +9,18 @@
 (leaf *user-custom-functions
   :bind	 (("<f3>" . thunar-open)
 		  ("<f4>" . terminal-open)
+		  ("<f5>" . ssh-xsrv)
 		  ("<f8>" . toggle-menu-bar-mode-from-frame)
 		  ("C-x /" . my:delete-this-file)
 		  ("<muhenkan>" . minibuffer-keyboard-quit)
 		  ("C-c <left>" . winner-undo)
 		  ("C-c <right>" . winner-redo))
   :init
+  (defun ssh-xsrv ()
+	"Open thunar with current dir."
+	(interactive)
+	(shell-command "gnome-terminal -- ssh xsrv"))
+
   (defun thunar-open ()
 	"Open thunar with current dir."
 	(interactive)
