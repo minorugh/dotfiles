@@ -55,7 +55,7 @@
 ;; Run command quickly
 (leaf quickrun
   :ensure t
-  :bind ("<f5>" . quickrun))
+  :bind ("<f6>" . quickrun))
 
 
 ;; Restart emacs
