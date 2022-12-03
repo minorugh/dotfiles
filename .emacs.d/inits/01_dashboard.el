@@ -6,6 +6,7 @@
 (leaf dashboard
   :ensure t
   :hook ((after-init-hook . dashboard-setup-startup-hook)
+		 (dashboard-mode-hook . page-break-lines-mode)
 		 (emacs-startup-hook . open-dashboard))
   :defun (dashboard-setup-startup-hook)
   :bind (("<home>" . open-dashboard)
@@ -32,7 +33,7 @@
 
   ;; Set the banner
   (setq dashboard-startup-banner 'official
-  ;; (setq dashboard-startup-banner "~/.emacs.d/emacs.png"
+		;; (setq dashboard-startup-banner "~/.emacs.d/emacs.png"
 		dashboard-page-separator "\n\f\f\n"
 		dashboard-set-heading-icons t
 		dashboard-set-file-icons t
@@ -55,9 +56,7 @@
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
   :init
-  (leaf page-break-lines
-	:ensure t
-	:hook (after-init-hook . page-break-lines-mode))
+  (leaf page-break-lines :ensure t)
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
