@@ -106,12 +106,7 @@
 	"Open `mozc-hand-writing'."
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=hand_writing")
-	(delete-other-windows))
-
-  (defun chromium-tegaki ()
-	"Chromium tegaki site."
-	(interactive)
-	(browse-url "https://mojinavi.com/tegaki")))
+	(delete-other-windows)))
 
 
 ;; Local Variables:
