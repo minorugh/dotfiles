@@ -5,7 +5,8 @@
 
 (leaf dashboard
   :ensure t
-  :hook (after-init-hook . dashboard-setup-startup-hook)
+  :hook ((after-init-hook . dashboard-setup-startup-hook)
+		 (emacs-startup-hook . open-dashboard))
   :defun (dashboard-setup-startup-hook)
   :bind (("<home>" . open-dashboard)
 		 (:dashboard-mode-map
@@ -30,7 +31,8 @@
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
 
   ;; Set the banner
-  (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory)
+  (setq dashboard-startup-banner 'official
+  ;; (setq dashboard-startup-banner "~/.emacs.d/emacs.png"
 		dashboard-page-separator "\n\f\f\n"
 		dashboard-set-heading-icons t
 		dashboard-set-file-icons t
@@ -55,13 +57,13 @@
   :init
   (leaf page-break-lines
 	:ensure t
-	:hook (dashboard-mode-hook . page-break-lines-mode))
+	:hook (after-init-hook . page-break-lines-mode))
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
 	(interactive)
 	(let ((func (local-key-binding "r")))
-      (and func (funcall func))))
+	  (and func (funcall func))))
 
   (defvar dashboard-recover-layout-p nil
 	"Wether recovers the layout.")
@@ -80,8 +82,8 @@
 	(quit-window t)
 	(when (and dashboard-recover-layout-p
 			   (bound-and-true-p winner-mode))
-      (winner-undo)
-      (setq dashboard-recover-layout-p nil)))
+	  (winner-undo)
+	  (setq dashboard-recover-layout-p nil)))
 
   (defun sylpheed ()
 	"Open sylpheed."
@@ -106,8 +108,7 @@
 	  (if (called-interactively-p 'interactive)
 		  (message "%s" str)
 		str)))
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time)
-  )
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
 ;; Local Variables:
