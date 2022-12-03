@@ -13,13 +13,15 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  _m_d:e_x_.v_w_  howm_@__,__;_  _f_zilla
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  _b_rowse  _o_rg  _<home>_  _p_asswd  make._k_._g_^^  _c_ompile^^^^  scale_:_
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  make._c__k__g_  howm._@__,__;_
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._b__m__u_  _f_zilla..^^^^
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
    (":" text-scale-adjust)
+   ("+" text-scale-increase)
+   ("-" text-scale-decrease)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -35,18 +37,19 @@
    ("N" yas/new-snippet)
    ("v" yas/visit-snippet-file)
    ("r" restart-emacs)
-   ("m" hydra-markdown/body)
    ("w" markdown-preview)
    ("x" markdown-export)
-   ("b" hydra-browse/body)
-   ("c" hydra-make/body)
    ("@" howm-list-all)
    ("," my:howm-create-memo)
    (";" my:howm-create-tech)
    ("j" open-junk-file)
    ("J" open-last-junk-file)
+   ("c" hydra-make/body)
    ("k" my:make-k)
    ("g" my:make-git)
+   ("b" my:make-bklog)
+   ("m" my:make-move)
+   ("u" my:make-upsftp)
    ("/" my:root-dir)
    ("_" my:delete-other-windows)
    ("[" hydra-git/body)
@@ -70,9 +73,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  delfile_/_  gitk_.__:_
-  _a_:合評  _n_:近詠  _s_:吟行  _e_:hugo  _b_ackup  g_i_st:_l_  remote_@_  _x_srv_u_  _h_and.dic  web_,_^^
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  delfile_/_  _b_ackup
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _h_and.dic  _e_:hugo
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -101,7 +104,9 @@
    ("w" my:w_kukai)
    ("k" my:m_kukai)
    ("h" chromium-tegaki)
-   ("." gitk-open)
+   ("." my:tpost)
+   ("z" my:tselext)
+   ("Z" my:tselext-new-post)
    (":" git-gui-open)
    ("," counsel-web-suggest)
    ("/" my:delete-this-file)
@@ -114,7 +119,6 @@
    ("X" chromium-xsrv)
    ("u" my:github-dir)
    ("U" chromium-github)
-   ("z" my:zshrc)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
