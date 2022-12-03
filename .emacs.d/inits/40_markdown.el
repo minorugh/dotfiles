@@ -9,6 +9,8 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'")
+  :chord (:markdown-mode-map
+		  (".." . hydra-markdown/body))
   :custom
   `((markdown-command . "pandoc")
 	(markdown-command-needs-filename . t)
