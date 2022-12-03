@@ -13,15 +13,13 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  make._c__k__g_  howm._@__,__;_
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._b__m__u_  _f_zilla..^^^^
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  howm._@__,__;_  _f_zilla^^^^
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._c_._k_._g_._b_._m_._u_
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
    (":" text-scale-adjust)
-   ("+" text-scale-increase)
-   ("-" text-scale-decrease)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -73,9 +71,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  delfile_/_  _b_ackup
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _h_and.dic  _e_:hugo
+  -------------^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  _b_ackup
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _e_:hugo
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -181,4 +179,3 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; 20_hydra-menu.el ends here
-
