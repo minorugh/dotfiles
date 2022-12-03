@@ -56,7 +56,7 @@
 (defun chromium-xsrv ()
   "Chromium github.io."
   (interactive)
-  (browse-url "https://www.xserver.ne.jp/"))
+  (browse-url "https://secure.xserver.ne.jp/xserver/sv13268/minorugh.xsrv.jp/?action_user_index=true"))
 
 (defun chromium-gmail ()
   "Chromium gmail."
