@@ -130,6 +130,18 @@
   (find-file "~/Dropbox/GH/swan/tex/swan.txt")
   (goto-char (point-min)))
 
+(defun my:tpost ()
+  "Open tselect file."
+  (interactive)
+  (find-file "~/Dropbox/GH/tselect/tex/minoru_sen.txt")
+  (goto-char (point-min)))
+
+(defun my:tselext ()
+  "Open tselect file."
+  (interactive)
+  (find-file "~/Dropbox/GH/tselext/select.txt")
+  (goto-char (point-min)))
+
 (defun my:teirei ()
   "Open teirei file."
   (interactive)
