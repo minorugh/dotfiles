@@ -104,15 +104,53 @@
   (unless (string-match (format-time-string "%Y%m:") string)
 	(forward-line -1)
 	(insert (format-time-string "%Y%m:\n")))
+  (forward-line 1)
+  (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+  (unless (string-match (format-time-string "*%Y年%-m月") string)
+	(forward-line -1)
+	(insert (format-time-string "*%Y年%-m月\n")))
   ;; Insert template
   (goto-char (point-min))
-  (forward-line)
+  (forward-line 2)
   (insert
    ";--------------------------------------------------------------------\n"
    "=<\n"
-   (format-time-string "*\n")
-   ";--------------------------------------------------------------------\n"
    (format-time-string "-*\n")
+   ";--------------------------------------------------------------------\n"
+   (format-time-string "--*\n")
+   "<-tframe>\n"
+   "-(\n\n-)\n"
+   "</div></div>\n"
+   "=>\n"
+   "-elink\n\n")
+  (goto-char (point-min))
+  (forward-line 2)
+  (forward-char 11))
+
+(defun my:dselext-new-post ()
+  "Open tselext file and insert template."
+  (interactive)
+  (find-file (expand-file-name "select.txt" "~/Dropbox/GH/d_selext/"))
+  (view-mode 0)
+  (goto-char 0)
+  ;; Insert a new date if the date has changed
+  (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+  (unless (string-match (format-time-string "%Y%m:") string)
+	(forward-line -1)
+	(insert (format-time-string "%Y%m:\n")))
+  (forward-line 1)
+  (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+  (unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
+	(forward-line -1)
+	(insert (format-time-string "*%Y年%-m月%-d日\n")))
+  ;; Insert template
+  (goto-char (point-min))
+  (forward-line 2)
+  (insert
+   ";--------------------------------------------------------------------\n"
+   "=<\n"
+   (format-time-string "-*\n")
+   (format-time-string "--*\n")
    "<-tframe>\n"
    "-(\n\n-)\n"
    "</div></div>\n"
