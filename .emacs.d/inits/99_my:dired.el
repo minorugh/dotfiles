@@ -142,6 +142,12 @@
   (find-file "~/Dropbox/GH/tselext/select.txt")
   (goto-char (point-min)))
 
+(defun my:dselext ()
+  "Open tselect file."
+  (interactive)
+  (find-file "~/Dropbox/GH/d_selext/select.txt")
+  (goto-char (point-min)))
+
 (defun my:teirei ()
   "Open teirei file."
   (interactive)
