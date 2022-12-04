@@ -15,7 +15,7 @@
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
   _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  howm._@__,__;_  _f_zilla^^^^
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._c_._k_._g_._b_._m_._u_
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._c_._k_._g_|_b_._m_._u_
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -54,7 +54,6 @@
    ("]" magit-status)
    ("s" my:scr-dir)
    ("S" sudo-edit)
-   ("u" my:github-dir)
    ("l" my:open-capture)
    ("f" filezilla)
    ("M-." hydra-work/body)
@@ -71,9 +70,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  _b_ackup
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _e_:hugo
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^----------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  _b_ackup  _c_ommit
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _e_:hugo  _g_huser
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -83,7 +82,7 @@
    ("P" ps-print-buffer)
    ("b" make-backup)
    ("B" backup-makefile)
-   ("g" ssh-xsrv)
+   ("g" make-ghuser)
    ("c" make-commit)
    ("@" browse-at-remote)
    ("e" easy-hugo)
@@ -126,17 +125,17 @@
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
 	  (compile "make backup")))
 
-  (defun make-grsync ()
+  (defun make-ghuser ()
 	"Sync GH data by rsync."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make grsync")))
+	  (compile "make rsync-user")))
 
   (defun make-commit ()
 	"Auto commit."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make commit")))
+	  (compile "make git-commit")))
 
   (defun filezilla ()
 	"Open filezilla."
