@@ -70,9 +70,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^----------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  創作:_[_._]_  c_o_mpose  _p_rint._r_  _b_ackup  _c_ommit
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:秀句  g_i_st:_l_  remote_@_  _x_srv_u_  _e_:hugo  _g_huser
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  d_o_cker^^  _p_rint._r_  _b_kup  _e_:hugo  _c_ommit
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _g_ist._l_  remote_@_^^  _x_srv   _h_ub  GH_u_ser
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -82,13 +82,13 @@
    ("P" ps-print-buffer)
    ("b" make-backup)
    ("B" backup-makefile)
-   ("g" make-ghuser)
+   ("u" make-ghuser)
    ("c" make-commit)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("i" gist-region-or-buffer)
+   ("g" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
    ("T" my:teirei-new-post)
@@ -100,22 +100,22 @@
    ("m" my:d_kukai)
    ("w" my:w_kukai)
    ("k" my:m_kukai)
-   ("h" chromium-tegaki)
    ("." my:tpost)
+   ("f" my:dselext)
+   ("F" my:dselext-new-post)
    ("z" my:tselext)
    ("Z" my:tselext-new-post)
    (":" git-gui-open)
    ("," counsel-web-suggest)
    ("/" my:delete-this-file)
-   ("f" flymake-show-diagnostics-buffer)
    ("+" text-scale-adjust)
    ("_" my:delete-other-windows)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("x" my:xsrv-dir)
    ("X" chromium-xsrv)
-   ("u" my:github-dir)
-   ("U" chromium-github)
+   ("h" my:github-dir)
+   ("H" chromium-github)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
