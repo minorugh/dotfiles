@@ -71,8 +71,8 @@
    "
    Work Menu
   -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  d_o_cker^^  _p_rint._r_  _b_kup  _e_:hugo  _c_ommit
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _g_ist._l_  remote_@_^^  _x_srv   _h_ub  GH_u_ser
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  d_o_cker^^  _p_rint._r_  _g_.  _e_:hugo  _c_ommit
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:添秀  _f_:毎秀^^  g_i_st._l_  remote_@_^^  _x_srv  _b_ackup  GH_u_ser
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -88,7 +88,7 @@
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("g" gist-region-or-buffer)
+   ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
    ("T" my:teirei-new-post)
@@ -114,8 +114,8 @@
    ("[" my:haiku-note-post)
    ("x" my:xsrv-dir)
    ("X" chromium-xsrv)
-   ("h" my:github-dir)
-   ("H" chromium-github)
+   ("g" my:github-dir)
+   ("G" chromium-github)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
   :init
