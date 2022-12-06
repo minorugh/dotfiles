@@ -78,7 +78,8 @@
 ")
   :preface
   (leaf popup :ensure t)
-  (leaf request	:ensure t
+  (leaf request
+	:ensure t
 	:custom (request-storage-directory . "~/.emacs.d/tmp/request"))
 
   (defun my:edit-easy-hugo ()
