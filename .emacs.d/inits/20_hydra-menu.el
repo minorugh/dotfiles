@@ -13,9 +13,9 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  gith_u_b  howm._@__,__;_  _f_zilla^^^^
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_asswd  make._c_._k_._g_|_b_._m_._u_
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root:_/_  _s_rc  _._files  _f_zilla  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
 "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -25,15 +25,12 @@
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
    ("d" my:dropbox)
-   ("D" my:docker-dir)
+   ("D" chromium-dropbox)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
-   ("n" my:nextcloud)
-   ("y" company-yasnippet)
-   ("N" yas/new-snippet)
-   ("v" yas/visit-snippet-file)
+   ("v" markdown-preview)
    ("r" restart-emacs)
    ("w" markdown-preview)
    ("x" markdown-export)
@@ -70,9 +67,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  d_o_cker^^  _p_rint._r_  _g_.  _e_:hugo  _c_ommit
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:添秀  _f_:毎秀^^  g_i_st._l_  remote_@_^^  _x_srv  _b_ackup  GH_u_ser
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  _e_:hugo^^  _p_s._r_  _x_srv._g_it^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:添秀  _f_:毎秀^^  g_i_st._l_  re_@_p^^  _b_ackup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -96,7 +93,6 @@
    ("S" my:swan-new-post)
    ("N" my:kinnei)
    ("n" my:kinnei-draft)
-   ("o" my:docker-compose)
    ("m" my:d_kukai)
    ("w" my:w_kukai)
    ("k" my:m_kukai)
