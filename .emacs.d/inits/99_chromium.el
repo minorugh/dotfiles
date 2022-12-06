@@ -63,10 +63,16 @@
   (interactive)
   (browse-url "https://mail.google.com/mail/"))
 
+(defun chromium-dropbox ()
+  "Chromium gmail."
+  (interactive)
+  (browse-url "https://www.dropbox.com/h?role=personal/"))
+
 (defun chromium-tegaki ()
   "Chromium tegaki."
   (interactive)
   (browse-url "https://mojinavi.com/tegaki"))
+
 
 
 ;; Local Variables:
