@@ -43,12 +43,13 @@
 
   (leaf mozc-cand-posframe
 	:ensure t
+	:when window-system
 	:after mozc
 	:require t
 	:custom
-	(mozc-candidate-style . 'posframe)
-	:init
-	(leaf posframe :ensure t))
+	(mozc-candidate-style . 'posframe))
+  :init
+  (leaf posframe :ensure t)
 
   ;; Clone the mozc dictionary placed in Dropbox to Nextcloud.
   (defun mozc-copy ()
