@@ -11,7 +11,7 @@
 		  ("<f4>" . terminal-open)
 		  ("<f5>" . ssh-vim)
 		  ("<f8>" . toggle-menu-bar-mode-from-frame)
-		  ("C-c /" . my:delete-this-file)
+		  ("S-<delete>" . my:delete-this-file)
 		  ("C-c h" . chromium-tegaki)
 		  ("<muhenkan>" . minibuffer-keyboard-quit)
 		  ("C-c <left>" . winner-undo)
@@ -42,10 +42,10 @@
   ;; 			   (= (point-min) (point-max)))
   ;; 	  (delete-file
   ;; 	   (buffer-file-name (current-buffer)))))
+  ;; (add-hook 'markdown-mode-hook 'my:delete-file-if-no-contents)
   ;; (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
   ;;     (setq after-save-hook
   ;; 			(cons 'my:delete-file-if-no-contents after-save-hook)))
-
 
   (defun my:delete-this-file ()
 	"Delete the current file, and kill the buffer."
