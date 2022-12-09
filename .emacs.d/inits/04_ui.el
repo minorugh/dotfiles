@@ -25,40 +25,41 @@
 	(doom-modeline-minor-modes . nil))
   :config
   (line-number-mode 0)
-  (column-number-mode 0)
-  ;; (doom-modeline-def-modeline 'main
-  ;; 	'(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
-  ;; 	'(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
-  :init
-  (leaf nyan-mode
-	:ensure t
-	:config
-	(nyan-mode 1)
-	(nyan-start-animation)))
+  (column-number-mode 0))
 
+;; nyan-mode
+(leaf nyan-mode
+  :ensure t
+  :when window-system
+  :after doom-modeline
+  :config
+  (nyan-mode 1)
+  (nyan-start-animation))
 
 ;; Icon
-(leaf all-the-icons
-  :ensure t
-  :after doom-modeline
-  :custom
-  (all-the-icons-scale-factor . 0.9)
-  :config
-  (unless (member "all-the-icons" (font-family-list))
-	(all-the-icons-install-fonts t)))
+(when (window-system)
+  (leaf all-the-icons
+	:ensure t
+	:after doom-modeline
+	:custom
+	(all-the-icons-scale-factor . 0.1)
+	:config
+	(unless (member "all-the-icons" (font-family-list))
+	  (all-the-icons-install-fonts t)))
 
-(leaf all-the-icons-dired
-  :el-get jtbm37/all-the-icons-dired
-  :after doom-modeline
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
+  (leaf all-the-icons-dired
+	:el-get jtbm37/all-the-icons-dired
+	:after doom-modeline
+	:hook (dired-mode-hook . all-the-icons-dired-mode))
 
-(leaf all-the-icons-ivy-rich
-  :ensure t
-  :hook (after-init-hook . all-the-icons-ivy-rich-mode))
+  (leaf all-the-icons-ivy-rich
+	:ensure t
+	:hook (after-init-hook . all-the-icons-ivy-rich-mode))
 
-(leaf all-the-icons-ibuffer
-  :ensure t
-  :hook (ibuffer-mode-hook . all-the-icons-ibuffer-mode))
+  (leaf all-the-icons-ibuffer
+	:ensure t
+	:hook (ibuffer-mode-hook . all-the-icons-ibuffer-mode))
+  )
 
 
 ;; Set linespacing
@@ -74,16 +75,7 @@
   :hook (after-init-hook . global-display-line-numbers-mode)
   :bind ("<f9>" . display-line-numbers-mode)
   :custom
-  (display-line-numbers-width-start . t)
-  :init
-  (defun my:disable-modes ()
-	"Disable modes in scrtch buffer."
-	(interactive)
-	(display-line-numbers-mode 0)
-	(flymake-mode 0)
-	(nyan-mode 0))
-  (add-hook 'lisp-interaction-mode-hook 'my:disable-modes)
-  (add-hook 'dired-mode-hook 'my:disable-modes))
+  (display-line-numbers-width-start . t))
 
 
 ;; Control cursor blinking
