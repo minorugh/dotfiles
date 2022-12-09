@@ -26,13 +26,12 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-  (doom-modeline-def-modeline 'main
-	'(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
-	'(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
+  ;; (doom-modeline-def-modeline 'main
+  ;; 	'(bar window-number matches buffer-info remote-host buffer-position parrot selection-info)
+  ;; 	'(misc-info persp-name lsp github debug minor-modes input-method major-mode process vcs checker))
   :init
   (leaf nyan-mode
 	:ensure t
-	:when (window-system)
 	:config
 	(nyan-mode 1)
 	(nyan-start-animation)))
