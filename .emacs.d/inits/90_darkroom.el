@@ -21,14 +21,8 @@
   (defun my:darkroom-out ()
 	"Returns from `darkroom-mode' to the previous state."
 	(interactive)
-	(my:linespacing)
 	(darkroom-mode 0)
 	(display-line-numbers-mode 1)
-	(my:revert-buffer-no-confirm))
-
-  (defun my:revert-buffer-no-confirm ()
-	"Revert buffer without confirmation."
-	(interactive)
 	(revert-buffer t t)))
 
 

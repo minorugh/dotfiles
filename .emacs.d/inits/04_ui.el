@@ -27,39 +27,34 @@
   (line-number-mode 0)
   (column-number-mode 0))
 
+
 ;; nyan-mode
 (leaf nyan-mode
   :ensure t
-  :when window-system
+  :if (display-graphic-p)
   :after doom-modeline
   :config
   (nyan-mode 1)
   (nyan-start-animation))
 
+
 ;; Icon
-(when (window-system)
-  (leaf all-the-icons
-	:ensure t
-	:after doom-modeline
-	:custom
-	(all-the-icons-scale-factor . 0.1)
-	:config
-	(unless (member "all-the-icons" (font-family-list))
-	  (all-the-icons-install-fonts t)))
+(leaf all-the-icons
+  :ensure t
+  :if (display-graphic-p)
+  :after doom-modeline
+  :config
+  (setq all-the-icons-scale-factor 1.0)
+  (unless (member "all-the-icons" (font-family-list))
+	(all-the-icons-install-fonts t)))
 
-  (leaf all-the-icons-dired
-	:el-get jtbm37/all-the-icons-dired
-	:after doom-modeline
-	:hook (dired-mode-hook . all-the-icons-dired-mode))
+(leaf all-the-icons-dired
+  :el-get jtbm37/all-the-icons-dired
+  :hook (dired-mode-hook . all-the-icons-dired-mode))
 
-  (leaf all-the-icons-ivy-rich
-	:ensure t
-	:hook (after-init-hook . all-the-icons-ivy-rich-mode))
-
-  (leaf all-the-icons-ibuffer
-	:ensure t
-	:hook (ibuffer-mode-hook . all-the-icons-ibuffer-mode))
-  )
+(leaf all-the-icons-ibuffer
+  :ensure t
+  :hook (ibuffer-mode-hook . all-the-icons-ibuffer-mode))
 
 
 ;; Set linespacing
