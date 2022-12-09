@@ -29,8 +29,12 @@
 	(if (not (string= "*scratch*" (buffer-name)))
 		(progn
 		  (setq toggle-scratch-prev-buffer (buffer-name))
-		  (switch-to-buffer "*scratch*"))
-	  (switch-to-buffer toggle-scratch-prev-buffer)))
+		  (switch-to-buffer "*scratch*")
+		  (display-line-numbers-mode 0)
+		  (nyan-mode 0))
+	  (switch-to-buffer toggle-scratch-prev-buffer)
+	  (display-line-numbers-mode 1)
+	  (nyan-mode 1)))
 
   (defun read-scratch-data ()
 	(let ((file "~/.emacs.d/tmp/scratch"))
