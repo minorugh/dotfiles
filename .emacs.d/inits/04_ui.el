@@ -58,19 +58,22 @@
 
 
 ;; Set linespacing
-(defun my:linespacing ()
-  "Set default linespace."
-  (unless (minibufferp)
-    (setq-local line-spacing 0.1)))
-(add-hook 'buffer-list-update-hook 'my:linespacing)
+(leaf cus-linespacing
+  :hook (buffer-list-update-hook . my:linespacing)
+  :init
+  (defun my:linespacing ()
+	"Set default linespace."
+	(unless (minibufferp)
+      (setq-local line-spacing 0.1))))
 
 
 ;; Show line numbers
 (leaf display-line-numbers
-  :hook (after-init-hook . global-display-line-numbers-mode)
+  :hook ((after-init-hook . global-display-line-numbers-mode)
+		 ((imenu-list-minor-mode-hook dired-mode-hook neotree-mode-hook)
+		  . (lambda () (display-line-numbers-mode 0))))
   :bind ("<f9>" . display-line-numbers-mode)
-  :custom
-  (display-line-numbers-width-start . t))
+  :custom (display-line-numbers-width-start . t))
 
 
 ;; Control cursor blinking
