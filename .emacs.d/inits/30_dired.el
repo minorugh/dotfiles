@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :hook (dired-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0)))
   :bind (:dired-mode-map
 		 ("<left>" . dired-up-alternate-directory)
 		 ("<right>" . dired-open-in-accordance-with-situation)
