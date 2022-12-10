@@ -5,7 +5,7 @@
 
 (leaf dashboard
   :ensure t
-  :when (window-system)
+  :if (display-graphic-p)
   :hook ((after-init-hook . dashboard-setup-startup-hook)
 		 (dashboard-mode-hook . page-break-lines-mode)
 		 (emacs-startup-hook . open-dashboard))
