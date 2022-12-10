@@ -1,7 +1,7 @@
 ;;; 20_hydra-view.el --- Hydra view-help configuration for misc utils. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;; (setq debug-on-error t)
+;; (srtq debug-on-error t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydra view mode
