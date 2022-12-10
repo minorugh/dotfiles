@@ -46,25 +46,21 @@
   :config
   (setq all-the-icons-scale-factor 1.0)
   (unless (member "all-the-icons" (font-family-list))
-	(all-the-icons-install-fonts t)))
-
-(leaf all-the-icons-dired
-  :el-get jtbm37/all-the-icons-dired
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-(leaf all-the-icons-ibuffer
-  :ensure t
-  :hook (ibuffer-mode-hook . all-the-icons-ibuffer-mode))
+	(all-the-icons-install-fonts t))
+  :preface
+  (leaf all-the-icons-dired
+	:el-get jtbm37/all-the-icons-dired
+	:hook (dired-mode-hook . all-the-icons-dired-mode)))
 
 
-;; Set linespacing
-(leaf cus-linespacing
-  :hook (buffer-list-update-hook . my:linespacing)
-  :init
-  (defun my:linespacing ()
-	"Set default linespace."
-	(unless (minibufferp)
-      (setq-local line-spacing 0.1))))
+  ;; Set linespacing
+  (leaf cus-linespacing
+	:hook (buffer-list-update-hook . my:linespacing)
+	:init
+	(defun my:linespacing ()
+	  "Set default linespace."
+	  (unless (minibufferp)
+		(setq-local line-spacing 0.1))))
 
 
 ;; Show line numbers
