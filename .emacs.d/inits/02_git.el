@@ -46,7 +46,7 @@
 
 
 ;; Gist configuration
-(leaf gist
+(leaf cus-gist
   :bind (("s-g p" . gist-region-or-buffer)
 		 ("s-g c" . my:chromium-gist))
   :init
