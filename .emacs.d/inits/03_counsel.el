@@ -12,7 +12,6 @@
 		 ("s-a" . counsel-ag)
 		 ("M-x" . counsel-M-x)
 		 ("M-y" . counsel-yank-pop)
-		 ;; ("<f6>" . counsel-linux-app)
 		 ("C-x m" . counsel-mark-ring)
 		 ("C-x C-b" . ibuffer)
 		 ("C-x C-f" . counsel-find-file)
