@@ -3,7 +3,7 @@
 ;;; Code:
 
 (leaf view
-  :chord ("::" . view-mode)
+  :chord ("::" . my:view-mode)
   :bind (:view-mode-map
 		 ("h" . backward-char)
 		 ("l" . forward-char)
@@ -47,8 +47,13 @@
   ;; Specific directory
   (defvar my:auto-view-dirs nil)
   (add-to-list 'my:auto-view-dirs "~/src/")
-  ;; (add-to-list 'my:auto-view-dirs "~/Dropbox/GH/")
   (add-to-list 'my:auto-view-dirs "/scp:xsrv:/home/minorugh/")
+
+  (defun my:view-mode ()
+	"Exit evil-mode into view-mode."
+	(interactive)
+	(evil-local-mode 0)
+	(view-mode 1))
 
   (defun my:auto-view ()
 	"Open a file with view mode."
