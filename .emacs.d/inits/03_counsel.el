@@ -8,6 +8,7 @@
   :defer-config (ivy-mode)
   :bind (("C-r" . swiper-thing-at-point)
 		 ("C-s" . swiper-region)
+		 ("C-:" . counsel-switch-buffer)
 		 ("M-:" . counsel-switch-buffer)
 		 ("s-a" . counsel-ag)
 		 ("M-x" . counsel-M-x)
