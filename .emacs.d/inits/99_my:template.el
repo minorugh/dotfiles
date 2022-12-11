@@ -122,7 +122,24 @@
    "-(\n\n-)\n"
    "</div></div>\n"
    "=>\n"
-   "-elink\n\n")
+   ";--------------------------------------------------------------------\n"
+   "=<\n"
+   (format-time-string "-*\n")
+   ";--------------------------------------------------------------------\n"
+   (format-time-string "--*\n")
+   "<-tframe>\n"
+   "-(\n\n-)\n"
+   "</div></div>\n"
+   "=>\n"
+   ";--------------------------------------------------------------------\n"
+   "=<\n"
+   (format-time-string "-*\n")
+   ";--------------------------------------------------------------------\n"
+   (format-time-string "--*\n")
+   "<-tframe>\n"
+   "-(\n\n-)\n"
+   "</div></div>\n"
+   "=>\n")
   (goto-char (point-min))
   (forward-line 2)
   (forward-char 11))
@@ -141,7 +158,7 @@
   (forward-line 1)
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
   (unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
-	(forward-line -1)
+	;; (forward-line 1)
 	(insert (format-time-string "*%Y年%-m月%-d日\n")))
   ;; Insert template
   (goto-char (point-min))
@@ -155,7 +172,22 @@
    "-(\n\n-)\n"
    "</div></div>\n"
    "=>\n"
-   "-elink\n\n")
+   ";--------------------------------------------------------------------\n"
+   "=<\n"
+   (format-time-string "-*\n")
+   (format-time-string "--*\n")
+   "<-tframe>\n"
+   "-(\n\n-)\n"
+   "</div></div>\n"
+   "=>\n"
+   ";--------------------------------------------------------------------\n"
+   "=<\n"
+   (format-time-string "-*\n")
+   (format-time-string "--*\n")
+   "<-tframe>\n"
+   "-(\n\n-)\n"
+   "</div></div>\n"
+   "=>\n")
   (goto-char (point-min))
   (forward-line 2)
   (forward-char 11))
