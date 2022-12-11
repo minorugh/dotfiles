@@ -3,7 +3,7 @@
 ;;; Code:
 
 (leaf view
-  :chord ("::" . my:view-mode)
+  :chord (";;" . my:view-mode)
   :bind (:view-mode-map
 		 ("h" . backward-char)
 		 ("l" . forward-char)
@@ -35,7 +35,7 @@
 		 ("-" . text-scale-decrease)
 		 ("/" . (lambda ()(interactive)(text-scale-set 0)))
 		 ("_" . kill-other-buffers)
-		 (":" . View-exit-and-edit)
+		 (";" . View-exit-and-edit)
 		 ("i" . View-exit-and-edit)
 		 ("]" . winner-undo)
 		 ("[" . winner-redo)

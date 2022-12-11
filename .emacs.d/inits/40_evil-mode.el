@@ -5,7 +5,7 @@
 
 (leaf evil
   :ensure t
-  :chord (";;" . toggle-evil-local-mode)
+  :chord ("::" . toggle-evil-local-mode)
   :bind ((:key-translation-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-operator-state-map
@@ -13,6 +13,7 @@
 		 (:evil-normal-state-map
 		  (";" . toggle-evil-local-mode)
 		  ("M-." . hydra-quick/body)
+		  ("<home>" . open-dashboard)
 		  ([escape] . keyboard-quit)))
   :config
   (evil-mode 0)
