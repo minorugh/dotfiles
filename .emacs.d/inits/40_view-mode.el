@@ -35,6 +35,7 @@
 		 ("-" . text-scale-decrease)
 		 ("/" . (lambda ()(interactive)(text-scale-set 0)))
 		 ("_" . kill-other-buffers)
+		 (":" . toggle-evil-local-mode)
 		 (";" . View-exit-and-edit)
 		 ("i" . View-exit-and-edit)
 		 ("]" . winner-undo)

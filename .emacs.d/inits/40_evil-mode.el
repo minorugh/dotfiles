@@ -16,13 +16,13 @@
 		  ("<home>" . open-dashboard)
 		  ([escape] . keyboard-quit)))
   :config
-  (evil-mode 0)
-  (defun toggle-evil-local-mode () (interactive)
-		 (if evil-local-mode
-			 (evil-local-mode 0)
-		   (progn
-			 (view-mode 0)
-			 (evil-local-mode 1))))
+  (defun toggle-evil-local-mode ()
+	(interactive)
+	(if evil-local-mode
+		(evil-local-mode 0)
+	  (progn
+		(view-mode 0)
+		(evil-local-mode 1))))
 
   (defun evil-escape-or-quit (&optional prompt)
 	(interactive)
