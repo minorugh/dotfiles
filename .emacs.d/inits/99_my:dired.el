@@ -165,6 +165,20 @@
   (interactive)
   (find-file "~/Dropbox/GH/kinnei/draft.txt"))
 
+(defun my:year ()
+  "Open year file."
+  (interactive)
+  (find-file (format-time-string "~/Dropbox/GH/year/%Y.txt"))
+  (goto-char (point-max))
+  (forward-line -10))
+
+(defun my:year-draft ()
+  "Open year draft file."
+  (interactive)
+  (find-file "~/Dropbox/GH/year/draft.txt")
+  (goto-char (point-min))
+  (forward-line))
+
 (defun my:apvoice ()
   "Open apvoice file."
   (interactive)
