@@ -5,7 +5,7 @@
 
 (leaf evil
   :ensure t
-  :hook (prog-mode-hook . (lambda () (evil-local-mode 1)))
+  :hook ((prog-mode-hook markdown-mode-hook) . my:evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind ((:key-translation-map
 		  ("<muhenkan>" . evil-escape-or-quit))
@@ -16,22 +16,27 @@
 		  ("M-." . hydra-quick/body)
 		  ("<home>" . open-dashboard)
 		  ([escape] . keyboard-quit)))
-  :init
-  (evil-mode 0)
   :config
+  ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
-  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+
+  (defun my:evil-local-mode ()
+	"Turn off evil-mode when enable evil-local-mode."
+	(interactive)
+	(evil-mode 0)
+	(evil-local-mode 1))
+
   (defun toggle-evil-local-mode ()
+	"Toggle on and off evil mode in local buffer."
 	(interactive)
 	(if evil-local-mode
 		(evil-local-mode 0)
-	  (progn
-		(view-mode 0)
-		(evil-local-mode 1))))
+	  (evil-local-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	(interactive)
+	(deactivate-input-method)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
           (evil-replace-state-p) (evil-visual-state-p)) [escape])
