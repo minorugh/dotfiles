@@ -94,7 +94,6 @@
 	(ivy-mode 1)
   (define-key global-map (kbd "C-s") 'swiper-thing-at-point))
 
-
 ;; Brace the corresponding parentheses
 (show-paren-mode 1)
 (setq show-paren-delay 0)
