@@ -43,7 +43,7 @@
 		 ("?" . hydra-view/body))
   :init
   ;; Specific extension / directory
-  (defvar my:auto-view-regexp "\\makefile\\|\\.mak\\|\\.php\\|\\.pl\\|\\.el.gz?\\|\\.tar.gz?\\'")
+  ;; (defvar my:auto-view-regexp "\\makefile\\|\\.mak\\|\\.php\\|\\.pl\\|\\.el.gz?\\|\\.tar.gz?\\'")
 
   ;; Specific directory
   (defvar my:auto-view-dirs nil)
@@ -56,22 +56,23 @@
 	(evil-local-mode 0)
 	(view-mode 1))
 
-  (defun my:auto-view ()
-	"Open a file with view mode."
-	(when (file-exists-p buffer-file-name)
-	  (when (and my:auto-view-regexp
-				 (string-match my:auto-view-regexp buffer-file-name))
-		(view-mode 1))
-	  (dolist (dir my:auto-view-dirs)
-		(when (eq 0 (string-match (expand-file-name dir) buffer-file-name))
-		  (view-mode 1)))))
-  (add-hook 'find-file-hook 'my:auto-view)
+  ;; (defun my:auto-view ()
+  ;; 	"Open a file with view mode."
+  ;; 	(when (file-exists-p buffer-file-name)
+  ;; 	  (when (and my:auto-view-regexp
+  ;; 				 (string-match my:auto-view-regexp buffer-file-name))
+  ;; 		(view-mode 1))
+  ;; 	  (dolist (dir my:auto-view-dirs)
+  ;; 		(when (eq 0 (string-match (expand-file-name dir) buffer-file-name))
+  ;; 		  (view-mode 1)))))
+  ;; (add-hook 'find-file-hook 'my:auto-view)
 
-  (defun my:unlock-view-mode ()
-	"Unlock view mode with git commit."
-	(when (string-match "COMMIT_EDITMSG" buffer-file-name)
-	  (view-mode 0)))
-  (add-hook 'server-visit-hook 'my:unlock-view-mode))
+  ;; (defun my:unlock-view-mode ()
+  ;; 	"Unlock view mode with git commit."
+  ;; 	(when (string-match "COMMIT_EDITMSG" buffer-file-name)
+  ;; 	  (view-mode 0)))
+  ;; (add-hook 'server-visit-hook 'my:unlock-view-mode)
+  )
 
 
 ;; Change-modeline-color
