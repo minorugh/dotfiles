@@ -192,6 +192,38 @@
   (forward-line 2)
   (forward-char 11))
 
+(defun my:year-new-post ()
+  "Open tselext file and insert template."
+  (interactive)
+  ;; (find-file (format-time-string "~/Dropbox/GH/yaer/%Y.txt"))
+  ;; (view-mode 0)
+  ;; (goto-char 0)
+  (insert
+   ";--------------------------------------------------------------------\n"
+   "--\n"
+   (format-time-string "*さん\n")
+   "--\n"
+   "<div class=\"box\">\n"
+   "<div class=\"vertical\">\n"
+   "--\n"
+   "参加年 = <br>\n"
+   "性　別 = <br>\n"
+   "都道府県 = \n"
+   "--\n"
+   "&ensp;\n"
+   "--\n"
+   "<insert p tag>\n"
+   "--\n"
+   "</div></div>\n"
+   "--\n"
+   (format-time-string "-*さんのコメント\n")
+   "--\n"
+   "-((\n"
+   "<insert comment>\n"
+   "-))\n"
+   "--\n")
+  )
+
 (defun my:haiku-note ()
   "Open haiku note file."
   (interactive)
