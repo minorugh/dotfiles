@@ -5,14 +5,13 @@
 
 (leaf evil
   :ensure t
-  :hook ((prog-mode-hook markdown-mode-hook) . my:evil-local-mode)
-  :chord ("::" . toggle-evil-local-mode)
+  :hook (prog-mode-hook . my:evil-local-mode)
+  :chord ("jj" . toggle-evil-local-mode)
   :bind ((:key-translation-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-operator-state-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-normal-state-map
-		  (";" . toggle-evil-local-mode)
 		  ("M-." . hydra-quick/body)
 		  ("<home>" . open-dashboard)
 		  ([escape] . keyboard-quit)))
@@ -39,7 +38,7 @@
 	(deactivate-input-method)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
-          (evil-replace-state-p) (evil-visual-state-p)) [escape])
+		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t (kbd "<muhenkan>")))))
 
 
