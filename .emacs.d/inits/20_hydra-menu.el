@@ -67,13 +67,17 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  _e_:hugo^^  _p_s._r_  .web_,_  _x_srv._g_it^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:添秀  _f_:毎秀^^  g_i_st._l_  re_@_p^^  delbuf_/_  _b_ackup._c_._u_
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-----------------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  _y_:年度  _e_:hugo^^  _p_s._r_  .web_,_  _x_srv._g_it^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:添秀  _f_:毎秀^^  _h_:縦清  g_i_st._l_  re_@_p^^  delbuf_/_  _b_ackup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
    ("r" ps-print-region)
+   ("y" my:year)
+   ("Y" my:year-new-post)
+   ("h" my:year-draft)
+   ("H" my:make-draft)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
