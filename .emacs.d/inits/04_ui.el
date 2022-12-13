@@ -14,7 +14,6 @@
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-
 ;; Mode-line
 (leaf doom-modeline
   :ensure t
@@ -27,7 +26,6 @@
   (line-number-mode 0)
   (column-number-mode 0))
 
-
 ;; nyan-mode
 (leaf nyan-mode
   :ensure t
@@ -36,7 +34,6 @@
   :config
   (nyan-mode 1)
   (nyan-start-animation))
-
 
 ;; Icon
 (leaf all-the-icons
@@ -52,16 +49,14 @@
 	:el-get jtbm37/all-the-icons-dired
 	:hook (dired-mode-hook . all-the-icons-dired-mode)))
 
-
-  ;; Set linespacing
-  (leaf cus-linespacing
-	:hook (buffer-list-update-hook . my:linespacing)
-	:init
-	(defun my:linespacing ()
-	  "Set default linespace."
-	  (unless (minibufferp)
-		(setq-local line-spacing 0.1))))
-
+;; Set linespacing
+(leaf cus-linespacing
+  :hook (buffer-list-update-hook . my:linespacing)
+  :init
+  (defun my:linespacing ()
+	"Set default linespace."
+	(unless (minibufferp)
+	  (setq-local line-spacing 0.1))))
 
 ;; Show line numbers
 (leaf display-line-numbers
@@ -70,7 +65,6 @@
 		  . (lambda () (display-line-numbers-mode 0))))
   :bind ("<f9>" . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t))
-
 
 ;; Control cursor blinking
 (leaf cus-blink-cursor
