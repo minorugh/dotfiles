@@ -70,6 +70,11 @@
   (interactive)
   (compile "make git"))
 
+(defun my:make-draft ()
+  "Make draft."
+  (interactive)
+  (compile "make draft"))
+
 (defun my:make-sort ()
   "Make sort for filelist."
   (interactive)
