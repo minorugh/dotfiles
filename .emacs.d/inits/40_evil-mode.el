@@ -22,7 +22,8 @@
   (defun toggle-evil-local-mode ()
 	"Toggle on and off evil local mode."
 	(interactive)
-	(if evil-local-mode (evil-local-mode 0)
+	(if evil-local-mode
+		(evil-local-mode 0)
 	  (evil-local-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
