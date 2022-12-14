@@ -19,7 +19,7 @@
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
-   (":" toggle-evil-mode)
+   (":" toggle-evil-local-mode)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
