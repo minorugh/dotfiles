@@ -7,12 +7,12 @@
   :hook ((emacs-startup-hook . (lambda () (require 'org-protocol)))
 		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows))
   :chord (",," . org-capture)
-  :bind (("C-c a" . org-agenda)
+  :bind ((:org-mode-map
+		  ("C-c i" . org-edit-special))
+		 ("C-c a" . org-agenda)
 		 ("C-c c" . org-capture)
 		 ("C-c k" . org-capture-kill)
-		 ("C-c i" . org-edit-src-exit)
-		 (:org-mode-map
-		  ("C-c i" . org-edit-special)))
+		 ("C-c i" . org-edit-src-exit))
   :custom
   `((org-log-done . 'time)
 	(timep-use-speed-commands . t)
