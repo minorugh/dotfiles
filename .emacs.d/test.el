@@ -1,6 +1,6 @@
 ;;; test.el --- test-init -*- lexical-binding: t -*-
 ;;; Commentary:
-
+;;
 ;; This will start with typing `eq' at shell with minimal Emacs.
 ;; Write below at .zshrc or .bashrc.
 ;; alias eq="emacs -q -l ~/.emacs.d/mini-init.el"
