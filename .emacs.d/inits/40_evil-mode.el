@@ -5,6 +5,7 @@
 
 (leaf evil
   :ensure t
+  :if (display-graphic-p)
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind ((:key-translation-map
@@ -23,7 +24,7 @@
 	"Toggle on and off evil mode in local buffer."
 	(interactive)
 	(if evil-local-mode
-		(evil-mode 0)
+		(evil-local-mode 0)
 	  (evil-local-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
