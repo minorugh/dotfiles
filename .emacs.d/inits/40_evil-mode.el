@@ -5,9 +5,8 @@
 
 (leaf evil
   :ensure t
-  :hook ((after-init-hook . evil-mode)
-		 (magit-status-mode-hook . my:unlock-evil-mode))
-  :chord ("::" . toggle-evil-mode)
+  :hook (prog-mode-hook . evil-local-mode)
+  :chord ("::" . toggle-evil-local-mode)
   :bind ((:key-translation-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-operator-state-map
@@ -20,16 +19,12 @@
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-  (defun my:unlock-evil-mode ()
-	(when evil-mode
-      (evil-mode 0)))
-
-  (defun toggle-evil-mode ()
+  (defun toggle-evil-local-mode ()
 	"Toggle on and off evil mode in local buffer."
 	(interactive)
-	(if evil-mode
+	(if evil-local-mode
 		(evil-mode 0)
-	  (evil-mode 1)))
+	  (evil-local-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	(interactive)
