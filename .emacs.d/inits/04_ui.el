@@ -24,16 +24,20 @@
 	(doom-modeline-minor-modes . nil))
   :config
   (line-number-mode 0)
-  (column-number-mode 0))
+  (column-number-mode 0)
+  :preface
+  (leaf hide-mode-line
+	:ensure t
+	:hook (neotree-mode-hook . hide-mode-line-mode)))
 
-;; nyan-mode
-(leaf nyan-mode
-  :ensure t
-  :if (display-graphic-p)
-  :after doom-modeline
-  :config
-  (nyan-mode 1)
-  (nyan-start-animation))
+  ;; nyan-mode
+  (leaf nyan-mode
+	:ensure t
+	:if (display-graphic-p)
+	:after doom-modeline
+	:config
+	(nyan-mode 1)
+	(nyan-start-animation))
 
 ;; Icon
 (leaf all-the-icons

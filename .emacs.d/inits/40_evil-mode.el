@@ -6,8 +6,8 @@
 (leaf evil
   :ensure t
   :if (display-graphic-p)
-  :hook (prog-mode-hook . evil-local-mode)
-  :chord ("::" . toggle-evil-local-mode)
+  :hook (prog-mode-hook . evil-mode)
+  :chord ("::" . toggle-evil-mode)
   :bind (:evil-normal-state-map
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
@@ -15,24 +15,41 @@
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
+  ;; Retain ESC function in insert-state
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  ;; Allow for escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muheqkan] 'evil-escape-or-quit)
 
-  (defun toggle-evil-local-mode ()
+  (defun toggle-evil-mode ()
 	"Toggle on and off evil local mode."
 	(interactive)
-	(if evil-local-mode
-		(evil-local-mode 0)
-	  (evil-local-mode 1)))
+	(if evil-mode (evil-mode 0)
+	  (evil-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
+	"Define the function when press Esc key."
 	(interactive)
+	;; Turn off IME when return to normal-state
 	(deactivate-input-method)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 ([muhenkan]))))
+	 ([muhenkan])))
+
+  (defun my:unlock-evil-mode ()
+	"Disable-evil-mode."
+	(interactive)
+	(evil-mode 0))
+
+  (defvar unlock-evil-hooks
+	'(dashboard-mode-hook
+	  magit-status-mode-hook
+	  markdown-mode-hook
+	  org-mode-hook
+	  neotree-mode-hook))
+  (cl-loop for hook in unlock-evil-hooks
+		   do (add-hook hook 'my:unlock-evil-mode)))
 
 
 ;; Local Variables:

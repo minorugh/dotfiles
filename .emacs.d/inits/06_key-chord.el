@@ -8,7 +8,6 @@
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
 		  ("l;" . init-loader-show-log)
-		  (";;" . view-mode)
 		  ("@@" . howm-list-all)
 		  ("jk" . open-junk-file))
   :custom
