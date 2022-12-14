@@ -36,17 +36,6 @@
 		(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
 	  (shell-command (concat "gnome-terminal --working-directory " dir))))
 
-  ;; (defun my:delete-file-if-no-contents ()
-  ;; 	"If the file is empty, it will be deleted automatically."
-  ;; 	(when (and (buffer-file-name (current-buffer))
-  ;; 			   (= (point-min) (point-max)))
-  ;; 	  (delete-file
-  ;; 	   (buffer-file-name (current-buffer)))))
-  ;; (add-hook 'markdown-mode-hook 'my:delete-file-if-no-contents)
-  ;; (if (not (memq 'my:delete-file-if-no-contents after-save-hook))
-  ;;     (setq after-save-hook
-  ;; 			(cons 'my:delete-file-if-no-contents after-save-hook)))
-
   (defun my:delete-this-file ()
 	"Delete the current file, and kill the buffer."
 	(interactive)
