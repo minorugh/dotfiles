@@ -5,33 +5,31 @@
 
 (leaf evil
   :ensure t
-  :hook (prog-mode-hook . my:evil-local-mode)
-  :chord ("jj" . toggle-evil-local-mode)
+  :hook ((after-init-hook . evil-mode)
+		 (magit-status-mode-hook . my:unlock-evil-mode))
+  :chord ("::" . toggle-evil-mode)
   :bind ((:key-translation-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-operator-state-map
 		  ("<muhenkan>" . evil-escape-or-quit))
 		 (:evil-normal-state-map
 		  ("M-." . hydra-quick/body)
-		  ("<home>" . open-dashboard)
-		  ([escape] . keyboard-quit)))
+		  ("<home>" . open-dashboard)))
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-  (defun my:evil-local-mode ()
-	"Turn off evil-mode when enable evil-local-mode."
-	(interactive)
-	(evil-mode 0)
-	(evil-local-mode 1))
+  (defun my:unlock-evil-mode ()
+	(when evil-mode
+      (evil-mode 0)))
 
-  (defun toggle-evil-local-mode ()
+  (defun toggle-evil-mode ()
 	"Toggle on and off evil mode in local buffer."
 	(interactive)
-	(if evil-local-mode
-		(evil-local-mode 0)
-	  (evil-local-mode 1)))
+	(if evil-mode
+		(evil-mode 0)
+	  (evil-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	(interactive)
