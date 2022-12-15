@@ -8,12 +8,13 @@
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
-		 ("." . select-evil-command)
 		 ("b" . evil-scroll-up)
 		 ("SPC" . evil-scroll-down)
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
 		 ([muhenkan] . keyboard-quit))
+  :init
+  (setq evil-undo-system 'undo-fu)
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
@@ -39,12 +40,7 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 ([muhenkan])))
-
-  (defun select-evil-command ()
-	"Select evil commands."
-	(interactive)
-	(counsel-M-x "evil- ")))
+	 ([muhenkan]))))
 
 
 ;; Local Variables:
