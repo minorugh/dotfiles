@@ -6,9 +6,10 @@
 (leaf evil
   :ensure t
   :if (display-graphic-p)
-  :hook (prog-mode-hook . evil-mode)
-  :chord ("::" . toggle-evil-mode)
+  :hook (prog-mode-hook . evil-local-mode)
+  :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
+		 ("." . select-evil-command)
 		 ("b" . evil-scroll-up)
 		 ("SPC" . evil-scroll-down)
 		 ("M-." . hydra-quick/body)
@@ -17,19 +18,19 @@
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
-
-  ;; Retain ESC function in insert-state
+  ;; Retain ESC & "C-[" function in insert-state
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-[") 'evil-normal-state)
 
   ;; Allow for escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muheqkan] 'evil-escape-or-quit)
 
-  (defun toggle-evil-mode ()
+  (defun toggle-evil-local-mode ()
 	"Toggle on and off evil local mode."
 	(interactive)
-	(if evil-mode (evil-mode 0)
-	  (evil-mode 1)))
+	(if evil-local-mode (evil-local-mode 0)
+	  (evil-local-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	"Define the function when press Esc key."
@@ -41,21 +42,10 @@
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 ([muhenkan])))
 
-  (defun my:unlock-evil-mode ()
-	"Disable-evil-mode."
+  (defun select-evil-command ()
+	"Select evil commands."
 	(interactive)
-	(evil-mode 0))
-
-  ;; Hook up unlock-evil-mode collectively
-  (defvar unlock-evil-hooks
-	'(dashboard-mode-hook
-	  magit-status-mode-hook
-	  markdown-mode-hook
-	  org-mode-hook
-	  text-mode-hook
-	  neotree-mode-hook))
-  (cl-loop for hook in unlock-evil-hooks
-		   do (add-hook hook 'my:unlock-evil-mode)))
+	(counsel-M-x "evil- ")))
 
 
 ;; Local Variables:
