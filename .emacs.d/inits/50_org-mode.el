@@ -5,8 +5,7 @@
 
 (leaf org
   :hook ((emacs-startup-hook . (lambda () (require 'org-protocol)))
-		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows)
-		 (org-mode-hook . my:unlock-evil-mode))
+		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows))
   :chord (",," . org-capture)
   :bind ((:org-mode-map
 		  ([muhenkan] . view-mode)
