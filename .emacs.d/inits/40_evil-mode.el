@@ -18,13 +18,14 @@
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
+
   ;; Retain ESC & "C-[" function in insert-state
-  (define-key evil-insert-state-map [escape] 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-[") 'evil-normal-state)
+  (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-[") 'my:evil-normal-state)
 
   ;; Allow for escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
-  (define-key evil-operator-state-map [muheqkan] 'evil-escape-or-quit)
+  (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   (defun toggle-evil-local-mode ()
 	"Toggle on and off evil local mode."
@@ -32,11 +33,19 @@
 	(if evil-local-mode (evil-local-mode 0)
 	  (evil-local-mode 1)))
 
+  (defun turn-off-input-method ()
+	"If input-method is on, turn it off."
+	(interactive)
+	(if current-input-method (deactivate-input-method)))
+
+  (defun my:evil-normal-state ()
+	(interactive)
+	(turn-off-input-method)
+	(evil-normal-state))
+
   (defun evil-escape-or-quit (&optional prompt)
 	"Define the function when press Esc key."
 	(interactive)
-	;; Turn off IME when return to normal-state
-	(deactivate-input-method)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
