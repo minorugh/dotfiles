@@ -5,7 +5,6 @@
 
 (leaf evil
   :ensure t
-  :if (display-graphic-p)
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
