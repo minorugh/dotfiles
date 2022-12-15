@@ -9,14 +9,18 @@
   :hook (prog-mode-hook . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind (:evil-normal-state-map
+		 ("b" . evil-scroll-up)
+		 ("SPC" . evil-scroll-down)
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
 		 ([muhenkan] . keyboard-quit))
   :config
   ;; Insert state overrides Emacs settings
   (setcdr evil-insert-state-map nil)
+
   ;; Retain ESC function in insert-state
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+
   ;; Allow for escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muheqkan] 'evil-escape-or-quit)
@@ -42,11 +46,13 @@
 	(interactive)
 	(evil-mode 0))
 
+  ;; Hook up unlock-evil-mode collectively
   (defvar unlock-evil-hooks
 	'(dashboard-mode-hook
 	  magit-status-mode-hook
 	  markdown-mode-hook
 	  org-mode-hook
+	  text-mode-hook
 	  neotree-mode-hook))
   (cl-loop for hook in unlock-evil-hooks
 		   do (add-hook hook 'my:unlock-evil-mode)))
