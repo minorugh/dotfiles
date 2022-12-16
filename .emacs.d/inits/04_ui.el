@@ -28,7 +28,7 @@
   :preface
   (leaf hide-mode-line
 	:ensure t
-	:hook (neotree-mode-hook . hide-mode-line-mode)))
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
   ;; nyan-mode
   (leaf nyan-mode
