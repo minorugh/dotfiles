@@ -4,33 +4,39 @@
 
 (leaf evil
   :ensure t
-  :hook (prog-mode-hook . evil-local-mode)
-  :chord ("::" . toggle-evil-local-mode)
+  :hook (after-init-hook  . evil-mode)
+  :chord ("::" . toggle-evil-mode)
   :bind (:evil-normal-state-map
-		 ("t" . evil-tutor-ja-start)
 		 ("?" . vim-cheat)
+		 ("o" . other-window-or-split)
 		 ("C-e" . seq-end)
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
 		 ([muhenkan] . keyboard-quit))
   :init
-  (leaf evil-tutor-ja :ensure t)
+  ;; move to prev/next line when hl at the end of a line
+  (setq evil-cross-lines t)
+  ;; Use undo-fu for undo-system
   (setq evil-undo-system 'undo-fu)
+
   :config
   ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-[") 'my:evil-normal-state)
 
   ;; Allow for escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
-  (defun toggle-evil-local-mode ()
-	"Toggle on and off evil local mode."
+  ;; Initial state for major mode
+  (evil-set-initial-state 'markdown-mode 'insert)
+  (evil-set-initial-state 'text-mode 'insert)
+
+  (defun toggle-evil-mode ()
+	"Toggle on and off evil mode."
 	(interactive)
-	(if evil-local-mode (evil-local-mode 0)
-	  (evil-local-mode 1)))
+	(if evil-mode (evil-mode 0)
+	  (evil-mode 1)))
 
   (defun turn-off-input-method ()
 	"If input-method is on, turn it off."
@@ -49,28 +55,7 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 (t [muhenkan])))
-
-  :preface
-  (leaf evil-leader
-	:ensure t
-	:after evil
-	:config
-	(setq evil-leader/in-all-states 1)
-	(global-evil-leader-mode)
-	(evil-leader/set-leader "SPC")
-	(evil-leader/set-key
-	  "SPC" 'keyboard-quit
-	  ":" 'shell-command
-	  "/" 'kill-this-buffer
-	  "_" 'my:delete-other-windows
-	  "s" 'swiper-thing-at-point
-	  "t" 'gts-do-translate
-	  "j" 'dired-jump
-	  "e" 'my:eijiro
-	  "w" 'my:weblio
-	  "g" 'my:google
-	  "k" 'my:koujien)))
+	 (t [muhenkan]))))
 
 
 ;; Local Variables:
