@@ -6,13 +6,17 @@
   :ensure t
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
-  :bind (:evil-normal-state-map
-		 ("?" . vim-cheat)
-		 ("o" . other-window-or-split)
-		 ("C-e" . seq-end)
-		 ("M-." . hydra-quick/body)
-		 ([home] . open-dashboard)
-		 ([muhenkan] . keyboard-quit))
+  :bind ((:evil-normal-state-map
+		  ("?" . vim-cheat)
+		  ("o" . other-window-or-vsplit)
+		  ("C-e" . seq-end)
+		  ("M-." . hydra-quick/body)
+		  ([home] . open-dashboard)
+		  ([muhenkan] . keyboard-quit))
+		 (:evil-visual-state-map
+		  ("g" . my:google)
+		  ("k" . my:koujien)
+		  ([muhenkan] . my:evil-normal-state)))
   :init
   ;; move to prev/next line when hl at the end of a line
   (setq evil-cross-lines t)
