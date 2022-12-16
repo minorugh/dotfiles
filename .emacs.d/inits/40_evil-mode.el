@@ -1,7 +1,6 @@
 ;;; 40_evil-mode.el --- Evil local mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
-;;; Code:
-;; (setq debug-on-error t)
+
 
 (leaf evil
   :ensure t
@@ -15,7 +14,7 @@
 		 ([muhenkan] . keyboard-quit))
   :init (setq evil-undo-system 'undo-fu)
   :config
-  ;; Insert state overrides Emacs settings, but ESC makes it work
+  ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-[") 'my:evil-normal-state)
