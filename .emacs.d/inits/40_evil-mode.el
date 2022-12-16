@@ -8,6 +8,7 @@
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
+		 ("<hiragana-katakana>" . turn-off-input-method)
 		 ("b" . evil-scroll-up)
 		 ("SPC" . evil-scroll-down)
 		 ("M-." . hydra-quick/body)
@@ -39,17 +40,18 @@
 	(if current-input-method (deactivate-input-method)))
 
   (defun my:evil-normal-state ()
+	"Turn off input-method and return to normal-state."
 	(interactive)
 	(turn-off-input-method)
 	(evil-normal-state))
 
   (defun evil-escape-or-quit (&optional prompt)
-	"Define the function when press Esc key."
+	"If in evil any state to escape key, else muhenkan key."
 	(interactive)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 ([muhenkan]))))
+	 (t [muhenkan]))))
 
 
 ;; Local Variables:
