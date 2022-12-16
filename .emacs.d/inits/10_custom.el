@@ -13,10 +13,16 @@
 		  ("<f8>" . toggle-menu-bar-mode-from-frame)
 		  ("S-<delete>" . my:delete-this-file)
 		  ("C-c h" . chromium-tegaki)
-		  ("<muhenkan>" . minibuffer-keyboard-quit)
+		  ("<muhenkan>" . my:muhenkan)
 		  ("C-c <left>" . winner-undo)
 		  ("C-c <right>" . winner-redo))
   :init
+  (defun my:muhenkan ()
+	(interactive)
+	(if (not (use-region-p))
+		(minibuffer-keyboard-quit)
+	  (keyboard-quit)))
+
   (defun ssh-vim ()
 	"Open thunar with current dir."
 	(interactive)
