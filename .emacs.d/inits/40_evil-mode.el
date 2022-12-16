@@ -16,9 +16,12 @@
   :init
   ;; move to prev/next line when hl at the end of a line
   (setq evil-cross-lines t)
+
   ;; Use undo-fu for undo-system
   (setq evil-undo-system 'undo-fu)
+
   :config
+  ;; Set alias for visual-state
   (defalias 'evil-visual-state 'evil-insert-state)
 
   ;; Insert state overrides Emacs settings, but Esc makes it work
