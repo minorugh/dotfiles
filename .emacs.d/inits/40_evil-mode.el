@@ -8,7 +8,6 @@
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
-		 ("<hiragana-katakana>" . turn-off-input-method)
 		 ("b" . evil-scroll-up)
 		 ("SPC" . evil-scroll-down)
 		 ("M-." . hydra-quick/body)
@@ -17,10 +16,8 @@
   :init
   (setq evil-undo-system 'undo-fu)
   :config
-  ;; Insert state overrides Emacs settings
+  ;; Insert state overrides Emacs settings. But ESC makes it work
   (setcdr evil-insert-state-map nil)
-
-  ;; Retain ESC & "C-[" function in insert-state
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-[") 'my:evil-normal-state)
 
@@ -52,6 +49,27 @@
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t [muhenkan]))))
+
+
+;; Provide various key bindings under SPC
+(leaf evil-leader
+  :ensure t
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "SPC")
+  (evil-leader/set-key
+	"SPC" 'keyboard-quit
+	":" 'shell-command
+	"/" 'kill-this-buffer
+	"f" 'counsel-find-file
+	"r" 'counsel-recentf
+	"s" 'swiper-thing-at-point
+	"t" 'gts-do-translate
+	"j" 'dired-jump
+	"e" 'my:eijiro
+	"w" 'my:weblio
+	"g" 'my:google
+	"k" 'my:koujien))
 
 
 ;; Local Variables:
