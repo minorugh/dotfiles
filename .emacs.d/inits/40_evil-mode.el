@@ -12,17 +12,15 @@
 		  ("C-e" . seq-end)
 		  ("M-." . hydra-quick/body)
 		  ([home] . open-dashboard)
-		  ([muhenkan] . keyboard-quit))
-		 (:evil-visual-state-map
-		  ("g" . my:google)
-		  ("k" . my:koujien)
-		  ([muhenkan] . my:evil-normal-state)))
+		  ([muhenkan] . keyboard-quit)))
   :init
   ;; move to prev/next line when hl at the end of a line
   (setq evil-cross-lines t)
   ;; Use undo-fu for undo-system
   (setq evil-undo-system 'undo-fu)
   :config
+  (defalias 'evil-visual-state 'evil-insert-state)
+
   ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
