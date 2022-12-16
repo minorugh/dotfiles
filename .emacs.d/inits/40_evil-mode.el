@@ -8,14 +8,12 @@
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
-		 ("." . evil-tutor-ja-start)
+		 ("?" . vim-cheat)
 		 ("C-e" . seq-end)
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
 		 ([muhenkan] . keyboard-quit))
-  :init
-  (leaf evil-tutor-ja :ensure t)
-  (setq evil-undo-system 'undo-fu)
+  :init (setq evil-undo-system 'undo-fu)
   :config
   ;; Insert state overrides Emacs settings, but ESC makes it work
   (setcdr evil-insert-state-map nil)
@@ -49,27 +47,28 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 (t [muhenkan]))))
+	 (t [muhenkan])))
 
-
-;; Provide various key bindings under SPC
-(leaf evil-leader
-  :ensure t
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "SPC")
-  (evil-leader/set-key
-	"SPC" 'keyboard-quit
-	":" 'shell-command
-	"/" 'kill-this-buffer
-	"_" 'my:delete-other-windows
-	"s" 'swiper-thing-at-point
-	"t" 'gts-do-translate
-	"j" 'dired-jump
-	"e" 'my:eijiro
-	"w" 'my: gweblio
-	"g" 'my:google
-	"k" 'my:koujien))
+  :preface
+  (leaf evil-leader
+	:ensure t
+	:after evil
+	:config
+	(setq evil-leader/in-all-states 1)
+	(global-evil-leader-mode)
+	(evil-leader/set-leader "SPC")
+	(evil-leader/set-key
+	  "SPC" 'keyboard-quit
+	  ":" 'shell-command
+	  "/" 'kill-this-buffer
+	  "_" 'my:delete-other-windows
+	  "s" 'swiper-thing-at-point
+	  "t" 'gts-do-translate
+	  "j" 'dired-jump
+	  "e" 'my:eijiro
+	  "w" 'my:weblio
+	  "g" 'my:google
+	  "k" 'my:koujien)))
 
 
 ;; Local Variables:
