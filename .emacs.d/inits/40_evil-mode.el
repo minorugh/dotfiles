@@ -18,7 +18,6 @@
   (setq evil-cross-lines t)
   ;; Use undo-fu for undo-system
   (setq evil-undo-system 'undo-fu)
-
   :config
   ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
@@ -31,6 +30,7 @@
   ;; Initial state for major mode
   (evil-set-initial-state 'text-mode 'insert)
   (evil-set-initial-state 'neotree-mode 'emacs)
+  (evil-set-initial-state 'dashboard-mode 'emacs)
 
   (defun toggle-evil-mode ()
 	"Toggle on and off evil mode."
