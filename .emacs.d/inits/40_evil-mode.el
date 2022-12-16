@@ -28,6 +28,8 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Initial state for major mode
+  (evil-set-initial-state 'lisp-interaction-mode 'insert)
+  (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'text-mode 'insert)
   (evil-set-initial-state 'neotree-mode 'emacs)
   (evil-set-initial-state 'dashboard-mode 'emacs)
