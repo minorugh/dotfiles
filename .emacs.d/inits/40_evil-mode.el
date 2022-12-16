@@ -7,7 +7,8 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("?" . vim-cheat)
+		  ("?" . evil-tutor-ja-start)
+		  ("." . vim-cheat)
 		  ("o" . other-window-or-vsplit)
 		  ("C-e" . seq-end)
 		  ("M-." . hydra-quick/body)
@@ -21,9 +22,6 @@
   (setq evil-undo-system 'undo-fu)
 
   :config
-  ;; Set alias for visual-state
-  (defalias 'evil-visual-state 'evil-insert-state)
-
   ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
