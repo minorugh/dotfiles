@@ -8,7 +8,6 @@
   :if (display-graphic-p)
   :hook ((after-init-hook . dashboard-setup-startup-hook)
 		 (dashboard-mode-hook . page-break-lines-mode)
-		 ;; (dashboard-mode-hook . my:unlock-evil-mode)
 		 (emacs-startup-hook . open-dashboard))
   :defun (dashboard-setup-startup-hook)
   :bind (("<home>" . open-dashboard)
