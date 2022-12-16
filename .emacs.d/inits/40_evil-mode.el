@@ -1,18 +1,21 @@
 ;;; 40_evil-mode.el --- Evil local mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
-
+;;; Code:
 
 (leaf evil
   :ensure t
   :hook (prog-mode-hook . evil-local-mode)
   :chord ("::" . toggle-evil-local-mode)
   :bind (:evil-normal-state-map
+		 ("t" . evil-tutor-ja-start)
 		 ("?" . vim-cheat)
 		 ("C-e" . seq-end)
 		 ("M-." . hydra-quick/body)
 		 ([home] . open-dashboard)
 		 ([muhenkan] . keyboard-quit))
-  :init (setq evil-undo-system 'undo-fu)
+  :init
+  (leaf evil-tutor-ja :ensure t)
+  (setq evil-undo-system 'undo-fu)
   :config
   ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
