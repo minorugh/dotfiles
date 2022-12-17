@@ -25,7 +25,7 @@
 		 (gts-noprompt-picker)
 		 :engines (list
 				   (gts-google-engine)
-				   (gts-bing-engine)
+				   ;; (gts-bing-engine)
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
 		 :render (gts-buffer-render))))
