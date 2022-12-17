@@ -73,6 +73,7 @@
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t [muhenkan]))))
 
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
