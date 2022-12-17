@@ -31,21 +31,13 @@
     "Create by inserting tags automatically."
 	(interactive)
 	(howm-create 2 nil)
-	(my:howm-darkroom)
 	(delete-other-windows))
 
   (defun my:howm-create-tech ()
     "Create by inserting tags automatically."
 	(interactive)
 	(howm-create 3 nil)
-	(my:howm-darkroom)
-	(delete-other-windows))
-
-  (defun my:howm-darkroom ()
-	"For `darkroom-mode-hook'."
-	(interactive)
-	(darkroom-mode 1)
-	(display-line-numbers-mode 0)))
+	(delete-other-windows)))
 
 
 ;; Local Variables:
