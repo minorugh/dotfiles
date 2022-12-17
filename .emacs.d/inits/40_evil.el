@@ -8,8 +8,8 @@
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
 		  ("." . hydra-pinky/body)
-		  ("C-e" . seq-end)
 		  ("M-." . hydra-quick/body)
+		  ("C-e" . seq-end)
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
   :init
