@@ -14,12 +14,12 @@
    "
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
-  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root_/_  _s_rc  _._files  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  evil_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root._/_  _s_rc  _._files  _f_zilla  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  pinky_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
-   (":" toggle-evil-mode)
+   (":" hydra-pinky/body)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
