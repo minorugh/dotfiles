@@ -5,7 +5,8 @@
 
 (defhydra hydra-pinky (:color red :hint nil)
   "
-  :_SPC_._b_._a_._e_  :_0_._1_._2_._o_._x_  Buffer:_[__:__]_  Scale:_-__.__+_  _s_wiper  :_d_eepl _w_eblio _k_oujien _g_oogle _c_hert
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^--------------------------------------------------------------------------------------------------
+  :_SPC_._b_._a_._e_  :_0_._1_._2_._o_._x_  :_[__:__]_  :_-__.__+_  :_s_wiper._i_edit  :_d_eepl _w_eblio _k_oujien _g_oogle _c_hert
    "
   ;; web serch
   ("d" gts-do-translate)
@@ -14,6 +15,7 @@
   ("g" my:google)
   ("c" chromium-vim-chert)
   ("s" swiper)
+  ("i" iedit-mode)
   ;; move line
   ("SPC" scroll-up-command)
   ("b" scroll-down-command)
