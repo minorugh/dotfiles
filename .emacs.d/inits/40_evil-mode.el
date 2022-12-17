@@ -17,13 +17,13 @@
   (hydra-evil-selected
    (:color red :hint nil)
    "
-  Search: _d_eepl  _w_eblio  _k_oujien  _g_oogle  chert_._
+  Search: _d_eepl  _w_eblio  _k_oujien  _g_oogle  _c_hert
    "
    ("d" gts-do-translate)
    ("w" my:weblio)
    ("k" my:koujien)
    ("g" my:google)
-   ("." chromium-vim-chert))
+   ("c" chromium-vim-chert))
   :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
