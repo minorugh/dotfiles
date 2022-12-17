@@ -34,7 +34,8 @@
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
-  ;; Set initial state
+
+  ;; Set the initial state for major mode
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'text-mode 'insert)
