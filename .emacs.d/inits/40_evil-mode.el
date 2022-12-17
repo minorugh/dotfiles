@@ -18,16 +18,14 @@
   (hydra-evil-selected
    (:color red :hint nil)
    "
-: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle   _0_._1_
+: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle
 "
    ("s" swiper-thing-at-point)
    ("d" gts-do-translate)
    ("w" my:weblio)
    ("k" my:koujien)
    ("e" my:eijiro)
-   ("g" my:google)
-   ("0" my:delete-window)
-   ("1" my:delete-other-windows))
+   ("g" my:google))
   :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
