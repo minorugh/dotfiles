@@ -30,14 +30,14 @@
 	:ensure t
 	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
-  ;; nyan-mode
-  (leaf nyan-mode
-	:ensure t
-	:if (display-graphic-p)
-	:after doom-modeline
-	:config
-	(nyan-mode 1)
-	(nyan-start-animation))
+;; nyan-mode
+(leaf nyan-mode
+  :ensure t
+  :if (display-graphic-p)
+  :after doom-modeline
+  :config
+  (nyan-mode 1)
+  (nyan-start-animation))
 
 ;; Icon
 (leaf all-the-icons
