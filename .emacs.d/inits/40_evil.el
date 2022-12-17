@@ -32,6 +32,7 @@
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'text-mode 'insert)
+  (evil-set-initial-state 'easy-hugo-mode 'insert)
 
   ;; Set major mode to run in emacs-state
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
@@ -54,15 +55,10 @@
 	(if evil-mode (evil-mode 0)
 	  (evil-mode 1)))
 
-  (defun turn-off-input-method ()
-	"If input-method is on, turn it off."
-	(interactive)
-	(if current-input-method (deactivate-input-method)))
-
   (defun my:evil-normal-state ()
 	"Turn off input-method and return to normal-state."
 	(interactive)
-	(turn-off-input-method)
+	(if current-input-method (deactivate-input-method))
 	(evil-normal-state))
 
   (defun evil-escape-or-quit (&optional prompt)
