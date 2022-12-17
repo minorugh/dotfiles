@@ -13,12 +13,18 @@
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
   :init
+  ;; options for Evil, must be written before (require 'evil)
+  (setq evil-want-C-u-scroll t)
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
-  ;; Insert State applies all Emacs settings
+  ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
+
+  ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
+
+  ;; Allow muhenkan key to escape as well
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
@@ -26,9 +32,21 @@
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'text-mode 'insert)
-  (evil-set-initial-state 'neotree-mode 'emacs)
-  (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'dashboard-mode 'emacs)
+
+  ;; Set major mode to run in emacs-state
+  (add-to-list 'evil-emacs-state-modes 'neotree-mode)
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
+  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+
+  ;; Custom functions
+  (defun evil-swap-key (map key1 key2)
+	"Swap KEY1 and KEY2 in MAP."
+	(let ((def1 (lookup-key map key1))
+          (def2 (lookup-key map key2)))
+      (define-key map key1 def2)
+      (define-key map key2 def1)))
+  (evil-swap-key evil-motion-state-map "j" "gj")
+  (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun toggle-evil-mode ()
 	"Toggle on and off evil mode."
@@ -53,13 +71,7 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 (t [muhenkan])))
-
-  (defun chromium-vim-chert ()
-	"Chromium vim chert sheet."
-	(interactive)
-	(browse-url "https://vim.rtorr.com/lang/ja")))
-
+	 (t [muhenkan]))))
 
 ;; Local Variables:
 ;; no-byte-compile: t
