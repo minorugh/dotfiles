@@ -1,4 +1,4 @@
-;;; 40_evil-mode.el --- Evil local mode configurations. -*- lexical-binding: t -*-
+;;; 40_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -64,4 +64,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 40_evil-mode.el ends here
+;;; 40_evil.el ends here
