@@ -34,7 +34,7 @@
 
   ;; Set the banner
   (setq dashboard-startup-banner 'official
-		;; dashboard-startup-banner "~/.emacs.d/emacs.png"
+		dashboard-startup-banner "~/.emacs.d/emacs.png"
 		dashboard-page-separator "\n\f\f\n"
 		dashboard-set-heading-icons t
 		dashboard-set-file-icons t
