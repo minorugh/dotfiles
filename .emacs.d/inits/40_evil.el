@@ -14,6 +14,7 @@
 		  ([muhenkan] . keyboard-quit)))
   :init
   ;; options for Evil, must be written before (require 'evil)
+  (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-want-C-u-scroll t)
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
