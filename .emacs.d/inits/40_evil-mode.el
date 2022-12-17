@@ -7,9 +7,9 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("?" . evil-tutor-ja-start)
-		  ("." . vim-cheat)
-		  ("o" . other-window-or-vsplit)
+		  ("?" . chromium-vim-chert)
+		  ("." . hydra-evil-selected/body)
+		  ("o" . other-window-or-split)
 		  ("C-e" . seq-end)
 		  ("M-." . hydra-quick/body)
 		  ([home] . open-dashboard)
@@ -26,7 +26,7 @@
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
 
-  ;; Allow for escape even with muhenkan key.
+  ;; Allow from evil-escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
@@ -60,7 +60,25 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 (t [muhenkan]))))
+	 (t [muhenkan])))
+
+  (defun chromium-vim-chert ()
+	"Chromium vim chert sheet."
+	(interactive)
+	(browse-url "https://vim.rtorr.com/lang/ja"))
+
+  :hydra
+  (hydra-evil-selected
+   (:color red :hint nil)
+   "
+: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle
+"
+   ("s" swiper-thing-at-point)
+   ("d" gts-do-translate)
+   ("w" my:weblio)
+   ("k" my:koujien)
+   ("e" my:eijiro)
+   ("g" my:google)))
 
 
 ;; Local Variables:
