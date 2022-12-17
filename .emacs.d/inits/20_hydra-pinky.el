@@ -5,7 +5,7 @@
 
 (defhydra hydra-pinky (:color red :hint nil)
   "
-  :_SPC_._b_._a_._e_  :_0_._1_._2_._o_._x_  :_[__:__]_  :_-__.__+_  :_s_wiper  :_d_eepl _w_eblio _k_oujien _g_oogle _c_hert
+  :_SPC_._b_._a_._e_  :_0_._1_._2_._o_._x_  Buffer:_[__:__]_  Scale:_-__.__+_  _s_wiper  :_d_eepl _w_eblio _k_oujien _g_oogle _c_hert
    "
   ;; web serch
   ("d" gts-do-translate)
@@ -21,8 +21,8 @@
   ("e" seq-end)
   ;; buffer
   (":" counsel-switch-buffer)
-  ("[" winner-undo)
-  ("]" winner-redo)
+  ("[" previous-buffer)
+  ("]" next-buffer)
   ;; window
   ("+" text-scale-increase)
   ("-" text-scale-decrease)
