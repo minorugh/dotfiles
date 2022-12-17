@@ -10,6 +10,7 @@
 		 (";" . comment-dwim)
 		 ("c" . clipboard-kill-ring-save)
 		 ("s" . swiper-thing-at-point)
+		 ("d" . gts-do-translate)
 		 ("t" . deepl-translate)
 		 ("W" . my:weblio)
 		 ("k" . my:koujien)
