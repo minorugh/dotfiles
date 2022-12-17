@@ -17,6 +17,8 @@
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-want-C-u-scroll t)
   (setq evil-cross-lines t)
+  (setq evil-ex-search-vim-style-regexp nil)
+  (setq evil-search-module 'evil-search)
   (setq evil-undo-system 'undo-fu)
   :config
   ;; Use emacs key bindings in insert state
