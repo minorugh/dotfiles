@@ -14,23 +14,29 @@
 		  ("M-." . hydra-quick/body)
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
+  :hydra
+  (hydra-evil-selected
+   (:color red :hint nil)
+   "
+: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle   _0_._1_
+"
+   ("s" swiper-thing-at-point)
+   ("d" gts-do-translate)
+   ("w" my:weblio)
+   ("k" my:koujien)
+   ("e" my:eijiro)
+   ("g" my:google)
+   ("0" my:delete-window)
+   ("1" my:delete-other-windows))
   :init
-  ;; move to prev/next line when hl at the end of a line
   (setq evil-cross-lines t)
-
-  ;; Use undo-fu for undo-system
   (setq evil-undo-system 'undo-fu)
-
   :config
-  ;; Insert state overrides Emacs settings, but Esc makes it work
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-
-  ;; Allow from evil-escape even with muhenkan key.
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
-
-  ;; Initial state for major mode
+  ;; Set initial state
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'text-mode 'insert)
@@ -65,20 +71,7 @@
   (defun chromium-vim-chert ()
 	"Chromium vim chert sheet."
 	(interactive)
-	(browse-url "https://vim.rtorr.com/lang/ja"))
-
-  :hydra
-  (hydra-evil-selected
-   (:color red :hint nil)
-   "
-: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle
-"
-   ("s" swiper-thing-at-point)
-   ("d" gts-do-translate)
-   ("w" my:weblio)
-   ("k" my:koujien)
-   ("e" my:eijiro)
-   ("g" my:google)))
+	(browse-url "https://vim.rtorr.com/lang/ja")))
 
 
 ;; Local Variables:
