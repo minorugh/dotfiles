@@ -7,7 +7,6 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("?" . chromium-vim-chert)
 		  ("." . hydra-evil-selected/body)
 		  ("o" . other-window-or-split)
 		  ("C-e" . seq-end)
@@ -18,18 +17,19 @@
   (hydra-evil-selected
    (:color red :hint nil)
    "
-: _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle
-"
+  : _s_wiper  _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle  chert_._
+   "
    ("s" swiper-thing-at-point)
    ("d" gts-do-translate)
    ("w" my:weblio)
    ("k" my:koujien)
-   ("e" my:eijiro)
-   ("g" my:google))
+   ("g" my:google)
+   ("." chromium-vim-chert))
   :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
+  ;; Insert State applies all Emacs settings
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
