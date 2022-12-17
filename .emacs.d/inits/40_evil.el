@@ -24,7 +24,7 @@
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
 
-  ;; Allow muhenkan key to escape as well
+  ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
@@ -34,12 +34,12 @@
   (evil-set-initial-state 'text-mode 'insert)
   (evil-set-initial-state 'easy-hugo-mode 'insert)
 
-  ;; Set major mode to run in emacs-state
+  ;; Set the major mode to run in emacs-state
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
 
-  ;; Custom functions
+  ;; Customized functions
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
 	(let ((def1 (lookup-key map key1))
@@ -56,13 +56,13 @@
 	  (evil-mode 1)))
 
   (defun my:evil-normal-state ()
-	"Turn off input-method and return to normal-state."
+	"Turn off input-method then return to normal-state."
 	(interactive)
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state))
 
   (defun evil-escape-or-quit (&optional prompt)
-	"If in evil any state to escape key, else muhenkan key."
+	"If in evil state to ESC, else muhenkan key."
 	(interactive)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
