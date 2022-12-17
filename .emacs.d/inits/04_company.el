@@ -31,10 +31,9 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 
-;; Yasnippet configuration
 (leaf yasnippet
-  :ensure t
   :hook (after-init-hook . yas-global-mode)
+  :custom (yas-indent-line . 'fixed)
   :config
   (leaf yasnippet-snippets :ensure t))
 
