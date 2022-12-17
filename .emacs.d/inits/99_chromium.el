@@ -73,12 +73,6 @@
   (interactive)
   (browse-url "https://mojinavi.com/tegaki"))
 
-(defun vim-cheat ()
-  "Chromium vim cheart sheet."
-  (interactive)
-  (browse-url "https://vim.rtorr.com/lang/ja"))
-
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
