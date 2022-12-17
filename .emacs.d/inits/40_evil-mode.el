@@ -7,23 +7,37 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("." . hydra-evil-selected/body)
-		  ("o" . other-window-or-split)
+		  ("." . hydra-evil-pinky/body)
 		  ("C-e" . seq-end)
 		  ("M-." . hydra-quick/body)
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
   :hydra
-  (hydra-evil-selected
+  (hydra-evil-pinky
    (:color red :hint nil)
    "
-  Search: _d_eepl  _w_eblio  _k_oujien  _g_oogle  _c_hert
+  :: _SPC_._b_._a_._e_  :_0_._1_._2_._o_._s_  :_-__.__+_  _d_eepl  _w_eblio  _k_oujien  _g_oogle  _c_hert
    "
+   ;; web serch
    ("d" gts-do-translate)
    ("w" my:weblio)
    ("k" my:koujien)
    ("g" my:google)
-   ("c" chromium-vim-chert))
+   ("c" chromium-vim-chert)
+   ;; move line
+   ("SPC" scroll-up-command)
+   ("b" scroll-down-command)
+   ("a" seq-home)
+   ("e" seq-end)
+   ;; window
+   ("+" text-scale-increase)
+   ("-" text-scale-decrease)
+   ("." (text-scale-set 0))
+   ("0" delete-window)
+   ("1" delete-other-windows)
+   ("2" split-window-below)
+   ("s" window-swap-states)
+   ("o" other-window-or-split))
   :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
