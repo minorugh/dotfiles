@@ -70,7 +70,7 @@
   :bind ("<f9>" . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t))
 
-;; Control cursor blinking
+;; Controls cursor blinking
 (leaf cus-blink-cursor
   :hook (emacs-startup-hook . blink-cursor-mode)
   :custom
