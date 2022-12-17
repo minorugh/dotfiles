@@ -17,7 +17,7 @@
   (hydra-evil-selected
    (:color red :hint nil)
    "
-  Search: _d_eepl  _w_eblio  _k_oujien  _e_ijoro  _g_oogle  chert_._
+  Search: _d_eepl  _w_eblio  _k_oujien  _g_oogle  chert_._
    "
    ("d" gts-do-translate)
    ("w" my:weblio)
