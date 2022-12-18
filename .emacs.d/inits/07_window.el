@@ -17,6 +17,7 @@
 	"With turn on dimmer."
 	(interactive)
 	(when (one-window-p)
+	  (hydra-window/body)
 	  (split-window-horizontally)
 	  (follow-mode 1)
 	  (dimmer-mode 1))
@@ -40,6 +41,7 @@
 	"With turn off dimmer."
 	(interactive)
 	(delete-other-windows)
+	(follow-mode -1)
 	(dimmer-mode -1))
 
   (defun my:delete-window ()
@@ -47,6 +49,7 @@
 	(interactive)
 	(delete-window)
 	(when (one-window-p)
+	  (follow-mode -1)
 	  (dimmer-mode -1)))
 
   (defun kill-other-buffers ()
@@ -75,6 +78,13 @@
 	(when (one-window-p)
 	  (scroll-down))
 	(scroll-other-window-down)))
+
+(defhydra hydra-window
+  (:columns nil :foreign-keys run)
+  "  "("/" my:delete-window)
+  ("_" my:delete-other-windows)
+  ("o" other-window-or-split)
+  ("SPC" nil))
 
 
 ;; Local Variables:
