@@ -15,11 +15,11 @@
    Quick Menu
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
   _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root._/_  _s_rc  _._files  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  pinky_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  hydra_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
-   (":" hydra-pinky/body)
+   (":" hydra-window/body)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -46,6 +46,7 @@
    ("m" my:make-move)
    ("u" my:make-upsftp)
    ("/" my:root-dir)
+   ("0" my:delete-window)
    ("_" my:delete-other-windows)
    ("[" hydra-git/body)
    ("]" magit-status)
