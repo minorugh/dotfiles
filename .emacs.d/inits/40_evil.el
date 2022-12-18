@@ -7,9 +7,9 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("." . hydra-pinky/body)
-		  ("M-." . hydra-quick/body)
+		  ("." . chromium-vim-chert)
 		  ("C-e" . seq-end)
+		  ("M-." . nil)
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
   :init
@@ -31,6 +31,10 @@
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
+  ;; Key bindings for dictionary lookup from vsual-state regions
+  (define-key evil-visual-state-map (kbd "d") 'gts-do-translate)
+  (define-key evil-visual-state-map (kbd "g") 'my:google)
+
   ;; Set the initial state for major mode
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
@@ -41,16 +45,6 @@
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
-
-  ;; Customized functions
-  (defun evil-swap-key (map key1 key2)
-	"Swap KEY1 and KEY2 in MAP."
-	(let ((def1 (lookup-key map key1))
-          (def2 (lookup-key map key2)))
-      (define-key map key1 def2)
-      (define-key map key2 def1)))
-  (evil-swap-key evil-motion-state-map "j" "gj")
-  (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun toggle-evil-mode ()
 	"Toggle on and off evil mode."
