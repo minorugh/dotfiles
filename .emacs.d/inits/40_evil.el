@@ -31,10 +31,6 @@
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
-  ;; Key bindings for dictionary lookup from vsual-state regions
-  (define-key evil-visual-state-map (kbd "d") 'gts-do-translate)
-  (define-key evil-visual-state-map (kbd "g") 'my:google)
-
   ;; Set the initial state for major mode
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
