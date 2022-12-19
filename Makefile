@@ -186,7 +186,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 
 sylpheed: ## Init sylpheed
 	$(APT) $@ bogofilter kakasi
-	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
+	# test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 ## Gmail security requires you to use the app password
 
