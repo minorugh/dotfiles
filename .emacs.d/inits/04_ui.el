@@ -53,8 +53,8 @@
 	:el-get jtbm37/all-the-icons-dired
 	:hook (dired-mode-hook . all-the-icons-dired-mode)))
 
-;; Set linespacing
-(leaf cus-linespacing
+;; Set line spacing
+(leaf cus-line-spacing
   :hook (buffer-list-update-hook . my:linespacing)
   :init
   (defun my:linespacing ()
