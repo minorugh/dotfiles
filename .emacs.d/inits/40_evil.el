@@ -7,11 +7,10 @@
   :hook (after-init-hook  . evil-mode)
   :chord ("::" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
-		  ("." . chromium-vim-chert)
+		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
 		  ("M-." . nil)	;; Use with other settings
-		  ([home] . open-dashboard)
-		  ([muhenkan] . keyboard-quit)))
+		  ([home] . open-dashboard)))
   :init
   ;; options for Evil, must be written before (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
