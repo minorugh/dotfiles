@@ -9,13 +9,13 @@
   :bind ((:evil-normal-state-map
 		  ("." . chromium-vim-chert)
 		  ("C-e" . seq-end)
-		  ("M-." . nil)
+		  ("M-." . nil)	;; Use with other settings
 		  ([home] . open-dashboard)
 		  ([muhenkan] . keyboard-quit)))
   :init
   ;; options for Evil, must be written before (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll t)	;; Enable scrolling with C-u
   (setq evil-cross-lines t)
   (setq evil-ex-search-vim-style-regexp nil)
   (setq evil-search-module 'evil-search)
