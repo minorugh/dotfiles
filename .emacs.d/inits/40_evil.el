@@ -42,6 +42,16 @@
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
 
+  ;; Customized functions
+  (defun evil-swap-key (map key1 key2)
+	"Swap KEY1 and KEY2 in MAP."
+	(let ((def1 (lookup-key map key1))
+          (def2 (lookup-key map key2)))
+      (define-key map key1 def2)
+      (define-key map key2 def1)))
+  (evil-swap-key evil-motion-state-map "j" "gj")
+  (evil-swap-key evil-motion-state-map "k" "gk")
+
   (defun toggle-evil-mode ()
 	"Toggle on and off evil mode."
 	(interactive)
