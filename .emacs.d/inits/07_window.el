@@ -84,6 +84,8 @@
   "  "("/" my:delete-window)
   ("_" my:delete-other-windows)
   ("o" other-window-or-split)
+  ("d" gts-do-translate)
+  ("g" my:google)
   ("SPC" nil))
 
 
