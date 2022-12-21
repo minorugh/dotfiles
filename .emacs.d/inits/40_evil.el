@@ -1,4 +1,4 @@
-;;; 40_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; 4a_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -19,25 +19,12 @@
   (setq evil-ex-search-vim-style-regexp nil)
   (setq evil-search-module 'evil-search)
   (setq evil-undo-system 'undo-fu)
-  :hydra
-  (hydra-select
-   (:hint nil :exit t)
-   "
-     _d_eepl  _t_ranslate _g_oogle  _k_oujien  _e_ijiro  _w_eblio  🐾
-   "
-   ("d" gts-do-translate)
-   ("t" deepl-translate)
-   ("g" my:google)
-   ("k" my:koujien)
-   ("e" my:eijiro)
-   ("w" my:weblio)
-   ("<muhenkan>" nil))
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-  ;; Search tool selection in visual-state region
+  ;; Hydra-select in visual-state region
   (define-key evil-visual-state-map (kbd "SPC") 'hydra-select/body)
 
   ;; Use muhenkan key as ESC
