@@ -21,10 +21,10 @@
   (setq evil-undo-system 'undo-fu)
   :hydra
   (hydra-select
-   (:hint nil :exit t)
+   (:hint nil :exit t)
    "
      _d_eepl  _t_ranslate _g_oogle  _k_oujien  _e_ijiro  _w_eblio  🐾
-"
+   "
    ("d" gts-do-translate)
    ("t" deepl-translate)
    ("g" my:google)
