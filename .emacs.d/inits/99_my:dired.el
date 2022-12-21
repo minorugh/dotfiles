@@ -179,6 +179,13 @@
   (goto-char (point-min))
   (forward-line))
 
+(defun my:dia-draft ()
+  "Open year draft file."
+  (interactive)
+  (find-file "~/Dropbox/GH/draft/draft.txt")
+  (goto-char (point-min))
+  (forward-line))
+
 (defun my:apvoice ()
   "Open apvoice file."
   (interactive)
