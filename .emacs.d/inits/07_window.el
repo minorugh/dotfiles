@@ -77,20 +77,16 @@
 	(interactive)
 	(when (one-window-p)
 	  (scroll-down))
-	(scroll-other-window-down)))
+	(scroll-other-window-down))
 
-(key-chord-define-global
- ".."
- (defhydra hydra-window
-   (:columns nil :foreign-keys run)
-   "  "("0" my:delete-window)
-   ("1" my:delete-other-windows)
-   ("/" kill-this-buffer)
-   ("o" other-window-or-split)
-   ("t" neotree)
-   ("d" gts-do-translate)
-   ("g" my:google)
-   ("SPC" nil)))
+  (defhydra hydra-window
+	(:columns nil :foreign-keys run)
+	"  "("0" my:delete-window)
+	("1" my:delete-other-windows)
+	("/" kill-this-buffer)
+	("o" other-window-or-split)
+	("t" neotree)
+	("SPC" nil)))
 
 
 ;; Local Variables:
