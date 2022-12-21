@@ -29,6 +29,29 @@
   (forward-line -5)
   (forward-char 18))
 
+(defun my:diary-draft-post ()
+  "Open diary file and insert template."
+  (interactive)
+  (find-file (expand-file-name "draft.txt" "~/Dropbox/GH/draft/"))
+  (view-mode 0)
+  (goto-char 0)
+  ;; Insert a new date if the date has changed
+  (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+  (unless (string-match (format-time-string "%Y%m:") string)
+	(forward-line -1)
+	(insert (format-time-string "%Y%m:\n")))
+  ;; Insert template
+  (goto-char (point-min))
+  (forward-line)
+  (insert
+   ";--------------------------------------------------------\n"
+   (format-time-string "*[%Y%m%d]%Y年%-m月%-d日\n")
+   ";--------------------------------------------------------\n"
+   (format-time-string "-*[%Y%m%d%H%M%S]\n")
+   "-(\n\n-)\n\n")
+  (forward-line -5)
+  (forward-char 18))
+
 (defun my:teirei-new-post ()
   "Open teirei file and insert template."
   (interactive)
