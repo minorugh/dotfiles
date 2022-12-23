@@ -26,14 +26,10 @@
 <link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">
 <style>
 body {
- float: left;
-    position: relative;
-    left: 25%;
   box-sizing: border-box;
-  max-width: 860px;
-  width: 100%;
-  margin: auto auto;
-  padding: 0 10px;
+  max-width: 960px;
+  padding: 10px;
+  margin:0 auto;
 }
 
 h1 {
@@ -55,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (hydra-markdown
    (:color red :hint nil)
    "
-    Markdown: _i_talic  消線:_x_  ft_n_ote  toc:_g_._r_  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
+    Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
    ("i" markdown-insert-italic)
    ("x" markdown-insert-strike-through)
    ("t" markdown-insert-table)
@@ -63,15 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
    ("m" markdown-toggle-markup-hiding)
    ("v" markdown-preview)
    ("e" markdown-export)
-   ("g" markdown-toc-generate-toc)
-   ("r" markdown-toc-refresh-toc)
    ;; Pndoc
    ("p" md2pdf)
    ("d" md2docx)
    ("<muhenkan>" nil))
-  :init
-  (leaf markdown-toc :ensure t)
-  (custom-set-variables '(markdown-toc-user-toc-structure-manipulation-fn 'cdr))
   :config
   (defun md2pdf ()
 	"Generate pdf from currently open markdown."
