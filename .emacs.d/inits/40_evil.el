@@ -9,6 +9,7 @@
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
+		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
 		  ([home] . open-dashboard)))
   :init
@@ -25,7 +26,7 @@
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
   ;; Hydra-select in visual-state region
-  (define-key evil-visual-state-map (kbd "SPC") 'hydra-select/body)
+  (define-key evil-visual-state-map (kbd ".") 'hydra-selected/body)
 
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
