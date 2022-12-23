@@ -10,7 +10,7 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; For slightly faster startup
+;; To prevent initializing twice
 (setq package-enable-at-startup nil)
 
 ;; Always load newest byte code
