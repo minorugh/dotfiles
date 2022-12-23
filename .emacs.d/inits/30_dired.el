@@ -68,10 +68,11 @@
   (let ((file (dired-get-filename)))
 	(if (file-directory-p file)
 		(dired-find-alternate-file)
-	  (dired-find-file)
-	  ;; If in org-mode, open with view-mode
-	  (if (equal major-mode 'org-mode)
-		  (view-mode 1)))))
+	  (dired-find-file))))
+
+;; If in org-mode, open with view-mode
+;; (if (equal major-mode 'org-mode)
+;; 	  (view-mode 1)))))
 
 (defun dired-up-alternate-directory ()
   "Move to higher directory without make new buffer."
