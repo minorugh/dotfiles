@@ -142,13 +142,6 @@
 	(key-chord-safety-interval-backward . 0.1)
 	(key-chord-safety-interval-forward  . 0.25)))
 
-;; view-mode
-(leaf viewer
-  :ensure t
-  :hook (prog-mode-hook . viewer-change-modeline-color-setup)
-  :custom (viewer-modeline-color-view . "#852941")
-  :chord ("::" . view-mode))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
