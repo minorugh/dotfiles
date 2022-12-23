@@ -5,7 +5,6 @@
 ;; Write below at .zshrc or .bashrc.
 ;; alias eq="emacs -q -l ~/.emacs.d/mini-init.el"
 ;; Use when test of package and my Emacs don't start.
-
 ;;; Code:
 
 (menu-bar-mode -1)
