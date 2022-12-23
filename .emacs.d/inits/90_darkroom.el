@@ -12,7 +12,6 @@
   (defun my:darkroom-in ()
 	"Enter to the `darkroom-mode'."
 	(interactive)
-	(view-mode 0)
 	(diff-hl-mode 0)
 	(display-line-numbers-mode 0)
 	(darkroom-mode 1)
