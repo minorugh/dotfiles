@@ -13,13 +13,14 @@
    (:hint nil :exit t)
    "
    Quick Menu
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------------
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------------
   _d_ropbox  _e_macs.d^^  _i_nits  GH:_h_  root._/_  _s_rc  _._files  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  _j_unk  hydra_:_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
+  _r_estart  magit_[__]_  _t_ramp  _j_unk  scale_+_  _o_rg  _<home>_  _p_assxc  howm._@__,__;_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
-   (":" hydra-window/body)
+   ("+" text-scale-adjust)
+   (":" view-mode)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -62,101 +63,101 @@
 ;; Hydra configuration for my work menu
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *hydra-work-menu
-  :bind ("<henkan>" . hydra-work/body)
-  :hydra
-  (hydra-work
-   (:hint nil :exit t)
-   "
+:bind ("<henkan>" . hydra-work/body)
+:hydra
+(hydra-work
+ (:hint nil :exit t)
+ "
    Work Menu
   -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---------------------------------------------------------------------------
   _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  _y__h_:年度  _e_:hugo^^  _p_s._r_  web_,_^^^  _x_srv._g_^^
   _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _1__2_:下書  g_i_st._l_  re_@_p^^  kill_/__\\_  _b_kup._c_._u_
 "
-   ("p" ps-print-buffer)
-   ("o" my:docker-compose)
-   ("r" ps-print-region)
-   ("y" my:year)
-   ("Y" my:year-new-post)
-   ("h" my:year-draft)
-   ("H" my:make-draft)
-   ("a" my:apvoice)
-   ("A" my:apvoice-new-post)
-   ("P" ps-print-buffer)
-   ("b" make-backup)
-   ("B" backup-makefile)
-   ("u" make-ghuser)
-   ("c" make-commit)
-   ("@" browse-at-remote)
-   ("e" easy-hugo)
-   ("d" my:diary)
-   ("D" my:diary-new-post)
-   ("1" my:dia-draft)
-   ("2" my:diary-draft-post)
-   ("i" gist-region-or-buffer)
-   ("l" (browse-url "https://gist.github.com/minorugh"))
-   ("t" my:teirei)
-   ("T" my:teirei-new-post)
-   ("s" my:swan)
-   ("S" my:swan-new-post)
-   ("N" my:kinnei)
-   ("n" my:kinnei-draft)
-   ("m" my:d_kukai)
-   ("w" my:w_kukai)
-   ("k" my:m_kukai)
-   ("." my:tpost)
-   ("f" my:dselext)
-   ("F" my:dselext-new-post)
-   ("z" my:tselext)
-   ("Z" my:tselext-new-post)
-   (":" git-gui-open)
-   ("," counsel-web-suggest)
-   ("\\" my:delete-this-file)
-   ("/" kill-this-buffer)
-   ("+" text-scale-adjust)
-   ("]" my:haiku-note)
-   ("[" my:haiku-note-post)
-   ("x" my:xsrv-dir)
-   ("X" chromium-xsrv)
-   ("g" my:github-dir)
-   ("G" chromium-github)
-   ("<henkan>" hydra-quick/body)
-   ("<muhenkan>" nil))
-  :init
-  (defun make-backup ()
-	"Backup all."
-	(interactive)
-	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make backup")))
+ ("p" ps-print-buffer)
+ ("o" my:docker-compose)
+ ("r" ps-print-region)
+ ("y" my:year)
+ ("Y" my:year-new-post)
+ ("h" my:year-draft)
+ ("H" my:make-draft)
+ ("a" my:apvoice)
+ ("A" my:apvoice-new-post)
+ ("P" ps-print-buffer)
+ ("b" make-backup)
+ ("B" backup-makefile)
+ ("u" make-ghuser)
+ ("c" make-commit)
+ ("@" browse-at-remote)
+ ("e" easy-hugo)
+ ("d" my:diary)
+ ("D" my:diary-new-post)
+ ("1" my:dia-draft)
+ ("2" my:diary-draft-post)
+ ("i" gist-region-or-buffer)
+ ("l" (browse-url "https://gist.github.com/minorugh"))
+ ("t" my:teirei)
+ ("T" my:teirei-new-post)
+ ("s" my:swan)
+ ("S" my:swan-new-post)
+ ("N" my:kinnei)
+ ("n" my:kinnei-draft)
+ ("m" my:d_kukai)
+ ("w" my:w_kukai)
+ ("k" my:m_kukai)
+ ("." my:tpost)
+ ("f" my:dselext)
+ ("F" my:dselext-new-post)
+ ("z" my:tselext)
+ ("Z" my:tselext-new-post)
+ (":" git-gui-open)
+ ("," counsel-web-suggest)
+ ("\\" my:delete-this-file)
+ ("/" kill-this-buffer)
+ ("+" text-scale-adjust)
+ ("]" my:haiku-note)
+ ("[" my:haiku-note-post)
+ ("x" my:xsrv-dir)
+ ("X" chromium-xsrv)
+ ("g" my:github-dir)
+ ("G" chromium-github)
+ ("<henkan>" hydra-quick/body)
+ ("<muhenkan>" nil))
+:init
+(defun make-backup ()
+  "Backup all."
+  (interactive)
+  (let* ((default-directory (expand-file-name "~/Dropbox")))
+	(compile "make backup")))
 
-  (defun make-ghuser ()
-	"Sync GH data by rsync."
-	(interactive)
-	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make rsync-user")))
+(defun make-ghuser ()
+  "Sync GH data by rsync."
+  (interactive)
+  (let* ((default-directory (expand-file-name "~/Dropbox")))
+	(compile "make rsync-user")))
 
-  (defun make-commit ()
-	"Auto commit."
-	(interactive)
-	(let* ((default-directory (expand-file-name "~/Dropbox")))
-	  (compile "make git-commit")))
+(defun make-commit ()
+  "Auto commit."
+  (interactive)
+  (let* ((default-directory (expand-file-name "~/Dropbox")))
+	(compile "make git-commit")))
 
-  (defun filezilla ()
-	"Open filezilla."
-	(interactive)
-	(compile "filezilla -s")
-	(delete-other-windows))
+(defun filezilla ()
+  "Open filezilla."
+  (interactive)
+  (compile "filezilla -s")
+  (delete-other-windows))
 
-  (defun lepton ()
-	"Open lepton."
-	(interactive)
-	(compile "~/Appimage/Lepton-1.10.0.AppImage")
-	(delete-other-windows))
+(defun lepton ()
+  "Open lepton."
+  (interactive)
+  (compile "~/Appimage/Lepton-1.10.0.AppImage")
+  (delete-other-windows))
 
-  (defun keepassxc ()
-	"Open keepassxc with auto passwd input."
-	(interactive)
-	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
-	(delete-other-windows)))
+(defun keepassxc ()
+  "Open keepassxc with auto passwd input."
+  (interactive)
+  (compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
+  (delete-other-windows)))
 
 (defun logout ()
   "Xfce4 session logout."
