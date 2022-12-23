@@ -10,7 +10,6 @@
   "Open diary file and insert template."
   (interactive)
   (find-file (expand-file-name "diary.txt" "~/Dropbox/GH/dia/"))
-  (view-mode 0)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -33,7 +32,6 @@
   "Open diary file and insert template."
   (interactive)
   (find-file (expand-file-name "draft.txt" "~/Dropbox/GH/draft/"))
-  (view-mode 0)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -56,14 +54,12 @@
   "Open teirei file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/teirei/tex/teirei.txt")
-  (view-mode 0)
   (my:minoru_sen))
 
 (defun my:swan-new-post ()
   "Open swan file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/swan/tex/swan.txt")
-  (view-mode 0)
   (my:minoru_sen))
 
 (defun my:minoru_sen ()
@@ -94,7 +90,6 @@
   "Open apsh file and insert template."
   (interactive)
   (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
-  (view-mode 0)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -120,7 +115,6 @@
   "Open tselext file and insert template."
   (interactive)
   (find-file (expand-file-name "select.txt" "~/Dropbox/GH/tselext/"))
-  (view-mode 0)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -171,7 +165,6 @@
   "Open tselext file and insert template."
   (interactive)
   (find-file (expand-file-name "select.txt" "~/Dropbox/GH/d_selext/"))
-  (view-mode 0)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -218,9 +211,6 @@
 (defun my:year-new-post ()
   "Open tselext file and insert template."
   (interactive)
-  ;; (find-file (format-time-string "~/Dropbox/GH/yaer/%Y.txt"))
-  ;; (view-mode 0)
-  ;; (goto-char 0)
   (insert
    ";--------------------------------------------------------------------\n"
    "--\n"

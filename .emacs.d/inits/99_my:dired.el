@@ -97,7 +97,6 @@
   "Open `org-caupture' file."
   (interactive)
   (find-file "~/Dropbox/howm/org/capture.org")
-  ;; (view-mode 1)
   (goto-char (point-min)))
 
 (defun my:diary ()
