@@ -17,10 +17,10 @@
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
   :hydra
-  (hydra-select
+  (hydra-selected
    (:hint nil :exit t)
    "
-     _d_eepl  _t_ranslate _g_oogle  _k_oujien  _e_ijiro  _w_eblio  🐾
+     _d_eepl  _t_ranslate  _g_oogle  _k_oujien  _e_ijiro  _w_eblio  🐾
    "
    ("d" gts-do-translate)
    ("t" deepl-translate)
@@ -49,11 +49,8 @@
   (defun my:ime-off ()
 	"IME off."
 	(interactive)
-	(deactivate-input-method)))
+	(deactivate-input-method))
 
-
-;; user-dictionary-configurations
-(with-eval-after-load 'selected
   (defun my:google (str)
 	(interactive (list (my:get-region nil)))
 	(browse-url (format "https://www.google.com/search?hl=ja&q=%s"
@@ -82,8 +79,6 @@
 	(buffer-substring-no-properties (region-beginning) (region-end))))
 
 
-(provide '90_selected)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
