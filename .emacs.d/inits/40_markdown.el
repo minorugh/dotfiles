@@ -26,12 +26,16 @@
 <link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">
 <style>
 body {
+ float: left;
+    position: relative;
+    left: 25%;
   box-sizing: border-box;
-  max-width: 960px;
+  max-width: 860px;
   width: 100%;
-  margin: 40px auto;
+  margin: auto auto;
   padding: 0 10px;
 }
+
 h1 {
 border: 0;
 }
