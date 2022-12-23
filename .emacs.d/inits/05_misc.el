@@ -116,6 +116,40 @@
   (setq counsel-web-search-dynamic-update t))
 
 
+;; Sequential-command
+(leaf sequential-command
+  :el-get HKey/sequential-command
+  :config
+  (leaf sequential-command-config
+	:hook (emacs-startup-hook . sequential-command-setup-keys)))
+
+
+;; Extension for region
+(leaf expand-region
+  :ensure t
+  :bind ("C-@" . er/expand-region))
+
+
+;; Key Chord
+(leaf key-chord
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log)
+		  ("@@" . howm-list-all))
+  :custom
+  `((key-chord-two-keys-delay . 0.15)
+	(key-chord-safety-interval-backward . 0.1)
+	(key-chord-safety-interval-forward  . 0.25)))
+
+;; view-mode
+(leaf viewer
+  :ensure t
+  :hook (prog-mode-hook . viewer-change-modeline-color-setup)
+  :custom (viewer-modeline-color-view . "#852941")
+  :chord ("::" . view-mode))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
