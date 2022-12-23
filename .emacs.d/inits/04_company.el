@@ -32,6 +32,7 @@
 
 
 (leaf yasnippet
+  :ensure t
   :hook (after-init-hook . yas-global-mode)
   :custom (yas-indent-line . 'fixed)
   :config
