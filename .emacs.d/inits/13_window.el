@@ -1,4 +1,4 @@
-;;; 07_window.el --- Window controle configurations. -*- lexical-binding: t -*-
+;;; 13_window.el --- Window controle configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -92,4 +92,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 07_window.el ends here
+;;; 13_window.el ends here

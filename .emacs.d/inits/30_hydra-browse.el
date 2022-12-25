@@ -1,4 +1,4 @@
-;;; 20_hydra-browse.el --- Hydra browse utilis configuration for misc utils. -*- lexical-binding: t -*-
+;;; 30_hydra-browse.el --- Hydra browse utilis configuration for misc utils. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -55,4 +55,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_hydra-browse.el ends here
+;;; 30_hydra-browse.el ends here

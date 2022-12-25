@@ -1,4 +1,4 @@
-;;; 20_hydra-package.el --- Hydra packege utilis configuration for misc utils. -*- lexical-binding: t -*-
+;;; 30_hydra-package.el --- Hydra packege utilis configuration for misc utils. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -30,4 +30,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_hydra-package.el ends here
+;;; 30_hydra-package.el ends here

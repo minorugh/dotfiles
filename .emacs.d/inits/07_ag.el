@@ -1,4 +1,4 @@
-;;; 06_ag.el --- Counsel-ag configurations. -*- lexical-binding: t -*-
+;;; 07_ag.el --- Counsel-ag configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -33,4 +33,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_ag.el ends here
+;;; 07_ag.el ends here

@@ -1,4 +1,4 @@
-;;; 40_markdown.el --- Markdown configurations. -*- lexical-binding: t -*-
+;;; 50_markdown.el --- Markdown configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -15,38 +15,41 @@
   `((markdown-command . "pandoc")
 	(markdown-command-needs-filename . t)
 	(markdown-content-type . "application/xhtml+xml")
-	(markdown-css-paths . '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
-							"http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
+	(markdown-css-paths . '("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css"))
 	(markdown-xhtml-header-content . "
-<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-<link rel='icon' href=\"https://doc.gospel-haiku.com/favicon.png\">
-<link rel='apple-touch-icon' href=\"https://doc.gospel-haiku.com/favicon.png\" />
-<!-- Bootstrap Core CSS -->
-<link rel='stylesheet' href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">
-<link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">
-<style>
-body {
-  box-sizing: border-box;
-  max-width: 960px;
-  padding: 10px;
-  margin:0 auto;
-}
-
-h1 {
-border: 0;
-}
-</style>
-<script src='http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.classList.add('markdown-body');
-  document.querySelectorAll('pre[lang] > code').forEach((code) => {
-    code.classList.add(code.parentElement.lang);
-    hljs.highlightBlock(code);
+  <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+  <link rel='icon' href=\"https://doc.gospel-haiku.com/favicon.png\">
+  <link rel='apple-touch-icon' href=\"https://doc.gospel-haiku.com/favicon.png\" />
+  <!-- Bootstrap Core CSS -->
+  <link rel='stylesheet' href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">
+  <!--<link rel='stylesheet' href=\"https://gospel-haiku.com/common/css/main.css\">-->
+  <style>
+  body {
+    box-sizing: border-box;
+    max-width: 960px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 0 10px;
+  }
+  /*pre {
+    background-color:#f5f5f5;
+    font-size:80%;
+  }*/
+  h1 {
+    border: 0;
+  }
+  </style>
+  <script src='http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('markdown-body');
+    document.querySelectorAll('pre[lang] > code').forEach((code) => {
+      code.classList.add(code.parentElement.lang);
+      hljs.highlightBlock(code);
+    });
   });
-});
-</script>
-"))
+  </script>
+   "))
   :hydra
   (hydra-markdown
    (:color red :hint nil)
@@ -99,4 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 40_markdown.el ends here
+;;; 50_markdown.el ends here

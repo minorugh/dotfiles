@@ -10,6 +10,7 @@
   "Open diary file and insert template."
   (interactive)
   (find-file (expand-file-name "diary.txt" "~/Dropbox/GH/dia/"))
+  (evil-insert-state)
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))

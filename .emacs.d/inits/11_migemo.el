@@ -1,4 +1,4 @@
-;;; 06_migemo.el --- Migemo configurations. -*- lexical-binding: t -*-
+;;; 11_migemo.el --- Migemo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -25,4 +25,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_migemo.el ends here
+;;; 11_migemo.el ends here

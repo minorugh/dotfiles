@@ -1,4 +1,4 @@
-;;; 10_custom.el --- User custom functions. -*- lexical-binding: t -*-
+;;; 20_custom.el --- User custom functions. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -98,4 +98,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 10_custom.el ends here
+;;; 20_custom.el ends here

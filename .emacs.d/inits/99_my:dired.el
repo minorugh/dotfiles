@@ -168,6 +168,7 @@
   "Open year file."
   (interactive)
   (find-file (format-time-string "~/Dropbox/GH/year/%Y.txt"))
+  (evil-insert-state)
   (goto-char (point-max))
   (forward-line -10))
 
@@ -175,6 +176,7 @@
   "Open year draft file."
   (interactive)
   (find-file "~/Dropbox/GH/year/draft.txt")
+  (evil-insert-state)
   (goto-char (point-min))
   (forward-line))
 
@@ -182,6 +184,7 @@
   "Open year draft file."
   (interactive)
   (find-file "~/Dropbox/GH/draft/draft.txt")
+  (evil-insert-state)
   (goto-char (point-min))
   (forward-line))
 
@@ -189,6 +192,7 @@
   "Open apvoice file."
   (interactive)
   (find-file "~/Dropbox/GH/apvoice/apvoice.txt")
+  (evil-insert-state)
   (goto-char (point-min)))
 
 

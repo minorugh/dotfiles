@@ -1,4 +1,4 @@
-;;; 20_hydra-make.el --- Make command configurations. -*- lexical-binding: t -*-
+;;; 30_hydra-make.el --- Make command configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -91,4 +91,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_hydra-make.el ends here
+;;; 30_hydra-make.el ends here

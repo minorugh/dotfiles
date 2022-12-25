@@ -7,8 +7,8 @@
   :ensure t
   :if (display-graphic-p)
   :hook ((after-init-hook . dashboard-setup-startup-hook)
-		 (dashboard-mode-hook . page-break-lines-mode)
-		 (emacs-startup-hook . open-dashboard))
+		 (emacs-startup-hook . open-dashboard)
+		 (dashboard-mode-hook . page-break-lines-mode))
   :defun (dashboard-setup-startup-hook)
   :bind (("<home>" . open-dashboard)
 		 (:dashboard-mode-map

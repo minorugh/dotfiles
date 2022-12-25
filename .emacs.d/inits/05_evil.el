@@ -1,4 +1,4 @@
-;;; 4a_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; 05_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -35,7 +35,8 @@
   ;; Set the initial state for major mode
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
-  (evil-set-initial-state 'text-mode 'insert)
+  ;; (evil-set-initial-state 'text-mode 'insert)
+  (evil-set-initial-state 'org-mode 'insert)
   (evil-set-initial-state 'easy-hugo-mode 'insert)
 
   ;; Set the major mode to run in emacs-state
@@ -74,7 +75,21 @@
 	 (t [muhenkan]))))
 
 
+;; Mode line plugin for Evil
+(leaf evil-plugins
+  :el-get tarao/evil-plugins
+  :after evil
+  :require evil-mode-line)
+
+
+;; New files are opened with insert-state
+(add-hook 'find-file-hook
+		  (lambda ()
+			(unless (file-exists-p buffer-file-name)
+			  (evil-insert-state))))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 40_evil.el ends here
+;;; 05_evil.el ends here
