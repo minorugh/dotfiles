@@ -35,8 +35,6 @@
   ;; Set the initial state for major mode
   (evil-set-initial-state 'lisp-interaction-mode 'insert)
   (evil-set-initial-state 'fundamental-mode 'insert)
-  ;; (evil-set-initial-state 'text-mode 'insert)
-  (evil-set-initial-state 'org-mode 'insert)
   (evil-set-initial-state 'easy-hugo-mode 'insert)
 
   ;; Set the major mode to run in emacs-state
@@ -72,7 +70,22 @@
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
-	 (t [muhenkan]))))
+	 (t [muhenkan])))
+
+  ;; New files are opened with insert-state
+  (add-hook 'find-file-hook
+			(lambda ()
+			  (unless (file-exists-p buffer-file-name)
+				(evil-insert-state))))
+
+  (defun ad:switch-to-buffer (&rest _arg)
+	(when (member (buffer-name) my:auto-view-buffers))
+	(evil-insert-state))
+
+  (defvar my:auto-view-buffers '("COMMIT_EDITMSG"))
+
+  ;; note: messages-buffer-mode-hook may not work
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
 ;; Mode line plugin for Evil
@@ -80,13 +93,6 @@
   :el-get tarao/evil-plugins
   :after evil
   :require evil-mode-line)
-
-
-;; New files are opened with insert-state
-(add-hook 'find-file-hook
-		  (lambda ()
-			(unless (file-exists-p buffer-file-name)
-			  (evil-insert-state))))
 
 
 ;; Local Variables:
