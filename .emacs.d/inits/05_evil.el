@@ -78,21 +78,17 @@
 			  (unless (file-exists-p buffer-file-name)
 				(evil-insert-state))))
 
+  ;; In COMMIT_EDITMSG buffer, make insert-state
   (defun ad:switch-to-buffer (&rest _arg)
 	(when (member (buffer-name) my:auto-view-buffers))
 	(evil-insert-state))
-
   (defvar my:auto-view-buffers '("COMMIT_EDITMSG"))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
-  ;; note: messages-buffer-mode-hook may not work
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
-
-
-;; Mode line plugin for Evil
-(leaf evil-plugins
-  :el-get tarao/evil-plugins
-  :after evil
-  :require evil-mode-line)
+  ;; Modeline plugin for Evil
+  (leaf evil-plugins
+	:el-get tarao/evil-plugins
+	:require evil-mode-line))
 
 
 ;; Local Variables:
