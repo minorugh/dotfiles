@@ -4,7 +4,8 @@
 
 (leaf evil
   :ensure t
-  :hook (after-init-hook  . evil-mode)
+  :hook ((after-init-hook . evil-mode)
+		 (find-file-hook . my:evil-insert-state-hook))
   :bind ("<zenkaku-hankaku>" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
@@ -72,21 +73,21 @@
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t [muhenkan])))
 
-  ;; New files are opened with insert-state
-  (add-hook 'find-file-hook
-			(lambda ()
-			  (unless (file-exists-p buffer-file-name)
-				(evil-insert-state))))
+  (defun my:evil-insert-state-hook ()
+	"New files are opened with insert-state."
+	(interactive)
+	(unless (file-exists-p buffer-file-name)
+	  (evil-insert-state)))
 
-  ;; In COMMIT_EDITMSG buffer, make insert-state
   (defun ad:switch-to-buffer (&rest _arg)
-	(when (member (buffer-name) my:auto-view-buffers))
+	"Set buffer for automatic inser-state"
+	(when (member (buffer-name) my:auto-insert-state-buffers))
 	(evil-insert-state))
-  (defvar my:auto-view-buffers '("COMMIT_EDITMSG"))
+  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
-  ;; Modeline plugin for Evil
   (leaf evil-plugins
+	:doc "Plugin for Evil modeline"
 	:el-get tarao/evil-plugins
 	:require evil-mode-line))
 
