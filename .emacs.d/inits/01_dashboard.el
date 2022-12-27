@@ -34,13 +34,11 @@
 
   ;; Set the banner
   (setq dashboard-startup-banner 'official
-		;; dashboard-startup-banner "~/.emacs.d/emacs.png"
 		dashboard-page-separator "\n\f\f\n"
 		dashboard-set-heading-icons t
 		dashboard-set-file-icons t
 		show-week-agenda-p t
-		dashboard-items '((recents  . 5)
-						  (agenda . 5)))
+		dashboard-items '((recents  . 8)))
 
   ;; Set the footer
   (setq dashboard-footer-messages
