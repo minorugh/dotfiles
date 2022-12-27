@@ -33,7 +33,6 @@
 		  (display-line-numbers-mode 0)
 		  (nyan-mode 0))
 	  (switch-to-buffer toggle-scratch-prev-buffer)
-	  (display-line-numbers-mode 1)
 	  (nyan-mode 1)))
 
   (defun read-scratch-data ()
