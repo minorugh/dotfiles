@@ -5,7 +5,7 @@
 (leaf evil
   :ensure t
   :hook ((after-init-hook . evil-mode)
-		 (find-file-hook . my:evil-insert-state-hook))
+		 (find-file-hook . my:evil-insert-state))
   :bind ("<zenkaku-hankaku>" . toggle-evil-mode)
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
@@ -73,17 +73,17 @@
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t [muhenkan])))
 
-  (defun my:evil-insert-state-hook ()
+  (defun my:evil-insert-state ()
 	"New files are opened with insert-state."
 	(interactive)
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
 
+  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
   (defun ad:switch-to-buffer (&rest _arg)
 	"Set buffer for automatic inser-state"
 	(when (member (buffer-name) my:auto-insert-state-buffers))
 	(evil-insert-state))
-  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
   (leaf evil-plugins
