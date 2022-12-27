@@ -242,12 +242,14 @@
   "Open haiku note file."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+  (evil-insert-state)
   (goto-char (point-min)))
 
 (defun my:haiku-note-post ()
   "Insert template."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+  (evil-insert-state)
   (goto-char (point-min))
   (forward-line 2)
   (insert
