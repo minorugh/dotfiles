@@ -6,12 +6,13 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
-  :bind ("<zenkaku-hankaku>" . toggle-evil-mode)
-  :bind ((:evil-normal-state-map
+  :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
+		 (:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
+		  ("<hiragana-katakana>" . my:evil-normal-state)
 		  ([home] . open-dashboard)))
   :init
   ;; options for Evil, must be written before (require 'evil)
@@ -84,12 +85,14 @@
 	"Set buffer for automatic inser-state"
 	(when (member (buffer-name) my:auto-insert-state-buffers))
 	(evil-insert-state))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
-  (leaf evil-plugins
-	:doc "Plugin for Evil modeline"
-	:el-get tarao/evil-plugins
-	:require evil-mode-line))
+
+(leaf evil-plugins
+  :doc "Plugin for Evil modeline"
+  :el-get tarao/evil-plugins
+  :after evil
+  :require evil-mode-line)
 
 
 ;; Local Variables:
