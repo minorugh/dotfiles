@@ -35,14 +35,8 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Set the initial state for major mode
-  (evil-set-initial-state 'lisp-interaction-mode 'insert)
-  (evil-set-initial-state 'fundamental-mode 'insert)
   (evil-set-initial-state 'easy-hugo-mode 'insert)
-
-  ;; Set the major mode to run in emacs-state
-  (add-to-list 'evil-emacs-state-modes 'neotree-mode)
-  (add-to-list 'evil-emacs-state-modes 'dired-mode)
-  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+  (evil-set-initial-state 'org-mode 'insert)
 
   ;; Customized functions
   (defun evil-swap-key (map key1 key2)
