@@ -77,6 +77,7 @@
  '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
  '(mozc-cand-posframe-footer-face ((t (:background "#1E2029" :foreground "#454D73"))))
  )
+
 (put 'dired-find-alternate-file 'disabled nil)
 
 
