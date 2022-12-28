@@ -31,14 +31,12 @@
     "Create by inserting tags automatically."
 	(interactive)
 	(howm-create 2 nil)
-	(evil-insert-state)
 	(delete-other-windows))
 
   (defun my:howm-create-tech ()
     "Create by inserting tags automatically."
 	(interactive)
 	(howm-create 3 nil)
-	(evil-insert-state)
 	(delete-other-windows)))
 
 
