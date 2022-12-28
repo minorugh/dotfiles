@@ -4,8 +4,7 @@
 
 (leaf evil
   :ensure t
-  :hook ((after-init-hook . evil-mode)
-		 (find-file-hook . my:evil-insert-state))
+  :hook (after-init-hook . evil-mode)
   :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
 		 (:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
@@ -40,7 +39,6 @@
 
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'insert)
-
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
@@ -61,12 +59,6 @@
 	(if evil-mode (evil-mode 0)
 	  (evil-mode 1)))
 
-  (defun my:evil-normal-state ()
-	"Turn off input-method then return to normal-state."
-	(interactive)
-	(if current-input-method (deactivate-input-method))
-	(evil-normal-state))
-
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
 	(interactive)
@@ -75,17 +67,24 @@
 		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
 	 (t [muhenkan])))
 
+  (defun my:evil-normal-state ()
+	"Turn off input-method then return to normal-state."
+	(interactive)
+	(if current-input-method (deactivate-input-method))
+	(evil-normal-state))
+
   (defun my:evil-insert-state ()
 	"New files are opened with insert-state."
 	(interactive)
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
+  (add-hook 'find-file-hook 'my:evil-insert-state)
 
-  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
   (defun ad:switch-to-buffer (&rest _arg)
 	"Set buffer for automatic inser-state"
 	(when (member (buffer-name) my:auto-insert-state-buffers))
 	(evil-insert-state))
+  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
