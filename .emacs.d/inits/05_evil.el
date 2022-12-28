@@ -13,9 +13,14 @@
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-normal-state)
-		  ([home] . open-dashboard)))
+		  ([home] . open-dashboard))
+		 (:evil-visual-state-map
+		  ("c" . clipboard-kill-ring-save)
+		  ("k" . my:koujien)
+		  ("g" . my:google)
+		  ("d" . gts-do-translate)))
   :init
-  ;; options for Evil, must be written before (require 'evil)
+  ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-want-C-u-scroll t)	;; Enable scrolling with C-u
   (setq evil-cross-lines t)
@@ -25,10 +30,9 @@
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
+
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-  ;; Hydra-select in visual-state region
-  (define-key evil-visual-state-map (kbd ".") 'hydra-selected/body)
 
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
@@ -36,7 +40,10 @@
 
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'insert)
-  (evil-set-initial-state 'org-mode 'insert)
+
+  ;; Set the initial state for minor mode
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (add-hook 'howm-create-mode-hook 'evil-insert-state)
 
   ;; Customized functions
   (defun evil-swap-key (map key1 key2)
