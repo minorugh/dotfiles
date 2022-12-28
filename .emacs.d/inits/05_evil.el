@@ -38,7 +38,9 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Set the initial state for major mode
-  (evil-set-initial-state 'easy-hugo-mode 'insert)
+  (evil-set-initial-state 'easy-hugo-mode 'emacs)
+  (evil-set-initial-state 'dired-mode 'emacs)
+
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
@@ -85,14 +87,12 @@
 	(when (member (buffer-name) my:auto-insert-state-buffers))
 	(evil-insert-state))
   (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
-
-(leaf evil-plugins
-  :doc "Plugin for Evil modeline"
-  :el-get tarao/evil-plugins
-  :after evil
-  :require evil-mode-line)
+  (leaf evil-plugins
+	:doc "Plugin for Evil modeline"
+	:el-get tarao/evil-plugins
+	:require evil-mode-line))
 
 
 ;; Local Variables:
