@@ -14,6 +14,7 @@
   :custom
   `((markdown-command . "pandoc")
 	(markdown-command-needs-filename . t)
+	(markdown-fontify-code-blocks-natively . t)
 	(markdown-content-type . "application/xhtml+xml")
 	(markdown-css-paths . '("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css"))
 	(markdown-xhtml-header-content . "
