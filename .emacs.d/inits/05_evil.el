@@ -5,9 +5,9 @@
 (leaf evil
   :ensure t
   :hook (after-init-hook . evil-mode)
-  :bind ((:evil-normal-state-map
+  :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
+		 (:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
-		  ("s" . swiper-thing-at-point)
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
@@ -26,8 +26,10 @@
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
+
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
+
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
@@ -36,9 +38,26 @@
 
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'emacs)
+
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
+
+  ;; Customized functions
+  (defun evil-swap-key (map key1 key2)
+	"Swap KEY1 and KEY2 in MAP."
+	(let ((def1 (lookup-key map key1))
+          (def2 (lookup-key map key2)))
+      (define-key map key1 def2)
+      (define-key map key2 def1)))
+  (evil-swap-key evil-motion-state-map "j" "gj")
+  (evil-swap-key evil-motion-state-map "k" "gk")
+
+  (defun toggle-evil-mode ()
+	"Toggle on and off evil mode."
+	(interactive)
+	(if evil-mode (evil-mode 0)
+	  (evil-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
@@ -72,6 +91,7 @@
 	:if (display-graphic-p)
 	:el-get tarao/evil-plugins
 	:require evil-mode-line))
+
 
 ;; Local Variables:
 ;; no-byte-compile: t
