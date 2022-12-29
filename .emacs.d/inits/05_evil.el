@@ -17,8 +17,8 @@
 		 (:evil-visual-state-map
 		  ("c" . clipboard-kill-ring-save)
 		  ("k" . my:koujien)
-		  ("g" . my:google)
-		  ("d" . gts-do-translate)))
+		  ("t" . gts-do-translate)
+		  ("gg" . my:google)))
   :init
   ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
@@ -32,10 +32,12 @@
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
+  (evil-define-key 'normal dired-mode-map (kbd "r")
+	#'(lambda () (interactive) (wdired-change-to-wdired-mode)))
 
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'emacs)
-  (evil-set-initial-state 'dired-mode 'emacs)
+
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
@@ -86,6 +88,7 @@
 
   (leaf evil-plugins
 	:doc "Plugin for Evil modeline"
+	:if (display-graphic-p)
 	:el-get tarao/evil-plugins
 	:require evil-mode-line))
 
