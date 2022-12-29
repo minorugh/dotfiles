@@ -15,7 +15,7 @@
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("<SPC>c" . clipboard-kill-ring-save)
-		  ("<SPC>t" . gts-do-translate)
+		  ("<SPC>d" . gts-do-translate)
 		  ("<SPC>k" . my:koujien)
 		  ("<SPC>g" . my:google)))
   :init
@@ -34,16 +34,15 @@
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
-  ;; Set the initial state for major mode
+  ;; Forcing Emacs State for major mode
   (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
 
-  ;; Set the initial state for minor mode
+  ;; Forcing Insert State for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
 
-  ;; Customized functions
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
 	(let ((def1 (lookup-key map key1))
