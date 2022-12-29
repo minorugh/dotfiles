@@ -8,6 +8,7 @@
   :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
 		 (:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
+		  ("s" . swiper-thing-at-point)
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
@@ -21,18 +22,13 @@
   :init
   ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
-  (setq evil-want-C-u-scroll t)	;; Enable scrolling with C-u
   (setq evil-cross-lines t)
-  (setq evil-ex-search-vim-style-regexp nil)
-  (setq evil-search-module 'evil-search)
   (setq evil-undo-system 'undo-fu)
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
-
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
@@ -40,7 +36,6 @@
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'emacs)
   (evil-set-initial-state 'dired-mode 'emacs)
-
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
