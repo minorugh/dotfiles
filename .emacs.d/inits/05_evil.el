@@ -5,19 +5,13 @@
 (leaf evil
   :ensure t
   :hook (after-init-hook . evil-mode)
-  :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
-		 (:evil-normal-state-map
+  :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-normal-state)
-		  ([home] . open-dashboard))
-		 (:evil-visual-state-map
-		  ("<SPC>c" . clipboard-kill-ring-save)
-		  ("<SPC>d" . gts-do-translate)
-		  ("<SPC>k" . my:koujien)
-		  ("<SPC>g" . my:google)))
+		  ([home] . open-dashboard)))
   :init
   ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
@@ -26,7 +20,6 @@
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
-
   ;; Go back to normal state with ESC
   (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
 
@@ -51,12 +44,6 @@
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
-
-  (defun toggle-evil-mode ()
-	"Toggle on and off evil mode."
-	(interactive)
-	(if evil-mode (evil-mode 0)
-	  (evil-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
@@ -83,13 +70,7 @@
 	"Set buffer for automatic insert-state"
 	(when (member (buffer-name) '("COMMIT_EDITMSG"))
 	  (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
-
-  (leaf evil-plugins
-	:doc "Plugin for Evil modeline"
-	:if (display-graphic-p)
-	:el-get tarao/evil-plugins
-	:require evil-mode-line))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
 ;; Local Variables:
