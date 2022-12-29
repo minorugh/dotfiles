@@ -15,12 +15,12 @@
 		  ("<hiragana-katakana>" . my:evil-normal-state)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("c" . clipboard-kill-ring-save)
-		  ("k" . my:koujien)
-		  ("t" . gts-do-translate)
-		  ("gg" . my:google)))
+		  ("<SPC>c" . clipboard-kill-ring-save)
+		  ("<SPC>t" . gts-do-translate)
+		  ("<SPC>k" . my:koujien)
+		  ("<SPC>g" . my:google)))
   :init
-  ;; options for Evil, must be written bfore (require 'evil)
+  ;; options forfor Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
