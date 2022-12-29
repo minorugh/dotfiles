@@ -36,6 +36,7 @@
   ;; Forcing Insert State for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
+  (add-hook 'view-mode-hook 'evil-insert-state)
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
