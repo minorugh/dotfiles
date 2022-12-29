@@ -33,11 +33,11 @@
   ;; Use muhenkan key as ESC
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
-  (evil-define-key 'normal dired-mode-map (kbd "r")
-	#'(lambda () (interactive) (wdired-change-to-wdired-mode)))
 
   ;; Set the initial state for major mode
-  (evil-set-initial-state 'easy-hugo-mode 'emacs)
+  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
+  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
 
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)

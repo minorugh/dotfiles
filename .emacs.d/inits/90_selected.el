@@ -16,19 +16,6 @@
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
-  :hydra
-  (hydra-selected
-   (:hint nil :exit t)
-   "
-     _d_eepl  _t_ranslate  _g_oogle  _k_oujien  _e_ijiro  _w_eblio  🐾
-   "
-   ("d" gts-do-translate)
-   ("t" deepl-translate)
-   ("g" my:google)
-   ("k" my:koujien)
-   ("e" my:eijiro)
-   ("w" my:weblio)
-   ("<muhenkan>" nil))
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
