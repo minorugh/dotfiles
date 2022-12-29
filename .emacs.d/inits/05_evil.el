@@ -5,8 +5,7 @@
 (leaf evil
   :ensure t
   :hook (after-init-hook . evil-mode)
-  :bind (("<zenkaku-hankaku>" . toggle-evil-mode)
-		 (:evil-normal-state-map
+  :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("s" . swiper-thing-at-point)
 		  ("C-e" . seq-end)
@@ -20,7 +19,7 @@
 		  ("<SPC>k" . my:koujien)
 		  ("<SPC>g" . my:google)))
   :init
-  ;; options forfor Evil, must be written bfore (require 'evil)
+  ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
@@ -37,26 +36,10 @@
 
   ;; Set the initial state for major mode
   (evil-set-initial-state 'easy-hugo-mode 'emacs)
-
+  (evil-set-initial-state 'magit-mode 'emacs)
   ;; Set the initial state for minor mode
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'howm-create-mode-hook 'evil-insert-state)
-
-  ;; Customized functions
-  (defun evil-swap-key (map key1 key2)
-	"Swap KEY1 and KEY2 in MAP."
-	(let ((def1 (lookup-key map key1))
-          (def2 (lookup-key map key2)))
-      (define-key map key1 def2)
-      (define-key map key2 def1)))
-  (evil-swap-key evil-motion-state-map "j" "gj")
-  (evil-swap-key evil-motion-state-map "k" "gk")
-
-  (defun toggle-evil-mode ()
-	"Toggle on and off evil mode."
-	(interactive)
-	(if evil-mode (evil-mode 0)
-	  (evil-mode 1)))
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
@@ -79,12 +62,12 @@
 	  (evil-insert-state)))
   (add-hook 'find-file-hook 'my:evil-insert-state)
 
-  (defun ad:switch-to-buffer (&rest _arg)
-	"Set buffer for automatic inser-state"
-	(when (member (buffer-name) my:auto-insert-state-buffers))
-	(evil-insert-state))
-  (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+  ;; (defun ad:switch-to-buffer (&rest _arg)
+  ;; 	"Set buffer for automatic inser-state"
+  ;; 	(when (member (buffer-name) my:auto-insert-state-buffers))
+  ;; 	(evil-insert-state))
+  ;; (defvar my:auto-insert-state-buffers '("COMMIT_EDITMSG"))
+  ;; (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
   (leaf evil-plugins
 	:doc "Plugin for Evil modeline"
