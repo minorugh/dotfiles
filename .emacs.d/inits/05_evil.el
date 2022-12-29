@@ -28,6 +28,7 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Forcing Emacs State for major mode
+  (add-to-list 'evil-emacs-state-modes 'lisp-interaction-mode)
   (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
