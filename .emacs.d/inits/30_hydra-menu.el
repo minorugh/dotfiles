@@ -20,7 +20,7 @@
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
    ("+" text-scale-adjust)
-   (":" view-mode)
+   (":" toggle-evil-mode.)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)

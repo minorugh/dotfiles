@@ -15,8 +15,15 @@
 		  ("C-c h" . chromium-tegaki)
 		  ("<muhenkan>" . my:muhenkan)
 		  ("C-c <left>" . winner-undo)
-		  ("C-c <right>" . winner-redo))
+		  ("C-c <right>" . winner-redo)
+		  ("<zenkaku-hankaku>" . toggle-evil-mode))
   :init
+  (defun toggle-evil-mode ()
+	"Toggle on and off evil mode."
+	(interactive)
+	(if evil-mode (evil-mode 0)
+	  (evil-mode 1)))
+
   (defun my:muhenkan ()
 	(interactive)
 	(if (not (use-region-p))

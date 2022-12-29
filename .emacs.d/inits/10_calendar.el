@@ -1,4 +1,4 @@
-;;; 14_calendar.el --- Calendar configurations. -*- lexical-binding: t -*-
+;;; 10_calendar.el --- Calendar configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -24,4 +24,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 14_calendar.el ends here
+;;; 10_calendar.el ends here

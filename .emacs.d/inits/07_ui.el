@@ -1,4 +1,4 @@
-;;; 04_ui.el --- Graphical interface configurations. -*- lexical-binding: t -*-
+;;; 07_ui.el --- Graphical interface configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -82,4 +82,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 04_ui.el ends here
+;;; 07_ui.el ends here

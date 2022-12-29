@@ -1,4 +1,4 @@
-;;; 12_tramp.el --- Counsel tramp configurations. -*- lexical-binding: t -*-
+;;; 20_tramp.el --- Counsel tramp configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -23,4 +23,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 12_tramp.el ends here
+;;; 20_tramp.el ends here

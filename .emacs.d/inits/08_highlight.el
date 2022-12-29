@@ -1,4 +1,4 @@
-;;; 04_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
+;;; 08_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -84,4 +84,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 04_highlight.el ends here
+;;; 08_highlight.el ends here

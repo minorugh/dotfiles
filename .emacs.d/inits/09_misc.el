@@ -1,4 +1,4 @@
-;;; 06_misc.el --- Misc utility configurations. -*- lexical-binding: t -*-
+;;; 09_misc.el --- Misc utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -146,4 +146,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_misc.el ends here
+;;; 09_misc.el ends here
