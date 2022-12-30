@@ -15,7 +15,7 @@
 		 ("W" . my:weblio)
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
-		 ("g" . my:google))
+		 ("m" . my:google))
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
