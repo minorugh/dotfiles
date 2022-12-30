@@ -27,7 +27,6 @@
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
-  (setq inhibit-redisplay t)
   (setq inhibit-message t)
   (add-hook 'window-setup-hook
 			(lambda ()
