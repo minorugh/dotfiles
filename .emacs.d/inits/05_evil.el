@@ -11,7 +11,10 @@
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-normal-state)
-		  ([home] . open-dashboard)))
+		  ([home] . open-dashboard))
+		 (:evil-visual-state-map
+		  ("m" . my:google)
+		  ("k" . my:koujien)))
   :init
   ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
@@ -44,8 +47,8 @@
 	"If in evil state to ESC, else muhenkan key."
 	(interactive)
 	(cond
-	 ((or (evil-normal-state-p) (evil-insert-state-p) (evil-visual-state-p)
-		  (evil-replace-state-p) (evil-visual-state-p)) [escape])
+	 ((or (evil-normal-state-p) (evil-insert-state-p)
+		  (evil-visual-state-p) (evil-replace-state-p)) [escape])
 	 (t [muhenkan])))
 
   (defun my:evil-normal-state ()
