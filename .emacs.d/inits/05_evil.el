@@ -14,7 +14,8 @@
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("m" . my:google)
-		  ("k" . my:koujien)))
+		  ("k" . my:koujien)
+		  ("t" . gts-do-translate)))
   :init
   ;; options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
