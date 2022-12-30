@@ -16,6 +16,18 @@
 	(leaf company-prescient :ensure t :global-minor-mode t)))
 
 
+;; Flymake
+(leaf flymake
+  :hook (emacs-lisp-mode-hook . flymake-mode)
+  :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+  (leaf flymake-posframe
+	:el-get Ladicle/flymake-posframe
+	:hook (flymake-mode-hook . flymake-posframe-mode)
+	:custom
+	(flymake-posframe-error-prefix . " ")))
+
+
 ;; Popup menu-item bindings
 (leaf which-key
   :ensure t
