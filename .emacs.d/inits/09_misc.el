@@ -129,6 +129,13 @@
   :ensure t
   :bind ("C-@" . er/expand-region))
 
+(defun my:expand-region ()
+  (interactive)
+  (er/expand-region)
+  (sleep-for 0.5)
+  (evil-insert-state)
+  )
+
 
 ;; Key Chord
 (leaf key-chord
