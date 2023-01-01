@@ -34,7 +34,6 @@
 
   ;; Forcing Emacs State for major mode
   (add-to-list 'evil-emacs-state-modes 'lisp-interaction-mode)
-  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
