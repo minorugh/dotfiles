@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf easy-hugo
-  :ensure t
+  :el-get minorugh/evil-easy-hugo
   :bind (("C-c C-e" . easy-hugo)
 		 ("C-x p" . easy-hugo-preview)
 		 ("C-x P" . easy-hugo-publish)
@@ -80,17 +80,17 @@
   c .. Open config      o .. Open base dir   < .. Previous blog    > .. Next bloge
   , .. Prev postdir     . .. Next postdir    ; .. Select blog      v .. Open view mode
   N .. No help [tab]    s .. Sort time       u .. Sort Publish     e .. Edit easy-hugo
-")
-  :preface
-  (leaf popup :ensure t)
-  (leaf request
-	:ensure t
-	:custom (request-storage-directory . "~/.emacs.d/tmp/request"))
+"))
 
-  (defun my:edit-easy-hugo ()
-	"Edit setting file for 'easy-hugo'."
-	(interactive)
-	(find-file "~/.emacs.d/inits/60_easy-hugo.el")))
+(leaf popup :ensure t)
+(leaf request
+  :ensure t
+  :custom (request-storage-directory . "~/.emacs.d/tmp/request"))
+
+(defun my:edit-easy-hugo ()
+  "Edit setting file for 'easy-hugo'."
+  (interactive)
+  (find-file "~/.emacs.d/inits/60_easy-hugo.el"))
 
 
 ;; Local Variables:
