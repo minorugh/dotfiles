@@ -34,9 +34,10 @@
 (leaf yasnippet
   :ensure t
   :hook (after-init-hook . yas-global-mode)
-  :custom (yas-indent-line . 'fixed)
-  :config
-  (leaf yasnippet-snippets :ensure t))
+  :custom (yas-indent-line . 'fixed))
+(leaf yasnippet-snippets
+  :ensure t
+  :after yasnippet)
 
 
 ;; Local Variables:
