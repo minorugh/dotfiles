@@ -25,14 +25,6 @@
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist . '((t . my:ivy-format-function-arrow))))
   :init
-  (leaf ivy-rich
-	:ensure t
-	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
-	:ensure t
-	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20)))
-  :preface
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
@@ -56,6 +48,16 @@ If the region isn't selected, `swiper'."
 	 cands
 	 "\n")))
 
+
+(leaf ivy-rich
+  :ensure t
+  :after ivy
+  :hook (after-init-hook . ivy-rich-mode))
+
+(leaf amx
+  :ensure t
+  :custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+			  (amx-history-length . 20)))
 
 ;; Fast full-text search
 (leaf cus-counsel-ag
@@ -107,13 +109,15 @@ If the region isn't selected, `swiper'."
   :when (executable-find "cmigemo")
   :custom
   `((migemo-command . "cmigemo")
-	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict"))
+	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
+
+
+(leaf swiper-migemo
+  :doc "https://github.com/tam17aki/swiper-migemo"
+  :el-get tam17aki/swiper-migemo
+  :after swiper
   :config
-  (leaf swiper-migemo
-	:doc "https://github.com/tam17aki/swiper-migemo"
-	:el-get tam17aki/swiper-migemo
-	:config
-	(global-swiper-migemo-mode +1))
+  (global-swiper-migemo-mode +1)
   (add-to-list 'swiper-migemo-enable-command 'counsel-rg)
   (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
   (migemo-kill)
