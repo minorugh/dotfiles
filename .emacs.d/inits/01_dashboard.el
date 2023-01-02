@@ -26,6 +26,8 @@
 		  ("." . hydra-browse/body)
 		  ("<home>" . quit-dashboard)))
   :config
+  ;; Forcing Emacs State for major mode
+  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
