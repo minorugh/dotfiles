@@ -34,14 +34,13 @@
 
   ;; Forcing Emacs State for major mode
   (add-to-list 'evil-emacs-state-modes 'lisp-interaction-mode)
-  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
+  (add-to-list 'evil-emacs-state-modes 'fundamental-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
 
-  ;; Forcing Insert State for minor mode
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (add-hook 'howm-create-mode-hook 'evil-insert-state)
-  (add-hook 'view-mode-hook 'evil-insert-state)
+  ;; Forcing Emacs State for minor mode
+  (add-hook 'org-capture-mode-hook 'evil-emacs-state)
+  (add-hook 'view-mode-hook 'evil-emacs-state)
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
@@ -63,12 +62,6 @@
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
   (add-hook 'find-file-hook 'my:evil-insert-state)
-
-  (defun ad:switch-to-buffer (&rest _arg)
-	"Set buffer for automatic insert-state"
-	(when (member (buffer-name) '("COMMIT_EDITMSG"))
-	  (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."

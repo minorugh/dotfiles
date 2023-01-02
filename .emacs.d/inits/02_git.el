@@ -25,6 +25,12 @@
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
   :preface
+  (defun ad:switch-to-buffer (&rest _arg)
+	"Set buffer for automatic insert-state"
+	(when (member (buffer-name) '("COMMIT_EDITMSG"))
+	  (evil-insert-state)))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+
   (defun gitk-open ()
 	"Open gitk with current dir."
 	(interactive)
