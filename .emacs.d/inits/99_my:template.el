@@ -29,10 +29,10 @@
   (forward-line -5)
   (forward-char 18))
 
-(defun my:diary-draft-post ()
+(defun my:tpdia-new-post ()
   "Open diary file and insert template."
   (interactive)
-  (find-file (expand-file-name "draft.txt" "~/Dropbox/GH/draft/"))
+  (find-file (expand-file-name "dia.txt" "~/Dropbox/GH/tpdia/"))
   (goto-char 0)
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))

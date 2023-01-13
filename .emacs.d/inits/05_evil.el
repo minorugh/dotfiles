@@ -10,10 +10,10 @@
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
-		  ("<hiragana-katakana>" . my:evil-normal-state)
+		  ("<hiragana-katakana>" . my:evil-insert-ime-on)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("m" . my:google)
+		  ("gg" . my:google)
 		  ("k" . my:koujien)
 		  ("t" . gts-do-translate)))
   :init
@@ -35,6 +35,7 @@
   ;; Forcing Emacs State for major mode
   (add-to-list 'evil-emacs-state-modes 'lisp-interaction-mode)
   (add-to-list 'evil-emacs-state-modes 'fundamental-mode)
+  (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
 
@@ -56,6 +57,12 @@
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state))
 
+  (defun my:evil-insert-ime-on ()
+	"Turn on input-method then return to insert-state."
+	(interactive)
+	(evil-insert-state)
+	(toggle-input-method))
+
   (defun my:evil-insert-state ()
 	"New files are opened with insert-state."
 	(interactive)
@@ -70,7 +77,13 @@
       (define-key map key1 def2)
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
-  (evil-swap-key evil-motion-state-map "k" "gk"))
+  (evil-swap-key evil-motion-state-map "k" "gk")
+
+  (defun ad:switch-to-buffer (&rest _arg)
+	"Set buffer for automatic insert-state"
+	(when (member (buffer-name) '("COMMIT_EDITMSG"))
+	  (evil-insert-state)))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
 ;; Local Variables:

@@ -20,7 +20,7 @@
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
    ("+" text-scale-adjust)
-   (":" toggle-evil-mode.)
+   (":" toggle-evil-mode)
    ("o" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
@@ -71,7 +71,7 @@
    Work Menu
   -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^---------------------------------------------------------------------------
   _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  _y__h_:年度  _e_:hugo^^  _p_s._r_  web_,_^^^  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _1__2_:下書  g_i_st._l_  re_@_p^^  kill_/__\\_  _b_kup._c_._u_
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _1__2_:日塾  g_i_st._l_  re_@_p^^  kill_/__\\_  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -91,8 +91,8 @@
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("1" my:dia-draft)
-   ("2" my:diary-draft-post)
+   ("1" my:tpdia)
+   ("2" my:tpdia-new-post)
    ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)

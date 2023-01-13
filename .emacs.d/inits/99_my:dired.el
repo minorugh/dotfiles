@@ -180,10 +180,10 @@
   (goto-char (point-min))
   (forward-line))
 
-(defun my:dia-draft ()
+(defun my:tpdia ()
   "Open year draft file."
   (interactive)
-  (find-file "~/Dropbox/GH/draft/draft.txt")
+  (find-file "~/Dropbox/GH/tpdia/dia.txt")
   (evil-insert-state)
   (goto-char (point-min))
   (forward-line))

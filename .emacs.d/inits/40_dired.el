@@ -28,6 +28,7 @@
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custum functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
