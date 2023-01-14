@@ -37,15 +37,6 @@
 	(leaf-keywords-init)
 	(setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))))
 
-(leaf leaf-keywords
-  :ensure t
-  :init
-  (leaf hydra :ensure t)
-  (leaf el-get :ensure t)
-  :config
-  (leaf-keywords-init)
-  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
-
 ;; Load init files
 (leaf init-loader
   :ensure t
