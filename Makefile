@@ -264,13 +264,10 @@ perlbrew: ## Install perlbrew
 	cpanm Net::FTPSSL && \
 	cpanm Net::SFTP::Foreign
 
-emacs-latest: ## Install Emacs of latest stable version
-	cd ${HOME}/src && \
-	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git && \
-	cd emacs && ./autogen.sh &&	./configure && \
-	make
-	sudo make install
-	rm -rf ${HOME}/.emacs.d/elpa
+emacs-devel: ## Install development version of emacs
+	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/github.com/minorugh/emacs
+	cd ${HOME}/src/github.com/minorugh/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
+	# rm -rf ${HOME}/.emacs.d/elpa
 
 docker: ## Install docker
 	sudo apt-get install ca-certificates lsb-release
