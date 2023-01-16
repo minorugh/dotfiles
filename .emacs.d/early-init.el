@@ -13,6 +13,13 @@
 ;; To prevent initializing twice
 (setq package-enable-at-startup nil)
 
+;; Debugging
+;;(setq debug-on-error t)
+(setq warning-minimum-level :error)
+
+;; Suppress cl warning
+(setq byte-compile-warnings '(cl-functions))
+
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
@@ -38,5 +45,6 @@
 
 (provide 'early-init)
 ;; Local Variables:
+;; no-byte-compile: t
 ;; End:
 ;;; early-init.el ends here
