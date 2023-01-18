@@ -7,7 +7,6 @@
   :custom
   `(;; Startup setting
 	(inhibit-splash-screen . t)
-	(inhibit-startup-message . t)
 	;; Faster rendering by not corresponding to right-to-left language
 	(bidi-display-reordering . nil)
 	;; Do not make a backup file like *.~
