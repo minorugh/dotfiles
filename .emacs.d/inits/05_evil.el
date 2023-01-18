@@ -38,6 +38,7 @@
   (add-to-list 'evil-emacs-state-modes 'dashboard-mode)
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'neotree-mode)
+  (add-to-list 'evil-emacs-state-modes 'easy-hugo-mode)
 
   ;; Forcing Emacs State for minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
