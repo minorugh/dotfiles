@@ -5,7 +5,7 @@
 
 (leaf cus-start
   :custom
-  `(;; Startup setting
+  `(;; No startup screen appears
 	(inhibit-splash-screen . t)
 	;; Faster rendering by not corresponding to right-to-left language
 	(bidi-display-reordering . nil)
