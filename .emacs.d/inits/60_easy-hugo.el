@@ -4,12 +4,13 @@
 ;; (setq debug-on-error t)
 
 (leaf easy-hugo
-  :el-get minorugh/evil-easy-hugo
+  :ensure t
   :bind (("C-c C-e" . easy-hugo)
 		 ("C-x p" . easy-hugo-preview)
 		 ("C-x P" . easy-hugo-publish)
 		 (:easy-hugo-mode-map
 		  ([tab] . easy-hugo-no-help)
+		  ("n" . my:evil-easy-hugo-newpost)
 		  ("o" . easy-hugo-open-basedir)
 		  ("r" . easy-hugo-rename)
 		  ("e" . my:edit-easy-hugo)))
@@ -18,6 +19,24 @@
   (setq easy-hugo--sort-char-flg nil)
   (setq easy-hugo--sort-time-flg nil)
   (setq easy-hugo--sort-publishday-flg 1)
+  (defun my:evil-easy-hugo-newpost (post-file)
+	"Open newpost with `evil-isert-state'."
+	(interactive (list (read-from-minibuffer
+						"Filename: "
+						`(,easy-hugo-default-ext . 1) nil nil nil)))
+	(easy-hugo-with-env
+	 (let ((filename (expand-file-name post-file easy-hugo-postdir)))
+	   (when (file-exists-p (file-truename filename))
+		 (error "%s already exists!" filename))
+	   (call-process easy-hugo-bin nil "*hugo*" t "new"
+					 (file-relative-name filename
+										 (expand-file-name "content" easy-hugo-basedir)))
+	   (when (get-buffer "*hugo*")
+		 (kill-buffer "*hugo*"))
+	   (find-file filename)
+	   (evil-insert-state)
+	   (goto-char (point-max))
+	   (save-buffer))))
   :init
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
