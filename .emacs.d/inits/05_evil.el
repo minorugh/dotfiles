@@ -4,13 +4,14 @@
 
 (leaf evil
   :ensure t
-  :hook (after-init-hook . evil-mode)
+  :hook ((after-init-hook . evil-mode)
+		 (find-file-hook . my:evil-insert-state))
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
-		  ("<hiragana-katakana>" . my:evil-insert-ime-on)
+		  ("<hiragana-katakana>" . my:evil-insert-state-ime-on)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
@@ -59,10 +60,11 @@
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state))
 
-  (defun my:evil-insert-ime-on ()
+  (defun my:evil-insert-state-ime-on ()
 	"Turn on input-method then return to insert-state."
 	(interactive)
 	(evil-insert-state)
+	(forward-char 1)
 	(toggle-input-method))
 
   (defun my:evil-insert-state ()
@@ -70,7 +72,6 @@
 	(interactive)
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
-  (add-hook 'find-file-hook 'my:evil-insert-state)
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
