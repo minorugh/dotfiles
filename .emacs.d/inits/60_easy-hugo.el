@@ -75,11 +75,6 @@
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/tube/"))
 		  ;; blog9 setting
-		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/draft/")
-		   (easy-hugo-url . "https://draft.minorugh.com")
-		   (easy-hugo-sshdomain . "xsrv")
-		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/draft/"))
-		  ;; blog10 setting
 		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/ryo/")
 		   (easy-hugo-url . "https://ryo.minorugh.com")
 		   (easy-hugo-sshdomain . "xsrv")
