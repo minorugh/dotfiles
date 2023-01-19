@@ -8,6 +8,8 @@
   :bind (("C-c C-e" . easy-hugo)
 		 (:easy-hugo-mode-map
 		  ([tab] . easy-hugo-no-help)
+		  ("o" . easy-hugo-open-basedir)
+		  ("r" . easy-hugo-rename)
 		  ("n" . my:evil-easy-hugo-newpost)
 		  ("e" . my:edit-easy-hugo)))
   :config
@@ -80,9 +82,9 @@
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
 		easy-hugo-help "
-  n .. New blog post    R .. Rename file     p .. Preview          g .. Refresh
+  n .. New blog post    r .. Rename file     p .. Preview          g .. Refresh
   d .. Delete post      a .. Search blog ag  P .. Publish clever   G .. GitHub deploy
-  c .. Open config      O .. Open base dir   < .. Previous blog    > .. Next bloge
+  c .. Open config      o .. Open base dir   < .. Previous blog    > .. Next bloge
   , .. Prev postdir     . .. Next postdir    ; .. Select blog      v .. Open view mode
   N .. No help [tab]    s .. Sort time       u .. Sort Publish     e .. Edit easy-hugo
 "))
