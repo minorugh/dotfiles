@@ -95,6 +95,7 @@
    ("<" my:tpdia-new-post)
    ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
+   ("L" lepton)
    ("t" my:teirei)
    ("T" my:teirei-new-post)
    ("s" my:swan)
