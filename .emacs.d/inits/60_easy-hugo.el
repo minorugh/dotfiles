@@ -9,12 +9,10 @@
 		 (:easy-hugo-mode-map
 		  ([tab] . easy-hugo-no-help)
 		  ("n" . my:evil-easy-hugo-newpost)
-		  ("o" . easy-hugo-open-basedir)
-		  ("r" . easy-hugo-rename)
 		  ("e" . my:edit-easy-hugo)))
   :config
-  ;; Open newpost with evil-isert-state
   (defun my:evil-easy-hugo-newpost (post-file)
+	"Open newpost with `evil-isert-state'."
 	(interactive (list (read-from-minibuffer
 						"Filename: "
 						`(,easy-hugo-default-ext . 1) nil nil nil)))
@@ -29,8 +27,7 @@
 		 (kill-buffer "*hugo*"))
 	   (find-file filename)
 	   (evil-insert-state)
-	   (goto-char (point-max))
-	   (save-buffer))))
+	   (goto-char (point-max)))))
   :init
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
@@ -83,16 +80,15 @@
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
 		easy-hugo-help "
-  n .. New blog post    r .. Rename file     p .. Preview          g .. Refresh
+  n .. New blog post    R .. Rename file     p .. Preview          g .. Refresh
   d .. Delete post      a .. Search blog ag  P .. Publish clever   G .. GitHub deploy
-  c .. Open config      o .. Open base dir   < .. Previous blog    > .. Next bloge
+  c .. Open config      O .. Open base dir   < .. Previous blog    > .. Next bloge
   , .. Prev postdir     . .. Next postdir    ; .. Select blog      v .. Open view mode
   N .. No help [tab]    s .. Sort time       u .. Sort Publish     e .. Edit easy-hugo
 "))
 
 (leaf popup :ensure t)
-(leaf request
-  :ensure t
+(leaf request :ensure t
   :custom (request-storage-directory . "~/.emacs.d/tmp/request"))
 
 (defun my:edit-easy-hugo ()
