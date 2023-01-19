@@ -52,6 +52,7 @@
 		  (evil-visual-state-p) (evil-replace-state-p)) [escape])
 	 (t [muhenkan])))
 
+  ;; User custom functions
   (defun my:evil-normal-state ()
 	"Turn off input-method then return to normal-state."
 	(interactive)
@@ -81,7 +82,7 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun ad:switch-to-buffer (&rest _arg)
-	"Set buffer for automatic insert-state"
+	"Set buffer for automatic insert-state."
 	(when (member (buffer-name) '("COMMIT_EDITMSG"))
 	  (evil-insert-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
