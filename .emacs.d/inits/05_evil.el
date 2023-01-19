@@ -11,7 +11,7 @@
 		  ("C-e" . seq-end)
 		  ("SPC" . evil-insert-state)
 		  ("M-." . nil)	;; Use with other settings
-		  ("<hiragana-katakana>" . my:evil-insert-state-ime-on)
+		  ("<hiragana-katakana>" . my:evil-append-ime-on)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
@@ -60,18 +60,18 @@
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state))
 
-  (defun my:evil-insert-state-ime-on ()
-	"Turn on input-method then return to insert-state."
+  (defun my:evil-insert-state ()
+	"New files open in insert state."
+	(interactive)
+	(unless (file-exists-p buffer-file-name)
+	  (evil-insert-state)))
+
+  (defun my:evil-append-ime-on ()
+	"Turn on input-method after append status."
 	(interactive)
 	(evil-insert-state)
 	(forward-char 1)
 	(toggle-input-method))
-
-  (defun my:evil-insert-state ()
-	"New files are opened with insert-state."
-	(interactive)
-	(unless (file-exists-p buffer-file-name)
-	  (evil-insert-state)))
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
