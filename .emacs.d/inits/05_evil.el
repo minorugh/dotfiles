@@ -33,7 +33,7 @@
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
-  ;; Forcing Emacs State for major mode
+  ;; Force evil-emacs-state into major mode
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
 				  dashboard-mode
@@ -42,7 +42,7 @@
 				  easy-hugo-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
-  ;; Forcing Emacs State for minor mode
+  ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'view-mode-hook 'evil-emacs-state)
 
