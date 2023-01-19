@@ -47,12 +47,6 @@
 	(imenu-list-focus-after-activation . t)))
 
 
-(leaf counsel-css
-  :ensure t
-  :config
-  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
-
-
 ;; Popup window
 (leaf popwin
   :ensure t
@@ -117,15 +111,6 @@
   :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom ((atomic-chrome-buffer-open-style . 'full)))
-
-
-;; counsel-web-search with migemo
-(leaf counsel-web
-  :ensure t
-  :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google)
-  (setq counsel-web-search-dynamic-update t))
 
 
 ;; Sequential-command

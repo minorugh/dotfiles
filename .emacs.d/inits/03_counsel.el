@@ -11,6 +11,7 @@
 		 ("C-:" . counsel-switch-buffer)
 		 ("M-:" . counsel-switch-buffer)
 		 ("s-a" . counsel-ag)
+		 ("s-w" . counsel-web-suggest)
 		 ("M-x" . counsel-M-x)
 		 ("M-y" . counsel-yank-pop)
 		 ("C-x m" . counsel-mark-ring)
@@ -101,6 +102,21 @@ If the region isn't selected, `swiper'."
 	  (tramp-cleanup-all-connections)
 	  (counsel-tramp-quit)
 	  (message "Tramp Quit!"))))
+
+
+(leaf counsel-css
+  :ensure t
+  :config
+  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
+
+
+;; counsel-web-search with migemo
+(leaf counsel-web
+  :ensure t
+  :config
+  (setq counsel-web-search-action #'browse-url)
+  (setq counsel-web-engine 'google)
+  (setq counsel-web-search-dynamic-update t))
 
 
 (leaf migemo
