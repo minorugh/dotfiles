@@ -19,8 +19,8 @@
   (setq easy-hugo--sort-char-flg nil)
   (setq easy-hugo--sort-time-flg nil)
   (setq easy-hugo--sort-publishday-flg 1)
+  ;; Open newpost with evil-isert-state
   (defun my:evil-easy-hugo-newpost (post-file)
-	"Open newpost with `evil-isert-state'."
 	(interactive (list (read-from-minibuffer
 						"Filename: "
 						`(,easy-hugo-default-ext . 1) nil nil nil)))
