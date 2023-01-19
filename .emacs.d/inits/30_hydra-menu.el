@@ -69,9 +69,9 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  this._/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _1__2_:添記^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  this_/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _,_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -91,8 +91,8 @@
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("1" my:tpdia)
-   ("2" my:tpdia-new-post)
+   ("," my:tpdia)
+   ("<" my:tpdia-new-post)
    ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
@@ -110,7 +110,6 @@
    ("z" my:tselext)
    ("Z" my:tselext-new-post)
    (":" git-gui-open)
-   ("," counsel-web-suggest)
    ("\\" my:delete-this-file)
    ("/" kill-this-buffer)
    ("+" text-scale-adjust)
