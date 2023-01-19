@@ -6,8 +6,6 @@
 (leaf easy-hugo
   :ensure t
   :bind (("C-c C-e" . easy-hugo)
-		 ("C-x p" . easy-hugo-preview)
-		 ("C-x P" . easy-hugo-publish)
 		 (:easy-hugo-mode-map
 		  ([tab] . easy-hugo-no-help)
 		  ("n" . my:evil-easy-hugo-newpost)
@@ -15,10 +13,6 @@
 		  ("r" . easy-hugo-rename)
 		  ("e" . my:edit-easy-hugo)))
   :config
-  ;; Sort-publishday on startup
-  (setq easy-hugo--sort-char-flg nil)
-  (setq easy-hugo--sort-time-flg nil)
-  (setq easy-hugo--sort-publishday-flg 1)
   ;; Open newpost with evil-isert-state
   (defun my:evil-easy-hugo-newpost (post-file)
 	(interactive (list (read-from-minibuffer
