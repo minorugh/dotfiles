@@ -41,7 +41,6 @@
 (leaf init-loader
   :ensure t
   :init
-  ;; Load user templates
   (load-file "~/.emacs.d/template/my:dired.el")
   (load-file "~/.emacs.d/template/my:template.el")
   :config
