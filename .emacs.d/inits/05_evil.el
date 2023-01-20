@@ -33,7 +33,7 @@
   (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
-  ;; Force evil-emacs-state into major mode
+  ;; Force evil-emacs-state-modes into major mode
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
 				  dashboard-mode
@@ -87,7 +87,12 @@
 	"Set buffer for automatic insert-state."
 	(when (member (buffer-name) '("COMMIT_EDITMSG"))
 	  (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+
+  (defun chromium-vim-chert ()
+	"Chromium vim chert sheet."
+	(interactive)
+	(browse-url "https://vim.rtorr.com/lang/ja")))
 
 
 ;; Local Variables:
