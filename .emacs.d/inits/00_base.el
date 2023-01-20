@@ -137,6 +137,10 @@ If the region is inactive, to kill whole line."
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
   (add-hook 'text-mode-hook 'goto-address-mode))
 
+;; User templates
+(load-file "~/.emacs.d/template/my:dired.el")
+(load-file "~/.emacs.d/template/my:template.el")
+
 
 ;; Local Variables:
 ;; no-byte-compile: t
