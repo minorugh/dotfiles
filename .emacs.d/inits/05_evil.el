@@ -41,7 +41,7 @@
 				  dired-mode
 				  neotree-mode
 				  easy-hugo-mode))
-    (add-to-list 'evil-emacs-state-modes mode))
+	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
