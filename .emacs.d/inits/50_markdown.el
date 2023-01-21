@@ -26,23 +26,21 @@
     width: 100%;
     margin: 40px auto;
     padding: 0 10px;
-	font-size: large;
-  }
-  h1 {
-    border: 0;
+    font-size: large;
   }
   </style>
-  <script src='http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js'></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('markdown-body');
-    document.querySelectorAll('pre[lang] > code').forEach((code) => {
-      code.classList.add(code.parentElement.lang);
-      hljs.highlightBlock(code);
+    document.querySelectorAll('pre code').forEach((code) => {
+      if (code.className != 'mermaid') {
+        hljs.highlightBlock(code);
+      }
     });
   });
   </script>
-   "))
+  "))
   :hydra
   (hydra-markdown
    (:color red :hint nil)
