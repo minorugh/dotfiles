@@ -104,17 +104,7 @@
    ("e" package-list-packages)
    ("u" el-get-update-all)
    ("m" el-get-remove)
-   ("<muhenkan>" nil))
-  :config
-  (defun select-elget-command ()
-    "Narrow the only el-get command in `M-x'."
-    (interactive)
-    (counsel-M-x "^el-get "))
-
-  (defun my:remove-by-name ()
-    "Narrow the only el-get command in `M-x'."
-    (interactive)
-    (counsel-M-x "purbn")))
+   ("<muhenkan>" nil)))
 
 
 ;; Local Variables:
