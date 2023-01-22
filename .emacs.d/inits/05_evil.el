@@ -23,6 +23,8 @@
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
+  ;; Hide cursor in inactive window
+  (setq-default cursor-in-non-selected-windows nil)
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
