@@ -89,21 +89,21 @@
 
 (leaf package-utils
   :ensure t
-  :defer-config t
+  :defer-config (ivy-mode)
   :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)
    "
- 📦 Package: _m_elpa  _i_nstall  upgrade:_l_ist._n_ame._a_ll  _r_emove  _e_l-get
+  Package: m_e_lpa _i_nstall _r_emove _l_ist up_a_ll    El-get:_u_pdate.re_m_ove
 "
    ("i" package-install)
    ("l" package-utils-list-upgrades)
-   ("n" package-utils-upgrade-by-name)
-   ("r" my:remove-by-name)
+   ("r" package-utils-remove-by-name)
    ("a" package-utils-upgrade-all-and-restart)
-   ("m" package-list-packages)
-   ("e" select-elget-command)
+   ("e" package-list-packages)
+   ("u" el-get-update-all)
+   ("m" el-get-remove)
    ("<muhenkan>" nil))
   :config
   (defun select-elget-command ()
