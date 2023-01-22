@@ -5,7 +5,7 @@
 
 (leaf counsel
   :ensure t
-  :defer-config (ivy-mode)
+  :hook (after-init-hook . ivy-mode)
   :bind (("C-r" . swiper-thing-at-point)
 		 ("C-s" . swiper-region)
 		 ("C-:" . counsel-switch-buffer)
@@ -26,6 +26,13 @@
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist . '((t . my:ivy-format-function-arrow))))
   :init
+  (leaf ivy-rich
+	:ensure t
+	:hook (after-init-hook . ivy-rich-mode))
+  (leaf amx
+	:ensure t
+	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+			  (amx-history-length . 20)))
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
@@ -49,16 +56,6 @@ If the region isn't selected, `swiper'."
 	 cands
 	 "\n")))
 
-
-(leaf ivy-rich
-  :ensure t
-  :after ivy
-  :hook (after-init-hook . ivy-rich-mode))
-
-(leaf amx
-  :ensure t
-  :custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20)))
 
 ;; Fast full-text search
 (leaf cus-counsel-ag
