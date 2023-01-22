@@ -99,13 +99,12 @@
   (hydra-package
    (:color red :hint nil)
    "
-  Package: m_e_lpa _i_nstall _r_emove _l_ist up_a_ll    El-get:_u_pdate.re_m_ove
+  Package: _i_nstall _r_emove _l_ist up_a_ll    El-get:_u_pdate.re_m_ove
 "
    ("i" package-install)
    ("l" package-utils-list-upgrades)
    ("r" package-utils-remove-by-name)
    ("a" package-utils-upgrade-all-and-restart)
-   ("e" package-list-packages)
    ("u" el-get-update-all)
    ("m" el-get-remove)
    ("<muhenkan>" nil)))
