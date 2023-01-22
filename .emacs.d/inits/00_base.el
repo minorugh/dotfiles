@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf cus-start
+  :hook (after-init-hook . my:default-modes)
   :custom
   `(;; No startup screen appears
 	(inhibit-splash-screen . t)
@@ -46,19 +47,19 @@
 	(select-enable-clipboard  . t)
 	;; change-default-file-location
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
-	(bookmark-file . "~/.emacs.d/tmp/bookmarks")
-	))
-
-;; Set default modes for startup hook
-(defun my:default-modes ()
-  "Default mode hooks."
-  (interactive)
-  (winner-mode 1)
-  (global-auto-revert-mode 1)
-  (global-font-lock-mode 1)
-  (global-hl-line-mode 1)
-  (global-visual-line-mode 1))
-(add-hook 'after-init-hook 'my:default-modes)
+	(bookmark-file . "~/.emacs.d/tmp/bookmarks"))
+  :config
+  (defalias 'exit 'save-buffers-kill-emacs)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  :init
+  (defun my:default-modes ()
+	"Set default modes for startup hook."
+	(interactive)
+	(winner-mode 1)
+	(global-auto-revert-mode 1)
+	(global-font-lock-mode 1)
+	(global-hl-line-mode 1)
+	(global-visual-line-mode 1)))
 
 ;; Display buffer name in title bar
 (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
@@ -109,10 +110,6 @@
 	 . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
 	(recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
-;; defalias
-(defalias 'exit 'save-buffers-kill-emacs)
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 ;; Change global key bind
 (leaf cus-global-keybind
   :custom (select-enable-clipboard . t)
@@ -121,16 +118,15 @@
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
-		 ("M-_" . delete-window)))
-
-;; Overwrite `C-w' to the whole-line-or-region
-(defun my:kill-whole-line-or-region ()
-  "If the region is active, to kill region.
+		 ("M-_" . delete-window))
+  :init
+  (defun my:kill-whole-line-or-region ()
+	"If the region is active, to kill region.
 If the region is inactive, to kill whole line."
-  (interactive)
-  (if (use-region-p)
-	  (clipboard-kill-region (region-beginning) (region-end))
-    (kill-whole-line)))
+	(interactive)
+	(if (use-region-p)
+		(clipboard-kill-region (region-beginning) (region-end))
+      (kill-whole-line))))
 
 ;; Opens Links in Emacs ... mouse click or "C-c RET"
 (progn
