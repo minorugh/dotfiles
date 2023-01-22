@@ -69,17 +69,17 @@
    (:hint nil :exit t)
    "
    Work Menu
-  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------------------------------------
-  _d_:日記  _m_:毎日  _w_:毎週  _k_:兼題  _t_:定例  _[__]_創作  this_/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _f_:週秀^^  _,_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------
+  _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  this_/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__w_:年度  _,_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
    ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
-   ("h" my:year-draft)
-   ("H" my:make-draft)
+   ("w" my:year-draft)
+   ("W" my:make-draft)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
@@ -103,7 +103,6 @@
    ("N" my:kinnei)
    ("n" my:kinnei-draft)
    ("m" my:d_kukai)
-   ("w" my:w_kukai)
    ("k" my:m_kukai)
    ("." my:tpost)
    ("f" my:dselext)
