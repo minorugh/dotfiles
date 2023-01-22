@@ -63,6 +63,9 @@
 ;; Display buffer name in title bar
 (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
 
+;; Hide cursor in inactive window
+(setq-default cursor-in-non-selected-windows nil)
+
 ;; Save the file specified code with basic utf-8 if it exists
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
