@@ -71,15 +71,15 @@
    Work Menu
   -------------^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------------
   _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  this_/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__w_:年度  _,_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__,_:年度  _w_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
    ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
-   ("w" my:year-draft)
-   ("W" my:make-draft)
+   ("," my:year-draft)
+   ("<" my:make-draft)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
@@ -91,8 +91,8 @@
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("," my:tpdia)
-   ("<" my:tpdia-new-post)
+   ("w" my:tpdia)
+   ("W" my:tpdia-new-post)
    ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("L" lepton)
