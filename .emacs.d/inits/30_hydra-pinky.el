@@ -1,4 +1,4 @@
-;;; 20_hydra-pinky.el --- Hydra confuguration for pinky. -*- lexical-binding: t; no-byte-compile: t -*-
+;;; 30_hydra-pinky.el --- Hydra confuguration for pinky. -*- lexical-binding: t; no-byte-compile: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -44,4 +44,4 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 20_hydra-pinky.el ends here
+;;; 30_hydra-pinky.el ends here
