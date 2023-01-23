@@ -112,7 +112,6 @@
 
 ;; Change global key bind
 (leaf cus-global-keybind
-  :custom (select-enable-clipboard . t)
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
