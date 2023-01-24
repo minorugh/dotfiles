@@ -43,9 +43,8 @@ POST-FILE needs to have and extension '.md' or '.org' or '.ad' or '.rst' or '.mm
 		 (kill-buffer "*hugo*"))
        (find-file filename)
 	   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	   ;; Beginning of insertion of commands for evil
-	   (when evil-mode
-		 (evil-insert-state))
+	   ;; Stert inserting commands for evil
+	   (when evil-mode (evil-insert-state))
 	   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        (when (and easy-hugo-org-header
 				  (string-equal file-ext "org"))
