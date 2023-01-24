@@ -10,26 +10,10 @@
 		  ([tab] . easy-hugo-no-help)
 		  ("o" . easy-hugo-open-basedir)
 		  ("r" . easy-hugo-rename)
-		  ("n" . my:evil-easy-hugo-newpost)
 		  ("e" . my:edit-easy-hugo)))
   :config
-  (defun my:evil-easy-hugo-newpost (post-file)
-	"Open newpost with `evil-isert-state'."
-	(interactive (list (read-from-minibuffer
-						"Filename: "
-						`(,easy-hugo-default-ext . 1) nil nil nil)))
-	(easy-hugo-with-env
-	 (let ((filename (expand-file-name post-file easy-hugo-postdir)))
-	   (when (file-exists-p (file-truename filename))
-		 (error "%s already exists!" filename))
-	   (call-process easy-hugo-bin nil "*hugo*" t "new"
-					 (file-relative-name filename
-										 (expand-file-name "content" easy-hugo-basedir)))
-	   (when (get-buffer "*hugo*")
-		 (kill-buffer "*hugo*"))
-	   (find-file filename)
-	   (evil-insert-state)
-	   (goto-char (point-max)))))
+  ;; Load custom function for evil-mode
+  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el")
   :init
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
