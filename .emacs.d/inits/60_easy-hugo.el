@@ -5,12 +5,6 @@
 
 (leaf easy-hugo
   :ensure t
-  :bind (("C-c C-e" . easy-hugo)
-		 (:easy-hugo-mode-map
-		  ([tab] . easy-hugo-no-help)
-		  ("o" . easy-hugo-open-basedir)
-		  ("r" . easy-hugo-rename)
-		  ("e" . my:edit-easy-hugo)))
   :config
   ;; Load custom function for evil-mode
   (load-file "~/.emacs.d/template/my:evil-easy-hugo.el")
@@ -21,7 +15,6 @@
   (setq easy-hugo-sshdomain "xsrv")
   (setq easy-hugo-root "/home/minorugh/minorugh.com/public_html/snap/")
   (setq easy-hugo-previewtime "300")
-  ;; Bloglist
   (setq easy-hugo-bloglist
 		'(;; blog2 setting
 		  ((easy-hugo-basedir . "~/src/github.com/minorugh/emacs.d/hugo/")
