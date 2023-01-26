@@ -26,6 +26,9 @@
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows nil)
   :config
+  (leaf evil-modeline
+	:el-get minorugh/evil-modeline
+	:require evil-mode-line)
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
 
@@ -81,9 +84,9 @@
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
 	(let ((def1 (lookup-key map key1))
-          (def2 (lookup-key map key2)))
-      (define-key map key1 def2)
-      (define-key map key2 def1)))
+		  (def2 (lookup-key map key2)))
+	  (define-key map key1 def2)
+	  (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
 
