@@ -101,9 +101,9 @@
 
 
 ;; Font-awesom
-(leaf fontawesome
-  :ensure t
-  :bind ("s-f" . counsel-fontawesome))
+;; (leaf fontawesome
+;;   :ensure t
+;;   :bind ("s-f" . counsel-fontawesome))
 
 
 ;; atomic-chrome
