@@ -20,15 +20,12 @@
 		  ("t" . gts-do-translate)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
-  (setq evil-insert-state-cursor '(bar . 4))
+  (setq evil-insert-state-cursor '(bar . 3))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows nil)
   :config
-  (leaf evil-modeline
-	:el-get minorugh/evil-modeline
-	:require evil-mode-line)
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
 
