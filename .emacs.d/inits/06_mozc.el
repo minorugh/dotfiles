@@ -3,9 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Japanese mozc configurations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf mozc
   :ensure t
   :hook (after-init-hook . mozc-mode)
@@ -72,9 +69,6 @@
 			(group-n 2 (in "a-zA-Z")))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom configurations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *cus-mozc-tool
   :bind (("s-t" . my:mozc-dictionary-tool)
 		 ("s-d" . my:mozc-word-regist)
