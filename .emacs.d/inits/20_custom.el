@@ -22,7 +22,8 @@
 	"Toggle on and off evil mode."
 	(interactive)
 	(if evil-mode (evil-mode 0)
-	  (evil-mode 1)))
+	  (evil-mode 1)
+	  (evil-normal-state)))
 
   (defun my:muhenkan ()
 	(interactive)

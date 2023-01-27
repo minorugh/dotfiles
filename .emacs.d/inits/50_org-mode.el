@@ -8,12 +8,12 @@
 		 (org-mode-hook . (lambda () (electric-indent-local-mode -1)))
 		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows))
   :chord (",," . org-capture)
-  :bind ((:org-mode-map
-		  ("C-c i" . org-edit-special))
-		 ("C-c a" . org-agenda)
+  :bind (("C-c a" . org-agenda)
 		 ("C-c c" . org-capture)
 		 ("C-c k" . org-capture-kill)
-		 ("C-c i" . org-edit-src-exit))
+		 ("C-c i" . org-edit-src-exit)
+		 (:org-mode-map
+		  ("C-c i" . org-edit-special)))
   :config
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
