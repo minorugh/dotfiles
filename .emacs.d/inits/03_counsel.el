@@ -33,6 +33,7 @@
 	:ensure t
 	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
 			  (amx-history-length . 20)))
+
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
@@ -99,12 +100,6 @@ If the region isn't selected, `swiper'."
 	  (tramp-cleanup-all-connections)
 	  (counsel-tramp-quit)
 	  (message "Tramp Quit!"))))
-
-
-(leaf counsel-css
-  :ensure t
-  :config
-  (add-hook 'css-mode-hook #'counsel-css-imenu-setup))
 
 
 ;; counsel-web-search with migemo
