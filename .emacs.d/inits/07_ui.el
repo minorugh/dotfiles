@@ -25,7 +25,11 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-  :preface
+  :init
+  (leaf evil-modeline
+	:el-get minorugh/evil-modeline
+	:after evil
+	:require evil-mode-line)
   (leaf hide-mode-line
 	:ensure t
 	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))

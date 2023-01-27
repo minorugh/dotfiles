@@ -44,7 +44,11 @@
   `((imenu-list-size . 30)
 	(imenu-list-auto-resize . t)
 	(imenu-list-position . 'left)
-	(imenu-list-focus-after-activation . t)))
+	(imenu-list-focus-after-activation . t))
+  :init
+  (leaf counsel-css
+	:ensure t
+	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
 ;; Popup window

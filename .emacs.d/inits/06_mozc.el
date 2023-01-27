@@ -31,7 +31,7 @@
   :init
   (leaf mozc-cursor-color
 	:el-get iRi-E/mozc-el-extensions
-	:hook (after-init-hook . mozc-cursor-color-setup)
+	:hook (mozc-mode-hook . mozc-cursor-color-setup)
 	:config
 	(setq mozc-cursor-color-alist
 		  '((direct . "#50fa7b")

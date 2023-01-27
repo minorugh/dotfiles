@@ -12,12 +12,12 @@
 	(dviprint-command-format . "dvpd.sh %s")
 	(YaTeX-kanji-code . nil)
 	(YaTeX-latex-message-code . 'utf-8)
-	(YaTeX-default-pop-window-height . 15)))
-
-(leaf yatexprc
-  :after yatex
-  :bind (("M-c" . YaTeX-typeset-buffer)
-		 ("M-v" . YaTeX-lpr)))
+	(YaTeX-default-pop-window-height . 15))
+  :init
+  (leaf yatexprc
+	:after yatex
+	:bind (("M-c" . YaTeX-typeset-buffer)
+		   ("M-v" . YaTeX-lpr))))
 
 
 ;;-----------------------------
