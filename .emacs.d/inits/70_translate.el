@@ -3,14 +3,12 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Load deepl api key
-(load-file "~/Dropbox/backup/emacs/deepl-api.el")
-
-
 ;; Display translation results on minibuffer
 (leaf deepl-translate
   :el-get minorugh/deepl-translate
-  :bind ("C-c C-t" . deepl-translate))
+  :bind ("C-c C-t" . deepl-translate)
+  :init
+  (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
 
 
 ;; Display Deepl and Google Translate results in other buffer
@@ -53,8 +51,7 @@
 	(browse-url
 	 (concat
 	  "https://www.deepl.com/translator#en/ja/"
-	  (url-hexify-string string)
-	  ))))
+	  (url-hexify-string string)))))
 
 
 ;; Local Variables:
