@@ -20,7 +20,7 @@
 		  ("t" . gts-do-translate)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
-  (setq evil-insert-state-cursor '(bar . 3))
+  (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   ;; Hide cursor in inactive window
