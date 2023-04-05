@@ -104,7 +104,7 @@
    ";--------------------------------------------------------------------\n"
    (format-time-string "*[%Y%m%d]\n")
    ";--------------------------------------------------------------------\n"
-   (format-time-string "-*[%Y%m%d%H%M%S]高野素十\n")
+   (format-time-string "-*[%Y%m%d%H%M%S]やまだみのる\n")
    "<div style=\"margin:1em\">\n()\n</div>\n-(\n--\n=[\n= 合評\n"
    (format-time-string "<iframe class=\"autoHeight\" src=\"apiframe.cgi?%Y%m%d\"></iframe>\n")
    "\; -[\n\; -]\n=]\n-)\n\n")
@@ -251,7 +251,7 @@
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
   (evil-insert-state)
   (goto-char (point-min))
-  (forward-line 2)
+  (forward-line -2)
   (insert
    (format-time-string "> %Y年%-m月%-d日 (%a)\n")
    (format-time-string "PLACE:\n\n"))

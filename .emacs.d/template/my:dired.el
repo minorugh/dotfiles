@@ -126,7 +126,7 @@
 (defun my:swan ()
   "Open s_select file."
   (interactive)
-  (find-file "~/Dropbox/GH/swan/tex/swan.txt")
+  (find-file "~/Dropbox/GH/s_select/tex/swan.txt")
   (goto-char (point-min)))
 
 (defun my:tpost ()
