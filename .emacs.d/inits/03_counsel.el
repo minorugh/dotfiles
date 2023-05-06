@@ -73,7 +73,6 @@ If the region isn't selected, `swiper'."
 	(advice-add 'counsel-ag :around #'ad:counsel-ag)
 	;; Make search trigger even with 2 characters
 	(add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
-
 	(ivy-add-actions
 	 'counsel-ag
 	 '(("r" my:counsel-ag-in-dir "search in directory")))
