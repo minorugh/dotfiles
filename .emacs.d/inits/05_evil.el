@@ -9,7 +9,7 @@
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("C-e" . seq-end)
-		  ("SPC" . evil-insert-state)
+		  ("SPC" . evil-insert)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
 		  ([home] . open-dashboard))
