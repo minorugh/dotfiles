@@ -56,6 +56,7 @@ If the region isn't selected, `swiper'."
 	 cands
 	 "\n")))
 
+
 ;; Fast full-text search
 (leaf cus-counsel-ag
   :init
