@@ -144,6 +144,12 @@
 	(key-chord-safety-interval-forward  . 0.25)))
 
 
+;; Fontawesom
+(leaf fontawesome
+  :ensure t
+  :bind ("s-f" . counsel-fontawesome))
+
+
 ;; Package utils
 (leaf package-utils
   :ensure t
