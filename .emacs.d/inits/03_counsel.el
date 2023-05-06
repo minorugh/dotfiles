@@ -48,9 +48,9 @@ If the region isn't selected, `swiper'."
 	(ivy--format-function-generic
 	 (lambda (str)
 	   (concat (if (display-graphic-p)
-				   "")
-			   (propertize " " 'display `(space :align-to 2))
-			   (ivy--add-face str 'ivy-current-match)))
+				   "") ;; Fontawsome
+				   (propertize " " 'display `(space :align-to 2))
+				   (ivy--add-face str 'ivy-current-match)))
 	 (lambda (str)
 	   (concat (propertize " " 'display `(space :align-to 2)) str))
 	 cands
