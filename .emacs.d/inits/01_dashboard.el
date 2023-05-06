@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t -*-
+;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -33,18 +33,17 @@
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
 
   ;; Set the banner
-  (setq dashboard-startup-banner 'official
-		dashboard-page-separator "\n\f\f\n"
-		dashboard-set-heading-icons t
-		dashboard-set-file-icons t
-		show-week-agenda-p t
-		dashboard-items '((recents  . 5)))
+  (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
+  (setq dashboard-page-separator "\n\f\f\n")
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq show-week-agenda-p t)
+  (setq dashboard-items '((recents  . 5)))
 
   ;; Set the footer
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for everything."))
-  (setq dashboard-footer-icon
-		(all-the-icons-octicon "dashboard" :height 1.0 :v-adjust -0.05 :face 'font-lock-keyword-face))
+  (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
 
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
