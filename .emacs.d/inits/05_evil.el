@@ -42,6 +42,7 @@
 				  dashboard-mode
 				  dired-mode
 				  neotree-mode
+				  git-timemachine-mode
 				  easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
 
