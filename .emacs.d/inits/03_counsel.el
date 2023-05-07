@@ -25,15 +25,7 @@
 	(enable-recursive-minibuffers . t)
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist . '((t . my:ivy-format-function-arrow))))
-  :init
-  (leaf ivy-rich
-	:ensure t
-	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
-	:ensure t
-	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20)))
-
+  :config
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
@@ -42,7 +34,6 @@ If the region isn't selected, `swiper'."
 		(swiper)
       (swiper-thing-at-point)))
 
-  ;; Highlight selection candidate with cursor row with icon
   (defun my:ivy-format-function-arrow (cands)
 	"Transform into a string for minibuffer with CANDS."
 	(ivy--format-function-generic
@@ -54,7 +45,15 @@ If the region isn't selected, `swiper'."
 	 (lambda (str)
 	   (concat (propertize " " 'display `(space :align-to 2)) str))
 	 cands
-	 "\n")))
+	 "\n"))
+  :init
+  (leaf ivy-rich
+	:ensure t
+	:hook (after-init-hook . ivy-rich-mode))
+  (leaf amx
+	:ensure t
+	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+			  (amx-history-length . 20))))
 
 
 ;; Fast full-text search
