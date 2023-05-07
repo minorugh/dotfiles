@@ -105,9 +105,9 @@
 
 
 ;; Font-awesom
-;; (leaf fontawesome
-;;   :ensure t
-;;   :bind ("s-f" . counsel-fontawesome))
+(leaf fontawesome
+  :ensure t
+  :bind ("s-f" . counsel-fontawesome))
 
 
 ;; atomic-chrome
@@ -142,12 +142,6 @@
   `((key-chord-two-keys-delay . 0.15)
 	(key-chord-safety-interval-backward . 0.1)
 	(key-chord-safety-interval-forward  . 0.25)))
-
-
-;; Fontawesom
-(leaf fontawesome
-  :ensure t
-  :bind ("s-f" . counsel-fontawesome))
 
 
 ;; Package utils
