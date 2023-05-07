@@ -44,6 +44,11 @@
   (nyan-start-animation))
 
 ;; Icon
+(leaf nerd-icons
+  :ensure t)
+;; (leaf nerd-icons-dired
+;;   :ensure t
+;;   :hook (dired-mode-hook . nerd-icons-dired-mode))
 (leaf all-the-icons
   :ensure t
   :if (display-graphic-p)
