@@ -117,8 +117,9 @@
 ;; contain many mode setting
 (require 'generic-x)
 
-(provide 'mini-init)
+
+(provide 'init-mini)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; test.el ends here
+;;; init-mini.el ends here
