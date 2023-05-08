@@ -47,13 +47,7 @@
 
 
 ;; Icon
-(leaf nerd-icons
-  :ensure t)
-
-;; (leaf nerd-icons-dired
-;;   :ensure t
-;;   :hook (dired-mode-hook . nerd-icons-dired-mode))
-
+(leaf nerd-icons :ensure t)
 (leaf all-the-icons
   :ensure t
   :if (display-graphic-p)
@@ -62,10 +56,6 @@
   (setq all-the-icons-scale-factor 1.0)
   (unless (member "all-the-icons" (font-family-list))
 	(all-the-icons-install-fonts t)))
-
-(leaf all-the-icons-dired
-  :el-get jtbm37/all-the-icons-dired
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
 
 
 ;; Set line spacing

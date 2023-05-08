@@ -28,6 +28,14 @@
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t)))
 
+;; Icon
+;; (leaf nerd-icons-dired
+;;   :ensure t
+;;   :hook (dired-mode-hook . nerd-icons-dired-mode))
+(leaf all-the-icons-dired
+  :el-get jtbm37/all-the-icons-dired
+  :hook (dired-mode-hook . all-the-icons-dired-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custum functions
