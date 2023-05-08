@@ -49,6 +49,7 @@
   ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'view-mode-hook 'evil-emacs-state)
+  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
