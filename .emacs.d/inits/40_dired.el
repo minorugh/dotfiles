@@ -28,7 +28,7 @@
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t)))
 
-;; Icon
+;; Shows icons
 ;; (leaf nerd-icons-dired
 ;;   :ensure t
 ;;   :hook (dired-mode-hook . nerd-icons-dired-mode))
