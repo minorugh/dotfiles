@@ -10,17 +10,16 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(set-frame-parameter nil 'fullscreen 'maximized)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
+(set-frame-parameter nil 'fullscreen 'maximized)
+
+(load-theme 'misterioso t)
 
 ;; Package
 (unless (bound-and-true-p package--initialized) ;; To avoid warnings in 27
   (setq package-enable-at-startup nil)          ;; To prevent initializing twice
   (package-initialize))
-
-;; UI
-(load-theme 'misterioso t)
 
 ;; Save the file specified code with basic utf-8 if it exists
 (set-language-environment "Japanese")
