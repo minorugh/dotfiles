@@ -8,7 +8,8 @@
   :ensure t
   :bind (("C-x g" . magit-status )
 		 ("M-g" . hydra-git/body))
-  :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+  :hook ((magit-post-refresh-hook . diff-hl-magit-post-refresh)
+		 (magit-blame-mode-hook . evil-emacs-state))
   :hydra
   (hydra-git
    (:color red :hint nil)
