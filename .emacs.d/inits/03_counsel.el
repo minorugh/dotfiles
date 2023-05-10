@@ -45,15 +45,17 @@ If the region isn't selected, `swiper'."
 	 (lambda (str)
 	   (concat (propertize " " 'display `(space :align-to 2)) str))
 	 cands
-	 "\n"))
-  :init
-  (leaf ivy-rich
-	:ensure t
-	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
-	:ensure t
-	:custom	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20))))
+	 "\n")))
+
+
+(leaf ivy-rich
+  :ensure t
+  :hook (after-init-hook . ivy-rich-mode))
+
+(leaf amx
+  :ensure t
+  :custom `((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+			(amx-history-length . 20)))
 
 
 ;; Fast full-text search
