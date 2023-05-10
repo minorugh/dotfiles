@@ -26,15 +26,13 @@
 	(dired-recursive-deletes . 'always)
 	(dired-listing-switches . "-lgGhF")
 	(ls-lisp-use-insert-directory-program . nil)
-	(ls-lisp-dirs-first . t)))
-
-;; Shows icons
-;; (leaf nerd-icons-dired
-;;   :ensure t
-;;   :hook (dired-mode-hook . nerd-icons-dired-mode))
-(leaf all-the-icons-dired
-  :el-get jtbm37/all-the-icons-dired
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
+	(ls-lisp-dirs-first . t))
+  :config
+  (leaf all-the-icons-dired
+	:ensure t
+	:if (display-graphic-p)
+	:hook (dired-mode-hook . all-the-icons-dired-mode)
+	:custom (all-the-icons-dired-monochrome . nil)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
