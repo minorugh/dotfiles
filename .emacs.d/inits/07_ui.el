@@ -51,7 +51,7 @@
 (leaf all-the-icons
   :ensure t
   :if (display-graphic-p)
-  :after nerd-icons
+  :after neotree
   :config
   (setq all-the-icons-scale-factor 1.0)
   (unless (member "all-the-icons" (font-family-list))
