@@ -10,7 +10,7 @@
   :custom
   `((prescient-aggressive-file-save . t)
 	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
-  :init
+  :config
   (with-eval-after-load 'prescient
 	(leaf ivy-prescient :ensure t :global-minor-mode t)
 	(leaf company-prescient :ensure t :global-minor-mode t)))
@@ -45,7 +45,7 @@
 	(imenu-list-auto-resize . t)
 	(imenu-list-position . 'left)
 	(imenu-list-focus-after-activation . t))
-  :init
+  :config
   (leaf counsel-css
 	:ensure t
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
