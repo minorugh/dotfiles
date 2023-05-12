@@ -17,7 +17,9 @@
 		  ("g" . my:google)
 		  ("k" . my:koujien)
 		  ("s" . swiper-thing-at-point)
-		  ("t" . gts-do-translate)))
+		  ("t" . gts-do-translate))
+		 (:evil-emacs-state-map
+		  ("<muhenkan>" . evil-normal-state)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
