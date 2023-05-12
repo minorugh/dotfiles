@@ -79,7 +79,6 @@
 	"Turn on input-method after append status."
 	(interactive)
 	(evil-insert-state)
-	(forward-char 1)
 	(toggle-input-method))
 
   (defun evil-swap-key (map key1 key2)
