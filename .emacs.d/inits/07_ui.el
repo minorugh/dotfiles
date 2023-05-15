@@ -26,24 +26,21 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-  :init
   (leaf evil-modeline
 	:el-get minorugh/evil-modeline
-	:after evil
+	:after doom-modeline
 	:require evil-mode-line)
   (leaf hide-mode-line
 	:ensure t
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
-
-
-;; nyan-mode
-(leaf nyan-mode
-  :ensure t
-  :if (display-graphic-p)
-  :after doom-modeline
-  :config
-  (nyan-mode 1)
-  (nyan-start-animation))
+	:after doom-modeline
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
+  (leaf nyan-mode
+	:ensure t
+	:if (display-graphic-p)
+	:after doom-modeline
+	:config
+	(nyan-mode 1)
+	(nyan-start-animation)))
 
 
 ;; Icon
@@ -53,7 +50,7 @@
   :if (display-graphic-p)
   :after neotree
   :config
-  (setq all-the-icons-scale-factor 1.0)
+  (setq all-the-icons-scale-factor 0.8)
   (unless (member "all-the-icons" (font-family-list))
 	(all-the-icons-install-fonts t)))
 
