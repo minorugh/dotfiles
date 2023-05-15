@@ -10,7 +10,7 @@
 		 ("RET" . dired-open-in-accordance-with-situation)
 		 ("<" . beginning-of-buffer)
 		 (">" . end-of-buffer)
-		 ("r" . wdired-change-to-wdired-mode)
+		 ("r" . my:wdired-change-to-wdired-mode)
 		 ("s" . sudo-edit)
 		 ("o" . dired-open-file)
 		 ("[" . dired-hide-details-mode)
@@ -28,11 +28,15 @@
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t))
   :config
-  (leaf all-the-icons-dired
+  (leaf nerd-icons-dired
 	:ensure t
 	:if (display-graphic-p)
-	:hook (dired-mode-hook . all-the-icons-dired-mode)
-	:custom (all-the-icons-dired-monochrome . nil)))
+	:hook (dired-mode-hook . nerd-icons-dired-mode))
+  (defun my:wdired-change-to-wdired-mode ()
+	"Hide icons in Wdire."
+	(interactive)
+	(nerd-icons-dired-mode 0)
+	(wdired-change-to-wdired-mode)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
