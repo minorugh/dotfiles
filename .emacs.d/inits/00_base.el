@@ -66,12 +66,10 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
-;; Font
+;; Set font for main machine or other
 (if (string-match "e590" (shell-command-to-string "uname -n"))
-    (add-to-list 'default-frame-alist '(font . "Cica-21"))
-  ;; For submachine
+	(add-to-list 'default-frame-alist '(font . "Cica-21"))
   (add-to-list 'default-frame-alist '(font . "Cica-15")))
-;; )
 
 ;; Server start for emacs-client
 (leaf server
