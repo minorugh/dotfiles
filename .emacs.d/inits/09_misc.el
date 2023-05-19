@@ -147,7 +147,6 @@
 ;; Package utils
 (leaf package-utils
   :ensure t
-  :defer-config (ivy-mode)
   :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
