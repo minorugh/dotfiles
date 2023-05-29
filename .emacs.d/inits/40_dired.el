@@ -33,7 +33,7 @@
 	:if (display-graphic-p)
 	:hook (dired-mode-hook . nerd-icons-dired-mode))
   (defun my:wdired-change-to-wdired-mode ()
-	"Hide icons in Wdire."
+	"Hide icons in Wdired."
 	(interactive)
 	(nerd-icons-dired-mode 0)
 	(wdired-change-to-wdired-mode)))
