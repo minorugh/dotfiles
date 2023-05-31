@@ -14,7 +14,15 @@
 		  ("<f10>" . neotree-toggle)))
   :custom
   `((neo-keymap-style . 'concise)
-    (neo-create-file-auto-open . t)))
+    (neo-create-file-auto-open . t))
+  :config
+  (leaf all-the-icons
+	:ensure t
+	:if (display-graphic-p)
+	:config
+	(unless (member "all-the-icons" (font-family-list))
+	  (all-the-icons-install-fonts t))))
+
 
 ;; Change neotree's font size
 ;; Tips from https://github.com/jaypei/emacs-neotree/issues/218
