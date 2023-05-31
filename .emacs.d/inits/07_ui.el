@@ -26,6 +26,7 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
+  (leaf nerd-icons :ensure t)
   (leaf evil-modeline
 	:el-get minorugh/evil-modeline
 	:after doom-modeline
@@ -41,18 +42,6 @@
 	:config
 	(nyan-mode 1)
 	(nyan-start-animation)))
-
-
-;; Icon
-(leaf nerd-icons :ensure t)
-(leaf all-the-icons
-  :ensure t
-  :if (display-graphic-p)
-  :after neotree
-  :config
-  (setq all-the-icons-scale-factor 0.8)
-  (unless (member "all-the-icons" (font-family-list))
-	(all-the-icons-install-fonts t)))
 
 
 ;; Set line spacing
