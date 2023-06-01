@@ -71,7 +71,7 @@
 	(add-to-list 'default-frame-alist '(font . "Cica-21"))
   (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-;; Server start for emacs-client
+;; Server start for submachin
 (unless (string-match "e590" (shell-command-to-string "uname -n"))
   (leaf server
 	:require t
