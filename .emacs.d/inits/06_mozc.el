@@ -28,7 +28,14 @@
 	(interactive)
 	(mozc-handle-event 'enter)
 	(insert str))
-  :init
+
+  (defun mozc-copy ()
+	"Copy mozc for submachine."
+	(interactive)
+	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
+  (add-hook 'emacs-startup-hook 'mozc-copy)
+
   (leaf mozc-cursor-color
 	:el-get iRi-E/mozc-el-extensions
 	:hook (mozc-mode-hook . mozc-cursor-color-setup)
@@ -37,6 +44,7 @@
 		  '((direct . "#50fa7b")
 			(read-only . "#f8f8f2")
 			(hiragana . "#ff5555"))))
+
   (leaf mozc-cand-posframe
 	:ensure t
 	:when window-system
@@ -47,25 +55,15 @@
 	:init
 	(leaf posframe :ensure t))
 
-  ;; Clone the mozc dictionary placed in Dropbox to Nextcloud.
-  (defun mozc-copy ()
-	"Copy mozc for submachine."
-	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  (add-hook 'emacs-startup-hook 'mozc-copy))
-
-
-;; Add space between full-width and half-width
-(leaf pangu-spacing
-  :ensure t
-  :after mozc
-  :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-  :config
-  (setq pangu-spacing-include-regexp
-		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-						 (group-n 1 (or (category japanese))))))
-			(group-n 2 (in "a-zA-Z")))))
+  (leaf pangu-spacing
+	:ensure t
+	:after mozc
+	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+	:config
+	(setq pangu-spacing-include-regexp
+		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+						   (group-n 1 (or (category japanese))))))
+			  (group-n 2 (in "a-zA-Z"))))))
 
 
 (leaf *cus-mozc-tool
