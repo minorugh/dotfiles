@@ -71,13 +71,12 @@
 	(add-to-list 'default-frame-alist '(font . "Cica-21"))
   (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-;; Server start for submachin
-(unless (string-match "e590" (shell-command-to-string "uname -n"))
-  (leaf server
-	:require t
-	:config
-	(unless (server-running-p)
-	  (server-start))))
+;; server start for emacs-client
+(leaf server
+  :require t
+  :config
+  (unless (server-running-p)
+	(server-start)))
 
 ;; exec-path-from-shell
 (leaf exec-path-from-shell
