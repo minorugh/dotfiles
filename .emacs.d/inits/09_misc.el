@@ -11,9 +11,8 @@
   `((prescient-aggressive-file-save . t)
 	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
   :config
-  (with-eval-after-load 'prescient
-	(leaf ivy-prescient :ensure t :global-minor-mode t)
-	(leaf company-prescient :ensure t :global-minor-mode t)))
+  (leaf ivy-prescient :ensure t :global-minor-mode t)
+  (leaf company-prescient :ensure t :global-minor-mode t))
 
 
 ;; Flymake
