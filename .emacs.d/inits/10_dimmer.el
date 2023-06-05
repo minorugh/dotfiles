@@ -39,12 +39,11 @@
 		 ("C-x 0" . my:delete-window))
   :init
   (defun other-window-or-split ()
-	"With turn on dimmer."
+	"If there is one window, open split window.
+If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (hydra-pinky/body)
 	  (split-window-horizontally)
-	  (follow-mode 1)
 	  (dimmer-mode 1))
 	(other-window 1))
 
@@ -52,21 +51,18 @@
 	"With turn on dimmer."
 	(interactive)
 	(split-window-right)
-	(follow-mode 1)
 	(dimmer-mode 1))
 
   (defun my:split-window-below ()
 	"With turn on dimmer."
 	(interactive)
 	(split-window-below)
-	(follow-mode 1)
 	(dimmer-mode 1))
 
   (defun my:delete-other-windows ()
 	"With turn off dimmer."
 	(interactive)
 	(delete-other-windows)
-	(follow-mode -1)
 	(dimmer-mode -1))
 
   (defun my:delete-window ()
@@ -74,7 +70,6 @@
 	(interactive)
 	(delete-window)
 	(when (one-window-p)
-	  (follow-mode -1)
 	  (dimmer-mode -1)))
 
   (defun kill-other-buffers ()
@@ -87,8 +82,8 @@
 ;; Scroll deactive window
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf cus-scrroll-window-key-bind
-  :bind (("<next>" . my:scroll-other-window)
-		 ("<prior>" . my:scroll-other-window-down))
+  :bind (("C-<next>" . my:scroll-other-window)
+		 ("C-<prior>" . my:scroll-other-window-down))
   :init
   (defun my:scroll-other-window ()
 	"If there are two windows, `scroll-other-window'."

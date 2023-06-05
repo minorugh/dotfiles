@@ -6,7 +6,8 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
-  :bind ((:evil-normal-state-map
+  :bind (("<zenkaku-hankaku>" . evil-mode)	;; Toggle-evil-mode
+		 (:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("o" . other-window-or-split)
 		  ("0" . my:delete-window)

@@ -15,16 +15,8 @@
 		  ("C-c h" . chromium-tegaki)
 		  ("<muhenkan>" . my:muhenkan)
 		  ("C-c <left>" . winner-undo)
-		  ("C-c <right>" . winner-redo)
-		  ("<zenkaku-hankaku>" . toggle-evil-mode))
+		  ("C-c <right>" . winner-redo))
   :init
-  (defun toggle-evil-mode ()
-	"Toggle on and off evil mode."
-	(interactive)
-	(if evil-mode (evil-mode 0)
-	  (evil-mode 1)
-	  (evil-normal-state)))
-
   (defun my:muhenkan ()
 	(interactive)
 	(if (not (use-region-p))
@@ -59,6 +51,16 @@
 							   (file-name-nondirectory buffer-file-name)))
 	  (delete-file (buffer-file-name))
 	  (kill-this-buffer)))
+
+  ;; (defun delete-file-if-no-contents ()
+  ;; 	"Automatic deletion for empty files (Valid in all modes)."
+  ;; 	(when (and (buffer-file-name (current-buffer))
+  ;; 			   (= (point-min) (point-max)))
+  ;; 	  (delete-file
+  ;; 	   (buffer-file-name (current-buffer)))))
+  ;; (if (not (memq 'delete-file-if-no-contents after-save-hook))
+  ;; 	  (setq after-save-hook
+  ;; 			(cons 'delete-file-if-no-contents after-save-hook)))
 
   (defun chromium-tegaki ()
 	"Chromium tegaki site."
