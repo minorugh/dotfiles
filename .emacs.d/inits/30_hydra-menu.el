@@ -172,16 +172,6 @@
   (compile "sudo shutdown -h now")
   (delete-other-windows))
 
-(defhydra hydra-ctrl-x (ctl-x-map "" :pre (widen))
-  "ctrl-x"
-  ("0" delete-window)
-  ("x" delete-window)
-  ("1" delete-other-windows)
-  ("2" split-window-below)
-  ("3" split-window-right)
-  ("o" other-window-or-split)
-  ("S" window-swap-states))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
