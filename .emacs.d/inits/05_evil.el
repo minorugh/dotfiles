@@ -8,7 +8,9 @@
 		 (find-file-hook . my:evil-insert-state))
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
-		  ("C-e" . seq-end)
+		  ("o" . other-window-or-split)
+		  ("0" . my:delete-window)
+		  ("1" . my:delete-other-windows)
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
