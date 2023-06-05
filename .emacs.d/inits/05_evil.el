@@ -6,12 +6,9 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
-  :bind (("<zenkaku-hankaku>" . evil-mode)	;; Toggle-evil-mode
-		 (:evil-normal-state-map
+  :chord ("::" . evil-mode)	;; Toggle evil-mode
+  :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
-		  ("o" . other-window-or-split)
-		  ("0" . my:delete-window)
-		  ("1" . my:delete-other-windows)
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
