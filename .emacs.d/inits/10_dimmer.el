@@ -85,8 +85,7 @@ If there are two or more windows, it will go to another window."
 	("1" delete-other-windows)
 	("2" split-window-below)
 	("3" split-window-right)
-	("o" other-window-or-split)
-	(":" counsel-switch-buffer)))
+	("o" other-window-or-split)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
