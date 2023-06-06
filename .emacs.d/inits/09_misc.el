@@ -92,9 +92,9 @@
 
 
 ;; sudo-edit
-(leaf sudo-edit
-  :ensure t
-  :bind ("C-x s" . sudo-edit))
+;; (leaf sudo-edit
+;;   :ensure t
+;;   :bind ("C-x s" . sudo-edit))
 
 
 ;; Aggressive indent
