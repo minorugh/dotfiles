@@ -46,8 +46,6 @@
    ("[" hydra-git/body)
    ("]" magit-status)
    ("s" my:scr-dir)
-   ("S" sudo-edit)
-   ("l" my:open-capture)
    ("f" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
