@@ -7,7 +7,6 @@
   :ensure t
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . toggle-input-method)
-		 ("<zenkaku-hankaku>" . mozc-temp-convert)
 		 (:mozc-mode-map
 		  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 		  ("." . (lambda () (interactive) (mozc-insert-str "。")))
@@ -18,7 +17,6 @@
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title . "あ"))
   :config
-  (leaf mozc-temp :ensure t)
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
