@@ -11,7 +11,7 @@
 		 ("<" . beginning-of-buffer)
 		 (">" . end-of-buffer)
 		 ("r" . wdired-change-to-wdired-mode)
-		 ("s" . sudo-edit)
+		 ;; ("s" . sudo-edit)
 		 ("o" . dired-open-file)
 		 ("[" . dired-hide-details-mode)
 		 ("a" . toggle-dired-listing-switches)
