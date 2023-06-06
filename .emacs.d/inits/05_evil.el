@@ -6,9 +6,9 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
-  :bind (("<zenkaku-hankaku>" . evil-mode)	;; Toggle evil-mode)
-		 (:evil-normal-state-map
+  :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
+		  (":" . evil-emacs-state)
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
