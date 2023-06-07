@@ -13,13 +13,14 @@
    (:hint nil :exit t)
    "
    Q.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^─────────────────────────────────────────────────────────────────
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  _+_scale  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  ___del  _p_assxc  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  size_+_  _f_zilla  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  evil_:_  _p_assxc  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
    ("+" text-scale-adjust)
    ("o" my:org-dir)
+   (":" evil-mode) ;; Toggle evil-mode
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
