@@ -91,12 +91,6 @@
 		 ("C-/" . undo-fu-only-redo)))
 
 
-;; sudo-edit
-;; (leaf sudo-edit
-;;   :ensure t
-;;   :bind ("C-x s" . sudo-edit))
-
-
 ;; Aggressive indent
 (leaf aggressive-indent
   :ensure t
@@ -114,14 +108,6 @@
   :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom ((atomic-chrome-buffer-open-style . 'full)))
-
-
-;; Sequential-command
-;; (leaf sequential-command
-;;   :el-get HKey/sequential-command
-;;   :config
-;;   (leaf sequential-command-config
-;; 	:hook (emacs-startup-hook . sequential-command-setup-keys)))
 
 
 ;; Extension for region
