@@ -58,7 +58,8 @@
 	(interactive)
 	(cond
 	 ((or (evil-normal-state-p) (evil-insert-state-p)
-		  (evil-visual-state-p) (evil-replace-state-p)) [escape])
+		  (evil-visual-state-p) (evil-replace-state-p))
+	  [escape])
 	 (t [muhenkan])))
 
   ;; User custom functions
