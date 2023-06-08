@@ -10,8 +10,8 @@
 		  ("?" . chromium-vim-chert)
 		  (":" . evil-emacs-state)
 		  ("SPC" . evil-insert)
-		  ("M-." . nil)	;; Use with other settings
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
+ 		  ([remap evil-repeat-pop-next] . hydra-quick/body)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
