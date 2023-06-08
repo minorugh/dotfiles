@@ -6,6 +6,7 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
+  :chord ("::" . evil-mode) ;; Toggle evil-mode
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  (":" . evil-emacs-state)
