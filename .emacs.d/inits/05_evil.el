@@ -11,7 +11,7 @@
 		  (":" . evil-emacs-state)
 		  ("SPC" . evil-insert)
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
- 		  ([remap evil-repeat-pop-next] . hydra-quick/body)
+ 		  ("M-." . nil) ;; For use with hydra
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
