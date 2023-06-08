@@ -13,8 +13,8 @@
    (:hint nil :exit t)
    "
    Q.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^─────────────────────────────────────────────────────────────────
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  size_+_  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  evil_:_  _p_assxc  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _f_zilla  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x_0_/_1_  _p_assxc  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -43,6 +43,7 @@
    ("u" my:make-upsftp)
    ("/" my:root-dir)
    ("0" my:delete-window)
+   ("1" my:delete-other-windows)
    ("_" my:delete-other-windows)
    ("[" hydra-git/body)
    ("]" magit-status)
@@ -150,23 +151,24 @@
 	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
 	(delete-other-windows)))
 
-(defun logout ()
-  "Xfce4 session logout."
-  (interactive)
-  (compile "xfce4-session-logout")
-  (delete-other-windows))
+;; (defun logout ()
+;;   "Xfce4 session logout."
+;;   (interactive)
+;;   (compile "xfce4-session-logout")
+;;   (delete-other-windows))
 
-(defun reboot ()
-  "Xfce4 session logout."
-  (interactive)
-  (compile "sudo reboot")
-  (delete-other-windows))
+;; (defun reboot ()
+;;   "Xfce4 session logout."
+;;   (interactive)
+;;   (compile "sudo reboot")
+;;   (delete-other-windows))
 
-(defun shutdown ()
-  "Xfce4 session logout."
-  (interactive)
-  (compile "sudo shutdown -h now")
-  (delete-other-windows))
+;; (defun shutdown ()
+;;   "Xfce4 session logout."
+;;   (interactive)
+;;   (compile "sudo shutdown -h now")
+;;   (delete-other-windows))
+
 
 
 ;; Local Variables:
