@@ -100,7 +100,7 @@
   (defun chromium-vim-chert ()
 	"Chromium vim chert sheet."
 	(interactive)
-	(compile "google-chrome ~/src/github.com/minorugh/dotfiles/.emacs.d/template/vim-cheat.html")))
+	(browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html")))
 
 
 ;; Local Variables:
