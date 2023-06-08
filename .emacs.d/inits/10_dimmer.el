@@ -5,7 +5,8 @@
 
 (leaf dimmer
   :ensure t
-  :chord (".." . my:toggle-dimmer)
+  :chord ((".." . my:toggle-dimmer)
+		  ("::" . hydra-ctrl-x/body))
   :config
   (defvar my:dimmer-mode 1)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
@@ -85,7 +86,8 @@ If there are two or more windows, it will go to another window."
 	("1" delete-other-windows)
 	("2" split-window-below)
 	("3" split-window-right)
-	("o" other-window-or-split)))
+	("o" other-window-or-split)
+	(":" counsel-switch-buffer)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
