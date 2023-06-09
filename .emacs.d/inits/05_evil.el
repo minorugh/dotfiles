@@ -15,9 +15,9 @@
 		  ([escape] . my:evil-normal-state)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
-  (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
+  (defalias 'evil-insert-state 'evil-emacs-state)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
 
