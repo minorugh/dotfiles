@@ -1,4 +1,5 @@
 ;;; 05_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+
 ;;; Commentary:
 ;;; Code:
 
@@ -10,12 +11,11 @@
 		  ("?" . chromium-vim-chert)
 		  ("SPC" . evil-insert)
 		  ("<hiragana-katakana>" . my:evil-insert-ime-on)
-		  ("M-." . nil)
+		  ("M-." . nil) ;; For use in emacs statev
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
 		  ("k" . my:koujien)
-		  ("s" . swiper-thing-at-point)
 		  ("t" . gts-do-translate)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
