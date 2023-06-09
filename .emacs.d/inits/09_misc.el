@@ -15,6 +15,14 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
+;; Sequential-command
+(leaf sequential-command
+  :el-get HKey/sequential-command
+  :config
+  (leaf sequential-command-config
+	:hook (emacs-startup-hook . sequential-command-setup-keys)))
+
+
 ;; Flymake
 (leaf flymake
   :hook (emacs-lisp-mode-hook . flymake-mode)
