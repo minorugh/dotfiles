@@ -10,15 +10,13 @@
 		  ("?" . chromium-vim-chert)
 		  ("SPC" . evil-insert)
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
- 		  ("M-." . nil) ;; For use with hydra
+		  ([remap evil-repeat-pop-next] . hydra-quick/body)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
 		  ("k" . my:koujien)
 		  ("s" . swiper-thing-at-point)
-		  ("t" . gts-do-translate))
-		 (:evil-emacs-state-map
-		  ("<muhenkan>" . evil-normal-state)))
+		  ("t" . gts-do-translate)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
@@ -45,15 +43,12 @@
 				  dired-mode
 				  neotree-mode
 				  git-timemachine-mode
-				  easy-hugo-mode
-				  ))
+				  easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state into minor mode
-  (evil-set-initial-state 'magit-blame-mode 'emacs)
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
-  ;; (add-hook 'view-mode-hook 'evil-emacs-state)
-  ;; (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
