@@ -11,7 +11,8 @@
 		  ("SPC" . evil-insert)
 		  ("M-." . nil))
 		 (:evil-emacs-state-map
-		  ([muhenkan] . evil-normal-state)))
+		  ([muhenkan] . my:evil-normal-state)
+		  ([escape] . my:evil-normal-state)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
@@ -19,17 +20,6 @@
   (setq evil-undo-system 'undo-fu)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
-  ;; (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
-
-  ;; Use emacs key bindings in insert state
-  (setcdr evil-insert-state-map nil)
-
-  ;; Go back to normal state with ESC
-  (define-key evil-insert-state-map [escape] 'my:evil-normal-state)
-
-  ;; Use muhenkan key as ESC
-  (define-key key-translation-map [muhenkan] 'evil-escape-or-quit)
-  (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Force evil-emacs-state-modes into major mode
   (dolist (mode '(lisp-interaction-mode
@@ -45,16 +35,7 @@
   ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
-  (add-hook 'find-file-hook 'evil-emacs-state)
-
-  (defun evil-escape-or-quit (&optional prompt)
-	"If in evil state to ESC, else muhenkan key."
-	(interactive)
-	(cond
-	 ((or (evil-normal-state-p) (evil-insert-state-p)
-		  (evil-visual-state-p) (evil-replace-state-p))
-	  [escape])
-	 (t [muhenkan])))
+  (add-hook 'find-file-hook 'my:evil-find-file)
 
   ;; User custom functions
   (defun my:evil-normal-state ()
@@ -63,6 +44,12 @@
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state)
 	(if (use-region-p) (keyboard-quit)))
+
+  (defun my:evil-find-file ()
+	"New files open in emacs state."
+	(interactive)
+	(unless (file-exists-p buffer-file-name)
+	  (evil-emacs-state)))
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
