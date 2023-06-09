@@ -1,4 +1,5 @@
 ;;; 50_howm.el --- howm mode configurations. -*- lexical-binding: t -*-
+
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -10,7 +11,7 @@
 		  ([backtab] . howm-view-summary-previous-section)
 		  ("<return>" . howm-view-summary-open)
 		  ("," . my:howm-create-memo)
-		  ("t" . my:howm-create-tech)))
+		  (";" . my:howm-create-tech)))
   :init
   (setq howm-view-title-header "#")
   (setq howm-directory "~/Dropbox/howm")
