@@ -8,7 +8,6 @@
 		 (find-file-hook . my:evil-insert-state))
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
-		  (":" . evil-emacs-state)
 		  ("SPC" . evil-insert)
 		  ("<hiragana-katakana>" . my:evil-append-ime-on)
  		  ("M-." . nil) ;; For use with hydra
@@ -39,19 +38,22 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Force evil-emacs-state-modes into major mode
+  (evil-set-initial-state 'easy-hugo-mode 'emacs)
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
 				  dashboard-mode
 				  dired-mode
 				  neotree-mode
 				  git-timemachine-mode
-				  easy-hugo-mode))
+				  easy-hugo-mode
+				  ))
 	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state into minor mode
+  (evil-set-initial-state 'magit-blame-mode 'emacs)
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
-  (add-hook 'view-mode-hook 'evil-emacs-state)
-  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+  ;; (add-hook 'view-mode-hook 'evil-emacs-state)
+  ;; (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun evil-escape-or-quit (&optional prompt)
 	"If in evil state to ESC, else muhenkan key."
