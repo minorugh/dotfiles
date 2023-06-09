@@ -5,8 +5,7 @@
 
 (leaf dimmer
   :ensure t
-  :chord ((".." . my:toggle-dimmer)
-		  ("::" . hydra-ctrl-x/body))
+  :chord (".." . my:toggle-dimmer)
   :config
   (defvar my:dimmer-mode 1)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
