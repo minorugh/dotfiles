@@ -6,8 +6,8 @@
 (leaf counsel
   :ensure t
   :hook (after-init-hook . ivy-mode)
-  :bind (("C-r" . swiper-thing-at-point)
-		 ("C-s" . swiper-region)
+  :bind (([remap isearch-forward] . swiper-region)
+		 ([remap isearch-backward] . swiper-thing-at-point)
 		 ("C-:" . counsel-switch-buffer)
 		 ("M-:" . counsel-switch-buffer)
 		 ("s-a" . counsel-ag)
