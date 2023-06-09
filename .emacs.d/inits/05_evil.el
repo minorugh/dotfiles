@@ -9,8 +9,8 @@
   :bind ((:evil-normal-state-map
 		  ("?" . chromium-vim-chert)
 		  ("SPC" . evil-insert)
-		  ("<hiragana-katakana>" . my:evil-append-ime-on)
-		  ([remap evil-repeat-pop-next] . hydra-quick/body)
+		  ("<hiragana-katakana>" . my:evil-insert-ime-on)
+		  ("M-." . nil)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ("g" . my:google)
@@ -73,8 +73,8 @@
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
 
-  (defun my:evil-append-ime-on ()
-	"Turn on input-method after append status."
+  (defun my:evil-insert-ime-on ()
+	"Turn ime on and insert-state."
 	(interactive)
 	(evil-insert-state)
 	(toggle-input-method))
