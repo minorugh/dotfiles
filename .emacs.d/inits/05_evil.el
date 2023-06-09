@@ -36,12 +36,12 @@
   (define-key evil-operator-state-map [muhenkan] 'evil-escape-or-quit)
 
   ;; Force evil-emacs-state-modes into major mode
-  (evil-set-initial-state 'easy-hugo-mode 'emacs)
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
 				  dashboard-mode
 				  dired-mode
 				  neotree-mode
+				  howm-mode
 				  git-timemachine-mode
 				  easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
