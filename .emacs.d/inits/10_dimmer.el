@@ -11,6 +11,8 @@
   (defvar my:dimmer-mode 1)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.3)
+  ;; Hide cursor in inactive window
+  (setq-default cursor-in-non-selected-windows nil)
 
   (defun my:toggle-dimmer ()
 	(interactive)
