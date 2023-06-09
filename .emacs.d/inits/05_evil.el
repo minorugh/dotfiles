@@ -1,8 +1,5 @@
 ;;; 05_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 
-;;; Commentary:
-;;; Code:
-
 (leaf evil
   :ensure t
   :hook (after-init-hook . evil-mode)
@@ -17,8 +14,8 @@
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
-  (defalias 'evil-insert-state 'evil-emacs-state)
   :config
+  ;; Force evil-insert-state into evil-emacs-state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
   ;; Force evil-emacs-state-modes into major mode
