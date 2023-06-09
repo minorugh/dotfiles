@@ -7,23 +7,15 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-insert-state))
-  :bind ((:evil-normal-state-map
-		  ("?" . chromium-vim-chert)
-		  ("SPC" . evil-insert)
-		  ("<hiragana-katakana>" . my:evil-insert-ime-on)
-		  ("M-." . nil) ;; For use in emacs statev
-		  ([home] . open-dashboard))
-		 (:evil-visual-state-map
-		  ("g" . my:google)
-		  ("k" . my:koujien)
-		  ("t" . gts-do-translate)))
+  :bind (:evil-normal-state-map
+		 ("?" . chromium-vim-chert)
+		 ("SPC" . evil-insert)
+		 ("M-." . nil))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-insert-state-cursor '(bar . 4))
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
-  ;; Hide cursor in inactive window
-  (setq-default cursor-in-non-selected-windows nil)
   :config
   ;; Use emacs key bindings in insert state
   (setcdr evil-insert-state-map nil)
@@ -72,12 +64,6 @@
 	(interactive)
 	(unless (file-exists-p buffer-file-name)
 	  (evil-insert-state)))
-
-  (defun my:evil-insert-ime-on ()
-	"Turn ime on and insert-state."
-	(interactive)
-	(evil-insert-state)
-	(toggle-input-method))
 
   (defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
