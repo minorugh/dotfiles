@@ -7,7 +7,7 @@
   :ensure t
   :hook (after-init-hook . evil-mode)
   :bind ((:evil-normal-state-map
-		  ("C-e" . seq-end)
+		  ("C-e" . seq-end) ;; Use sequential-command
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)
 		  ("?" . chromium-vim-chert)
@@ -20,6 +20,9 @@
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
+  ;; Force evil-insert-state into evil-emacs-state
+  (defalias 'evil-insert-state 'evil-emacs-state)
+
   ;; Force evil-emacs-state-modes into major mode
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
@@ -35,9 +38,6 @@
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
   (add-hook 'find-file-hook 'my:evil-find-file)
-
-  ;; Force evil-insert-state into evil-emacs-state
-  (defalias 'evil-insert-state 'evil-emacs-state)
 
   ;; User custom functions
   (defun my:return-to-normal-state ()
