@@ -15,14 +15,6 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
-;; Sequential-command
-(leaf sequential-command
-  :el-get HKey/sequential-command
-  :config
-  (leaf sequential-command-config
-	:hook (emacs-startup-hook . sequential-command-setup-keys)))
-
-
 ;; Flymake
 (leaf flymake
   :hook (emacs-lisp-mode-hook . flymake-mode)
@@ -122,20 +114,6 @@
 (leaf expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
-
-
-;; Key Chord
-(leaf key-chord
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("::" . xref-find-definitions)
-		  ("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log)
-		  ("@@" . howm-list-all))
-  :custom
-  `((key-chord-two-keys-delay . 0.15)
-	(key-chord-safety-interval-backward . 0.1)
-	(key-chord-safety-interval-forward  . 0.25)))
 
 
 ;; Package utils
