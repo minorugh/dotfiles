@@ -24,15 +24,15 @@
   (defalias 'evil-insert-state 'evil-emacs-state)
 
   ;; Force evil-emacs-state-modes into major mode
-  (lisp-interaction-mode
-   fundamental-mode
-   dashboard-mode
-   dired-mode
-   neotree-mode
-   howm-mode
-   git-timemachine-mode
-   easy-hugo-mode))
-    (add-to-list 'evil-emacs-state-modes mode))
+  (dolist (mode '(lisp-interaction-mode
+				  fundamental-mode
+				  dashboard-mode
+				  dired-mode
+				  neotree-mode
+				  howm-mode
+				  git-timemachine-mode
+				  easy-hugo-mode))
+	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
@@ -45,7 +45,9 @@
 	(interactive)
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state)
-	(if (use-region-p) (keyboard-quit)))
+	(if (use-region-p) (keyboard-quit))
+	(unless (one-window-p)
+	  (hydra-ctrl-x/body)))
 
   (defun my:evil-find-file ()
     "New files open in emacs-state."
