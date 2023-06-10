@@ -24,14 +24,14 @@
   (defalias 'evil-insert-state 'evil-emacs-state)
 
   ;; Force evil-emacs-state-modes into major mode
-  (dolist (mode '(lisp-interaction-mode
-				  fundamental-mode
-				  dashboard-mode
-				  dired-mode
-				  neotree-mode
-				  howm-mode
-				  git-timemachine-mode
-				  easy-hugo-mode))
+  (lisp-interaction-mode
+   fundamental-mode
+   dashboard-mode
+   dired-mode
+   neotree-mode
+   howm-mode
+   git-timemachine-mode
+   easy-hugo-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state into minor mode

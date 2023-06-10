@@ -67,13 +67,13 @@
 ;; Edit multiple regions
 (leaf iedit
   :ensure t
-  :bind ("<insert>" . iedit-mode))
+  :bind ([insert] . iedit-mode))
 
 
 ;; Run command quickly
 (leaf quickrun
   :ensure t
-  :bind ("<f6>" . quickrun))
+  :bind ([f6] . quickrun))
 
 
 ;; Restart emacs
