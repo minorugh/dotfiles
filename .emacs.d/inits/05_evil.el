@@ -1,6 +1,6 @@
 ;;; 05_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
-;;; Code:
+;;; code:
 ;; (setq debug-on-error t)
 
 (leaf evil
@@ -78,4 +78,3 @@
 ;; no-byte-compile: t
 ;; End:
 ;;; 05_evil.el ends here
-
