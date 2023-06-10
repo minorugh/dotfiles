@@ -19,20 +19,16 @@
 	  (if (setq my:dimmer-mode (not my:dimmer-mode))
 		  (dimmer-on)
 		(dimmer-off))))
-
   (defun dimmer-off ()
 	(dimmer-process-all)
 	(dimmer-mode -1))
-
   (defun dimmer-on ()
 	(when my:dimmer-mode
 	  (dimmer-mode 1)
 	  (dimmer-process-all))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Split window configuration with dimmer control
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf cus-sprit-window-key-bind
   :bind (("C-q" . other-window-or-split)
 		 ("C-x 3" . my:split-window-right)
@@ -72,38 +68,7 @@ If there are two or more windows, it will go to another window."
 	(interactive)
 	(delete-window)
 	(when (one-window-p)
-	  (dimmer-mode -1)))
-
-  (defhydra hydra-ctrl-x (ctl-x-map "" :pre (widen))
-	"ctrl-x"
-	("0" delete-window)
-	("1" delete-other-windows)
-	("2" split-window-below)
-	("3" split-window-right)
-	("o" other-window-or-split)
-	(":" counsel-switch-buffer)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Scroll deactive window
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf cus-scrroll-window-key-bind
-  :bind (("C-<next>" . my:scroll-other-window)
-		 ("C-<prior>" . my:scroll-other-window-down))
-  :init
-  (defun my:scroll-other-window ()
-	"If there are two windows, `scroll-other-window'."
-	(interactive)
-	(when (one-window-p)
-	  (scroll-up))
-	(scroll-other-window))
-
-  (defun my:scroll-other-window-down ()
-	"If there are two windows, `scroll-other-window-down'."
-	(interactive)
-	(when (one-window-p)
-	  (scroll-down))
-	(scroll-other-window-down)))
+	  (dimmer-mode -1))))
 
 
 ;; Local Variables:
