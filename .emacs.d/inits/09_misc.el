@@ -128,7 +128,8 @@
 (leaf key-chord
   :ensure t
   :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
+  :chord (("::" . xref-find-definitions)
+		  ("df" . counsel-descbinds)
 		  ("l;" . init-loader-show-log)
 		  ("@@" . howm-list-all))
   :custom
