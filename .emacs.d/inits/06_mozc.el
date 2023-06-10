@@ -17,18 +17,17 @@
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title . "あ"))
   :config
-  (defun my:toggle-input-method ()
-	"If `evil-noemal-state' then `insert-state'."
-	(interactive)
-	(if (evil-normal-state-p)
-		(evil-insert-state))
-	(toggle-input-method))
-
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
 	  ad-do-it
 	  (setq input-method-function input-method-function-save)))
+
+  (defun my:toggle-input-method ()
+	"If `evil-mode' enabled, set to` emacs-state'."
+	(interactive)
+	(if (boundp 'evil-mode)(evil-emacs-state))
+	(toggle-input-method))
 
   (defun mozc-insert-str (str)
 	"STR Immediately confirmed by punctuation."

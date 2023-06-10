@@ -38,6 +38,7 @@
 
   ;; Force evil-insert-state into evil-emacs-state
   (defalias 'evil-insert-state 'evil-emacs-state)
+  ;; (setq evil-emacs-state-cursor '(bar . 1))
 
   ;; User custom functions
   (defun my:return-to-normal-state ()
