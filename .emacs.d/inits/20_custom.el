@@ -7,7 +7,7 @@
 (leaf key-chord
   :ensure t
   :hook (after-init-hook . key-chord-mode)
-  :chord (("::" . xref-find-definitions)
+  :chord (("::" . hydra-ctrl-x/body)
 		  ("df" . counsel-descbinds)
 		  ("l;" . init-loader-show-log)
 		  ("@@" . howm-list-all))
