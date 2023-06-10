@@ -48,8 +48,7 @@ If there are two or more windows, it will go to another window."
 	  (split-window-horizontally)
 	  (dimmer-mode 1)
 	  (hydra-ctrl-x/body))
-	(other-window 1)
-	(hydra-ctrl-x/body))
+	(other-window 1))
 
   (defun my:split-window-right ()
 	"With turn on dimmer."
