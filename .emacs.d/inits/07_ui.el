@@ -27,10 +27,6 @@
   (line-number-mode 0)
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
-  ;; (leaf evil-modeline
-  ;; 	:el-get minorugh/evil-modeline
-  ;; 	:after doom-modeline
-  ;; 	:require evil-mode-line)
   (leaf hide-mode-line
 	:ensure t
 	:after doom-modeline
@@ -59,7 +55,7 @@
   :hook ((after-init-hook . global-display-line-numbers-mode)
 		 ((imenu-list-minor-mode-hook dired-mode-hook neotree-mode-hook)
 		  . (lambda () (display-line-numbers-mode 0))))
-  :bind ("<f9>" . display-line-numbers-mode)
+  :bind ([f9] . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t))
 
 
@@ -75,9 +71,9 @@
 ;; Writing mode
 (leaf darkroom
   :ensure t
-  :bind (("<f12>" . my:darkroom-in)
+  :bind (([f12] . my:darkroom-in)
 		 (:darkroom-mode-map
-		  ("<f12>" . my:darkroom-out)))
+		  ([f12] . my:darkroom-out)))
   :init
   (defun my:darkroom-in ()
 	"Enter to the `darkroom-mode'."

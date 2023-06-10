@@ -10,7 +10,7 @@
 		 (dashboard-mode-hook . page-break-lines-mode)
 		 (emacs-startup-hook . open-dashboard))
   :defun (dashboard-setup-startup-hook)
-  :bind (("<home>" . open-dashboard)
+  :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
 		  ("A" . (lambda ()(interactive)(org-agenda nil "a")))
@@ -24,7 +24,7 @@
 		  ("m" . sylpheed)
 		  ("s" . slack)
 		  ("." . hydra-browse/body)
-		  ("<home>" . quit-dashboard)))
+		  ([home] . quit-dashboard)))
   :config
   ;; Set the title
   (setq dashboard-banner-logo-title

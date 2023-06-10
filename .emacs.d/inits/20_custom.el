@@ -19,13 +19,13 @@
 
 ;; User custom functions
 (leaf *user-custom-functions
-  :bind	 (("<f3>" . thunar-open)
-		  ("<f4>" . terminal-open)
-		  ("<f5>" . ssh-vim)
-		  ("<f8>" . toggle-menu-bar-mode-from-frame)
+  :bind	 (([f3] . thunar-open)
+		  ([f4] . terminal-open)
+		  ([f5] . ssh-vim)
+		  ([f8] . toggle-menu-bar-mode-from-frame)
 		  ("S-<delete>" . my:delete-this-file)
 		  ("C-c h" . chromium-tegaki)
-		  ("<muhenkan>" . my:muhenkan)
+		  ([muhenkan] . my:muhenkan)
 		  ("C-c <left>" . winner-undo)
 		  ("C-c <right>" . winner-redo))
   :init

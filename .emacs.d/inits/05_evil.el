@@ -61,7 +61,7 @@
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
-  もし
+
   (defun ad:switch-to-buffer (&rest _arg)
     "Set buffer for automatic insert-state."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
