@@ -13,8 +13,8 @@
 		  ("?" . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-emacs-state-map
-		  ([muhenkan] . my:evil-normal-state)
-		  ([escape] . my:evil-normal-state)))
+		  ([muhenkan] . my:return-to-normal-state)
+		  ([escape] . my:return-to-normal-state)))
   :init
   ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-cross-lines t)
@@ -40,15 +40,15 @@
   (add-hook 'find-file-hook 'my:evil-find-file)
 
   ;; User custom functions
-  (defun my:evil-normal-state ()
-    "Turn off input-method then return to normal-state."
-    (interactive)
-    (if current-input-method (deactivate-input-method))
-    (evil-normal-state)
-    (if (use-region-p) (keyboard-quit)))
+  (defun my:return-to-normal-state ()
+	"Turn off input-method then return to normal-state."
+	(interactive)
+	(if current-input-method (deactivate-input-method))
+	(evil-normal-state)
+	(if (use-region-p) (keyboard-quit)))
 
   (defun my:evil-find-file ()
-    "New files open in emacs state."
+    "New files open in emacs-state."
     (interactive)
     (unless (file-exists-p buffer-file-name)
       (evil-emacs-state)))
@@ -61,7 +61,7 @@
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
-
+  もし
   (defun ad:switch-to-buffer (&rest _arg)
     "Set buffer for automatic insert-state."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
