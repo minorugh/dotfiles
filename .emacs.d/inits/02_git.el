@@ -59,7 +59,7 @@
 If enter is pressed without file-name, that's will be buffer-file-neme."
 	(interactive)
 	(let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-	  (read-from-minibuffer (format "File name (%s): " file) File)))
+	  (read-from-minibuffer (format "File name (%s): " file) file)))
 
   (defun gist-region-or-buffer ()
 	"If region is selected, post from the region.
