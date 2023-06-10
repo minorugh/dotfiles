@@ -5,9 +5,10 @@
 
 (leaf evil
   :ensure t
-  :hook (after-init-hook . evil-mode)
+  :hook ((after-init-hook . evil-mode)
+		 (find-file-hook . my:evil-find-file))
   :bind ((:evil-normal-state-map
-		  ("C-e" . seq-end) ;; Use sequential-command
+		  ("C-e" . seq-end) ;; sequential-command
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)
 		  ("?" . chromium-vim-chert)
@@ -16,11 +17,9 @@
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape] . my:return-to-normal-state)))
   :init
-  ;; Options for Evil, must be written bfore (require 'evil)
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
-  ;; Force evil-insert-state into evil-emacs-state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
   ;; Force evil-emacs-state-modes into major mode
@@ -37,7 +36,6 @@
   ;; Force evil-emacs-state into minor mode
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
-  (add-hook 'find-file-hook 'my:evil-find-file)
 
   ;; User custom functions
   (defun my:return-to-normal-state ()
@@ -45,9 +43,7 @@
 	(interactive)
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state)
-	(if (use-region-p) (keyboard-quit))
-	(unless (one-window-p)
-	  (hydra-ctrl-x/body)))
+	(if (use-region-p)(keyboard-quit)))
 
   (defun my:evil-find-file ()
     "New files open in emacs-state."
@@ -65,7 +61,7 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun ad:switch-to-buffer (&rest _arg)
-    "Set buffer for automatic insert-state."
+    "Set buffer for automatic `evil-emacs-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-emacs-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)

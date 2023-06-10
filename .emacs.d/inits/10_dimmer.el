@@ -46,8 +46,7 @@ If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
 	  (split-window-horizontally)
-	  (dimmer-mode 1)
-	  (hydra-ctrl-x/body))
+	  (dimmer-mode 1))
 	(other-window 1))
 
   (defun my:split-window-right ()
@@ -74,11 +73,6 @@ If there are two or more windows, it will go to another window."
 	(delete-window)
 	(when (one-window-p)
 	  (dimmer-mode -1)))
-
-  (defun kill-other-buffers ()
-	"Kill all other buffers."
-	(interactive)
-	(mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
   (defhydra hydra-ctrl-x (ctl-x-map "" :pre (widen))
 	"ctrl-x"
