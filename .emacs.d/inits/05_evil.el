@@ -1,9 +1,13 @@
 ;;; 05_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+;; (setq debug-on-error t)
 
 (leaf evil
   :ensure t
   :hook (after-init-hook . evil-mode)
   :bind ((:evil-normal-state-map
+		  ("C-e" . move-end-of-line)
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)
 		  ("?" . chromium-vim-chert)
