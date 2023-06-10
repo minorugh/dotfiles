@@ -113,7 +113,8 @@
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
-		 ("M-/" . kill-this-buffer))
+		 ("M-/" . kill-this-buffer)
+		 ("M-," . xref-find-definitions))
   :init
   (defun my:kill-whole-line-or-region ()
 	"If the region is active, to kill region.
