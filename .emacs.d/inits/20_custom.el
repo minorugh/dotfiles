@@ -3,9 +3,21 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Key Chord
+(leaf key-chord
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :chord (("::" . xref-find-definitions)
+		  ("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log)
+		  ("@@" . howm-list-all))
+  :custom
+  `((key-chord-two-keys-delay . 0.15)
+	(key-chord-safety-interval-backward . 0.1)
+	(key-chord-safety-interval-forward  . 0.25)))
+
+
 ;; User custom functions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *user-custom-functions
   :bind	 (("<f3>" . thunar-open)
 		  ("<f4>" . terminal-open)
