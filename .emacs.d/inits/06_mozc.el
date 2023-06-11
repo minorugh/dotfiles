@@ -17,6 +17,22 @@
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title . "あ"))
   :config
+  (leaf mozc-cursor-color
+	:el-get iRi-E/mozc-el-extensions
+	:hook (mozc-mode-hook . mozc-cursor-color-setup)
+	:config
+	(setq mozc-cursor-color-alist
+		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
+
+  (leaf posframe
+    :ensure t
+    :when window-system
+    :config
+    (leaf mozc-cand-posframe
+	  :ensure t
+	  :require t
+	  :custom	(mozc-candidate-style . 'posframe)))
+
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
@@ -40,25 +56,10 @@
 	(interactive)
 	(unless (string-match "e590" (shell-command-to-string "uname -n"))
 	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  (add-hook 'emacs-startup-hook 'mozc-copy)
-
-  (leaf mozc-cursor-color
-	:el-get iRi-E/mozc-el-extensions
-	:hook (mozc-mode-hook . mozc-cursor-color-setup)
-	:config
-	(setq mozc-cursor-color-alist
-		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
-
-  (leaf posframe :ensure t)
-  (leaf mozc-cand-posframe
-	:ensure t
-	:when window-system
-	:after mozc
-	:require t
-	:custom	(mozc-candidate-style . 'posframe)))
+  (add-hook 'emacs-startup-hook 'mozc-copy))
 
 ;; Mozc tool
-(leaf cus-mozc-tool
+(leaf *cus-mozc-tool
   :bind (("s-t" . my:mozc-dictionary-tool)
 		 ("s-d" . my:mozc-word-regist)
 		 ("s-h" . chromium-tegaki))

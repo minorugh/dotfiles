@@ -27,7 +27,7 @@
 
 
 ;; Split window configuration with dimmer control
-(leaf cus-sprit-window-key-bind
+(leaf *cus-sprit-window-key-bind
   :bind (("C-q" . other-window-or-split)
 		 ("C-x 3" . my:split-window-right)
 		 ("C-x 2" . my:split-window-below)

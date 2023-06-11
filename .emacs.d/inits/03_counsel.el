@@ -58,7 +58,7 @@ If the region isn't selected, `swiper'."
 
 
 ;; Fast full-text search
-(leaf cus-counsel-ag
+(leaf *cus-counsel-ag
   :init
   (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
 	(apply f (or initial-input

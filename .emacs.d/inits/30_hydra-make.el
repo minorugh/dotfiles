@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf cus-compile-configulation
+(leaf *cus-compile-configulation
   :mode (("\\.mak\\'" "makefile\\'") . makefile-mode)
   :init
   (setq compilation-scroll-output t)
@@ -19,7 +19,7 @@
 		  (t (message "Compilation exited abnormally: %s" string)))))
 
 
-(leaf user-make-command
+(leaf *user-make-command
   :config
   (defun my:make-k ()
 	"Make k."

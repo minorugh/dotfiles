@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf cus-functions
+(leaf *cus-functions
   :bind	 (([f3] . thunar-open)
 		  ([f4] . terminal-open)
 		  ([f5] . ssh-xsrv)
