@@ -46,10 +46,10 @@
 	(if (use-region-p)(keyboard-quit)))
 
   (defun my:evil-find-file ()
-    "New files open in emacs-state."
+    "New files open in insert-state."
     (interactive)
     (unless (file-exists-p buffer-file-name)
-      (evil-emacs-state)))
+      (evil-insert-state)))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -61,9 +61,9 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun ad:switch-to-buffer (&rest _arg)
-    "Set buffer for automatic `evil-emacs-state'."
+    "Set buffer for automatic `evil-insert-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
-      (evil-emacs-state)))
+      (evil-insert-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
   (defun chromium-vim-chert ()
