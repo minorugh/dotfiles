@@ -3,20 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Key Chord
-(leaf key-chord
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log)
-		  ("@@" . howm-list-all))
-  :custom
-  `((key-chord-two-keys-delay . 0.15)
-	(key-chord-safety-interval-backward . 0.1)
-	(key-chord-safety-interval-forward  . 0.25)))
-
-
-;; User custom functions
 (leaf cus-functions
   :bind	 (([f3] . thunar-open)
 		  ([f4] . terminal-open)
@@ -63,11 +49,6 @@
 	  (delete-file (buffer-file-name))
 	  (kill-this-buffer)))
 
-  (defun chromium-tegaki ()
-	"Chromium tegaki site."
-	(interactive)
-	(browse-url "https://mojinavi.com/tegaki"))
-
   ;; Automatically open root permission file with sudo
   (leaf *sudo-open
 	:doc "https://ameblo.jp/grennarthmurmand1976/entry-12151018656.html"
@@ -88,22 +69,7 @@
 	(defun my:find-file-sudo (file)
 	  "Opens FILE with root privileges."
 	  (interactive "F")
-	  (set-buffer (find-file (concat "/sudo::" file)))))
-
-
-  ;; PS-printer
-  (defalias 'ps-mule-header-string-charsets 'ignore)
-  (setq ps-multibyte-buffer 'non-latin-printer
-		ps-paper-type 'a4
-		ps-font-size 9
-		;; ps-font-family 'Helvetica
-		ps-font-family 'Courier
-		ps-line-number-font 'Courier
-		ps-printer-name nil
-		ps-print-header nil
-		ps-show-n-of-n t
-		ps-line-number t
-		ps-print-footer nil))
+	  (set-buffer (find-file (concat "/sudo::" file))))))
 
 
 ;; Local Variables:
