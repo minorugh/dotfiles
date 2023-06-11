@@ -20,7 +20,7 @@
 (leaf *user-custom-functions
   :bind	 (([f3] . thunar-open)
 		  ([f4] . terminal-open)
-		  ([f5] . ssh-vim)
+		  ([f5] . ssh-xsrv)
 		  ([f8] . toggle-menu-bar-mode-from-frame)
 		  ("S-<delete>" . my:delete-this-file)
 		  ("C-c h" . chromium-tegaki)
@@ -34,8 +34,8 @@
 		(minibuffer-keyboard-quit)
 	  (keyboard-quit)))
 
-  (defun ssh-vim ()
-	"Open thunar with current dir."
+  (defun ssh-xsrv ()
+	"Open terminal and ssh to xsrv."
 	(interactive)
 	(shell-command "gnome-terminal -- ssh xsrv"))
 
@@ -62,16 +62,6 @@
 							   (file-name-nondirectory buffer-file-name)))
 	  (delete-file (buffer-file-name))
 	  (kill-this-buffer)))
-
-  ;; (defun delete-file-if-no-contents ()
-  ;; 	"Automatic deletion for empty files (Valid in all modes)."
-  ;; 	(when (and (buffer-file-name (current-buffer))
-  ;; 			   (= (point-min) (point-max)))
-  ;; 	  (delete-file
-  ;; 	   (buffer-file-name (current-buffer)))))
-  ;; (if (not (memq 'delete-file-if-no-contents after-save-hook))
-  ;; 	  (setq after-save-hook
-  ;; 			(cons 'delete-file-if-no-contents after-save-hook)))
 
   (defun chromium-tegaki ()
 	"Chromium tegaki site."
