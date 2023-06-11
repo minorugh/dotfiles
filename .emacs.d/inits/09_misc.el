@@ -104,7 +104,7 @@
   :hook (after-init-hook . undohist-initialize)
   :config
   (setq undohist-directory "~/.emacs.d/tmp/undohist")
-  (setq undohist-ignored-files '("/tmp/")))
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
 ;; Aggressive indent
