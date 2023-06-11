@@ -49,6 +49,7 @@
 	(setq mozc-cursor-color-alist
 		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
 
+  (leaf posframe :ensure t)
   (leaf mozc-cand-posframe
 	:ensure t
 	:when window-system
