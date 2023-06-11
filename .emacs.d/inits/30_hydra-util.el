@@ -10,7 +10,7 @@
    "
   ^ Shop^        ^ SNS^        ^🔃 Repos^       ^ Blog^       ^ Life^        ^ Social^    ^ Github^      oogle
   ^^^^^^^^───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  _A_: Amazon      _t_: Twitter    _d_: Dropbox     _g_: ghub.io    _j_: Jorudan     _k_: Keep      _1_: minorugh    _5_: Translate
+  _A_: Amazon      _t_: Twitter    _d_: Dropbox     _g_: ghub.io    _j_: Jorudan     _k_: Keep      _1_: minorugh    _5_: Mail
   _R_: Rakuten     _y_: Youtube    _f_: Flickr      _m_: snap       _n_: News        _p_: Pocket    _2_: gist        _6_: Map
   _Y_: Yodobashi   _I_: Instagram  _G_: Gdrive      _e_: Essay      _w_: Weather     _q_: Qiita     _3_: explore     _7_: Earth
   _K_: Kakaku      _T_: Tumblr     _x_: Xserver     _b_: Blog       _S_: SanyoBas    _s_: Slack     _4_: Centaur     _8_: Photo
@@ -27,7 +27,7 @@
    ("2" (browse-url "https://gist.github.com/minorugh"))
    ("3" (browse-url "https://github.com/explore"))
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
-   ("5" (browse-url "https://translate.google.co.jp/?hl=ja"))
+   ("5" (browse-url "https://mail.google.com/mail/"))
    ("6" (browse-url "https://www.google.co.jp/maps"))
    ("7" (browse-url "https://earth.google.com/web/"))
    ("b" (browse-url "http://blog.gospel-haiku.com/"))
