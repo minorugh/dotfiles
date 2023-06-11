@@ -1,4 +1,4 @@
-;;; 10_dimmer.el --- Dimmer configurations. -*- lexical-binding: t -*-
+;;; 12_dimmer.el --- Dimmer configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -72,4 +72,4 @@ If there are two or more windows, it will go to another window."
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 10_dimmer.el ends here
+;;; 12_dimmer.el ends here
