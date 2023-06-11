@@ -17,7 +17,7 @@
 
 
 ;; User custom functions
-(leaf *user-custom-functions
+(leaf cus-functions
   :bind	 (([f3] . thunar-open)
 		  ([f4] . terminal-open)
 		  ([f5] . ssh-xsrv)
