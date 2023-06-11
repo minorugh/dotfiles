@@ -39,7 +39,7 @@
 	(nyan-start-animation)))
 
 ;; Set line spacing
-(leaf *cus-line-spacing
+(leaf cus-line-spacing
   :hook (buffer-list-update-hook . my:linespacing)
   :init
   (defun my:linespacing ()
@@ -56,7 +56,7 @@
   :custom (display-line-numbers-width-start . t))
 
 ;; Controls cursor blinking
-(leaf *cus-cursor
+(leaf cus-cursor
   :hook (emacs-startup-hook . blink-cursor-mode)
   :custom
   ;; Controls cursor blinking

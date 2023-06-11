@@ -16,7 +16,7 @@
 
 
 ;; Scratch for sticky-memo
-(leaf *scratch-memo
+(leaf cus-scratch-memo
   :after auto-save-buffers-enhanced
   :bind ("S-<return>" . toggle-scratch)
   :custom

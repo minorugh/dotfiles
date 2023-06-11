@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *cus-start
+(leaf cus-start
   :hook (after-init-hook . my:default-modes)
   :custom
   `(;; No startup screen appears
@@ -108,7 +108,7 @@
 	(recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
 ;; Change global key bind
-(leaf *cus-global-keybind
+(leaf cus-global-keybind
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)

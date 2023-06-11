@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *cus-functions
+(leaf cus-functions
   :bind	 (([f3] . thunar-open)
 		  ([f4] . terminal-open)
 		  ([f5] . ssh-xsrv)
@@ -50,7 +50,7 @@
 	  (kill-this-buffer)))
 
   ;; Automatically open root permission file with sudo
-  (leaf *sudo-open
+  (leaf sudo-open
 	:doc "https://ameblo.jp/grennarthmurmand1976/entry-12151018656.html"
 	:config
 	(defun file-root-p (filename)

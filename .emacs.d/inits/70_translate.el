@@ -30,7 +30,7 @@
 
 
 ;; Deepl translation in web page
-(leaf *my:deeple-translate
+(leaf my:deeple-translate
   :bind ("C-c t" . my:deepl-translate)
   :init
   (defun my:deepl-translate (&optional string)

@@ -59,7 +59,7 @@
   (add-hook 'emacs-startup-hook 'mozc-copy))
 
 ;; Mozc tool
-(leaf *cus-mozc-tool
+(leaf cus-mozc-tool
   :bind (("s-t" . my:mozc-dictionary-tool)
 		 ("s-d" . my:mozc-word-regist)
 		 ("s-h" . chromium-tegaki))
