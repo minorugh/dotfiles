@@ -47,7 +47,6 @@ If the region isn't selected, `swiper'."
 	 cands
 	 "\n")))
 
-
 (leaf ivy-rich
   :ensure t
   :hook (after-init-hook . ivy-rich-mode))
