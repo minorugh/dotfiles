@@ -1,4 +1,4 @@
-;;; 50_org-mode.el --- Org mode configurations. -*- lexical-binding: t -*-
+;;; 50_org.el --- Org mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,4 +66,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 50_org-mode.el ends here
+;;; 50_org.el ends here
