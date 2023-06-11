@@ -6,7 +6,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Make command configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf *user-make-configulation
+(leaf cus-make-configulation
   :mode (("\\.mak\\'" "makefile\\'") . makefile-mode)
   :hydra
   (hydra-make

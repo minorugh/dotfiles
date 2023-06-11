@@ -61,8 +61,8 @@
 	:init
 	(leaf posframe :ensure t)))
 
-
-(leaf *cus-mozc-tool
+;; Mozc tool
+(leaf cus-mozc-tool
   :bind (("s-t" . my:mozc-dictionary-tool)
 		 ("s-d" . my:mozc-word-regist)
 		 ("s-h" . chromium-tegaki))

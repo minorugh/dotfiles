@@ -7,8 +7,7 @@
 (leaf which-key
   :ensure t
   :hook (after-init-hook . which-key-mode)
-  :custom
-  (which-key-max-description-length . 40))
+  :custom (which-key-max-description-length . 40))
 
 ;; Popup window
 (leaf popwin
@@ -64,6 +63,13 @@
 (leaf expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
+
+;; Sequential-command
+(leaf sequential-command
+  :el-get HKey/sequential-command
+  :config
+  (leaf sequential-command-config
+	:hook (emacs-startup-hook . sequential-command-setup-keys)))
 
 
 ;; Local Variables:

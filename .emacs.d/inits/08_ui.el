@@ -14,7 +14,6 @@
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-
 ;; Mode-line
 (leaf doom-modeline
   :ensure t
@@ -39,7 +38,6 @@
 	(nyan-mode 1)
 	(nyan-start-animation)))
 
-
 ;; Set line spacing
 (leaf cus-line-spacing
   :hook (buffer-list-update-hook . my:linespacing)
@@ -49,7 +47,6 @@
 	(unless (minibufferp)
 	  (setq-local line-spacing 0.1))))
 
-
 ;; Show line numbers
 (leaf display-line-numbers
   :hook ((after-init-hook . global-display-line-numbers-mode)
@@ -57,7 +54,6 @@
 		  . (lambda () (display-line-numbers-mode 0))))
   :bind ([f9] . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t))
-
 
 ;; Controls cursor blinking
 (leaf cus-cursor
