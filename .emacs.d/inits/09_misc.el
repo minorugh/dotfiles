@@ -46,7 +46,7 @@
 ;; imenu-list
 (leaf imenu-list
   :ensure t
-  :bind ("<f2>" . imenu-list-smart-toggle)
+  :bind ([f2] . imenu-list-smart-toggle)
   :custom
   `((imenu-list-size . 30)
 	(imenu-list-auto-resize . t)
