@@ -47,19 +47,14 @@
 	:hook (mozc-mode-hook . mozc-cursor-color-setup)
 	:config
 	(setq mozc-cursor-color-alist
-		  '((direct . "#50fa7b")
-			(read-only . "#f8f8f2")
-			(hiragana . "#ff5555"))))
+		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
 
   (leaf mozc-cand-posframe
 	:ensure t
 	:when window-system
 	:after mozc
 	:require t
-	:custom
-	(mozc-candidate-style . 'posframe)
-	:init
-	(leaf posframe :ensure t)))
+	:custom	(mozc-candidate-style . 'posframe)))
 
 ;; Mozc tool
 (leaf cus-mozc-tool
