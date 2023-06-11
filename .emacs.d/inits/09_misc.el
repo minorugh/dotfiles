@@ -99,6 +99,14 @@
 		 ("C-/" . undo-fu-only-redo)))
 
 
+(leaf undohist
+  :ensure t
+  :hook (after-init-hook . undohist-initialize)
+  :config
+  (setq undohist-directory "~/.emacs.d/tmp/undohist")
+  (setq undohist-ignored-files '("/tmp/")))
+
+
 ;; Aggressive indent
 (leaf aggressive-indent
   :ensure t
