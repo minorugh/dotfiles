@@ -12,7 +12,6 @@
   :config
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.25)
-  ;; (dimmer-mode 1)
   (with-eval-after-load "dimmer"
 	(defun dimmer-off ()
       (dimmer-mode -1)
