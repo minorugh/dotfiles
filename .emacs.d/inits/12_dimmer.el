@@ -20,7 +20,6 @@
       (dimmer-mode 1)
       (dimmer-process-all)))
   :init
-  ;; Split window configuration with dimmer control
   (defun other-window-or-split ()
 	"If there is one window, open split window.
 If there are two or more windows, it will go to another window."
