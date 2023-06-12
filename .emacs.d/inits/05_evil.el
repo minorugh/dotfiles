@@ -11,6 +11,7 @@
 		  ("C-e" . seq-end) ;; sequential-command
 		  ("SPC" . evil-insert)
 		  ("M-." . nil)
+		  ("@" . other-window-or-split)
 		  ("?" . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-emacs-state-map
@@ -21,7 +22,6 @@
   (setq evil-undo-system 'undo-fu)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
-
   ;; Force evil-emacs-state-modes into major mode
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
