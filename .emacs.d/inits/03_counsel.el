@@ -11,7 +11,6 @@
 		 ("C-:" . counsel-switch-buffer)
 		 ("M-:" . counsel-switch-buffer)
 		 ("s-a" . counsel-ag)
-		 ("s-w" . counsel-web-suggest)
 		 ("M-x" . counsel-M-x)
 		 ("M-y" . counsel-yank-pop)
 		 ("C-x m" . counsel-mark-ring)

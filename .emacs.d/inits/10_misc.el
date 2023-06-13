@@ -16,11 +16,10 @@
 
 ;; Sequential-command
 (leaf sequential-command
-  :ensure t
-  ;; :el-get HKey/sequential-command
+  :el-get HKey/sequential-command
   :config
   (leaf sequential-command-config
-	:hook (emacs-startup-hook . sequential-command-setup-keys)))
+	:hook (after-init-hook . sequential-command-setup-keys)))
 
 ;; Key Chord
 (leaf key-chord
@@ -86,6 +85,7 @@
 (leaf web-mode
   :ensure t
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :bind ("s-w" . counsel-web-suggest)
   :custom
   `((web-mode-markup-indent-offset . 2)
 	(web-mode-css-indent-offset . 2)
