@@ -29,6 +29,16 @@
 	(pulse-momentary-highlight-region beg end face))
   (advice-add #'vhl/.make-hl :override #'my:vhl-pulse))
 
+;; Aggressive indent
+(leaf aggressive-indent
+  :ensure t
+  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
+;; Rainbow-delimiters
+(leaf rainbow-delimiters
+  :ensure t
+  :hook (prog-mode-hook . rainbow-delimiters-mode))
+
 ;; Whitespace
 (leaf whitespace
   :ensure nil

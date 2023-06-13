@@ -14,7 +14,6 @@
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
-
 ;; Sequential-command
 (leaf sequential-command
   :ensure t
@@ -22,7 +21,6 @@
   :config
   (leaf sequential-command-config
 	:hook (emacs-startup-hook . sequential-command-setup-keys)))
-
 
 ;; Key Chord
 (leaf key-chord
@@ -32,7 +30,6 @@
 		  ("l;" . init-loader-show-log)
 		  ("@@" . howm-list-all))
   :custom (key-chord-two-keys-delay . 0.1))
-
 
 ;; Popup menu-item bindings
 (leaf which-key
@@ -73,16 +70,6 @@
   :config
   (setq undohist-directory "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
-
-;; Aggressive indent
-(leaf aggressive-indent
-  :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
-
-;; Rainbow-delimiters
-(leaf rainbow-delimiters
-  :ensure t
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 ;; atomic-chrome
 (leaf atomic-chrome
