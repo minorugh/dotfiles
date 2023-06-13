@@ -63,8 +63,8 @@
    (:hint nil :exit t)
    "
    P.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^───────────────────────────────────────────────────────────────────────
-  _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  kill_/__\\_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__,_:年度  _w_:添日^^^  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  Trash_/_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__,_:年度  _w_:添日  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -103,8 +103,7 @@
    ("z" my:tselext)
    ("Z" my:tselext-new-post)
    (":" git-gui-open)
-   ("\\" my:delete-this-file)
-   ("/" kill-this-buffer)
+   ("/" my:delete-this-file)
    ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
