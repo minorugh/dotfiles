@@ -3,6 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Effective sorting
+(leaf prescient
+  :ensure t
+  :hook (after-init-hook . prescient-persist-mode)
+  :custom
+  `((prescient-aggressive-file-save . t)
+	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
+  :config
+  (leaf ivy-prescient :ensure t :global-minor-mode t)
+  (leaf company-prescient :ensure t :global-minor-mode t))
+
+
 ;; Popup menu-item bindings
 (leaf which-key
   :ensure t
@@ -63,6 +75,15 @@
 (leaf expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
+
+;; Html editing
+(leaf web-mode
+  :ensure t
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :custom
+  `((web-mode-markup-indent-offset . 2)
+	(web-mode-css-indent-offset . 2)
+	(web-mode-code-indent-offset . 2)))
 
 ;; counsel-web-search with migemo
 (leaf counsel-web
