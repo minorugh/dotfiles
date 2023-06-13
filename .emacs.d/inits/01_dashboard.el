@@ -13,10 +13,6 @@
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
-		  ("A" . (lambda ()(interactive)(org-agenda nil "a")))
-		  ("L" . logout)
-		  ("R" . reboot)
-		  ("y" . chromium-yahoo-japan)
 		  ("n" . chromium-nhk-news)
 		  ("w" . chromium-weather)
 		  ("t" . chromium-tweetdeck)
@@ -48,7 +44,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
 	(interactive)
-	(insert " GH: (h)    calendar: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
+	(insert " GH: (h)    Weather: (w)   Calendar: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
 
   ;; Insert custom item
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))

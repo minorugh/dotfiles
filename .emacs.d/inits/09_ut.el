@@ -59,7 +59,8 @@
 
 ;; Sequential-command
 (leaf sequential-command
-  :el-get HKey/sequential-command
+  :ensure t
+  ;; :el-get HKey/sequential-command
   :config
   (leaf sequential-command-config
 	:hook (emacs-startup-hook . sequential-command-setup-keys)))

@@ -23,6 +23,11 @@
   (interactive)
   (browse-url "https://www.nhk.or.jp/news/"))
 
+(defun chromium-weather ()
+  "Chromium tenki."
+  (interactive)
+  (browse-url "https://tenki.jp/week/6/31/"))
+
 (defun chromium-keep-new ()
   "Chromium keep new."
   (interactive)
