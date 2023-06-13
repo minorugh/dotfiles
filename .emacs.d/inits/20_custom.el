@@ -9,23 +9,8 @@
   :bind	(([f3] . thunar-open)
 		 ([f4] . terminal-open)
 		 ([f5] . ssh-xsrv)
-		 ([f8] . toggle-menu-bar-mode-from-frame)
-		 ("C-c h" . chromium-tegaki)
-		 ([muhenkan] . my:muhenkan)
-		 ("C-c <left>" . winner-undo)
-		 ("C-c <right>" . winner-redo))
+		 ([muhenkan] . my:muhenkan))
   :init
-  (defun my:muhenkan ()
-	(interactive)
-	(if (not (use-region-p))
-		(minibuffer-keyboard-quit)
-	  (keyboard-quit)))
-
-  (defun ssh-xsrv ()
-	"Open terminal and ssh to xsrv."
-	(interactive)
-	(shell-command "gnome-terminal -- ssh xsrv"))
-
   (defun thunar-open ()
 	"Open thunar with current dir."
 	(interactive)
@@ -39,6 +24,17 @@
 				 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
 		(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
 	  (shell-command (concat "gnome-terminal --working-directory " dir))))
+
+  (defun my:muhenkan ()
+	(interactive)
+	(if (not (use-region-p))
+		(minibuffer-keyboard-quit)
+	  (keyboard-quit)))
+
+  (defun ssh-xsrv ()
+	"Open terminal and ssh to xsrv."
+	(interactive)
+	(shell-command "gnome-terminal -- ssh xsrv"))
 
   (defun my:delete-this-file ()
 	"Delete the current file, and kill the buffer."
@@ -61,7 +57,6 @@
 		   (unless current-prefix-arg
 			 (or initial-directory default-directory))
 		   extra-ag-args ag-prompt caller))
-
   (with-eval-after-load "counsel"
 	(require 'thingatpt nil t)
 	(advice-add 'counsel-ag :around #'ad:counsel-ag)
@@ -75,40 +70,6 @@
 	  "Search again with new root directory."
 	  (let ((current-prefix-arg '(4)))
 		(counsel-ag ivy-text nil "")))))
-
-
-;; gist
-(leaf cus-gist
-  :bind (("s-g p" . gist-region-or-buffer)
-		 ("s-g c" . my:chromium-gist))
-  :init
-  (defun gist-description ()
-	"Add gist description."
-	(shell-quote-argument (read-from-minibuffer "Add gist description: ")))
-
-  (defun gist-filename ()
-	"The character string entered in minibuffer is used as file-name.
-If enter is pressed without file-name, that's will be buffer-file-neme."
-	(interactive)
-	(let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-	  (read-from-minibuffer (format "File name (%s): " file) file)))
-
-  (defun gist-region-or-buffer ()
-	"If region is selected, post from the region.
-If region isn't selected, post from the buffer."
-	(interactive)
-	(let ((file (buffer-file-name)))
-	  (if (not (use-region-p))
-		  (compile (concat "gist -od " (gist-description) " " file))
-		(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-	(delete-other-windows))
-
-  (defun dired-do-gist ()
-	"Dired-get-filename do gist and open in browser."
-	(interactive)
-	(let ((file (dired-get-filename nil t)))
-	  (compile (concat "gist -od " (gist-description) " " file)))
-	(delete-other-windows)))
 
 
 ;; Local Variables:

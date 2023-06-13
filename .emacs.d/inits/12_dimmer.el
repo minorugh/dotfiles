@@ -11,6 +11,7 @@
   (defvar my:dimmer-mode t)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.3)
+  :init
   (defun my:toggle-dimmer ()
 	(interactive)
 	(unless (one-window-p)

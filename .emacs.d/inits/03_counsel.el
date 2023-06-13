@@ -25,7 +25,7 @@
 	(enable-recursive-minibuffers . t)
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist . '((t . my:ivy-format-function-arrow))))
-  :config
+  :init
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."

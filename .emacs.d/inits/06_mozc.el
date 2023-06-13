@@ -7,11 +7,10 @@
   :ensure t
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
+		 ("s-d" . my:mozc-word-regist)
 		 (:mozc-mode-map
 		  ("," . (lambda () (interactive) (mozc-insert-str "、")))
-		  ("." . (lambda () (interactive) (mozc-insert-str "。")))
-		  ("?" . (lambda () (interactive) (mozc-insert-str "？")))
-		  ("!" . (lambda () (interactive) (mozc-insert-str "！")))))
+		  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :custom
   `((default-input-method . "japanese-mozc")
 	(mozc-helper-program-name . "mozc_emacs_helper")
@@ -51,47 +50,22 @@
 	(mozc-handle-event 'enter)
 	(insert str))
 
-  (defun mozc-copy ()
-	"Copy mozc for submachine."
-	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  (add-hook 'emacs-startup-hook 'mozc-copy))
-
-;; Mozc tool
-(leaf cus-mozc-tool
-  :bind (("s-t" . my:mozc-dictionary-tool)
-		 ("s-d" . my:mozc-word-regist)
-		 ("s-h" . chromium-tegaki))
-  :init
-  (defun select-mozc-tool ()
-	"Select mozc-tool."
-	(interactive)
-	(counsel-M-x "my:mozc- "))
-
-  (defun my:mozc-config-dialog ()
-	"Open `mozc-config-dialog'."
-	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=config_dialog")
-	(delete-other-windows))
-
-  (defun my:mozc-dictionary-tool ()
-	"Open `mozc-dictipnary-tool'."
-	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=dictionary_tool")
-	(delete-other-windows))
-
   (defun my:mozc-word-regist ()
 	"Open `mozc-word-regist'."
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-	(delete-other-windows))
-
-  (defun my:mozc-hand-writing ()
-	"Open `mozc-hand-writing'."
-	(interactive)
-	(compile "/usr/lib/mozc/mozc_tool --mode=hand_writing")
 	(delete-other-windows)))
+
+
+;; Copy mozc to submachines for avoid conflicts
+(leaf mozc-for-submachine
+  :hook (emacs-startup-hook . my:mozc-copy)
+  :init
+  (defun my:mozc-copy ()
+	"Copy mozc to submachines for avoid conflicts."
+	(interactive)
+	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
 
 ;; Local Variables:
