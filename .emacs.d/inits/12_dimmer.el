@@ -31,8 +31,6 @@
 ;; Split window configuration with dimmer control
 (leaf cus-window-command
   :bind (("C-q" . other-window-or-split)
-		 ("C-x 3" . my:split-window-right)
-		 ("C-x 2" . my:split-window-below)
 		 ("C-x 1" . my:delete-other-windows)
 		 ("C-x 0" . my:delete-window))
   :init
@@ -41,34 +39,26 @@
 If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (split-window-horizontally)
+	  (if (evil-normal-state-p)
+		  (follow-delete-other-windows-and-split)
+		(split-window-horizontally))
 	  (dimmer-mode 1))
 	(other-window 1))
-
-  (defun my:split-window-right ()
-	"With turn on dimmer."
-	(interactive)
-	(split-window-right)
-	(dimmer-mode 1))
-
-  (defun my:split-window-below ()
-	"With turn on dimmer."
-	(interactive)
-	(split-window-below)
-	(dimmer-mode 1))
 
   (defun my:delete-other-windows ()
 	"With turn off dimmer."
 	(interactive)
 	(delete-other-windows)
-	(dimmer-mode -1))
+	(dimmer-mode -1)
+	(follow-mode -1))
 
   (defun my:delete-window ()
 	"With turn off dimmer."
 	(interactive)
 	(delete-window)
 	(when (one-window-p)
-	  (dimmer-mode -1))))
+	  (dimmer-mode -1)
+	  (follow-mode -1))))
 
 
 ;; Local Variables:
