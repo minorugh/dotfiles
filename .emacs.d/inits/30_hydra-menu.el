@@ -151,24 +151,6 @@
 	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
 	(delete-other-windows)))
 
-;; (defun logout ()
-;;   "Xfce4 session logout."
-;;   (interactive)
-;;   (compile "xfce4-session-logout")
-;;   (delete-other-windows))
-
-;; (defun reboot ()
-;;   "Xfce4 session logout."
-;;   (interactive)
-;;   (compile "sudo reboot")
-;;   (delete-other-windows))
-
-;; (defun shutdown ()
-;;   "Xfce4 session logout."
-;;   (interactive)
-;;   (compile "sudo shutdown -h now")
-;;   (delete-other-windows))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t

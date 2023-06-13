@@ -14,6 +14,7 @@
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
+
 ;; Flymake
 (leaf flymake
   :hook (emacs-lisp-mode-hook . flymake-mode)
@@ -24,6 +25,7 @@
 	:hook (flymake-mode-hook . flymake-posframe-mode)
 	:custom
 	(flymake-posframe-error-prefix . " ")))
+
 
 ;; imenu-list
 (leaf imenu-list
@@ -39,6 +41,7 @@
 	:ensure t
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
+
 ;; Html editing
 (leaf web-mode
   :ensure t
@@ -47,6 +50,7 @@
   `((web-mode-markup-indent-offset . 2)
 	(web-mode-css-indent-offset . 2)
 	(web-mode-code-indent-offset . 2)))
+
 
 ;; Key Chord
 (leaf key-chord
@@ -57,6 +61,7 @@
 		  ("@@" . howm-list-all))
   :custom (key-chord-two-keys-delay . 0.1))
 
+
 ;; Sequential-command
 (leaf sequential-command
   :ensure t
@@ -64,6 +69,35 @@
   :config
   (leaf sequential-command-config
 	:hook (emacs-startup-hook . sequential-command-setup-keys)))
+
+
+;; Counsel-tramp
+(leaf counsel-tramp
+  :ensure t
+  :custom
+  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
+	(tramp-default-method . "scp")
+	(counsel-tramp-custom-connections
+	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
+  :config
+  (defun my:tramp-quit ()
+	"Quit tramp, if tramp connencted."
+	(interactive)
+	(when (get-buffer "*tramp/scp xsrv*")
+	  (tramp-cleanup-all-connections)
+	  (counsel-tramp-quit)
+	  (message "Tramp Quit!"))))
+
+
+;; migemo
+(leaf migemo
+  :ensure t
+  :hook (after-init-hook . migemo-init)
+  :when (executable-find "cmigemo")
+  :custom
+  `((migemo-command . "cmigemo")
+	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
+
 
 ;; PS-printer
 (defalias 'ps-mule-header-string-charsets 'ignore)

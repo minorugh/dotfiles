@@ -54,7 +54,18 @@ If the region isn't selected, `swiper'."
   (leaf amx
 	:ensure t
 	:custom `((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20))))
+			  (amx-history-length . 20)))
+
+  (leaf swiper-migemo
+	:doc "https://github.com/tam17aki/swiper-migemo"
+	:el-get tam17aki/swiper-migemo
+	:after swiper
+	:config
+	(global-swiper-migemo-mode +1)
+	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
+	(setq migemo-options '("--quiet" "--nonewline" "--emacs"))
+	(migemo-kill)
+	(migemo-init)))
 
 
 ;; Local Variables:
