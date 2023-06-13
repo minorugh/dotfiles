@@ -64,13 +64,6 @@
   :ensure t
   :bind ("C-@" . er/expand-region))
 
-;; Sequential-command
-(leaf sequential-command
-  :el-get HKey/sequential-command
-  :config
-  (leaf sequential-command-config
-	:hook (emacs-startup-hook . sequential-command-setup-keys)))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
