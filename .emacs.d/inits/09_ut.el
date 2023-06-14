@@ -2,6 +2,55 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+;; User custom functions
+
+(leaf cus-functions
+  :chord ("jk" . my:delete-this-file)
+  :bind	(([f3] . thunar-open)
+		 ([f4] . terminal-open)
+		 ([f5] . ssh-xsrv)
+		 ([muhenkan] . my:muhenkan))
+  :init
+  (defun thunar-open ()
+	"Open thunar with current dir."
+	(interactive)
+	(shell-command (concat "xdg-open " default-directory)))
+
+  (defun terminal-open ()
+	"Open termninal with current dir."
+	(interactive)
+	(let ((dir (directory-file-name default-directory)))
+	  (when (and (eq system-type 'gnu/linux)
+				 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+		(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
+	  (shell-command (concat "gnome-terminal --working-directory " dir))))
+
+  (defun ssh-xsrv ()
+	"Open terminal and ssh to xsrv."
+	(interactive)
+	(shell-command "gnome-terminal -- ssh xsrv"))
+
+  (defun my:muhenkan ()
+	(interactive)
+	(if (not (use-region-p))
+		(minibuffer-keyboard-quit)
+	  (keyboard-quit))))
+
+
+;; Sequential-command
+(leaf sequential-command
+  :el-get HKey/sequential-command
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
+;; Popup menu-item bindings
+(leaf which-key
+  :ensure t
+  :hook (after-init-hook . which-key-mode)
+  :custom (which-key-max-description-length . 40))
+
 
 ;; Flymake
 (leaf flymake
@@ -56,50 +105,6 @@
   :custom
   `((migemo-command . "cmigemo")
 	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
-
-
-;; User custom functions
-(leaf cus-functions
-  :chord ("jk" . my:delete-this-file)
-  :bind	(([f3] . thunar-open)
-		 ([f4] . terminal-open)
-		 ([f5] . ssh-xsrv)
-		 ([muhenkan] . my:muhenkan))
-  :init
-  (defun thunar-open ()
-	"Open thunar with current dir."
-	(interactive)
-	(shell-command (concat "xdg-open " default-directory)))
-
-  (defun terminal-open ()
-	"Open termninal with current dir."
-	(interactive)
-	(let ((dir (directory-file-name default-directory)))
-	  (when (and (eq system-type 'gnu/linux)
-				 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
-		(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
-	  (shell-command (concat "gnome-terminal --working-directory " dir))))
-
-  (defun my:muhenkan ()
-	(interactive)
-	(if (not (use-region-p))
-		(minibuffer-keyboard-quit)
-	  (keyboard-quit)))
-
-  (defun ssh-xsrv ()
-	"Open terminal and ssh to xsrv."
-	(interactive)
-	(shell-command "gnome-terminal -- ssh xsrv"))
-
-  (defun my:delete-this-file ()
-	"Delete the current file, and kill the buffer."
-	(interactive)
-	(unless (buffer-file-name)
-	  (error "No file is currently being edited"))
-	(when (yes-or-no-p (format "Really delete '%s'?"
-							   (file-name-nondirectory buffer-file-name)))
-	  (delete-file (buffer-file-name))
-	  (kill-this-buffer))))
 
 
 ;; PS-printer
