@@ -17,7 +17,7 @@
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape] . my:return-to-normal-state)))
-  :preface
+  :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
