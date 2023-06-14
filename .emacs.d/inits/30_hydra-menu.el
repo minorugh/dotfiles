@@ -12,7 +12,7 @@
   (hydra-quick
    (:hint nil :exit t)
    "
-   Q.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^─────────────────────────────────────────────────────────────────
+   Q.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^────────────────────────────────────────────────────────────────
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _f_zilla  make._c__k__g_|_b__m__u_
   _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x_0_._1_  _p_assxc  howm._,__;__@_|md_v_^^^^
   "
@@ -62,9 +62,9 @@
   (hydra-work
    (:hint nil :exit t)
    "
-   P.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^───────────────────────────────────────────────────────────────────────
-  _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  Trash_/_  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
-  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _z_:月秀  _y__,_:年度  _w_:添日  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+   P.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────
+  _d_:日記  _m_:毎日  _k_:兼題  _t_:定例  _f_:週秀  _[__]_:創作  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
+  _a_:合評  _n_:近詠  _s_:吟行  _._:添削  _w_:添日  _y__,_:年度  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("o" my:docker-compose)
@@ -72,7 +72,6 @@
    ("y" my:year)
    ("Y" my:year-new-post)
    ("," my:year-draft)
-   ("<" my:make-draft)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("P" ps-print-buffer)
@@ -100,10 +99,7 @@
    ("." my:tpost)
    ("f" my:dselext)
    ("F" my:dselext-new-post)
-   ("z" my:tselext)
-   ("Z" my:tselext-new-post)
    (":" git-gui-open)
-   ("/" my:delete-this-file)
    ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
