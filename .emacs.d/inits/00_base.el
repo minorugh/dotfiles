@@ -114,7 +114,7 @@
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
-		 ("M-_" . my:delete-this-file)
+		 ("C-M-/" . my:delete-this-file)
 		 ("M-," . xref-find-definitions)
 		 ([f8] . toggle-menu-bar-mode-from-frame))
   :init
