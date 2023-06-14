@@ -114,6 +114,7 @@
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
+		 ("M-_" . my:delete-this-file)
 		 ("M-," . xref-find-definitions)
 		 ([f8] . toggle-menu-bar-mode-from-frame))
   :init
@@ -123,7 +124,18 @@ If the region is inactive, to kill whole line."
 	(interactive)
 	(if (use-region-p)
 		(clipboard-kill-region (region-beginning) (region-end))
-      (kill-whole-line))))
+      (kill-whole-line)))
+
+  (defun my:delete-this-file ()
+	"Delete the current file, and kill the buffer."
+	(interactive)
+	(unless (buffer-file-name)
+	  (error "No file is currently being edited"))
+	(when (yes-or-no-p (format "Really delete '%s'?"
+							   (file-name-nondirectory buffer-file-name)))
+	  (delete-file (buffer-file-name))
+	  (kill-this-buffer))))
+
 
 ;;  Links in Emacs ... mouse click or "C-c RET"
 (progn
