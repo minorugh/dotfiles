@@ -5,7 +5,6 @@
 ;; User custom functions
 
 (leaf cus-functions
-  :chord ("jk" . my:delete-this-file)
   :bind	(([f3] . thunar-open)
 		 ([f4] . terminal-open)
 		 ([f5] . ssh-xsrv)
