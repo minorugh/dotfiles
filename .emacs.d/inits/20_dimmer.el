@@ -40,9 +40,7 @@
 If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (if (evil-normal-state-p)
-		  (follow-delete-other-windows-and-split)
-		(split-window-horizontally))
+	  (split-window-horizontally)
 	  (dimmer-mode 1))
 	(other-window 1))
 
@@ -50,16 +48,14 @@ If there are two or more windows, it will go to another window."
 	"With turn off dimmer."
 	(interactive)
 	(delete-other-windows)
-	(dimmer-mode -1)
-	(follow-mode -1))
+	(dimmer-mode -1))
 
   (defun my:delete-window ()
 	"With turn off dimmer."
 	(interactive)
 	(delete-window)
 	(when (one-window-p)
-	  (dimmer-mode -1)
-	  (follow-mode -1))))
+	  (dimmer-mode -1))))
 
 
 ;; Local Variables:
