@@ -14,13 +14,6 @@
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
-;; Sequential-command
-(leaf sequential-command
-  :el-get HKey/sequential-command
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
-
 ;; Key Chord
 (leaf key-chord
   :ensure t
@@ -29,12 +22,6 @@
 		  ("l;" . init-loader-show-log)
 		  ("@@" . howm-list-all))
   :custom (key-chord-two-keys-delay . 0.1))
-
-;; Popup menu-item bindings
-(leaf which-key
-  :ensure t
-  :hook (after-init-hook . which-key-mode)
-  :custom (which-key-max-description-length . 40))
 
 ;; Popup window
 (leaf popwin
