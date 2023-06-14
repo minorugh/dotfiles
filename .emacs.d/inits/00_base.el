@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf cus-start
-  :hook (after-init-hook . my:default-modes)
   :custom
   `(;; No startup screen appears
     (inhibit-splash-screen . t)
@@ -59,54 +58,60 @@
     (global-font-lock-mode 1)
     (global-hl-line-mode 1)
     (global-visual-line-mode 1))
+  (add-hook 'after-init-hook 'my:default-modes)
+
   ;; Display buffer name in title bar
-  (setq frame-title-format (format "emacs@%s : %%b" (system-name))))
+  (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
 
-;; Save the file specified code with basic utf-8 if it exist
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
+  ;; Save the file specified code with basic utf-8 if it exist
+  (set-language-environment "Japanese")
+  (prefer-coding-system 'utf-8)
 
-;; Set font for main machine or other
-(if (string-match "e590" (shell-command-to-string "uname -n"))
-	(add-to-list 'default-frame-alist '(font . "Cica-21"))
-  (add-to-list 'default-frame-alist '(font . "Cica-15")))
+  ;; Set font for main machine or other
+  (if (string-match "e590" (shell-command-to-string "uname -n"))
+	  (add-to-list 'default-frame-alist '(font . "Cica-21"))
+	(add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
-;; server start for emacs-client
-(leaf server
-  :require t
-  :config
-  (unless (server-running-p)
-	(server-start)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(leaf basic-configurations
+  :init
+  ;; server start for emacs-client
+  (leaf server
+	:require t
+	:config
+	(unless (server-running-p)
+	  (server-start)))
 
-;; exec-path-from-shell
-(leaf exec-path-from-shell
-  :ensure t
-  :when (memq window-system '(mac ns x))
-  :hook (after-init-hook . exec-path-from-shell-initialize)
-  :custom
-  (exec-path-from-shell-check-startup-files . nil))
+  ;; exec-path-from-shell
+  (leaf exec-path-from-shell
+	:ensure t
+	:when (memq window-system '(mac ns x))
+	:hook (after-init-hook . exec-path-from-shell-initialize)
+	:custom
+	(exec-path-from-shell-check-startup-files . nil))
 
-;; save-place
-(leaf save-place
-  :hook (after-init-hook . save-place-mode)
-  :custom (save-place-file . "~/.emacs.d/tmp/places"))
+  ;; save-place
+  (leaf save-place
+	:hook (after-init-hook . save-place-mode)
+	:custom (save-place-file . "~/.emacs.d/tmp/places"))
 
-;; save-hist
-(leaf savehist
-  :hook (after-init-hook . savehist-mode)
-  :custom
-  `((savehist-file . "~/.emacs.d/tmp/history")
-	(savehist-additional-variables . '(kill-ring))))
+  ;; save-hist
+  (leaf savehist
+	:hook (after-init-hook . savehist-mode)
+	:custom
+	`((savehist-file . "~/.emacs.d/tmp/history")
+	  (savehist-additional-variables . '(kill-ring))))
 
-;; recentf
-(leaf recentf
-  :hook (after-init-hook . recentf-mode)
-  :custom
-  `((recentf-auto-cleanup . 'never)
-	(recentf-exclude
-	 . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-	(recentf-save-file . "~/.emacs.d/tmp/recentf")))
+  ;; recentf
+  (leaf recentf
+	:hook (after-init-hook . recentf-mode)
+	:custom
+	`((recentf-auto-cleanup . 'never)
+	  (recentf-exclude
+	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	  (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Change global key bind
 (leaf cus-global-keybind
   :bind (("M-w" . clipboard-kill-ring-save)
@@ -116,7 +121,7 @@
 		 ("M-/" . kill-this-buffer)
 		 ("C-M-/" . my:delete-this-file)
 		 ("M-," . xref-find-definitions)
-		 ([f8] . toggle-menu-bar-mode-from-frame))
+		 ([f8] . follow-mode))
   :init
   (defun my:kill-whole-line-or-region ()
 	"If the region is active, to kill region.
