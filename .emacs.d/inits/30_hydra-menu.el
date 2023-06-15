@@ -14,7 +14,7 @@
    "
    Q.menu ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^────────────────────────────────────────────────────────────────
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _f_zilla  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x_0_._1_  _p_assxc  howm._,__;__@_|md_v_^^^^
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x._0__1_  _p_assxc  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -42,6 +42,8 @@
    ("m" my:make-move)
    ("u" my:make-upsftp)
    ("/" my:root-dir)
+   ("<" winner-undo)
+   (">" winner-redo)
    ("0" my:delete-window)
    ("1" my:delete-other-windows)
    ("_" my:delete-other-windows)
