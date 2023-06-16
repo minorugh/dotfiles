@@ -26,6 +26,9 @@
   (line-number-mode 0)
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
+  (leaf evil-modeline
+	:el-get minorugh/evil-modeline
+ 	:require evil-mode-line)
   (leaf hide-mode-line
 	:ensure t
 	:after doom-modeline
