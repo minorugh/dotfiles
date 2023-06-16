@@ -140,8 +140,8 @@
 	(if (and (file-root-p (ad-get-arg 0))
 			 (not (file-writable-p (ad-get-arg 0)))
 			 (y-or-n-p (concat (ad-get-arg 0)
-							   " is root permission. Open it as root? ")))
-		(my:find-file-sudo (ad-get-arg 0))
+							   " is root permission. Open it as with sudo ? ")))
+	  (my:find-file-sudo (ad-get-arg 0))
 	  ad-do-it))
 
   (defun my:find-file-sudo (file)
