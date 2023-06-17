@@ -43,12 +43,15 @@
   :ensure t
   :bind ("C-x C-c" . restart-emacs))
 
+;; sudo-edit
+(leaf sudo-edit
+  :ensure t)
+										;
 ;; undo redo
 (leaf undo-fu
   :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 		 ("C-/" . undo-fu-only-redo)))
-
 ;; undohist
 (leaf undohist
   :ensure t
