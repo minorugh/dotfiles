@@ -26,7 +26,8 @@
   "Open root dir."
   (interactive)
   (setq dired-listing-switches "-lgGhFA")
-  (find-file "/"))
+  (find-file "/")
+  (sudo-edit))
 
 (defun my:xsrv-dir ()
   "Open xsrv dir."
