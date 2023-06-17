@@ -11,12 +11,14 @@
 	(show-paren-when-point-inside-paren . t)
 	(show-paren-when-point-in-periphery . t)))
 
+
 ;; Smartparens
 (leaf smartparens
   :ensure t
   :hook ((after-init-hook . smartparens-global-mode)
 		 (prog-mode-hook . turn-on-smartparens-mode))
   :config (require 'smartparens-config))
+
 
 ;; Volatile-highlights
 (leaf volatile-highlights
@@ -29,19 +31,23 @@
 	(pulse-momentary-highlight-region beg end face))
   (advice-add #'vhl/.make-hl :override #'my:vhl-pulse))
 
+
 ;; Aggressive indent
 (leaf aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
 
 ;; Rainbow-delimiters
 (leaf rainbow-delimiters
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
+
 ;; Whitespace
 (leaf whitespace
   :ensure nil
+  :hook (prog-mode-hook . my:enable-trailing-mode)
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom
   (show-trailing-whitespace . nil)
@@ -49,7 +55,6 @@
   (defun my:enable-trailing-mode ()
 	"Show tail whitespace."
 	(setq show-trailing-whitespace t))
-  (add-hook 'prog-mode-hook 'my:enable-trailing-mode)
 
   (defun my:cleanup-for-spaces ()
 	"Remove contiguous line breaks at end of line + end of file."
@@ -60,6 +65,7 @@
 		(widen)
 		(goto-char (point-max))
 		(delete-blank-lines)))))
+
 
 ;; Custom set face
 (custom-set-faces
