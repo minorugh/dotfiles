@@ -9,7 +9,7 @@
   :chord (".." . my:toggle-dimmer)
   :config
   (defvar my:dimmer-mode t)
-  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*.*posframe.*buffer.*\\*$"))
+  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.5)
   :init
   (defun my:toggle-dimmer ()
