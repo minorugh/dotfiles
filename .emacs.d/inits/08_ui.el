@@ -6,7 +6,8 @@
 ;; Theme configuration
 (leaf doom-themes
   :ensure t
-  :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
+  ;; :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
+  :hook (after-init-hook . (lambda () (load-theme 'doom-zenburn t)))
   :custom
   `((doom-themes-enable-italic . nil)
 	(doom-themes-enable-bold . nil))
@@ -32,7 +33,7 @@
 	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
   (leaf evil-modeline
 	:el-get minorugh/evil-modeline
- 	:require evil-mode-line)
+	:require evil-mode-line)
   (leaf nyan-mode
 	:ensure t
 	:if (display-graphic-p)
