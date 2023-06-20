@@ -27,7 +27,8 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Faster to disable these here (before they've been initialized)
-(push '(fullscreen . maximized) default-frame-alist)
+;; (push '(fullscreen . maximized) default-frame-alist)
+(push '(fullscreen . fullscreen) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
