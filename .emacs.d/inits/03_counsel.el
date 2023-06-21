@@ -49,6 +49,8 @@ If the region isn't selected, `swiper'."
 	 "\n"))
 
   (leaf ivy-rich
+	:doc "More friendly display transformer for ivy"
+	:url "https://github.com/Yevgnen/ivy-rich"
 	:ensure t
 	:hook (after-init-hook . ivy-rich-mode))
 
