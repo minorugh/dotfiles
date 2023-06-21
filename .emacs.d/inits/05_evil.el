@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf evil
+  :doc "The extensible vi layer for Emacs"
+  :url "https://github.com/emacs-evil/evil"
   :ensure t
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook . my:evil-find-file))
@@ -43,6 +45,7 @@
 	(interactive)
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state)
+	(message "-- NORMAL --")
 	(if (use-region-p)(keyboard-quit)))
 
   (defun my:evil-find-file ()
