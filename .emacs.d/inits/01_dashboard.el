@@ -4,12 +4,13 @@
 ;; (setq debug-on-error t)
 
 (leaf dashboard
+  :doc "An extensible emacs startup screen"
+  :url "https://github.com/emacs-dashboard/emacs-dashboard"
   :ensure t
   :if (display-graphic-p)
   :hook ((after-init-hook . dashboard-setup-startup-hook)
 		 (dashboard-mode-hook . page-break-lines-mode)
-		 (emacs-startup-hook . open-dashboard))
-  :defun (dashboard-setup-startup-hook)
+		 (emacs-startup-hook  . open-dashboard))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -51,6 +52,8 @@
   (add-to-list 'dashboard-items '(custom) t)
   :init
   (leaf page-break-lines :ensure t)
+  (leaf nerd-icons :ensure t)
+  (setq dashboard-icon-type 'nerd-icons)
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
