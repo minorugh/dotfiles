@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf selected
+  :doc "Keymap for when region is active"
+  :url "http://github.com/Kungsgeten/selected.el"
   :ensure t
   :hook (after-init-hook . selected-global-mode)
   :bind (:selected-keymap
