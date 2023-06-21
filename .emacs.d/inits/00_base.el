@@ -69,7 +69,7 @@
 	  (add-to-list 'default-frame-alist '(font . "Cica-18"))
 	(add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (leaf *basic-configurations
   :init
   (leaf exec-path-from-shell
@@ -108,9 +108,8 @@
 	  (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Change global key bind
 (leaf *cus-global-keybind
+  :doc "Change global key bind"
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
