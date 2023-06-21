@@ -3,7 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Paren
 (leaf *paren
   :hook (after-init-hook . show-paren-mode)
   :custom
@@ -12,16 +11,18 @@
 	(show-paren-when-point-in-periphery . t)))
 
 
-;; Smartparens
 (leaf smartparens
+  :doc "dealing with pairs in Emacs"
+  :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook ((after-init-hook . smartparens-global-mode)
 		 (prog-mode-hook . turn-on-smartparens-mode))
   :config (require 'smartparens-config))
 
 
-;; Volatile-highlights
 (leaf volatile-highlights
+  :doc "Hilight the pasted region"
+  :url "https://github.com/k-talo/volatile-highlights.el"
   :ensure t
   :hook (after-init-hook . volatile-highlights-mode))
 
@@ -32,21 +33,29 @@
   (advice-add #'vhl/.make-hl :override #'my:vhl-pulse))
 
 
-;; Aggressive indent
 (leaf aggressive-indent
+  :doc "Keeps your code always indented"
+  :url "https://github.com/Malabarba/aggressive-indent-mode"
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
-;; Rainbow-delimiters
 (leaf rainbow-delimiters
+  :doc "Display brackets in rainbow"
+  :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 
-;; Whitespace
-(leaf whitespace
-  :ensure nil
+(leaf rainbow-mode
+  :doc "Color letter that indicate the color"
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :ensure t
+  :hook (prog-mode-hook . rainbow-mode))
+
+
+(leaf *highlight-whitespace
+  :doc "Highligh trailing whitespace"
   :hook (prog-mode-hook . my:enable-trailing-mode)
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom
@@ -78,8 +87,7 @@
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil
 								  :strike-through nil :overline nil :underline nil :slant normal
 								  :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
- '(symbol-overlay-default-face ((t (:background "gray21" :underline t))))
- )
+ '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
  (put 'dired-find-alternate-file 'disabled nil)
 
 
