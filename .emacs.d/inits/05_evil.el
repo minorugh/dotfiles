@@ -8,7 +8,7 @@
   :url "https://github.com/emacs-evil/evil"
   :ensure t
   :hook ((after-init-hook . evil-mode)
-		 (find-file-hook . my:evil-find-file))
+		 (find-file-hook  . my:evil-find-file))
   :bind ((:evil-normal-state-map
 		  ("C-e" . seq-end) ;; sequential-command
 		  ("SPC" . evil-insert)
