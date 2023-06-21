@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 ;; Paren
-(leaf paren
+(leaf *paren
   :hook (after-init-hook . show-paren-mode)
   :custom
   `((show-paren-style . 'parenthesis)
@@ -79,13 +79,11 @@
 								  :strike-through nil :overline nil :underline nil :slant normal
 								  :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
  '(symbol-overlay-default-face ((t (:background "gray21" :underline t))))
- '(mozc-cand-posframe-normal-face ((t (:background "#1E2029" :foreground "#C7C9D1"))))
- '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1"))))
- '(mozc-cand-posframe-footer-face ((t (:background "#1E2029" :foreground "#454D73")))))
-(put 'dired-find-alternate-file 'disabled nil)
+ )
+ (put 'dired-find-alternate-file 'disabled nil)
 
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+ ;; Local Variables:
+ ;; no-byte-compile: t
+ ;; End:
 ;;; 07_highlight.el ends here
