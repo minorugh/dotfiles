@@ -5,6 +5,8 @@
 
 ;; auto-save-buffers
 (leaf auto-save-buffers-enhanced
+  :doc "Automatically save buffers"
+  :url "https://github.com/kentaro/auto-save-buffers-enhanced/tree/master"
   :ensure t
   :custom
   (auto-save-buffers-enhanced-exclude-regexps . '("^/ssh:" "^/scp:" "/sudo:" "*.gpg $"))
@@ -16,7 +18,7 @@
 
 
 ;; Scratch for sticky-memo
-(leaf cus-scratch-memo
+(leaf *cus-scratch-memo
   :after auto-save-buffers-enhanced
   :bind ("S-<return>" . toggle-scratch)
   :custom
@@ -30,10 +32,11 @@
 		(progn
 		  (setq toggle-scratch-prev-buffer (buffer-name))
 		  (switch-to-buffer "*scratch*")
-		  (display-line-numbers-mode 0)
-		  (nyan-mode 0))
+		  (display-line-numbers-mode 0))
+	  ;; (nyan-mode 0))
 	  (switch-to-buffer toggle-scratch-prev-buffer)
-	  (nyan-mode 1)))
+	  ;; (nyan-mode 1)
+	  ))
 
   (defun read-scratch-data ()
 	(let ((file "~/.emacs.d/tmp/scratch"))
@@ -46,6 +49,7 @@
 
 ;; automatically kill unnecessary buffers
 (leaf tempbuf
+  :doc "kill unused buffers in the background"
   :el-get (tempbuf :url "http://www.emacswiki.org/emacs/download/tempbuf.el")
   :hook ((find-file-hook . my:find-file-tempbuf-hook)
 		 (dired-mode-hook . turn-on-tempbuf-mode)
