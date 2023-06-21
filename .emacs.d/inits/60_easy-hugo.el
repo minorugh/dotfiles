@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf easy-hugo
+  :doc "Write blogs made with hugo"
+  :url "https://github.com/masasam/emacs-easy-hugo"
   :ensure t
   :bind (("C-c C-e" . easy-hugo)
 		 (:easy-hugo-mode-map
