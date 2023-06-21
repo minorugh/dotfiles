@@ -5,6 +5,8 @@
 
 
 (leaf dimmer
+  :doc "Visually highlight the selected buffer"
+  :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
   :chord (".." . my:toggle-dimmer)
   :config
