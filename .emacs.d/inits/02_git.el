@@ -5,6 +5,8 @@
 
 ;; Mgit configuration
 (leaf magit
+  :doc "Complete text-based user interface to Git"
+  :url "ttps://magit.vc/"
   :ensure t
   :bind (("C-x g" . magit-status )
 		 ("M-g" . hydra-git/body))
