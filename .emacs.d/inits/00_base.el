@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf cus-start
+(leaf *cus-start
   :custom
   `(;; No startup screen appears
     (inhibit-splash-screen . t)
@@ -60,50 +60,46 @@
     (global-visual-line-mode 1))
   (add-hook 'after-init-hook 'my:default-modes)
 
-  ;; Display buffer name in title bar
-  (setq frame-title-format (format "emacs@%s : %%b" (system-name)))
-
   ;; Save the file specified code with basic utf-8 if it exist
   (set-language-environment "Japanese")
   (prefer-coding-system 'utf-8)
 
   ;; Set font for main machine or other
   (if (string-match "e590" (shell-command-to-string "uname -n"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-21"))
+	  (add-to-list 'default-frame-alist '(font . "Cica-18"))
 	(add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf basic-configurations
+(leaf *basic-configurations
   :init
-  ;; server start for emacs-client
-  (leaf server
-	:require t
-	:config
-	(unless (server-running-p)
-	  (server-start)))
-
-  ;; exec-path-from-shell
   (leaf exec-path-from-shell
+	:doc "Share PATH from shell environment variables"
+	:url "https://github.com/purcell/exec-path-from-shell"
 	:ensure t
 	:when (memq window-system '(mac ns x))
 	:hook (after-init-hook . exec-path-from-shell-initialize)
 	:custom
 	(exec-path-from-shell-check-startup-files . nil))
 
-  ;; save-place
-  (leaf save-place
+  (leaf *server
+	:doc "Use Emacs as a Server"
+	:hook (after-init-hook . server-mode))
+
+  (leaf *recovery
+	:doc "Save place of cursor"
 	:hook (after-init-hook . save-place-mode)
 	:custom (save-place-file . "~/.emacs.d/tmp/places"))
 
-  ;; save-hist
-  (leaf savehist
+  (leaf *savehist
+	:doc "Edit remote file via SSH or SCP"
 	:hook (after-init-hook . savehist-mode)
 	:custom
 	`((savehist-file . "~/.emacs.d/tmp/history")
 	  (savehist-additional-variables . '(kill-ring))))
 
   ;; recentf
-  (leaf recentf
+  (leaf *recentf
+	:doc "Record open files history"
 	:hook (after-init-hook . recentf-mode)
 	:custom
 	`((recentf-auto-cleanup . 'never)
@@ -114,7 +110,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Change global key bind
-(leaf cus-global-keybind
+(leaf *cus-global-keybind
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
