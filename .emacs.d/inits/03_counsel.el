@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf counsel
+  :doc "Various completion functions using Ivy"
+  :url "https://github.com/abo-abo/swiper"
   :ensure t
   :hook (after-init-hook . ivy-mode)
   :bind (([remap isearch-forward] . swiper-region)
@@ -56,7 +58,8 @@ If the region isn't selected, `swiper'."
 			  (amx-history-length . 20)))
 
   (leaf swiper-migemo
-	:doc "https://github.com/tam17aki/swiper-migemo"
+	:doc "Use ivy/counsel/swiper with migemo"
+	:url "https://github.com/tam17aki/swiper-migemo"
 	:el-get tam17aki/swiper-migemo
 	:after swiper
 	:config
@@ -67,8 +70,9 @@ If the region isn't selected, `swiper'."
 	(migemo-init)))
 
 
-;; Fast full-text search
-(leaf cus-counsel-ag
+(leaf *cus-counsel-ag
+  :doc "Fast full-text search"
+  :url "https://takaxp.github.io/init.html#org29c7b6b7"
   :init
   (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
 	(apply f (or initial-input
