@@ -36,16 +36,18 @@
 	  (keyboard-quit))))
 
 
-;; Sequential-command
 (leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
   :el-get HKey/sequential-command
   :config
   (leaf sequential-command-config
 	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
-;; Popup menu-item bindings
 (leaf which-key
+  :doc "Displays available keybindings in popup"
+  :url "https://github.com/justbur/emacs-which-key"
   :ensure t
   :hook (after-init-hook . which-key-mode)
   :custom (which-key-max-description-length . 40))
@@ -57,14 +59,17 @@
   :config
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   (leaf flymake-posframe
+	:doc "Display flymake diagnostics at point"
+	:url "https://github.com/Ladicle/flymake-posframe"
 	:el-get Ladicle/flymake-posframe
 	:hook (flymake-mode-hook . flymake-posframe-mode)
 	:custom
 	(flymake-posframe-error-prefix . " ")))
 
 
-;; imenu-list
 (leaf imenu-list
+  :doc "Show imenu entries in a separate buffer"
+  :url "https://github.com/bmag/imenu-list"
   :ensure t
   :bind ([f2] . imenu-list-smart-toggle)
   :custom
@@ -78,8 +83,9 @@
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-;; Counsel-tramp
 (leaf counsel-tramp
+  :doc "Tramp ivy interface for ssh server"
+  :url "https://github.com/masasam/emacs-counsel-tramp"
   :ensure t
   :custom
   `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
@@ -96,29 +102,53 @@
 	  (message "Tramp Quit!"))))
 
 
-;; migemo
 (leaf migemo
+  :doc "Japanese increment search with 'Romanization of Japanese'"
+  :url "https://github.com/emacs-jp/migemo"
+  :if (executable-find "cmigemo")
   :ensure t
   :hook (after-init-hook . migemo-init)
-  :when (executable-find "cmigemo")
   :custom
   `((migemo-command . "cmigemo")
 	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 
-;; PS-printer
-(defalias 'ps-mule-header-string-charsets 'ignore)
-(setq ps-multibyte-buffer 'non-latin-printer
-	  ps-paper-type 'a4
-	  ps-font-size 9
-	  ;; ps-font-family 'Helvetica
-	  ps-font-family 'Courier
-	  ps-line-number-font 'Courier
-	  ps-printer-name nil
-	  ps-print-header nil
-	  ps-show-n-of-n t
-	  ps-line-number t
-	  ps-print-footer nil)
+(leaf cus-ps-printer
+  :doc "Print from Emacs via Postscript"
+  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+  :init
+  (defalias 'ps-mule-header-string-charsets 'ignore)
+  (setq ps-multibyte-buffer 'non-latin-printer
+		ps-paper-type 'a4
+		ps-font-size 9
+		;; ps-font-family 'Helvetica
+		ps-font-family 'Courier
+		ps-line-number-font 'Courier
+		ps-printer-name nil
+		ps-print-header nil
+		ps-show-n-of-n t
+		ps-line-number t
+		ps-print-footer nil))
+
+
+(leaf package-utils
+  :doc "Interactive package manager"
+  :url "https://github.com/Silex/package-utils"
+  :ensure t
+  :chord ("p@" . hydra-package/body)
+  :hydra
+  (hydra-package
+   (:color red :hint nil)
+   "
+  Package: _i_nstall _r_emove _l_ist up_a_ll    El-get:_u_pdate.re_m_ove
+"
+   ("i" package-install)
+   ("l" package-utils-list-upgrades)
+   ("r" package-utils-remove-by-name)
+   ("a" package-utils-upgrade-all-and-restart)
+   ("u" el-get-update-all)
+   ("m" el-get-remove)
+   ("<muhenkan>" nil)))
 
 
 ;; Local Variables:
