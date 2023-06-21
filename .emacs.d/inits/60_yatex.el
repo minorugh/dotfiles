@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf yatex
+  :doc "Yet Another tex-mode for emacs"
+  :url "https://github.com/emacsmirror/yatex"
   :ensure t
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :hook (yatex-mode-hook . (lambda ()(interactive)(view-mode -1)))
