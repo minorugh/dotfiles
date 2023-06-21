@@ -35,7 +35,7 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents  . 8)))
+  (setq dashboard-items '((recents  . 10)))
 
   ;; Set the footer
   (setq dashboard-footer-messages
