@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf darkroom
+  :doc "Remove visual distractions and focus on writing"
+  :url "https://github.com/joaotavora/darkroom"
   :ensure t
   :bind (([f12] . my:darkroom-in)
 		 (:darkroom-mode-map
