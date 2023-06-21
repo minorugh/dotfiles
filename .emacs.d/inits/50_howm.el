@@ -5,6 +5,8 @@
 ;; (setq debug-on-error t)
 
 (leaf howm
+  :doc "Wiki-like note-taking tool"
+  :url "https://howm.osdn.jp"
   :ensure t
   :hook (after-init-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
@@ -22,7 +24,7 @@
 	(howm-normalizer . 'howm-sort-items-by-reverse-date)
 	(howm-user-font-lock-keywords
 	 . '(("memo:" . (0 'compilation-error))
-		 ;; ("note:" . (0 'compilation-info))
+		 ("note:" . (0 'compilation-info))
 		 ("tech:" . (0 'compilation-info))))
 	(howm-template . '("# %title%cursor\n%date%file"
 					   "# memo: %cursor\n%date%file"
