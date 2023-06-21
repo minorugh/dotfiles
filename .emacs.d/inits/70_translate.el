@@ -3,16 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Display translation results on minibuffer
 (leaf deepl-translate
+  :doc "Display deeple translation results on minibuffer"
+  :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get minorugh/deepl-translate
   :bind ("C-c C-t" . deepl-translate)
   :init
   (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
 
 
-;; Display Deepl and Google Translate results in other buffer
 (leaf go-translate
+  :doc "Display Deepl and Google Translate results in other buffer"
+  :url "https://github.com/lorniu/go-translate"
   :ensure t
   :bind ("C-t" . gts-do-translate)
   :config
@@ -30,7 +32,7 @@
 
 
 ;; Deepl translation in web page
-(leaf my:deeple-translate
+(leaf *cus-deeple-translate
   :bind ("C-c t" . my:deepl-translate)
   :init
   (defun my:deepl-translate (&optional string)
