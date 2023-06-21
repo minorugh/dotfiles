@@ -3,61 +3,67 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *cus-start
+;; -----------------------------------------------------------------------------------------
+;;
+;; Generic Configurations
+;;
+;; -----------------------------------------------------------------------------------------
+
+(leaf *generic-configurations
   :custom
   `(;; No startup screen appears
-    (inhibit-splash-screen . t)
-    ;; Faster rendering by not corresponding to right-to-left language
-    (bidi-display-reordering . nil)
-    ;; Do not make a backup file like *.~
-    (make-backup-files . nil)
-    ;; Do not use auto save
-    (auto-save-default . nil)
-    (auto-save-list-file-prefix . nil)
-    ;; Do not create lock file
-    (create-lockfiles . nil)
-    ;; Open symbolic link directly
-    (vc-follow-symlinks . t)
-    ;; Do not distinguish uppercase and lowercase letters on completion
-    (completion-ignore-case . t)
-    (read-file-name-completion-ignore-case . t)
-    ;; Point keeps its screen position when scroll
-    (scroll-preserve-screen-position . t)
-    ;; All warning sounds and flash are invalid
-    (ring-bell-function . 'ignore)
-    ;; Turn off warning sound screen flash
-    (visible-bell . nil)
-    ;; Copy text with mouse range selection
-    (mouse-drag-copy-region . t)
-    ;; Deleted files go to the trash
-    (delete-by-moving-to-trash . t)
-    ;; Tab width default
-    (tab-width . 4)
-    ;; Limit the final word to a line break code (automatically correct)
-    (require-final-newline . t)
-    ;; Disallow adding new lines with newline at the end of the buffer
-    (next-line-add-newlines . nil)
-    ;; Make it easy to see when it is the same name file
-    (uniquify-buffer-name-style . 'post-forward-angle-brackets)
-    ;; It keeps going steadily the local mark ...  C-u C-SPC C-SPC
-    ;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
-    (set-mark-command-repeat-pop . t)
-    ;; Use the X11 clipboard
-    (select-enable-clipboard  . t)
-    ;; change-default-file-location
-    (url-configuration-directory . "~/.emacs.d/tmp/url")
-    (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
+	(inhibit-splash-screen . t)
+	;; Faster rendering by not corresponding to right-to-left language
+	(bidi-display-reordering . nil)
+	;; Do not make a backup file like *.~
+	(make-backup-files . nil)
+	;; Do not use auto save
+	(auto-save-default . nil)
+	(auto-save-list-file-prefix . nil)
+	;; Do not create lock file
+	(create-lockfiles . nil)
+	;; Open symbolic link directly
+	(vc-follow-symlinks . t)
+	;; Do not distinguish uppercase and lowercase letters on completion
+	(completion-ignore-case . t)
+	(read-file-name-completion-ignore-case . t)
+	;; Point keeps its screen position when scroll
+	(scroll-preserve-screen-position . t)
+	;; All warning sounds and flash are invalid
+	(ring-bell-function . 'ignore)
+	;; Turn off warning sound screen flash
+	(visible-bell . nil)
+	;; Copy text with mouse range selection
+	(mouse-drag-copy-region . t)
+	;; Deleted files go to the trash
+	(delete-by-moving-to-trash . t)
+	;; Tab width default
+	(tab-width . 4)
+	;; Limit the final word to a line break code (automatically correct)
+	(require-final-newline . t)
+	;; Disallow adding new lines with newline at the end of the buffer
+	(next-line-add-newlines . nil)
+	;; Make it easy to see when it is the same name file
+	(uniquify-buffer-name-style . 'post-forward-angle-brackets)
+	;; It keeps going steadily the local mark ...  C-u C-SPC C-SPC
+	;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
+	(set-mark-command-repeat-pop . t)
+	;; Use the X11 clipboard
+	(select-enable-clipboard  . t)
+	;; change-default-file-location
+	(url-configuration-directory . "~/.emacs.d/tmp/url")
+	(bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
   (defalias 'exit 'save-buffers-kill-emacs)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defun my:default-modes ()
-    "Set default modes for startup hook."
-    (interactive)
-    (winner-mode 1)
-    (global-auto-revert-mode 1)
-    (global-font-lock-mode 1)
-    (global-hl-line-mode 1)
-    (global-visual-line-mode 1))
+	"Set default modes for startup hook."
+	(interactive)
+	(winner-mode 1)
+	(global-auto-revert-mode 1)
+	(global-font-lock-mode 1)
+	(global-hl-line-mode 1)
+	(global-visual-line-mode 1))
   (add-hook 'after-init-hook 'my:default-modes)
 
   ;; Save the file specified code with basic utf-8 if it exist
@@ -67,10 +73,8 @@
   ;; Set font for main machine or other
   (if (string-match "e590" (shell-command-to-string "uname -n"))
 	  (add-to-list 'default-frame-alist '(font . "Cica-18"))
-	(add-to-list 'default-frame-alist '(font . "Cica-15"))))
+	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-
-(leaf *basic-configurations
   :init
   (leaf exec-path-from-shell
 	:doc "Share PATH from shell environment variables"
@@ -108,8 +112,14 @@
 	  (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
 
 
-(leaf *cus-global-keybind
-  :doc "Change global key bind"
+;; -----------------------------------------------------------------------------------------
+;;
+;; Custom Functions
+;;
+;; -----------------------------------------------------------------------------------------
+
+(leaf *user-cus-functions
+  :doc "User custom fanctions"
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . my:kill-whole-line-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
