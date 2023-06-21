@@ -28,6 +28,8 @@
 	(package-install 'leaf))
 
   (leaf leaf-keywords
+	:doc "Use leaf as a package manager"
+	:url "https://github.com/conao3/leaf.e"
 	:ensure t
 	:init
 	(leaf hydra :ensure t)
@@ -38,6 +40,8 @@
 
 ;; Load configuration files
 (leaf init-loader
+  :doc "Loader of configuration files"
+  :url "https://github.com/emacs-jp/init-loader/tree/master"
   :ensure t
   :init
   (load-file "~/.emacs.d/template/my:dired.el")
