@@ -9,7 +9,7 @@
   :url "ttps://magit.vc/"
   :ensure t
   :bind (("C-x g" . magit-status )
-		 ("M-g" . hydra-git/body))
+		 ("M-g"   . hydra-git/body))
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
   :hydra
   (hydra-git
