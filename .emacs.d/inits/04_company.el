@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf company
+  :doc "Modular in-buffer completion framework"
+  :url "http://company-mode.github.io/"
   :ensure t
   :hook (after-init-hook . global-company-mode)
   :bind (("C-1" . company-complete)
@@ -32,6 +34,8 @@
 
 
 (leaf yasnippet
+  :doc "Template system"
+  :url "https://github.com/joaotavora/yasnippet"
   :ensure t
   :hook (after-init-hook . yas-global-mode)
   :custom (yas-indent-line . 'fixed)
