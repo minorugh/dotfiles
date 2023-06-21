@@ -7,7 +7,11 @@
   :doc "Megapack of themes"
   :url "https://github.com/doomemacs/themes"
   :ensure t
-  :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
+  ;; :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
+  :hook (after-init-hook . (lambda () (load-theme 'doom-nord t)))
+  :custom
+  `((doom-themes-enable-italic . nil)
+	(doom-themes-enable-bold . nil))
   :config
   (doom-themes-neotree-config)
   (doom-themes-org-config))
@@ -30,6 +34,7 @@
   (nano-color-subtle     . "#44475a")
   (nano-color-faded      . "#6272a4")
   :custom-face
+  (region                    . '((t (:background "#6272a4"))))
   (hl-line                   . '((t (:background "#3B4252" :extend t ))))
   (vertical-border           . '((t (:background "#282a36" :foreground "#1E2029"))))
   (mode-line                 . '((t (:background "#282a36"))))
