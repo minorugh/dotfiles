@@ -4,6 +4,12 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; -----------------------------------------------------------------------------------------
+;;
+;; Change modeline display format
+;;
+;; -----------------------------------------------------------------------------------------
+
 (defun doom-nano-modeline-buffer-name-vc-and-major-mode ()
   "Return the buffer name and the major mode."
   (let* ((buffer-name (cond
@@ -39,6 +45,12 @@
 	  (,(if vc-branch-name (concat ", " vc-branch-name ")") "") . doom-nano-modeline-vc-branch-name-face)
 	  (,(if vc-branch-name " " ")") . doom-nano-modeline-vc-branch-name-face))))
 
+
+;; -----------------------------------------------------------------------------------------
+;;
+;; Custom Set Faces
+;;
+;; -----------------------------------------------------------------------------------------
 
 (custom-set-faces
  '(region                                    ((t (:background "#6272a4"))))
