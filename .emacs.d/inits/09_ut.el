@@ -104,7 +104,7 @@
 	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 
-(leaf cus-ps-printer
+(leaf *cus-ps-printer
   :doc "Print from Emacs via Postscript"
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :init
