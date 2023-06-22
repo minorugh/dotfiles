@@ -44,9 +44,8 @@
   (read-scratch-data))
 
 
-;; automatically kill unnecessary buffers
 (leaf tempbuf
-  :doc "kill unused buffers in the background"
+  :doc "Auto kill unused buffers in the background"
   :el-get (tempbuf :url "http://www.emacswiki.org/emacs/download/tempbuf.el")
   :hook ((find-file-hook . my:find-file-tempbuf-hook)
 		 (dired-mode-hook . turn-on-tempbuf-mode)
