@@ -17,6 +17,16 @@
   `((default-input-method . "japanese-mozc")
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title . "あ"))
+  :init
+  (leaf *copy-mozc-submachine
+	:doc "Copy mozc to submachines for avoid conflicts"
+	:hook (emacs-startup-hook . my:mozc-copy)
+	:init
+	(defun my:mozc-copy ()
+	  "Copy mozc to submachines for avoid conflicts."
+	  (interactive)
+	  (unless (string-match "e590" (shell-command-to-string "uname -n"))
+		(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
   :config
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
@@ -26,29 +36,21 @@
 	(setq mozc-cursor-color-alist
 		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
 
-  ;; (leaf mozc-posframe
-  ;; 	:if (equal system-type 'darwin)
-  ;; 	:doc "Use posframe for speed and multi-byte characters."
-  ;; 	:url "https://github.com/Ladicle/mozc-posframe"
-  ;; 	:el-get "Ladicle/mozc-posframe"
-  ;; 	:require t
-  ;; 	:custom
-  ;; 	(mozc-candidate-style         . 'posframe)
-  ;; 	(mozc-cand-posframe-separator . "\t\t")
-  ;; 	:config
-  ;; 	(mozc-posframe-register)
-  ;; 	:custom-face
-  ;; 	(mozc-cand-posframe-border-face . '((t (:background "#323445"))))
-  ;; 	(mozc-cand-overlay-footer-face  . '((t (:foreground "#6272a4"))))
-  ;; 	(mozc-cand-overlay-focused-face . '((t (:background "#44475a" :foreground "#76e0f3"))))
-  ;; 	(mozc-cand-overlay-odd-face     . '((t (:background "#323445" :foreground "#8995ba"))))
-  ;; 	(mozc-cand-overlay-even-face    . '((t (:background "#323445" :foreground "#8995ba")))))
-
   (leaf posframe
-    :ensure t
-    :when window-system
-    :config
-    (leaf mozc-cand-posframe
+	:ensure t
+	:when window-system
+	:config
+	(leaf mozc-for-submachine
+	  :doc "Copy mozc to submachines for avoid conflicts"
+	  :hook (emacs-startup-hook . my:mozc-copy)
+	  :init
+	  (defun my:mozc-copy ()
+		"Copy mozc to submachines for avoid conflicts."
+		(interactive)
+		(unless (string-match "e590" (shell-command-to-string "uname -n"))
+		  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
+
+	(leaf mozc-cand-posframe
 	  :doc "Posframe Frontend for Mozc.el"
 	  :url "https://github.com/akirak/mozc-posframe"
 	  :ensure t
@@ -82,17 +84,6 @@
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
 	(delete-other-windows)))
-
-
-(leaf mozc-for-submachine
-  :doc "Copy mozc to submachines for avoid conflicts"
-  :hook (emacs-startup-hook . my:mozc-copy)
-  :init
-  (defun my:mozc-copy ()
-	"Copy mozc to submachines for avoid conflicts."
-	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
 
 ;; Local Variables:
