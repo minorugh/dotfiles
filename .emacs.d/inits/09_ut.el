@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 ;; User custom functions
 
-(leaf *cus-functions
+(leaf *cus-ut-functions
   :bind	(([f3] . thunar-open)
 		 ([f4] . terminal-open)
 		 ([f5] . ssh-xsrv)
