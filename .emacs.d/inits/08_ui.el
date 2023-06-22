@@ -33,7 +33,7 @@
   (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ffa07a" :background "#6272a4" :weight bold))))
   (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#4682b4" :weight bold))))
-  (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#282a36" :background "#7383b5" :weight bold))))
+  (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#e0ffff" :background "#6495ed" :weight bold))))
   (doom-nano-modeline-major-mode-face        . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#44475a")))))
 
