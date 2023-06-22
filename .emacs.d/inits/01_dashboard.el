@@ -18,8 +18,8 @@
 		  ("w" . chromium-weather)
 		  ("t" . chromium-tweetdeck)
 		  ("h" . chromium-homepage)
-		  ("s" . sylpheed)
-		  ("k" . slack)
+		  ("m" . sylpheed)
+		  ("s" . slack)
 		  ("." . hydra-browse/body)
 		  ([home] . quit-dashboard)))
   :config
@@ -46,7 +46,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
 	(interactive)
-	(insert " GH: (h)    WX: (w)   CAL: (c)    News: (n)    Sylpheed: (s)    Slack: (k)    (.)"))
+	(insert " GH: (h)    WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
 
   ;; Insert custom item
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
