@@ -9,10 +9,10 @@
   :ensure t
   :hook (after-init-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
-		  ([backtab] . howm-view-summary-previous-section)
+		  ([backtab]  . howm-view-summary-previous-section)
 		  ("<return>" . howm-view-summary-open)
-		  ("," . my:howm-create-memo)
-		  (";" . my:howm-create-tech)))
+		  (","        . my:howm-create-memo)
+		  (";"        . my:howm-create-tech)))
   :init
   (setq howm-view-title-header "#")
   (setq howm-directory "~/Dropbox/howm")

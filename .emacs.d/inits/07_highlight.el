@@ -47,11 +47,11 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 
-;; (leaf rainbow-mode
-;;   :doc "Color letter that indicate the color"
-;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-;;   :ensure t
-;;   :hook (prog-mode-hook . rainbow-mode))
+(leaf rainbow-mode
+  :doc "Color letter that indicate the color"
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :ensure t
+  :hook (prog-mode-hook . rainbow-mode))
 
 
 (leaf *highlight-whitespace

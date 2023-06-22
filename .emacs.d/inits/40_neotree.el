@@ -7,6 +7,7 @@
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
   :ensure t
+  :hook (neotree-mode-hook . hide-nano-header)
   :bind (("<f10>"    . neotree-find)
 		 (:neotree-mode-map
 		  ("RET"     . neotree-enter-hide)
@@ -15,8 +16,14 @@
 		  ("<right>" . neotree-change-root)
 		  ("<f10>"   . neotree-toggle)))
   :custom
+  (neo-mode-line-type        . nil)
   (neo-keymap-style          . 'concise)
-  (neo-create-file-auto-open . t))
+  (neo-create-file-auto-open . t)
+  :preface
+  (defun hide-nano-header ()
+    "Hide nano header."
+    (interactive)
+    (setq header-line-format "")))
 
 
 (leaf all-the-icons
