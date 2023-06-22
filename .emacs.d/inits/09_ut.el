@@ -46,6 +46,7 @@
 
 ;; Flymake
 (leaf flymake
+  :doc "Finding Syntax Errors On The Fly"
   :hook (emacs-lisp-mode-hook . flymake-mode)
   :config
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
