@@ -29,7 +29,7 @@
   :custom-face
   (region                                    . '((t (:background "#6272a4"))))
   (hl-line                                   . '((t (:background "#3B4252" :extend t ))))
-  (doom-nano-modeline-active-face            . '((t (:inherit mode-line :background "#44475a" :weight bold))))
+  (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#44475a" :weight bold))))
   (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ffa07a" :background "#6272a4" :weight bold))))
   (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#4682b4" :weight bold))))
