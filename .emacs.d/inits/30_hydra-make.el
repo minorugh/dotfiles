@@ -19,7 +19,7 @@
 		  (t (message "Compilation exited abnormally: %s" string)))))
 
 
-(leaf *cus-make-command
+(leaf *cus-make-functions
   :config
   (defun my:make-k ()
 	"Make k."
