@@ -17,7 +17,7 @@
 
 
 (leaf doom-nano-modeline
-  :doc "Modeline for Doom Emacs based on N Λ N O"
+  :doc "Nice look modeline based on N Λ N O"
   :url "https://github.com/ronisbr/doom-nano-modeline"
   :el-get "ronisbr/doom-nano-modeline"
   :hook (after-init-hook . doom-nano-modeline-mode)
