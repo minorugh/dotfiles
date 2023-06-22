@@ -3,6 +3,12 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;-------------------------------------------------------------------
+;;
+;; Hydra browse configuration for quick menu
+;;
+;;-------------------------------------------------------------------
+
 (leaf *hydra-browse
   :hydra
   (hydra-browse
