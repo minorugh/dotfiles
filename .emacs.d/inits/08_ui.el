@@ -22,20 +22,10 @@
   :el-get "ronisbr/doom-nano-modeline"
   :hook (after-init-hook . doom-nano-modeline-mode)
   :config
-  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el") ;; Load custom function
+  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el") ;; Load custom configurations
   (leaf hide-mode-line
 	:ensure t
-	:config (global-hide-mode-line-mode 1))
-  :custom-face
-  (region                                    . '((t (:background "#6272a4"))))
-  (hl-line                                   . '((t (:background "#3B4252" :extend t ))))
-  (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#44475a" :weight bold))))
-  (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ffa07a" :background "#6272a4" :weight bold))))
-  (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#4682b4" :weight bold))))
-  (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#e0ffff" :background "#6495ed" :weight bold))))
-  (doom-nano-modeline-major-mode-face        . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#44475a")))))
+	:config (global-hide-mode-line-mode 1)))
 
 
 (leaf display-line-numbers
