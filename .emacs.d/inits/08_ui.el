@@ -21,11 +21,12 @@
   :url "https://github.com/ronisbr/doom-nano-modeline"
   :el-get "ronisbr/doom-nano-modeline"
   :hook (after-init-hook . doom-nano-modeline-mode)
+  :config
+  ;; Load custom function
+  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el")
   :custom-face
-  (region
-   . '((t (:background "#6272a4"))))
-  (hl-line
-   . '((t (:background "#3B4252" :extend t ))))
+  (region                                    . '((t (:background "#6272a4"))))
+  (hl-line                                   . '((t (:background "#3B4252" :extend t ))))
   (doom-nano-modeline-active-face            . '((t (:inherit mode-line :background "#44475a" :weight bold))))
   (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ff7f50" :background "#6272a4" :weight bold))))
