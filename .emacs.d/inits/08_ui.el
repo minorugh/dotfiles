@@ -22,8 +22,10 @@
   :el-get "ronisbr/doom-nano-modeline"
   :hook (after-init-hook . doom-nano-modeline-mode)
   :config
-  ;; Load custom function
-  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el")
+  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el") ;; Load custom function
+  (leaf hide-mode-line
+	:ensure t
+	:config (global-hide-mode-line-mode 1))
   :custom-face
   (region                                    . '((t (:background "#6272a4"))))
   (hl-line                                   . '((t (:background "#3B4252" :extend t ))))
