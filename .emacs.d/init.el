@@ -32,8 +32,8 @@
 	:url "https://github.com/conao3/leaf.e"
 	:ensure t
 	:init
-	(leaf hydra :ensure t)
 	(leaf el-get :ensure t)
+	(leaf hydra :ensure t)
 	:config
 	(leaf-keywords-init)))
 
