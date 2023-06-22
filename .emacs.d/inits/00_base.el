@@ -124,7 +124,8 @@
 (leaf *user-cus-functions
   :doc "User custom fanctions"
   :bind (("M-w" . clipboard-kill-ring-save)
-		 ("C-w" . my:kill-whole-line-or-region)
+		 ("M-d" . kill-word-at-point)
+		 ("C-w" . backward-kill-word-or-region)
 		 ("s-c" . clipboard-kill-ring-save)
 		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
@@ -132,13 +133,22 @@
 		 ("M-," . xref-find-definitions)
 		 ([f8] . follow-mode))
   :init
-  (defun my:kill-whole-line-or-region ()
-	"If the region is active, to kill region.
-If the region is inactive, to kill whole line."
+  (defun kill-word-at-point ()
+	"Kill word at cursor position."
+    (interactive)
+    (let ((char (char-to-string (char-after (point)))))
+      (cond
+       ((string= " " char) (delete-horizontal-space))
+       ((string-match "[\t\n -@\[-`{-~],.、。" char) (kill-word 1))
+       (t (forward-char) (backward-word) (kill-word 1)))))
+
+  (defun backward-kill-word-or-region ()
+	"If the region is active, `clipboard-kill-region'.
+If the region is inactive, `backward-kill-word'."
 	(interactive)
 	(if (use-region-p)
 		(clipboard-kill-region (region-beginning) (region-end))
-      (kill-whole-line)))
+      (backward-kill-word 1)))
 
   (defun my:delete-this-file ()
 	"Delete the current file, and kill the buffer."
