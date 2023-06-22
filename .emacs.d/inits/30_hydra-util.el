@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf hydra-browse
+(leaf *hydra-browse
   :hydra
   (hydra-browse
    (:hint nil :exit t)
