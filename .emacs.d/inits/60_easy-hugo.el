@@ -14,8 +14,7 @@
 		  ("r" . easy-hugo-rename)
 		  ("e" . my:edit-easy-hugo)))
   :config
-  ;; Load custom function for evil-mode
-  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el")
+  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el") ;; Load custom function
   :init
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
