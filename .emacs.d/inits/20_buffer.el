@@ -17,8 +17,8 @@
   (auto-save-buffers-enhanced t))
 
 
-;; Scratch for sticky-memo
 (leaf *cus-scratch-memo
+  :doc "Scratch for sticky-memo"
   :after auto-save-buffers-enhanced
   :bind ("S-<return>" . toggle-scratch)
   :custom
@@ -33,10 +33,7 @@
 		  (setq toggle-scratch-prev-buffer (buffer-name))
 		  (switch-to-buffer "*scratch*")
 		  (display-line-numbers-mode 0))
-	  ;; (nyan-mode 0))
-	  (switch-to-buffer toggle-scratch-prev-buffer)
-	  ;; (nyan-mode 1)
-	  ))
+	  (switch-to-buffer toggle-scratch-prev-buffer)))
 
   (defun read-scratch-data ()
 	(let ((file "~/.emacs.d/tmp/scratch"))
