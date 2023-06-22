@@ -37,8 +37,7 @@
       ;; (,(concat "(" mode-name ")") . doom-nano-modeline-major-mode-face))))
 	  (,(concat "(" mode-name "") . doom-nano-modeline-major-mode-face)
 	  (,(if vc-branch-name (concat ", " vc-branch-name ")") "") . doom-nano-modeline-vc-branch-name-face)
-	  (,(if vc-branch-name " " ")") . doom-nano-modeline-vc-branch-name-face)
-	  )))
+	  (,(if vc-branch-name " " ")") . doom-nano-modeline-vc-branch-name-face))))
 
 
 ;; Local Variables:
