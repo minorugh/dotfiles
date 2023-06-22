@@ -50,13 +50,13 @@
 (leaf sequential-command
   :doc "Many commands into one command"
   :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get HKey/sequential-command
+  :el-get "HKey/sequential-command"
   :config
   (leaf sequential-command-config
 	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
-(leaf cus-line-spacing
+(leaf *cus-line-spacing
   :doc "Set line spacing"
   :hook (buffer-list-update-hook . my:linespacing)
   :init
@@ -66,7 +66,7 @@
 	  (setq-local line-spacing 0.1))))
 
 
-(leaf cus-cursor
+(leaf *cus-cursor
   :doc "Controls cursor blinking"
   :hook (emacs-startup-hook . blink-cursor-mode)
   :custom
