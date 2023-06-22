@@ -45,7 +45,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
 	(interactive)
-	(insert " GH: (h)    Weather: (w)   Calendar: (c)    News: (n)    Sylpheed: (s)    Slack: (k)    (.)"))
+	(insert " GH: (h)    WX: (w)   CAL: (c)    News: (n)    Sylpheed: (s)    Slack: (k)    (.)"))
 
   ;; Insert custom item
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
