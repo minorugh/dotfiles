@@ -38,6 +38,24 @@
   (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#44475a")))))
 
 
+(leaf display-line-numbers
+  :doc "Show line numbers"
+  :hook ((after-init-hook . global-display-line-numbers-mode)
+		 ((imenu-list-minor-mode-hook dired-mode-hook neotree-mode-hook lisp-interaction-mode-hook)
+		  . (lambda () (display-line-numbers-mode 0))))
+  :bind ([f9] . display-line-numbers-mode)
+  :custom (display-line-numbers-width-start . t))
+
+
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get HKey/sequential-command
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
 (leaf cus-line-spacing
   :doc "Set line spacing"
   :hook (buffer-list-update-hook . my:linespacing)
@@ -46,15 +64,6 @@
 	"Set default linespace."
 	(unless (minibufferp)
 	  (setq-local line-spacing 0.1))))
-
-
-(leaf display-line-numbers
-  :doc "Show line numbers"
-  :hook ((after-init-hook . global-display-line-numbers-mode)
-		 ((imenu-list-minor-mode-hook dired-mode-hook neotree-mode-hook lisp-interaction-mode-hook)
-		  . (lambda () (display-line-numbers-mode 0))))
-  :bind ([f9] . display-line-numbers-mode)
-  :custom (display-line-numbers-width-start . t))
 
 
 (leaf cus-cursor

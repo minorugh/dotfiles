@@ -36,15 +36,6 @@
 	  (keyboard-quit))))
 
 
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get HKey/sequential-command
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
-
-
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
