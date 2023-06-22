@@ -47,11 +47,11 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 
-(leaf rainbow-mode
-  :doc "Color letter that indicate the color"
-  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :ensure t
-  :hook (prog-mode-hook . rainbow-mode))
+;; (leaf rainbow-mode
+;;   :doc "Color letter that indicate the color"
+;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+;;   :ensure t
+;;   :hook (prog-mode-hook . rainbow-mode))
 
 
 (leaf *highlight-whitespace
@@ -88,10 +88,10 @@
 								  :strike-through nil :overline nil :underline nil :slant normal
 								  :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
  '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
- (put 'dired-find-alternate-file 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
 
 
- ;; Local Variables:
- ;; no-byte-compile: t
- ;; End:
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; 07_highlight.el ends here
