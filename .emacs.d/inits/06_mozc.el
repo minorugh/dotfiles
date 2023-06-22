@@ -17,16 +17,6 @@
   `((default-input-method . "japanese-mozc")
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title . "あ"))
-  :init
-  (leaf *copy-mozc-submachine
-	:doc "Copy mozc to submachines for avoid conflicts"
-	:hook (emacs-startup-hook . my:mozc-copy)
-	:init
-	(defun my:mozc-copy ()
-	  "Copy mozc to submachines for avoid conflicts."
-	  (interactive)
-	  (unless (string-match "e590" (shell-command-to-string "uname -n"))
-		(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
   :config
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
@@ -84,6 +74,17 @@
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
 	(delete-other-windows)))
+
+
+(leaf *copy-mozc-submachine
+  :doc "Copy mozc to submachines for avoid conflicts"
+  :hook (emacs-startup-hook . my:mozc-copy)
+  :init
+  (defun my:mozc-copy ()
+	"Copy mozc to submachines for avoid conflicts."
+	(interactive)
+	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
 
 ;; Local Variables:
