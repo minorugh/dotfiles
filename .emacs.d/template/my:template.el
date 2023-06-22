@@ -3,9 +3,12 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; My template configuration
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -----------------------------------------------------------------------------------------
+;;
+;; Template to insert when creating a new project file
+;;
+;; -----------------------------------------------------------------------------------------
+
 (defun my:diary-new-post ()
   "Open diary file and insert template."
   (interactive)
@@ -29,6 +32,7 @@
   (forward-line -5)
   (forward-char 18))
 
+
 (defun my:tpdia-new-post ()
   "Open diary file and insert template."
   (interactive)
@@ -51,17 +55,20 @@
   (forward-line -5)
   (forward-char 18))
 
+
 (defun my:teirei-new-post ()
   "Open teirei file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/teirei/tex/teirei.txt")
   (my:minoru_sen))
 
+
 (defun my:swan-new-post ()
   "Open swan file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/swan/tex/swan.txt")
   (my:minoru_sen))
+
 
 (defun my:minoru_sen ()
   "Insert template."
@@ -72,6 +79,7 @@
    (format-time-string "%Y年%-m月%-d日（参加者 名）\n"))
   (forward-line -1)
   (forward-char 15))
+
 
 (defun my:ap-new-post ()
   "Open ap file and insert template."
@@ -86,6 +94,7 @@
    "-(\n<small>()</small><br>\n<-mi>\n-)\n=[\n= Feedback\n-[\n\n-]\n=]\n-elink\n")
   (forward-line -14)
   (forward-char 1))
+
 
 (defun my:apvoice-new-post ()
   "Open apsh file and insert template."
@@ -111,6 +120,7 @@
   (goto-char (point-min))
   (forward-line 2)
   (forward-char 11))
+
 
 (defun my:tselext-new-post ()
   "Open tselext file and insert template."
@@ -162,6 +172,7 @@
   (forward-line 2)
   (forward-char 11))
 
+
 (defun my:dselext-new-post ()
   "Open tselext file and insert template."
   (interactive)
@@ -209,6 +220,7 @@
   (forward-line 2)
   (forward-char 11))
 
+
 (defun my:year-new-post ()
   "Open tselext file and insert template."
   (interactive)
@@ -238,12 +250,14 @@
    "--\n")
   )
 
+
 (defun my:haiku-note ()
   "Open haiku note file."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
   (evil-insert-state)
   (goto-char (point-min)))
+
 
 (defun my:haiku-note-post ()
   "Insert template."
