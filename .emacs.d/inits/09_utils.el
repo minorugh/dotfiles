@@ -1,4 +1,4 @@
-;;; 09_ut.el --- Utility command cofiguration. -*- lexical-binding: t -*-
+;;; 09_utils.el --- Utility command cofiguration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -156,4 +156,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 09_ut.el ends here
+;;; 09_utils.el ends here
