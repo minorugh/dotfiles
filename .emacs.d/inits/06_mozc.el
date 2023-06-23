@@ -75,6 +75,13 @@
 	(delete-other-windows)))
 
 
+;; ---------------------------------------------------------------------
+;;
+;; Every time you start emacs on the submachine,
+;; copy and share the mozc dictionary on the main machine.
+;;
+;; ---------------------------------------------------------------------
+
 (leaf *copy-mozc-submachine
   :doc "Copy mozc to submachines for avoid conflicts"
   :hook (emacs-startup-hook . my:mozc-copy)
