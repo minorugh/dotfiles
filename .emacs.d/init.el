@@ -19,8 +19,9 @@
 ;; Package
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("melpa" . "https://melpa.org/packages/")
-					   ("gnu" . "https://elpa.gnu.org/packages/")))
+   'package-archives '(("org"   . "https://orgmode.org/elpa/")
+					   ("melpa" . "https://melpa.org/packages/")
+					   ("gnu"   . "https://elpa.gnu.org/packages/")))
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
@@ -32,8 +33,9 @@
 	:url "https://github.com/conao3/leaf.e"
 	:ensure t
 	:init
-	(leaf el-get :ensure t)
 	(leaf hydra :ensure t)
+	(leaf el-get :ensure t
+	  :custom (el-get-git-shallow-clone  . t))
 	:config
 	(leaf-keywords-init)))
 
