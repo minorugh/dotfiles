@@ -3,7 +3,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf hl-line
+  :doc "Highlight the current line"
+  :hook ((after-init-hook . global-hl-line-mode)
+		 ((dashboard-mode-hook eshell-mode-hook) .
+		  (lambda () (setq-local global-hl-line-mode nil)))))
+
+
 (leaf *paren
+  :doc "Highlight matching parens"
   :hook (after-init-hook . show-paren-mode)
   :custom
   `((show-paren-style . 'parenthesis)
@@ -47,11 +55,11 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 
-;; (leaf rainbow-mode
-;;   :doc "Color letter that indicate the color"
-;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-;;   :ensure t
-;;   :hook (prog-mode-hook . rainbow-mode))
+(leaf rainbow-mode
+  :doc "Color letter that indicate the color"
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :ensure t
+  :chord (".." . rainbow-mode))
 
 
 (leaf *highlight-whitespace
