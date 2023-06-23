@@ -14,17 +14,16 @@
 		  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 		  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :custom
-  `((default-input-method . "japanese-mozc")
-	(mozc-helper-program-name . "mozc_emacs_helper")
-	(mozc-leim-title . "あ"))
+  (default-input-method     . "japanese-mozc")
+  (mozc-helper-program-name . "mozc_emacs_helper")
+  (mozc-leim-title          . "あ")
   :config
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
 	:el-get iRi-E/mozc-el-extensions
 	:hook (mozc-mode-hook . mozc-cursor-color-setup)
 	:config
-	(setq mozc-cursor-color-alist
-		  '((direct . "#50fa7b")(read-only . "#f8f8f2")(hiragana . "#ff5555"))))
+	(setq mozc-cursor-color-alist '((direct . "#50fa7b")(hiragana . "#ff5555"))))
 
   (leaf posframe
 	:ensure t
