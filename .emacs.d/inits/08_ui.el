@@ -7,7 +7,7 @@
   :doc "Megapack of themes"
   :url "https://github.com/doomemacs/themes"
   :ensure t
-  :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
+  :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom
   (doom-themes-enable-italic . nil)
   (doom-themes-enable-bold   . nil)
@@ -20,12 +20,19 @@
   :doc "Nice look modeline based on N Λ N O"
   :url "https://github.com/ronisbr/doom-nano-modeline"
   :el-get "ronisbr/doom-nano-modeline"
-  :hook (after-init-hook . doom-nano-modeline-mode)
+  :hook (emacs-startup-hook . doom-nano-modeline-mode)
   :config
-  (load-file "~/.emacs.d/template/my:doom-nano-modeline.el") ;; Load custom configurations
   (leaf hide-mode-line
 	:ensure t
-	:config (global-hide-mode-line-mode 1)))
+	:config (global-hide-mode-line-mode 1))
+  :custom-face
+  (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#3B4252" :weight bold))))
+  (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ffffff" :background "#f4a460" :weight bold))))
+  (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#3cb371" :weight bold))))
+  (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#e0ffff" :background "#4682b4" :weight bold))))
+  (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#3B4252"))))
+  (doom-nano-modeline-major-mode-face        . '((t (:foreground "#b0b8d1" :background "#3B4252"))))
+  (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#3B4252")))))
 
 
 (leaf display-line-numbers
