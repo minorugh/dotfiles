@@ -10,8 +10,8 @@
 ;; -------------------------------------------------------------------
 
 (leaf magit
-  :doc "Complete text-based user interface to Git"
-  :url "ttps://magit.vc/"
+  :doc "Git Porcelain inside Emacs"
+  :url "https://github.com/magit/magit"
   :ensure t
   :bind (("C-x g" . magit-status )
 		 ("M-g"   . hydra-git/body))
