@@ -10,12 +10,16 @@
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook  . my:evil-find-file))
   :bind ((:evil-normal-state-map
-		  ("C-e" . seq-end) ;; sequential-command
-		  ("SPC" . evil-insert)
-		  ("M-." . nil)
-		  ("@" . other-window-or-split)
-		  ("?" . chromium-vim-chert)
+		  ("C-e"  . seq-end) ;; sequential-command
+		  ("SPC"  . evil-insert)
+		  ("M-."  . nil)
+		  ("@"    . other-window-or-split)
+		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
+		 (:evil-visual-state-map
+		  ("g"    . my:google)
+		  ("k"    . my:koujien)
+		  ("t"    . gts-do-translate))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape] . my:return-to-normal-state)))
