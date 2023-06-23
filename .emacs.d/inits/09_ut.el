@@ -124,6 +124,15 @@
 		ps-print-footer nil))
 
 
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
 (leaf package-utils
   :doc "Interactive package manager"
   :url "https://github.com/Silex/package-utils"
