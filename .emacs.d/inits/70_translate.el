@@ -27,7 +27,8 @@
 				   (gts-google-engine)
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
-		 :render (gts-buffer-render))))
+		 :render
+		 (gts-buffer-render))))
 
 
 ;;  Deepl translation in web page
