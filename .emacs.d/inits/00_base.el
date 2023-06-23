@@ -62,7 +62,6 @@
     (winner-mode 1)
     (global-auto-revert-mode 1)
     (global-font-lock-mode 1)
-    (global-hl-line-mode 1)
     (global-visual-line-mode 1))
   (add-hook 'after-init-hook 'my:default-modes)
 
