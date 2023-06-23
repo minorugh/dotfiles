@@ -8,10 +8,10 @@
 		 (org-mode-hook . (lambda () (electric-indent-local-mode -1)))
 		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows))
   :chord (",," . org-capture)
-  :bind (("C-c a" . org-agenda)
-		 ("C-c c" . org-capture)
-		 ("C-c k" . org-capture-kill)
-		 ("C-c i" . org-edit-src-exit)
+  :bind (("C-c a"  . org-agenda)
+		 ("C-c c"  . org-capture)
+		 ("C-c k"  . org-capture-kill)
+		 ("C-c i"  . org-edit-src-exit)
 		 (:org-mode-map
 		  ("C-c i" . org-edit-special)))
   :config
@@ -24,8 +24,8 @@
   (setq org-refile-targets
 		(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
 				("~/Dropbox/howm/org/remember.org" :level . 1)
-				("~/Dropbox/howm/org/memo.org" :level . 1)
-				("~/Dropbox/howm/org/task.org" :level . 1)))))
+				("~/Dropbox/howm/org/memo.org" :level     . 1)
+				("~/Dropbox/howm/org/task.org" :level     . 1)))))
 
 
 ;; Capture template
@@ -48,16 +48,16 @@
 
 (leaf calendar
   :leaf-defer t
-  :bind (("<f7>" . calendar)
+  :bind (("<f7>"  . calendar)
 		 (:calendar-mode-map
 		  ("<f7>" . calendar-exit)))
   :config
   (leaf japanese-holidays
 	:ensure t
 	:require t
-	:hook ((calendar-today-visible-hook . japanese-holiday-mark-weekend)
+	:hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
 		   (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
-		   (calendar-today-visible-hook . calendar-mark-today))
+		   (calendar-today-visible-hook   . calendar-mark-today))
 	:config
 	(setq calendar-holidays
 		  (append japanese-holidays holiday-local-holidays holiday-other-holidays))
