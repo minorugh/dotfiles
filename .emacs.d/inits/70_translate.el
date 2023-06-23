@@ -13,10 +13,10 @@
 
 
 (leaf go-translate
-  :doc "Display Deepl and Google Translate results in other buffer"
+  :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
   :ensure t
-  :bind ("C-t" .  gts-do-translate)
+  :bind ("C-t" . gts-do-translate)
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
@@ -25,13 +25,12 @@
 		 (gts-noprompt-picker)
 		 :engines (list
 				   (gts-google-engine)
-				   ;; (gts-bing-engine)
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
 		 :render (gts-buffer-render))))
 
 
-;; Deepl translation in web page
+;;  Deepl translation in web page
 (leaf *cus-deeple-translate
   :bind ("C-c t" . my:deepl-translate)
   :init
