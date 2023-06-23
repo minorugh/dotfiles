@@ -45,15 +45,6 @@
   :custom (display-line-numbers-width-start . t))
 
 
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
-
-
 (leaf *cus-line-spacing
   :doc "Set line spacing"
   :hook (buffer-list-update-hook . my:linespacing)
