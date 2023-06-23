@@ -3,7 +3,12 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-;; Mgit configuration
+;; -------------------------------------------------------------------
+;;
+;; Interface to the version control system Git
+;;
+;; -------------------------------------------------------------------
+
 (leaf magit
   :doc "Complete text-based user interface to Git"
   :url "ttps://magit.vc/"
