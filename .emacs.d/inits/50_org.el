@@ -25,24 +25,25 @@
 		(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
 				("~/Dropbox/howm/org/remember.org" :level . 1)
 				("~/Dropbox/howm/org/memo.org" :level . 1)
-				("~/Dropbox/howm/org/task.org" :level . 1))))
+				("~/Dropbox/howm/org/task.org" :level . 1)))))
 
-  ;; Capture template
-  (setq org-capture-templates
-		'(("m" " Memo" entry (file+headline "~/Dropbox/howm/org/memo.org" "Memo")
-		   "* %? %U %i")
-		  ("i" " Idea" entry (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
-		   "* %? %U %i")
-		  ("r" " Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
-		   "* %? %U %i")
-		  ("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
-		   "** TODO %?\n SCHEDULED: %^t \n")
-		  ("e" " Experiment" entry (file+headline "~/Dropbox/howm/org/experiment.org" "Experiment")
-		   "* %? %i\n#+BEGIN_SRC perl\n\n#+END_SRC\n\n%U")
-		  ("p" " Code capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Code")
-		   "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
-		  ("L" " Link capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Link")
-		   "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t))))
+
+;; Capture template
+(setq org-capture-templates
+	  '(("m" " Memo" entry (file+headline "~/Dropbox/howm/org/memo.org" "Memo")
+		 "* %? %U %i")
+		("i" " Idea" entry (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
+		 "* %? %U %i")
+		("r" " Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
+		 "* %? %U %i")
+		("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
+		 "** TODO %?\n SCHEDULED: %^t \n")
+		("e" " Experiment" entry (file+headline "~/Dropbox/howm/org/experiment.org" "Experiment")
+		 "* %? %i\n#+BEGIN_SRC perl\n\n#+END_SRC\n\n%U")
+		("p" " Code capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Code")
+		 "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
+		("L" " Link capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Link")
+		 "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)))
 
 
 (leaf calendar
