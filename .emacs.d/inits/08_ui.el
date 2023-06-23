@@ -32,11 +32,11 @@
   (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-major-mode-face        . '((t (:foreground "#b0b8d1" :background "#44475a"))))
   (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  :config
+  :preface
   (leaf hide-mode-line
 	:doc "Hide modeline in current buffer"
 	:ensure t
-	:config (global-hide-mode-line-mode 1)))
+	:hook (after-init-hook . global-hide-mode-line-mode)))
 
 
 (leaf display-line-numbers
