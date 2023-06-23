@@ -27,7 +27,7 @@
 	:config (global-hide-mode-line-mode 1))
   :custom-face
   (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#3B4252" :weight bold))))
-  (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#ffffff" :background "#f4a460" :weight bold))))
+  (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#f4a460" :background "#6272a4" :weight bold))))
   (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#3cb371" :weight bold))))
   (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#e0ffff" :background "#4682b4" :weight bold))))
   (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#3B4252"))))
