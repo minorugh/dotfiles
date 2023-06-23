@@ -44,11 +44,13 @@
 	(shell-command "git gui &")
 	(delete-other-windows))
   :init
-  (leaf diff-hl	:ensure t
+  (leaf git-timemachine	:ensure t)
+  (leaf diff-hl
+	:ensure t
 	:hook ((after-init-hook . global-diff-hl-mode)
 		   (after-init-hook . diff-hl-margin-mode)))
-  (leaf git-timemachine	:ensure t)
-  (leaf browse-at-remote :ensure t
+  (leaf browse-at-remote
+	:ensure t
 	:custom (browse-at-remote-prefer-symbolic . nil)))
 
 
