@@ -64,7 +64,9 @@
   :url "https://github.com/bmag/imenu-list"
   :ensure t
   :hook (imenu-list-major-mode-hook . neo-hide-nano-header)
-  :bind ([f2] . imenu-list-smart-toggle)
+  :bind (([f2] . imenu-list-smart-toggle)
+		 (:imenu-list-major-mode-map
+		  ("q" . imenu-list-quit-window)))
   :custom
   `((imenu-list-size . 30)
 	(imenu-list-auto-resize . t)
