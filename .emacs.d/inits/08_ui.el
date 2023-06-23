@@ -22,8 +22,8 @@
   :el-get "ronisbr/doom-nano-modeline"
   :hook (emacs-startup-hook . doom-nano-modeline-mode)
   :custom-face
-  (region                                    . '((t (:background "#6272a4" :extend t ))))
-  (hl-line                                   . '((t (:background "#3B4252" :extend t ))))
+  (region                                    . '((t (:background "#6272a4" :extend t))))
+  (hl-line                                   . '((t (:background "#3B4252" :extend t))))
   (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#3B4252" :weight bold))))
   (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#f4a460" :background "#6272a4" :weight bold))))
   (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#3cb371" :weight bold))))
