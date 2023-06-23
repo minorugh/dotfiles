@@ -7,7 +7,7 @@
   :doc "Megapack of themes"
   :url "https://github.com/doomemacs/themes"
   :ensure t
-  :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
+  :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom
   (doom-themes-enable-italic . nil)
   (doom-themes-enable-bold   . nil)
