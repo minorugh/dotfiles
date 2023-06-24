@@ -4,9 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf org
-  :hook ((emacs-startup-hook . (lambda () (require 'org-protocol)))
-		 (org-mode-hook . (lambda () (electric-indent-local-mode -1)))
-		 ((org-capture-mode-hook org-agenda-mode-hook) . delete-other-windows))
   :chord (",," . org-capture)
   :bind (("C-c a"  . org-agenda)
 		 ("C-c c"  . org-capture)
@@ -39,11 +36,7 @@
 		("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
 		 "** TODO %?\n SCHEDULED: %^t \n")
 		("e" " Experiment" entry (file+headline "~/Dropbox/howm/org/experiment.org" "Experiment")
-		 "* %? %i\n#+BEGIN_SRC perl\n\n#+END_SRC\n\n%U")
-		("p" " Code capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Code")
-		 "* %^{Title} \nSOURCE: %:link\nCAPTURED: %U\n\n#+BEGIN_SRC\n%i\n#+END_SRC\n" :prepend t)
-		("L" " Link capture" entry (file+headline "~/Dropbox/howm/org/capture.org" "Link")
-		 "* [[%:link][%:description]] \nCAPTURED: %U\nREMARKS: %?" :prepend t)))
+		 "* %? %i\n#+BEGIN_SRC perl\n\n#+END_SRC\n\n%U")))
 
 
 (leaf calendar
