@@ -27,6 +27,16 @@
 	(revert-buffer t t)))
 
 
+(leaf *cus-line-spacing
+  :doc "Set line spacing"
+  :hook (buffer-list-update-hook . my:linespacing)
+  :init
+  (defun my:linespacing ()
+	"Set default linespace."
+	(unless (minibufferp)
+	  (setq-local line-spacing 0.1))))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
