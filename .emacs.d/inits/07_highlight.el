@@ -59,7 +59,7 @@
   :doc "Color letter that indicate the color"
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
   :ensure t
-  :chord (".." . rainbow-mode))
+  :bind ("C-c w" . rainbow-mode))
 
 
 (leaf *highlight-whitespace
