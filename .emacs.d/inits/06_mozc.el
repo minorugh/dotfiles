@@ -19,6 +19,18 @@
   (mozc-helper-program-name . "mozc_emacs_helper")
   (mozc-leim-title          . "あ")
   :config
+  (leaf pangu-spacing
+	:doc "Put a space between Japanese and English"
+	:url "http://github.com/coldnew/pangu-spacing"
+	:ensure t
+	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+	:config
+	(setq pangu-spacing-real-insert-separtor t)
+	(setq pangu-spacing-include-regexp ;; alphabet only
+		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+						   (group-n 1 (or (category japanese))))))
+			  (group-n 2 (in "a-zA-Z")))))
+
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
 	:el-get iRi-E/mozc-el-extensions
@@ -78,17 +90,17 @@
 ;; -------------------------------------------------------------
 ;;  Put a space between Japanese and English
 ;; -------------------------------------------------------------
-(leaf pangu-spacing
-  :doc "Put a space between Japanese and English"
-  :url "http://github.com/coldnew/pangu-spacing"
-  :ensure t
-  :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-  :config
-  (setq pangu-spacing-real-insert-separtor t)
-  (setq pangu-spacing-include-regexp ;; alphabet only
-		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-						 (group-n 1 (or (category japanese))))))
-			(group-n 2 (in "a-zA-Z")))))
+;; (leaf pangu-spacing
+;;   :doc "Put a space between Japanese and English"
+;;   :url "http://github.com/coldnew/pangu-spacing"
+;;   :ensure t
+;;   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+;;   :config
+;;   (setq pangu-spacing-real-insert-separtor t)
+;;   (setq pangu-spacing-include-regexp ;; alphabet only
+;; 		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+;; 						 (group-n 1 (or (category japanese))))))
+;; 			(group-n 2 (in "a-zA-Z")))))
 
 
 ;; Local Variables:
