@@ -8,7 +8,7 @@
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
-  :chord (";;" . my:toggle-dimmer)
+  :chord (".." . my:toggle-dimmer)
   :config
   (defvar my:dimmer-mode t)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
