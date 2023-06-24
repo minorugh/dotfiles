@@ -41,20 +41,13 @@
 (leaf display-line-numbers
   :doc "Show line numbers"
   :hook ((after-init-hook . global-display-line-numbers-mode)
-		 ((imenu-list-minor-mode-hook dired-mode-hook neotree-mode-hook lisp-interaction-mode-hook eshell-mode-hook)
-		  . (lambda () (display-line-numbers-mode 0))))
+		 ((imenu-list-minor-mode-hook
+		   dired-mode-hook
+		   neotree-mode-hook
+		   lisp-interaction-mode-hook
+		   eshell-mode-hook) . (lambda () (display-line-numbers-mode 0))))
   :bind ([f9] . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t))
-
-
-(leaf *cus-line-spacing
-  :doc "Set line spacing"
-  :hook (buffer-list-update-hook . my:linespacing)
-  :init
-  (defun my:linespacing ()
-	"Set default linespace."
-	(unless (minibufferp)
-	  (setq-local line-spacing 0.1))))
 
 
 (leaf *cus-cursor
