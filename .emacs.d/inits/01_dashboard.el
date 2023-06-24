@@ -77,9 +77,7 @@
 	"Quit dashboard window."
 	(interactive)
 	(quit-window t)
-	(when (and dashboard-recover-layout-p
-			   (bound-and-true-p winner-mode))
-	  (winner-undo)
+	(when (dashboard-recover-layout-p)
 	  (setq dashboard-recover-layout-p nil)))
 
   (defun sylpheed ()

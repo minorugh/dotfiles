@@ -44,8 +44,6 @@
    ("m" my:make-move)
    ("u" my:make-upsftp)
    ("/" my:root-dir)
-   ("<" winner-undo)
-   (">" winner-redo)
    ("0" my:delete-window)
    ("1" my:delete-other-windows)
    ("_" my:delete-other-windows)

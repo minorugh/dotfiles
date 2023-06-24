@@ -54,15 +54,6 @@
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  (defun my:default-modes ()
-    "Set default modes for startup hook."
-    (interactive)
-    (winner-mode 1)
-    (global-auto-revert-mode 1)
-    (global-font-lock-mode 1)
-    (global-visual-line-mode 1))
-  (add-hook 'after-init-hook 'my:default-modes)
-
   (leaf *to-be-quiet
 	:doc "Quite annoying messages"
 	:preface
@@ -73,14 +64,23 @@
 	(defalias 'yes-or-no-p #'y-or-n-p)
 	(defalias 'exit 'save-buffers-kill-emacs))
 
-  ;; Save the file specified code with basic utf-8 if it exist
-  (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8)
+  (leaf *encoding
+	:doc "Save the file specified code with basic utf-8 if it exist"
+	:config
+	(set-language-environment "Japanese")
+	(prefer-coding-system 'utf-8))
 
-  ;; Set font for main machine or other
-  (if (string-match "e590" (shell-command-to-string "uname -n"))
-      (add-to-list 'default-frame-alist '(font . "Cica-20"))
-    (add-to-list 'default-frame-alist '(font . "Cica-15")))
+  (leaf *fonts
+	:doc "Set font for main machine or other"
+	:config
+	(if (string-match "e590" (shell-command-to-string "uname -n"))
+		(add-to-list 'default-frame-alist '(font . "Cica-20"))
+      (add-to-list 'default-frame-alist '(font . "Cica-15"))))
+
+  (leaf *autorevert
+	:doc "Revert changes if local file is updated"
+	:hook (after-init-hook . global-auto-revert-mode)
+	:custom (auto-revert-interval . 0.1))
 
   :init
   (leaf exec-path-from-shell
