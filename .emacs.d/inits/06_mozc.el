@@ -19,18 +19,6 @@
   (mozc-helper-program-name . "mozc_emacs_helper")
   (mozc-leim-title          . "あ")
   :config
-  (leaf pangu-spacing
-	:doc "Put a space between Japanese and English"
-	:url "http://github.com/coldnew/pangu-spacing"
-	:ensure t
-	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-	:config
-	(setq pangu-spacing-real-insert-separtor t)
-	(setq pangu-spacing-include-regexp ;; alphabet only
-		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-						   (group-n 1 (or (category japanese))))))
-			  (group-n 2 (in "a-zA-Z")))))
-
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
 	:el-get iRi-E/mozc-el-extensions
@@ -52,6 +40,19 @@
 	  (mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73"))))))
+
+  (leaf pangu-spacing
+	:doc "Put a space between Japanese and English"
+	:url "http://github.com/coldnew/pangu-spacing"
+	:ensure t
+	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+	:config
+	(setq pangu-spacing-real-insert-separtor t)
+	(setq pangu-spacing-include-regexp ;; alphabet only
+		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+						   (group-n 1 (or (category japanese))))))
+			  (group-n 2 (in "a-zA-Z")))))
+
 
   ;; ---------------------------------------------------------------------
   ;; Custom functions for Mozc
@@ -85,22 +86,6 @@
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
 	(delete-other-windows)))
-
-
-;; -------------------------------------------------------------
-;;  Put a space between Japanese and English
-;; -------------------------------------------------------------
-;; (leaf pangu-spacing
-;;   :doc "Put a space between Japanese and English"
-;;   :url "http://github.com/coldnew/pangu-spacing"
-;;   :ensure t
-;;   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-;;   :config
-;;   (setq pangu-spacing-real-insert-separtor t)
-;;   (setq pangu-spacing-include-regexp ;; alphabet only
-;; 		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-;; 						 (group-n 1 (or (category japanese))))))
-;; 			(group-n 2 (in "a-zA-Z")))))
 
 
 ;; Local Variables:
