@@ -7,7 +7,8 @@
   :doc "Japanese Input Method Editor"
   :url "https://github.com/google/mozc"
   :ensure t
-  :hook (after-init-hook . mozc-mode)
+  :hook '((after-init-hook . mozc-mode)
+		  (emacs-startup-hook . my:mozc-copy))
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 		 ("s-d" . my:mozc-word-regist)
 		 (:mozc-mode-map
@@ -29,16 +30,6 @@
 	:ensure t
 	:when window-system
 	:config
-	(leaf mozc-for-submachine
-	  :doc "Copy mozc to submachines for avoid conflicts"
-	  :hook (emacs-startup-hook . my:mozc-copy)
-	  :init
-	  (defun my:mozc-copy ()
-		"Copy mozc to submachines for avoid conflicts."
-		(interactive)
-		(unless (string-match "e590" (shell-command-to-string "uname -n"))
-		  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
-
 	(leaf mozc-cand-posframe
 	  :doc "Posframe Frontend for Mozc.el"
 	  :url "https://github.com/akirak/mozc-posframe"
@@ -49,6 +40,15 @@
 	  (mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73"))))))
+
+  ;; ---------------------------------------------------------------------
+  ;; Custom functions for Mozc
+  ;; ---------------------------------------------------------------------
+  (defun my:mozc-copy ()
+	"Copy mozc to submachines for avoid conflicts."
+	(interactive)
+	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
 
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
@@ -75,6 +75,9 @@
 	(delete-other-windows)))
 
 
+;; -------------------------------------------------------------
+;;  Put a space between Japanese and English
+;; -------------------------------------------------------------
 (leaf pangu-spacing
   :doc "Put a space between Japanese and English"
   :url "http://github.com/coldnew/pangu-spacing"
@@ -86,24 +89,6 @@
 		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
 						 (group-n 1 (or (category japanese))))))
 			(group-n 2 (in "a-zA-Z")))))
-
-
-;; ---------------------------------------------------------------------
-;;
-;; Every time you start emacs on the submachine,
-;; copy and share the mozc dictionary on the main machine.
-;;
-;; ---------------------------------------------------------------------
-
-(leaf *copy-mozc-submachine
-  :doc "Copy mozc to submachines for avoid conflicts"
-  :hook (emacs-startup-hook . my:mozc-copy)
-  :init
-  (defun my:mozc-copy ()
-	"Copy mozc to submachines for avoid conflicts."
-	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
 
 ;; Local Variables:
