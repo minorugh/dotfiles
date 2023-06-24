@@ -3,18 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf hl-line
+(leaf *hl-line
   :doc "Highlight the current line"
   :hook ((after-init-hook . global-hl-line-mode)
-		 ((dashboard-mode-hook eshell-mode-hook) .
-		  (lambda () (setq-local global-hl-line-mode nil)))))
+		 ((dashboard-mode-hook
+		   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
 
 
 (leaf *paren
   :doc "Highlight matching parens"
   :hook (after-init-hook . show-paren-mode)
   :custom
-  `((show-paren-style . 'parenthesis)
+  `((show-paren-style                   . 'parenthesis)
 	(show-paren-when-point-inside-paren . t)
 	(show-paren-when-point-in-periphery . t)))
 
@@ -24,7 +24,7 @@
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook ((after-init-hook . smartparens-global-mode)
-		 (prog-mode-hook . turn-on-smartparens-mode))
+		 (prog-mode-hook  . turn-on-smartparens-mode))
   :config (require 'smartparens-config))
 
 
