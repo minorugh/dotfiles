@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf deepl-translate
-  :doc "Display deeple translation results on minibuffer"
+  :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get minorugh/deepl-translate
   :bind ("C-c C-t" . deepl-translate)
@@ -31,8 +31,8 @@
 		 (gts-buffer-render))))
 
 
-;;  Deepl translation in web page
 (leaf *cus-deeple-translate
+  :doc "Deepl translation in web page"
   :bind ("C-c t" . my:deepl-translate)
   :init
   (defun my:deepl-translate (&optional string)
