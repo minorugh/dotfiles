@@ -54,8 +54,6 @@
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  (defalias 'exit 'save-buffers-kill-emacs)
-  (defalias 'yes-or-no-p 'y-or-n-p)
   (defun my:default-modes ()
     "Set default modes for startup hook."
     (interactive)
@@ -64,6 +62,16 @@
     (global-font-lock-mode 1)
     (global-visual-line-mode 1))
   (add-hook 'after-init-hook 'my:default-modes)
+
+  (leaf *to-be-quiet
+	:doc "Quite annoying messages"
+	:preface
+	(defun display-startup-echo-area-message ()
+      "no startup message"
+      (message ""))
+	:config
+	(defalias 'yes-or-no-p #'y-or-n-p)
+	(defalias 'exit 'save-buffers-kill-emacs))
 
   ;; Save the file specified code with basic utf-8 if it exist
   (set-language-environment "Japanese")
