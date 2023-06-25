@@ -36,14 +36,13 @@
   :ensure t
   :hook (after-init-hook . volatile-highlights-mode)
   :custom-face
-  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD")))))
-
-
-(when (fboundp 'pulse-momentary-highlight-region)
-  (defun my:vhl-pulse (beg end &optional _buf face)
-	"Pulse the changes."
-	(pulse-momentary-highlight-region beg end face))
-  (advice-add #'vhl/.make-hl :override #'my:vhl-pulse))
+  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
+  :config
+  (when (fboundp 'pulse-momentary-highlight-region)
+	(defun my:vhl-pulse (beg end &optional _buf face)
+	  "Pulse the changes."
+	  (pulse-momentary-highlight-region beg end face))
+	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 
 (leaf aggressive-indent
