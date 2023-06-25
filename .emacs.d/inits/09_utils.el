@@ -69,25 +69,6 @@
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf counsel-tramp
-  :doc "Tramp ivy interface for ssh server"
-  :url "https://github.com/masasam/emacs-counsel-tramp"
-  :ensure t
-  :custom
-  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
-	(tramp-default-method        . "scp")
-	(counsel-tramp-custom-connections
-	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
-  :config
-  (defun my:tramp-quit ()
-	"Quit tramp, if tramp connencted."
-	(interactive)
-	(when (get-buffer "*tramp/scp xsrv*")
-	  (tramp-cleanup-all-connections)
-	  (counsel-tramp-quit)
-	  (message "Tramp Quit!"))))
-
-
 (leaf *cus-counsel-ag
   :doc "Fast full-text search"
   :url "https://takaxp.github.io/init.html#org29c7b6b7"
