@@ -16,8 +16,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _f_ollow  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x._0__1_  _p_assxc  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _z_illa  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x._0__1_  _p_assx  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -50,7 +50,7 @@
    ("[" hydra-git/body)
    ("]" magit-status)
    ("s" my:scr-dir)
-   ("f" follow-mode)
+   ("z" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil)))
 
