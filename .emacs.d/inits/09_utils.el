@@ -38,13 +38,6 @@
 	  (keyboard-quit))))
 
 
-(leaf *link-open
-  :doc "Links in Emacs ... mouse click or 'C-c RET'"
-  :config
-  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-  (add-hook 'text-mode-hook 'goto-address-mode))
-
-
 (leaf flymake
   :doc "Finding Syntax Errors On The Fly"
   :hook (emacs-lisp-mode-hook . flymake-mode)
