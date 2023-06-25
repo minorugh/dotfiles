@@ -44,7 +44,6 @@
   (leaf pangu-spacing
 	:doc "Put a space between Japanese and English"
 	:url "http://github.com/coldnew/pangu-spacing"
-	:ensure t
 	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
 	:config
 	(setq pangu-spacing-real-insert-separtor t)
