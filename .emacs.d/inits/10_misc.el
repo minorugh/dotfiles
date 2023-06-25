@@ -16,6 +16,14 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
+(leaf which-key
+  :doc "Displays available keybindings in popup"
+  :url "https://github.com/justbur/emacs-which-key"
+  :ensure t
+  :hook (after-init-hook . which-key-mode)
+  :custom (which-key-max-description-length . 40))
+
+
 (leaf key-chord
   :doc "Mapping a pair of simultaneously pressed keys"
   :url "https://github.com/emacsorphanage/key-chord"
@@ -24,6 +32,15 @@
   :chord (("df" . counsel-descbinds)
 		  ("l;" . init-loader-show-log))
   :custom (key-chord-two-keys-delay . 0.1))
+
+
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
 (leaf popwin
