@@ -41,6 +41,9 @@
   });
   </script>
   "))
+  :custom-face
+  (markdown-code-face . '((t (:inherit nil :background "gray10"))))
+  (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))
   :hydra
   (hydra-markdown
    (:color red :hint nil)

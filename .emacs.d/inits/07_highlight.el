@@ -16,7 +16,9 @@
   :custom
   `((show-paren-style                   . 'parenthesis)
 	(show-paren-when-point-inside-paren . t)
-	(show-paren-when-point-in-periphery . t)))
+	(show-paren-when-point-in-periphery . t))
+  :custom-face
+  (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
 
 (leaf smartparens
@@ -32,7 +34,10 @@
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
   :ensure t
-  :hook (after-init-hook . volatile-highlights-mode))
+  :hook (after-init-hook . volatile-highlights-mode)
+  :custom-face
+  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD")))))
+
 
 (when (fboundp 'pulse-momentary-highlight-region)
   (defun my:vhl-pulse (beg end &optional _buf face)
@@ -86,17 +91,12 @@
 
 ;; Custom set face
 (custom-set-faces
- '(show-paren-match ((t (:background "#44475a" :foreground "#f1fa8c"))))
- '(vhl/default-face ((t (:foreground "#FF3333" :background "#FFCDCD"))))
  '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
  '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
- '(markdown-code-face ((t (:inherit nil))))
- '(markdown-pre-face ((t (:inherit font-lock-constant-face))))
  '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil
 								  :strike-through nil :overline nil :underline nil :slant normal
 								  :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
  '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
-(put 'dired-find-alternate-file 'disabled nil)
 
 
 ;; Local Variables:

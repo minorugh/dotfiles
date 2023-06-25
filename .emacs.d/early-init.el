@@ -10,24 +10,30 @@
 ;; Move garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
+
 ;; To prevent double initialisation
 (setq package-enable-at-startup nil)
+
 
 ;; Suppress cl warning
 (setq byte-compile-warnings '(cl-functions))
 
+
 ;; Always load newest byte code
 (setq load-prefer-newer t)
+
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
 
+
 ;; Faster to disable these here (before they've been initialized)
-;; (push '(fullscreen . maximized) default-frame-alist)
-(push '(fullscreen . fullscreen) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+;; (push '(fullscreen . maximized) default-frame-alist)
+(push '(fullscreen . fullscreen) default-frame-alist)
+
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")

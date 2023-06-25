@@ -28,6 +28,7 @@
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t))
   :config
+  (put 'dired-find-alternate-file 'disabled nil)
   (leaf all-the-icons-dired
 	:ensure t
 	:if (display-graphic-p)
