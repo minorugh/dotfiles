@@ -55,41 +55,40 @@
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
   (leaf *define-alias
-	:doc "Change to short command"
-	:config
-	(defalias 'yes-or-no-p #'y-or-n-p)
-	(defalias 'exit 'save-buffers-kill-emacs))
+    :doc "Change to short command"
+    :config
+    (defalias 'yes-or-no-p #'y-or-n-p)
+    (defalias 'exit 'save-buffers-kill-emacs))
 
   (leaf *emacs-lock-mode
-	:doc "Set buffer that can not be killed"
-	:config
-	(with-current-buffer "*scratch*"
-	  (emacs-lock-mode 'kill))
-	(with-current-buffer "*Messages*"
-	  (emacs-lock-mode 'kill)))
+    :doc "Set buffer that can not be killed"
+    :config
+    (with-current-buffer "*scratch*"
+      (emacs-lock-mode 'kill))
+    (with-current-buffer "*Messages*"
+      (emacs-lock-mode 'kill)))
 
   (leaf *encoding
-	:doc "Save the file specified code with basic utf-8 if it exist"
-	:config
-	(set-language-environment "Japanese")
-	(prefer-coding-system 'utf-8))
+    :doc "Save the file specified code with basic utf-8 if it exist"
+    :config
+    (set-language-environment "Japanese")
+    (prefer-coding-system 'utf-8))
 
   (leaf *fonts
-	:doc "Set font for main machine or other"
-	:config
-	(if (string-match "e590" (shell-command-to-string "uname -n"))
-		(add-to-list 'default-frame-alist '(font . "Cica-18"))
+    :doc "Set font for main machine or other"
+    :config
+    (if (string-match "e590" (shell-command-to-string "uname -n"))
+	(add-to-list 'default-frame-alist '(font . "Cica-18"))
       (add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
   (leaf *autorevert
-	:doc "Revert changes if local file is updated"
-	:hook (after-init-hook . global-auto-revert-mode)
-	:custom (auto-revert-interval . 0.1))
+    :doc "Revert changes if local file is updated"
+    :hook (after-init-hook . global-auto-revert-mode)
+    :custom (auto-revert-interval . 0.1))
 
   (leaf *goto-address
-	:doc "Change URL into link, Open with mouse or 'C-c RET'"
-	:hook ((prog-mode-hook . goto-address-prog-mode)
-		   (text-mode-hook 'goto-address-mode)))
+    :doc "Display URL as link, Open with mouse or 'C-c RET'"
+    :hook (prog-mode-hook . goto-address-prog-mode))
 
   :init
   (leaf exec-path-from-shell
@@ -103,28 +102,28 @@
 
   (leaf *server-start
     :doc "Server start for emacs-client"
-	:require server
+    :require server
     :config
     (unless (server-running-p)
-	  (add-hook 'after-init-hook 'server-start)))
+      (add-hook 'after-init-hook 'server-start)))
 
   (leaf *recovery
-	:doc "Save place of cursor"
-	:hook (after-init-hook . save-place-mode)
-	:custom (save-place-file . "~/.emacs.d/tmp/places"))
+    :doc "Save place of cursor"
+    :hook (after-init-hook . save-place-mode)
+    :custom (save-place-file . "~/.emacs.d/tmp/places"))
 
   (leaf *savehist
-	:doc "Edit remote file via SSH or SCP"
-	:hook (after-init-hook . savehist-mode)
-	:custom
-	`((savehist-file . "~/.emacs.d/tmp/history")
+    :doc "Edit remote file via SSH or SCP"
+    :hook (after-init-hook . savehist-mode)
+    :custom
+    `((savehist-file . "~/.emacs.d/tmp/history")
       (savehist-additional-variables . '(kill-ring))))
 
   (leaf *recentf
-	:doc "Record open files history"
-	:hook (after-init-hook . recentf-mode)
-	:custom
-	`((recentf-auto-cleanup . 'never)
+    :doc "Record open files history"
+    :hook (after-init-hook . recentf-mode)
+    :custom
+    `((recentf-auto-cleanup . 'never)
       (recentf-exclude
        . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
       (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
