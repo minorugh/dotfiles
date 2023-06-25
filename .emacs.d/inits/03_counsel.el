@@ -26,27 +26,6 @@
 	(enable-recursive-minibuffers    . t)
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist      . '((t . my:ivy-format-function-arrow))))
-  :init
-  (leaf ivy-rich
-	:doc "More friendly display transformer for ivy"
-	:url "https://github.com/Yevgnen/ivy-rich"
-	:ensure t
-	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
-	:ensure t
-	:custom `((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20)))
-  (leaf swiper-migemo
-	:doc "Use ivy/counsel/swiper with migemo"
-	:url "https://github.com/tam17aki/swiper-migemo"
-	:el-get tam17aki/swiper-migemo
-	:after swiper
-	:config
-	(global-swiper-migemo-mode +1)
-	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
-	(setq migemo-options '("--quiet" "--nonewline" "--emacs"))
-	(migemo-kill)
-	(migemo-init))
   :config
   (defun swiper-region ()
 	"If region is selected, `swiper-thing-at-point'.
@@ -67,7 +46,40 @@ If the region isn't selected, `swiper'."
 	 (lambda (str)
 	   (concat (propertize " " 'display `(space :align-to 2)) str))
 	 cands
-	 "\n")))
+	 "\n"))
+  :init
+  (leaf ivy-rich
+	:doc "More friendly display transformer for ivy"
+	:url "https://github.com/Yevgnen/ivy-rich"
+	:ensure t
+	:hook (after-init-hook . ivy-rich-mode))
+
+  (leaf amx
+	:ensure t
+	:custom `((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+			  (amx-history-length . 20)))
+
+  (leaf swiper-migemo
+	:doc "Use ivy/counsel/swiper with migemo"
+	:url "https://github.com/tam17aki/swiper-migemo"
+	:el-get tam17aki/swiper-migemo
+	:after swiper
+	:config
+	(global-swiper-migemo-mode +1)
+	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
+	(setq migemo-options '("--quiet" "--nonewline" "--emacs"))
+	(migemo-kill)
+	(migemo-init))
+
+  (leaf migemo
+	:doc "Japanese increment search with 'Romanization of Japanese'"
+	:url "https://github.com/emacs-jp/migemo"
+	:if (executable-find "cmigemo")
+	:ensure t
+	:hook (after-init-hook . migemo-init)
+	:custom
+	`((migemo-command    . "cmigemo")
+	  (migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict"))))
 
 
 ;; Local Variables:

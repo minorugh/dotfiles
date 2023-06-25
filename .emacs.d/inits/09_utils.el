@@ -88,17 +88,6 @@
 	  (message "Tramp Quit!"))))
 
 
-(leaf migemo
-  :doc "Japanese increment search with 'Romanization of Japanese'"
-  :url "https://github.com/emacs-jp/migemo"
-  :if (executable-find "cmigemo")
-  :ensure t
-  :hook (after-init-hook . migemo-init)
-  :custom
-  `((migemo-command    . "cmigemo")
-	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
-
-
 (leaf *cus-counsel-ag
   :doc "Fast full-text search"
   :url "https://takaxp.github.io/init.html#org29c7b6b7"
