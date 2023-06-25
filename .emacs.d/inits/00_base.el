@@ -55,7 +55,7 @@
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
   (leaf *define-alias
-	:doc "Define short command"
+	:doc "Change to short command"
 	:config
 	(defalias 'yes-or-no-p #'y-or-n-p)
 	(defalias 'exit 'save-buffers-kill-emacs))
