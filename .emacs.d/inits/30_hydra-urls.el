@@ -5,7 +5,7 @@
 
 ;;-------------------------------------------------------------------
 ;;
-;; Hydra browse configuration for quick menu
+;; Hydra browse configuration for quick access
 ;;
 ;;-------------------------------------------------------------------
 
