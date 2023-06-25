@@ -30,7 +30,7 @@
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
 
   ;; Set the banner
-  ;; (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
+  (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
