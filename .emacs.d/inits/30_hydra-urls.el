@@ -1,4 +1,4 @@
-;;; 30_hydra-util.el --- Hydra utilis configuration for misc utils. -*- lexical-binding: t -*-
+;;; 30_hydra-urls.el --- Hydra favalite url'sconfiguration for misc utils. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-util.el ends here
+;;; 30_hydra-urls.el ends here
