@@ -24,17 +24,7 @@
 	(interactive)
 	(darkroom-mode 0)
 	(display-line-numbers-mode 1)
-	(revert-buffer t t)))
-
-
-(leaf *cus-line-spacing
-  :doc "Set line spacing"
-  :hook (buffer-list-update-hook . my:linespacing)
-  :init
-  (defun my:linespacing ()
-	"Set default linespace."
-	(unless (minibufferp)
-	  (setq-local line-spacing 0.1))))
+	(setq-local line-spacing .1)))
 
 
 ;; Local Variables:
