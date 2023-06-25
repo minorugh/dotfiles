@@ -54,12 +54,8 @@
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  (leaf *to-be-quiet
-	:doc "Quite annoying messages"
-	:preface
-	(defun display-startup-echo-area-message ()
-      "no startup message"
-      (message ""))
+  (leaf *define-alias
+	:doc "Define short command"
 	:config
 	(defalias 'yes-or-no-p #'y-or-n-p)
 	(defalias 'exit 'save-buffers-kill-emacs))
