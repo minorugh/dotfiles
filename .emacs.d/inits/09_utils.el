@@ -5,9 +5,11 @@
 ;; User custom functions
 
 (leaf *cus-ut-functions
-  :bind	(([f3] . thunar-open)
-		 ([f4] . terminal-open)
-		 ([f5] . ssh-xsrv)
+  :bind	(("s-c" . clipboard-kill-ring-save) ;; Like macOS
+		 ("s-v" . clipboard-yank)           ;; Like macOS
+		 ([f3]  . thunar-open)
+		 ([f4]  . terminal-open)
+		 ([f5]  . ssh-xsrv)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
@@ -36,15 +38,13 @@
 	  (keyboard-quit))))
 
 
-(leaf which-key
-  :doc "Displays available keybindings in popup"
-  :url "https://github.com/justbur/emacs-which-key"
-  :ensure t
-  :hook (after-init-hook . which-key-mode)
-  :custom (which-key-max-description-length . 40))
+(leaf *link-open
+  :doc "Links in Emacs ... mouse click or 'C-c RET'"
+  :config
+  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+  (add-hook 'text-mode-hook 'goto-address-mode))
 
 
-;; Flymake
 (leaf flymake
   :doc "Finding Syntax Errors On The Fly"
   :hook (emacs-lisp-mode-hook . flymake-mode)
@@ -148,15 +148,6 @@
 		ps-show-n-of-n t
 		ps-line-number t
 		ps-print-footer nil))
-
-
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
 (leaf package-utils
