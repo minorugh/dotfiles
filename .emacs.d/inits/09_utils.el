@@ -7,9 +7,12 @@
 (leaf *cus-ut-functions
   :bind	(("s-c" . clipboard-kill-ring-save) ;; Like macOS
 		 ("s-v" . clipboard-yank)           ;; Like macOS
+		 ("s-a" . counsel-ag)
+		 ([f2]  . imenu-list-smart-toggle)
 		 ([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
+		 ([f6]  . quickrun)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
@@ -38,6 +41,12 @@
 	  (keyboard-quit))))
 
 
+(leaf quickrun
+  :doc "Qick executes editing buffer"
+  :url "https://github.com/emacsorphanage/quickrun"
+  :ensure t)
+
+
 (leaf flymake
   :doc "Finding Syntax Errors On The Fly"
   :hook (emacs-lisp-mode-hook . flymake-mode)
@@ -57,7 +66,6 @@
   :url "https://github.com/bmag/imenu-list"
   :ensure t
   :hook (imenu-list-major-mode-hook . neo-hide-nano-header)
-  :bind ([f2] . imenu-list-smart-toggle)
   :custom
   `((imenu-list-size                   . 30)
 	(imenu-list-auto-resize            . t)
