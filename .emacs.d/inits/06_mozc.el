@@ -7,8 +7,7 @@
   :doc "Japanese Input Method Editor"
   :url "https://github.com/google/mozc"
   :ensure t
-  :hook '((after-init-hook . mozc-mode)
-		  (emacs-startup-hook . my:mozc-copy))
+  :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 		 ("s-d" . my:mozc-word-regist)
 		 (:mozc-mode-map
@@ -53,15 +52,9 @@
 			  (group-n 2 (in "a-zA-Z")))))
 
 
-  ;; ---------------------------------------------------------------------
+  ;; --------------------------------------------------------------------
   ;; Custom functions for Mozc
-  ;; ---------------------------------------------------------------------
-  (defun my:mozc-copy ()
-	"Copy mozc to submachines for avoid conflicts."
-	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-
+  ;; --------------------------------------------------------------------
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
@@ -85,6 +78,20 @@
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
 	(delete-other-windows)))
+
+
+;; --------------------------------------------------------------------
+;; Sharring Mozc with submachine
+;; --------------------------------------------------------------------
+(leaf *sharring-mozc
+  :doc "Copy main latest mozc at submachine startup"
+  :hook (emacs-startup-hook . my:mozc-copy)
+  :init
+  (defun my:mozc-copy ()
+	"Copy mozc to submachines for avoid conflicts."
+	(interactive)
+	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
 
 ;; Local Variables:
