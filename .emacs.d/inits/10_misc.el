@@ -57,13 +57,6 @@
   :bind ([insert] . iedit-mode))
 
 
-(leaf quickrun
-  :doc "Qick executes editing buffer"
-  :url "https://github.com/emacsorphanage/quickrun"
-  :ensure t
-  :bind ([f6] . quickrun))
-
-
 (leaf restart-emacs
   :doc "Restart emacs from within emacs"
   :url "https://github.com/iqbalansari/restart-emacs"
