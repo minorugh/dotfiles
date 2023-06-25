@@ -86,6 +86,11 @@
 	:hook (after-init-hook . global-auto-revert-mode)
 	:custom (auto-revert-interval . 0.1))
 
+  (leaf *goto-address
+	:doc "Change URL into link, Open with mouse or 'C-c RET'"
+	:hook ((prog-mode-hook . goto-address-prog-mode)
+		   (text-mode-hook 'goto-address-mode)))
+
   :init
   (leaf exec-path-from-shell
     :doc "Share PATH from shell environment variables"
@@ -127,12 +132,12 @@
 
 ;; -----------------------------------------------------------------------------------------
 ;;
-;; Custom Functions
+;; Custom Key binding & function
 ;;
 ;; -----------------------------------------------------------------------------------------
 
-(leaf *user-cus-functions
-  :doc "User custom fanctions"
+(leaf *user-cus-keybind
+  :doc "User custom keybind & fanction"
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . kill-whole-line-or-region)
 		 ("M-/" . kill-this-buffer)
