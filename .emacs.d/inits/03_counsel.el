@@ -12,7 +12,6 @@
 		 ([remap isearch-backward] . swiper-thing-at-point)
 		 ("C-:"     . counsel-switch-buffer)
 		 ("M-:"     . counsel-switch-buffer)
-		 ("s-a"     . counsel-ag)
 		 ("M-x"     . counsel-M-x)
 		 ("M-y"     . counsel-yank-pop)
 		 ("C-x m"   . counsel-mark-ring)
