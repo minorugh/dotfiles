@@ -64,6 +64,14 @@
 	(defalias 'yes-or-no-p #'y-or-n-p)
 	(defalias 'exit 'save-buffers-kill-emacs))
 
+  (leaf *emacs-lock-mode
+	:doc "Set buffer that can not be killed"
+	:config
+	(with-current-buffer "*scratch*"
+	  (emacs-lock-mode 'kill))
+	(with-current-buffer "*Messages*"
+	  (emacs-lock-mode 'kill)))
+
   (leaf *encoding
 	:doc "Save the file specified code with basic utf-8 if it exist"
 	:config
@@ -111,7 +119,6 @@
 	`((savehist-file . "~/.emacs.d/tmp/history")
       (savehist-additional-variables . '(kill-ring))))
 
-  ;; recentf
   (leaf *recentf
 	:doc "Record open files history"
 	:hook (after-init-hook . recentf-mode)
@@ -132,12 +139,10 @@
   :doc "User custom fanctions"
   :bind (("M-w" . clipboard-kill-ring-save)
 		 ("C-w" . kill-whole-line-or-region)
-		 ("s-c" . clipboard-kill-ring-save)
-		 ("s-v" . clipboard-yank)
 		 ("M-/" . kill-this-buffer)
 		 ("C-M-/" . my:delete-this-file)
 		 ("M-," . xref-find-definitions)
-		 ([f8] . follow-mode))
+		 ([f8] . menu-bar-mode))
   :init
   (defun kill-whole-line-or-region ()
     "If the region is active, to kill region.
@@ -156,12 +161,6 @@
 							   (file-name-nondirectory buffer-file-name)))
 	  (delete-file (buffer-file-name))
 	  (kill-this-buffer))))
-
-
-;;  Links in Emacs ... mouse click or "C-c RET"
-(progn
-  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-  (add-hook 'text-mode-hook 'goto-address-mode))
 
 
 ;; Local Variables:
