@@ -142,7 +142,7 @@
 		 ("M-/" . kill-this-buffer)
 		 ("C-M-/" . my:delete-this-file)
 		 ("M-," . xref-find-definitions)
-		 ([f8] . menu-bar-mode))
+		 ([f8] . follow-mode))
   :init
   (defun kill-whole-line-or-region ()
     "If the region is active, to kill region.
