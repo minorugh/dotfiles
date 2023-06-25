@@ -62,6 +62,52 @@
   (setq-default cursor-in-non-selected-windows nil))
 
 
+(leaf darkroom
+  :doc "Remove visual distractions and focus on writing"
+  :url "https://github.com/joaotavora/darkroom"
+  :ensure t
+  :bind (([f12] . my:darkroom-in)
+		 (:darkroom-mode-map
+		  ([f12] . my:darkroom-out)))
+  :init
+  (defun my:darkroom-in ()
+	"Enter to the `darkroom-mode'."
+	(interactive)
+	(diff-hl-mode 0)
+	(display-line-numbers-mode 0)
+	(darkroom-mode 1)
+	(setq-local line-spacing .5))
+
+  (defun my:darkroom-out ()
+	"Returns from `darkroom-mode' to the previous state."
+	(interactive)
+	(darkroom-mode 0)
+	(display-line-numbers-mode 1)
+	(setq-local line-spacing .1)))
+
+
+(leaf web-mode
+  :doc "Editing web templates"
+  :url "http://github.com/fxbois/web-mode"
+  :ensure t
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :bind ("s-w" . counsel-web-suggest)
+  :custom
+  `((web-mode-markup-indent-offset . 2)
+	(web-mode-css-indent-offset . 2)
+	(web-mode-code-indent-offset . 2)))
+
+
+(leaf counsel-web
+  :doc "Search the Web using Ivy"
+  :url "https://github.com/mnewt/counsel-web"
+  :ensure t
+  :config
+  (setq counsel-web-search-action #'browse-url)
+  (setq counsel-web-engine 'google)
+  (setq counsel-web-search-dynamic-update t))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
