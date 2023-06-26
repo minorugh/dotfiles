@@ -62,7 +62,6 @@
   :doc "Show imenu entries in a separate buffer"
   :url "https://github.com/bmag/imenu-list"
   :ensure t
-  :hook (imenu-list-major-mode-hook . neo-hide-nano-header)
   :custom
   `((imenu-list-size                   . 30)
 	(imenu-list-auto-resize            . t)
