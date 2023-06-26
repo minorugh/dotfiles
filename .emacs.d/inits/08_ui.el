@@ -16,26 +16,33 @@
   (doom-themes-org-config))
 
 
-(leaf doom-nano-modeline
-  :doc "Nice look modeline based on N Λ N O"
-  :url "https://github.com/ronisbr/doom-nano-modeline"
-  :el-get "ronisbr/doom-nano-modeline"
-  :hook (emacs-startup-hook . doom-nano-modeline-mode)
+(leaf doom-modeline
+  :doc "A fancy and fast mode-line inspired by minimalism design."
+  :url "https://github.com/seagle0128/doom-modeline"
+  :ensure t
+  :hook (after-init-hook . doom-modeline-mode)
+  :custom
+  (doom-modeline-icon            . t)
+  (doom-modeline-major-mode-icon . nil)
+  (doom-modeline-minor-modes     . nil)
   :custom-face
-  (region                                    . '((t (:background "#6272a4" :extend t))))
-  (hl-line                                   . '((t (:background "#3B4252" :extend t))))
-  (doom-nano-modeline-active-face            . '((t (:foreground "#f8f8f2" :background "#44475a" :weight bold))))
-  (doom-nano-modeline-evil-emacs-state-face  . '((t (:foreground "#f4a460" :background "#6272a4" :weight bold))))
-  (doom-nano-modeline-evil-normal-state-face . '((t (:foreground "#adff2f" :background "#3cb371" :weight bold))))
-  (doom-nano-modeline-evil-visual-state-face . '((t (:foreground "#e0ffff" :background "#4682b4" :weight bold))))
-  (doom-nano-modeline-cursor-position-face   . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  (doom-nano-modeline-major-mode-face        . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  (doom-nano-modeline-vc-branch-name-face    . '((t (:foreground "#b0b8d1" :background "#44475a"))))
-  :preface
+  (region  . '((t (:background "#6272a4" :extend t))))
+  (hl-line . '((t (:background "#3B4252" :extend t))))
+  :config
+  (line-number-mode 0)
+  (column-number-mode 0)
+  (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
-	:doc "Hide modeline in current buffer"
 	:ensure t
-	:hook (after-init-hook . global-hide-mode-line-mode)))
+	:after doom-modeline
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
+  (leaf nyan-mode
+	:ensure t
+	:if (display-graphic-p)
+	:after doom-modeline
+	:config
+	(nyan-mode 1)
+	(nyan-start-animation)))
 
 
 (leaf display-line-numbers
