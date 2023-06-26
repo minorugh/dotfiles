@@ -57,18 +57,6 @@
   :custom (display-line-numbers-width-start . t))
 
 
-(leaf *cus-cursor
-  :doc "Controls cursor blinking"
-  :hook (emacs-startup-hook . blink-cursor-mode)
-  :custom
-  `((blink-cursor-blinks . 0)
-	(blink-cursor-interval . 0.3)
-	(blink-cursor-delay . 10))
-  :init
-  ;; Hide cursor in inactive window
-  (setq-default cursor-in-non-selected-windows nil))
-
-
 (leaf darkroom
   :doc "Remove visual distractions and focus on writing"
   :url "https://github.com/joaotavora/darkroom"

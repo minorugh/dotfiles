@@ -10,6 +10,18 @@
 		   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
 
 
+(leaf *cus-cursor
+  :doc "Controls cursor blinking"
+  :hook (emacs-startup-hook . blink-cursor-mode)
+  :custom
+  `((blink-cursor-blinks . 0)
+	(blink-cursor-interval . 0.3)
+	(blink-cursor-delay . 10))
+  :init
+  ;; Hide cursor in inactive window
+  (setq-default cursor-in-non-selected-windows nil))
+
+
 (leaf *paren
   :doc "Highlight matching parens"
   :hook (after-init-hook . show-paren-mode)
