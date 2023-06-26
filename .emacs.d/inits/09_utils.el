@@ -47,18 +47,15 @@
   :ensure t)
 
 
-(leaf flymake
-  :doc "Finding Syntax Errors On The Fly"
-  :hook (emacs-lisp-mode-hook . flymake-mode)
+;; Syntax checking
+(leaf flycheck
+  :ensure t
+  :hook (prog-mode-hook . flycheck-mode)
+  :custom (flycheck-display-errors-delay . 0.3)
   :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-  (leaf flymake-posframe
-	:doc "Display flymake diagnostics at point"
-	:url "https://github.com/Ladicle/flymake-posframe"
-	:el-get Ladicle/flymake-posframe
-	:hook (flymake-mode-hook . flymake-posframe-mode)
-	:custom
-	(flymake-posframe-error-prefix . " ")))
+  (leaf flycheck-inline
+	:ensure t
+	:hook (flycheck-mode-hook . flycheck-inline-mode)))
 
 
 (leaf imenu-list
