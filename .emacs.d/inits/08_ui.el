@@ -48,8 +48,7 @@
 (leaf display-line-numbers
   :doc "Show line numbers"
   :hook ((after-init-hook . global-display-line-numbers-mode)
-		 ((imenu-list-minor-mode-hook
-		   dired-mode-hook
+		 ((dired-mode-hook
 		   neotree-mode-hook
 		   lisp-interaction-mode-hook
 		   eshell-mode-hook) . (lambda () (display-line-numbers-mode 0))))
