@@ -72,17 +72,6 @@
 	:ensure t
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
-;; (defun imenu-list-smart-toggle ()
-;;   "Enable or disable `imenu-list-minor-mode' according to buffer's visibility.
-;; If the imenu-list buffer is displayed in any window, disable
-;; `imenu-list-minor-mode', otherwise enable it.
-;; Note that all the windows in every frame searched, even invisible ones, not
-;; only those in the selected frame."
-;;   (interactive)
-;;   (if (get-buffer-window imenu-list-buffer-name t)
-;;       (imenu-list-minor-mode -1)
-;;     (imenu-list-minor-mode 1)))
-
 
 (leaf *cus-counsel-ag
   :doc "Fast full-text search"
