@@ -17,7 +17,7 @@
 
 
 (leaf doom-modeline
-  :doc "A fancy and fast mode-line inspired by minimalism design."
+  :doc "Fast mode-line inspired by minimalism design."
   :url "https://github.com/seagle0128/doom-modeline"
   :ensure t
   :hook (after-init-hook . doom-modeline-mode)
