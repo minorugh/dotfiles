@@ -21,9 +21,10 @@
   (leaf mozc-cursor-color
 	:url "https://github.com/iRi-E/mozc-el-extensions"
 	:el-get iRi-E/mozc-el-extensions
-	:hook (emacs-startup-hook . mozc-cursor-color-setup)
+	:require t
 	:config
-	(setq mozc-cursor-color-alist '((direct . "#50fa7b")(hiragana . "#ff5555"))))
+	(setq mozc-cursor-color-alist '((direct . "#50fa7b")
+									(hiragana . "#ff5555"))))
 
   (leaf posframe
 	:ensure t
