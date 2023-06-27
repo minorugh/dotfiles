@@ -56,15 +56,12 @@
   :ensure t)
 
 
-;; Syntax checking
 (leaf flycheck
+  :doc "Syntax checker"
+  :url "https://www.flycheck.org/en/latest/"
   :ensure t
-  :hook (prog-mode-hook . flycheck-mode)
-  :custom (flycheck-display-errors-delay . 0.3)
-  :config
-  (leaf flycheck-inline
-	:ensure t
-	:hook (flycheck-mode-hook . flycheck-inline-mode)))
+  :hook (after-init-hook . global-flycheck-mode)
+  :custom (flycheck-display-errors-delay . 0.3))
 
 
 (leaf imenu-list
