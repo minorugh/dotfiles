@@ -33,7 +33,8 @@
   (defun my:ime-on ()
 	"IME on."
 	(interactive)
-	(when (null current-input-method) (toggle-input-method)))
+	(when (null current-input-method)
+	  (toggle-input-method)))
 
   (defun my:ime-off ()
 	"IME off."
