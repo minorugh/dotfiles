@@ -3,7 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-
 (leaf dimmer
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
@@ -20,11 +19,9 @@
 	  (if (setq my:dimmer-mode (not my:dimmer-mode))
 		  (dimmer-on)
 		(dimmer-off))))
-
   (defun dimmer-off ()
 	(dimmer-process-all)
 	(dimmer-mode -1))
-
   (defun dimmer-on ()
 	(when my:dimmer-mode
 	  (dimmer-mode 1)
