@@ -20,7 +20,7 @@
   :doc "Project navigation and management library"
   :url "https://github.com/bbatsov/projectile"
   :ensure t
-  :hook (after-init-hook . (projectile-mode counsel-projectile-mode))
+  :hook (after-init-hook . projectile-mode)
   :custom
   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile-bookmarks.eld"))
 
