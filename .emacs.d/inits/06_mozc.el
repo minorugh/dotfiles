@@ -24,7 +24,7 @@
 	:require t
 	:config
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b")
- 									(hiragana . "#ff5555"))))
+									(hiragana . "#ff5555"))))
 
   (leaf posframe
 	:ensure t
