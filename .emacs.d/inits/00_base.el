@@ -55,10 +55,10 @@
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
   (leaf *define-alias
-    :doc "Change to short command"
-    :config
-    (defalias 'yes-or-no-p #'y-or-n-p)
-    (defalias 'exit 'save-buffers-kill-emacs))
+	:doc "Change to short command"
+	:config
+	(defalias 'yes-or-no-p #'y-or-n-p)
+	(defalias 'exit 'save-buffers-kill-emacs))
 
   (leaf *emacs-lock-mode
     :doc "Set buffer that can not be killed"
@@ -78,7 +78,7 @@
     :doc "Set font for main machine or other"
     :config
     (if (string-match "e590" (shell-command-to-string "uname -n"))
-	(add-to-list 'default-frame-alist '(font . "Cica-18"))
+		(add-to-list 'default-frame-alist '(font . "Cica-18"))
       (add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
   (leaf *autorevert
