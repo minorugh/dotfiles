@@ -48,8 +48,7 @@
   :doc "Auto kill unused buffers in the background"
   :el-get (tempbuf :url "http://www.emacswiki.org/emacs/download/tempbuf.el")
   :hook ((find-file-hook . my:find-file-tempbuf-hook)
-		 (dired-mode-hook . turn-on-tempbuf-mode)
-		 (magit-mode-hook . turn-on-tempbuf-mode))
+		 ((dired-mode-hook magit-mode-hook) . turn-on-tempbuf-mode))
   :custom
   `((tempbuf-kill-message . nil)
 	(my:tempbuf-ignore-files . '("~/Dropbox/org/task.org")))
@@ -58,13 +57,6 @@
 	(let ((ignore-file-names (mapcar 'expand-file-name my:tempbuf-ignore-files)))
 	  (unless (member (buffer-file-name) ignore-file-names)
 		(turn-on-tempbuf-mode)))))
-
-
-;; Set buffer that can not be killed
-;; (with-current-buffer "*scratch*"
-;;   (emacs-lock-mode 'kill))
-;; (with-current-buffer "*Messages*"
-;;   (emacs-lock-mode 'kill))
 
 
 ;; Local Variables:
