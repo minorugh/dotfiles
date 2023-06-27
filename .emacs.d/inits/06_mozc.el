@@ -7,6 +7,7 @@
   :doc "Japanese Input Method Editor"
   :url "https://github.com/google/mozc"
   :ensure t
+  :commands toggle-input-method
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 		 ("s-d" . my:mozc-word-regist)
