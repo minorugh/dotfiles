@@ -12,6 +12,7 @@
   :bind ((:evil-normal-state-map
 		  ("C-e"  . seq-end) ;; sequential-command
 		  ("SPC"  . evil-insert)
+		  ("C-@"  . er/expand-region)
 		  ("M-."  . nil)
 		  ("@"    . other-window-or-split)
 		  ("?"    . chromium-vim-chert)
@@ -43,7 +44,6 @@
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
-  ;; User custom functions
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
 	(interactive)
