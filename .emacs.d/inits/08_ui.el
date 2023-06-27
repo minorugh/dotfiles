@@ -13,7 +13,10 @@
   (doom-themes-enable-bold   . nil)
   :config
   (doom-themes-neotree-config)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  :custom-face
+  (region  . '((t (:background "#6272a4" :extend t))))
+  (hl-line . '((t (:background "#3B4252" :extend t)))))
 
 
 (leaf doom-modeline
@@ -25,9 +28,6 @@
   (doom-modeline-icon            . t)
   (doom-modeline-major-mode-icon . nil)
   (doom-modeline-minor-modes     . nil)
-  :custom-face
-  (region  . '((t (:background "#6272a4" :extend t))))
-  (hl-line . '((t (:background "#3B4252" :extend t))))
   :config
   (line-number-mode 0)
   (column-number-mode 0)
