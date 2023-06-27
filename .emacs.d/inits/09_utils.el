@@ -41,6 +41,15 @@
 	  (keyboard-quit))))
 
 
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
 (leaf quickrun
   :doc "Qick executes editing buffer"
   :url "https://github.com/emacsorphanage/quickrun"

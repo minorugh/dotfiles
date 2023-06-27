@@ -16,6 +16,15 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
+(leaf projectile
+  :doc "Project navigation and management library"
+  :url "https://github.com/bbatsov/projectile"
+  :ensure t
+  :hook (after-init-hook . (projectile-mode counsel-projectile-mode))
+  :custom
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile-bookmarks.eld"))
+
+
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
@@ -32,15 +41,6 @@
   :chord (("df" . counsel-descbinds)
 		  ("l;" . init-loader-show-log))
   :custom (key-chord-two-keys-delay . 0.1))
-
-
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
 (leaf popwin

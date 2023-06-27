@@ -36,7 +36,7 @@
 	:init
 	(leaf hydra :ensure t)
 	(leaf el-get :ensure t
-	  :custom (el-get-git-shallow-clone  . t))
+	  :custom (el-get-git-shallow-clone . t))
 	:config
 	(leaf-keywords-init)))
 
