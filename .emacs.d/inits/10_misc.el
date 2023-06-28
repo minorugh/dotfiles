@@ -25,6 +25,21 @@
   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile-bookmarks.eld"))
 
 
+(leaf quickrun
+  :doc "Qick executes editing buffer"
+  :url "https://github.com/emacsorphanage/quickrun"
+  :ensure t
+  :bind ([f6] . quickrun))
+
+
+(leaf flymake
+  :doc "Syntax checker"
+  :url "https://tam5917.hatenablog.com/entry/20120917/1347844597"
+  :hook (prog-mode-hook . flymake-mode)
+  :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+
+
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
@@ -91,18 +106,6 @@
   :url "https://github.com/magnars/expand-region.el"
   :ensure t
   :bind ("C-@" . er/expand-region))
-
-
-(leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
-  :ensure t
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :bind ("s-w" . counsel-web-suggest)
-  :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
 
 
 ;; Local Variables:
