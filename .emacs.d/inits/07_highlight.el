@@ -13,13 +13,13 @@
 (leaf *cus-cursor
   :doc "Controls cursor blinking"
   :hook (emacs-startup-hook . blink-cursor-mode)
+  :init
+  ;; Hide cursor in inactive window
+  (setq-default cursor-in-non-selected-windows nil)
   :custom
   `((blink-cursor-blinks . 0)
 	(blink-cursor-interval . 0.3)
-	(blink-cursor-delay . 10))
-  :init
-  ;; Hide cursor in inactive window
-  (setq-default cursor-in-non-selected-windows nil))
+	(blink-cursor-delay . 10)))
 
 
 (leaf *paren
