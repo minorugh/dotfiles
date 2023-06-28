@@ -23,9 +23,9 @@
 	:el-get iRi-E/mozc-el-extensions
 	:require t
 	:config
-	(setq mozc-cursor-color-alist '((direct . "#50fa7b")
-									(hiragana . "#ff5555"))))
+	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
 
+  
   (leaf posframe
 	:ensure t
 	:when window-system
