@@ -5,14 +5,9 @@
 ;; User custom functions
 
 (leaf *cus-ut-functions
-  :bind	(("s-c" . clipboard-kill-ring-save) ;; Like macOS
-		 ("s-v" . clipboard-yank)           ;; Like macOS
-		 ("s-a" . counsel-ag)
-		 ([f2]  . imenu-list-smart-toggle)
-		 ([f3]  . thunar-open)
+  :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
-		 ([f6]  . quickrun)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
@@ -50,24 +45,21 @@
 	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
-(leaf quickrun
-  :doc "Qick executes editing buffer"
-  :url "https://github.com/emacsorphanage/quickrun"
-  :ensure t)
-
-
-(leaf flymake
-  :doc "Syntax checker"
-  :url "https://tam5917.hatenablog.com/entry/20120917/1347844597"
-  :hook (prog-mode-hook . flymake-mode)
-  :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+(leaf key-chord
+  :doc "Mapping a pair of simultaneously pressed keys"
+  :url "https://github.com/emacsorphanage/key-chord"
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log))
+  :custom (key-chord-two-keys-delay . 0.1))
 
 
 (leaf imenu-list
   :doc "Show imenu entries in a separate buffer"
   :url "https://github.com/bmag/imenu-list"
   :ensure t
+  :bind ([f2]  . imenu-list-smart-toggle)
   :custom
   (imenu-list-auto-resize . t)
   (imenu-list-position    . 'left)
@@ -75,6 +67,33 @@
   (leaf counsel-css
 	:ensure t
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
+
+
+(leaf *cus-counsel-ag
+  :doc "Fast full-text search"
+  :url "https://takaxp.github.io/init.html#org29c7b6b7"
+  :bind ("s-a" . counsel-ag)
+  :init
+  (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
+	(apply f (or initial-input
+				 (and (not (thing-at-point-looking-at "^\\*+"))
+					  (ivy-thing-at-point)))
+		   (unless current-prefix-arg
+			 (or initial-directory default-directory))
+		   extra-ag-args ag-prompt caller))
+  (with-eval-after-load "counsel"
+	(require 'thingatpt nil t)
+	(advice-add 'counsel-ag :around #'ad:counsel-ag)
+	;; Make search trigger even with 2 characters
+	(add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
+	(ivy-add-actions
+	 'counsel-ag
+	 '(("r" my:counsel-ag-in-dir "search in directory")))
+
+	(defun my:counsel-ag-in-dir (_arg)
+	  "Search again with new root directory."
+	  (let ((current-prefix-arg '(4)))
+		(counsel-ag ivy-text nil "")))))
 
 
 (leaf *cus-ps-print
