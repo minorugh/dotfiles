@@ -44,19 +44,19 @@
   (read-scratch-data))
 
 
-(leaf tempbuf
-  :doc "Auto kill unused buffers in the background"
-  :el-get (tempbuf :url "http://www.emacswiki.org/emacs/download/tempbuf.el")
-  :hook ((find-file-hook . my:find-file-tempbuf-hook)
-		 ((dired-mode-hook magit-mode-hook) . turn-on-tempbuf-mode))
-  :custom
-  `((tempbuf-kill-message . nil)
-	(my:tempbuf-ignore-files . '("~/Dropbox/org/task.org")))
-  :init
-  (defun my:find-file-tempbuf-hook ()
-	(let ((ignore-file-names (mapcar 'expand-file-name my:tempbuf-ignore-files)))
-	  (unless (member (buffer-file-name) ignore-file-names)
-		(turn-on-tempbuf-mode)))))
+;; (leaf tempbuf
+;;   :doc "Auto kill unused buffers in the background"
+;;   :el-get (tempbuf :url "http://www.emacswiki.org/emacs/download/tempbuf.el")
+;;   :hook ((find-file-hook . my:find-file-tempbuf-hook)
+;; 		 ((dired-mode-hook magit-mode-hook) . turn-on-tempbuf-mode))
+;;   :custom
+;;   `((tempbuf-kill-message . nil)
+;; 	(my:tempbuf-ignore-files . '("~/Dropbox/org/task.org")))
+;;   :init
+;;   (defun my:find-file-tempbuf-hook ()
+;; 	(let ((ignore-file-names (mapcar 'expand-file-name my:tempbuf-ignore-files)))
+;; 	  (unless (member (buffer-file-name) ignore-file-names)
+;; 		(turn-on-tempbuf-mode)))))
 
 
 ;; Local Variables:
