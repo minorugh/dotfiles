@@ -56,12 +56,10 @@
   :ensure t)
 
 
-(leaf flycheck
-  :doc "Syntax checker"
-  :url "https://www.flycheck.org/en/latest/"
-  :ensure t
-  :hook (after-init-hook . global-flycheck-mode)
-  :custom (flycheck-display-errors-delay . 0.3))
+(leaf flymake
+  :hook (prog-mode-hook . flymake-mode)
+  :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 
 (leaf imenu-list
