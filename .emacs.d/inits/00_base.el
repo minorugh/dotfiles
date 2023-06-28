@@ -142,6 +142,8 @@
 		 ("M-/"   . kill-this-buffer)
 		 ("C-M-/" . my:delete-this-file)
 		 ("M-,"   . xref-find-definitions)
+         ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
+		 ("s-v"   . clipboard-yank)           ;; Like macOS
 		 ([f8]    . follow-mode))
   :init
   (defun kill-whole-line-or-region ()
