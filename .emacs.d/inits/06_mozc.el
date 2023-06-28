@@ -24,8 +24,6 @@
 	:require t
 	:config
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
-
-  
   (leaf posframe
 	:ensure t
 	:when window-system
@@ -41,22 +39,18 @@
 	  (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73"))))))
 
-  (leaf pangu-spacing
-	:doc "Put a space between Japanese and English"
-	:url "http://github.com/coldnew/pangu-spacing"
-	:ensure t
-	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-	:config
-	(setq pangu-spacing-real-insert-separtor t)
-	(setq pangu-spacing-include-regexp ;; alphabet only
-		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-						   (group-n 1 (or (category japanese))))))
-			  (group-n 2 (in "a-zA-Z")))))
+  ;; (leaf pangu-spacing
+  ;; 	:doc "Put a space between Japanese and English"
+  ;; 	:url "http://github.com/coldnew/pangu-spacing"
+  ;; 	:ensure t
+  ;; 	:hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+  ;; 	:config
+  ;; 	(setq pangu-spacing-real-insert-separtor t)
+  ;; 	(setq pangu-spacing-include-regexp ;; alphabet only
+  ;; 		  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+  ;; 						   (group-n 1 (or (category japanese))))))
+  ;; 			  (group-n 2 (in "a-zA-Z")))))
 
-
-  ;; --------------------------------------------------------------------
-  ;; Custom functions for Mozc
-  ;; --------------------------------------------------------------------
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
