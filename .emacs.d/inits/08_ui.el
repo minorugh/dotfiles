@@ -80,6 +80,16 @@
 	(setq-local line-spacing .1)))
 
 
+(leaf key-chord
+  :doc "Mapping a pair of simultaneously pressed keys"
+  :url "https://github.com/emacsorphanage/key-chord"
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log))
+  :custom (key-chord-two-keys-delay . 0.1))
+
+
 (leaf counsel-tramp
   :doc "Tramp ivy interface for ssh server"
   :url "https://github.com/masasam/emacs-counsel-tramp"
