@@ -61,12 +61,14 @@
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
 	  ad-do-it
-	  (setq input-method-function input-method-function-save)))
+	  (setq input-method-function input-method-function-save)
+	  (dimmer-mode -1)))
 
   (defun my:toggle-input-method ()
 	"If `evil-mode' enabled, set to` emacs-state'."
 	(interactive)
-	(if (boundp 'evil-mode)(evil-emacs-state))
+	(if (boundp 'evil-mode)
+		(evil-emacs-state))
 	(toggle-input-method))
 
   (defun mozc-insert-str (str)
