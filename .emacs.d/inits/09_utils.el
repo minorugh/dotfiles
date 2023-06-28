@@ -69,10 +69,8 @@
   :url "https://github.com/bmag/imenu-list"
   :ensure t
   :custom
-  `((imenu-list-size                   . 30)
-	(imenu-list-auto-resize            . t)
-	(imenu-list-position               . 'left)
-	(imenu-list-focus-after-activation . t))
+  (imenu-list-auto-resize . t)
+  (imenu-list-position    . 'left)
   :preface
   (leaf counsel-css
 	:ensure t
