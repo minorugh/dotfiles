@@ -33,16 +33,6 @@
   :custom (which-key-max-description-length . 40))
 
 
-(leaf key-chord
-  :doc "Mapping a pair of simultaneously pressed keys"
-  :url "https://github.com/emacsorphanage/key-chord"
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
-  :custom (key-chord-two-keys-delay . 0.1))
-
-
 (leaf popwin
   :doc "Popup window manager"
   :url "https://github.com/emacsorphanage/popwin"
