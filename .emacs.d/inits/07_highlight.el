@@ -100,7 +100,18 @@
 		(delete-blank-lines)))))
 
 
-;; Custom set face
+(leaf web-mode
+  :doc "Editing web templates"
+  :url "http://github.com/fxbois/web-mode"
+  :ensure t
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :bind ("s-w" . counsel-web-suggest)
+  :custom
+  `((web-mode-markup-indent-offset . 2)
+	(web-mode-css-indent-offset . 2)
+	(web-mode-code-indent-offset . 2)))
+
+
 (custom-set-faces
  '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
  '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
