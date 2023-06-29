@@ -75,8 +75,9 @@ If the region isn't selected, `swiper'."
 	:hook (after-init-hook . ivy-rich-mode))
   (leaf amx
 	:ensure t
-	:custom `((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-			  (amx-history-length . 20)))
+	:custom
+	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+	  (amx-history-length . 20)))
   :config
   (defun my:ivy-format-function-arrow (cands)
 	"Transform into a string for minibuffer with CANDS."
