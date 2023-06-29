@@ -3,11 +3,11 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; -----------------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------
 ;;
 ;; Generic Configurations
 ;;
-;; -----------------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------
 
 (leaf *generic-configurations
   :custom
@@ -129,16 +129,16 @@
       (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
 
 
-;; -----------------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------
 ;;
 ;; Custom Key binding & function
 ;;
-;; -----------------------------------------------------------------------------------------
+;; ---------------------------------------------------------------------
 
 (leaf *user-cus-keybind
   :doc "User custom keybind & fanction"
   :bind (("M-w"   . clipboard-kill-ring-save)
-		 ("C-w"   . kill-whole-line-or-region)
+		 ("C-w"   . my:kill-whole-line-or-region)
 		 ("M-/"   . kill-this-buffer)
 		 ("C-M-/" . my:delete-this-file)
 		 ("M-,"   . xref-find-definitions)
@@ -146,7 +146,7 @@
 		 ("s-v"   . clipboard-yank)           ;; Like macOS
 		 ([f8]    . follow-mode))
   :init
-  (defun kill-whole-line-or-region ()
+  (defun my:kill-whole-line-or-region ()
     "If the region is active, to kill region.
   If the region is inactive, to kill whole line."
     (interactive)
