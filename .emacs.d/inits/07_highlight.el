@@ -57,6 +57,17 @@
 	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 
+(leaf adaptive-wrap
+  :doc "Wrap long lines for easier viewing"
+  :url "https://taipapamotohus.com/post/adaptive-wrap/"
+  :ensure t
+  :config
+  (setq-default adaptive-wrap-extra-indent 1)
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+  (global-visual-line-mode +1)
+  (add-hook 'org-mode-hook 'visual-line-mode))
+
+
 (leaf aggressive-indent
   :doc "Keeps your code always indented"
   :url "https://github.com/Malabarba/aggressive-indent-mode"
