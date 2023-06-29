@@ -36,9 +36,9 @@
   :doc "On-the-fly syntax checking"
   :url "http://www.flycheck.org"
   :ensure t
+  :hook (after-init-hook . global-flycheck-mode)
   :bind (("M-n" . flycheck-next-error)
-         ("M-p" . flycheck-previous-error))
-  :global-minor-mode global-flycheck-mode)
+         ("M-p" . flycheck-previous-error)))
 
 
 (leaf which-key
@@ -46,7 +46,7 @@
   :url "https://github.com/justbur/emacs-which-key"
   :ensure t
   :hook (after-init-hook . which-key-mode)
-  :custom (which-key-max-description-length . 40))
+  :custom ((which-key-max-description-length . 40)))
 
 
 (leaf popwin
@@ -89,9 +89,9 @@
   :url "https://github.com/emacsorphanage/undohist"
   :ensure t
   :hook (after-init-hook . undohist-initialize)
-  :config
-  (setq undohist-directory "~/.emacs.d/tmp/undohist")
-  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
+  :custom
+  `((undohist-directory     . "~/.emacs.d/tmp/undohist")
+	(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
 
 (leaf atomic-chrome
