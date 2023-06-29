@@ -20,9 +20,9 @@
 ;; Package
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("org"   . "https://orgmode.org/elpa/")
-					   ("melpa" . "https://melpa.org/packages/")
-					   ("gnu"   . "https://elpa.gnu.org/packages/")))
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                       ("melpa" . "https://melpa.org/packages/")
+                       ("org"   . "https://orgmode.org/elpa/")))
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
