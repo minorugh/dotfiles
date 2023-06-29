@@ -32,13 +32,6 @@
   :bind ([f6] . quickrun))
 
 
-;; (leaf flymake
-;;   :doc "Syntax checker"
-;;   :url "https://tam5917.hatenablog.com/entry/20120917/1347844597"
-;;   :hook (prog-mode-hook . flymake-mode)
-;;   ;; :config
-;;   ;; (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-;;   )
 (leaf flycheck
   :doc "On-the-fly syntax checking"
   :url "http://www.flycheck.org"
