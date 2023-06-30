@@ -18,8 +18,7 @@
 		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("s-g"    . my:google)
-		  ("s-d"    . gts-do-translate))
+		  ("h"    . counsel-selected))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape]   . my:return-to-normal-state)))
