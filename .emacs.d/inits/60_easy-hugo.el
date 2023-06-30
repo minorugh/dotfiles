@@ -17,10 +17,10 @@
   (load-file "~/.emacs.d/template/my:evil-easy-hugo.el") ;; Load custom function
   :init
   ;; Main blog (=blog1)
-  (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
-  (setq easy-hugo-url "https://snap.minorugh.com")
+  (setq easy-hugo-basedir "~/Dropbox/myama.site/snap/")
+  (setq easy-hugo-url "https://snap.myama.site")
   (setq easy-hugo-sshdomain "xsrv")
-  (setq easy-hugo-root "/home/minorugh/minorugh.com/public_html/snap/")
+  (setq easy-hugo-root "/home/minorugh/myama.site/public_html/snap/")
   (setq easy-hugo-previewtime "300")
   (setq easy-hugo-bloglist
 		'(;; blog2 setting
@@ -48,20 +48,20 @@
 		   (easy-hugo-sshdomain . "xsrv")
 		   (easy-hugo-root . "/home/minorugh/gospel-haiku.com/public_html/es/"))
 		  ;; blog7 setting
-		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/bible/")
-		   (easy-hugo-url . "https://bible.minorugh.com")
+		  ((easy-hugo-basedir . "~/Dropbox/myama.site/bible/")
+		   (easy-hugo-url . "https://bible.myama.site")
 		   (easy-hugo-sshdomain . "xsrv")
-		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/bible/"))
+		   (easy-hugo-root . "/home/minorugh/myama.site/public_html/bible/"))
 		  ;; blog8 setting
-		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/tube/")
-		   (easy-hugo-url . "https://tube.minorugh.com")
+		  ((easy-hugo-basedir . "~/Dropbox/myama.site/tube/")
+		   (easy-hugo-url . "https://tube.myama.site")
 		   (easy-hugo-sshdomain . "xsrv")
-		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/tube/"))
+		   (easy-hugo-root . "/home/minorugh/myama.site/public_html/tube/"))
 		  ;; blog9 setting
-		  ((easy-hugo-basedir . "~/Dropbox/minorugh.com/ryo/")
-		   (easy-hugo-url . "https://ryo.minorugh.com")
+		  ((easy-hugo-basedir . "~/Dropbox/myama.site/ryo/")
+		   (easy-hugo-url . "https://ryo.myama.site")
 		   (easy-hugo-sshdomain . "xsrv")
-		   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
+		   (easy-hugo-root . "/home/minorugh/myama.site/public_html/ryo/"))))
 
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
