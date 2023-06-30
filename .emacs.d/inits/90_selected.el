@@ -18,6 +18,9 @@
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
+  :config
+  (leaf counsel-selected
+	:el-get "takaxp/counsel-selected")
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
