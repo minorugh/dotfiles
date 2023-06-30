@@ -53,11 +53,9 @@ If the region isn't selected, `swiper'."
   :ensure t
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
-		 ("M-:"     . counsel-switch-buffer)
 		 ("M-x"     . counsel-M-x)
 		 ("M-y"     . counsel-yank-pop)
 		 ("C-x m"   . counsel-mark-ring)
-		 ("C-x C-b" . ibuffer)
 		 ("C-x C-f" . counsel-find-file)
 		 ("C-x C-r" . counsel-recentf))
   :custom
