@@ -18,7 +18,7 @@
 		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("s-g"    . my:google-this)
+		  ("s-g"    . my:google)
 		  ("s-d"    . gts-do-translate))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
