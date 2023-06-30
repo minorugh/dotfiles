@@ -15,9 +15,8 @@
   (YaTeX-kanji-code                . nil)
   (YaTeX-latex-message-code        . 'utf-8)
   (YaTeX-default-pop-window-height . 15)
-  :init
+  :config
   (leaf yatexprc
-	:after yatex
 	:bind (("M-c" . YaTeX-typeset-buffer)
 		   ("M-v" . YaTeX-lpr))))
 
