@@ -18,7 +18,7 @@
 		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("h"    . counsel-selected))
+		  ("."    . counsel-selected))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape]   . my:return-to-normal-state)))
@@ -27,7 +27,7 @@
   (setq evil-undo-system 'undo-fu)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
-  ;; Force evil-emacs-state-modes into major mode
+  ;; Major modes to force evil-emacs-state-modes
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode
 				  dashboard-mode
