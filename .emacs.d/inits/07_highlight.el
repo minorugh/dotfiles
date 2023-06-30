@@ -123,15 +123,6 @@
 	(web-mode-code-indent-offset . 2)))
 
 
-(custom-set-faces
- '(lsp-face-highlight-read ((t (:background "gray21" :underline t))))
- '(lsp-face-highlight-write ((t (:background "gray21" :underline t))))
- '(markup-meta-face ((t (:stipple nil :foreground "gray30" :inverse-video nil :box nil
-								  :strike-through nil :overline nil :underline nil :slant normal
-								  :weight normal :height 135 :width normal :foundry "unknown" :family "Monospace"))))
- '(symbol-overlay-default-face ((t (:background "gray21" :underline t)))))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
