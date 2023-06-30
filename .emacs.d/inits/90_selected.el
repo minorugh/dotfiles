@@ -17,13 +17,16 @@
 		 ("W" . my:weblio)
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
-		 ("g" . my:google))
+		 ("g" . my:google-this))
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
   (add-hook 'activate-mark-hook '(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
-  (add-hook 'deactivate-mark-hook '(lambda () (unless (null my:ime-flag) (my:ime-on))))
+  (add-hook 'deactivate-mark-hook '(lambda () (unless (null my:ime-flag) (my:ime-on)))))
 
+
+(leaf *fun-selected
+  :config
   (defun my:activate-selected ()
 	"Active selected."
 	(selected-global-mode 1)
@@ -41,10 +44,12 @@
 	(interactive)
 	(deactivate-input-method))
 
-  (defun my:google (str)
-	(interactive (list (my:get-region nil)))
-	(browse-url (format "https://www.google.com/search?hl=ja&q=%s"
-						(upcase (url-hexify-string str)))))
+  (leaf google-this
+	:ensure t
+	:init
+	(defun my:google-this ()
+	  (interactive)
+	  (google-this (current-word) t)))
 
   (defun my:koujien (str)
 	"Open koujien with STR."
