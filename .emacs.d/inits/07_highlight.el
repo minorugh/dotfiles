@@ -17,16 +17,16 @@
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows nil)
   :custom
-  `((blink-cursor-blinks . 0)
+  `((blink-cursor-blinks   . 0)
 	(blink-cursor-interval . 0.3)
-	(blink-cursor-delay . 10)))
+	(blink-cursor-delay    . 10)))
 
 
 (leaf *paren
   :doc "Highlight matching parens"
   :hook (after-init-hook . show-paren-mode)
   :custom
-  `((show-paren-style                   . 'parenthesis)
+  `((show-paren-style . 'parenthesis)
 	(show-paren-when-point-inside-paren . t)
 	(show-paren-when-point-in-periphery . t))
   :custom-face
@@ -37,7 +37,9 @@
   :doc "dealing with pairs in Emacs"
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
-  :hook (after-init-hook . smartparens-global-mode))
+  :config
+  (leaf smartparens-config
+	:hook (after-init-hook . smartparens-global-mode)))
 
 
 (leaf volatile-highlights
