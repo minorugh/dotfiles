@@ -118,7 +118,6 @@
   :url "http://github.com/fxbois/web-mode"
   :ensure t
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :bind ("s-w" . counsel-web-suggest)
   :custom
   `((web-mode-markup-indent-offset . 2)
 	(web-mode-css-indent-offset . 2)
