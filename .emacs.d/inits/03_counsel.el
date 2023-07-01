@@ -55,7 +55,7 @@ If the region isn't selected, `swiper'."
   :bind (("C-:"     . counsel-switch-buffer)
 		 ("M-x"     . counsel-M-x)
 		 ("M-y"     . counsel-yank-pop)
-		 ("C-x m"   . counsel-mark-ring)
+		 ("C-,"     . counsel-mark-ring)
 		 ("C-x C-f" . counsel-find-file)
 		 ("C-x C-r" . counsel-recentf))
   :custom
