@@ -40,7 +40,8 @@
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
-  :config (require 'smartparens-config))
+  :config
+  (leaf smartparens-config :require t))
 
 
 (leaf volatile-highlights
