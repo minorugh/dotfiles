@@ -36,7 +36,7 @@
 
 
 (leaf smartparens
-  :doc "dealing with pairs in Emacs"
+  :doc "Minor mode for dealing with pairs"
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
