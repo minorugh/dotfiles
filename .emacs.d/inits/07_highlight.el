@@ -38,10 +38,7 @@
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
-  :config
-  (require 'smartparens-markdown)
-  (require 'smartparens-html)
-  (require 'smartparens-org))
+  :config (require 'smartparens-config))
 
 
 (leaf volatile-highlights
