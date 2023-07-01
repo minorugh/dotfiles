@@ -37,9 +37,11 @@
   :doc "dealing with pairs in Emacs"
   :url "https://github.com/Fuco1/smartparens"
   :ensure t
+  :hook (after-init-hook . smartparens-global-mode)
   :config
-  (leaf smartparens-config
-	:hook (after-init-hook . smartparens-global-mode)))
+  (require 'smartparens-markdown)
+  (require 'smartparens-html)
+  (require 'smartparens-org))
 
 
 (leaf volatile-highlights
