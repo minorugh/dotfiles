@@ -18,9 +18,22 @@
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
-  :config
-  (leaf counsel-selected
-	:el-get "takaxp/counsel-selected")
+  :hydra
+  (hydra-select
+   (:color red :hint nil)
+   "
+   _g_oogle  _k_oujien  _w_eblio  _e_ijiro  _d_eepl  _t_ranslate  _c_lipboard  _s_wiper  comment_;_
+"
+   (";" comment-dwim)
+   ("c" clipboard-kill-ring-save)
+   ("s" swiper-thing-at-point)
+   ("d" deepl-translate)
+   ("t" gts-do-translate)
+   ("w" my:weblio)
+   ("k" my:koujien)
+   ("e" my:eijiro)
+   ("g" my:google)
+   ("<muhenkan>" nil))
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
