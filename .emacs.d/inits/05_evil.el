@@ -18,7 +18,7 @@
 		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("."    . counsel-selected))
+		  ("SPC"  . hydra-select/body))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape]   . my:return-to-normal-state)))
