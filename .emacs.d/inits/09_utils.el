@@ -99,19 +99,20 @@
 (leaf *cus-ps-print
   :doc "Print from Emacs via Postscript"
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
-  :init
-  (defalias 'ps-mule-header-string-charsets 'ignore)
-  (setq ps-multibyte-buffer 'non-latin-printer
-		ps-paper-type 'a4
-		ps-font-size 9
-		;; ps-font-family 'Helvetica
-		ps-font-family 'Courier
-		ps-line-number-font 'Courier
-		ps-printer-name nil
-		ps-print-header nil
-		ps-show-n-of-n t
-		ps-line-number t
-		ps-print-footer nil))
+  :custom
+  (ps-multibyte-buffer . 'non-latin-printer)
+  (ps-paper-type       . 'a4)
+  (ps-font-size        . 9)
+  ;; (ps-font-family      . 'Helvetica)
+  (ps-font-family      . 'Courier)
+  (ps-line-number-font . 'Courier)
+  (ps-printer-name     . nil)
+  (ps-print-header     . nil)
+  (ps-show-n-of-n      . t)
+  (ps-line-number      . t)
+  (ps-print-footer     . nil)
+  :config
+  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
 (leaf package-utils
