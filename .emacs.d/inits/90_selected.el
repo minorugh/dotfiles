@@ -19,7 +19,7 @@
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
   :hydra
-  (hydra-select
+  (hydra-selected
    (:color red :hint nil)
    "
    _g_oogle  _k_oujien  _w_eblio  _e_ijiro  _d_eepl  _t_ranslate  _c_lipboard  _s_wiper  comment_;_
