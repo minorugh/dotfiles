@@ -1,4 +1,4 @@
-;;; 20_winndow.el --- Window utility configurations. -*- lexical-binding: t -*-
+;;; 20_dimmer.el --- Window utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -54,4 +54,4 @@ If there are two or more windows, it will go to another window."
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_window.el ends here
+;;; 20_dimmer.el ends here
