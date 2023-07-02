@@ -32,6 +32,7 @@
 	  :doc "Posframe Frontend for Mozc.el"
 	  :url "https://github.com/akirak/mozc-posframe"
 	  :ensure t
+	  :hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	  :require t
 	  :custom (mozc-candidate-style . 'posframe)
 	  :custom-face
@@ -50,7 +51,11 @@
 	(interactive)
 	(if (boundp 'evil-mode)
 		(evil-emacs-state))
-	(toggle-input-method))
+	(toggle-input-method)
+	(if (null current-input-method)
+		(dimmer-on)
+	  (dimmer-off)))
+
 
   (defun mozc-insert-str (str)
 	"STR Immediately confirmed by punctuation."
