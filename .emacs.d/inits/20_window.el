@@ -7,12 +7,11 @@
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
-  :chord (".." . my:toggle-dimmer)
   :hook ((minibuffer-setup-hook . dimmer-off)
-		 (minibuffer-exit-hook  . dimmer-on)
-		 (window-configuration-change-hook . my-dimmer-activate))
+		 (minibuffer-exit-hook  . dimmer-on))
+  :chord (".." . my:toggle-dimmer)
   :config
-  (defvar my:dimmer-mode t)
+  (defvar my:dimmer-mode nil)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.5)
   :init
@@ -22,68 +21,33 @@
 	  (if (setq my:dimmer-mode (not my:dimmer-mode))
 		  (dimmer-on)
 		(dimmer-off))))
+
   (defun dimmer-off ()
 	(dimmer-process-all)
 	(dimmer-mode -1))
+
   (defun dimmer-on ()
 	(when my:dimmer-mode
 	  (dimmer-mode 1)
 	  (dimmer-process-all)))
-  (defun my-dimmer-activate ()
-	(setq my-dimmer-mode (dimmer-mode 1))
-	(remove-hook 'window-configuration-change-hook #'my-dimmer-activate)))
 
+  (defun my:dimmer-activate ()
+	(setq my:dimmer-mode (dimmer-mode 1))
+	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
+  (add-hook 'window-configuration-change-hook #'my:dimmer-activate))
 
-;; (add-hook 'minibuffer-setup-hook #'dimmer-off)
-;; (add-hook 'minibuffer-exit-hook #'dimmer-on)
-
-;; (unless noninteractive
-;;   (unless (version< "28.0" emacs-version)
-;; FIXME
-;; (add-hook 'window-configuration-change-hook #'my-dimmer-activate)
-;; ))
 
 (leaf *cus-window-functions
   :doc "Split window configuration with dimmer control"
   :bind ("C-q" . other-window-or-split)
-  ;; ("C-x 3" . my:split-window-right)
-  ;; ("C-x 2" . my:split-window-below)
-  ;; ("C-x 1" . my:delete-other-windows)
-  ;; ("C-x 0" . my:delete-window))
   :init
   (defun other-window-or-split ()
 	"If there is one window, open split window.
 If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (split-window-horizontally)
-	  )
-	(other-window 1))
-
-  (defun my:split-window-right ()
-	"With turn on dimmer."
-	(interactive)
-	(split-window-right)
-	(dimmer-mode 1))
-
-  (defun my:split-window-below ()
-	"With turn on dimmer."
-	(interactive)
-	(split-window-below)
-	(dimmer-mode 1))
-
-  (defun my:delete-other-windows ()
-	"With turn off dimmer."
-	(interactive)
-	(delete-other-windows)
-	(dimmer-mode -1))
-
-  (defun my:delete-window ()
-	"With turn off dimmer."
-	(interactive)
-	(delete-window)
-	(when (one-window-p)
-	  (dimmer-mode -1))))
+	  (split-window-horizontally))
+	(other-window 1)))
 
 
 ;; Local Variables:
