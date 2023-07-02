@@ -39,7 +39,7 @@
 
 
 (leaf *cus-window-functions
-  :doc "Split window configuration with dimmer control"
+  :doc "Smart window splitting and moving"
   :bind ("C-q" . other-window-or-split)
   :init
   (defun other-window-or-split ()
