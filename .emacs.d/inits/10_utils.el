@@ -1,4 +1,4 @@
-;;; 09_utils.el --- Utility command cofiguration. -*- lexical-binding: t -*-
+;;; 10_utils.el --- Utility command cofiguration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -99,6 +99,7 @@
 (leaf *cus-ps-print
   :doc "Print from Emacs via Postscript"
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+  :after ps-mule
   :custom
   (ps-multibyte-buffer . 'non-latin-printer)
   (ps-paper-type       . 'a4)
@@ -138,4 +139,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 09_utils.el ends here
+;;; 10_utils.el ends here
