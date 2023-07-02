@@ -56,7 +56,6 @@
 		(dimmer-on)
 	  (dimmer-off)))
 
-
   (defun mozc-insert-str (str)
 	"STR Immediately confirmed by punctuation."
 	(interactive)
