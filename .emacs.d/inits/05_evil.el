@@ -34,6 +34,7 @@
 				  dired-mode
 				  neotree-mode
 				  howm-mode
+				  yatex-mode
 				  git-timemachine-mode
 				  easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
