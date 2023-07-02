@@ -11,14 +11,15 @@
 		 (minibuffer-exit-hook  . dimmer-on))
   :chord (".." . my:toggle-dimmer)
   :config
-  (defvar my:dimmer-mode t)
-  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
+  (defvar my:dimmer-mode nil)
+  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.5)
   :init
   (defun my:dimmer-activate ()
 	(setq my:dimmer-mode (dimmer-mode 1))
 	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
   (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
+
   (defun my:toggle-dimmer ()
 	(interactive)
 	(unless (one-window-p)
