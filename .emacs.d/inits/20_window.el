@@ -12,7 +12,8 @@
   :chord (".." . my:toggle-dimmer)
   :config
   (defvar my:dimmer-mode nil)
-  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG\\|^ \\*.*posframe.*buffer.*\\*$"))
+  (setq dimmer-buffer-exclusion-regexps
+		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG\\"))
   (setq dimmer-fraction 0.5)
   :init
   (defun my:dimmer-activate ()
@@ -46,9 +47,7 @@
 If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (split-window-horizontally)
-	  ;; (dimmer-mode 1)
-	  )
+	  (split-window-horizontally))
 	(other-window 1)))
 
 
