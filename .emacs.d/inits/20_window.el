@@ -13,7 +13,7 @@
   :config
   (defvar my:dimmer-mode nil)
   (setq dimmer-buffer-exclusion-regexps
-		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG\\"))
+		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG"))
   (setq dimmer-fraction 0.5)
   :init
   (defun my:dimmer-activate ()
