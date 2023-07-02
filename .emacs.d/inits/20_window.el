@@ -38,7 +38,7 @@
 	  (dimmer-process-all))))
 
 
-(leaf *cus-window-functions
+(leaf *cus-window-split
   :doc "Smart window splitting and moving"
   :bind ("C-q" . other-window-or-split)
   :init
