@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; auto-save-buffers
+;; auto- save-buffers
 (leaf auto-save-buffers-enhanced
   :doc "Automatically save buffers"
   :url "https://github.com/kentaro/auto-save-buffers-enhanced/tree/master"
