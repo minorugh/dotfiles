@@ -43,8 +43,7 @@
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
 	  ad-do-it
-	  (setq input-method-function input-method-function-save)
-	  (dimmer-mode -1)))
+	  (setq input-method-function input-method-function-save)))
 
   (defun my:toggle-input-method ()
 	"If `evil-mode' enabled, set to` emacs-state'."
