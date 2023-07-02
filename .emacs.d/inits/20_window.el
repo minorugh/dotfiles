@@ -11,11 +11,14 @@
 		 (minibuffer-exit-hook  . dimmer-on))
   :chord (".." . my:toggle-dimmer)
   :config
-  (defvar my:dimmer-mode nil)
-  ;; (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
-  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate\\*$"))
+  (defvar my:dimmer-mode t)
+  (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
   (setq dimmer-fraction 0.5)
   :init
+  (defun my:dimmer-activate ()
+	(setq my:dimmer-mode (dimmer-mode 1))
+	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
+  (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
   (defun my:toggle-dimmer ()
 	(interactive)
 	(unless (one-window-p)
@@ -30,12 +33,7 @@
   (defun dimmer-on ()
 	(when my:dimmer-mode
 	  (dimmer-mode 1)
-	  (dimmer-process-all)))
-
-  (defun my:dimmer-activate ()
-	(setq my:dimmer-mode (dimmer-mode 1))
-	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
-  (add-hook 'window-configuration-change-hook #'my:dimmer-activate))
+	  (dimmer-process-all))))
 
 
 (leaf *cus-window-functions
@@ -47,7 +45,9 @@
 If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
-	  (split-window-horizontally))
+	  (split-window-horizontally)
+	  ;; (dimmer-mode 1)
+	  )
 	(other-window 1)))
 
 
