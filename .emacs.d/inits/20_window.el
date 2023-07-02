@@ -8,6 +8,9 @@
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
   :chord (".." . my:toggle-dimmer)
+  :hook ((minibuffer-setup-hook . dimmer-off)
+		 (minibuffer-exit-hook  . dimmer-on)
+		 (window-configuration-change-hook . my-dimmer-activate))
   :config
   (defvar my:dimmer-mode t)
   (setq dimmer-buffer-exclusion-regexps '("^ \\*which-key\\|^ \\*LV\\|^ \\*Go-Translate*\\|^ \\*.*posframe.*buffer.*\\*$"))
@@ -25,16 +28,28 @@
   (defun dimmer-on ()
 	(when my:dimmer-mode
 	  (dimmer-mode 1)
-	  (dimmer-process-all))))
+	  (dimmer-process-all)))
+  (defun my-dimmer-activate ()
+	(setq my-dimmer-mode (dimmer-mode 1))
+	(remove-hook 'window-configuration-change-hook #'my-dimmer-activate)))
 
+
+;; (add-hook 'minibuffer-setup-hook #'dimmer-off)
+;; (add-hook 'minibuffer-exit-hook #'dimmer-on)
+
+;; (unless noninteractive
+;;   (unless (version< "28.0" emacs-version)
+;; FIXME
+;; (add-hook 'window-configuration-change-hook #'my-dimmer-activate)
+;; ))
 
 (leaf *cus-window-functions
   :doc "Split window configuration with dimmer control"
-  :bind (("C-q" . other-window-or-split)
-		 ("C-x 3" . my:split-window-right)
-		 ("C-x 2" . my:split-window-below)
-		 ("C-x 1" . my:delete-other-windows)
-		 ("C-x 0" . my:delete-window))
+  :bind ("C-q" . other-window-or-split)
+  ;; ("C-x 3" . my:split-window-right)
+  ;; ("C-x 2" . my:split-window-below)
+  ;; ("C-x 1" . my:delete-other-windows)
+  ;; ("C-x 0" . my:delete-window))
   :init
   (defun other-window-or-split ()
 	"If there is one window, open split window.
@@ -42,7 +57,7 @@ If there are two or more windows, it will go to another window."
 	(interactive)
 	(when (one-window-p)
 	  (split-window-horizontally)
-	  (dimmer-mode 1))
+	  )
 	(other-window 1))
 
   (defun my:split-window-right ()
