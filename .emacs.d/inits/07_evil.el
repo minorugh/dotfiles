@@ -1,4 +1,4 @@
-;;; 08_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; 07_evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; code:
 ;; (setq debug-on-error t)
@@ -81,4 +81,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 08_evil.el ends here
+;;; 07_evil.el ends here
