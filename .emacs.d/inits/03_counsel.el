@@ -53,6 +53,7 @@ If the region isn't selected, `swiper'."
   :ensure t
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
+		 ("C-x C-b" . counsel-switch-buffer)
 		 ("M-x"     . counsel-M-x)
 		 ("M-y"     . counsel-yank-pop)
 		 ("C-,"     . counsel-mark-ring)
