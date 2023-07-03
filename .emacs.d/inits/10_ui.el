@@ -80,33 +80,27 @@
 	(setq-local line-spacing .1)))
 
 
-(leaf counsel-tramp
-  :doc "Tramp ivy interface for ssh server"
-  :url "https://github.com/masasam/emacs-counsel-tramp"
+(leaf imenu-list
+  :doc "Show imenu entries in a separate buffer"
+  :url "https://github.com/bmag/imenu-list"
   :ensure t
+  :bind ([f2]  . imenu-list-smart-toggle)
   :custom
-  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
-	(tramp-default-method        . "scp")
-	(counsel-tramp-custom-connections
-	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
-  :config
-  (defun my:tramp-quit ()
-	"Quit tramp, if tramp connencted."
-	(interactive)
-	(when (get-buffer "*tramp/scp xsrv*")
-	  (tramp-cleanup-all-connections)
-	  (counsel-tramp-quit)
-	  (message "Tramp Quit!"))))
+  (imenu-list-auto-resize . t)
+  (imenu-list-position    . 'left)
+  :preface
+  (leaf counsel-css
+	:ensure t
+	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf counsel-web
-  :doc "Search the Web using Ivy"
-  :url "https://github.com/mnewt/counsel-web"
-  :ensure t
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
   :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google)
-  (setq counsel-web-search-dynamic-update t))
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
 ;; Local Variables:
