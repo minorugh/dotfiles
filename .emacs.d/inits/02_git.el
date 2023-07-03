@@ -31,6 +31,7 @@
    ("<muhenkan>" nil))
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
+  ;; Do not split window
   (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
   :preface
   (defun gitk-open ()
