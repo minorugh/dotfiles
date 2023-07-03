@@ -7,19 +7,23 @@
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
-  :hook ((minibuffer-setup-hook . dimmer-off)
-		 (minibuffer-exit-hook  . dimmer-on))
   :chord (".." . my:toggle-dimmer)
   :config
   (defvar my:dimmer-mode nil)
+  ;; (setq dimmer-buffer-exclusion-regexps
+  ;; 		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\magit-diff\\|\\COMMIT_EDITMSG"))
   (setq dimmer-buffer-exclusion-regexps
-		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\COMMIT_EDITMSG"))
+		'("^ \\*which-key\\|\\*Go-Translate*\\|\\magit*\\|\\COMMIT_EDITMSG"))
   (setq dimmer-fraction 0.5)
   :init
   (defun my:dimmer-activate ()
 	(setq my:dimmer-mode (dimmer-mode 1))
 	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
   (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
+
+  ;; for swiper/counsel
+  (add-hook 'minibuffer-setup-hook #'dimmer-off)
+  (add-hook 'minibuffer-exit-hook  #'dimmer-on)
 
   (defun my:toggle-dimmer ()
 	(interactive)
