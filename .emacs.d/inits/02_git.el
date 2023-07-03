@@ -31,6 +31,7 @@
    ("<muhenkan>" nil))
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
+  (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
   :preface
   (defun gitk-open ()
 	"Open gitk with current dir."
