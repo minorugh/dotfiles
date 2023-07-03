@@ -29,12 +29,11 @@
 	:when window-system
 	:config
 	(leaf mozc-cand-posframe
-	  :doc "Posframe Frontend for Mozc.el"
 	  :url "https://github.com/akirak/mozc-posframe"
 	  :ensure t
 	  :hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	  :require t
-	  :custom (mozc-candidate-style . 'posframe)
+	  :custom (mozc-candidate-style . 'posframe )
 	  :custom-face
 	  (mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
 	  (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
