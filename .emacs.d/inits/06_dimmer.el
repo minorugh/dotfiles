@@ -8,12 +8,12 @@
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
   :chord (".." . my:toggle-dimmer)
+  :custom
+  (dimmer-buffer-exclusion-regexps
+   . '("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
+  (dimmer-fraction . 0.5)
   :config
   (defvar my:dimmer-mode nil)
-  (setq dimmer-buffer-exclusion-regexps
-		'("^ \\*which-key\\|^ \\*LV\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
-  (setq dimmer-fraction 0.5)
-  :init
   (defun my:dimmer-activate ()
 	(setq my:dimmer-mode (dimmer-mode 1))
 	(remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
