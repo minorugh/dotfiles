@@ -4,11 +4,8 @@
 ;; (setq debug-on-error t)
 
 ;; ---------------------------------------------------------------------
-;;
 ;; Generic Configurations
-;;
 ;; ---------------------------------------------------------------------
-
 (leaf *generic-configurations
   :custom
   `(;; No startup screen appears
@@ -130,11 +127,8 @@
 
 
 ;; ---------------------------------------------------------------------
-;;
 ;; Custom Key binding & function
-;;
 ;; ---------------------------------------------------------------------
-
 (leaf *user-cus-keybind
   :doc "User custom keybind & fanction"
   :bind (("M-w"   . clipboard-kill-ring-save)

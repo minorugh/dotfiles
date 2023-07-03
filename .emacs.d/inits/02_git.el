@@ -4,11 +4,8 @@
 ;; (setq debug-on-erro t)
 
 ;; -------------------------------------------------------------------
-;;
 ;; Interface to the version control system Git
-;;
 ;; -------------------------------------------------------------------
-
 (leaf magit
   :doc "Git Porcelain inside Emacs"
   :url "https://github.com/magit/magit"

@@ -4,11 +4,8 @@
 ;; (setq debug-on-error t)
 
 ;; -------------------------------------------------------------------
-;;
 ;; completion functions using Ivy
-;;
 ;; -------------------------------------------------------------------
-
 (leaf swiper
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"
