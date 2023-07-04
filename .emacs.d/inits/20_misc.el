@@ -31,14 +31,15 @@
   :ensure t
   :bind ([f6] . quickrun))
 
-
 (leaf flymake
-  :bind ([f8] . flymake-mode)
+  :hook (emacs-startup-hook . my:flymake-hook)
   :config
-  (with-eval-after-load 'flymake
-	(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-	(define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
-	(define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)))
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+  (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+  (defun my:flymake-hook ()
+	(interactive)
+	(add-hook 'prog-mode-hook 'flymake-mode)))
 
 
 (leaf which-key
