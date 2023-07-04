@@ -31,7 +31,7 @@
   :ensure t
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
-  :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/.persistent-scratch")
+  :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/.scratch")
   :init
   (defun toggle-scratch ()
 	"Toggle current buffer and *scratch* buffer."
