@@ -6,7 +6,6 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'")
-  :bind ("C-x m" . hydra-markdown/body)
   :custom
   `((markdown-command . "pandoc")
 	(markdown-command-needs-filename . t)
@@ -40,27 +39,11 @@
   :custom-face
   (markdown-code-face . '((t (:inherit nil :background "gray10"))))
   (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))
-  :hydra
-  (hydra-markdown
-   (:color red :hint nil)
-   "
-    Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
-   ("i" markdown-insert-italic)
-   ("x" markdown-insert-strike-through)
-   ("t" markdown-insert-table)
-   ("n" markdown-insert-footnote)
-   ("m" markdown-toggle-markup-hiding)
-   ("v" markdown-preview)
-   ("e" markdown-export)
-   ("p" md2pdf)
-   ("d" md2docx)
-   ("<muhenkan>" nil))
   :config
   (defun md2pdf ()
-	"Generate pdf from currently open markdown."
+	"Use wkhtmltopdf without LaTex."
 	(interactive)
 	(let ((filename (buffer-file-name (current-buffer))))
-	  ;; Use wkhtmltopdf without latex
 	  (shell-command-to-string
 	   (concat "pandoc "
 			   filename
