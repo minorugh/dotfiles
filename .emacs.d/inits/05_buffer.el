@@ -11,7 +11,7 @@
   (super-save-idle-duration       . 1)
   (super-save-exclude             . '(".gpg"))
   :config
-  (defun my:super-save-buffers-command ()
+  (defun my:super-save-command ()
 	"Save the buffer if needed."
 	(save-excursion
 	  (dolist (buf (buffer-list))
@@ -22,7 +22,7 @@
 				   (if (file-remote-p buffer-file-name)
 					   super-save-remote-files t))
 		  (save-buffer)(message nil)))))
-  (advice-add 'super-save-command :override #'my:super-save-buffers-command))
+  (advice-add 'super-save-command :override #'my:super-save-command))
 
 
 (leaf persistent-scratch
