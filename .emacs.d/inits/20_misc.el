@@ -32,13 +32,21 @@
   :bind ([f6] . quickrun))
 
 
-(leaf flycheck
-  :doc "On-the-fly syntax checking"
-  :url "http://www.flycheck.org"
-  :ensure t
-  :hook (prog-mode-hook . flycheck-mode)
-  :bind (("M-n" . flycheck-next-error)
-		 ("M-p" . flycheck-previous-error)))
+;; (leaf flycheck
+;;   :doc "On-the-fly syntax checking"
+;;   :url "http://www.flycheck.org"
+;;   :ensure t
+;;   :hook (prog-mode-hook . flycheck-mode)
+;;   :bind (("M-n" . flycheck-next-error)
+;; 		 ("M-p" . flycheck-previous-error)))
+
+(leaf flymake
+  :bind ([f8] . flymake-mode)
+  :config
+  (with-eval-after-load 'flymake
+	(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+	(define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
+	(define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)))
 
 
 (leaf which-key
