@@ -138,6 +138,7 @@
 		 ("M-,"   . xref-find-definitions)
          ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
 		 ("s-v"   . clipboard-yank)           ;; Like macOS
+		 ([f8]    . follow-mode)
 		 ("C-x b" . ibuffer))
   :init
   (defun my:kill-whole-line-or-region ()
