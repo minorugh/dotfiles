@@ -83,6 +83,16 @@
     :hook (after-init-hook . global-auto-revert-mode)
     :custom (auto-revert-interval . 0.1))
 
+  (leaf *display-line-numbers
+	:doc "Show line numbers"
+	:hook ((after-init-hook . global-display-line-numbers-mode)
+		   ((dired-mode-hook
+			 neotree-mode-hook
+			 lisp-interaction-mode-hook
+			 eshell-mode-hook) . (lambda () (display-line-numbers-mode 0))))
+	:bind ([f9] . display-line-numbers-mode)
+	:custom (display-line-numbers-width-start . t))
+
   (leaf *goto-address
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
     :hook (prog-mode-hook . goto-address-prog-mode))
