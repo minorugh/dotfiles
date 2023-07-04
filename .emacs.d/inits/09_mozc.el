@@ -1,4 +1,4 @@
-;;; 08_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
+;;; 09_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -85,4 +85,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 08_mozc.el ends here
+;;; 09_mozc.el ends here
