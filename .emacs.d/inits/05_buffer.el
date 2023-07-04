@@ -43,9 +43,11 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
 		(progn
 		  (setq toggle-scratch-prev-buffer (buffer-name))
 		  (switch-to-buffer-other-window "*scratch*")
-		  (display-line-numbers-mode 0))
+		  (display-line-numbers-mode 0)
+		  (dimmer-off))
 	  (switch-to-buffer toggle-scratch-prev-buffer)
-	  (delete-other-windows))))
+	  (delete-other-windows)
+	  (dimmer-on))))
 
 
 ;; Local Variables:
