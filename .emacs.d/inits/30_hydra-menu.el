@@ -55,7 +55,7 @@
    ("<muhenkan>" nil))
   :init
   (defun my:magit-status ()
-	"Toggle current buffer and *scratch* buffer."
+	"Display message if magit in dashboard."
 	(interactive)
 	(if (string= "*dashboard*" (buffer-name))
 		(message "Can't magit in Dashboard！")
