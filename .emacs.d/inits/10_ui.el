@@ -45,41 +45,6 @@
 	(nyan-start-animation)))
 
 
-(leaf display-line-numbers
-  :doc "Show line numbers"
-  :hook ((after-init-hook . global-display-line-numbers-mode)
-		 ((dired-mode-hook
-		   neotree-mode-hook
-		   lisp-interaction-mode-hook
-		   eshell-mode-hook) . (lambda () (display-line-numbers-mode 0))))
-  :bind ([f9] . display-line-numbers-mode)
-  :custom (display-line-numbers-width-start . t))
-
-
-(leaf darkroom
-  :doc "Remove visual distractions and focus on writing"
-  :url "https://github.com/joaotavora/darkroom"
-  :ensure t
-  :bind (([f12] . my:darkroom-in)
-		 (:darkroom-mode-map
-		  ([f12] . my:darkroom-out)))
-  :init
-  (defun my:darkroom-in ()
-	"Enter to the `darkroom-mode'."
-	(interactive)
-	(diff-hl-mode 0)
-	(display-line-numbers-mode 0)
-	(darkroom-mode 1)
-	(setq-local line-spacing .5))
-
-  (defun my:darkroom-out ()
-	"Returns from `darkroom-mode' to the previous state."
-	(interactive)
-	(darkroom-mode 0)
-	(display-line-numbers-mode 1)
-	(setq-local line-spacing .1)))
-
-
 (leaf imenu-list
   :doc "Show imenu entries in a separate buffer"
   :url "https://github.com/bmag/imenu-list"
