@@ -29,14 +29,9 @@
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
-				  fundamental-mode
-				  dashboard-mode
-				  dired-mode
-				  neotree-mode
-				  howm-mode
-				  yatex-mode
-				  git-timemachine-mode
-				  easy-hugo-mode))
+				  fundamental-mode dashboard-mode dired-mode
+				  neotree-mode howm-mode yatex-mode
+				  git-timemachine-mode easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
@@ -46,21 +41,19 @@
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
 	(interactive)
-	(if current-input-method (deactivate-input-method)
-	  (progn
-		(evil-normal-state)
-		(message "-- NORMAL --"))
-	  (my:muhenkan)))
+	(if current-input-method (deactivate-input-method))
+	(evil-normal-state)
+	(message "-- NORMAL --"))
 
   (defun my:evil-find-file ()
-    "New files open in insert-state."
-    (interactive)
-    (unless (file-exists-p buffer-file-name)
+	"New files open in insert-state."
+	(interactive)
+	(unless (file-exists-p buffer-file-name)
       (evil-insert-state)))
 
   (defun evil-swap-key (map key1 key2)
-    "Swap KEY1 and KEY2 in MAP."
-    (let ((def1 (lookup-key map key1))
+	"Swap KEY1 and KEY2 in MAP."
+	(let ((def1 (lookup-key map key1))
 		  (def2 (lookup-key map key2)))
       (define-key map key1 def2)
       (define-key map key2 def1)))
@@ -68,8 +61,8 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun ad:switch-to-buffer (&rest _arg)
-    "Set buffer for automatic `evil-insert-state'."
-    (when (member (buffer-name) '("COMMIT_EDITMSG"))
+	"Set buffer for automatic `evil-insert-state'."
+	(when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-insert-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
