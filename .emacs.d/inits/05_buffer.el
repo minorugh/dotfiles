@@ -3,26 +3,37 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf auto-save-buffers-enhanced
-  :doc "Automatically save buffers"
-  :url "https://github.com/kentaro/auto-save-buffers-enhanced/tree/master"
+(leaf super-save
   :ensure t
-  :custom
-  (auto-save-buffers-enhanced-exclude-regexps . '("^/ssh:" "^/scp:" "/sudo:" "*.gpg $"))
-  (auto-save-buffers-enhanced-quiet-save-p . t)
-  ;; Disable to prevent freeze in tramp-mode
-  (auto-save-buffers-enhanced-include-only-checkout-path . nil)
+  :hook (after-init-hook . super-save-mode)
   :config
-  (auto-save-buffers-enhanced t))
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration 1)
+  (setq super-save-exclude '(".gpg"))
+  (defun clear-message ()
+	(message nil))
+  (advice-add 'save-buffer :after 'clear-message)
+  (defun my:super-save-buffers-command ()
+	"Save the buffer if needed."
+	(save-excursion
+      (dolist (buf (buffer-list))
+		(set-buffer buf)
+		(when (and buffer-file-name
+                   (buffer-modified-p (current-buffer))
+                   (file-writable-p buffer-file-name)
+                   (if (file-remote-p buffer-file-name)
+                       super-save-remote-files t))
+          (save-buffer)))))
+  (advice-add 'super-save-command :override #'my:super-save-buffers-command))
 
 
-(leaf *cus-scratch-memo
-  :doc "Scratch for sticky-memo"
-  :after auto-save-buffers-enhanced
+(leaf persistent-scratch
+  :doc "Save scratch buffer state to file and restore from file"
+  :url "https://github.com/Fanael/persistent-scratch"
+  :ensure t
+  :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
-  :custom
-  (auto-save-buffers-enhanced-save-scratch-buffer-to-file-p . t)
-  (auto-save-buffers-enhanced-file-related-with-scratch-buffer . "~/.emacs.d/tmp/scratch")
+  :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/.persistent-scratch")
   :init
   (defun toggle-scratch ()
 	"Toggle current buffer and *scratch* buffer."
@@ -30,17 +41,10 @@
 	(if (not (string= "*scratch*" (buffer-name)))
 		(progn
 		  (setq toggle-scratch-prev-buffer (buffer-name))
-		  (switch-to-buffer "*scratch*")
+		  (switch-to-buffer-other-window "*scratch*")
 		  (display-line-numbers-mode 0))
-	  (switch-to-buffer toggle-scratch-prev-buffer)))
-
-  (defun read-scratch-data ()
-	(let ((file "~/.emacs.d/tmp/scratch"))
-	  (when (file-exists-p file)
-		(set-buffer (get-buffer "*scratch*"))
-		(erase-buffer)
-		(insert-file-contents file))))
-  (read-scratch-data))
+	  (switch-to-buffer toggle-scratch-prev-buffer)
+	  (delete-other-windows))))
 
 
 ;; Local Variables:
