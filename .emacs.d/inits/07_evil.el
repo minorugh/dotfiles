@@ -46,10 +46,11 @@
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
 	(interactive)
-	(if current-input-method (deactivate-input-method))
-	(evil-normal-state)
-	(message "-- NORMAL --")
-	(if (use-region-p)(keyboard-quit)))
+	(if current-input-method (deactivate-input-method)
+	  (progn
+		(evil-normal-state)
+		(message "-- NORMAL --"))
+	  (my:muhenkan)))
 
   (defun my:evil-find-file ()
     "New files open in insert-state."
