@@ -31,6 +31,7 @@
   :ensure t
   :bind ([f6] . quickrun))
 
+
 (leaf flymake
   :hook (emacs-startup-hook . my:flymake-hook)
   :config
