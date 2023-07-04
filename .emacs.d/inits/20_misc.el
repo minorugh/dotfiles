@@ -22,7 +22,7 @@
   :ensure t
   :hook (after-init-hook . projectile-mode)
   :custom
-  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile-bookmarks.eld"))
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
 
 
 (leaf quickrun
