@@ -58,7 +58,7 @@
 	"Toggle current buffer and *scratch* buffer."
 	(interactive)
 	(if (string= "*dashboard*" (buffer-name))
-		(message "Can't use the magit command from Dashboard !!")
+		(message "Can't magit in Dashboard！")
 	  (magit-status))))
 
 
