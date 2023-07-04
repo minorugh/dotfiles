@@ -120,26 +120,6 @@
   (setq counsel-web-search-dynamic-update t))
 
 
-(leaf package-utils
-  :doc "Interactive package manager"
-  :url "https://github.com/Silex/package-utils"
-  :ensure t
-  :chord ("p@" . hydra-package/body)
-  :hydra
-  (hydra-package
-   (:color red :hint nil)
-   "
-  Package: _i_nstall _r_emove _l_ist up_a_ll    El-get:_u_pdate.re_m_ove
-"
-   ("i" package-install)
-   ("l" package-utils-list-upgrades)
-   ("r" package-utils-remove-by-name)
-   ("a" package-utils-upgrade-all-and-restart)
-   ("u" el-get-update-all)
-   ("m" el-get-remove)
-   ("<muhenkan>" nil)))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
