@@ -6,24 +6,22 @@
 (leaf super-save
   :ensure t
   :hook (after-init-hook . super-save-mode)
+  :custom
+  (super-save-auto-save-when-idle . t)
+  (super-save-idle-duration       . 1)
+  (super-save-exclude             . '(".gpg"))
   :config
-  (setq super-save-auto-save-when-idle t)
-  (setq super-save-idle-duration 1)
-  (setq super-save-exclude '(".gpg"))
-  (defun clear-message ()
-	(message nil))
-  (advice-add 'save-buffer :after 'clear-message)
   (defun my:super-save-buffers-command ()
 	"Save the buffer if needed."
 	(save-excursion
-      (dolist (buf (buffer-list))
+	  (dolist (buf (buffer-list))
 		(set-buffer buf)
 		(when (and buffer-file-name
-                   (buffer-modified-p (current-buffer))
-                   (file-writable-p buffer-file-name)
-                   (if (file-remote-p buffer-file-name)
-                       super-save-remote-files t))
-          (save-buffer)))))
+				   (buffer-modified-p (current-buffer))
+				   (file-writable-p buffer-file-name)
+				   (if (file-remote-p buffer-file-name)
+					   super-save-remote-files t))
+		  (save-buffer)(message nil)))))
   (advice-add 'super-save-command :override #'my:super-save-buffers-command))
 
 
