@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf super-save
+  :doc "Smart auto save buffers"
+  :url "https://github.com/bbatsov/super-save"
   :ensure t
   :hook (after-init-hook . super-save-mode)
   :custom
@@ -12,7 +14,8 @@
   (super-save-exclude             . '(".gpg"))
   :config
   (defun my:super-save-command ()
-	"Save the buffer if needed."
+	"Save the buffer if needed.
+see https://takaxp.github.io/init.html#orgde08dbd8"
 	(save-excursion
 	  (dolist (buf (buffer-list))
 		(set-buffer buf)
