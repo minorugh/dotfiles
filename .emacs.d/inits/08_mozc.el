@@ -68,9 +68,9 @@
 	(delete-other-windows)))
 
 
-;; --------------------------------------------------------------------
-;; Sharring Mozc with submachine
-;; --------------------------------------------------------------------
+;; ---------------------------------------------------------------
+;; For submachine
+;; ---------------------------------------------------------------
 (leaf *sharring-mozc
   :doc "Copy main latest mozc at submachine startup"
   :hook (emacs-startup-hook . my:mozc-copy)
