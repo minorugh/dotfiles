@@ -48,11 +48,18 @@
    ("1" delete-other-windows)
    ("_" delete-other-windows)
    ("[" hydra-git/body)
-   ("]" magit-status)
+   ("]" my:magit-status)
    ("s" my:scr-dir)
    ("z" filezilla)
    ("M-." hydra-work/body)
-   ("<muhenkan>" nil)))
+   ("<muhenkan>" nil))
+  :init
+  (defun my:magit-status ()
+	"Toggle current buffer and *scratch* buffer."
+	(interactive)
+	(if (string= "*dashboard*" (buffer-name))
+		(message "Can't use the magit command from Dashboard !!")
+	  (magit-status))))
 
 
 ;;-------------------------------------------------------------------
