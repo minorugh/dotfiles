@@ -8,7 +8,8 @@
   :url "https://github.com/emacs-dashboard/emacs-dashboard"
   :ensure t
   :if (display-graphic-p)
-  :hook (after-init-hook . dashboard-setup-startup-hook)
+  :hook ((after-init-hook    . dashboard-setup-startup-hook)
+		 (emacs-startup-hook . open-dashboard))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -33,8 +34,8 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents  . 8)
-						  (agenda   . 5)))
+  (setq dashboard-items '((recents . 8)
+						  (agenda  . 5)))
 
   ;; Set the footer
   (setq dashboard-footer-messages
