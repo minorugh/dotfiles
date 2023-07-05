@@ -40,12 +40,6 @@
   :ensure t)
 
 
-(leaf sudo-edit
-  :doc "Open root parmission files as sudo user"
-  :url "https://github.com/nflath/sudo-edit"
-  :ensure t)
-
-
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
