@@ -57,14 +57,6 @@
 	(defalias 'yes-or-no-p #'y-or-n-p)
 	(defalias 'exit 'save-buffers-kill-emacs))
 
-  (leaf *emacs-lock-mode
-    :doc "Set buffer that can not be killed"
-    :config
-    (with-current-buffer "*scratch*"
-      (emacs-lock-mode 'kill))
-    (with-current-buffer "*Messages*"
-      (emacs-lock-mode 'kill)))
-
   (leaf *encoding
     :doc "Save the file specified code with basic utf-8 if it exist"
     :config
