@@ -1,4 +1,4 @@
-;;; 10_editing.el --- Editing support configurations. -*- lexical-binding: t -*-
+;;; 09_editing.el --- Editing support configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 10_editing.el ends here
+;;; 09_editing.el ends here
