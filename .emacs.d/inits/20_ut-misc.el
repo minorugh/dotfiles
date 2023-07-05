@@ -1,4 +1,4 @@
-;;; 20_misc.el --- Misc utility configurations. -*- lexical-binding: t -*-
+;;; 20_ut-misc.el --- Misc utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -40,6 +40,13 @@
   :hook (after-init-hook . popwin-mode))
 
 
+(leaf expand-region
+  :doc "Extension for region"
+  :url "https://github.com/magnars/expand-region.el"
+  :ensure t
+  :bind ("C-@" . er/expand-region))
+
+
 (leaf adaptive-wrap
   :doc "Wrap long lines for easier viewing"
   :url "https://taipapamotohus.com/post/adaptive-wrap/"
@@ -72,4 +79,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_misc.el ends here
+;;; 20_ut-misc.el ends here

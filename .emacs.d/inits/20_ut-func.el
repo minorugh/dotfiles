@@ -1,4 +1,4 @@
-;;; 20_utils.el --- Utility command cofiguration. -*- lexical-binding: t -*-
+;;; 20_ut-func.el --- Utility command cofigration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -72,4 +72,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_utils.el ends here
+;;; 20_ut-func.el ends here

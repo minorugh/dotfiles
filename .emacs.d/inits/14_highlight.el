@@ -1,4 +1,4 @@
-;;; 20_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
+;;; 14_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -64,29 +64,7 @@
   :bind ("C-c w" . rainbow-mode))
 
 
-(leaf *highlight-whitespace
-  :doc "Highligh trailing whitespace"
-  :hook (prog-mode-hook . my:enable-trailing-mode)
-  :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :custom
-  (show-trailing-whitespace . nil)
-  :init
-  (defun my:enable-trailing-mode ()
-	"Show tail whitespace."
-	(setq show-trailing-whitespace t))
-
-  (defun my:cleanup-for-spaces ()
-	"Remove contiguous line breaks at end of line + end of file."
-	(interactive)
-	(delete-trailing-whitespace)
-	(save-excursion
-	  (save-restriction
-		(widen)
-		(goto-char (point-max))
-		(delete-blank-lines)))))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_highlight.el ends here
+;;; 14_highlight.el ends here
