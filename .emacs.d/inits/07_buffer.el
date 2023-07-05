@@ -1,4 +1,4 @@
-;;; 06_buffer.el --- Buffer Utility configurations. -*- lexical-binding: t -*-
+;;; 07_buffer.el --- Buffer Utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -53,4 +53,4 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_buffer.el ends here
+;;; 07_buffer.el ends here

@@ -1,4 +1,4 @@
-;;; 10_ui.el --- Graphical interface configurations. -*- lexical-binding: t -*-
+;;; 20_ui.el --- Graphical interface configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -59,16 +59,7 @@
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 10_ui.el ends here
+;;; 20_ui.el ends here

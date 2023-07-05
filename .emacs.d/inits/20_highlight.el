@@ -1,4 +1,4 @@
-;;; 10_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
+;;; 20_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -35,15 +35,6 @@
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
 
-(leaf smartparens
-  :doc "Minor mode for dealing with pairs"
-  :url "https://github.com/Fuco1/smartparens"
-  :ensure t
-  :hook (after-init-hook . smartparens-global-mode)
-  :config
-  (leaf smartparens-config :require t))
-
-
 (leaf volatile-highlights
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
@@ -57,24 +48,6 @@
 	  "Pulse the changes."
 	  (pulse-momentary-highlight-region beg end face))
 	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
-
-
-(leaf adaptive-wrap
-  :doc "Wrap long lines for easier viewing"
-  :url "https://taipapamotohus.com/post/adaptive-wrap/"
-  :ensure t
-  :config
-  (setq-default adaptive-wrap-extra-indent 1)
-  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
-  (global-visual-line-mode +1)
-  (add-hook 'org-mode-hook 'visual-line-mode))
-
-
-(leaf aggressive-indent
-  :doc "Keeps your code always indented"
-  :url "https://github.com/Malabarba/aggressive-indent-mode"
-  :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
 (leaf rainbow-delimiters
@@ -113,18 +86,7 @@
 		(delete-blank-lines)))))
 
 
-(leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
-  :ensure t
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 10_highlight.el ends here
+;;; 20_highlight.el ends here
