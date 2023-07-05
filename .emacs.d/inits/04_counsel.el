@@ -51,6 +51,28 @@
 	(amx-history-length . 20)))
 
 
+(leaf prescient
+  :doc "Better sorting and filtering"
+  :url "https://github.com/raxod502/prescient.el"
+  :ensure t
+  :hook (after-init-hook . prescient-persist-mode)
+  :custom
+  `((prescient-aggressive-file-save . t)
+	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
+  :config
+  (leaf ivy-prescient :ensure t :global-minor-mode t)
+  (leaf company-prescient :ensure t :global-minor-mode t))
+
+
+(leaf projectile
+  :doc "Project navigation and management library"
+  :url "https://github.com/bbatsov/projectile"
+  :ensure t
+  :hook (after-init-hook . projectile-mode)
+  :custom
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
