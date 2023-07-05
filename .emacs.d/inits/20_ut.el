@@ -3,6 +3,14 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf which-key
+  :doc "Displays available keybindings in popup"
+  :url "https://github.com/justbur/emacs-which-key"
+  :ensure t
+  :hook (after-init-hook . which-key-mode)
+  :custom ((which-key-max-description-length . 40)))
+
+
 (leaf counsel-tramp
   :doc "Tramp ivy interface for ssh server"
   :url "https://github.com/masasam/emacs-counsel-tramp"
