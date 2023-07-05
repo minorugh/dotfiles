@@ -23,7 +23,7 @@
    ("<muhenkan>" nil)))
 
 
-(leaf *hydra-misc
+(leaf *hydra-markdown
   :hydra
   (hydra-markdown
    (:color red :hint nil)
