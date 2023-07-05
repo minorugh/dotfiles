@@ -25,24 +25,6 @@
   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
 
 
-(leaf quickrun
-  :doc "Qick executes editing buffer"
-  :url "https://github.com/emacsorphanage/quickrun"
-  :ensure t
-  :bind ([f6] . quickrun))
-
-
-(leaf flymake
-  :hook (emacs-startup-hook . my:flymake-hook)
-  :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-  (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-  (defun my:flymake-hook ()
-	(interactive)
-	(add-hook 'prog-mode-hook 'flymake-mode)))
-
-
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
@@ -58,57 +40,33 @@
   :hook (after-init-hook . popwin-mode))
 
 
-(leaf iedit
-  :doc "Edit multiple regions in the same way simultaneously"
-  :url "https://github.com/victorhge/iedit"
+(leaf adaptive-wrap
+  :doc "Wrap long lines for easier viewing"
+  :url "https://taipapamotohus.com/post/adaptive-wrap/"
   :ensure t
-  :bind ([insert] . iedit-mode))
+  :config
+  (setq-default adaptive-wrap-extra-indent 1)
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+  (global-visual-line-mode +1)
+  (add-hook 'org-mode-hook 'visual-line-mode))
 
 
-(leaf restart-emacs
-  :doc "Restart emacs from within emacs"
-  :url "https://github.com/iqbalansari/restart-emacs"
+(leaf aggressive-indent
+  :doc "Keeps your code always indented"
+  :url "https://github.com/Malabarba/aggressive-indent-mode"
   :ensure t
-  :bind ("C-x C-c" . restart-emacs))
+  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
-(leaf sudo-edit
-  :doc "Open root parmission files as sudo user"
-  :url "https://github.com/nflath/sudo-edit"
-  :ensure t)
-										;
-
-(leaf undo-fu
-  :doc "Redo and Undo operations"
-  :url "https://codeberg.org/ideasman42/emacs-undo-fu"
+(leaf web-mode
+  :doc "Editing web templates"
+  :url "http://github.com/fxbois/web-mode"
   :ensure t
-  :bind (("C-_" . undo-fu-only-undo)
-		 ("C-/" . undo-fu-only-redo)))
-
-
-(leaf undohist
-  :doc "Persistent undo history"
-  :url "https://github.com/emacsorphanage/undohist"
-  :ensure t
-  :hook (after-init-hook . undohist-initialize)
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
   :custom
-  `((undohist-directory     . "~/.emacs.d/tmp/undohist")
-	(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
-
-
-(leaf atomic-chrome
-  :doc "Edit Chrome text area with Emacs"
-  :url "https://github.com/alpha22jp/atomic-chrome"
-  :ensure t
-  :hook (after-init-hook . atomic-chrome-start-server)
-  :custom ((atomic-chrome-buffer-open-style . 'full)))
-
-
-(leaf expand-region
-  :doc "Extension for region"
-  :url "https://github.com/magnars/expand-region.el"
-  :ensure t
-  :bind ("C-@" . er/expand-region))
+  `((web-mode-markup-indent-offset . 2)
+	(web-mode-css-indent-offset . 2)
+	(web-mode-code-indent-offset . 2)))
 
 
 ;; Local Variables:
