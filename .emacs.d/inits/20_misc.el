@@ -58,13 +58,15 @@
   :custom (key-chord-two-keys-delay . 0.1))
 
 
-(leaf projectile
-  :doc "Project navigation and management library"
-  :url "https://github.com/bbatsov/projectile"
+(leaf web-mode
+  :doc "Editing web templates"
+  :url "http://github.com/fxbois/web-mode"
   :ensure t
-  :hook (after-init-hook . projectile-mode)
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
   :custom
-  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
+  `((web-mode-markup-indent-offset . 2)
+	(web-mode-css-indent-offset . 2)
+	(web-mode-code-indent-offset . 2)))
 
 
 ;; Local Variables:

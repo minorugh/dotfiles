@@ -59,15 +59,13 @@
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
+(leaf projectile
+  :doc "Project navigation and management library"
+  :url "https://github.com/bbatsov/projectile"
   :ensure t
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :hook (after-init-hook . projectile-mode)
   :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
 
 
 ;; Local Variables:
