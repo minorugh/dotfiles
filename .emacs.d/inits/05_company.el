@@ -1,4 +1,4 @@
-;;; 06_company.el --- Company configurations. -*- lexical-binding: t -*-
+;;; 05_company.el --- Company configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -48,4 +48,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_company.el ends here
+;;; 05_company.el ends here

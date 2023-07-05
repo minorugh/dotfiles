@@ -1,4 +1,4 @@
-;;; 05_counsel-ut.el --- Counsel ut configurations. -*- lexical-binding: t -*-
+;;; 20_ut.el --- Counsel ut configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -20,6 +20,14 @@
 	  (tramp-cleanup-all-connections)
 	  (counsel-tramp-quit)
 	  (message "Tramp Quit!"))))
+
+
+(leaf which-key
+  :doc "Displays available keybindings in popup"
+  :url "https://github.com/justbur/emacs-which-key"
+  :ensure t
+  :hook (after-init-hook . which-key-mode)
+  :custom ((which-key-max-description-length . 40)))
 
 
 (leaf *cus-counsel-ag
@@ -62,4 +70,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 05_counsel-ut.el ends here
+;;; 20_ut.el ends here

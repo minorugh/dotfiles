@@ -1,4 +1,4 @@
-;;; 11_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
+;;; 10_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -24,21 +24,17 @@
 	:require t
 	:config
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
-  (leaf posframe
+  (leaf mozc-cand-posframe
+	:url "https://github.com/akirak/mozc-posframe"
 	:ensure t
-	:when window-system
-	:config
-	(leaf mozc-cand-posframe
-	  :url "https://github.com/akirak/mozc-posframe"
-	  :ensure t
-	  :hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
-	  :require t
-	  :custom (mozc-candidate-style . 'posframe )
-	  :custom-face
-	  (mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
-	  (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
-	  (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73"))))))
-
+	:hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
+	:require t
+	:custom (mozc-candidate-style . 'posframe )
+	:custom-face
+	(mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
+	(mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
+	(mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
+  :init
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
@@ -65,24 +61,17 @@
 	"Open `mozc-word-regist'."
 	(interactive)
 	(compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-	(delete-other-windows)))
+	(delete-other-windows))
 
-
-;; ---------------------------------------------------------------
-;; For submachine
-;; ---------------------------------------------------------------
-(leaf *sharring-mozc
-  :doc "Copy main latest mozc at submachine startup"
-  :hook (emacs-startup-hook . my:mozc-copy)
-  :init
   (defun my:mozc-copy ()
 	"Copy mozc to submachines for avoid conflicts."
 	(interactive)
 	(unless (string-match "e590" (shell-command-to-string "uname -n"))
-	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
+	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))
+	(add-hook 'emacs-startup-hook 'my:mozc-copy)))
 
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 11_mozc.el ends here
+;;; 10_mozc.el ends here

@@ -1,4 +1,4 @@
-;;; 13_whitespace.el --- Witespace configurations. -*- lexical-binding: t -*-
+;;; 10_whitespace.el --- Witespace configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -28,4 +28,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 13_whitespace.el ends here
+;;; 10_whitespace.el ends here

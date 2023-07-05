@@ -1,4 +1,4 @@
-;;; 09_undo.el --- Undo/Redo utility configurations. -*- lexical-binding: t -*-
+;;; 08_undo.el --- Undo/Redo utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -24,4 +24,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 09_undo.el ends here
+;;; 08_undo.el ends here

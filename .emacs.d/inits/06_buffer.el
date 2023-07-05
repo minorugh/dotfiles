@@ -1,4 +1,4 @@
-;;; 07_buffer.el --- Buffer Utility configurations. -*- lexical-binding: t -*-
+;;; 06_buffer.el --- Buffer Utility configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -50,7 +50,16 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
 	  (dimmer-on))))
 
 
+(leaf *emacs-lock-mode
+  :doc "Set buffer that can not be killed"
+  :config
+  (with-current-buffer "*scratch*"
+    (emacs-lock-mode 'kill))
+  (with-current-buffer "*Messages*"
+    (emacs-lock-mode 'kill)))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 07_buffer.el ends here
+;;; 06_buffer.el ends here
