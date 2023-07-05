@@ -5,11 +5,13 @@
 ;; User custom functions
 
 (leaf *define-functions
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log))
   :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
-		 ([f8]  . follow-mode)
-		 ("s-a" . counsel-ag)
+		 ([f6]  . quickrun)
+		 ("C-x C-c"  . restart-emacs)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
@@ -48,6 +50,26 @@
 	(if (not (use-region-p))
 		(minibuffer-keyboard-quit)
 	  (keyboard-quit))))
+
+
+(leaf quickrun
+  :doc "Qick executes editing buffer"
+  :url "https://github.com/emacsorphanage/quickrun"
+  :ensure t)
+
+
+(leaf key-chord
+  :doc "Mapping a pair of simultaneously pressed keys"
+  :url "https://github.com/emacsorphanage/key-chord"
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :custom (key-chord-two-keys-delay . 0.1))
+
+
+(leaf restart-emacs
+  :doc "Restart emacs from within emacs"
+  :url "https://github.com/iqbalansari/restart-emacs"
+  :ensure t)
 
 
 ;; Local Variables:

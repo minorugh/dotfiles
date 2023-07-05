@@ -31,13 +31,6 @@
 	:hook (after-init-hook . sequential-command-setup-keys)))
 
 
-(leaf quickrun
-  :doc "Qick executes editing buffer"
-  :url "https://github.com/emacsorphanage/quickrun"
-  :bind ([f6]  . quickrun)
-  :ensure t)
-
-
 (leaf counsel-web
   :doc "Search the Web using Ivy"
   :url "https://github.com/mnewt/counsel-web"

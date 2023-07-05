@@ -3,6 +3,27 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf projectile
+  :doc "Project navigation and management library"
+  :url "https://github.com/bbatsov/projectile"
+  :ensure t
+  :hook (after-init-hook . projectile-mode)
+  :custom
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
+
+
+(leaf prescient
+  :doc "Better sorting and filtering"
+  :url "https://github.com/raxod502/prescient.el"
+  :ensure t
+  :hook (after-init-hook . prescient-persist-mode)
+  :custom `((prescient-aggressive-file-save . t)
+			(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
+  :config
+  (leaf ivy-prescient :ensure t :global-minor-mode t)
+  (leaf company-prescient :ensure t :global-minor-mode t))
+
+
 (leaf popwin
   :doc "Popup window manager"
   :url "https://github.com/emacsorphanage/popwin"
@@ -11,6 +32,8 @@
 
 
 (leaf posframe
+  :doc "Pop a posframe (just a frame) at point"
+  :url "https://github.com/tumashu/posframe"
   :ensure t
   :when window-system)
 
@@ -33,40 +56,12 @@
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
-(leaf restart-emacs
-  :doc "Restart emacs from within emacs"
-  :url "https://github.com/iqbalansari/restart-emacs"
-  :bind ("C-x C-c"  . restart-emacs)
-  :ensure t)
-
-
 (leaf which-key
   :doc "Displays available keybindings in popup"
   :url "https://github.com/justbur/emacs-which-key"
   :ensure t
   :hook (after-init-hook . which-key-mode)
   :custom ((which-key-max-description-length . 40)))
-
-
-(leaf key-chord
-  :doc "Mapping a pair of simultaneously pressed keys"
-  :url "https://github.com/emacsorphanage/key-chord"
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
-  :custom (key-chord-two-keys-delay . 0.1))
-
-
-(leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
-  :ensure t
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
 
 
 ;; Local Variables:
