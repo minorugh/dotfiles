@@ -38,11 +38,23 @@
 	(interactive)
 	(shell-command "gnome-terminal -- ssh xsrv"))
 
+  (defun sylpheed ()
+	"Open sylpheed."
+	(interactive)
+	(compile "sylpheed")
+	(delete-other-windows))
+
+  (defun slack ()
+	"Open sylpheed."
+	(interactive)
+	(compile "slack")
+	(delete-other-windows))
+
   (defun my:kill-whole-line-or-region ()
-    "If the region is active, to kill region.
+	"If the region is active, to kill region.
   If the region is inactive, to kill whole line."
-    (interactive)
-    (if (use-region-p)
+	(interactive)
+	(if (use-region-p)
 		(clipboard-kill-region (region-beginning) (region-end))
 	  (kill-whole-line)))
 
