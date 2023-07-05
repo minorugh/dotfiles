@@ -11,8 +11,8 @@
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
 		 ([f6]  . quickrun)
-		 ("C-x C-c"  . restart-emacs)
-		 ([muhenkan] . my:muhenkan))
+		 ([muhenkan] . my:muhenkan)
+		 ("C-x C-c"  . restart-emacs))
   :init
   (defun thunar-open ()
 	"Open thunar with current dir."
