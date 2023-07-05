@@ -81,7 +81,7 @@
 		   ((dired-mode-hook
 			 neotree-mode-hook
 			 lisp-interaction-mode-hook
-			 eshell-mode-hook) . (lambda () (display-line-numbers-mode 0))))
+			 eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
 	:bind ([f9] . display-line-numbers-mode)
 	:custom (display-line-numbers-width-start . t))
 
