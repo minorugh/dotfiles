@@ -3,19 +3,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key
-  :doc "Displays available keybindings in popup"
-  :url "https://github.com/justbur/emacs-which-key"
-  :ensure t
-  :hook (after-init-hook . which-key-mode)
-  :custom ((which-key-max-description-length . 40)))
-
-
 (leaf popwin
   :doc "Popup window manager"
   :url "https://github.com/emacsorphanage/popwin"
   :ensure t
   :hook (after-init-hook . popwin-mode))
+
+
+(leaf posframe
+  :ensure t
+  :when window-system)
 
 
 (leaf adaptive-wrap
