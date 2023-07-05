@@ -139,7 +139,8 @@
 		 ("M-,"   . xref-find-definitions)
 		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
 		 ("s-v"   . clipboard-yank)           ;; Like macOS
-		 ("C-x b" . ibuffer))
+		 ("C-x b" . ibuffer)
+		 ([f8]    . follow-mode))
   :init
   (defun kill-whole-line-or-region ()
 	"If the region is active, to kill region.
