@@ -13,6 +13,7 @@
 		 ("M-x"     . counsel-M-x)
 		 ("M-y"     . counsel-yank-pop)
 		 ("C-,"     . counsel-mark-ring)
+		 ("s-a"     . counsel-ag)
 		 ("C-x C-f" . counsel-find-file)
 		 ("C-x C-r" . counsel-recentf))
   :custom
