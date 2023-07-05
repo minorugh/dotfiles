@@ -35,6 +35,29 @@
 	   (concat (propertize " " 'display `(space :align-to 2)) str))
 	 cands
 	 "\n"))
+
+  (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
+	"Fast full-text search.
+see https://takaxp.github.io/init.html#org29c7b6b7"
+	(apply f (or initial-input
+				 (and (not (thing-at-point-looking-at "^\\*+"))
+					  (ivy-thing-at-point)))
+		   (unless current-prefix-arg
+			 (or initial-directory default-directory))
+		   extra-ag-args ag-prompt caller))
+  (with-eval-after-load "counsel"
+	(require 'thingatpt nil t)
+	(advice-add 'counsel-ag :around #'ad:counsel-ag)
+	;; Make search trigger even with 2 characters
+	(add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
+	(ivy-add-actions
+	 'counsel-ag
+	 '(("r" my:counsel-ag-in-dir "search in directory")))
+
+	(defun my:counsel-ag-in-dir (_arg)
+	  "Search again with new root directory."
+	  (let ((current-prefix-arg '(4)))
+		(counsel-ag ivy-text nil ""))))
   :init
   (leaf ivy-rich
 	:doc "More friendly display transformer for ivy"
@@ -47,28 +70,6 @@
 	:custom
 	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
 	  (amx-history-length . 20))))
-
-
-(leaf prescient
-  :doc "Better sorting and filtering"
-  :url "https://github.com/raxod502/prescient.el"
-  :ensure t
-  :hook (after-init-hook . prescient-persist-mode)
-  :custom
-  `((prescient-aggressive-file-save . t)
-	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
-  :config
-  (leaf ivy-prescient :ensure t :global-minor-mode t)
-  (leaf company-prescient :ensure t :global-minor-mode t))
-
-
-(leaf projectile
-  :doc "Project navigation and management library"
-  :url "https://github.com/bbatsov/projectile"
-  :ensure t
-  :hook (after-init-hook . projectile-mode)
-  :custom
-  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
 
 
 ;; Local Variables:

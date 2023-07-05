@@ -58,6 +58,15 @@
   :custom (key-chord-two-keys-delay . 0.1))
 
 
+(leaf projectile
+  :doc "Project navigation and management library"
+  :url "https://github.com/bbatsov/projectile"
+  :ensure t
+  :hook (after-init-hook . projectile-mode)
+  :custom
+  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
