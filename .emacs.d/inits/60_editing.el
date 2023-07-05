@@ -34,12 +34,6 @@
   :bind ([insert] . iedit-mode))
 
 
-(leaf sudo-edit
-  :doc "Open root parmission files as sudo user"
-  :url "https://github.com/nflath/sudo-edit"
-  :ensure t)
-										;
-
 (leaf expand-region
   :doc "Extension for region"
   :url "https://github.com/magnars/expand-region.el"

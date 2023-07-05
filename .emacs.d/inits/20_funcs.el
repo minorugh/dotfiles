@@ -5,18 +5,11 @@
 ;; User custom functions
 
 (leaf *define-functions
-  :bind	(("M-w"   . clipboard-kill-ring-save)
-		 ("C-w"   . my:kill-whole-line-or-region)
-		 ("M-/"   . kill-this-buffer)
-		 ("C-M-/" . my:delete-this-file)
-		 ("M-,"   . xref-find-definitions)
-         ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
-		 ("s-v"   . clipboard-yank)           ;; Like macOS
-		 ("C-x b" . ibuffer)
-		 ([f3] . thunar-open)
-		 ([f4] . terminal-open)
-		 ([f5] . ssh-xsrv)
-		 ([f8] . follow-mode)
+  :bind	(([f3]  . thunar-open)
+		 ([f4]  . terminal-open)
+		 ([f5]  . ssh-xsrv)
+		 ([f8]  . follow-mode)
+		 ("s-a" . counsel-ag)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
@@ -50,29 +43,34 @@
 	(compile "slack")
 	(delete-other-windows))
 
-  (defun my:kill-whole-line-or-region ()
-	"If the region is active, to kill region.
-  If the region is inactive, to kill whole line."
-	(interactive)
-	(if (use-region-p)
-		(clipboard-kill-region (region-beginning) (region-end))
-	  (kill-whole-line)))
-
-  (defun my:delete-this-file ()
-	"Delete the current file, and kill the buffer."
-	(interactive)
-	(unless (buffer-file-name)
-	  (error "No file is currently being edited"))
-	(when (yes-or-no-p (format "Really delete '%s'?"
-							   (file-name-nondirectory buffer-file-name)))
-	  (delete-file (buffer-file-name))
-	  (kill-this-buffer)))
-
   (defun my:muhenkan ()
 	(interactive)
 	(if (not (use-region-p))
 		(minibuffer-keyboard-quit)
-	  (keyboard-quit))))
+	  (keyboard-quit)))
+
+  (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
+	"Fast full-text search.
+see https://takaxp.github.io/init.html#org29c7b6b7"
+	(apply f (or initial-input
+				 (and (not (thing-at-point-looking-at "^\\*+"))
+					  (ivy-thing-at-point)))
+		   (unless current-prefix-arg
+			 (or initial-directory default-directory))
+		   extra-ag-args ag-prompt caller))
+  (with-eval-after-load "counsel"
+	(require 'thingatpt nil t)
+	(advice-add 'counsel-ag :around #'ad:counsel-ag)
+	;; Make search trigger even with 2 characters
+	(add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
+	(ivy-add-actions
+	 'counsel-ag
+	 '(("r" my:counsel-ag-in-dir "search in directory")))
+
+	(defun my:counsel-ag-in-dir (_arg)
+	  "Search again with new root directory."
+	  (let ((current-prefix-arg '(4)))
+		(counsel-ag ivy-text nil "")))))
 
 
 ;; Local Variables:

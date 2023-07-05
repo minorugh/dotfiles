@@ -30,33 +30,6 @@
   :custom ((which-key-max-description-length . 40)))
 
 
-(leaf *cus-counsel-ag
-  :doc "Fast full-text search"
-  :url "https://takaxp.github.io/init.html#org29c7b6b7"
-  :bind ("s-a" . counsel-ag)
-  :init
-  (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
-	(apply f (or initial-input
-				 (and (not (thing-at-point-looking-at "^\\*+"))
-					  (ivy-thing-at-point)))
-		   (unless current-prefix-arg
-			 (or initial-directory default-directory))
-		   extra-ag-args ag-prompt caller))
-  (with-eval-after-load "counsel"
-	(require 'thingatpt nil t)
-	(advice-add 'counsel-ag :around #'ad:counsel-ag)
-	;; Make search trigger even with 2 characters
-	(add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
-	(ivy-add-actions
-	 'counsel-ag
-	 '(("r" my:counsel-ag-in-dir "search in directory")))
-
-	(defun my:counsel-ag-in-dir (_arg)
-	  "Search again with new root directory."
-	  (let ((current-prefix-arg '(4)))
-		(counsel-ag ivy-text nil "")))))
-
-
 (leaf counsel-web
   :doc "Search the Web using Ivy"
   :url "https://github.com/mnewt/counsel-web"
@@ -65,6 +38,25 @@
   (setq counsel-web-search-action #'browse-url)
   (setq counsel-web-engine 'google)
   (setq counsel-web-search-dynamic-update t))
+
+
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
+(leaf key-chord
+  :doc "Mapping a pair of simultaneously pressed keys"
+  :url "https://github.com/emacsorphanage/key-chord"
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log))
+  :custom (key-chord-two-keys-delay . 0.1))
 
 
 ;; Local Variables:

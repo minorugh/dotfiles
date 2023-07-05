@@ -47,23 +47,10 @@
   :ensure t)
 
 
-(leaf key-chord
-  :doc "Mapping a pair of simultaneously pressed keys"
-  :url "https://github.com/emacsorphanage/key-chord"
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
-  :custom (key-chord-two-keys-delay . 0.1))
-
-
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
-  :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
+(leaf sudo-edit
+  :doc "Open root parmission files as sudo user"
+  :url "https://github.com/nflath/sudo-edit"
+  :ensure t)
 
 
 ;; Local Variables:
