@@ -21,6 +21,12 @@
 		  ("s" . slack)
 		  ("." . hydra-browse/body)
 		  ([home] . quit-dashboard)))
+  :init
+  (leaf page-break-lines
+	:ensure t
+	:hook (dashboard-mode-hook . page-break-lines-mode))
+  (leaf nerd-icons :ensure t
+	:custom (dashboard-icon-type . 'nerd-icons))
   :config
   ;; Set the title
   (setq dashboard-banner-logo-title
@@ -36,12 +42,10 @@
   (setq show-week-agenda-p t)
   (setq dashboard-items '((recents . 8)
 						  (agenda  . 5)))
-
   ;; Set the footer
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
-
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes LIST-SIZE."
 	(interactive)
@@ -50,12 +54,6 @@
   ;; Insert custom item
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
-  :init
-  (leaf page-break-lines
-	:ensure t
-	:hook (dashboard-mode-hook . page-break-lines-mode))
-  (leaf nerd-icons :ensure t)
-  (setq dashboard-icon-type 'nerd-icons)
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
@@ -79,32 +77,7 @@
 	(interactive)
 	(quit-window t)
 	(when (dashboard-recover-layout-p)
-	  (setq dashboard-recover-layout-p nil)))
-
-  (defun sylpheed ()
-	"Open sylpheed."
-	(interactive)
-	(compile "sylpheed")
-	(delete-other-windows))
-
-  (defun slack ()
-	"Open sylpheed."
-	(interactive)
-	(compile "slack")
-	(delete-other-windows))
-
-  ;; Return a string giving the duration of the Emacs initialization
-  (defun ad:emacs-init-time ()
-	"Advice `emacs-init-time'."
-	(interactive)
-	(let ((str
-		   (format "%.3f seconds"
-				   (float-time
-					(time-subtract after-init-time before-init-time)))))
-	  (if (called-interactively-p 'interactive)
-		  (message "%s" str)
-		str)))
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
+	  (setq dashboard-recover-layout-p nil))))
 
 
 ;; Local Variables:
