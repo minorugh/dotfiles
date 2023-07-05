@@ -22,12 +22,20 @@
 	  (message "Tramp Quit!"))))
 
 
-(leaf which-key
-  :doc "Displays available keybindings in popup"
-  :url "https://github.com/justbur/emacs-which-key"
-  :ensure t
-  :hook (after-init-hook . which-key-mode)
-  :custom ((which-key-max-description-length . 40)))
+(leaf sequential-command
+  :doc "Many commands into one command"
+  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
+  :el-get "HKey/sequential-command"
+  :config
+  (leaf sequential-command-config
+	:hook (after-init-hook . sequential-command-setup-keys)))
+
+
+(leaf quickrun
+  :doc "Qick executes editing buffer"
+  :url "https://github.com/emacsorphanage/quickrun"
+  :bind ([f6]  . quickrun)
+  :ensure t)
 
 
 (leaf counsel-web
@@ -40,23 +48,23 @@
   (setq counsel-web-search-dynamic-update t))
 
 
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
+(leaf *cus-ps-print
+  :doc "Print from Emacs via Postscript"
+  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
-  (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
-
-
-(leaf key-chord
-  :doc "Mapping a pair of simultaneously pressed keys"
-  :url "https://github.com/emacsorphanage/key-chord"
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
-  :custom (key-chord-two-keys-delay . 0.1))
+  (setq ps-multibyte-buffer 'non-latin-printer
+		ps-paper-type       'a4
+		ps-printer-name     nil
+		ps-print-header      nil   ;;buffer name, page number, etc.
+		ps-print-footer      nil ;;page number
+		ps-font-size         9
+		;; ps-header-font-family 'Helvetica    ;;default
+		;; ps-line-number-font  "Times-Italic" ;;default
+		ps-font-family      'Courier
+		ps-line-number-font 'Courier
+		ps-line-number       t
+		ps-show-n-of-n       t)
+  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
 ;; Local Variables:
