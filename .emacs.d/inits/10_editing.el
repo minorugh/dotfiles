@@ -3,28 +3,28 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf darkroom
-  :doc "Remove visual distractions and focus on writing"
-  :url "https://github.com/joaotavora/darkroom"
+(leaf undo-fu
+  :doc "Redo and Undo operations"
+  :url "https://codeberg.org/ideasman42/emacs-undo-fu"
   :ensure t
-  :bind (([f12] . my:darkroom-in)
-		 (:darkroom-mode-map
-		  ([f12] . my:darkroom-out)))
-  :init
-  (defun my:darkroom-in ()
-	"Enter to the `darkroom-mode'."
-	(interactive)
-	(diff-hl-mode 0)
-	(display-line-numbers-mode 0)
-	(darkroom-mode 1)
-	(setq-local line-spacing .5))
+  :bind (("C-_" . undo-fu-only-undo)
+		 ("C-/" . undo-fu-only-redo)))
 
-  (defun my:darkroom-out ()
-	"Returns from `darkroom-mode' to the previous state."
-	(interactive)
-	(darkroom-mode 0)
-	(display-line-numbers-mode 1)
-	(setq-local line-spacing .1)))
+
+(leaf undohist
+  :doc "Persistent undo history"
+  :url "https://github.com/emacsorphanage/undohist"
+  :ensure t
+  :hook (after-init-hook . undohist-initialize)
+  :custom
+  `((undohist-directory     . "~/.emacs.d/tmp/undohist")
+	(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
+
+
+(leaf sudo-edit
+  :doc "Open root parmission files as sudo user"
+  :url "https://github.com/nflath/sudo-edit"
+  :ensure t)
 
 
 (leaf iedit
