@@ -9,7 +9,8 @@
   :ensure t
   :if (display-graphic-p)
   :hook ((after-init-hook    . dashboard-setup-startup-hook)
-		 (emacs-startup-hook . open-dashboard))
+		 (emacs-startup-hook . open-dashboard)
+		 (dashboard-mode-hook . page-break-lines-mode))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -21,11 +22,8 @@
 		  ("." . hydra-browse/body)
 		  ([home] . quit-dashboard)))
   :init
-  (leaf page-break-lines
-	:ensure t
-	:hook (dashboard-mode-hook . page-break-lines-mode))
-  (leaf nerd-icons :ensure t
-	:custom (dashboard-icon-type . 'nerd-icons))
+  (leaf nerd-icons :ensure t)
+  (setq dashboard-icon-type 'nerd-icons)
   :config
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
