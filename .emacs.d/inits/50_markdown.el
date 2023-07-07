@@ -36,9 +36,8 @@
 	});
 	</script>
 	"))
-  :custom-face
-  (markdown-code-face . '((t (:inherit nil :background "gray10"))))
-  (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))
+  :custom-face `((markdown-code-face . '((t (:inherit nil :background "gray10"))))
+				 (markdown-pre-face  . '((t (:inherit font-lock-constant-face)))))
   :config
   (defun md2pdf ()
 	"Use wkhtmltopdf without LaTex."

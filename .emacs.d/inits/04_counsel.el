@@ -61,11 +61,8 @@ see https://takaxp.github.io/init.html#org29c7b6b7"
 		(counsel-ag ivy-text nil ""))))
   :init
   (leaf ivy-rich
-	:doc "More friendly display transformer for ivy"
-	:url "https://github.com/Yevgnen/ivy-rich"
 	:ensure t
 	:hook (after-init-hook . ivy-rich-mode))
-
   (leaf amx
 	:ensure t
 	:custom
