@@ -18,7 +18,8 @@
 		  ("?"    . chromium-vim-chert)
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
-		  ("SPC"  . hydra-selected/body))
+		  ([muhenkan] . my:return-to-normal-state)
+		  ("SPC"      . hydra-selected/body))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape]   . my:return-to-normal-state)))
@@ -41,6 +42,7 @@
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
 	(interactive)
+	(if (use-region-p)(keyboard-escape-quit))
 	(if current-input-method (deactivate-input-method))
 	(evil-normal-state)
 	(message "-- NORMAL --"))
@@ -51,12 +53,12 @@
 	(unless (file-exists-p buffer-file-name)
       (evil-insert-state)))
 
-  (defun evil-swap-key (map key1 key2)
+  ( defun evil-swap-key (map key1 key2)
 	"Swap KEY1 and KEY2 in MAP."
 	(let ((def1 (lookup-key map key1))
 		  (def2 (lookup-key map key2)))
-      (define-key map key1 def2)
-      (define-key map key2 def1)))
+	  (define-key map key1 def2)
+	  (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
 
@@ -64,12 +66,7 @@
 	"Set buffer for automatic `evil-insert-state'."
 	(when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
-
-  (defun chromium-vim-chert ()
-	"Chromium vim chert sheet."
-	(interactive)
-	(browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html")))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
 ;; Local Variables:
