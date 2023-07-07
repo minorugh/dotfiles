@@ -120,31 +120,26 @@
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
 	  (compile "make backup")))
-
   (defun make-ghuser ()
 	"Sync GH data by rsync."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
 	  (compile "make rsync-user")))
-
   (defun make-commit ()
 	"Auto commit."
 	(interactive)
 	(let* ((default-directory (expand-file-name "~/Dropbox")))
 	  (compile "make git-commit")))
-
   (defun filezilla ()
 	"Open filezilla."
 	(interactive)
 	(compile "filezilla -s")
 	(delete-other-windows))
-
   (defun lepton ()
 	"Open lepton."
 	(interactive)
 	(compile "~/Appimage/Lepton-1.10.0.AppImage")
 	(delete-other-windows))
-
   (defun keepassxc ()
 	"Open keepassxc with auto passwd input."
 	(interactive)
