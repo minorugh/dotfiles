@@ -13,15 +13,17 @@
 		  ("o" . easy-hugo-open-basedir)
 		  ("r" . easy-hugo-rename)
 		  ("e" . my:edit-easy-hugo)))
-  :config
-  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el") ;; Load custom function
   :init
+  ;; Load custom function
+  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el")
+
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/myama.site/snap/")
   (setq easy-hugo-url "https://snap.myama.site")
   (setq easy-hugo-sshdomain "xsrv")
   (setq easy-hugo-root "/home/minorugh/myama.site/public_html/snap/")
   (setq easy-hugo-previewtime "300")
+
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
 		easy-hugo-help "
