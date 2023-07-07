@@ -129,9 +129,9 @@
 
 
 ;; ---------------------------------------------------------------
-;; user customized key bind
+;; Custom define functions
 ;; ---------------------------------------------------------------
-(leaf *custom-keybind
+(leaf *custom-funcs
   :bind (("M-w"   . clipboard-kill-ring-save)
 		 ("C-w"   . kill-whole-line-or-region)
 		 ("M-/"   . kill-this-buffer)
@@ -158,23 +158,20 @@
 	(when (yes-or-no-p (format "Really delete '%s'?"
 							   (file-name-nondirectory buffer-file-name)))
 	  (delete-file (buffer-file-name))
-	  (kill-this-buffer))))
+	  (kill-this-buffer)))
 
+  (defun ad:emacs-init-time ()
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
+		   (format "%.3f seconds"
+				   (float-time
+					(time-subtract after-init-time before-init-time)))))
+	  (if (called-interactively-p 'interactive)
+		  (message "%s" str)
+		str)))
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
-;; --------------------------------------------------------------------
-;; Return a string giving the duration of the Emacs initialization
-;; --------------------------------------------------------------------
-(defun ad:emacs-init-time ()
-  "Advice `emacs-init-time'."
-  (interactive)
-  (let ((str
-		 (format "%.3f seconds"
-				 (float-time
-				  (time-subtract after-init-time before-init-time)))))
-	(if (called-interactively-p 'interactive)
-		(message "%s" str)
-	  str)))
-(advice-add 'emacs-init-time :override #'ad:emacs-init-time)
 
 
 ;; Local Variables:
