@@ -173,7 +173,6 @@
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
