@@ -43,6 +43,11 @@
   (interactive)
   (browse-url "https://mojinavi.com/tegaki"))
 
+(defun chromium-vim-chert ()
+  "Chromium vim chert sheet."
+  (interactive)
+  (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html"))
+
 
 ;; Local Variables:
 ;; no-byte-compile: t
