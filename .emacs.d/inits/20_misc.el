@@ -11,7 +11,8 @@
   (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   (defun my:flymake-hook ()
 	(interactive)
-	(add-hook 'prog-mode-hook 'flymake-mode)))
+	(add-hook 'prog-mode-hook 'flymake-mode))
+  )
 
 
 (leaf projectile
