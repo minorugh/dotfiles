@@ -4,11 +4,8 @@
 ;; (setq debug-on-error t)
 
 ;;-------------------------------------------------------------------
-;;
 ;; Hydra configuration for quick menu
-;;
 ;;-------------------------------------------------------------------
-
 (leaf *hydra-quick-menu
   :bind ("M-." . hydra-quick/body)
   :hydra
