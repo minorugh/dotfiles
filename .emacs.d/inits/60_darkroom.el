@@ -1,4 +1,4 @@
-;;; 60_editing.el --- Writing mode configurations. -*- lexical-binding: t -*-
+;;; 60_darkroome.el --- Writing mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
