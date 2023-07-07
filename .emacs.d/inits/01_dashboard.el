@@ -9,8 +9,8 @@
   :ensure t
   :if (display-graphic-p)
   :hook ((after-init-hook    . dashboard-setup-startup-hook)
-		 (emacs-startup-hook . open-dashboard)
-		 (dashboard-mode-hook . page-break-lines-mode))
+		 (after-init-hook    . global-page-break-lines-mode)
+		 (emacs-startup-hook . open-dashboard))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -22,6 +22,7 @@
 		  ("." . hydra-browse/body)
 		  ([home] . quit-dashboard)))
   :init
+  (leaf page-break-lines :ensure t)
   (leaf nerd-icons :ensure t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
