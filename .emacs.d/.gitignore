@@ -33,3 +33,5 @@
 /tramp
 /.persistent-*
 /tmp
+/eln-cache/
+/_elpa/
