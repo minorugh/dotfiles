@@ -49,27 +49,25 @@
 	(interactive)
 	(if (not (use-region-p))
 		(minibuffer-keyboard-quit)
-	  (keyboard-quit))))
+	  (keyboard-quit)))
 
+  :preface
+  (leaf quickrun
+	:doc "Qick executes editing buffer"
+	:url "https://github.com/emacsorphanage/quickrun"
+	:ensure t)
 
-(leaf quickrun
-  :doc "Qick executes editing buffer"
-  :url "https://github.com/emacsorphanage/quickrun"
-  :ensure t)
+  (leaf key-chord
+	:doc "Mapping a pair of simultaneously pressed keys"
+	:url "https://github.com/emacsorphanage/key-chord"
+	:ensure t
+	:hook (after-init-hook . key-chord-mode)
+	:custom (key-chord-two-keys-delay . 0.1))
 
-
-(leaf key-chord
-  :doc "Mapping a pair of simultaneously pressed keys"
-  :url "https://github.com/emacsorphanage/key-chord"
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :custom (key-chord-two-keys-delay . 0.1))
-
-
-(leaf restart-emacs
-  :doc "Restart emacs from within emacs"
-  :url "https://github.com/iqbalansari/restart-emacs"
-  :ensure t)
+  (leaf restart-emacs
+	:doc "Restart emacs from within emacs"
+	:url "https://github.com/iqbalansari/restart-emacs"
+	:ensure t))
 
 
 ;; Local Variables:
