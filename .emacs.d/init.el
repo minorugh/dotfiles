@@ -38,6 +38,7 @@
 	(leaf el-get :ensure t
 	  :custom (el-get-git-shallow-clone . t))
 	:config
+	(setq byte-compile-warnings '(not cl-functions obsolete))
 	(leaf-keywords-init)))
 
 ;; Compile
