@@ -21,8 +21,8 @@
   :init
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
-  (add-hook 'activate-mark-hook '(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
-  (add-hook 'deactivate-mark-hook '(lambda () (unless (null my:ime-flag) (my:ime-on))))
+  (add-hook 'activate-mark-hook #'(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
+  (add-hook 'deactivate-mark-hook #'(lambda () (unless (null my:ime-flag) (my:ime-on))))
 
   (defun my:activate-selected ()
 	"Active selected."

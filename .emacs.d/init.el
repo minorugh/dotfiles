@@ -40,6 +40,11 @@
 	:config
 	(leaf-keywords-init)))
 
+;; Compile
+(with-eval-after-load 'comp
+  (setq native-comp-async-jobs-number 8)
+  (setq native-comp-speed  3))
+
 
 ;; Load configuration files
 (leaf init-loader
