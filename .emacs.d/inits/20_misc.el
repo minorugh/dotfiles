@@ -4,12 +4,12 @@
 ;; (setq debug-on-error t)
 
 (leaf flymake
-  :hook (emacs-startup-hook . my:flymake-hook)
+  :hook (emacs-startup-hook . my:flymake-mode-hook)
   :config
   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
   (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-  (defun my:flymake-hook ()
+  (defun my:flymake-mode-hook ()
 	(interactive)
 	(add-hook 'prog-mode-hook 'flymake-mode)))
 
