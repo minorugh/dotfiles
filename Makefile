@@ -59,6 +59,7 @@ BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
 BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
+BASE_PKGS	+= libgccjit0 libgccjit-10-dev
 
 APT			:= sudo apt install -y
 .DEFAULT_GOAL := help
@@ -270,8 +271,8 @@ emacs-latest: ## Install development version of emacs
 	# rm -rf ${HOME}/.emacs.d/elpa
 
 emacs-devel: ## Install development version of emacs
-	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/github.com/minorugh/emacs
-	cd ${HOME}/src/github.com/minorugh/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
+	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
+	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation && make && sudo make install && make clean
 	# rm -rf ${HOME}/.emacs.d/elpa
 
 docker: ## Install docker
