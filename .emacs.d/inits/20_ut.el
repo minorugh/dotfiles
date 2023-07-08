@@ -55,9 +55,9 @@
   :config
   (setq ps-multibyte-buffer 'non-latin-printer
 		ps-paper-type       'a4
-		ps-printer-name     nil
-		ps-print-header      nil   ;;buffer name, page number, etc.
-		ps-print-footer      nil ;;page number
+		ps-printer-name      nil
+		ps-print-header      nil
+		ps-print-footer      nil
 		ps-font-size         9
 		;; ps-header-font-family 'Helvetica    ;;default
 		;; ps-line-number-font  "Times-Italic" ;;default
