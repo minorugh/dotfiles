@@ -44,6 +44,7 @@
 			  (redisplay)))
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
+;; (setq native-comp-driver-options (list "-B" (expand-file-name (file-name-concat invocation-directory "../lib/gcc")) ))
 
 (provide 'early-init)
 ;; Local Variables:
