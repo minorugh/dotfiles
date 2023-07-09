@@ -1,5 +1,5 @@
 ;;; 99_chromium.el --- Chromium configurations.  -*- lexical-binding: t -*-
-;;; Commentary: Extentions function for browse url
+;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -50,6 +50,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 99_chromium.el ends here
