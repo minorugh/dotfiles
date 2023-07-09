@@ -15,10 +15,6 @@
 (setq package-enable-at-startup nil)
 
 
-;; Suppress cl warning
-(setq byte-compile-warnings '(cl-functions))
-
-
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
