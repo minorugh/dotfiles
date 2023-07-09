@@ -41,8 +41,14 @@
 	(setq byte-compile-warnings '(not cl-functions obsolete))
 	(leaf-keywords-init)))
 
+
 ;; Compile
-(with-eval-after-load 'comp
+(leaf *native-compile
+  :doc "Native Compile by gccemacs"
+  :url "https://www.emacswiki.org/emacs/GccEmacs"
+  :if (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  :config
   (setq native-comp-async-jobs-number 8)
   (setq native-comp-speed  3)
   (native-compile-async "~/.emacs.d/el-get/")
