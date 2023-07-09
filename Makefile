@@ -266,14 +266,14 @@ perlbrew: ## Install perlbrew
 	cpanm Net::SFTP::Foreign
 
 emacs-latest: ## Install development version of emacs
-	git clone -b emacs-28 git@github.com:emacs-mirror/emacs.git ${HOME}/src/github.com/minorugh/emacs
-	cd ${HOME}/src/github.com/minorugh/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
-	# rm -rf ${HOME}/.emacs.d/elpa
+	git clone -b emacs-28 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
+	cd ${HOME}/src/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
+	rm -rf ${HOME}/.emacs.d/elpa
 
 emacs-devel: ## Install development version of emacs
 	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation && make && sudo make install && make clean
-	# rm -rf ${HOME}/.emacs.d/elpa
+	rm -rf ${HOME}/.emacs.d/elpa
 
 docker: ## Install docker
 	sudo apt-get install ca-certificates lsb-release
