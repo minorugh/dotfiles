@@ -23,10 +23,6 @@
 (setq frame-inhibit-implied-resize t)
 
 
-;; Suppress native comp warnings
-(setq native-comp-async-report-warnings-errors nil)
-
-
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
