@@ -72,6 +72,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; no-byte-compile: t;; no-byte-compile: t
 ;; End:
 ;;; 01_dashboard.el ends here
