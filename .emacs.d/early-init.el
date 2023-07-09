@@ -23,6 +23,10 @@
 (setq frame-inhibit-implied-resize t)
 
 
+;; Suppress comp warnings in nativi-compile
+(custom-set-variables '(warning-suppress-types '((comp))))
+
+
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
