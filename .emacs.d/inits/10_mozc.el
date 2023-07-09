@@ -19,14 +19,13 @@
   (mozc-leim-title          . "あ")
   :config
   (leaf mozc-cursor-color
-	:url "https://github.com/iRi-E/mozc-el-extensions"
 	:el-get iRi-E/mozc-el-extensions
 	:require t
 	:config
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
   (leaf mozc-cand-posframe
-	:url "https://github.com/akirak/mozc-posframe"
 	:ensure t
+	:after posframe
 	:hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	:require t
 	:custom (mozc-candidate-style . 'posframe )
