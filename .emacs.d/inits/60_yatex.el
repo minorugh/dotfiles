@@ -53,4 +53,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 50_yatex.el ends here
+;;; 60_yatex.el ends here
