@@ -44,7 +44,10 @@
 ;; Compile
 (with-eval-after-load 'comp
   (setq native-comp-async-jobs-number 8)
-  (setq native-comp-speed  3))
+  (setq native-comp-speed  3)
+  (native-compile-async "~/.emacs.d/el-get/")
+  (native-compile-async "~/.emacs.d/init.el")
+  (native-compile-async "~/.emacs.d/early-init.el"))
 
 
 ;; Load configuration files
