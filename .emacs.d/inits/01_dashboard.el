@@ -35,7 +35,7 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents . 8)(agenda  . 5)))
+  (setq dashboard-items '((recents . 8)(agenda . 5)))
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
