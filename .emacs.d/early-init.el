@@ -23,8 +23,8 @@
 (setq frame-inhibit-implied-resize t)
 
 
-;; Suppress comp warnings in nativi-compile
-(custom-set-variables '(warning-suppress-types '((comp))))
+;; Suppress native comp warnings
+(setq native-comp-async-report-warnings-errors nil)
 
 
 ;; Faster to disable these here (before they've been initialized)
