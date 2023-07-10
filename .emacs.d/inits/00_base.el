@@ -130,6 +130,12 @@
 	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
 	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
+  (leaf auto-async-byte-compile
+	:ensure t
+	:require t
+	:init
+	(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode))
+
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."
 	(interactive)
@@ -141,7 +147,6 @@
 		  (message "%s" str)
 		str)))
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
-
 
 
 ;; Local Variables:
