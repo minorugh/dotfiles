@@ -30,7 +30,16 @@
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
   ;; Do not split window
   (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
-  :preface
+  :init
+  (leaf diff-hl
+	:ensure t
+	:hook ((after-init-hook . global-diff-hl-mode)
+		   (after-init-hook . diff-hl-margin-mode)))
+  (leaf git-timemachine	:ensure t)
+  (leaf browse-at-remote
+	:ensure t
+	:custom (browse-at-remote-prefer-symbolic . nil))
+  :config
   (defun gitk-open ()
 	"Open gitk with current dir."
 	(interactive)
@@ -41,16 +50,7 @@
 	"Open gitk with current dir."
 	(interactive)
 	(shell-command "git gui &")
-	(delete-other-windows))
-  :init
-  (leaf git-timemachine	:ensure t)
-  (leaf diff-hl
-	:ensure t
-	:hook ((after-init-hook . global-diff-hl-mode)
-		   (after-init-hook . diff-hl-margin-mode)))
-  (leaf browse-at-remote
-	:ensure t
-	:custom (browse-at-remote-prefer-symbolic . nil)))
+	(delete-other-windows)))
 
 
 ;; Local Variables:
