@@ -78,7 +78,7 @@
   (leaf *follow-mode
 	:doc "Scroll two windows displaying as one virtual window"
 	:bind ([f8] . follow-mode))
-  
+
   (leaf *display-line-numbers
 	:doc "Show line numbers"
 	:hook ((after-init-hook . global-display-line-numbers-mode)
