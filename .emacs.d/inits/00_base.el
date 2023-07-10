@@ -75,6 +75,10 @@
     :hook (after-init-hook . global-auto-revert-mode)
     :custom (auto-revert-interval . 0.1))
 
+  (leaf *follow-mode
+	:doc "Scroll two windows displaying as one virtual window"
+	:bind ([f8] . follow-mode))
+  
   (leaf *display-line-numbers
 	:doc "Show line numbers"
 	:hook ((after-init-hook . global-display-line-numbers-mode)
@@ -89,7 +93,6 @@
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
     :hook (prog-mode-hook . goto-address-prog-mode))
 
-  ;; :init
   (leaf exec-path-from-shell
     :doc "Share PATH from shell environment variables"
     :url "https://github.com/purcell/exec-path-from-shell"
@@ -125,7 +128,19 @@
     `((recentf-auto-cleanup . 'never)
       (recentf-exclude
        . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-      (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
+      (recentf-save-file . "~/.emacs.d/tmp/recentf")))
+
+  (defun ad:emacs-init-time ()
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
+		   (format "%.3f seconds"
+				   (float-time
+					(time-subtract after-init-time before-init-time)))))
+	  (if (called-interactively-p 'interactive)
+		  (message "%s" str)
+		str)))
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
 ;; Local Variables:
