@@ -68,7 +68,31 @@
 	"Go to recent files."
 	(interactive)
 	(let ((func (local-key-binding "r")))
-	  (and func (funcall func)))))
+	  (and func (funcall func))))
+
+  (defun ad:emacs-init-time ()
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
+		   (format "%.3f seconds"
+				   (float-time
+					(time-subtract after-init-time before-init-time)))))
+	  (if (called-interactively-p 'interactive)
+		  (message "%s" str)
+		str)))
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time)
+
+  (defun sylpheed ()
+	"Open sylpheed."
+	(interactive)
+	(compile "sylpheed")
+	(delete-other-windows))
+
+  (defun slack ()
+	"Open sylpheed."
+	(interactive)
+	(compile "slack")
+	(delete-other-windows)))
 
 
 ;; Local Variables:

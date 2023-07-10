@@ -89,7 +89,7 @@
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
     :hook (prog-mode-hook . goto-address-prog-mode))
 
-  :init
+  ;; :init
   (leaf exec-path-from-shell
     :doc "Share PATH from shell environment variables"
     :url "https://github.com/purcell/exec-path-from-shell"
@@ -126,51 +126,6 @@
       (recentf-exclude
        . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
       (recentf-save-file . "~/.emacs.d/tmp/recentf"))))
-
-
-;; ---------------------------------------------------------------
-;; Custom define functions
-;; ---------------------------------------------------------------
-(leaf *custom-funcs
-  :bind (("M-w"   . clipboard-kill-ring-save)
-		 ("C-w"   . kill-whole-line-or-region)
-		 ("M-/"   . kill-this-buffer)
-		 ("C-M-/" . delete-this-file)
-		 ("M-,"   . xref-find-definitions)
-		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
-		 ("s-v"   . clipboard-yank)           ;; Like macOS
-		 ("C-x b" . ibuffer)
-		 ([f8]    . follow-mode))
-  :init
-  (defun kill-whole-line-or-region ()
-	"If the region is active, to kill region.
-  If the region is inactive, to kill whole line."
-	(interactive)
-	(if (use-region-p)
-		(clipboard-kill-region (region-beginning) (region-end))
-	  (kill-whole-line)))
-
-  (defun delete-this-file ()
-	"Delete the current file, and kill the buffer."
-	(interactive)
-	(unless (buffer-file-name)
-	  (error "No file is currently being edited"))
-	(when (yes-or-no-p (format "Really delete '%s'?"
-							   (file-name-nondirectory buffer-file-name)))
-	  (delete-file (buffer-file-name))
-	  (kill-this-buffer)))
-
-  (defun ad:emacs-init-time ()
-	"Advice `emacs-init-time'."
-	(interactive)
-	(let ((str
-		   (format "%.3f seconds"
-				   (float-time
-					(time-subtract after-init-time before-init-time)))))
-	  (if (called-interactively-p 'interactive)
-		  (message "%s" str)
-		str)))
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
 ;; Local Variables:

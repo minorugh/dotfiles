@@ -5,14 +5,19 @@
 ;; User custom functions
 
 (leaf *define-functions
-  :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
   :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
-		 ([f6]  . quickrun)
-		 ([muhenkan] . my:muhenkan)
-		 ("C-x C-c"  . restart-emacs))
+		 ([f8]  . follow-mode)
+		 ("M-w"   . clipboard-kill-ring-save)
+		 ("C-w"   . kill-whole-line-or-region)
+		 ("M-/"   . kill-this-buffer)
+		 ("C-M-/" . delete-this-file)
+		 ("M-,"   . xref-find-definitions)
+		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
+		 ("s-v"   . clipboard-yank)           ;; Like macOS
+		 ("C-x b" . ibuffer)
+		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
 	"Open thunar with current dir."
@@ -33,41 +38,29 @@
 	(interactive)
 	(shell-command "gnome-terminal -- ssh xsrv"))
 
-  (defun sylpheed ()
-	"Open sylpheed."
-	(interactive)
-	(compile "sylpheed")
-	(delete-other-windows))
-
-  (defun slack ()
-	"Open sylpheed."
-	(interactive)
-	(compile "slack")
-	(delete-other-windows))
-
   (defun my:muhenkan ()
 	(interactive)
 	(if (not (use-region-p))
 		(minibuffer-keyboard-quit)
 	  (keyboard-quit)))
 
-  :preface
-  (leaf quickrun
-	:doc "Qick executes editing buffer"
-	:url "https://github.com/emacsorphanage/quickrun"
-	:ensure t)
+  (defun kill-whole-line-or-region ()
+	"If the region is active, to kill region.
+  If the region is inactive, to kill whole line."
+	(interactive)
+	(if (use-region-p)
+		(clipboard-kill-region (region-beginning) (region-end))
+	  (kill-whole-line)))
 
-  (leaf key-chord
-	:doc "Mapping a pair of simultaneously pressed keys"
-	:url "https://github.com/emacsorphanage/key-chord"
-	:ensure t
-	:hook (after-init-hook . key-chord-mode)
-	:custom (key-chord-two-keys-delay . 0.1))
-
-  (leaf restart-emacs
-	:doc "Restart emacs from within emacs"
-	:url "https://github.com/iqbalansari/restart-emacs"
-	:ensure t))
+  (defun delete-this-file ()
+	"Delete the current file, and kill the buffer."
+	(interactive)
+	(unless (buffer-file-name)
+	  (error "No file is currently being edited"))
+	(when (yes-or-no-p (format "Really delete '%s'?"
+							   (file-name-nondirectory buffer-file-name)))
+	  (delete-file (buffer-file-name))
+	  (kill-this-buffer))))
 
 
 ;; Local Variables:

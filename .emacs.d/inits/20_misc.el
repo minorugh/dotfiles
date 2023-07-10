@@ -16,7 +16,6 @@
 
 (leaf projectile
   :doc "Project navigation and management library"
-  :url "https://github.com/bbatsov/projectile"
   :ensure t
   :hook (after-init-hook . projectile-mode)
   :custom
@@ -25,7 +24,6 @@
 
 (leaf prescient
   :doc "Better sorting and filtering"
-  :url "https://github.com/raxod502/prescient.el"
   :ensure t
   :hook (after-init-hook . prescient-persist-mode)
   :custom `((prescient-aggressive-file-save . t)
@@ -37,21 +35,18 @@
 
 (leaf popwin
   :doc "Popup window manager"
-  :url "https://github.com/emacsorphanage/popwin"
   :ensure t
   :hook (after-init-hook . popwin-mode))
 
 
 (leaf posframe
   :doc "Pop a posframe (just a frame) at point"
-  :url "https://github.com/tumashu/posframe"
   :ensure t
   :when window-system)
 
 
 (leaf adaptive-wrap
   :doc "Wrap long lines for easier viewing"
-  :url "https://taipapamotohus.com/post/adaptive-wrap/"
   :ensure t
   :config
   (setq-default adaptive-wrap-extra-indent 1)
@@ -62,9 +57,14 @@
 
 (leaf aggressive-indent
   :doc "Keeps your code always indented"
-  :url "https://github.com/Malabarba/aggressive-indent-mode"
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
+
+(leaf restart-emacs
+  :doc "Restart emacs from within emacs"
+  :ensure t
+  :bind ("C-x C-c"  . restart-emacs))
 
 
 ;; Local Variables:

@@ -4,22 +4,17 @@
 ;; (setq debug-on-error t)
 
 (leaf which-key
-  :doc "Displays available keybindings in popup"
-  :url "https://github.com/justbur/emacs-which-key"
   :ensure t
   :hook (after-init-hook . which-key-mode)
   :custom ((which-key-max-description-length . 40)))
 
 
 (leaf counsel-tramp
-  :doc "Tramp ivy interface for ssh server"
-  :url "https://github.com/masasam/emacs-counsel-tramp"
   :ensure t
-  :custom
-  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
-	(tramp-default-method        . "scp")
-	(counsel-tramp-custom-connections
-	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
+  :custom `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
+			(tramp-default-method        . "scp")
+			(counsel-tramp-custom-connections
+			 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
   :config
   (defun my:tramp-quit ()
 	"Quit tramp, if tramp connencted."
@@ -40,17 +35,26 @@
 
 
 (leaf counsel-web
-  :doc "Search the Web using Ivy"
-  :url "https://github.com/mnewt/counsel-web"
   :ensure t
-  :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google)
-  (setq counsel-web-search-dynamic-update t))
+  :custom `((counsel-web-search-action . #'browse-url)
+			(counsel-web-engine . 'google)
+			(counsel-web-search-dynamic-update . t)))
+
+
+(leaf quickrun
+  :ensure t
+  :bind ([f6] . quickrun))
+
+
+(leaf key-chord
+  :ensure t
+  :hook (after-init-hook . key-chord-mode)
+  :custom (key-chord-two-keys-delay . 0.1)
+  :chord (("df" . counsel-descbinds)
+		  ("l;" . init-loader-show-log)))
 
 
 (leaf *cus-ps-print
-  :doc "Print from Emacs via Postscript"
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
   (setq ps-multibyte-buffer 'non-latin-printer
@@ -59,8 +63,6 @@
 		ps-print-header      nil
 		ps-print-footer      nil
 		ps-font-size         9
-		;; ps-header-font-family 'Helvetica    ;;default
-		;; ps-line-number-font  "Times-Italic" ;;default
 		ps-font-family      'Courier
 		ps-line-number-font 'Courier
 		ps-line-number       t
