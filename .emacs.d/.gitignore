@@ -1,3 +1,4 @@
+*.elc
 /el-get/
 /elpa/
 /eln-cache/
