@@ -47,7 +47,8 @@
 	"Neotree enter hide with FULL-PATH ARG."
 	(neo-global--select-mru-window arg)
 	(find-file full-path)
-	(neotree-hide))
+	(neotree-hide)
+	(demmer-on))
 
   (defun neotree-enter-hide (&optional arg)
 	"Neotree enter hide with ARG."
@@ -56,6 +57,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40_neotree.el ends here

@@ -100,6 +100,5 @@ POST-FILE needs to have and extension '.md' or '.org' or '.ad' or '.rst' or '.mm
 
 
 ;; Local Variables:
-;; no-byte-compile: t
 ;; End:
 ;;; my:evil-easy-hugo.el ends here

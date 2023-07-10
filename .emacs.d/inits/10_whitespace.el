@@ -26,6 +26,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 10_whitespace.el ends here

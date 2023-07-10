@@ -59,10 +59,15 @@
 	(when (yes-or-no-p (format "Really delete '%s'?"
 							   (file-name-nondirectory buffer-file-name)))
 	  (delete-file (buffer-file-name))
-	  (kill-this-buffer))))
+	  (kill-this-buffer)))
+
+  (defun byte-recompile-inits ()
+	"Byte compile for inits directory."
+	(interactive)
+	(byte-recompile-directory "~/.emacs.d/inits/") 0))
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 20_funcs.el ends here

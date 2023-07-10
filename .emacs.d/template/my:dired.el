@@ -201,6 +201,5 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
 ;; End:
 ;;; my:dired.el ends here

@@ -70,6 +70,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 08_evil.el ends here

@@ -35,8 +35,13 @@
 	:ensure t
 	:init
 	(leaf hydra :ensure t)
-	(leaf el-get :ensure t
+	(leaf el-get
+	  :ensure t
 	  :custom (el-get-git-shallow-clone . t))
+	;; (leaf auto-async-byte-compile
+	;;   :ensure t
+	;;   :require t
+	;;   :hook (emacs-lisp-mode-hook . enable-auto-async-byte-compile-mode))
 	:config
 	(setq byte-compile-warnings '(not cl-functions obsolete))
 	(leaf-keywords-init)))

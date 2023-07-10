@@ -58,6 +58,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 50_org.el ends here

@@ -43,6 +43,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 80_eshell.el ends here

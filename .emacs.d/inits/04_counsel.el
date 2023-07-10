@@ -71,6 +71,6 @@ see https://takaxp.github.io/init.html#org29c7b6b7"
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 04_counsel.el ends here

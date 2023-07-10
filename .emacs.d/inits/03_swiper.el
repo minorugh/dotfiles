@@ -44,6 +44,6 @@ If the region isn't selected, `swiper'."
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 03_swiper.el ends here

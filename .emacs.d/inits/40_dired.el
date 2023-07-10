@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
+  ;;  :hook (dired-load-hook . (lambda () (load "dired-x")))
   :bind (:dired-mode-map
 		 ("<left>" . dired-up-alternate-directory)
 		 ("<right>" . dired-open-in-accordance-with-situation)
@@ -35,7 +36,10 @@
 	:hook (dired-mode-hook . all-the-icons-dired-mode)
 	:custom
 	`((all-the-icons-dired-monochrome . nil)
-	  (all-the-icons-scale-factor . 0.9))))
+	  (all-the-icons-scale-factor . 0.9)))
+  (require 'dired-x)
+  (setq dired-omit-files ".elc")
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,8 +137,7 @@
 	(my:dired-sort)))
 
 
-
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40_dired.el ends here

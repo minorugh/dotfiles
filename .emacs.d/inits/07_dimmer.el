@@ -10,7 +10,7 @@
   :chord (".." . my:toggle-dimmer)
   :custom
   (dimmer-buffer-exclusion-regexps
-   . '("^ \\*which-key\\|^ \\*LV\\|\\*compilation*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
+   . '("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
   (dimmer-fraction . 0.5)
   :config
   (defvar my:dimmer-mode nil)
@@ -54,6 +54,6 @@ If there are two or more windows, it will go to another window."
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 07_dimmer.el ends here
