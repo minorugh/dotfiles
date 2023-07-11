@@ -28,6 +28,7 @@
 
 (leaf counsel-web
   :ensure t
+  :bind ("s-w" . counsel-web-search)
   :custom `((counsel-web-search-action . #'browse-url)
 			(counsel-web-engine . 'google)
 			(counsel-web-search-dynamic-update . t)))
