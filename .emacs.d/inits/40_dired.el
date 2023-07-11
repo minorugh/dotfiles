@@ -22,7 +22,6 @@
 	(dired-recursive-copies . 'always)
 	(dired-recursive-deletes . 'always)
 	(dired-listing-switches . "-AFl --group-directories-first")
-	;; (dired-listing-switches . "-lgGhF")
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t))
   :config
