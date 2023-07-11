@@ -12,7 +12,7 @@
 (defun my:dotfiles-dir ()
   "Open dotfile dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
+  ;; (setq dired-listing-switches "-AFl --group-directories-first")
   (find-file "~/src/github.com/minorugh/dotfiles/"))
 
 (defun backup-makefile ()

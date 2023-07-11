@@ -2,20 +2,16 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-
+;;
 (leaf dired
-  ;;  :hook (dired-load-hook . (lambda () (load "dired-x")))
   :bind (:dired-mode-map
-		 ("<left>" . dired-up-alternate-directory)
-		 ("<right>" . dired-open-in-accordance-with-situation)
-		 ("RET" . dired-open-in-accordance-with-situation)
 		 ("<" . beginning-of-buffer)
 		 (">" . end-of-buffer)
 		 ("r" . wdired-change-to-wdired-mode)
 		 ("s" . sudo-edit)
 		 ("o" . dired-open-file)
 		 ("[" . dired-hide-details-mode)
-		 ("a" . toggle-dired-listing-switches)
+		 ("a" . dired-omit-mode)
 		 ("q" . dired-dwim-quit-window)
 		 ("i" . call-sxiv)
 		 ("." . gitk-open)
@@ -25,7 +21,8 @@
 	(delete-by-moving-to-trash . t)
 	(dired-recursive-copies . 'always)
 	(dired-recursive-deletes . 'always)
-	(dired-listing-switches . "-lgGhF")
+	(dired-listing-switches . "-AFl --group-directories-first")
+	;; (dired-listing-switches . "-lgGhF")
 	(ls-lisp-use-insert-directory-program . nil)
 	(ls-lisp-dirs-first . t))
   :config
@@ -37,9 +34,12 @@
 	:custom
 	`((all-the-icons-dired-monochrome . nil)
 	  (all-the-icons-scale-factor . 0.9)))
-  (require 'dired-x)
-  (setq dired-omit-files ".elc")
-  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1))))
+
+  (leaf dired-x
+	:require dired-x
+	:config
+	(setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
+	(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -47,21 +47,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *cus-dired-funcs
   :config
-  (defun toggle-dired-listing-switches ()
-	"Toggle `dired-mode' switch between with and without 'A' option to show or hide dot files."
-	(interactive)
-	(progn
-	  (if (string-match "[Aa]" dired-listing-switches)
-		  (setq dired-listing-switches "-lgGhF")
-		(setq dired-listing-switches "-lgGhFA"))
-	  (reload-current-dired-buffer)))
-
-  (defun reload-current-dired-buffer ()
-	"Reload current `dired-mode' buffer."
-	(let* ((dir (dired-current-directory)))
-	  (progn (kill-buffer (current-buffer))
-			 (dired dir))))
-
   (defun dired-my-append-buffer-name-hint ()
 	"Append a auxiliary string [Dir] to a name of dired buffer."
 	(when (eq major-mode 'dired-mode)
@@ -78,27 +63,6 @@
 	"`quit-window 'according to screen division."
 	(interactive)
 	(quit-window (not (delq (selected-window) (get-buffer-window-list)))))
-
-  (defun dired-open-in-accordance-with-situation ()
-	"Files are opened in separate buffers, directories are opened in the same buffer."
-	(interactive)
-	(let ((file (dired-get-filename)))
-	  (if (file-directory-p file)
-		  (dired-find-alternate-file)
-		(dired-find-file))))
-
-  (defun dired-up-alternate-directory ()
-	"Move to higher directory without make new buffer."
-	(interactive)
-	(let* ((dir (dired-current-directory))
-		   (up (file-name-directory (directory-file-name dir))))
-	  (or (dired-goto-file (directory-file-name dir))
-		  ;; Only try dired-goto-subdir if buffer has more than one dir.
-		  (and (cdr dired-subdir-alist)
-			   (dired-goto-subdir up))
-		  (progn
-			(find-alternate-file up)
-			(dired-goto-file dir)))))
 
   (defun dired-open-file ()
 	"In dired, open the file in associated application."
