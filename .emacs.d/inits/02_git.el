@@ -17,8 +17,8 @@
   (hydra-git
    (:color red :hint nil)
    "
-  magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
-"
+    magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
+  "
    ("s" magit-status)
    ("b" magit-blame-addition)
    ("c" magit-file-checkout)
@@ -57,3 +57,4 @@
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 02_git.el ends here
+
