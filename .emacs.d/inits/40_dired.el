@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-;;
+
 (leaf dired
   :bind (:dired-mode-map
 		 ("<" . beginning-of-buffer)
@@ -12,7 +12,7 @@
 		 ("o" . dired-open-file)
 		 ("[" . dired-hide-details-mode)
 		 ("a" . dired-omit-mode)
-		 ("q" . dired-dwim-quit-window)
+		 ;; ("q" . dired-dwim-quit-window)
 		 ("i" . call-sxiv)
 		 ("." . gitk-open)
 		 ("@" . dired-do-gist))
@@ -41,9 +41,6 @@
 	(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custum functions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *cus-dired-funcs
   :config
   (defun dired-my-append-buffer-name-hint ()
@@ -57,21 +54,15 @@
 		(rename-buffer (concat (buffer-name) " [" drive "dir]") t))))
   (add-hook 'dired-mode-hook 'dired-my-append-buffer-name-hint)
 
-
-  (defun dired-dwim-quit-window ()
-	"`quit-window 'according to screen division."
-	(interactive)
-	(quit-window (not (delq (selected-window) (get-buffer-window-list)))))
-
   (defun dired-open-file ()
 	"In dired, open the file in associated application."
 	(interactive)
 	(let* ((file (dired-get-filename nil t)))
 	  (call-process "xdg-open" nil 0 nil file)))
 
-  ;; https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b
   (defun call-sxiv ()
-	"Show all images in the directory with sxiv."
+	"Show all images in the directory with sxiv.
+see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 	(interactive)
 	(let ((image-files
 		   (delq nil
