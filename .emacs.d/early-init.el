@@ -15,6 +15,14 @@
 (setq package-enable-at-startup nil)
 
 
+;; Suppress comp warning
+(custom-set-variables '(warning-suppress-types '((comp))))
+
+
+;; Suppress cl warning
+(setq byte-compile-warnings '(cl-functions))
+
+
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
@@ -43,5 +51,7 @@
 
 (provide 'early-init)
 ;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; early-init.el ends here
+
