@@ -1,5 +1,4 @@
-;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*-
-;;; Commentary:
+;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*- ;;; Commentary:
 ;;
 ;; Compatible with Emacs 27 and later
 ;; Aiming for a fancy and fast Emacs configuration
@@ -12,7 +11,7 @@
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
           (lambda ()
-            "Recover file name handlers and GC values after startup."
+			"Recover file name handlers and GC values after startup."
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
 
@@ -60,5 +59,6 @@
 
 (provide 'init)
 ;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; init.el ends here
