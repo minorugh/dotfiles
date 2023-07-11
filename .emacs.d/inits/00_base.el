@@ -133,8 +133,7 @@
   (leaf auto-async-byte-compile
 	:ensure t
 	:require t
-	:init
-	(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode))
+	:hook (emacs-lisp-mode-hook  . enable-auto-async-byte-compile-mode))
 
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."
