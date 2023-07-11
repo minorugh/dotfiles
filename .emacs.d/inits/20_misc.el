@@ -3,12 +3,12 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf projectile
-  :doc "Project navigation and management library"
-  :ensure t
-  :hook (after-init-hook . projectile-mode)
-  :custom
-  (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
+;; (leaf projectile
+;;   :doc "Project navigation and management library"
+;;   :ensure t
+;;   :hook (after-init-hook . projectile-mode)
+;;   :custom
+;;   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
 
 
 (leaf prescient
