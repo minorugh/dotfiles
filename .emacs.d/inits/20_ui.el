@@ -35,14 +35,7 @@
   (leaf hide-mode-line
 	:ensure t
 	:after doom-modeline
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
-  (leaf nyan-mode
-	:ensure t
-	:if (display-graphic-p)
-	:after doom-modeline
-	:config
-	(nyan-mode 1)
-	(nyan-start-animation)))
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
 
 (leaf imenu-list
