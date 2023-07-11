@@ -131,8 +131,9 @@
 	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
   (leaf auto-async-byte-compile
+	:doc "Automatically byte-compile when Saved"
+	:url "http://www.emacswiki.org/cgi-bin/wiki/download/auto-async-byte-compile.el"
 	:ensure t
-	:require t
 	:hook (emacs-lisp-mode-hook  . enable-auto-async-byte-compile-mode))
 
   (defun ad:emacs-init-time ()
