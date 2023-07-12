@@ -72,22 +72,9 @@
 
   (leaf *autorevert
 	:doc "Revert changes if local file is updated"
-	:hook (after-init-hook . global-auto-revert-mode)
-	:custom (auto-revert-interval . 0.1))
-
-  (leaf *follow-mode
-	:doc "Scroll two windows displaying as one virtual window"
-	:bind ([f8] . follow-mode))
-
-  (leaf *display-line-numbers
-	:doc "Show line numbers"
-	:hook ((after-init-hook . global-display-line-numbers-mode)
-		   ((dired-mode-hook
-			 neotree-mode-hook
-			 lisp-interaction-mode-hook
-			 eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
-	:bind ([f9] . display-line-numbers-mode)
-	:custom (display-line-numbers-width-start . t))
+	:config
+	(setq auto-revert-interval 0.1)
+	(add-hook 'after-init-hook 'global-auto-revert-mode))
 
   (leaf *goto-address
 	:doc "Display URL as link, Open with mouse or 'C-c RET'"

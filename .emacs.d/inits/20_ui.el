@@ -52,15 +52,20 @@
 	:hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
-  :ensure t
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
+(leaf *follow-mode
+  :doc "Scroll two windows displaying as one virtual window"
+  :bind ([f8] . follow-mode))
+
+
+(leaf *display-line-numbers
+  :doc "Show line numbers"
+  :hook ((after-init-hook . global-display-line-numbers-mode)
+		 ((dired-mode-hook
+		   neotree-mode-hook
+		   lisp-interaction-mode-hook
+		   eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
+  :bind ([f9] . display-line-numbers-mode)
+  :custom (display-line-numbers-width-start . t))
 
 
 ;; Local Variables:

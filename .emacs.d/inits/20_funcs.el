@@ -16,6 +16,7 @@
 		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
 		 ("s-v"   . clipboard-yank)           ;; Like macOS
 		 ("C-x b" . ibuffer)
+		 ("C-x C-c" . iconify-frame)
 		 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
