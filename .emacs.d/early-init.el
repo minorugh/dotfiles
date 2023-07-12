@@ -54,4 +54,3 @@
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; early-init.el ends here
-
