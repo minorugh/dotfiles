@@ -63,7 +63,6 @@
     (set-language-environment "Japanese")
     (prefer-coding-system 'utf-8))
 
-
   (leaf *fonts
     :doc "Set font for main machine or other"
     :config
@@ -71,27 +70,14 @@
 		(add-to-list 'default-frame-alist '(font . "Cica-18"))
       (add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
-
   (leaf *autorevert
     :doc "Revert changes if local file is updated"
     :hook (after-init-hook . global-auto-revert-mode)
     :custom (auto-revert-interval . 0.1))
 
-
   (leaf *goto-address
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
     :hook (prog-mode-hook . goto-address-prog-mode))
-
-
-  (leaf exec-path-from-shell
-    :doc "Share PATH from shell environment variables"
-    :url "https://github.com/purcell/exec-path-from-shell"
-    :ensure t
-    :when (memq window-system '(mac ns x))
-    :hook (after-init-hook . exec-path-from-shell-initialize)
-    :custom
-    (exec-path-from-shell-check-startup-files . nil))
-
 
   (leaf *server-start
     :doc "Server start for emacs-client"
@@ -100,20 +86,17 @@
     (unless (server-running-p)
       (add-hook 'after-init-hook 'server-start)))
 
-
   (leaf *recovery
     :doc "Save place of cursor"
     :hook (after-init-hook . save-place-mode)
     :custom (save-place-file . "~/.emacs.d/tmp/places"))
 
-
   (leaf *savehist
-    :doc "Edit remote file via SSH or SCP"
+	:doc "Edit remote file via SSH or SCP"
     :hook (after-init-hook . savehist-mode)
     :custom
     `((savehist-file . "~/.emacs.d/tmp/history")
       (savehist-additional-variables . '(kill-ring))))
-
 
   (leaf *recentf
     :doc "Record open files history"
@@ -124,7 +107,6 @@
        . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
       (recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
-
   (leaf *display-line-numbers
     :doc "Show line numbers"
     :hook ((after-init-hook . global-display-line-numbers-mode)
@@ -134,6 +116,16 @@
 			 eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
     :bind ([f9] . display-line-numbers-mode)
     :custom (display-line-numbers-width-start . t))
+
+
+  (leaf exec-path-from-shell
+    :doc "Share PATH from shell environment variables"
+    :url "https://github.com/purcell/exec-path-from-shell"
+    :ensure t
+    :when (memq window-system '(mac ns x))
+    :hook (after-init-hook . exec-path-from-shell-initialize)
+    :custom
+    (exec-path-from-shell-check-startup-files . nil))
 
 
   (leaf auto-async-byte-compile
