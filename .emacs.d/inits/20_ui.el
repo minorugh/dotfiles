@@ -48,24 +48,30 @@
   (imenu-list-position    . 'left)
   :preface
   (leaf counsel-css
-	:ensure t
-	:hook (css-mode-hook . counsel-css-imenu-setup)))
+    :ensure t
+    :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf *follow-mode
-  :doc "Scroll two windows displaying as one virtual window"
-  :bind ([f8] . follow-mode))
+(leaf whitespace
+  :doc "Highligh trailing whitespace"
+  :hook (prog-mode-hook . my:enable-trailing-mode)
+  :bind ("C-c C-c" . my:cleanup-for-spaces)
+  :custom
+  (show-trailing-whitespace . nil)
+  :init
+  (defun my:enable-trailing-mode ()
+    "Show tail whitespace."
+    (setq show-trailing-whitespace t))
 
-
-(leaf *display-line-numbers
-  :doc "Show line numbers"
-  :hook ((after-init-hook . global-display-line-numbers-mode)
-		 ((dired-mode-hook
-		   neotree-mode-hook
-		   lisp-interaction-mode-hook
-		   eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
-  :bind ([f9] . display-line-numbers-mode)
-  :custom (display-line-numbers-width-start . t))
+  (defun my:cleanup-for-spaces ()
+    "Remove contiguous line breaks at end of line + end of file."
+    (interactive)
+    (delete-trailing-whitespace)
+    (save-excursion
+      (save-restriction
+	(widen)
+	(goto-char (point-max))
+	(delete-blank-lines)))))
 
 
 ;; Local Variables:

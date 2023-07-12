@@ -1,26 +1,25 @@
-;;; 30_hydra-make.el --- Make command configurations. -*- lexical-binding: t -*-
+;;; 30_hydra-make.el --- Make command configurations.
+;; -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *cus-compile-configulation
-  :mode (("\\.mak\\'" "makefile\\'") . makefile-mode)
-  :init
+(leaf *hydra-make-commands
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
   (setq compilation-scroll-output t)
   (setq compilation-always-kill t)
   (setq compilation-finish-functions 'compile-autoclose)
 
   (defun compile-autoclose (buffer string)
-	"Automatically close the compilation buffer."
+	"Automatically close the compilation."
 	(cond ((string-match "finished" string)
 		   (bury-buffer "*compilation*")
 		   (delete-other-windows)
 		   (message "Compile successful."))
-		  (t (message "Compilation exited abnormally: %s" string)))))
+		  (t (message "Compilation exited abnormally: %s" string))))
 
-
-(leaf *cus-make-functions
-  :config
+  ;; user make commands
   (defun my:make-k ()
 	"Make k."
 	(interactive)
@@ -50,11 +49,6 @@
 	"Make git."
 	(interactive)
 	(compile "make git"))
-
-  (defun my:make-draft ()
-	"Make draft."
-	(interactive)
-	(compile "make draft"))
 
   (defun my:make-sort ()
 	"Make sort for filelist."

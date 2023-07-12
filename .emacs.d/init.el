@@ -11,9 +11,9 @@
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
           (lambda ()
-			"Recover file name handlers and GC values after startup."
-			(setq file-name-handler-alist my:file-name-handler-alist)
-			(setq gc-cons-threshold 800000)))
+	    "Recover file name handlers and GC values after startup."
+	    (setq file-name-handler-alist my:file-name-handler-alist)
+	    (setq gc-cons-threshold 800000)))
 
 
 ;; Package
@@ -25,21 +25,21 @@
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
-	(package-refresh-contents)
-	(package-install 'leaf))
+    (package-refresh-contents)
+    (package-install 'leaf))
 
   (leaf leaf-keywords
-	:doc "Use leaf as a package manager"
-	:url "https://github.com/conao3/leaf.e"
-	:ensure t
-	:init
-	(leaf hydra :ensure t)
-	(leaf el-get
-	  :ensure t
-	  :custom (el-get-git-shallow-clone . t))
-	:config
-	(setq byte-compile-warnings '(not cl-functions obsolete))
-	(leaf-keywords-init)))
+    :doc "Use leaf as a package manager"
+    :url "https://github.com/conao3/leaf.e"
+    :ensure t
+    :init
+    (leaf hydra :ensure t)
+    (leaf el-get
+      :ensure t
+      :custom (el-get-git-shallow-clone . t))
+    :config
+    (setq byte-compile-warnings '(not cl-functions obsolete))
+    (leaf-keywords-init)))
 
 
 ;; Load configuration files
@@ -55,6 +55,14 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load)
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+
+
+;; Automatically byte-compile
+(leaf auto-async-byte-compile
+  :doc "Automatically byte-compile when Saved"
+  :url "http://www.emacswiki.org/cgi-bin/wiki/download/auto-async-byte-compile.el"
+  :ensure t
+  :hook (emacs-lisp-mode-hook  . enable-auto-async-byte-compile-mode))
 
 
 (provide 'init)

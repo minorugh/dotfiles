@@ -8,15 +8,15 @@
   :url "https://github.com/abo-abo/swiper"
   :ensure t
   :bind (("C-s" . swiper-region)
-		 ("C-r" . swiper-thing-at-point))
+	 ("C-r" . swiper-thing-at-point))
   :config
   (defun swiper-region ()
-	"If region is selected, `swiper-thing-at-point'.
+    "If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
-	(interactive)
-	(if (not (use-region-p))
-		(swiper)
-	  (swiper-thing-at-point))))
+    (interactive)
+    (if (not (use-region-p))
+	(swiper)
+      (swiper-thing-at-point))))
 
 
 (leaf swiper-migemo
