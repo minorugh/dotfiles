@@ -72,9 +72,8 @@
 
   (leaf *autorevert
 	:doc "Revert changes if local file is updated"
-	:config
-	(setq auto-revert-interval 0.1)
-	(add-hook 'after-init-hook 'global-auto-revert-mode))
+	:hook (after-init-hook . global-auto-revert-mode)
+	:custom (auto-revert-interval . 0.1))
 
   (leaf *goto-address
 	:doc "Display URL as link, Open with mouse or 'C-c RET'"
