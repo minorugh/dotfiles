@@ -64,6 +64,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 30_hydra-make.el ends here

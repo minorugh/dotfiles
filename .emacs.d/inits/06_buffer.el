@@ -61,6 +61,6 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 06_buffer.el ends here

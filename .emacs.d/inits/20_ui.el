@@ -69,12 +69,12 @@
     (delete-trailing-whitespace)
     (save-excursion
       (save-restriction
-	(widen)
-	(goto-char (point-max))
-	(delete-blank-lines)))))
+		(widen)
+		(goto-char (point-max))
+		(delete-blank-lines)))))
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 20_ui.el ends here

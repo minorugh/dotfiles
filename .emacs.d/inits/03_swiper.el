@@ -7,8 +7,8 @@
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
-  :bind '(("C-s" . swiper-region)
-		  ("C-r" . swiper-thing-at-point))
+  :bind (("C-s" . swiper-region)
+		 ("C-r" . swiper-thing-at-point))
   :config
   (defun swiper-region ()
     "If region is selected, `swiper-thing-at-point'.
@@ -44,6 +44,6 @@ If the region isn't selected, `swiper'."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 03_swiper.el ends here

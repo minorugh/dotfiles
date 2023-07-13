@@ -7,7 +7,7 @@
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get minorugh/deepl-translate
-  :bind ("C-c C-t" . deepl-translate)
+  :bind (("C-c C-t" . deepl-translate))
   :init
   (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
 
@@ -16,7 +16,7 @@
   :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
   :ensure t
-  :bind ("C-c t" . gts-do-translate)
+  :bind (("C-c t" . gts-do-translate))
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
@@ -33,7 +33,7 @@
 
 (leaf *cus-deeple-translate
   :doc "Deepl translation in web page"
-  :bind ("C-c C-d" . my:deepl-translate)
+  :bind (("C-c C-d" . my:deepl-translate))
   :init
   (defun my:deepl-translate (&optional string)
 	(interactive)
@@ -57,6 +57,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 70_translate.el ends here

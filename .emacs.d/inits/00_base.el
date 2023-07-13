@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-
+;;
 ;; ---------------------------------------------------------------------
 ;; Generic Configurations
 ;; ---------------------------------------------------------------------
@@ -57,11 +57,13 @@
     (defalias 'yes-or-no-p #'y-or-n-p)
     (defalias 'exit 'save-buffers-kill-emacs))
 
+
   (leaf *encoding
     :doc "Save the file specified code with basic utf-8 if it exist"
     :config
     (set-language-environment "Japanese")
     (prefer-coding-system 'utf-8))
+
 
   (leaf *fonts
     :doc "Set font for main machine or other"
@@ -70,75 +72,83 @@
 		(add-to-list 'default-frame-alist '(font . "Cica-18"))
 	  (add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
+
   (leaf *autorevert
     :doc "Revert changes if local file is updated"
-    :hook (after-init-hook . global-auto-revert-mode)
-    :custom (auto-revert-interval . 0.1))
+    :config
+	(setq auto-revert-interval 0.1)
+	(add-hook 'after-init-hook 'global-auto-revert-mode))
+
 
   (leaf *goto-address
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
-    :hook (prog-mode-hook . goto-address-prog-mode))
+    :config
+	(add-hook 'prog-mode-hook #'goto-address-prog-mode))
+
 
   (leaf *server-start
     :doc "Server start for emacs-client"
     :require server
     :config
     (unless (server-running-p)
-	  (add-hook 'after-init-hook 'server-start)))
+	  (add-hook 'after-init-hook #'server-start)))
+
 
   (leaf *recovery
     :doc "Save place of cursor"
-    :hook (after-init-hook . save-place-mode)
-    :custom (save-place-file . "~/.emacs.d/tmp/places"))
+    :config
+	(setq save-place-file "~/.emacs.d/tmp/places")
+    (add-hook 'after-init-hook 'save-place-mode))
+
 
   (leaf *savehist
 	:doc "Edit remote file via SSH or SCP"
-    :hook (after-init-hook . savehist-mode)
-    :custom
-    `((savehist-file . "~/.emacs.d/tmp/history")
-	  (savehist-additional-variables . '(kill-ring))))
+    :config
+    (setq savehist-file "~/.emacs.d/tmp/history")
+	(setq savehist-additional-variables '(kill-ring))
+	(add-hook 'after-init-hook 'savehist-mode))
+
 
   (leaf *recentf
-    :doc "Record open files history"
-    :hook (after-init-hook . recentf-mode)
-    :custom
-    `((recentf-auto-cleanup . 'never)
-	  (recentf-exclude
-	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
+	:doc "Record open files history"
+	:config
+	(setq recentf-auto-cleanup 'never)
+	(setq recentf-exclude
+		  '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
+	(add-hook 'after-init-hook 'recentf-mode))
+
 
   (leaf *display-line-numbers
-    :doc "Show line numbers"
-    :hook ((after-init-hook . global-display-line-numbers-mode)
-		   ((dired-mode-hook
-			 neotree-mode-hook
-			 lisp-interaction-mode-hook
-			 eshell-mode-hook) . (lambda () (display-line-numbers-mode -1))))
-    :bind ([f9] . display-line-numbers-mode)
-    :custom (display-line-numbers-width-start . t))
+	:doc "Show line numbers"
+	:config
+	(setq display-line-numbers-width-start t)
+	(add-hook 'after-init-hook 'global-display-line-numbers-mode)
+	(add-hook 'dired-mode-hook 'my:display-line-numbers)
+	(add-hook 'neotree-mode-hook 'my:display-line-numbers)
+	(add-hook 'lisp-interaction-mode-hook 'my:display-line-numbers)
+	(add-hook 'eshell-mode-hook 'my:display-line-numbers)
+	(defun my:display-line-numbers ()
+	  "Hoge."
+	  (interactive)
+	  (display-line-numbers-mode -1))
+	(global-set-key [f9] 'display-line-numbers-mode))
 
 
   (leaf exec-path-from-shell
-    :doc "Share PATH from shell environment variables"
-    :url "https://github.com/purcell/exec-path-from-shell"
-    :ensure t
-    :when (memq window-system '(mac ns x))
-    :hook (after-init-hook . exec-path-from-shell-initialize)
-    :custom
-    (exec-path-from-shell-check-startup-files . nil))
-
-
-  (leaf auto-async-byte-compile
-    :doc "Automatically byte-compile when Saved"
-    :url "http://www.emacswiki.org/cgi-bin/wiki/download/auto-async-byte-compile.el"
-    :ensure t
-    :hook (emacs-lisp-mode-hook  . enable-auto-async-byte-compile-mode))
+	:doc "Share PATH from shell environment variables"
+	:url "https://github.com/purcell/exec-path-from-shell"
+	:ensure t
+	:hook (after-init-hook . exec-path-from-shell-initialize)
+	:when (memq window-system '(mac ns x))
+	:config
+	(setq exec-path-from-shell-check-startup-files nil))
 
 
   (defun ad:emacs-init-time ()
-    "Advice `emacs-init-time'."
-    (interactive)
-    (let ((str
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
    		   (format "%.3f seconds"
    				   (float-time
    					(time-subtract after-init-time before-init-time)))))
@@ -149,6 +159,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 00_base.el ends here

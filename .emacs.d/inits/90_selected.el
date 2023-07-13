@@ -6,8 +6,8 @@
 (leaf selected
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
-  :ensure t
   :hook (after-init-hook . selected-global-mode)
+  :ensure t
   :bind (:selected-keymap
 		 (";" . comment-dwim)
 		 ("c" . clipboard-kill-ring-save)
@@ -28,7 +28,7 @@
 	"Active selected."
 	(selected-global-mode 1)
 	(selected--on)
-	(remove-hook 'activate-mark-hook #'my:activate-selected))
+	(remove-hook 'activate-mark-hook 'my:activate-selected))
 
   (defun my:ime-on ()
 	"IME on."
@@ -70,6 +70,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 90_selected.el ends here

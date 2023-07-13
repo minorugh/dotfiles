@@ -17,8 +17,8 @@
     (YaTeX-default-pop-window-height . 15))
   :config
   (leaf yatexprc
-    :bind (("M-c" . YaTeX-typeset-buffer)
-	   ("M-v" . YaTeX-lpr))))
+    :bind ((("M-c" . YaTeX-typeset-buffer)
+			("M-v" . YaTeX-lpr)))))
 
 
 ;;-----------------------------
@@ -51,6 +51,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 60_yatex.el ends here

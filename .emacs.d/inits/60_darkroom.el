@@ -7,10 +7,10 @@
   :doc "Remove visual distractions and focus on writing"
   :url "https://github.com/joaotavora/darkroom"
   :ensure t
-  :bind (([f12] . my:darkroom-in)
-		 (:darkroom-mode-map
-		  ([f12] . my:darkroom-out)))
-  :init
+  :bind ((([f12] . my:darkroom-in)
+		  (:darkroom-mode-map
+		   ([f12] . my:darkroom-out))))
+  :config
   (defun my:darkroom-in ()
 	"Enter to the `darkroom-mode'."
 	(interactive)
@@ -28,6 +28,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 60_darkroom.el ends here

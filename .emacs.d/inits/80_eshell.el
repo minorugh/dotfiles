@@ -5,7 +5,7 @@
 
 (leaf eshell
   :after popwin
-  :bind ("s-z" . eshell)
+  :bind (("s-z" . eshell))
   :custom
   `((eshell-directory-name . ,"~/.emacs.d/tmp/eshell")
 	(eshell-cmpl-ignore-case . t)
@@ -43,6 +43,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 80_eshell.el ends here

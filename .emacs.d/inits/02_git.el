@@ -53,6 +53,6 @@
     (delete-other-windows)))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 02_git.el ends here

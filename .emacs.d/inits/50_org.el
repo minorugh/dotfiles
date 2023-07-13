@@ -4,13 +4,13 @@
 ;; (setq debug-on-error t)
 
 (leaf org
-  :chord (",," . org-capture)
-  :bind (("C-c a"  . org-agenda)
-		 ("C-c c"  . org-capture)
-		 ("C-c k"  . org-capture-kill)
-		 ("C-c i"  . org-edit-src-exit)
-		 (:org-mode-map
-		  ("C-c i" . org-edit-special)))
+  :chord ((",," . org-capture))
+  :bind ((("C-c a"  . org-agenda)
+		  ("C-c c"  . org-capture)
+		  ("C-c k"  . org-capture-kill)
+		  ("C-c i"  . org-edit-src-exit)
+		  (:org-mode-map
+		   ("C-c i" . org-edit-special))))
   :config
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
@@ -41,16 +41,16 @@
 
 (leaf calendar
   :leaf-defer t
-  :bind (("<f7>"  . calendar)
-		 (:calendar-mode-map
-		  ("<f7>" . calendar-exit)))
+  :bind ((("<f7>"  . calendar)
+		  (:calendar-mode-map
+		   ("<f7>" . calendar-exit))))
   :config
   (leaf japanese-holidays
 	:ensure t
 	:require t
-	:hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
-		   (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
-		   (calendar-today-visible-hook   . calendar-mark-today))
+	:hook '((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
+			(calendar-today-invisible-hook . japanese-holiday-mark-weekend)
+			(calendar-today-visible-hook   . calendar-mark-today))
 	:config
 	(setq calendar-holidays
 		  (append japanese-holidays holiday-local-holidays holiday-other-holidays))
@@ -58,6 +58,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 50_org.el ends here

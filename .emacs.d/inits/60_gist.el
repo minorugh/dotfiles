@@ -4,9 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *define-gist-commands
-  :bind (("s-g p" . gist-region-or-buffer)
-	 ("s-g c" . my:chromium-gist))
-  :init
+  :config
   (defun gist-description ()
     "Add gist description."
     (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
@@ -24,8 +22,8 @@ If region isn't selected, post from the buffer."
     (interactive)
     (let ((file (buffer-file-name)))
       (if (not (use-region-p))
-	  (compile (concat "gist -od " (gist-description) " " file))
-	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+		  (compile (concat "gist -od " (gist-description) " " file))
+		(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows))
 
   (defun dired-do-gist ()
@@ -37,6 +35,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 60_gist.el ends here
