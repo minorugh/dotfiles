@@ -15,38 +15,34 @@
 
 
 (leaf projectile
-  :doc "Project navigation and management library"
   :ensure t
   :hook (after-init-hook . projectile-mode)
   :custom
   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
-;;
+
 
 (leaf prescient
-  :doc "Better sorting and filtering"
   :ensure t
   :hook (after-init-hook . prescient-persist-mode)
-  :custom `((prescient-aggressive-file-save . t)
-			(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
+  :custom
+  `((prescient-aggressive-file-save . t)
+	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
   :config
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
 (leaf popwin
-  :doc "Popup window manager"
   :ensure t
   :hook (after-init-hook . popwin-mode))
 
 
 (leaf posframe
-  :doc "Pop a posframe (just a frame) at point"
   :ensure t
   :when window-system)
 
 
 (leaf adaptive-wrap
-  :doc "Wrap long lines for easier viewing"
   :ensure t
   :config
   (setq-default adaptive-wrap-extra-indent 1)
@@ -56,14 +52,11 @@
 
 
 (leaf aggressive-indent
-  :doc "Keeps your code always indented"
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
 (leaf web-mode
-  :doc "Editing web templates"
-  :url "http://github.com/fxbois/web-mode"
   :ensure t
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
   :custom

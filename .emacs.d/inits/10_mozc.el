@@ -33,7 +33,7 @@
 	(mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
 	(mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	(mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
-  :init
+
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))

@@ -75,15 +75,14 @@
 
   (leaf *autorevert
     :doc "Revert changes if local file is updated"
-    :config
-	(setq auto-revert-interval 0.1)
-	(add-hook 'after-init-hook 'global-auto-revert-mode))
+	:hook (after-init-hook . global-auto-revert-mode)
+	:custom
+	(auto-revert-interval . 0.1))
 
 
   (leaf *goto-address
     :doc "Display URL as link, Open with mouse or 'C-c RET'"
-    :config
-	(add-hook 'prog-mode-hook #'goto-address-prog-mode))
+    :hook (prog-mode-hook . goto-address-prog-mode))
 
 
   (leaf *server-start
@@ -91,48 +90,44 @@
     :require server
     :config
     (unless (server-running-p)
-	  (add-hook 'after-init-hook #'server-start)))
+	  (add-hook 'after-init-hook 'server-start)))
 
 
   (leaf *recovery
     :doc "Save place of cursor"
-    :config
-	(setq save-place-file "~/.emacs.d/tmp/places")
-    (add-hook 'after-init-hook 'save-place-mode))
+	:hook (after-init-hook . save-place-mode)
+    :custom
+	(save-place-file . "~/.emacs.d/tmp/places"))
 
 
   (leaf *savehist
 	:doc "Edit remote file via SSH or SCP"
-    :config
-    (setq savehist-file "~/.emacs.d/tmp/history")
-	(setq savehist-additional-variables '(kill-ring))
-	(add-hook 'after-init-hook 'savehist-mode))
+	:hook (after-init-hook . savehist-mode)
+    :custom
+    '((savehist-file . "~/.emacs.d/tmp/history")
+	  (savehist-additional-variables . '(kill-ring))))
 
 
   (leaf *recentf
 	:doc "Record open files history"
-	:config
-	(setq recentf-auto-cleanup 'never)
-	(setq recentf-exclude
-		  '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
-	(add-hook 'after-init-hook 'recentf-mode))
+	:hook (after-init-hook . recentf-mode)
+	:custom
+	'((recentf-auto-cleanup . 'never)
+	  (recentf-exclude
+	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
 
   (leaf *display-line-numbers
 	:doc "Show line numbers"
-	:config
-	(setq display-line-numbers-width-start t)
-	(add-hook 'after-init-hook 'global-display-line-numbers-mode)
-	(add-hook 'dired-mode-hook 'my:display-line-numbers)
-	(add-hook 'neotree-mode-hook 'my:display-line-numbers)
-	(add-hook 'lisp-interaction-mode-hook 'my:display-line-numbers)
-	(add-hook 'eshell-mode-hook 'my:display-line-numbers)
-	(defun my:display-line-numbers ()
-	  "Hoge."
-	  (interactive)
-	  (display-line-numbers-mode -1))
-	(global-set-key [f9] 'display-line-numbers-mode))
+	:hook ((after-init-hook . global-display-line-numbers-mode)
+		   ((lisp-interaction-mode-hook
+			 neotree-mode-hook
+			 eshell-mode-hook
+			 dired-mode-hook) . (lambda () (interactive)(display-line-numbers-mode -1))))
+	:bind ([f9] . display-line-numbers-mode)
+	:custom
+	(display-line-numbers-width-start . t))
 
 
   (leaf exec-path-from-shell
@@ -141,8 +136,8 @@
 	:ensure t
 	:hook (after-init-hook . exec-path-from-shell-initialize)
 	:when (memq window-system '(mac ns x))
-	:config
-	(setq exec-path-from-shell-check-startup-files nil))
+	:custom
+	(exec-path-from-shell-check-startup-files . nil))
 
 
   (defun ad:emacs-init-time ()

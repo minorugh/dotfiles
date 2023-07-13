@@ -55,7 +55,8 @@
   :url "https://github.com/alpha22jp/atomic-chrome"
   :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
-  :custom ((atomic-chrome-buffer-open-style . 'full)))
+  :custom
+  (atomic-chrome-buffer-open-style . 'full))
 
 
 ;; Local Variables:

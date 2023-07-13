@@ -4,8 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf doom-themes
-  :doc "Megapack of themes"
-  :url "https://github.com/doomemacs/themes"
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom
@@ -20,8 +18,6 @@
 
 
 (leaf doom-modeline
-  :doc "Fast mode-line inspired by minimalism design."
-  :url "https://github.com/seagle0128/doom-modeline"
   :ensure t
   :hook (after-init-hook . doom-modeline-mode)
   :custom
@@ -31,6 +27,7 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
+  :init
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
@@ -39,8 +36,6 @@
 
 
 (leaf imenu-list
-  :doc "Show imenu entries in a separate buffer"
-  :url "https://github.com/bmag/imenu-list"
   :ensure t
   :bind ([f2]  . imenu-list-smart-toggle)
   :custom
@@ -53,7 +48,6 @@
 
 
 (leaf whitespace
-  :doc "Highligh trailing whitespace"
   :hook (prog-mode-hook . my:enable-trailing-mode)
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom
