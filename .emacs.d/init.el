@@ -21,7 +21,7 @@
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                        ("melpa" . "https://melpa.org/packages/")
-                       ("org"   . "https://orgmode.org/elpa/")))
+                       ("org"   . "https://orgmode.org/Elpa/")))
 
   (package-initialize)
   (unless (package-installed-p 'leaf)

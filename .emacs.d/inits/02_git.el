@@ -11,7 +11,7 @@
   :url "https://github.com/magit/magit"
   :ensure t
   :bind (("C-x g" . magit-status )
-	 ("M-g"   . hydra-git/body))
+		 ("M-g"   . hydra-git/body))
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
   :hydra
   (hydra-git
@@ -52,8 +52,7 @@
 	(shell-command "git gui &")
 	(delete-other-windows)))
 
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 02_git.el ends her
+;;; 02_git.el ends here

@@ -9,7 +9,7 @@
   :hook (after-init-hook . projectile-mode)
   :custom
   (projectile-known-projects-file . "~/.emacs.d/tmp/projectile.eld"))
-
+;;
 
 (leaf prescient
   :doc "Better sorting and filtering"

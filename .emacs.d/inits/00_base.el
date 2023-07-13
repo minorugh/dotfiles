@@ -68,7 +68,7 @@
     :config
     (if (string-match "e590" (shell-command-to-string "uname -n"))
 		(add-to-list 'default-frame-alist '(font . "Cica-18"))
-      (add-to-list 'default-frame-alist '(font . "Cica-15"))))
+	  (add-to-list 'default-frame-alist '(font . "Cica-15"))))
 
   (leaf *autorevert
     :doc "Revert changes if local file is updated"
@@ -84,7 +84,7 @@
     :require server
     :config
     (unless (server-running-p)
-      (add-hook 'after-init-hook 'server-start)))
+	  (add-hook 'after-init-hook 'server-start)))
 
   (leaf *recovery
     :doc "Save place of cursor"
@@ -96,16 +96,16 @@
     :hook (after-init-hook . savehist-mode)
     :custom
     `((savehist-file . "~/.emacs.d/tmp/history")
-      (savehist-additional-variables . '(kill-ring))))
+	  (savehist-additional-variables . '(kill-ring))))
 
   (leaf *recentf
     :doc "Record open files history"
     :hook (after-init-hook . recentf-mode)
     :custom
     `((recentf-auto-cleanup . 'never)
-      (recentf-exclude
-       . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-      (recentf-save-file . "~/.emacs.d/tmp/recentf")))
+	  (recentf-exclude
+	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
 
   (leaf *display-line-numbers
     :doc "Show line numbers"
@@ -142,11 +142,10 @@
 		   (format "%.3f seconds"
 				   (float-time
 					(time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
+	  (if (called-interactively-p 'interactive)
 		  (message "%s" str)
 		str)))
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

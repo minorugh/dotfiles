@@ -3,6 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+
 (leaf which-key
   :ensure t
   :hook (after-init-hook . which-key-mode)

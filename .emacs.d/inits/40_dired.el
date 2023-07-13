@@ -12,7 +12,6 @@
 		 ("o" . dired-open-file)
 		 ("[" . dired-hide-details-mode)
 		 ("a" . dired-omit-mode)
-		 ;; ("q" . dired-dwim-quit-window)
 		 ("i" . call-sxiv)
 		 ("." . gitk-open)
 		 ("@" . dired-do-gist))
@@ -43,22 +42,22 @@
 
 (leaf *cus-dired-funcs
   :config
-  (defun dired-my-append-buffer-name-hint ()
-	"Append a auxiliary string [Dir] to a name of dired buffer."
-	(when (eq major-mode 'dired-mode)
-	  (let* ((dir (expand-file-name list-buffers-directory))
-			 ;; Add a drive letter for Windows
-			 (drive (if (and (eq 'system-type 'windows-nt)
-							 (string-match "^\\([a-zA-Z]:\\)/" dir))
-						(match-string 1 dir) "")))
-		(rename-buffer (concat (buffer-name) " [" drive "dir]") t))))
-  (add-hook 'dired-mode-hook 'dired-my-append-buffer-name-hint)
-
   (defun dired-open-file ()
 	"In dired, open the file in associated application."
 	(interactive)
 	(let* ((file (dired-get-filename nil t)))
 	  (call-process "xdg-open" nil 0 nil file)))
+  (defun my:dired-sort ()
+	"Sort dired listings with directories first."
+	(save-excursion
+      (let (buffer-read-only)
+		(forward-line 2) ;; beyond dir. header
+		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+      (set-buffer-modified-p nil)))
+  (defadvice dired-readin
+	  (after dired-after-updating-hook first () activate)
+	"Sort dired listings with directories first before adding mark."
+	(my:dired-sort))
 
   (defun call-sxiv ()
 	"Show all images in the directory with sxiv.
@@ -75,20 +74,7 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 	   "sxiv" nil
 	   (format "sxiv -f -t -n %s %s"
 			   (length image-files)
-			   (mapconcat 'identity image-files " ")))))
-
-  (defun my:dired-sort ()
-	"Sort dired listings with directories first."
-	(save-excursion
-      (let (buffer-read-only)
-		(forward-line 2) ;; beyond dir. header
-		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-      (set-buffer-modified-p nil)))
-
-  (defadvice dired-readin
-	  (after dired-after-updating-hook first () activate)
-	"Sort dired listings with directories first before adding mark."
-	(my:dired-sort)))
+			   (mapconcat 'identity image-files " "))))))
 
 
 ;; Local Variables:
