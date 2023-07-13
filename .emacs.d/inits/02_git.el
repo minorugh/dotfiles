@@ -10,8 +10,8 @@
   :doc "Git Porcelain inside Emacs"
   :url "https://github.com/magit/magit"
   :ensure t
-  :bind (("C-x g" . magit-status )
-		 ("M-g"   . hydra-git/body))
+  :bind '(("C-x g" . magit-status )
+		  ("M-g"   . hydra-git/body))
   :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
   :hydra
   (hydra-git
@@ -32,25 +32,25 @@
   (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
   :init
   (leaf diff-hl
-	:ensure t
-	:hook ((after-init-hook . global-diff-hl-mode)
-		   (after-init-hook . diff-hl-margin-mode)))
+    :ensure t
+    :hook '((after-init-hook . global-diff-hl-mode)
+			(after-init-hook . diff-hl-margin-mode)))
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
-	:ensure t
-	:custom (browse-at-remote-prefer-symbolic . nil))
+    :ensure t
+    :custom (browse-at-remote-prefer-symbolic . nil))
   :config
   (defun gitk-open ()
-	"Open gitk with current dir."
-	(interactive)
-	(shell-command "gitk &")
-	(delete-other-windows))
+    "Open gitk with current dir."
+    (interactive)
+    (shell-command "gitk &")
+    (delete-other-windows))
 
   (defun git-gui-open ()
-	"Open gitk with current dir."
-	(interactive)
-	(shell-command "git gui &")
-	(delete-other-windows)))
+    "Open gitk with current dir."
+    (interactive)
+    (shell-command "git gui &")
+    (delete-other-windows)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

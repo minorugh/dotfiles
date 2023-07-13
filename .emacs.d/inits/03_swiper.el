@@ -7,15 +7,15 @@
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
-  :bind (("C-s" . swiper-region)
-	 ("C-r" . swiper-thing-at-point))
+  :bind '(("C-s" . swiper-region)
+		  ("C-r" . swiper-thing-at-point))
   :config
   (defun swiper-region ()
     "If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
     (interactive)
     (if (not (use-region-p))
-	(swiper)
+		(swiper)
       (swiper-thing-at-point))))
 
 
@@ -40,7 +40,7 @@ If the region isn't selected, `swiper'."
   :hook (after-init-hook . migemo-init)
   :custom
   `((migemo-command    . "cmigemo")
-	(migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
+    (migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 
 ;; Local Variables:

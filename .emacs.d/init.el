@@ -37,11 +37,6 @@
     (leaf el-get
       :ensure t
       :custom (el-get-git-shallow-clone . t))
-	(leaf auto-async-byte-compile
-	  :doc "Automatically byte-compile when Saved"
-	  :url "http://www.emacswiki.org/cgi-bin/wiki/download/auto-async-byte-compile.el"
-	  :ensure t
-	  :hook (emacs-lisp-mode-hook  . enable-auto-async-byte-compile-mode))
     :config
     (leaf-keywords-init)))
 

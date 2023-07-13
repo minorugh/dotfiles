@@ -3,6 +3,11 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf flymake
+  :bind '(("M-n" . 'flymake-goto-next-error)
+          ("M-p" . 'flymake-goto-prev-error)))
+
+
 (leaf projectile
   :doc "Project navigation and management library"
   :ensure t

@@ -9,10 +9,10 @@
   :ensure t
   :hook (after-init-hook . super-save-mode)
   :custom
-  (super-save-auto-save-when-idle . t)
-  (super-save-idle-duration       . 1)
-  (super-save-remote-files        . nil)
-  (super-save-exclude             . '(".gpg"))
+  '((super-save-auto-save-when-idle . t)
+	(super-save-idle-duration       . 1)
+	(super-save-remote-files        . nil)
+	(super-save-exclude             . '(".gpg")))
   :config
   (defun my:super-save-command ()
 	"Save the buffer if needed.
