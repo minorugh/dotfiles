@@ -43,11 +43,8 @@
 
 
 ;; Byte-compile
-(leaf auto-async-byte-compile
-  :ensure t
-  :hook (emacs-lisp-mode-hook . enable-auto-async-byte-compile-mode)
-  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/\\|/elisp/\\|/tmp/")
-  :preface
+(leaf *byte-compile
+  :config
   (add-hook 'kill-emacs-hook 'my:byte-compile-directory)
   (defun my:byte-compile-directory ()
 	(interactive)
