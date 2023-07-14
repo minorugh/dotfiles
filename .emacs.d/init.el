@@ -42,6 +42,14 @@
     (leaf-keywords-init)))
 
 
+;; Byte-compile
+(add-hook 'kill-emacs-hook 'my:byte-compile)
+(defun my:byte-compile ()
+  "Auto byte recompile."
+  (interactive)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+
+
 ;; Load configuration files
 (leaf init-loader
   :doc "Loader of configuration files"
