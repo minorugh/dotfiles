@@ -46,11 +46,12 @@
 (leaf auto-async-byte-compile
   :ensure t
   :hook (emacs-lisp-mode-hook . enable-auto-async-byte-compile-mode)
-  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/\\|/elisp/")
+  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/\\|/elisp/\\|/tmp/")
   :preface
   (add-hook 'kill-emacs-hook 'my:byte-compile-directory)
   (defun my:byte-compile-directory ()
 	(interactive)
+	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
 
