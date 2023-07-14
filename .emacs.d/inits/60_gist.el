@@ -35,6 +35,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 60_gist.el ends here

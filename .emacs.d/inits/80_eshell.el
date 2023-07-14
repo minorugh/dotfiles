@@ -4,8 +4,8 @@
 ;;(setq debug-on-error t)
 
 (leaf eshell
-  :after popwin
-  :bind (("s-z" . eshell))
+  ;; :after popwin
+  :bind ("s-z" . eshell)
   :custom
   `((eshell-directory-name . ,"~/.emacs.d/tmp/eshell")
 	(eshell-cmpl-ignore-case . t)
@@ -24,7 +24,7 @@
 		  (list "ll" "ls -ltr")
 		  (list "la" "ls -a")
 		  (list "ex" "exit"))))
-  (push '("*eshell*" :height 0.6) popwin:special-display-config)
+  (push '("*eshell*" :height 0.5) popwin:special-display-config)
   :init
   (defun my:eshell-prompt ()
 	"Prompt change string."
@@ -43,6 +43,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 80_eshell.el ends here

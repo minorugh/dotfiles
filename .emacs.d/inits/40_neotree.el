@@ -17,6 +17,7 @@
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
   :ensure t
+  :hook (neotree-mode-hook . dimmer-off)
   :bind (("<f10>"    . neotree-find)
 		 (:neotree-mode-map
 		  ("RET"     . neotree-enter-hide)
@@ -25,14 +26,13 @@
 		  ("<right>" . neotree-change-root)
 		  ("<f10>"   . neotree-toggle)))
   :custom
-  (neo-mode-line-type        . nil)
-  (neo-keymap-style          . 'concise)
-  (neo-create-file-auto-open . t)
-  :preface
-  ;; Change neotree's font size
-  ;; Tips from https://github.com/jaypei/emacs-neotree/issues/218
+  '((neo-mode-line-type        . nil)
+	(neo-keymap-style          . 'concise)
+	(neo-create-file-auto-open . t))
+  :config
   (defun neotree-text-scale ()
-	"Neotree text scale."
+	"Neotree text scale.
+see https://github.com/jaypei/emacs-neotree/issues/218"
 	(interactive)
 	(text-scale-adjust 0)
 	(text-scale-decrease 0.8)
@@ -41,22 +41,19 @@
 			(lambda (_)
 			  (call-interactively 'neotree-text-scale)))
 
-  ;; neotree enter hide
-  ;; Tips from https://github.com/jaypei/emacs-neotree/issues/77
+  (defun neotree-enter-hide (&optional arg)
+	"Enters file and hides neotree directly.
+see https://github.com/jaypei/emacs-neotree/issues/77"
+	(interactive "P")
+	(neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
   (defun neo-open-file-hide (full-path &optional arg)
-	"Neotree enter hide with FULL-PATH ARG."
+	"Open a file node and hides tree."
 	(neo-global--select-mru-window arg)
 	(find-file full-path)
-	(neotree-hide)
-	(demmer-on))
-
-  (defun neotree-enter-hide (&optional arg)
-	"Neotree enter hide with ARG."
-	(interactive "P")
-	(neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
+	(neotree-hide)))
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40_neotree.el ends here

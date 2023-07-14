@@ -20,8 +20,8 @@
   (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
 
   ;; for swiper/counsel
-  (add-hook 'minibuffer-setup-hook #'dimmer-off)
-  (add-hook 'minibuffer-exit-hook  #'dimmer-on)
+  (add-hook 'minibuffer-setup-hook 'dimmer-off)
+  (add-hook 'minibuffer-exit-hook  'dimmer-on)
 
   (defun my:toggle-dimmer ()
 	(interactive)
@@ -54,6 +54,6 @@ If there are two or more windows, it will go to another window."
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 07_dimmer.el ends here

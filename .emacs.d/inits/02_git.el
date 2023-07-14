@@ -33,12 +33,13 @@
   :init
   (leaf diff-hl
     :ensure t
-    :hook '((after-init-hook . global-diff-hl-mode)
-			(after-init-hook . diff-hl-margin-mode)))
+    :hook ((after-init-hook . global-diff-hl-mode)
+		   (after-init-hook . diff-hl-margin-mode)))
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
     :ensure t
-    :custom (browse-at-remote-prefer-symbolic . nil))
+    :custom
+	(browse-at-remote-prefer-symbolic . nil))
   :config
   (defun gitk-open ()
     "Open gitk with current dir."
@@ -54,6 +55,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 02_git.el ends here

@@ -34,6 +34,7 @@
 	(mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	(mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
 
+  ;; Define custom
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))
@@ -71,6 +72,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 10_mozc.el ends here

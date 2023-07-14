@@ -4,14 +4,11 @@
 ;; (setq debug-on-error t)
 
 (leaf flymake
-  :hook (emacs-startup-hook . my:flymake-mode-hook)
+  :bind (:flymake-mode-map
+		 ("M-n" . flymake-goto-next-error)
+		 ("M-p" . flymake-goto-prev-error))
   :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-  (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-  (defun my:flymake-mode-hook ()
-	(interactive)
-	(add-hook 'prog-mode-hook 'flymake-mode)))
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 
 (leaf projectile
@@ -66,6 +63,6 @@
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 20_misc.el ends here

@@ -23,6 +23,15 @@
 	(enable-recursive-minibuffers    . t)
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist      . '((t . my:ivy-format-function-arrow))))
+  :init
+  (leaf ivy-rich
+	:ensure t
+	:hook (after-init-hook . ivy-rich-mode))
+  (leaf amx
+	:ensure t
+	:custom
+	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
+	  (amx-history-length . 20)))
   :config
   (defun my:ivy-format-function-arrow (cands)
 	"Transform into a string for minibuffer with CANDS."
@@ -58,19 +67,10 @@ see https://takaxp.github.io/init.html#org29c7b6b7"
 	(defun my:counsel-ag-in-dir (_arg)
 	  "Search again with new root directory."
 	  (let ((current-prefix-arg '(4)))
-		(counsel-ag ivy-text nil ""))))
-  :init
-  (leaf ivy-rich
-	:ensure t
-	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
-	:ensure t
-	:custom
-	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
-	  (amx-history-length . 20))))
+		(counsel-ag ivy-text nil "")))))
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 04_counsel.el ends here

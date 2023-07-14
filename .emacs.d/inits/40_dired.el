@@ -78,6 +78,6 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40_dired.el ends here
