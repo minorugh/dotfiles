@@ -45,8 +45,9 @@
 ;; Byte-compile
 (leaf *byte-compile
   :config
-  (add-hook 'kill-emacs-hook 'my:byte-compile-directory)
+  (add-hook 'after-save-hook 'my:byte-compile-directory)
   (defun my:byte-compile-directory ()
+	"Byte-compile Lisp files modified in the directory."
 	(interactive)
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
