@@ -1,4 +1,5 @@
 *.elc
+/elisp/
 /el-get/
 /elpa/
 /eln-cache/
