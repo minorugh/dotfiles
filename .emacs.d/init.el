@@ -46,13 +46,12 @@
 (leaf auto-async-byte-compile
   :ensure t
   :hook (emacs-lisp-mode-hook . enable-auto-async-byte-compile-mode)
-  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/"))
-
-(add-hook 'kill-emacs-hook 'my:byte-compile-directory)
-(defun my:byte-compile-directory ()
-  "Auto byte recompile."
-  (interactive)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/")
+  :preface
+  (add-hook 'kill-emacs-hook 'my:byte-compile-directory)
+  (defun my:byte-compile-directory ()
+	(interactive)
+	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
 
 ;; Load configuration files
