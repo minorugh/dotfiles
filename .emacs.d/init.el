@@ -43,10 +43,11 @@
 
 
 ;; Byte-compile
-(add-hook 'kill-emacs-hook 'my:byte-compile)
-(defun my:byte-compile ()
+(add-hook 'kill-emacs-hook 'my:byte-compile-directory)
+(defun my:byte-compile-directory ()
   "Auto byte recompile."
   (interactive)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/template") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 
 
@@ -56,8 +57,8 @@
   :url "https://github.com/emacs-jp/init-loader/tree/master"
   :ensure t
   :init
-  (load-file "~/.emacs.d/template/my:dired.el")
-  (load-file "~/.emacs.d/template/my:template.el")
+  (load-file "~/.emacs.d/template/my:dired.elc")
+  (load-file "~/.emacs.d/template/my:template.elc")
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

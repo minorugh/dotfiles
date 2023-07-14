@@ -12,8 +12,8 @@
 (defun my:dotfiles-dir ()
   "Open dotfile dir."
   (interactive)
-  ;; (setq dired-listing-switches "-AFl --group-directories-first")
-  (find-file "~/src/github.com/minorugh/dotfiles/"))
+  (find-file "~/src/github.com/minorugh/dotfiles/")
+  (dired-omit-mode -1))
 
 (defun backup-makefile ()
   "Open backup maikefile."

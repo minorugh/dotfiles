@@ -82,7 +82,7 @@
     (compile "slack")
     (delete-other-windows)))
 
-
+;;
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
