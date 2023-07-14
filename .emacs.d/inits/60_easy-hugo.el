@@ -15,7 +15,7 @@
 		   ("e" . my:edit-easy-hugo))))
   :init
   ;; Load custom function
-  (load-file "~/.emacs.d/template/my:evil-easy-hugo.el")
+  (require 'my:evil-easy-hugo)
 
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")

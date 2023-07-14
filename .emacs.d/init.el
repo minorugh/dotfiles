@@ -46,7 +46,7 @@
 (leaf auto-async-byte-compile
   :ensure t
   :hook (emacs-lisp-mode-hook . enable-auto-async-byte-compile-mode)
-  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/")
+  :custom (auto-async-byte-compile-exclude-files-regexp . "/inits/\\|/elisp/")
   :preface
   (add-hook 'kill-emacs-hook 'my:byte-compile-directory)
   (defun my:byte-compile-directory ()
@@ -60,8 +60,9 @@
   :url "https://github.com/emacs-jp/init-loader/tree/master"
   :ensure t
   :init
-  (load-file "~/.emacs.d/template/my:dired.el")
-  (load-file "~/.emacs.d/template/my:template.el")
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  (require 'my:dired)
+  (require 'my:template)
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
