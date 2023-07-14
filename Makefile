@@ -266,7 +266,7 @@ perlbrew: ## Install perlbrew
 	cpanm Net::SFTP::Foreign
 
 emacs-latest: ## Install development version of emacs
-	git clone -b emacs-28 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
+	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
