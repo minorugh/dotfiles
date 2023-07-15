@@ -4,16 +4,16 @@
 ;; (setq debug-on-error t)
 ;;
 
-;; Load define function
 (leaf *load-usr-define-function
+  :doc "Load user define function"
   :config
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
   (require 'my:dired)
   (require 'my:template))
 
 
-;; Generic-configuration
 (leaf *generic-configuration
+  :doc "Generic configuration"
   :custom
   `(;; No startup screen appears
 	(inhibit-splash-screen . t)
@@ -78,8 +78,8 @@
 	  (add-to-list 'default-frame-alist '(font . "Cica-15")))))
 
 
-;; Bassic configuration
 (leaf *basic-configuration
+  :doc "Basic configuration"
   :config
   (leaf *autorevert
 	:doc "Revert changes if local file is updated"
