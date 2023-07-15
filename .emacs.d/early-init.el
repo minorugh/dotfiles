@@ -15,7 +15,7 @@
 (setq package-enable-at-startup nil)
 
 
-;; Suppress comp warning
+;; Suppress comp warning for native-Compile
 (custom-set-variables '(warning-suppress-types '((comp))))
 
 
