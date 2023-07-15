@@ -3,9 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Load user template
-(require 'my:template)
-
 ;; Custom functions to open the desired project directory
 (defun my:dotfiles-dir ()
   "Open dotfile dir."
