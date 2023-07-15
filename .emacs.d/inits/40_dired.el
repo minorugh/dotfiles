@@ -11,9 +11,10 @@
   `((all-the-icons-dired-monochrome . nil)
 	(all-the-icons-scale-factor . 0.9)))
 
+
 (leaf dired
-  :require dired-x
-  :hook (dired-mode-hook . (lambda () (dired-omit-mode 1)))
+  :hook ((after-init-hook . (lambda () (require 'dired-x)))
+		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
   :bind (:dired-mode-map
 		 ("<" . beginning-of-buffer)
 		 (">" . end-of-buffer)
