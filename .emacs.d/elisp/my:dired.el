@@ -25,26 +25,22 @@
 (defun my:root-dir ()
   "Open root dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
   (find-file "/")
   (sudo-edit))
 
 (defun my:xsrv-dir ()
   "Open xsrv dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
   (find-file "~/src/xsrv"))
 
 (defun my:github-dir ()
   "Open root dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
   (find-file "~/src/github.com/minorugh/"))
 
 (defun my:scr-dir ()
   "Open scr dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
   (find-file "~/src/"))
 
 (defun my:junk-dir ()
@@ -65,8 +61,8 @@
 (defun my:emacs-dir ()
   "Open `.emacs.d' dir."
   (interactive)
-  (setq dired-listing-switches "-lgGhFA")
-  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
+  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/")
+  (dired-omit-mode -1))
 
 (defun my:gh-dir ()
   "Open GH dir."
