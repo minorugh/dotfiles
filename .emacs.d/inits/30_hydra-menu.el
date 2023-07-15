@@ -3,8 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Hydra Life work menu
 (leaf *hydra-work-menu
+  :doc "Selection menu for project work"
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -32,7 +32,6 @@
    ("W" my:tpdia-new-post)
    ("i" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
-   ("L" lepton)
    ("t" my:teirei)
    ("T" my:teirei-new-post)
    ("s" my:swan)
@@ -79,8 +78,8 @@
 	  (compile "make git-commit"))))
 
 
-;; Hydra Quick dired menu
 (leaf *hydra-quick-menu
+  :doc "Slection menu for quick access"
   :bind ("M-." . hydra-quick/body)
   :hydra
   (hydra-quick
