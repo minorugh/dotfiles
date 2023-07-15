@@ -59,6 +59,19 @@
   (atomic-chrome-buffer-open-style . 'full))
 
 
+(leaf pangu-spacing
+  :doc "Put a space between Japanese and English"
+  :url "http://github.com/coldnew/pangu-spacing"
+  :ensure t
+  :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+  :config
+  (setq pangu-spacing-real-insert-separtor t)
+  (setq pangu-spacing-include-regexp ;; alphabet only
+		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+						 (group-n 1 (or (category japanese))))))
+			(group-n 2 (in "a-zA-Z")))))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
