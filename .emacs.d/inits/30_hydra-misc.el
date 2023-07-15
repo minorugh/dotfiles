@@ -24,6 +24,7 @@
 
 
 (leaf *hydra-markdown
+  :doc "Selection menu for markdown command"
   :hydra
   (hydra-markdown
    (:color red :hint nil)
@@ -42,6 +43,7 @@
 
 
 (leaf *hydra-selected
+  :doc "Selection menu for selected"
   :hydra
   (hydra-selected
    (:color red :hint nil)

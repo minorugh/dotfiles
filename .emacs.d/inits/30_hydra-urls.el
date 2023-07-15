@@ -3,13 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;-------------------------------------------------------------------
-;;
-;; Hydra browse configuration for quick access
-;;
-;;-------------------------------------------------------------------
-
 (leaf *hydra-browse
+  :doc "Slection menu for favalite site"
   :hydra
   (hydra-browse
    (:hint nil :exit t)

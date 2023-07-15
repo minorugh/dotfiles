@@ -22,7 +22,6 @@
 		 ("o" . dired-open-file)
 		 ("a" . dired-omit-mode)
 		 ("i" . call-sxiv)
-		 ("." . gitk-open)
 		 ("@" . dired-do-gist))
   :custom
   `((dired-dwim-target . t)
