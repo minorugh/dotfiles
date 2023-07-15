@@ -3,6 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Hydra Life work menu
 (leaf *hydra-work-menu
   :bind ("<henkan>" . hydra-work/body)
   :hydra
@@ -21,7 +22,6 @@
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("b" make-backup)
-   ("B" backup-makefile)
    ("u" make-ghuser)
    ("c" make-commit)
    ("@" browse-at-remote)
@@ -79,6 +79,7 @@
 	  (compile "make git-commit"))))
 
 
+;; Hydra Quick dired menu
 (leaf *hydra-quick-menu
   :bind ("M-." . hydra-quick/body)
   :hydra
