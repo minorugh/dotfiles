@@ -50,7 +50,8 @@
 	"Byte-compile Lisp files modified in the directory."
 	(interactive)
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
+	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)
+	(kill-buffer "*Compile-Log*")))
 
 
 ;; Load configuration files
@@ -61,7 +62,6 @@
   :init
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
   (require 'my:dired)
-  (require 'my:template)
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
