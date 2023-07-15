@@ -3,10 +3,13 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 ;;
-;; ---------------------------------------------------------------------
-;; Generic Configurations
-;; ---------------------------------------------------------------------
-(setq byte-compile-warnings '(not cl-functions obsolete))
+
+(leaf *load-usr-define-function
+  :config
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  (require 'my:dired)
+  (require 'my:template))
+
 
 (leaf *generic-configurations
   :custom
@@ -81,11 +84,9 @@
 	:custom
 	(auto-revert-interval . 0.1))
 
-
   (leaf *goto-address
 	:doc "Display URL as link, Open with mouse or 'C-c RET'"
 	:hook (prog-mode-hook . goto-address-prog-mode))
-
 
   (leaf *server-start
 	:doc "Server start for emacs-client"
@@ -94,13 +95,11 @@
 	(unless (server-running-p)
 	  (add-hook 'after-init-hook 'server-start)))
 
-
   (leaf *recovery
 	:doc "Save place of cursor"
 	:hook (after-init-hook . save-place-mode)
 	:custom
 	(save-place-file . "~/.emacs.d/tmp/places"))
-
 
   (leaf *savehist
 	:doc "Edit remote file via SSH or SCP"
@@ -108,7 +107,6 @@
 	:custom
 	'((savehist-file . "~/.emacs.d/tmp/history")
 	  (savehist-additional-variables . '(kill-ring))))
-
 
   (leaf *recentf
 	:doc "Record open files history"
@@ -118,7 +116,6 @@
 	  (recentf-exclude
 	   . '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
 	  (recentf-save-file . "~/.emacs.d/tmp/recentf")))
-
 
   (leaf *display-line-numbers
 	:doc "Show line numbers"
@@ -131,7 +128,6 @@
 	:custom
 	(display-line-numbers-width-start . t))
 
-
   (leaf exec-path-from-shell
 	:doc "Share PATH from shell environment variables"
 	:url "https://github.com/purcell/exec-path-from-shell"
@@ -140,7 +136,6 @@
 	:when (memq window-system '(mac ns x))
 	:custom
 	(exec-path-from-shell-check-startup-files . nil))
-
 
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."

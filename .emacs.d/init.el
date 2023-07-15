@@ -59,9 +59,6 @@
   :doc "Loader of configuration files"
   :url "https://github.com/emacs-jp/init-loader/tree/master"
   :ensure t
-  :init
-  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-  (require 'my:dired)
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
