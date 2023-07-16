@@ -6,8 +6,8 @@
 (leaf selected
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
-  :hook (after-init-hook . selected-global-mode)
   :ensure t
+  :hook (emacs-startup-hook . selected-global-mode)
   :bind (:selected-keymap
 		 (";" . comment-dwim)
 		 ("c" . clipboard-kill-ring-save)
@@ -18,26 +18,23 @@
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
-  :init
+  :config
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
   (add-hook 'activate-mark-hook #'(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
   (add-hook 'deactivate-mark-hook #'(lambda () (unless (null my:ime-flag) (my:ime-on))))
 
   (defun my:activate-selected ()
-	"Active selected."
 	(selected-global-mode 1)
 	(selected--on)
 	(remove-hook 'activate-mark-hook 'my:activate-selected))
 
   (defun my:ime-on ()
-	"IME on."
 	(interactive)
 	(when (null current-input-method)
 	  (toggle-input-method)))
 
   (defun my:ime-off ()
-	"IME off."
 	(interactive)
 	(deactivate-input-method))
 

@@ -4,8 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf package-utils
-  :doc "Interactive package manager"
-  :url "https://github.com/Silex/package-utils"
   :ensure t
   :chord ("p@" . hydra-package/body)
   :hydra
@@ -23,8 +21,23 @@
    ("<muhenkan>" nil)))
 
 
+(leaf *hydra-magit
+  :hydra
+  (hydra-git
+   (:color red :hint nil)
+   "
+    magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
+  "
+   ("s" magit-status)
+   ("b" magit-blame-addition)
+   ("c" magit-file-checkout)
+   ("l" magit-log-buffer-file)
+   ("g" gitk-open)
+   ("t" git-timemachine-toggle)
+   ("<muhenkan>" nil)))
+
+
 (leaf *hydra-markdown
-  :doc "Selection menu for markdown command"
   :hydra
   (hydra-markdown
    (:color red :hint nil)
@@ -43,7 +56,6 @@
 
 
 (leaf *hydra-selected
-  :doc "Selection menu for selected"
   :hydra
   (hydra-selected
    (:color red :hint nil)
