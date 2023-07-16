@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-;;
+
 
 (leaf *generic-configuration
   :doc "Generic configuration"
@@ -67,7 +67,16 @@
 	:config
 	(if (string-match "e590" (shell-command-to-string "uname -n"))
 		(add-to-list 'default-frame-alist '(font . "Cica-18"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-15")))))
+	  (add-to-list 'default-frame-alist '(font . "Cica-15"))))
+
+  (leaf exec-path-from-shell
+	:doc "Share PATH from shell environment variables"
+	:url "https://github.com/purcell/exec-path-from-shell"
+	:ensure t
+	:hook (after-init-hook . exec-path-from-shell-initialize)
+	:when (memq window-system '(mac ns x))
+	:custom
+	(exec-path-from-shell-check-startup-files . nil)))
 
 
 (leaf *basic-configuration
@@ -118,19 +127,11 @@
 		   ((lisp-interaction-mode-hook
 			 neotree-mode-hook
 			 eshell-mode-hook
+			 calendar-mode-hook
 			 dired-mode-hook) . (lambda () (interactive)(display-line-numbers-mode -1))))
 	:bind ([f9] . display-line-numbers-mode)
 	:custom
 	(display-line-numbers-width-start . t))
-
-  (leaf exec-path-from-shell
-	:doc "Share PATH from shell environment variables"
-	:url "https://github.com/purcell/exec-path-from-shell"
-	:ensure t
-	:hook (after-init-hook . exec-path-from-shell-initialize)
-	:when (memq window-system '(mac ns x))
-	:custom
-	(exec-path-from-shell-check-startup-files . nil))
 
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."
