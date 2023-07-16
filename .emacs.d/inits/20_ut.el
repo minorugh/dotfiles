@@ -3,7 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-
 (leaf which-key
   :ensure t
   :hook (after-init-hook . which-key-mode)
@@ -33,6 +32,12 @@
   :custom `((counsel-web-search-action . #'browse-url)
 			(counsel-web-engine . 'google)
 			(counsel-web-search-dynamic-update . t)))
+
+
+(leaf sudo-edit
+  :doc "Open root parmission files as sudo user"
+  :url "https://github.com/nflath/sudo-edit"
+  :ensure t)
 
 
 (leaf quickrun

@@ -4,14 +4,6 @@
 ;; (setq debug-on-error t)
 ;;
 
-(leaf *load-usr-define-function
-  :doc "Load user define function"
-  :config
-  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-  (require 'my:dired)
-  (require 'my:template))
-
-
 (leaf *generic-configuration
   :doc "Generic configuration"
   :custom

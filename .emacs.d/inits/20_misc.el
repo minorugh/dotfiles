@@ -3,14 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf flymake
-  :bind (:flymake-mode-map
-		 ("M-n" . flymake-goto-next-error)
-		 ("M-p" . flymake-goto-prev-error))
-  :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
-
-
 (leaf projectile
   :ensure t
   :hook (after-init-hook . projectile-mode)
@@ -27,6 +19,16 @@
   :config
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
+
+
+(leaf iedit
+  :ensure t
+  :bind ([insert] . iedit-mode))
+
+
+(leaf expand-region
+  :ensure t
+  :bind ("C-@" . er/expand-region))
 
 
 (leaf popwin

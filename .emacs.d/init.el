@@ -43,17 +43,37 @@
 
 
 ;; Byte-compile
+;; (leaf *byte-compile
+;;   :config
+;;   (add-hook 'kill-emacs-hook 'my:recompile-directory)
+;;   (defun my:recompile-directory ()
+;; 	"Byte-compile Lisp files modified in the directory."
+;; 	(interactive)
+;; 	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+;; 	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
+
+
 (leaf *byte-compile
   :config
-  (add-hook 'kill-emacs-hook 'my:recompile-directory)
+  (add-hook 'after-save-hook 'my:recompile-directory)
   (defun my:recompile-directory ()
 	"Byte-compile Lisp files modified in the directory."
 	(interactive)
-	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
+	(if (string-match "\\.el$" (buffer-file-name))
+		(progn
+		  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+		  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)
+		  (kill-buffer "*Compile-Log*")))))
 
 
 ;; Load configuration files
+(leaf *load-usr-define-function
+  :doc "Load user define function"
+  :config
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  (require 'my:dired)
+  (require 'my:template))
+
 (leaf init-loader
   :doc "Loader of configuration files"
   :url "https://github.com/emacs-jp/init-loader/tree/master"
