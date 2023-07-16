@@ -1,19 +1,15 @@
-;;; 09_editing.el --- Editing support configurations. -*- lexical-binding: t -*-
+;;; 10_writing.el --- Editing support configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf undo-fu
-  :doc "Redo and Undo operations"
-  :url "https://codeberg.org/ideasman42/emacs-undo-fu"
   :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 		 ("C-/" . undo-fu-only-redo)))
 
 
 (leaf undohist
-  :doc "Persistent undo history"
-  :url "https://github.com/emacsorphanage/undohist"
   :ensure t
   :hook (after-init-hook . undohist-initialize)
   :custom
@@ -21,38 +17,36 @@
 	(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
 
-(leaf sudo-edit
-  :doc "Open root parmission files as sudo user"
-  :url "https://github.com/nflath/sudo-edit"
-  :ensure t)
-
-
-(leaf iedit
-  :doc "Edit multiple regions in the same way simultaneously"
-  :url "https://github.com/victorhge/iedit"
-  :ensure t
-  :bind ([insert] . iedit-mode))
-
-
-(leaf expand-region
-  :doc "Extension for region"
-  :url "https://github.com/magnars/expand-region.el"
-  :ensure t
-  :bind ("C-@" . er/expand-region))
-
-
 (leaf smartparens
-  :doc "Minor mode for dealing with pairs"
-  :url "https://github.com/Fuco1/smartparens"
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
   :config
   (leaf smartparens-config :require t))
 
 
+(leaf darkroom
+  :ensure t
+  :bind ((([f12] . my:darkroom-in)
+		  (:darkroom-mode-map
+		   ([f12] . my:darkroom-out))))
+  :config
+  (defun my:darkroom-in ()
+	"Enter to the `darkroom-mode'."
+	(interactive)
+	(diff-hl-mode 0)
+	(display-line-numbers-mode 0)
+	(darkroom-mode 1)
+	(setq-local line-spacing .5))
+
+  (defun my:darkroom-out ()
+	"Returns from `darkroom-mode' to the previous state."
+	(interactive)
+	(darkroom-mode 0)
+	(display-line-numbers-mode 1)
+	(setq-local line-spacing .1)))
+
+
 (leaf atomic-chrome
-  :doc "Edit Chrome text area with Emacs"
-  :url "https://github.com/alpha22jp/atomic-chrome"
   :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom
@@ -60,8 +54,6 @@
 
 
 (leaf pangu-spacing
-  :doc "Put a space between Japanese and English"
-  :url "http://github.com/coldnew/pangu-spacing"
   :ensure t
   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
   :config
@@ -75,4 +67,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 09_editing.el ends here
+;;; 10_writing.el ends here

@@ -1,4 +1,4 @@
-;;; 10_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
+;;; 09_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -25,7 +25,7 @@
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
   (leaf mozc-cand-posframe
 	:ensure t
-	:after posframe
+	;; :after posframe
 	:hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	:require t
 	:custom (mozc-candidate-style . 'posframe )
@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10_mozc.el ends here
+;;; 09_mozc.el ends here
