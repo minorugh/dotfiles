@@ -23,7 +23,7 @@
   (add-hook 'activate-mark-hook 'my:activate-selected)
   (add-hook 'activate-mark-hook #'(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
   (add-hook 'deactivate-mark-hook #'(lambda () (unless (null my:ime-flag) (my:ime-on))))
-
+  :init
   (defun my:activate-selected ()
 	(selected-global-mode 1)
 	(selected--on)
@@ -44,25 +44,26 @@
 						(upcase (url-hexify-string str)))))
 
   (defun my:koujien (str)
-	"Open koujien with STR."
+	"Search koujien."
 	(interactive (list (my:get-region nil)))
 	(browse-url (format "https://sakura-paris.org/dict/広辞苑/prefix/%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:weblio (str)
-	"Open weblio with STR."
+	"Search weblio."
 	(interactive (list (my:get-region nil)))
 	(browse-url (format "https://www.weblio.jp/content/%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:eijiro (str)
-	"Open eijiro with STR."
+	"Search eijiro."
 	(interactive (list (my:get-region nil)))
 	(browse-url (format "https://eow.alc.co.jp/%s/UTF-8/"
 						(upcase (url-hexify-string str)))))
 
   (defun my:get-region (r)
-	"Get search word from region with R."
+	"Get search word from region."
+	(interactive)
 	(buffer-substring-no-properties (region-beginning) (region-end))))
 
 

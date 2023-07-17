@@ -36,14 +36,16 @@
 	(diff-hl-mode 0)
 	(display-line-numbers-mode 0)
 	(darkroom-mode 1)
-	(setq-local line-spacing .5))
+	(setq-local line-spacing .5)
+	(evil-emacs-state))
 
   (defun my:darkroom-out ()
 	"Returns from `darkroom-mode' to the previous state."
 	(interactive)
 	(darkroom-mode 0)
 	(display-line-numbers-mode 1)
-	(setq-local line-spacing .1)))
+	(setq-local line-spacing .1)
+	(evil-normal-state)))
 
 
 (leaf atomic-chrome

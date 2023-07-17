@@ -6,15 +6,16 @@
 (leaf which-key
   :ensure t
   :hook (after-init-hook . which-key-mode)
-  :custom ((which-key-max-description-length . 40)))
+  :custom (which-key-max-description-length . 40))
 
 
 (leaf counsel-tramp
   :ensure t
-  :custom `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
-			(tramp-default-method        . "scp")
-			(counsel-tramp-custom-connections
-			 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/))))
+  :custom
+  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
+	(tramp-default-method        . "scp")
+	(counsel-tramp-custom-connections
+	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/))))
 
 
 (leaf sequential-command
@@ -29,9 +30,10 @@
 (leaf counsel-web
   :ensure t
   :bind ("s-w" . counsel-web-search)
-  :custom `((counsel-web-search-action . #'browse-url)
-			(counsel-web-engine . 'google)
-			(counsel-web-search-dynamic-update . t)))
+  :custom
+  `((counsel-web-search-action . #'browse-url)
+	(counsel-web-engine . 'google)
+	(counsel-web-search-dynamic-update . t)))
 
 
 (leaf sudo-edit

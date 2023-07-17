@@ -16,20 +16,18 @@ If the region isn't selected, `swiper'."
     (interactive)
     (if (not (use-region-p))
 		(swiper)
-      (swiper-thing-at-point))))
+      (swiper-thing-at-point)))
 
-
-(leaf swiper-migemo
-  :doc "Use ivy/counsel/swiper with migemo"
-  :url "https://github.com/tam17aki/swiper-migemo"
-  :el-get tam17aki/swiper-migemo
-  :after swiper
-  :config
-  (global-swiper-migemo-mode +1)
-  (add-to-list 'swiper-migemo-enable-command 'counsel-rg)
-  (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
-  (migemo-kill)
-  (migemo-init))
+  (leaf swiper-migemo
+	:doc "Use ivy/counsel/swiper with migemo"
+	:url "https://github.com/tam17aki/swiper-migemo"
+	:el-get tam17aki/swiper-migemo
+	:config
+	(global-swiper-migemo-mode +1)
+	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
+	(setq migemo-options '("--quiet" "--nonewline" "--emacs"))
+	(migemo-kill)
+	(migemo-init)))
 
 
 (leaf migemo

@@ -16,7 +16,7 @@
   :config
   (defun my:super-save-command ()
 	"Save the buffer if needed.
-see https://takaxp.github.io/init.html#orgde08dbd8"
+  see https://takaxp.github.io/init.html#orgde08dbd8"
 	(save-excursion
 	  (dolist (buf (buffer-list))
 		(set-buffer buf)
@@ -36,7 +36,7 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
   :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/scratch")
-  :init
+  :config
   (defun toggle-scratch ()
 	"Toggle current buffer and *scratch* buffer."
 	(interactive)
@@ -53,11 +53,14 @@ see https://takaxp.github.io/init.html#orgde08dbd8"
 
 (leaf *emacs-lock-mode
   :doc "Set buffer that can not be killed"
-  :config
-  (with-current-buffer "*scratch*"
-    (emacs-lock-mode 'kill))
-  (with-current-buffer "*Messages*"
-    (emacs-lock-mode 'kill)))
+  :hook (after-init-hook . my:lock-mode)
+  :init
+  (defun my:lock-mode ()
+	(interactive)
+	(with-current-buffer "*scratch*"
+      (emacs-lock-mode 'kill))
+	(with-current-buffer "*Messages*"
+      (emacs-lock-mode 'kill))))
 
 
 ;; Local Variables:
