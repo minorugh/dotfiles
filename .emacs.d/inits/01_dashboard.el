@@ -8,9 +8,9 @@
   :url "https://github.com/emacs-dashboard/emacs-dashboard"
   :ensure t
   :if (display-graphic-p)
-  :hook ((after-init-hook    . dashboard-setup-startup-hook)
-		 (after-init-hook    . global-page-break-lines-mode)
-		 (emacs-startup-hook . open-dashboard))
+  :hook '((after-init-hook    . dashboard-setup-startup-hook)
+		  (after-init-hook    . global-page-break-lines-mode)
+		  (emacs-startup-hook . open-dashboard))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -39,6 +39,7 @@
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
+
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes LIST-SIZE."
     (interactive)

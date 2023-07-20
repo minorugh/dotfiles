@@ -3,9 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-
 (leaf *generic-configuration
-  :doc "Generic configuration"
   :custom
   `(;; No startup screen appears
 	(inhibit-splash-screen . t)
@@ -50,88 +48,71 @@
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  (leaf *define-alias
-	:doc "Change to short command"
-	:config
-	(defalias 'yes-or-no-p #'y-or-n-p)
-	(defalias 'exit 'save-buffers-kill-emacs))
-
-  (leaf *encoding
-	:doc "Save the file specified code with basic utf-8 if it exist"
-	:config
-	(set-language-environment "Japanese")
-	(prefer-coding-system 'utf-8))
-
-  (leaf *fonts
-	:doc "Set font for main machine or other"
-	:config
-	(if (string-match "e590" (shell-command-to-string "uname -n"))
-		(add-to-list 'default-frame-alist '(font . "Cica-18"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-15"))))
-
+  ;; Share PATH from shell environment variables
   (leaf exec-path-from-shell
-	:doc "Share PATH from shell environment variables"
-	:url "https://github.com/purcell/exec-path-from-shell"
 	:ensure t
 	:when (memq window-system '(mac ns x))
 	:config
 	(setq exec-path-from-shell-check-startup-files nil)
 	(add-hook 'after-init-hook 'exec-path-from-shell-initialize))
 
-  (leaf *server-start
-	:doc "Server start for emacs-client"
+  ;; Change to short command
+  (defalias 'yes-or-no-p #'y-or-n-p)
+  (defalias 'exit 'save-buffers-kill-emacs)
+
+  ;; Encoding
+  (set-language-environment "Japanese")
+  (prefer-coding-system 'utf-8)
+
+
+  ;; Fonts
+  (if (string-match "e590" (shell-command-to-string "uname -n"))
+	  (add-to-list 'default-frame-alist '(font . "Cica-18"))
+	(add-to-list 'default-frame-alist '(font . "Cica-15")))
+
+  ;; Server-start
+  (leaf *server
 	:require server
 	:config
 	(unless (server-running-p)
 	  (add-hook 'after-init-hook 'server-start)))
 
-  (leaf *autorevert
-	:doc "Revert changes if local file is updated"
-	:config
-	(setq auto-revert-interval 0.1)
-	(add-hook 'after-init-hook 'global-auto-revert-mode))
+  ;; Autorevert
+  (setq auto-revert-interval 0.1)
+  (add-hook 'after-init-hook 'global-auto-revert-mode)
 
-  (leaf *goto-address
-	:doc "Display URL as link, Open with mouse or 'C-c RET'"
-	:config
-	(add-hook 'prog-mode-hook 'goto-address-prog-mode))
+  ;; Goto address
+  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
-  (leaf *recovery
-	:doc "Save place of cursor"
-	:config
-	(setq save-place-file "~/.emacs.d/tmp/places")
-	(add-hook 'after-init-hook 'save-place-mode))
+  ;; Recovery
+  (setq save-place-file "~/.emacs.d/tmp/places")
+  (add-hook 'after-init-hook 'save-place-mode)
 
-  (leaf *savehist
-	:doc "Edit remote file via SSH or SCP"
-	:config
-	(setq savehist-file "~/.emacs.d/tmp/history")
-	(setq savehist-additional-variables '(kill-ring))
-	(add-hook 'after-init-hook 'savehist-mode))
+  ;; Savehist
+  (setq savehist-file "~/.emacs.d/tmp/history")
+  (setq savehist-additional-variables '(kill-ring))
+  (add-hook 'after-init-hook 'savehist-mode)
 
-  (leaf *recentf
-	:doc "Record open files history"
-	:config
-	(setq recentf-auto-cleanup 'never)
-	(setq recentf-exclude
-		  '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
-	(add-hook 'after-init-hook 'recentf-mode))
+  ;; Recentf
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude
+		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (add-hook 'after-init-hook 'recentf-mode)
 
-  (leaf *display-line-numbers
-	:doc "Show line numbers"
-	:config
-	(add-hook 'after-init-hook 'global-display-line-numbers-mode)
-	(global-set-key [f9] 'display-line-numbers-mode)
-	(dolist (hook (list
-				   'lisp-interaction-mode-hook
-				   'neotree-mode-hook
-				   'eshell-mode-hook
-				   'calendar-mode-hook
-				   'dired-mode-hook))
-	  (add-hook hook (lambda ()(display-line-numbers-mode -1))))
-	(setq display-line-numbers-width-start t))
+  ;; Display-line-numbers
+  (add-hook 'after-init-hook 'global-display-line-numbers-mode)
+  (global-set-key [f9] 'display-line-numbers-mode)
+  (dolist (hook (list
+				 'lisp-interaction-mode-hook
+				 'neotree-mode-hook
+				 'eshell-mode-hook
+				 'calendar-mode-hook
+				 'dired-mode-hook))
+	(add-hook hook (lambda ()(display-line-numbers-mode -1))))
+  (setq display-line-numbers-width-start t)
 
+  ;; Emacs init time
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."
 	(interactive)
