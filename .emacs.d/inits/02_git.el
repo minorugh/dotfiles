@@ -5,16 +5,18 @@
 
 (leaf diff-hl
   :ensure t
-  :hook ((after-init-hook . global-diff-hl-mode)
-		 (after-init-hook . diff-hl-margin-mode)))
+  :init
+  (add-hook 'after-init-hook 'global-diff-hl-mode)
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (unless (window-system) (diff-hl-margin-mode))
+  :config
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
 
 (leaf magit
-  :doc "Git Porcelain inside Emacs"
-  :url "https://github.com/magit/magit"
   :ensure t
-  :bind '(("C-x g" . magit-status )
-		  ("M-g"   . hydra-git/body))
-  :hook (magit-post-refresh-hook . diff-hl-magit-post-refresh)
+  :bind ("C-x g" . magit-status)
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
   ;; Do not split window
@@ -22,9 +24,8 @@
   :init
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
-    :ensure t
-    :custom
-	(browse-at-remote-prefer-symbolic . nil))
+	:ensure t
+	:custom	(browse-at-remote-prefer-symbolic . nil))
   :config
   (defun gitk-open ()
     "Open gitk with current dir."

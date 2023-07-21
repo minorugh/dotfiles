@@ -22,6 +22,7 @@
 
 
 (leaf *hydra-magit
+  :bind ("M-g" . hydra-git/body)
   :hydra
   (hydra-git
    (:color red :hint nil)
