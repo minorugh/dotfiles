@@ -1,7 +1,7 @@
-;; 01_dashboard.el --- Dashboard configurations.  -*- lexical-binding: t -*-
+;;; 01dashboard.el --- 01dashboard.el
 ;;; Commentary:
 ;;; Code:
-;; (setq debug-on-error t)
+;;(setq debug-on-error t)
 
 (leaf dashboard
   :doc "An extensible emacs startup screen"
@@ -26,6 +26,7 @@
   (leaf nerd-icons :ensure t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
+  ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
 				(car (split-string (shell-command-to-string "uname -r")))  " Debian "
@@ -36,8 +37,9 @@
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
   (setq dashboard-items '((recents . 8)(agenda . 5)))
+  ;; Set the footer
   (setq dashboard-footer-messages
-		'("Be joyful always. Pray constantly. Be thankful for everything."))
+		'("Be joyful always. Pray constantly. Be thankful for Everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
 
   (defun dashboard-insert-custom (list-size)
@@ -47,13 +49,9 @@
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
-  (defvar dashboard-recover-layout-p nil
-	"Wether recovers the layout.")
-
   (defun open-dashboard ()
 	"Open the *dashboard* buffer and jump to the first widget."
 	(interactive)
-	(setq dashboard-recover-layout-p t)
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files))
@@ -61,30 +59,16 @@
   (defun quit-dashboard ()
 	"Quit dashboard window."
 	(interactive)
-	(quit-window t)
-	(when (dashboard-recover-layout-p)
-      (setq dashboard-recover-layout-p nil)))
+	(quit-window t))
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
 	(interactive)
 	(let ((func (local-key-binding "r")))
-      (and func (funcall func))))
-  :preface
-  (defun sylpheed ()
-	"Open sylpheed."
-	(interactive)
-	(compile "sylpheed")
-	(delete-other-windows))
+	  (and func (funcall func)))))
 
-  (defun slack ()
-	"Open sylpheed."
-	(interactive)
-	(compile "slack")
-	(delete-other-windows)))
 
-;;
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 01_dashboard.el ends here
+;;; 01dashboard.el ends here

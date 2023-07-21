@@ -39,32 +39,36 @@
 	(deactivate-input-method))
 
   (defun my:google (str)
-	(interactive (list (my:get-region nil)))
+	(interactive (list (region-or-read-string nil)))
 	(browse-url (format "https://www.google.com/search?hl=ja&q=%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:koujien (str)
 	"Search koujien."
-	(interactive (list (my:get-region nil)))
+	(interactive (list (region-or-read-string nil)))
 	(browse-url (format "https://sakura-paris.org/dict/広辞苑/prefix/%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:weblio (str)
 	"Search weblio."
-	(interactive (list (my:get-region nil)))
+	(interactive (list (region-or-read-string nil)))
 	(browse-url (format "https://www.weblio.jp/content/%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:eijiro (str)
 	"Search eijiro."
-	(interactive (list (my:get-region nil)))
+	(interactive (list (region-or-read-string nil)))
 	(browse-url (format "https://eow.alc.co.jp/%s/UTF-8/"
 						(upcase (url-hexify-string str)))))
 
-  (defun my:get-region (r)
-	"Get search word from region."
-	(interactive)
-	(buffer-substring-no-properties (region-beginning) (region-end))))
+  (defun region-or-read-string (prompt &optional initial history default inherit)
+	"If region is specified, get the string, otherwise call `read-string'."
+	(if (not (region-active-p))
+		(read-string prompt initial history default inherit)
+	  (prog1
+		  (buffer-substring-no-properties (region-beginning) (region-end))
+		(deactivate-mark)
+		(message "")))))
 
 
 ;; Local Variables:

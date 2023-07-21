@@ -39,6 +39,16 @@
     (interactive)
     (shell-command "gnome-terminal -- ssh xsrv"))
 
+  (defun sylpheed ()
+	"Open sylpheed."
+	(interactive)
+	(compile "sylpheed"))
+
+  (defun slack ()
+	"Open sylpheed."
+	(interactive)
+	(compile "slack"))
+
   (defun my:muhenkan ()
     (interactive)
     (if (not (use-region-p))
