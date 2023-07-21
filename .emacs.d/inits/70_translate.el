@@ -1,4 +1,4 @@
-;;; 70_translate.el --- Deepl translate configurations. -*- lexical-binding: t -*-
+;;; 70_translate.el --- Deepl translate configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

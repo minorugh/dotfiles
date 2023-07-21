@@ -1,4 +1,4 @@
-;;; 10_writing.el --- Editing support configurations. -*- lexical-binding: t -*-
+;;; 10_writing.el --- Editing support configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

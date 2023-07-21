@@ -1,4 +1,4 @@
-;; 02_git.el  --- Git configurations. -*- lexical-binding: t -*-
+;; 02_git.el  --- Git configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)

@@ -1,4 +1,4 @@
-;;; 00_base.el --- Basic configurations.  -*- lexical-binding: t -*-
+;;; 00_base.el --- Basic configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 50_org.el --- Org mode configurations. -*- lexical-binding: t -*-
+;;; 50_org.el --- Org mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

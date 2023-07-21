@@ -1,4 +1,4 @@
-;;; 80_eshell.el --- Eshell configurations.  -*- lexical-binding: t -*-
+;;; 80_eshell.el --- Eshell configurations.
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)

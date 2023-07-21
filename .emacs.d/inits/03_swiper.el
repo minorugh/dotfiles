@@ -1,4 +1,4 @@
-;;; 03_swiper.el --- Counsel configurations. -*- lexical-binding: t -*-
+;;; 03_swiper.el --- Counsel configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

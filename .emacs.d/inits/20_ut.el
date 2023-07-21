@@ -1,4 +1,4 @@
-;;; 20_ut.el --- Counsel ut configurations. -*- lexical-binding: t -*-
+;;; 20_ut.el --- Counsel ut configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

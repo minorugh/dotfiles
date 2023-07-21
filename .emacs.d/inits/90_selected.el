@@ -1,4 +1,4 @@
-;;; 90_selected.el --- Selected configurations. -*- lexical-binding: t -*-
+;;; 90_selected.el --- Selected configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

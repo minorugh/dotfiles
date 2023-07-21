@@ -1,4 +1,4 @@
-;;; 20_funcs.el --- Define functions. -*- lexical-binding: t -*-
+;;; 20_funcs.el --- Define functions.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -38,16 +38,6 @@
     "Open terminal and ssh to xsrv."
     (interactive)
     (shell-command "gnome-terminal -- ssh xsrv"))
-
-  (defun sylpheed ()
-	"Open sylpheed."
-	(interactive)
-	(compile "sylpheed"))
-
-  (defun slack ()
-	"Open sylpheed."
-	(interactive)
-	(compile "slack"))
 
   (defun my:muhenkan ()
     (interactive)

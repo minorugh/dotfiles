@@ -1,4 +1,4 @@
-;;; 20_misc.el --- Misc utility configurations. -*- lexical-binding: t -*-
+;;; 20_misc.el --- Misc utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

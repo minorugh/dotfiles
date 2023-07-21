@@ -1,4 +1,4 @@
-;;; 60_easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
+;;; 60_easy-hugo.el --- Easy-Hugo configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

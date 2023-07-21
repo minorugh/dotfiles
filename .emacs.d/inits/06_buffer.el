@@ -1,4 +1,4 @@
-;;; 06_buffer.el --- Buffer Utility configurations. -*- lexical-binding: t -*-
+;;; 06_buffer.el --- Buffer Utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

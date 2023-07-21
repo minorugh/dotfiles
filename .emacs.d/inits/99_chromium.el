@@ -1,4 +1,4 @@
-;;; 99_chromium.el --- Chromium configurations.  -*- lexical-binding: t -*-
+;;; 99_chromium.el --- Chromium configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

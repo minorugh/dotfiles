@@ -1,11 +1,9 @@
-;;; 01dashboard.el --- 01dashboard.el
+;;; 01_dashboard.el --- Dashboard configurations.
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
 
 (leaf dashboard
-  :doc "An extensible emacs startup screen"
-  :url "https://github.com/emacs-dashboard/emacs-dashboard"
   :ensure t
   :if (display-graphic-p)
   :hook '((after-init-hook    . dashboard-setup-startup-hook)
@@ -19,8 +17,7 @@
 		  ("h" . chromium-homepage)
 		  ("m" . sylpheed)
 		  ("s" . slack)
-		  ("." . hydra-browse/body)
-		  ([home] . quit-dashboard)))
+		  ("." . hydra-browse/body)))
   :init
   (leaf page-break-lines :ensure t)
   (leaf nerd-icons :ensure t)
@@ -31,6 +28,7 @@
 		(concat "GNU Emacs " emacs-version " kernel "
 				(car (split-string (shell-command-to-string "uname -r")))  " Debian "
 				(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
+  ;; Set the banner
   (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-set-heading-icons t)
@@ -41,9 +39,9 @@
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for Everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
-
+  ;; Set the insert custom
   (defun dashboard-insert-custom (list-size)
-	"Insert custom itemes LIST-SIZE."
+	"Insert custom itemes."
 	(interactive)
 	(insert " GH: (h)    WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
@@ -56,19 +54,24 @@
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files))
 
-  (defun quit-dashboard ()
-	"Quit dashboard window."
-	(interactive)
-	(quit-window t))
-
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
 	(interactive)
 	(let ((func (local-key-binding "r")))
-	  (and func (funcall func)))))
+	  (and func (funcall func))))
+
+  (defun sylpheed ()
+	"Open sylpheed."
+	(interactive)
+	(compile "sylpheed"))
+
+  (defun slack ()
+	"Open sylpheed."
+	(interactive)
+	(compile "slack")))
 
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 01dashboard.el ends here
+;;; 01_dashboard.el ends here

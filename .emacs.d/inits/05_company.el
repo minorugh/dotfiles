@@ -1,4 +1,4 @@
-;;; 05_company.el --- Company configurations. -*- lexical-binding: t -*-
+;;; 05_company.el --- Company configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

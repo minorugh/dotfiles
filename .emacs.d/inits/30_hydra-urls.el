@@ -1,4 +1,4 @@
-;;; 30_hydra-urls.el --- Hydra favalite url'sconfiguration for misc utils. -*- lexical-binding: t -*-
+;;; 30_hydra-urls.el --- Hydra favalite url'sconfiguration for misc utils.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

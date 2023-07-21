@@ -1,4 +1,4 @@
-;;; 30_hydra-misc.el --- hydra misc mode configurations. -*- lexical-binding: t -*-
+;;; 30_hydra-misc.el --- hydra misc mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

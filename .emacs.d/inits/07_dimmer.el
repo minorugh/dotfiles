@@ -1,4 +1,4 @@
-;;; 07_dimmer.el --- Window utility configurations. -*- lexical-binding: t -*-
+;;; 07_dimmer.el --- Window utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

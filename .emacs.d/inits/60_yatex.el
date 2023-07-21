@@ -1,4 +1,4 @@
-;;; 50_yatex.el --- YaTex configuration. -*- lexical-binding: t -*-
+;;; 50_yatex.el --- YaTex configuration.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

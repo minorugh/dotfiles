@@ -1,4 +1,4 @@
-;;; 30_hydra-menu.el --- Hydra configuration for work menu. -*- lexical-binding: t -*-
+;;; 30_hydra-menu.el --- Hydra configuration for work menu.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

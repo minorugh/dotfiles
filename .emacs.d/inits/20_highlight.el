@@ -1,4 +1,4 @@
-;;; 20_highlight.el --- Highlighting configurations. -*- lexical-binding: t -*-
+;;; 20_highlight.el --- Highlighting configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 20_ui.el --- Graphical interface configurations. -*- lexical-binding: t -*-
+;;; 20_ui.el --- Graphical interface configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

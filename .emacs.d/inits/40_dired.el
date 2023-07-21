@@ -1,4 +1,4 @@
-;;; 40_dired.el --- Dired configurations. -*- lexical-binding: t -*-
+;;; 40_dired.el --- Dired configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

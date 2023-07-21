@@ -1,4 +1,4 @@
-;;; 20_make.el --- Make command configurations. -*- lexical-binding: t -*-
+;;; 20_make.el --- Make command configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

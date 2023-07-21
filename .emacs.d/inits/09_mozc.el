@@ -1,4 +1,4 @@
-;;; 09_mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
+;;; 09_mozc.el --- Japanese mozc configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

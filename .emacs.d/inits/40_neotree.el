@@ -1,4 +1,4 @@
-;;; 40_neotree.el --- Neotree configurations. -*- lexical-binding: t -*-
+;;; 40_neotree.el --- Neotree configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

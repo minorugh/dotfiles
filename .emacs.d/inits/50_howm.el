@@ -1,4 +1,4 @@
-;;; 50_howm.el --- howm mode configurations. -*- lexical-binding: t -*-
+;;; 50_howm.el --- howm mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
