@@ -4,7 +4,7 @@
 ;;(setq debug-on-error t)
 
 (leaf eshell
-  ;; :after popwin
+  :after popwin
   :bind ("s-z" . eshell)
   :custom
   `((eshell-directory-name . ,"~/.emacs.d/tmp/eshell")

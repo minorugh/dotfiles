@@ -16,8 +16,9 @@
   :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
   :ensure t
-  :bind (("C-c t" . gts-do-translate))
+  :bind ("C-c t" . gts-do-translate)
   :config
+  (require 'go-translate)
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
 		(gts-translator
@@ -36,6 +37,7 @@
   :bind (("C-c C-d" . my:deepl-translate))
   :init
   (defun my:deepl-translate (&optional string)
+	"Hoge."
 	(interactive)
 	(setq string
 		  (cond ((stringp string) string)

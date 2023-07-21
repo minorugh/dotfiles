@@ -17,7 +17,6 @@
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
   :ensure t
-  :hook (neotree-mode-hook . dimmer-off)
   :bind (("<f10>"    . neotree-find)
 		 (:neotree-mode-map
 		  ("RET"     . neotree-enter-hide)
@@ -41,15 +40,10 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
 			(lambda (_)
 			  (call-interactively 'neotree-text-scale)))
 
-  (defun neotree-enter-hide (&optional arg)
-	"Enters file and hides neotree directly.
-see https://github.com/jaypei/emacs-neotree/issues/77"
-	(interactive "P")
-	(neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
-  (defun neo-open-file-hide (full-path &optional arg)
-	"Open a file node and hides tree."
-	(neo-global--select-mru-window arg)
-	(find-file full-path)
+  (defun neotree-enter-hide ()
+	"Enters file and hides neotree directly."
+	(interactive)
+	(neotree-enter)
 	(neotree-hide)))
 
 

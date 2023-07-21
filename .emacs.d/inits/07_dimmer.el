@@ -22,6 +22,7 @@
   ;; for swiper/counsel
   (add-hook 'minibuffer-setup-hook 'dimmer-off)
   (add-hook 'minibuffer-exit-hook  'dimmer-on)
+  (add-hook 'neotree-mode-hook 'dimmer-off)
 
   (defun my:toggle-dimmer ()
 	(interactive)

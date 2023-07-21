@@ -7,7 +7,7 @@
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
   :ensure t
-  :hook (emacs-startup-hook . selected-global-mode)
+  :hook (after-init-hook . selected-global-mode)
   :bind (:selected-keymap
 		 (";" . comment-dwim)
 		 ("c" . clipboard-kill-ring-save)
