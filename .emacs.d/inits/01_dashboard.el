@@ -41,47 +41,47 @@
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
 
   (defun dashboard-insert-custom (list-size)
-    "Insert custom itemes LIST-SIZE."
-    (interactive)
-    (insert " GH: (h)    WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
+	"Insert custom itemes LIST-SIZE."
+	(interactive)
+	(insert " GH: (h)    WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
   (defvar dashboard-recover-layout-p nil
-    "Wether recovers the layout.")
+	"Wether recovers the layout.")
 
   (defun open-dashboard ()
-    "Open the *dashboard* buffer and jump to the first widget."
-    (interactive)
-    (setq dashboard-recover-layout-p t)
-    (delete-other-windows)
-    (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files))
+	"Open the *dashboard* buffer and jump to the first widget."
+	(interactive)
+	(setq dashboard-recover-layout-p t)
+	(delete-other-windows)
+	(dashboard-refresh-buffer)
+	(dashboard-goto-recent-files))
 
   (defun quit-dashboard ()
-    "Quit dashboard window."
-    (interactive)
-    (quit-window t)
-    (when (dashboard-recover-layout-p)
+	"Quit dashboard window."
+	(interactive)
+	(quit-window t)
+	(when (dashboard-recover-layout-p)
       (setq dashboard-recover-layout-p nil)))
 
   (defun dashboard-goto-recent-files ()
-    "Go to recent files."
-    (interactive)
-    (let ((func (local-key-binding "r")))
+	"Go to recent files."
+	(interactive)
+	(let ((func (local-key-binding "r")))
       (and func (funcall func))))
-
+  :preface
   (defun sylpheed ()
-    "Open sylpheed."
-    (interactive)
-    (compile "sylpheed")
-    (delete-other-windows))
+	"Open sylpheed."
+	(interactive)
+	(compile "sylpheed")
+	(delete-other-windows))
 
   (defun slack ()
-    "Open sylpheed."
-    (interactive)
-    (compile "slack")
-    (delete-other-windows)))
+	"Open sylpheed."
+	(interactive)
+	(compile "slack")
+	(delete-other-windows)))
 
 ;;
 ;; Local Variables:
