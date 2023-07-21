@@ -40,8 +40,8 @@
 
 
 (leaf *gitk
-  :doc ""
-  :url ""
+  :doc "Graphical history viewer for Git."
+  :url "https://riptutorial.com/git/example/18336/gitk-and-git-gui"
   :config
   (defun gitk-open ()
 	"Open gitk with current dir."
@@ -50,7 +50,7 @@
 	(delete-other-windows))
 
   (defun git-gui-open ()
-	"Open gitk with current dir."
+	"Tools for creating commits."
 	(interactive)
 	(shell-command "git gui &")
 	(delete-other-windows)))
