@@ -3,6 +3,11 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
+(leaf diff-hl
+  :ensure t
+  :hook ((after-init-hook . global-diff-hl-mode)
+		 (after-init-hook . diff-hl-margin-mode)))
+
 (leaf magit
   :doc "Git Porcelain inside Emacs"
   :url "https://github.com/magit/magit"
@@ -15,10 +20,6 @@
   ;; Do not split window
   (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
   :init
-  (leaf diff-hl
-    :ensure t
-    :hook ((after-init-hook . global-diff-hl-mode)
-		   (after-init-hook . diff-hl-margin-mode)))
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
     :ensure t
