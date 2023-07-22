@@ -32,17 +32,28 @@
   :doc "A Git Porcelain inside Emacs"
   :url "https://github.com/magit/magit"
   :ensure t
-  :bind ("C-x g" . magit-status)
+  :bind '(("C-x g" . magit-status)
+		  ("M-g" . hydra-git/body))
   :custom
   (transient-history-file . "~/.emacs.d/tmp/transient-history")
   ;; Do not split window
-  (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1))
-
-
-(leaf *gitk
-  :doc "Graphical history viewer for Git."
-  :url "https://riptutorial.com/git/example/18336/gitk-and-git-gui"
-  :config
+  (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
+  :hydra
+  (hydra-git
+   (:color red :hint nil)
+   "
+    magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
+  "
+   ("s" magit-status)
+   ("b" magit-blame-addition)
+   ("c" magit-file-checkout)
+   ("l" magit-log-buffer-file)
+   ("g" gitk-open)
+   ("t" git-timemachine-toggle)
+   ("<muhenkan>" nil))
+  :init
+  ;; Graphical history viewer for Git
+  ;; https://riptutorial.com/git/example/18336/gitk-and-git-gui
   (defun gitk-open ()
 	"Open gitk with current dir."
 	(interactive)
