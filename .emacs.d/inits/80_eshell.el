@@ -27,28 +27,27 @@
   (push '("*eshell*" :height 0.5) popwin:special-display-config)
 
   (custom-set-variables
-   ;; eshellのプロンプトフォーマットを指定
+   ;; Specify eshell prompt format
    '(eshell-prompt-function
 	 (lambda ()
        (concat
 		"[" (abbreviate-file-name (eshell/pwd)) "]\n"
 		(if (= (user-uid) 0) "#" "$")
 		" ")))
-   ;; プロンプトにマッチングする正規表現を指定
-   ;; 複数行プロンプトを使う場合はそれぞれ1行毎にマッチングするように書くこと
+   ;; Specify a regular expression to match the prompt
+   ;; If using a multi-line prompt, write each line as a one-line match.
    '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)"))
 
-  ;; 追加設定
+  ;; Additional settings
   (defcustom eshell-prompt-regexp-lastline "^[#$] "
-	"複数行プロンプトの最終行にマッチする正規表現を指定する"
+	"Specify a regular expression to match the last line of a multi-line prompt."
 	:type 'regexp
 	:group 'eshell-prompt)
 
-  ;; 複数行プロンプトでもスキップが正常に動作するようにする
+  ;; Make skipping work correctly at multi-line prompts
   (defadvice eshell-skip-prompt (around eshell-skip-prompt-ext activate)
 	(if (looking-at eshell-prompt-regexp)
-		(re-search-forward eshell-prompt-regexp-lastline nil t)))
-  )
+		(re-search-forward eshell-prompt-regexp-lastline nil t))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
