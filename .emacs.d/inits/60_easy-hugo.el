@@ -7,12 +7,6 @@
   :doc "Write blogs made with hugo"
   :url "https://github.com/masasam/emacs-easy-hugo"
   :ensure t
-  ;; :bind (("C-c C-e" . easy-hugo)
-  ;; 		 (:easy-hugo-mode-map
-  ;; 		  ([tab] . easy-hugo-no-help)
-  ;; 		  ("o" . easy-hugo-open-basedir)
-  ;; 		  ("r" . easy-hugo-rename)
-  ;; 		  ("e" . my:edit-easy-hugo)))
   :config
   (with-eval-after-load "easy-hugo"
 	(global-set-key (kbd "C-c C-e") 'easy-hugo)

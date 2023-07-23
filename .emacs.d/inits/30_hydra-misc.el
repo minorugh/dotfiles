@@ -1,4 +1,5 @@
 ;;; 30_hydra-misc.el --- hydra misc mode configurations.
+
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -49,6 +50,7 @@
    (";" comment-dwim)
    ("c" clipboard-kill-ring-save)
    ("s" swiper-thing-at-point)
+   ("d" deeple-translate)
    ("t" gts-do-translate)
    ("w" my:weblio)
    ("k" my:koujien)

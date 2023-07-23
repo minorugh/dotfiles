@@ -7,34 +7,34 @@
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get minorugh/deepl-translate
-  :bind (("C-c C-t" . deepl-translate))
+  :bind ("C-c C-t" . deepl-translate)
   :init
+  ;; Load deepl api
   (load-file "~/Dropbox/backup/emacs/deepl-api.el"))
 
 
 (leaf go-translate
   :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
-  :ensure t
+  :ensure	t
+  :defun ((gts-translator)(gts-noprompt-picker)(gts-google-engine)
+		  (gts-deepl-engine)(ts-buffer-render)(gts-buffer-render))
   :bind ("C-c t" . gts-do-translate)
   :config
-  (require 'go-translate)
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
 		(gts-translator
-		 :picker
-		 (gts-noprompt-picker)
+		 :picker  (gts-noprompt-picker)
 		 :engines (list
 				   (gts-google-engine)
 				   (gts-deepl-engine
 					:auth-key (format deepl-auth-key) :pro nil))
-		 :render
-		 (gts-buffer-render))))
+		 :render  (gts-buffer-render))))
 
 
 (leaf *cus-deeple-translate
   :doc "Deepl translation in web page"
-  :bind (("C-c C-d" . my:deepl-translate))
+  :bind ("C-c C-d" . my:deepl-translate)
   :init
   (defun my:deepl-translate (&optional string)
 	"Hoge."
