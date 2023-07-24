@@ -49,6 +49,7 @@
   (defun my:recompile-directory ()
 	"Byte-compile Lisp files modified in the directory."
 	(interactive)
+	(byte-compile-file "~/.emacs.d/init.el")
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 	(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
@@ -56,8 +57,9 @@
 ;; Load configuration files
 (leaf *load-usr-define-function
   :doc "Load user define function"
-  :config
+  :init
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  :config
   (require 'my:dired)
   (require 'my:template))
 
