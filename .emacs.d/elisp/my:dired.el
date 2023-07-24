@@ -59,8 +59,7 @@
 (defun my:emacs-dir ()
   "Open `.emacs.d' dir."
   (interactive)
-  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/")
-  (dired-omit-mode -1))
+  (find-file "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
 
 (defun my:gh-dir ()
   "Open GH dir."

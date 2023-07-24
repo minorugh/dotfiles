@@ -17,7 +17,8 @@
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
   :ensure t
-  :defun ((neo-global--select-mru-window)(neo-buffer--execute))
+  :defun ((neo-global--select-mru-window)
+		  (neo-buffer--execute))
   :bind (("<f10>"    . neotree-find)
 		 (:neotree-mode-map
 		  ("RET"     . neotree-enter-hide)

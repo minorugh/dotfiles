@@ -26,7 +26,7 @@
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
   (leaf mozc-cand-posframe
 	:ensure t
-	;; :after posframe
+	:if (display-graphic-p)
 	:hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	:require t
 	:custom (mozc-candidate-style . 'posframe )
