@@ -20,7 +20,7 @@
   (mozc-leim-title          . "あ")
   :config
   (leaf mozc-cursor-color
-	:el-get iRi-E/mozc-el-extensions
+	:el-get "iRi-E/mozc-el-extensions"
 	:require t
 	:config
 	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))

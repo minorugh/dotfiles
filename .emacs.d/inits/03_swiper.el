@@ -21,7 +21,7 @@ If the region isn't selected, `swiper'."
   (leaf swiper-migemo
 	:doc "Use ivy/counsel/swiper with migemo"
 	:url "https://github.com/tam17aki/swiper-migemo"
-	:el-get tam17aki/swiper-migemo
+	:el-get "tam17aki/swiper-migemo"
 	:config
 	(global-swiper-migemo-mode +1)
 	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)

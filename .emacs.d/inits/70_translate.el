@@ -6,7 +6,7 @@
 (leaf deepl-translate
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
-  :el-get minorugh/deepl-translate
+  :el-get "minorugh/deepl-translate"
   :bind ("C-c C-t" . deepl-translate)
   :init
   ;; Load deepl api
