@@ -25,27 +25,14 @@
   (push '("*eshell*" :height 0.5) popwin:special-display-config)
   :config
   (custom-set-variables
-   ;; Specify eshell prompt format
    '(eshell-prompt-function
 	 (lambda ()
        (concat
 		"[" (abbreviate-file-name (eshell/pwd)) "]\n"
 		(if (= (user-uid) 0) "#" "$")
 		" ")))
-   ;; Specify a regular expression to match the prompt
-   ;; If using a multi-line prompt, write each line as a one-line match.
-   '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)"))
+   '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)")))
 
-  ;; Additional settings
-  (defcustom eshell-prompt-regexp-lastline "^[#$] "
-	"Specify a regular expression to match the last line of a multi-line prompt."
-	:type 'regexp
-	:group 'eshell-prompt)
-
-  ;; Make skipping work correctly at multi-line prompts
-  (defadvice eshell-skip-prompt (around eshell-skip-prompt-ext activate)
-	(if (looking-at eshell-prompt-regexp)
-		(re-search-forward eshell-prompt-regexp-lastline nil t))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
