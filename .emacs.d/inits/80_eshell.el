@@ -13,9 +13,7 @@
 	(eshell-cmpl-cycle-completions . t)
 	(eshell-cmpl-cycle-cutoff-length . 5)
 	(eshell-history-file-name . ,"~/Dropbox/backup/zsh/.zsh_history")
-	(eshell-hist-ignoredups . t)
-	;; (eshell-prompt-regexp . "^[^#$]*[$#] ")
-	)
+	(eshell-hist-ignoredups . t))
   :init
   (setq eshell-command-aliases-list
 		(append
@@ -25,7 +23,7 @@
 		  (list "la" "ls -a")
 		  (list "ex" "exit"))))
   (push '("*eshell*" :height 0.5) popwin:special-display-config)
-
+  :config
   (custom-set-variables
    ;; Specify eshell prompt format
    '(eshell-prompt-function
