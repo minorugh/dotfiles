@@ -42,7 +42,8 @@
 			  (setq inhibit-redisplay nil)
 			  (setq inhibit-message nil)
 			  (redisplay)))
-  (custom-set-faces '(default ((t (:background "#282a36"))))))
+  (custom-set-faces '(default ((t (:background "#282a36"))))
+					'(mode-line ((t (:foreground "#f8f8f2" :background "#282a36"))))))
 
 
 (provide 'early-init)
