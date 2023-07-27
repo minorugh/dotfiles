@@ -72,10 +72,10 @@
 
   ;; Server-start
   (leaf *server
-	:require server
-	:config
-	(unless (server-running-p)
-	  (add-hook 'after-init-hook 'server-start)))
+    :require server
+    :config
+    (unless (server-running-p)
+      (add-hook 'after-init-hook 'server-start)))
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)

@@ -7,9 +7,8 @@
   :doc "Highlight uncommitted changes"
   :url "https://github.com/dgutov/diff-hl"
   :ensure t
-  :init
-  (add-hook 'after-init-hook 'global-diff-hl-mode)
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  :hook ((after-init-hook . global-diff-hl-mode)
+		 (after-init-hook . diff-hl-margin-mode))
   :config
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
