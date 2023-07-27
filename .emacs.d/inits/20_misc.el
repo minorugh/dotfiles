@@ -49,15 +49,6 @@
   :when window-system)
 
 
-;; (leaf adaptive-wrap
-;;   :ensure t
-;;   :config
-;;   (setq-default adaptive-wrap-extra-indent 1)
-;;   (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
-;;   (global-visual-line-mode +1)
-;;   (add-hook 'org-mode-hook 'visual-line-mode))
-
-
 (leaf aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
