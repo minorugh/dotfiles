@@ -56,7 +56,6 @@
 
 ;; Load configuration files
 (leaf *load-usr-define-function
-  :doc "Load user define function"
   :init
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
   :config
@@ -64,8 +63,6 @@
   (require 'my:template))
 
 (leaf init-loader
-  :doc "Loader of configuration files"
-  :url "https://github.com/emacs-jp/init-loader/tree/master"
   :ensure t
   :config
   (custom-set-variables
