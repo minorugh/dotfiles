@@ -6,9 +6,7 @@
 (leaf dashboard
   :ensure t
   :if (display-graphic-p)
-  :hook '((after-init-hook    . dashboard-setup-startup-hook)
-		  (after-init-hook    . global-page-break-lines-mode)
-		  (emacs-startup-hook . open-dashboard))
+  :hook (emacs-startup-hook . open-dashboard)
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
@@ -23,6 +21,8 @@
   (leaf nerd-icons :ensure t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
+  (dashboard-setup-startup-hook)
+  (global-page-break-lines-mode)
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
