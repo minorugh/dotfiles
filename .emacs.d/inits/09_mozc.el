@@ -15,9 +15,9 @@
 		  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 		  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :custom
-  (default-input-method     . "japanese-mozc")
-  (mozc-helper-program-name . "mozc_emacs_helper")
-  (mozc-leim-title          . "あ")
+  '((default-input-method     . "japanese-mozc")
+	(mozc-helper-program-name . "mozc_emacs_helper")
+	(mozc-leim-title          . "あ"))
   :config
   (leaf mozc-cursor-color
 	:el-get "iRi-E/mozc-el-extensions"
