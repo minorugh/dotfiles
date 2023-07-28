@@ -7,7 +7,6 @@
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get "minorugh/deepl-translate"
-  :require my:deepl-api ;; Load deepl api-key
   :bind ("C-c C-t" . deepl-translate))
 
 
@@ -22,6 +21,8 @@
 		  (ts-buffer-render)
 		  (gts-buffer-render))
   :bind ("C-c t" . gts-do-translate)
+  :init
+  (load "~/Dropbox/backup/emacs/api/deepl-api.el")
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
