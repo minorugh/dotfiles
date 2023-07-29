@@ -11,9 +11,9 @@
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
           (lambda ()
-	    "Recover file name handlers and GC values after startup."
-	    (setq file-name-handler-alist my:file-name-handler-alist)
-	    (setq gc-cons-threshold 800000)))
+			"Recover file name handlers and GC values after startup."
+			(setq file-name-handler-alist my:file-name-handler-alist)
+			(setq gc-cons-threshold 800000)))
 
 
 ;; Package
@@ -45,6 +45,7 @@
 ;; Byte-compile
 (add-hook 'kill-emacs-hook
           (lambda()
+			"Byte-compile Lisp files modified in the directory."
 			(byte-compile-file "~/.emacs.d/init.el")
 			(byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 			(byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
