@@ -22,7 +22,7 @@
 		  (gts-buffer-render))
   :bind ("C-c t" . gts-do-translate)
   :init
-  (load "~/Dropbox/backup/emacs/api/deepl-api.el")
+  (load "~/Dropbox/backup/emacs/api/deepl-api")
   :config
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
