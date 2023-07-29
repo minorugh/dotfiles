@@ -7,7 +7,7 @@
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :el-get "minorugh/deepl-translate"
-  :bind ("C-c C-t" . deepl-translate))
+  :bind ("C-c C-d" . deepl-translate))
 
 
 (leaf go-translate
@@ -35,11 +35,11 @@
 		 :render  (gts-buffer-render))))
 
 
-(leaf *cus-deeple-translate
+(leaf *chromium-deepl-translate
   :doc "Deepl translation in web page"
-  :bind ("C-c C-d" . my:deepl-translate)
+  :bind ("C-c C-t" . chromium-deepl-translate)
   :init
-  (defun my:deepl-translate (&optional string)
+  (defun chromium-deepl-translate (&optional string)
 	"Hoge."
 	(interactive)
 	(setq string
