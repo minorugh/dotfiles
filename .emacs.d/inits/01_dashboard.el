@@ -6,7 +6,8 @@
 (leaf dashboard
   :ensure t
   :if (display-graphic-p)
-  :hook (emacs-startup-hook . open-dashboard)
+  :hook ((emacs-startup-hook . open-dashboard)
+		 (dashboard-mode-hook . (lambda() (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
