@@ -42,7 +42,7 @@
     (leaf-keywords-init)))
 
 
-;; Byte-compile
+;; Byte-compile (main machin only)
 (when (string-match "e590" (shell-command-to-string "uname -n"))
   (add-hook 'kill-emacs-hook
 			(lambda()
