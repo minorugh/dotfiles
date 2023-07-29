@@ -70,12 +70,11 @@
       (add-to-list 'default-frame-alist '(font . "Cica-18"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-  ;; Server-start
+  ;; Server-mode
   (leaf *server
-    :require server
-    :config
-    (unless (server-running-p)
-      (add-hook 'after-init-hook 'server-start)))
+	:config
+	(add-hook 'after-init-hook 'server-force-delete)
+	(add-hook 'emacs-startup-hook 'server-mode))
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)
@@ -114,9 +113,9 @@
 
   ;; Emacs init time
   (defun ad:emacs-init-time ()
-    "Advice `emacs-init-time'."
-    (interactive)
-    (let ((str
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
 		   (format "%.3f seconds"
 				   (float-time
 					(time-subtract after-init-time before-init-time)))))
