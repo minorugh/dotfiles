@@ -42,14 +42,14 @@
     (leaf-keywords-init)))
 
 
-;; Byte compile (main machin only)
-(defun compile-inits ()
+;;  Auto byte compile
+(defun auto-compile-inits ()
   "Byte compile Lisp files modified in the directory."
   (interactive)
   (byte-compile-file "~/.emacs.d/init.el")
   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
-(add-hook 'kill-emacs-hook 'compile-inits)
+(add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 
 ;; Load configuration files
