@@ -49,6 +49,7 @@
   (defun open-dashboard ()
 	"Open the *dashboard* buffer and jump to the first widget."
 	(interactive)
+	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files))
