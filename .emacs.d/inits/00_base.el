@@ -64,18 +64,14 @@
   (set-language-environment "Japanese")
   (prefer-coding-system 'utf-8)
 
-
   ;; Fonts
   (if (string-match "e590" (shell-command-to-string "uname -n"))
       (add-to-list 'default-frame-alist '(font . "Cica-18"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-  ;; server start for emacs-client
-  (leaf *server
-	:require server
-	:config
-	(unless (server-running-p)
-	  (add-hook 'after-init-hook 'server-start)))
+  ;; server mode for emacsclient
+  (add-hook 'after-init-hook 'server-force-delete)
+  (add-hook 'emacs-startup-hook 'server-mode)
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)

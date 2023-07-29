@@ -11,7 +11,11 @@
 		 (after-init-hook . diff-hl-margin-mode))
   :config
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  :custom-face
+  (diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
+  (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
+  (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333")))))
 
 
 (leaf git-timemachine
