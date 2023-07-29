@@ -70,11 +70,12 @@
       (add-to-list 'default-frame-alist '(font . "Cica-18"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
-  ;; Server-mode
+  ;; server start for emacs-client
   (leaf *server
+	:require server
 	:config
-	(add-hook 'after-init-hook 'server-force-delete)
-	(add-hook 'emacs-startup-hook 'server-mode))
+	(unless (server-running-p)
+	  (add-hook 'after-init-hook 'server-start)))
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)
