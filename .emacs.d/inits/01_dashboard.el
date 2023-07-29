@@ -18,12 +18,10 @@
 		  ("s" . slack)
 		  ("." . hydra-browse/body)))
   :init
-  (leaf page-break-lines :ensure t)
+  (leaf page-break-lines :ensure t :global-minor-mode t)
   (leaf nerd-icons :ensure t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
-  (dashboard-setup-startup-hook)
-  (global-page-break-lines-mode)
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
