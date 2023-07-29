@@ -42,14 +42,14 @@
     (leaf-keywords-init)))
 
 
-;; Byte-compile (main machin only)
-(when (string-match "e590" (shell-command-to-string "uname -n"))
-  (add-hook 'kill-emacs-hook
-			(lambda()
-			  "Byte-compile Lisp files modified in the directory."
-			  (byte-compile-file "~/.emacs.d/init.el")
-			  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-			  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))))
+;; Byte compile (main machin only)
+(defun compile-inits ()
+  "Byte compile Lisp files modified in the directory."
+  (interactive)
+  (byte-compile-file "~/.emacs.d/init.el")
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+(add-hook 'kill-emacs-hook 'compile-inits)
 
 
 ;; Load configuration files
