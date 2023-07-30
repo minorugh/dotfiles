@@ -8,7 +8,6 @@
   :url "https://github.com/emacsmirror/yatex"
   :ensure t
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
-  :hook (yatex-mode-hook . (lambda ()(interactive)(view-mode -1)))
   :custom
   '((tex-command              . "platex")
     (dviprint-command-format  . "dvpd.sh %s")

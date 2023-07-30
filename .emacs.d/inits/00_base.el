@@ -71,7 +71,7 @@
 
   ;; server mode for emacsclient
   (add-hook 'after-init-hook 'server-force-delete)
-  (add-hook 'emacs-startup-hook 'server-mode)
+  (add-hook 'emacs-startup-hook 'server-start)
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)
