@@ -21,9 +21,8 @@
 (leaf prescient
   :ensure t
   :hook (after-init-hook . prescient-persist-mode)
-  :custom
-  `((prescient-aggressive-file-save . t)
-	(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
+  :custom `((prescient-aggressive-file-save . t)
+			(prescient-save-file . "~/.emacs.d/tmp/prescient-save"))
   :config
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
@@ -54,13 +53,23 @@
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
+(leaf imenu-list
+  :ensure t
+  :bind ([f2]  . imenu-list-smart-toggle)
+  :custom '((imenu-list-auto-resize . t)
+			(imenu-list-position    . 'left))
+  :preface
+  (leaf counsel-css
+    :ensure t
+    :hook (css-mode-hook . counsel-css-imenu-setup)))
+
+
 (leaf web-mode
   :ensure t
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :custom
-  `((web-mode-markup-indent-offset . 2)
-	(web-mode-css-indent-offset . 2)
-	(web-mode-code-indent-offset . 2)))
+  :custom `((web-mode-markup-indent-offset . 2)
+			(web-mode-css-indent-offset . 2)
+			(web-mode-code-indent-offset . 2)))
 
 
 ;; Local Variables:

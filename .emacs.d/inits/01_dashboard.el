@@ -52,13 +52,20 @@
 	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
-	(dashboard-goto-recent-files))
+	(dashboard-goto-recent-files)
+	(my:server-mode))
 
   (defun dashboard-goto-recent-files ()
 	"Go to recent files."
 	(interactive)
 	(let ((func (local-key-binding "r")))
 	  (and func (funcall func))))
+
+  (defun my:server-mode ()
+	"server start for emacsclient."
+	(interactive)
+	(server-force-delete)
+	(server-start))
 
   (defun sylpheed ()
 	"Open sylpheed."

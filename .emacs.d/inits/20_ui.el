@@ -7,8 +7,8 @@
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom
-  (doom-themes-enable-italic . nil)
-  (doom-themes-enable-bold   . nil)
+  '((doom-themes-enable-italic . nil)
+	(doom-themes-enable-bold   . nil))
   :config
   (doom-themes-neotree-config)
   (doom-themes-org-config)
@@ -27,24 +27,19 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-  :init
+  ;; Tools
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
 	:after doom-modeline
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
-
-
-(leaf imenu-list
-  :ensure t
-  :bind ([f2]  . imenu-list-smart-toggle)
-  :custom
-  (imenu-list-auto-resize . t)
-  (imenu-list-position    . 'left)
-  :preface
-  (leaf counsel-css
-    :ensure t
-    :hook (css-mode-hook . counsel-css-imenu-setup)))
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
+  (leaf nyan-mode
+	:ensure t
+	:if (display-graphic-p)
+	:after doom-modeline
+	:config
+	(nyan-mode 1)
+	(nyan-start-animation)))
 
 
 (leaf whitespace
