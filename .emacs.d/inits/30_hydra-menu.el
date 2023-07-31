@@ -86,8 +86,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_^^  _z_illa  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  C-x._0__1_  _p_assx  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale._+_^^  _z_illa  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  _f_rame._0_  _p_assx  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
    ("a" (org-agenda nil "a"))
@@ -114,8 +114,8 @@
    ("m" my:make-move)
    ("u" my:make-upsftp)
    ("/" my:root-dir)
-   ("0" delete-window)
-   ("1" delete-other-windows)
+   ("f" make-frame-command)
+   ("0" delete-frame)
    ("_" delete-other-windows)
    ("[" hydra-git/body)
    ("]" my:magit-status)

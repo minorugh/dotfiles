@@ -70,8 +70,11 @@
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; server mode for emacsclient
-  ;; (add-hook 'after-init-hook 'server-force-delete)
-  ;; (add-hook 'emacs-startup-hook 'server-start)
+  ;; (add-hook 'emacs-startup-hook
+  ;; 			(lambda ()
+  ;; 			  "Do not start duplicate server."
+  ;; 			  (server-force-delete)
+  ;; 			  (server-start)))
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)

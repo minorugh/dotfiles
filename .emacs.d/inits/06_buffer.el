@@ -12,22 +12,7 @@
   '((super-save-auto-save-when-idle . t)
 	(super-save-idle-duration       . 1)
 	(super-save-remote-files        . nil)
-	(super-save-exclude             . '(".gpg")))
-  :init
-  ;; (defun my:super-save-command ()
-  ;; 	"Save the buffer if needed.
-  ;; see https://takaxp.github.io/init.html#orgde08dbd8"
-  ;; 	(save-excursion
-  ;; 	  (dolist (buf (buffer-list))
-  ;; 		(set-buffer buf)
-  ;; 		(when (and buffer-file-name
-  ;; 				   (buffer-modified-p (current-buffer))
-  ;; 				   (file-writable-p buffer-file-name)
-  ;; 				   (if (file-remote-p buffer-file-name)
-  ;; 					   super-save-remote-files t))
-  ;; 		  (save-buffer)(message nil)))))
-  ;; (advice-add 'super-save-command :override #'my:super-save-command)
-  )
+	(super-save-exclude             . '(".gpg"))))
 
 
 (leaf persistent-scratch

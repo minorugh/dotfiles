@@ -7,15 +7,15 @@
   :ensure t
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
-		 (dashboard-mode-hook . (lambda() (setq left-margin-width 1))))
+		 (dashboard-mode-hook . (lambda()(setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
 		  ("n" . chromium-nhk-news)
 		  ("w" . chromium-weather)
 		  ("h" . chromium-homepage)
-		  ("m" . sylpheed)
-		  ("s" . slack)
+		  ("m" . (lambda() (interactive)(compile "sylpheed")))
+		  ("s" . (lambda() (interactive)(compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
   (leaf page-break-lines :ensure t :global-minor-mode t)
@@ -46,6 +46,12 @@
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
+  (defun dashboard-goto-recent-files ()
+	"Go to recent files."
+	(interactive)
+	(let ((func (local-key-binding "r")))
+	  (and func (funcall func))))
+
   (defun open-dashboard ()
 	"Open the *dashboard* buffer and jump to the first widget."
 	(interactive)
@@ -53,29 +59,13 @@
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files)
-	(my:server-mode))
+	(start-server))
 
-  (defun dashboard-goto-recent-files ()
-	"Go to recent files."
-	(interactive)
-	(let ((func (local-key-binding "r")))
-	  (and func (funcall func))))
-
-  (defun my:server-mode ()
-	"server start for emacsclient."
+  (defun start-server ()
+	"Server Start or Restart."
 	(interactive)
 	(server-force-delete)
-	(server-start))
-
-  (defun sylpheed ()
-	"Open sylpheed."
-	(interactive)
-	(compile "sylpheed"))
-
-  (defun slack ()
-	"Open sylpheed."
-	(interactive)
-	(compile "slack")))
+	(server-start)))
 
 
 ;; Local Variables:
