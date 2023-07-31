@@ -14,8 +14,8 @@
 		  ("n" . chromium-nhk-news)
 		  ("w" . chromium-weather)
 		  ("h" . chromium-homepage)
-		  ("m" . (lambda() (interactive)(compile "sylpheed")))
-		  ("s" . (lambda() (interactive)(compile "slack")))
+		  ("m" . (lambda()(interactive)(compile "sylpheed")))
+		  ("s" . (lambda()(interactive)(compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
   (leaf page-break-lines :ensure t :global-minor-mode t)
