@@ -184,6 +184,10 @@
   (goto-char (point-min)))
 
 
+;; Load custom templsate
+(require 'my:template)
+
+
 (provide 'my:dired)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
