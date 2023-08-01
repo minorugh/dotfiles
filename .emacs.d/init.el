@@ -52,16 +52,13 @@
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 
-;; Load configuration files
-(leaf *load-usr-define-function
-  :init
-  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-  :config
-  (require 'my:dired)
-  (require 'my:template))
-
 (leaf init-loader
   :ensure t
+  :init
+  ;; Load user configuration
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  (require 'my:dired)
+  (require 'my:template)
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
