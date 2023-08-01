@@ -6,22 +6,22 @@
 (leaf dashboard
   :ensure t
   :if (display-graphic-p)
-  :hook (
-		 (emacs-startup-hook . open-dashboard)
+  :hook ((emacs-startup-hook . open-dashboard)
 		 (dashboard-mode-hook . (lambda()(setq left-margin-width 1))))
+  :bind (([home] . open-dashboard)
+		 (:dashboard-mode-map
+		  ("c" . chromium-calendar)
+		  ("n" . chromium-nhk-news)
+		  ("w" . chromium-weather)
+		  ("h" . chromium-homepage)
+		  ("m" . (lambda()(interactive)(compile "sylpheed")))
+		  ("s" . (lambda()(interactive)(compile "slack")))
+		  ("." . hydra-browse/body)))
   :init
   (leaf page-break-lines :ensure t :global-minor-mode t)
   (leaf nerd-icons :ensure t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
-  (global-set-key [home] 'open-dashboard)
-  (define-key dashboard-mode-map (kbd "c") 'chromium-calendar)
-  (define-key dashboard-mode-map (kbd "n") 'chromium-nhk-news)
-  (define-key dashboard-mode-map (kbd "w") 'chromium-weather)
-  (define-key dashboard-mode-map (kbd "h") 'chromium-homepage)
-  (define-key dashboard-mode-map (kbd ".") 'hydra-browse/body)
-  (define-key dashboard-mode-map (kbd "m") #'(lambda()(interactive)(compile "sylpheed")))
-  (define-key dashboard-mode-map (kbd "s") #'(lambda()(interactive)(compile "slack")))
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
