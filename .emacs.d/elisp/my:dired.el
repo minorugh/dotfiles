@@ -23,8 +23,7 @@
 (defun my:root-dir ()
   "Open root dir."
   (interactive)
-  (find-file "/")
-  (sudo-edit))
+  (find-file "/"))
 
 (defun my:xsrv-dir ()
   "Open xsrv dir."
