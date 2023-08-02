@@ -76,7 +76,6 @@
 		(forward-line 2) ;; beyond dir. header
 		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
       (set-buffer-modified-p nil)))
-
   (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
   (defun call-sxiv ()
