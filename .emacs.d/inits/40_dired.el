@@ -85,6 +85,19 @@
 	(let* ((file (dired-get-filename nil t)))
 	  (call-process "xdg-open" nil 0 nil file)))
 
+  (defun my:dired-sort ()
+	"Dired sort hook to list directories first.
+  see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
+	(save-excursion
+	  (let (buffer-read-only)
+		(forward-line 2) ;; beyond dir. header
+		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
+	(and (featurep 'xemacs)
+		 (fboundp 'dired-insert-set-properties)
+		 (dired-insert-set-properties (point-min) (point-max)))
+	(set-buffer-modified-p nil))
+  (add-hook 'dired-after-readin-hook 'my:dired-sort)
+
   ;; https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b
   (defun call-sxiv ()
 	"Show all images in the directory with sxiv."
@@ -100,21 +113,7 @@
 	   "sxiv" nil
 	   (format "sxiv -f -t -n %s %s"
 			   (length image-files)
-			   (mapconcat 'identity image-files " ")))))
-
-
-  (defun my:dired-sort ()
-	"Dired sort hook to list directories first.
-  see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
-	(save-excursion
-	  (let (buffer-read-only)
-		(forward-line 2) ;; beyond dir. header
-		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
-	(and (featurep 'xemacs)
-		 (fboundp 'dired-insert-set-properties)
-		 (dired-insert-set-properties (point-min) (point-max)))
-	(set-buffer-modified-p nil))
-  (add-hook 'dired-after-readin-hook 'my:dired-sort))
+			   (mapconcat 'identity image-files " "))))))
 
 
 ;; Local Variables:
