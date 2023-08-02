@@ -34,9 +34,8 @@
 	(delete-by-moving-to-trash . t)
 	(dired-recursive-copies . 'always)
 	(dired-recursive-deletes . 'always)
- 	(dired-listing-switches . "-AFl")
-	(ls-lisp-use-insert-directory-program . nil)
-	(ls-lisp-dirs-first . t))
+	(dired-listing-switches . "-AFl")
+	(ls-lisp-use-insert-directory-program . nil))
   :config
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil))
@@ -103,17 +102,18 @@
 			   (mapconcat 'identity image-files " ")))))
 
   (defun my:dired-sort ()
-	"Sort dired listings with directories first."
+	"Dired sort hook to list directories first.
+see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
 	(save-excursion
-      (let (buffer-read-only)
+	  (let (buffer-read-only)
 		(forward-line 2) ;; beyond dir. header
-		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-      (set-buffer-modified-p nil)))
+		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
+	(and (featurep 'xemacs)
+		 (fboundp 'dired-insert-set-properties)
+		 (dired-insert-set-properties (point-min) (point-max)))
+	(set-buffer-modified-p nil))
 
-  (defadvice dired-readin
-	  (after dired-after-updating-hook first () activate)
-	"Sort dired listings with directories first before adding mark."
-	(my:dired-sort)))
+  (add-hook 'dired-after-readin-hook 'my:dired-sort))
 
 
 ;; Local Variables:
