@@ -13,7 +13,8 @@
 
 
 (leaf dired
-  :hook ((after-init-hook . (lambda () (require 'dired-x)(require 'ls-lisp)))
+  :hook ((after-init-hook . (lambda () (require 'dired-x))) ;; Use dired-omit-mode
+		 (after-init-hook . (lambda () (require 'ls-lisp))) ;; Date in English
 		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
   :bind (:dired-mode-map
 		 ("<left>" . dired-up-alternate-directory)
