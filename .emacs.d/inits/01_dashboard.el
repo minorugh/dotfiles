@@ -7,15 +7,15 @@
   :ensure t
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
-		 (dashboard-mode-hook . (lambda()(setq left-margin-width 1))))
+		 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
 		  ("c" . chromium-calendar)
 		  ("n" . chromium-nhk-news)
 		  ("w" . chromium-weather)
 		  ("h" . chromium-homepage)
-		  ("m" . (lambda()(interactive)(compile "sylpheed")))
-		  ("s" . (lambda()(interactive)(compile "slack")))
+		  ("m" . (lambda () (interactive) (compile "sylpheed")))
+		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
   (leaf page-break-lines :ensure t :global-minor-mode t)

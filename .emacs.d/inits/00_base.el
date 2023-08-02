@@ -101,7 +101,7 @@
 				 'eshell-mode-hook
 				 'calendar-mode-hook
 				 'dired-mode-hook))
-    (add-hook hook (lambda ()(display-line-numbers-mode -1))))
+    (add-hook hook (lambda () (display-line-numbers-mode -1))))
   (setq display-line-numbers-width-start t)
 
   ;; Emacs init time

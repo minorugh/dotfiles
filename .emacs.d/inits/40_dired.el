@@ -13,8 +13,8 @@
 
 
 (leaf dired
-  :hook ((after-init-hook . (lambda () (require 'dired-x))) ;; Use dired-omit-mode
-		 (after-init-hook . (lambda () (require 'ls-lisp))) ;; Date in English
+  :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
+		 (dired-load-hook . (lambda () (require 'dired-x)))
 		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
   :bind (:dired-mode-map
 		 ("<left>" . dired-up-alternate-directory)
@@ -76,6 +76,7 @@
 		(forward-line 2) ;; beyond dir. header
 		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
       (set-buffer-modified-p nil)))
+
   (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
   (defun call-sxiv ()
