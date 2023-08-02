@@ -13,7 +13,7 @@
 
 
 (leaf dired
-  :hook ((after-init-hook . (lambda () (require 'dired-x)))
+  :hook ((after-init-hook . (lambda () (require 'dired-x)(require 'ls-lisp)))
 		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
   :bind (:dired-mode-map
 		 ("<left>" . dired-up-alternate-directory)
@@ -101,9 +101,10 @@
 			   (length image-files)
 			   (mapconcat 'identity image-files " ")))))
 
+
   (defun my:dired-sort ()
 	"Dired sort hook to list directories first.
-see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
+  see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
 	(save-excursion
 	  (let (buffer-read-only)
 		(forward-line 2) ;; beyond dir. header
@@ -112,7 +113,6 @@ see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_
 		 (fboundp 'dired-insert-set-properties)
 		 (dired-insert-set-properties (point-min) (point-max)))
 	(set-buffer-modified-p nil))
-
   (add-hook 'dired-after-readin-hook 'my:dired-sort))
 
 
