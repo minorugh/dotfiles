@@ -39,24 +39,7 @@
 	(ls-lisp-use-insert-directory-program . nil))
   :config
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
-  (put 'dired-find-alternate-file 'disabled nil))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custum functions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf *cus-dired-funcs
-  :config
-  (defun dired-my-append-buffer-name-hint ()
-	"Append a auxiliary string [Dir] to a name of dired buffer."
-	(when (eq major-mode 'dired-mode)
-	  (let* ((dir (expand-file-name list-buffers-directory))
-			 ;; Add a drive letter for Windows
-			 (drive (if (and (eq 'system-type 'windows-nt)
-							 (string-match "^\\([a-zA-Z]:\\)/" dir))
-						(match-string 1 dir) "")))
-		(rename-buffer (concat (buffer-name) " [" drive "dir]") t))))
-  (add-hook 'dired-mode-hook 'dired-my-append-buffer-name-hint)
+  (put 'dired-find-alternate-file 'disabled nil)
 
   (defun dired-open-in-accordance-with-situation ()
 	"Files are opened in separate buffers, directories are opened in the same buffer."
@@ -86,21 +69,18 @@
 	  (call-process "xdg-open" nil 0 nil file)))
 
   (defun my:dired-sort ()
-	"Dired sort hook to list directories first.
+	"Sort dired listings with directories first.
   see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
 	(save-excursion
-	  (let (buffer-read-only)
+      (let (buffer-read-only)
 		(forward-line 2) ;; beyond dir. header
-		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
-	(and (featurep 'xemacs)
-		 (fboundp 'dired-insert-set-properties)
-		 (dired-insert-set-properties (point-min) (point-max)))
-	(set-buffer-modified-p nil))
+		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+      (set-buffer-modified-p nil)))
   (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
-  ;; https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b
   (defun call-sxiv ()
-	"Show all images in the directory with sxiv."
+	"Show all images in the directory with sxiv.
+see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 	(interactive)
 	(let ((image-files
 		   (delq nil
