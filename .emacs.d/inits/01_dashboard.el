@@ -62,10 +62,11 @@
 	(restart-server))
 
   (defun restart-server ()
-	"Server Start or Restart."
+	"Server Start."
 	(interactive)
-	(server-force-delete)
-	(server-start)))
+	(require 'server)
+	(unless (server-running-p)
+	  (server-start))))
 
 
 ;; Local Variables:
