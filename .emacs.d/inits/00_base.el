@@ -69,6 +69,13 @@
       (add-to-list 'default-frame-alist '(font . "Cica-18"))
     (add-to-list 'default-frame-alist '(font . "Cica-15")))
 
+  ;; Recentf
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude
+		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (add-hook 'after-init-hook 'recentf-mode)
+
   ;; Autorevert
   (setq auto-revert-interval 0.1)
   (add-hook 'after-init-hook 'global-auto-revert-mode)
@@ -84,13 +91,6 @@
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
-
-  ;; Recentf
-  (setq recentf-auto-cleanup 'never)
-  (setq recentf-exclude
-		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
 
   ;; Display-line-numbers
   (add-hook 'after-init-hook 'global-display-line-numbers-mode)
