@@ -4,8 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf flycheck
-  :doc "On-the-fly syntax checking"
-  :url "http://www.flycheck.org"
   :ensure t
   :hook (prog-mode-hook . flycheck-mode)
   :bind (("M-n" . flycheck-next-error)
