@@ -3,7 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Syntax checking
 (leaf flycheck
   :doc "On-the-fly syntax checking"
   :url "http://www.flycheck.org"
@@ -11,13 +10,6 @@
   :hook (prog-mode-hook . flycheck-mode)
   :bind (("M-n" . flycheck-next-error)
 		 ("M-p" . flycheck-previous-error)))
-;; (leaf flymake
-;;   :hook (prog-mode-hook . flymake-mode)
-;;   :bind (:flymake-mode-map
-;; 		 ("M-n" . flymake-goto-next-error)
-;; 		 ("M-p" . flymake-goto-prev-error))
-;;   :config
-;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 
 (leaf projectile
