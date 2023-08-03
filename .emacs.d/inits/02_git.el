@@ -8,11 +8,11 @@
   :doc "Highlight uncommitted changes"
   :url "https://github.com/dgutov/diff-hl"
   :ensure t
-  :config
-  (add-hook 'after-init-hook 'global-diff-hl-mode)
-  (add-hook 'after-init-hook 'diff-hl-margin-mode)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  :hook
+  ((after-init-hook . global-diff-hl-mode)
+   (after-init-hook . diff-hl-margin-mode)
+   (magit-pre-refresh-hook .diff-hl-magit-pre-refresh)
+   (magit-post-refresh-hook . diff-hl-magit-post-refresh))
   :custom-face
   (diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
   (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
