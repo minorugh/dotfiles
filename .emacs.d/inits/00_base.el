@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *generic-configuration
+  :defun (ad:emacs-init-time)
   :custom
   `(;; No startup screen appears
     (inhibit-splash-screen . t)

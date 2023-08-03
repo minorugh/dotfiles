@@ -2,11 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf swiper
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
+  :defun ((global-swiper-migemo-mode)(migemo-kill))
   :bind (("C-s" . swiper-region)
 		 ("C-r" . swiper-thing-at-point))
   :config

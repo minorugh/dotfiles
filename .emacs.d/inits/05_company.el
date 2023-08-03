@@ -7,6 +7,7 @@
   :doc "Modular in-buffer completion framework"
   :url "http://company-mode.github.io/"
   :ensure t
+  :defun (company-mode/backend-with-yas)
   :hook (after-init-hook . global-company-mode)
   :bind (("C-1"          . company-complete)
 		 ("C-<tab>"      . company-yasnippet)

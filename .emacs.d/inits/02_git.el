@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf diff-hl
   :doc "Highlight uncommitted changes"
@@ -35,6 +36,8 @@
   :doc "A Git Porcelain inside Emacs"
   :url "https://github.com/magit/magit"
   :ensure t
+  :defun ((hydra-default-pre)(hydra-keyboard-quit)
+		  (hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
   :bind '(("C-x g" . magit-status)
 		  ("M-g" . hydra-git/body))
   :custom
@@ -54,7 +57,7 @@
    ("g" gitk-open)
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
-  :init
+  :config
   ;; Graphical history viewer for Git
   ;; https://riptutorial.com/git/example/18336/gitk-and-git-gui
   (defun gitk-open ()

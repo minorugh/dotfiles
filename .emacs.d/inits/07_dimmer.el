@@ -2,11 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf dimmer
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
+  :defun ((my:dimmer-activate)(dimmer-on)(dimmer-off)(dimmer-process-all))
   :chord (".." . my:toggle-dimmer)
   :custom
   '((dimmer-buffer-exclusion-regexps

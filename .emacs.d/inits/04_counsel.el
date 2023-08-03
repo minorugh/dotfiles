@@ -7,6 +7,8 @@
   :doc "Various completion functions using Ivy"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
+  :defun ((ivy--format-function-generic)(ivy--add-face)(thing-at-point-looking-at)
+		  (ivy-thing-at-point)(ad:counsel-ag)(ivy-add-actions))
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 		 ("C-x C-b" . counsel-switch-buffer)

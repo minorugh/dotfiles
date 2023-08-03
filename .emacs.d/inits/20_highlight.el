@@ -39,6 +39,7 @@
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
   :ensure t
+  :defun ((my:vhl-pulse)(vhl/.make-hl))
   :hook (after-init-hook . volatile-highlights-mode)
   :custom-face
   (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))

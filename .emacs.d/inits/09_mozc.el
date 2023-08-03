@@ -2,11 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf mozc
   :doc "Japanese Input Method Editor"
   :url "https://github.com/google/mozc"
   :ensure t
+  :defun ((mozc-insert-str)(evil-emacs-state)(dimmer-on)(dimmer-off)(mozc-handle-event))
   :commands toggle-input-method-active
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)

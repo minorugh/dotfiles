@@ -2,9 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf *hydra-browse
   :doc "Slection menu for favalite site"
+  :defun ((hydra-default-pre)(hydra-keyboard-quit)(hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
   :hydra
   (hydra-browse
    (:hint nil :exit t)

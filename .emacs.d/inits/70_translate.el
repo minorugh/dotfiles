@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf deepl-translate
   :doc "Display translation results in mini-buffer & copy to clipboard"

@@ -5,6 +5,7 @@
 
 (leaf *define-gist-commands
   :doc "Gist upload from current buffer or region"
+  :defun ((gist-description)(gist-filename)(dired-get-filename))
   :config
   (defun gist-description ()
     "Add gist description."

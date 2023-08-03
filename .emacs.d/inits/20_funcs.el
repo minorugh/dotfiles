@@ -5,6 +5,7 @@
 ;; User custom functions
 
 (leaf *define-functions
+  :defun (minibuffer-keyboard-quit)
   :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)

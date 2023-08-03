@@ -2,9 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(eval-when-compile (leaf-keywords-init))
 
 (leaf *hydra-work-menu
   :doc "Selection menu for project work"
+  :defun ((hydra-default-pre)(hydra-keyboard-quit)(hydra--call-interactively-remap-maybe)
+		  (hydra-show-hint)(hydra-set-transient-map))
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work

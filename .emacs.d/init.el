@@ -1,4 +1,5 @@
 ;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*-
+;;; Commentary:
 ;;
 ;; Compatible with Emacs 27 and later
 ;; Aiming for a fancy and fast Emacs configuration
@@ -37,7 +38,7 @@
     (leaf el-get
       :ensure t
       :custom (el-get-git-shallow-clone . t))
-    :config
+    ;; :config
     (setq byte-compile-warnings '(not cl-functions obsolete))
     (leaf-keywords-init)))
 
@@ -51,7 +52,6 @@
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
-
 (leaf init-loader
   :ensure t
   :init
@@ -60,7 +60,7 @@
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
-  (init-loader-load)
+	(init-loader-load)
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 
