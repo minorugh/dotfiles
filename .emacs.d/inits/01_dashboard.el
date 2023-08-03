@@ -59,9 +59,9 @@
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files)
-	(start-server))
+	(restart-server))
 
-  (defun start-server ()
+  (defun restart-server ()
 	"Server Start or Restart."
 	(interactive)
 	(server-force-delete)
