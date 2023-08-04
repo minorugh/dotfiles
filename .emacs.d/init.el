@@ -22,7 +22,7 @@
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                        ("melpa" . "https://melpa.org/packages/")
-                       ("org"   . "https://orgmode.org/Elpa/")))
+                       ("org"   . "https://orgmode.org/elpa/")))
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
@@ -38,8 +38,7 @@
     (leaf el-get
       :ensure t
       :custom (el-get-git-shallow-clone . t))
-    ;; :config
-    (setq byte-compile-warnings '(not cl-functions obsolete))
+    :config
     (leaf-keywords-init)))
 
 
@@ -59,6 +58,7 @@
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
   (require 'my:dired)
   :config
+  (setq byte-compile-warnings '(not cl-functions obsolete))
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load)

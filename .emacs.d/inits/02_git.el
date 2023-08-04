@@ -58,10 +58,9 @@
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
   :config
-  ;; Graphical history viewer for Git
-  ;; https://riptutorial.com/git/example/18336/gitk-and-git-gui
   (defun gitk-open ()
-	"Open gitk with current dir."
+	"Open gitk with current dir.
+see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 	(interactive)
 	(shell-command "gitk &")
 	(delete-other-windows))
