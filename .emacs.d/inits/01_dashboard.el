@@ -20,8 +20,7 @@
 		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
-  (leaf page-break-lines :ensure t :global-minor-mode t)
-  (leaf nerd-icons :ensure t)
+  (leaf page-break-lines :ensure t :after dashboard :global-minor-mode t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
   ;; Set the title
