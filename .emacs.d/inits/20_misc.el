@@ -10,7 +10,6 @@
 		 ("M-p" . flycheck-previous-error))
   :init (setq lsp-prefer-flymake nil))
 
-
 (leaf projectile
   :ensure t
   :hook (after-init-hook . projectile-mode)

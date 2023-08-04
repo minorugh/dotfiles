@@ -58,7 +58,6 @@
   (setq load-path (cons "~/.emacs.d/elisp/" load-path))
   (require 'my:dired)
   :config
-  (setq byte-compile-warnings '(not cl-functions obsolete))
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load)
