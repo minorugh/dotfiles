@@ -6,9 +6,10 @@
 (leaf flycheck
   :ensure t
   :hook (prog-mode-hook . flycheck-mode)
+  :bind* ("M-l" . flycheck-list-errors)
   :bind (("M-n" . flycheck-next-error)
-		 ("M-p" . flycheck-previous-error))
-  :init (setq lsp-prefer-flymake nil))
+		 ("M-p" . flycheck-previous-error)))
+
 
 (leaf projectile
   :ensure t
