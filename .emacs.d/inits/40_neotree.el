@@ -7,6 +7,7 @@
   :doc "utility package to collect various Icon Fonts"
   :url "https://github.com/domtronn/all-the-icons.el"
   :ensure t
+  :after dashboard
   :if (display-graphic-p)
   :config
   (unless (member "all-the-icons" (font-family-list))
@@ -16,10 +17,10 @@
 (leaf neotree
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
-  :defun ((dimmer-on)(dimmer-off))
-  :ensure t
-  :defun ((neo-global--select-mru-window)
+  :defun ((dimmer-on)(dimmer-off)(neo-global--select-mru-window)
 		  (neo-buffer--execute))
+  :commands neotree-find
+  :ensure t
   :bind (("<f10>"    . my:neotree-find)
 		 (:neotree-mode-map
 		  ("RET"     . neotree-enter-hide)
@@ -27,7 +28,7 @@
 		  ("<left>"  . neotree-select-up-node)
 		  ("<right>" . neotree-change-root)
 		  ("<f10>"   . neotree-toggle)))
-  :init
+  :config
   (setq neo-mode-line-type nil)
   (setq neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
@@ -59,7 +60,6 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
 	"Enters file and hides neotree directly"
 	(interactive "P")
 	(neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
-
 
 
 ;; Local Variables:
