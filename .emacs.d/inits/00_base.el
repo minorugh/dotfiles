@@ -55,7 +55,7 @@
     :when (memq window-system '(mac ns x))
     :config
     (setq exec-path-from-shell-check-startup-files nil)
-    (add-hook 'after-init-hook 'exec-path-from-shell-initialize))
+    (add-hook 'emacs-startup-hook 'exec-path-from-shell-initialize))
 
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
@@ -117,6 +117,17 @@
 		  (message "%s" str)
 		str)))
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
+
+
+(leaf *load-user-configirations
+  :doc "Load user configurations after startup"
+  :init
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  :config
+  (add-hook 'emacs-startup-hook
+			(lambda ()
+			  (require 'my:dired)
+			  (require 'my:template))))
 
 
 ;; Local Variables:

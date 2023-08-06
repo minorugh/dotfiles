@@ -3,6 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(require 'evil)
+(require 'dired-x)
+
 ;; Custom functions to open the desired project directory
 (defun my:dotfiles-dir ()
   "Open dotfile dir."
@@ -181,10 +184,6 @@
   (find-file "~/Dropbox/GH/apvoice/apvoice.txt")
   (evil-insert-state)
   (goto-char (point-min)))
-
-
-;; Load custom templsate
-(require 'my:template)
 
 
 (provide 'my:dired)

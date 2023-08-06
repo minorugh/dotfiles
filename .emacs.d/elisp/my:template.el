@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; -----------------------------------------------------------------------------------------
-;; Template to insert when creating a new project file
-;; -----------------------------------------------------------------------------------------
+(require 'evil)
+
 (defun my:diary-new-post ()
   "Open diary file and insert template."
   (interactive)

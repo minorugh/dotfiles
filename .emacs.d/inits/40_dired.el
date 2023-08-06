@@ -6,6 +6,7 @@
 (leaf all-the-icons-dired
   :ensure t
   :if (display-graphic-p)
+  :after all-the-icons
   :hook (dired-mode-hook . all-the-icons-dired-mode)
   :custom
   `((all-the-icons-dired-monochrome . nil)

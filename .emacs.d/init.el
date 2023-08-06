@@ -54,9 +54,6 @@
 
 (leaf init-loader
   :ensure t
-  :init
-  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-  (require 'my:dired)
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
