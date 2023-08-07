@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
-(eval-when-compile (leaf-keywords-init))
+;;(eval-when-compile (leaf-keywords-init))
 
 (leaf diff-hl
   :doc "Highlight uncommitted changes"

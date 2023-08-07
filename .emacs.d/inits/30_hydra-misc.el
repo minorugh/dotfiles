@@ -6,7 +6,8 @@
 
 (leaf package-utils
   :ensure t
-  :defun ((hydra-default-pre)(hydra-keyboard-quit)(hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
+  :defun ((hydra-default-pre)(hydra-keyboard-quit)
+		  (hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
   :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
