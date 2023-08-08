@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-;; User custom functions
 
 (leaf *define-functions
   :defun (minibuffer-keyboard-quit)

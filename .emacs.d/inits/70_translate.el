@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;; Suppress flycheck recognition errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf deepl-translate

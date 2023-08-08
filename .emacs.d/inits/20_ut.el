@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;; Suppress flycheck recognition errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf which-key
@@ -35,12 +37,6 @@
   `((counsel-web-search-action . #'browse-url)
 	(counsel-web-engine . 'google)
 	(counsel-web-search-dynamic-update . t)))
-
-
-(leaf sudo-edit
-  :doc "Open root parmission files as sudo user"
-  :url "https://github.com/nflath/sudo-edit"
-  :ensure t)
 
 
 (leaf quickrun

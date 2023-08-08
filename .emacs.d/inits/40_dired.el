@@ -42,6 +42,7 @@
   :config
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
+  (leaf sudo-edit :ensure t)
 
   (defun dired-open-in-accordance-with-situation ()
 	"Files are opened in separate buffers, directories are opened in the same buffer."

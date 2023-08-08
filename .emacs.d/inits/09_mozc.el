@@ -2,11 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;; Suppress flycheck recognition errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf mozc
-  :doc "Japanese Input Method Editor"
-  :url "https://github.com/google/mozc"
   :ensure t
   :defun ((mozc-insert-str)(evil-emacs-state)(dimmer-on)(dimmer-off)(mozc-handle-event))
   :commands toggle-input-method-active
@@ -24,8 +24,7 @@
   (leaf mozc-cursor-color
 	:el-get "iRi-E/mozc-el-extensions"
 	:require t
-	:config
-	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
+	:config	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
   (leaf mozc-cand-posframe
 	:ensure t
 	:if (display-graphic-p)
@@ -37,7 +36,6 @@
 	(mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
 	(mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
 
-  ;; Define custom
   (defadvice toggle-input-method (around toggle-input-method-around activate)
 	"Input method function in key-chord.el not to be nil."
 	(let ((input-method-function-save input-method-function))

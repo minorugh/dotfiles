@@ -2,11 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
+
+;; Suppress flycheck recognition errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf diff-hl
-  :doc "Highlight uncommitted changes"
-  :url "https://github.com/dgutov/diff-hl"
   :ensure t
   :hook
   ((after-init-hook . global-diff-hl-mode)
@@ -19,22 +19,7 @@
   (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333")))))
 
 
-(leaf git-timemachine
-  :doc "Git time machine"
-  :url "https://gitlab.com/pidu/git-timemachine"
-  :ensure t)
-
-
-(leaf browse-at-remote
-  :doc "Open github page from Emacs"
-  :url "https://github.com/rmuslimov/browse-at-remote"
-  :ensure t
-  :custom	(browse-at-remote-prefer-symbolic . nil))
-
-
 (leaf magit
-  :doc "A Git Porcelain inside Emacs"
-  :url "https://github.com/magit/magit"
   :ensure t
   :defun ((hydra-default-pre)(hydra-keyboard-quit)
 		  (hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
@@ -58,6 +43,11 @@
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
   :config
+  (leaf git-timemachine	:ensure t)
+  (leaf browse-at-remote
+	:ensure t
+	:custom	(browse-at-remote-prefer-symbolic . nil))
+
   (defun gitk-open ()
 	"Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
