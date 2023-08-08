@@ -38,7 +38,7 @@
 	(display-line-numbers-mode 0)
 	(darkroom-tentative-mode 1)
 	(toggle-frame-fullscreen)
-	(setq-local line-spacing .5)
+	(setq-local line-spacing .3)
 	(evil-emacs-state))
 
   (defun my:darkroom-out ()
