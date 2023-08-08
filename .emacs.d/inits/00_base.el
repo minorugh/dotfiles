@@ -51,11 +51,11 @@
   :config
   ;; Share PATH from shell environment variables
   (leaf exec-path-from-shell
-    :ensure t
-    :when (memq window-system '(mac ns x))
-    :config
-    (setq exec-path-from-shell-check-startup-files nil)
-    (add-hook 'emacs-startup-hook 'exec-path-from-shell-initialize))
+	:ensure t
+	:when (memq window-system '(mac ns x))
+	:config
+	(setq exec-path-from-shell-check-startup-files nil)
+	(add-hook 'emacs-startup-hook 'exec-path-from-shell-initialize))
 
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
@@ -67,8 +67,8 @@
 
   ;; Fonts
   (if (string-match "e590" (shell-command-to-string "uname -n"))
-      (add-to-list 'default-frame-alist '(font . "Cica-20"))
-    (add-to-list 'default-frame-alist '(font . "Cica-15")))
+	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
+	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; Recentf
   (setq recentf-auto-cleanup 'never)
@@ -76,6 +76,9 @@
 		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode)
+
+  ;; Default letter spacing
+  (set-default 'line-spacing 0.1)
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)
@@ -102,7 +105,7 @@
 				 'eshell-mode-hook
 				 'calendar-mode-hook
 				 'dired-mode-hook))
-    (add-hook hook (lambda () (display-line-numbers-mode -1))))
+	(add-hook hook (lambda () (display-line-numbers-mode -1))))
   (setq display-line-numbers-width-start t)
 
   ;; Emacs init time
@@ -113,7 +116,7 @@
 		   (format "%.3f seconds"
 				   (float-time
 					(time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
+	  (if (called-interactively-p 'interactive)
 		  (message "%s" str)
 		str)))
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))

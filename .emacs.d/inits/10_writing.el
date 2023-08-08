@@ -47,7 +47,7 @@
 	(darkroom-tentative-mode 0)
 	(display-line-numbers-mode 1)
 	(toggle-frame-fullscreen)
-	(setq-local line-spacing .1)
+	(setq-local line-spacing .101)
 	(evil-normal-state)))
 
 

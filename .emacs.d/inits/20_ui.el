@@ -20,12 +20,10 @@
   :custom
   `((doom-modeline-icon            . t)
 	(doom-modeline-major-mode-icon . nil)
-	(doom-modeline-minor-modes     . nil)
-	(doom-modeline-height . 35))
+	(doom-modeline-minor-modes     . nil))
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-  ;; Tools
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
