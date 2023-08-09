@@ -6,6 +6,7 @@
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
+
 (leaf mozc
   :ensure t
   :defun (mozc-insert-str evil-emacs-state dimmer-on dimmer-off mozc-handle-event)

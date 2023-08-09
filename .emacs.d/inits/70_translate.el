@@ -6,6 +6,7 @@
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
+
 (leaf deepl-translate
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"

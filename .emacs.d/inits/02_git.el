@@ -7,6 +7,7 @@
 (eval-when-compile (leaf-keywords-init))
 (require 'hydra)
 
+
 (leaf diff-hl
   :ensure t
   :hook

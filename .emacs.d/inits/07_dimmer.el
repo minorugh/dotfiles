@@ -6,6 +6,7 @@
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
+
 (leaf dimmer
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"

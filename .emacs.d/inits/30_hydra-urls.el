@@ -7,6 +7,7 @@
 (eval-when-compile (leaf-keywords-init))
 (require 'hydra)
 
+
 (leaf *hydra-browse
   :doc "Slection menu for favalite site"
   :hydra

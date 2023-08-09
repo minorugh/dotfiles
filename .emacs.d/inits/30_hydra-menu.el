@@ -7,6 +7,7 @@
 (eval-when-compile (leaf-keywords-init))
 (require 'hydra)
 
+
 (leaf *hydra-work-menu
   :doc "Selection menu for project work"
   :bind ("<henkan>" . hydra-work/body)

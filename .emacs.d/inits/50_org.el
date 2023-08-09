@@ -6,6 +6,7 @@
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
+
 (leaf org
   :chord ((",," . org-capture))
   :bind ((("C-c a"  . org-agenda)

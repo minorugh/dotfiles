@@ -6,6 +6,7 @@
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
+
 (leaf which-key
   :ensure t
   :hook (after-init-hook . which-key-mode)
