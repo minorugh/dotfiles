@@ -5,6 +5,7 @@
 
 ;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
+(require 'hydra)
 
 (leaf diff-hl
   :ensure t
@@ -21,8 +22,6 @@
 
 (leaf magit
   :ensure t
-  :defun ((hydra-default-pre)(hydra-keyboard-quit)
-		  (hydra--call-interactively-remap-maybe)(hydra-show-hint)(hydra-set-transient-map))
   :bind '(("C-x g" . magit-status)
 		  ("M-g" . hydra-git/body))
   :custom

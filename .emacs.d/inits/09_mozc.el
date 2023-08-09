@@ -8,7 +8,7 @@
 
 (leaf mozc
   :ensure t
-  :defun ((mozc-insert-str)(evil-emacs-state)(dimmer-on)(dimmer-off)(mozc-handle-event))
+  :defun (mozc-insert-str evil-emacs-state dimmer-on dimmer-off mozc-handle-event)
   :commands toggle-input-method-active
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)

@@ -10,7 +10,6 @@
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
-  :defun ((global-swiper-migemo-mode)(migemo-kill))
   :bind (("C-s" . swiper-region)
 		 ("C-r" . swiper-thing-at-point))
   :config
@@ -26,6 +25,7 @@ If the region isn't selected, `swiper'."
 	:doc "Use ivy/counsel/swiper with migemo"
 	:url "https://github.com/tam17aki/swiper-migemo"
 	:el-get "tam17aki/swiper-migemo"
+	:defun (global-swiper-migemo-mode migemo-kill)
 	:config
 	(global-swiper-migemo-mode +1)
 	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
