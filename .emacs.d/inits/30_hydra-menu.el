@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf *hydra-work-menu

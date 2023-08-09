@@ -28,11 +28,6 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
-(leaf iedit
-  :ensure t
-  :bind ([insert] . iedit-mode))
-
-
 (leaf expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
@@ -51,6 +46,9 @@
 (leaf aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+
+
+(leaf sudo-edit :ensure t)
 
 
 (leaf imenu-list

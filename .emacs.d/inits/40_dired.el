@@ -7,9 +7,8 @@
   :ensure t
   :if (display-graphic-p)
   :hook (dired-mode-hook . all-the-icons-dired-mode)
-  :custom
-  `((all-the-icons-dired-monochrome . nil)
-	(all-the-icons-scale-factor . 0.9)))
+  :custom `((all-the-icons-dired-monochrome . nil)
+			(all-the-icons-scale-factor . 0.9)))
 
 
 (leaf dired
@@ -42,7 +41,6 @@
   :config
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-  (leaf sudo-edit :ensure t)
 
   (defun dired-open-in-accordance-with-situation ()
 	"Files are opened in separate buffers, directories are opened in the same buffer."

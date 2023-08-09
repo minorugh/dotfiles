@@ -12,16 +12,19 @@
 (leaf undohist
   :ensure t
   :hook (after-init-hook . undohist-initialize)
-  :custom
-  `((undohist-directory     . "~/.emacs.d/tmp/undohist")
-	(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
+  :custom `((undohist-directory     . "~/.emacs.d/tmp/undohist")
+			(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
 
 (leaf smartparens
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
-  :config
-  (leaf smartparens-config :require t))
+  :config (leaf smartparens-config :require t))
+
+
+(leaf iedit
+  :ensure t
+  :bind ([insert] . iedit-mode))
 
 
 (leaf darkroom
@@ -54,8 +57,7 @@
 (leaf atomic-chrome
   :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
-  :custom
-  (atomic-chrome-buffer-open-style . 'full))
+  :custom (atomic-chrome-buffer-open-style . 'full))
 
 
 ;; (leaf pangu-spacing

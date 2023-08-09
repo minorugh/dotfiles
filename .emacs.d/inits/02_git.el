@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-;; Suppress flycheck recognition errors
+;; Suppress flycheck's unrecognized leaf-keywords errors
 (eval-when-compile (leaf-keywords-init))
 
 (leaf diff-hl
