@@ -52,6 +52,7 @@
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 
+;; Init loader
 (leaf init-loader
   :ensure t
   :config
