@@ -20,7 +20,7 @@
   (setq easy-hugo-sshdomain "xsrv")
   (setq easy-hugo-root "/home/minorugh/minorugh.com/public_html/snap/")
   (setq easy-hugo-previewtime "300")
-  ;; Load other blog settings & custom command for evil
+  ;; Load other blog settings & custom configuration for evil-mode
   (require 'cus-easy-hugo)
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
