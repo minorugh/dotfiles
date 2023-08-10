@@ -1,4 +1,4 @@
-;;; my:evil-easy-hugo.el --- User custom configurations for evil-mode. -*- lexical-binding: t -*-
+;;; cus-easy-hugo.el --- User custom configurations for evil-mode. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Rewrite easy-hugo-newpost configuration for `evil-mode'.
@@ -12,9 +12,10 @@
 ;; -----------------------------------------------------------------------------------------
 ;; Custom newpost function for Evil
 ;; -----------------------------------------------------------------------------------------
-(leaf *cus-easy-hugo
-  :defun ((easy-hugo-with-env)(easy-hugo--org-headers))
+(leaf *evil-easy-hugo
+  :defun (evil-insert-state)
   :config
+  (eval-and-compile (require 'easy-hugo))
   (defun easy-hugo-newpost (post-file)
 	"Create a new post with hugo.
 POST-FILE needs to have and extension '.md' or '.org' or '.ad' or '.rst' or '.mmark' or '.html'."
@@ -102,8 +103,8 @@ POST-FILE needs to have and extension '.md' or '.org' or '.ad' or '.rst' or '.mm
   )
 
 
-(provide 'my:evil-easy-hugo)
+(provide 'cus-easy-hugo)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; my:evil-easy-hugo.el ends here
+;;; cus-easy-hugo.el ends here
