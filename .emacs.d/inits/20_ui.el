@@ -27,8 +27,13 @@
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
-	:after doom-modeline
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
+  (leaf nyan-mode
+	:ensure t
+	:if (display-graphic-p)
+	:config
+	(nyan-mode 1)
+	(nyan-start-animation)))
 
 
 (leaf whitespace

@@ -11,9 +11,9 @@
    (magit-pre-refresh-hook .diff-hl-magit-pre-refresh)
    (magit-post-refresh-hook . diff-hl-magit-post-refresh))
   :custom-face
-  (diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
-  (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
-  (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333")))))
+  `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
+	(diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
+	(diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
 (leaf magit
@@ -21,9 +21,9 @@
   :bind '(("C-x g" . magit-status)
 		  ("M-g" . hydra-git/body))
   :custom
-  (transient-history-file . "~/.emacs.d/tmp/transient-history")
-  ;; Do not split window
-  (magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1)
+  `((transient-history-file . "~/.emacs.d/tmp/transient-history")
+	;; Do not split window
+	(magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1))
   :hydra
   (hydra-git
    (:color red :hint nil)
@@ -41,7 +41,7 @@
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
 	:ensure t
-	:custom	(browse-at-remote-prefer-symbolic . nil))
+	:custom	((browse-at-remote-prefer-symbolic . nil)))
 
   (defun gitk-open ()
 	"Open gitk with current dir.

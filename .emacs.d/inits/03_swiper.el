@@ -30,7 +30,7 @@ If the region isn't selected, `swiper'."
 (leaf migemo
   :if (executable-find "cmigemo")
   :ensure t
-  :hook (after-init-hook . migemo-init)
+  :hook ((after-init-hook . migemo-init))
   :custom
   `((migemo-command    . "cmigemo")
     (migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
