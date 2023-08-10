@@ -14,11 +14,11 @@
   :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
   :ensure	t
-  :defun (gts-translator gts-noprompt-picker gts-google-engine gts-deepl-engine gts-buffer-render)
   :bind ("C-c t" . gts-do-translate)
   :init
   (load "~/Dropbox/backup/emacs/api/deepl-api")
   :config
+  (eval-and-compile (require 'go-translate))
   (setq gts-translate-list '(("en" "ja") ("ja" "en")))
   (setq gts-default-translator
 		(gts-translator

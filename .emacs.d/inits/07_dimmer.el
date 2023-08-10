@@ -7,13 +7,14 @@
   :doc "Visually highlight the selected buffer"
   :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
-  :defun (my:dimmer-activate dimmer-on dimmer-off dimmer-process-all)
+  :defun (my:dimmer-activate dimmer-on dimmer-off)
   :chord (".." . my:toggle-dimmer)
   :custom
   '((dimmer-buffer-exclusion-regexps
 	 . '("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
 	(dimmer-fraction . 0.5))
   :config
+  (eval-and-compile (require 'dimmer))
   (defvar my:dimmer-mode nil)
   (defun my:dimmer-activate ()
 	(setq my:dimmer-mode (dimmer-mode 1))

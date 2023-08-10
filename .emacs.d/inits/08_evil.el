@@ -7,7 +7,7 @@
   :doc "The extensible vi layer for Emacs"
   :url "https://github.com/emacs-evil/evil"
   :ensure t
-  :defun (evil-normal-state evil-insert-state evil-swap-key ad:switch-to-buffer)
+  :defun (evil-swap-key ad:switch-to-buffer)
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook  . my:evil-find-file))
   :bind ((:evil-normal-state-map
@@ -28,6 +28,7 @@
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
+  (eval-and-compile (require 'evil))
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode

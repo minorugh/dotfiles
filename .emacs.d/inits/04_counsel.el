@@ -7,8 +7,7 @@
   :doc "Various completion functions using Ivy"
   :url "https://github.com/abo-abo/swiper"
   :ensure t
-  :defun ((ivy--format-function-generic ivy--add-face ivy-thing-at-point ivy-add-actions)
-		  (thing-at-point-looking-at ad:counsel-ag))
+  :defun (thing-at-point-looking-at ad:counsel-ag)
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 		 ("C-x C-b" . counsel-switch-buffer)
@@ -35,6 +34,7 @@
 	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
 	  (amx-history-length . 20)))
   :config
+  (eval-and-compile (require 'ivy))
   (defun my:ivy-format-function-arrow (cands)
 	"Transform into a string for minibuffer with CANDS."
 	(ivy--format-function-generic

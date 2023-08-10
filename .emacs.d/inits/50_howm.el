@@ -7,7 +7,6 @@
   :doc "Wiki-like note-taking tool"
   :url "https://howm.osdn.jp"
   :ensure t
-  :defun (howm-create evil-insert-state)
   :hook ((after-init-hook . howm-mode))
   :bind ((:howm-view-summary-mode-map
 		  ([backtab]  . howm-view-summary-previous-section)
@@ -31,6 +30,7 @@
 		 "# memo: %cursor\n%date%file"
 		 "# tech: %cursor\n%date%file")))
   :config
+  (eval-and-compile (require 'howm)(require 'evil))
   (defun my:howm-create-memo ()
     "Create by inserting tags automatically."
 	(interactive)

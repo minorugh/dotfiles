@@ -29,11 +29,11 @@
 
 (leaf darkroom
   :ensure t
-  :defun (evil-emacs-state evil-normal-state)
   :bind ((([f12] . my:darkroom-in)
 		  (:darkroom-mode-map
 		   ([f12] . my:darkroom-out))))
   :config
+  (eval-and-compile (require 'evil))
   (defun my:darkroom-in ()
 	"Enter to the `darkroom-mode'."
 	(interactive)
