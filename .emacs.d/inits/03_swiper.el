@@ -3,9 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Suppress flycheck's unrecognized leaf-keywords errors
-(eval-when-compile (leaf-keywords-init))
-
 (leaf swiper
   :doc "Isearch with an overview. Oh, man!"
   :url "https://github.com/abo-abo/swiper"

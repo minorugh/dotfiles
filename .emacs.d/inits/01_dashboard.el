@@ -6,8 +6,8 @@
 (leaf dashboard
   :ensure t
   :if (display-graphic-p)
-  :defun ((nerd-icons-octicon)(dashboard-refresh-buffer)
-		  (dashboard-goto-recent-files)(restart-server)(server-running-p))
+  :defun ((nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files)
+		  (restart-server server-running-p))
   :hook ((emacs-startup-hook . open-dashboard)
 		 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)

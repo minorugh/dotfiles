@@ -7,7 +7,7 @@
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
   :ensure t
-  :defun ((selected--on)(region-or-read-string)(my:ime-off, my:ime-on))
+  :defun (selected--on region-or-read-string my:ime-off my:ime-on)
   :hook (after-init-hook . selected-global-mode)
   :bind (:selected-keymap
 		 (";" . comment-dwim)

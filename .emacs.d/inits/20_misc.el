@@ -8,7 +8,16 @@
   :hook (prog-mode-hook . flycheck-mode)
   :bind* (("M-l" . flycheck-list-errors)
 		  ("M-n" . flycheck-next-error)
-		  ("M-p" . flycheck-previous-error)))
+		  ("M-p" . flycheck-previous-error))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :config
+  (eval-and-compile (require 'flycheck))
+  (setq flycheck-emacs-lisp-package-initialize-form
+		(flycheck-sexp-to-string
+		 '(progn
+			(with-demoted-errors "Error during package initialization: %S"
+              (package-initialize))
+			(leaf-keywords-init)))))
 
 
 (leaf projectile

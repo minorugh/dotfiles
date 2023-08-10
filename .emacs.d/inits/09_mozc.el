@@ -3,13 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Suppress flycheck's unrecognized leaf-keywords errors
-(eval-when-compile (leaf-keywords-init))
-
-
 (leaf mozc
   :ensure t
-  :defun (mozc-insert-str evil-emacs-state dimmer-on dimmer-off mozc-handle-event)
+  :defun (mozc-insert-str mozc-handle-event evil-emacs-state dimmer-on dimmer-off)
   :commands toggle-input-method-active
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)

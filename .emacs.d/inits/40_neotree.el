@@ -17,8 +17,7 @@
 (leaf neotree
   :doc "Tree plugin like NerdTree for Vim"
   :url "https://github.com/jaypei/emacs-neotree"
-  :defun ((dimmer-on)(dimmer-off)(neo-global--select-mru-window)
-		  (neo-buffer--execute))
+  :defun (dimmer-on dimmer-off neo-global--select-mru-window neo-buffer--execute)
   :commands neotree-find
   :ensure t
   :bind (("<f10>"    . my:neotree-find)

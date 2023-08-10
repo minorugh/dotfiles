@@ -10,10 +10,8 @@
   :custom `((all-the-icons-dired-monochrome . nil)
 			(all-the-icons-scale-factor . 0.9)))
 
-
 (leaf dired
-  :defun ((dired-get-filename)(dired-find-alternate-file)(dired-find-file)
-		  (dired-current-directory)(dired-goto-file)(dired-goto-subdir))
+  :after dired
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 		 (dired-load-hook . (lambda () (require 'dired-x)))
 		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))

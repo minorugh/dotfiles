@@ -29,7 +29,7 @@
 
 (leaf darkroom
   :ensure t
-  :defun ((evil-emacs-state)(evil-normal-state))
+  :defun (evil-emacs-state evil-normal-state)
   :bind ((([f12] . my:darkroom-in)
 		  (:darkroom-mode-map
 		   ([f12] . my:darkroom-out))))

@@ -3,11 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-;; Suppress flycheck's unrecognized leaf-keywords errors
-(eval-when-compile (leaf-keywords-init))
-(require 'hydra)
-
-
 (leaf diff-hl
   :ensure t
   :hook
