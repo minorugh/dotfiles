@@ -57,9 +57,6 @@
 (leaf flycheck
   :ensure t
   :hook (prog-mode-hook . flycheck-mode)
-  :bind* (("M-l" . flycheck-list-errors)
-		  ("M-n" . flycheck-next-error)
-		  ("M-p" . flycheck-previous-error))
   :custom ((flycheck-emacs-lisp-initialize-packages . t))
   :config
   (eval-and-compile (require 'flycheck))
