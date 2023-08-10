@@ -6,7 +6,7 @@
 (leaf dashboard
   :ensure t
   :if (display-graphic-p)
-  :defun (dashboard-goto-recent-files restart-server)
+  :defun (dashboard-goto-recent-files nerd-icons-octicon restart-server)
   :hook ((emacs-startup-hook . open-dashboard)
 		 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
@@ -22,7 +22,7 @@
   (leaf page-break-lines :ensure t :after dashboard :global-minor-mode t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
-  (eval-and-compile (require 'dashboard)(require 'server)(require 'nerd-icons))
+  (eval-and-compile (require 'dashboard))
   ;; Set the title
   (setq dashboard-banner-logo-title
 		(concat "GNU Emacs " emacs-version " kernel "
@@ -65,7 +65,7 @@
   (defun restart-server ()
 	"Server Start."
 	(interactive)
-	(require 'server)
+	(eval-and-compile (require 'server))
 	(unless (server-running-p)
 	  (server-start))))
 
