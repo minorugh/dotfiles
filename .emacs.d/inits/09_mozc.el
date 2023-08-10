@@ -5,7 +5,7 @@
 
 (leaf mozc
   :ensure t
-  :defun (mozc-insert-str dimmer-on dimmer-off)
+  :defun (evil-emacs-state mozc-insert-str dimmer-on dimmer-off)
   :commands toggle-input-method-active
   :hook (after-init-hook . mozc-mode)
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
@@ -18,7 +18,7 @@
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title          . "あ"))
   :config
-  (eval-and-compile (require 'evil)(require 'mozc))
+  (eval-and-compile (require 'mozc))
   (leaf mozc-cursor-color
 	:el-get "iRi-E/mozc-el-extensions"
 	:require t

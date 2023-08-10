@@ -4,8 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf swiper
-  :doc "Isearch with an overview. Oh, man!"
-  :url "https://github.com/abo-abo/swiper"
   :ensure t
   :bind (("C-s" . swiper-region)
 		 ("C-r" . swiper-thing-at-point))
@@ -19,8 +17,6 @@ If the region isn't selected, `swiper'."
       (swiper-thing-at-point)))
 
   (leaf swiper-migemo
-	:doc "Use ivy/counsel/swiper with migemo"
-	:url "https://github.com/tam17aki/swiper-migemo"
 	:el-get "tam17aki/swiper-migemo"
 	:defun (global-swiper-migemo-mode migemo-kill)
 	:config
@@ -32,8 +28,6 @@ If the region isn't selected, `swiper'."
 
 
 (leaf migemo
-  :doc "Japanese increment search with 'Romanization of Japanese'"
-  :url "https://github.com/emacs-jp/migemo"
   :if (executable-find "cmigemo")
   :ensure t
   :hook (after-init-hook . migemo-init)
