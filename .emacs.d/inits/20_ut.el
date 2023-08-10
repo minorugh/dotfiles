@@ -19,9 +19,7 @@
 
 
 (leaf sequential-command
-  :doc "Many commands into one command"
-  :url "https://github.com/HKey/sequential-command/blob/master/sequential-command.el"
-  :el-get "HKey/sequential-command"
+  :ensure t
   :config
   (leaf sequential-command-config
 	:hook (after-init-hook . sequential-command-setup-keys)))
