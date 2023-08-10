@@ -22,11 +22,6 @@
   :config (leaf smartparens-config :require t))
 
 
-(leaf iedit
-  :ensure t
-  :bind ([insert] . iedit-mode))
-
-
 (leaf darkroom
   :ensure t
   :bind ((([f12] . my:darkroom-in)

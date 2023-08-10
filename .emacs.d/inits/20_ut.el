@@ -47,6 +47,16 @@
 		  ("l;" . init-loader-show-log)))
 
 
+(leaf iedit
+  :ensure t
+  :bind ([insert] . iedit-mode))
+
+
+(leaf expand-region
+  :ensure t
+  :bind ("C-@" . er/expand-region))
+
+
 (leaf *cus-ps-print
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config

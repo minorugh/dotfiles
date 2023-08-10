@@ -20,11 +20,6 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
-(leaf expand-region
-  :ensure t
-  :bind ("C-@" . er/expand-region))
-
-
 (leaf popwin
   :ensure t
   :hook (after-init-hook . popwin-mode))
@@ -38,9 +33,6 @@
 (leaf aggressive-indent
   :ensure t
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
-
-
-(leaf sudo-edit :ensure t)
 
 
 (leaf imenu-list
@@ -60,6 +52,23 @@
   :custom `((web-mode-markup-indent-offset . 2)
 			(web-mode-css-indent-offset . 2)
 			(web-mode-code-indent-offset . 2)))
+
+
+(leaf flycheck
+  :ensure t
+  :hook (prog-mode-hook . flycheck-mode)
+  :bind* (("M-l" . flycheck-list-errors)
+		  ("M-n" . flycheck-next-error)
+		  ("M-p" . flycheck-previous-error))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :config
+  (eval-and-compile (require 'flycheck))
+  (setq flycheck-emacs-lisp-package-initialize-form
+		(flycheck-sexp-to-string
+		 '(progn
+			(with-demoted-errors "Error during package initialization: %S"
+              (package-initialize))
+			(leaf-keywords-init)))))
 
 
 ;; Local Variables:
