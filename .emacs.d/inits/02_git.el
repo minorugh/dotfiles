@@ -41,7 +41,7 @@
   (leaf git-timemachine	:ensure t)
   (leaf browse-at-remote
 	:ensure t
-	:custom	((browse-at-remote-prefer-symbolic . nil)))
+	:custom	(browse-at-remote-prefer-symbolic . nil))
 
   (defun gitk-open ()
 	"Open gitk with current dir.

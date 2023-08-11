@@ -5,7 +5,6 @@
 
 (leaf company
   :doc "Modular in-buffer completion framework"
-  :url "http://company-mode.github.io/"
   :ensure t
   :defun (company-mode/backend-with-yas)
   :hook (after-init-hook . global-company-mode)
@@ -36,7 +35,6 @@
 
 (leaf yasnippet
   :doc "Template system"
-  :url "https://github.com/joaotavora/yasnippet"
   :ensure t
   :hook (after-init-hook . yas-global-mode)
   :custom (yas-indent-line . 'fixed)

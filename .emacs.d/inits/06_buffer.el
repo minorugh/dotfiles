@@ -5,7 +5,6 @@
 
 (leaf super-save
   :doc "Smart auto save buffers"
-  :url "https://github.com/bbatsov/super-save"
   :ensure t
   :hook (after-init-hook . super-save-mode)
   :custom
@@ -17,7 +16,6 @@
 
 (leaf persistent-scratch
   :doc "Save scratch buffer state to file and restore from file"
-  :url "https://github.com/Fanael/persistent-scratch"
   :ensure t
   :defun (dimmer-on dimmer-off)
   :hook (after-init-hook . persistent-scratch-autosave-mode)

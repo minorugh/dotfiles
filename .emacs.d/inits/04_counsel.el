@@ -5,7 +5,6 @@
 
 (leaf counsel
   :doc "Various completion functions using Ivy"
-  :url "https://github.com/abo-abo/swiper"
   :ensure t
   :defun (thing-at-point-looking-at ad:counsel-ag)
   :hook (after-init-hook . ivy-mode)

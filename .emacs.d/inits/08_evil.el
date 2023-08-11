@@ -5,7 +5,6 @@
 
 (leaf evil
   :doc "The extensible vi layer for Emacs"
-  :url "https://github.com/emacs-evil/evil"
   :ensure t
   :defun (evil-swap-key ad:switch-to-buffer)
   :hook ((after-init-hook . evil-mode)

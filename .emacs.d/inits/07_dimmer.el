@@ -5,12 +5,11 @@
 
 (leaf dimmer
   :doc "Visually highlight the selected buffer"
-  :url "https://github.com/gonewest818/dimmer.el"
   :ensure t
   :defun (my:dimmer-activate dimmer-process-all dimmer-on dimmer-off)
   :chord (".." . my:toggle-dimmer)
   :custom
-  '((dimmer-buffer-exclusion-regexps
+  `((dimmer-buffer-exclusion-regexps
 	 . '("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
 	(dimmer-fraction . 0.5))
   :config
