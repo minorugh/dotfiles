@@ -31,26 +31,22 @@
   (leaf nyan-mode
 	:ensure t
 	:if (display-graphic-p)
+	:hook (emacs-startup-hook . nyan-mode)
 	:config
-	(nyan-mode 1)
+	(eval-and-compile (require 'nyan-mode))
 	(nyan-start-animation)))
 
 
 (leaf whitespace
-  :hook (prog-mode-hook . my:enable-trailing-mode)
+  :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :custom
-  (show-trailing-whitespace . nil)
+  :custom ((show-trailing-whitespace . nil))
   :init
-  (defun my:enable-trailing-mode ()
-    "Show tail whitespace."
-    (setq show-trailing-whitespace t))
-
   (defun my:cleanup-for-spaces ()
-    "Remove contiguous line breaks at end of line + end of file."
-    (interactive)
-    (delete-trailing-whitespace)
-    (save-excursion
+	"Remove contiguous line breaks at end of line + end of file."
+	(interactive)
+	(delete-trailing-whitespace)
+	(save-excursion
       (save-restriction
 		(widen)
 		(goto-char (point-max))
