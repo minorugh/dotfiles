@@ -18,7 +18,7 @@
   (setq howm-directory "~/Dropbox/howm")
   (setq howm-file-name-format "%Y/%m/%Y%m%d%H%M.md")
   :custom
-  '((howm-view-split-horizontally . t)
+  `((howm-view-split-horizontally . t)
 	(howm-view-summary-persistent . nil)
 	(howm-normalizer              . 'howm-sort-items-by-reverse-date)
 	(howm-user-font-lock-keywords

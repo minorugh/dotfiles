@@ -78,7 +78,7 @@
   (add-hook 'after-init-hook 'recentf-mode)
 
   ;; Default letter spacing
-  (set-default 'line-spacing 0.1)
+  (set-default 'line-spacing 0)
 
   ;; Autorevert
   (setq auto-revert-interval 0.1)

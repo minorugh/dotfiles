@@ -8,7 +8,7 @@
   :ensure t
   :hook (after-init-hook . super-save-mode)
   :custom
-  '((super-save-auto-save-when-idle . t)
+  `((super-save-auto-save-when-idle . t)
 	(super-save-idle-duration       . 1)
 	(super-save-remote-files        . nil)
 	(super-save-exclude             . '(".gpg"))))

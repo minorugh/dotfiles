@@ -27,14 +27,7 @@
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode))
-  (leaf nyan-mode
-	:ensure t
-	:if (display-graphic-p)
-	:hook (emacs-startup-hook . nyan-mode)
-	:config
-	(eval-and-compile (require 'nyan-mode))
-	(nyan-start-animation)))
+	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
 
 (leaf whitespace

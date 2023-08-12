@@ -38,7 +38,7 @@
 (leaf imenu-list
   :ensure t
   :bind ([f2]  . imenu-list-smart-toggle)
-  :custom '((imenu-list-auto-resize . t)
+  :custom `((imenu-list-auto-resize . t)
 			(imenu-list-position    . 'left))
   :preface
   (leaf counsel-css

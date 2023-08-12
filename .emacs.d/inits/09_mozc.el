@@ -14,7 +14,7 @@
 		  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 		  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :custom
-  '((default-input-method     . "japanese-mozc")
+  `((default-input-method     . "japanese-mozc")
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title          . "あ"))
   :config

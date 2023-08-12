@@ -9,11 +9,11 @@
   :ensure t
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :custom
-  '((tex-command              . "platex")
-    (dviprint-command-format  . "dvpd.sh %s")
-    (YaTeX-kanji-code         . nil)
-    (YaTeX-latex-message-code . 'utf-8)
-    (YaTeX-default-pop-window-height . 15))
+  `((tex-command              . "platex")
+	(dviprint-command-format  . "dvpd.sh %s")
+	(YaTeX-kanji-code         . nil)
+	(YaTeX-latex-message-code . 'utf-8)
+	(YaTeX-default-pop-window-height . 15))
   :config
   (leaf yatexprc
     :bind ((("M-c" . YaTeX-typeset-buffer)
