@@ -96,18 +96,6 @@
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
 
-  ;; Display-line-numbers
-  (add-hook 'after-init-hook 'global-display-line-numbers-mode)
-  (global-set-key [f9] 'display-line-numbers-mode)
-  (dolist (hook (list
-				 'lisp-interaction-mode-hook
-				 'neotree-mode-hook
-				 'eshell-mode-hook
-				 'calendar-mode-hook
-				 'dired-mode-hook))
-	(add-hook hook (lambda () (display-line-numbers-mode -1))))
-  (setq display-line-numbers-width-start t)
-
   ;; Emacs init time
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."

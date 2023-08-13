@@ -25,13 +25,20 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
+
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
 	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
 
-(leaf whitespace
+(leaf *display-line-numbers
+  :hook ((prog-mode-hook text-mode-hook) . display-line-numbers-mode)
+  :bind  ([f9] . display-line-numbers-mode)
+  :custom (display-line-numbers-width-start . t))
+
+
+(leaf *whitespace
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom ((show-trailing-whitespace . nil))
