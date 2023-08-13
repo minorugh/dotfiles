@@ -5,7 +5,6 @@
 
 (leaf all-the-icons
   :doc "utility package to collect various Icon Fonts"
-  :url "https://github.com/domtronn/all-the-icons.el"
   :ensure t
   :after dashboard
   :if (display-graphic-p)
