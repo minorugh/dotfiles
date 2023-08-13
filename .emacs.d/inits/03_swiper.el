@@ -19,8 +19,8 @@ If the region isn't selected, `swiper'."
   (leaf swiper-migemo
 	:el-get "tam17aki/swiper-migemo"
 	:hook (after-init-hook . global-swiper-migemo-mode)
+	:defun migemo-kill
 	:config
-	(eval-and-compile (require 'migemo))
 	(add-to-list 'swiper-migemo-enable-command 'counsel-rg)
 	(setq migemo-options '("--quiet" "--nonewline" "--emacs"))
 	(migemo-kill)
