@@ -6,6 +6,7 @@
 (leaf doom-themes
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
+  :custom ((doom-themes-enable-italic . nil))
   :config
   (doom-themes-neotree-config)
   (doom-themes-org-config)
