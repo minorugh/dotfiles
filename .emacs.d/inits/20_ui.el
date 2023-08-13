@@ -25,7 +25,6 @@
   :config
   (line-number-mode 0)
   (column-number-mode 0)
-
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
 	:ensure t
