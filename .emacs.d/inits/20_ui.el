@@ -44,20 +44,18 @@
   :global-minor-mode t)
 
 
-(leaf *whitespace
-  :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
-  :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :custom ((show-trailing-whitespace . nil))
+(leaf *cus-cursor
+  :doc "Controls cursor blinking"
+  :hook (emacs-startup-hook . blink-cursor-mode)
+  :custom
+  `((blink-cursor-blinks   . 0)
+	(blink-cursor-interval . 0.3)
+	(blink-cursor-delay    . 10))
   :init
-  (defun my:cleanup-for-spaces ()
-	"Remove contiguous line breaks at end of line + end of file."
-	(interactive)
-	(delete-trailing-whitespace)
-	(save-excursion
-      (save-restriction
-		(widen)
-		(goto-char (point-max))
-		(delete-blank-lines)))))
+  (leaf *hide-cursor
+	:doc "Hide cursor in inactive window"
+	:config
+	(setq-default cursor-in-non-selected-windows nil)))
 
 
 ;; Local Variables:
