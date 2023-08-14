@@ -14,13 +14,13 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
-;; (setq native-comp-deferred-compilation nil ;; obsolete since 29.1
-;;       native-comp-jit-compilation nil)
+(setq native-comp-deferred-compilation nil ;; obsolete since 29.1
+      native-comp-jit-compilation nil)
 
 
-;; Package initialize occurs automatically, before `user-init-file' is
-;; loaded, but after `early-init-file'. We handle package
-;; initialization, so we must prevent Emacs from doing it early!
+;; Package initialize occurs automatically, before `user-init-file' is loaded,
+;; but after `early-init-file'. We handle package initialization,
+;; so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
 
 
@@ -40,6 +40,10 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (set-fringe-mode '(0 . 1))
+
+
+;; Prevent flashing of unstyled modeline at startup
+(setq-default mode-line-format nil)
 
 
 ;; Suppress flashing at startup

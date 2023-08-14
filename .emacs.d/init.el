@@ -1,9 +1,6 @@
 ;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Compatible with Emacs 27 and later
-;; Aiming for a fancy and fast Emacs configuration
-;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -11,27 +8,13 @@
   (error "This requires Emacs 27.1 and above!"))
 
 ;; Speed up startup
-;; Defer garbage collection further back in the startup process
-(setq gc-cons-threshold most-positive-fixnum)
-
-;; Prevent flashing of unstyled modeline at startup
-(setq-default mode-line-format nil)
-
-;; Don't pass case-insensitive to `auto-mode-alist'
-(setq auto-mode-case-fold nil)
-
-(unless (or (daemonp) noninteractive init-file-debug)
-  ;; Suppress file handlers operations at startup
-  ;; `file-name-handler-alist' is consulted on each call to `require' and `load'
-  (let ((old-value file-name-handler-alist))
-    (setq file-name-handler-alist nil)
-    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
-    (add-hook 'emacs-startup-hook
-              (lambda ()
-                "Recover file name handlers and GC values after startup."
-                (setq file-name-handler-alist
-                      (delete-dups (append file-name-handler-alist old-value)))
-				101))))
+(defconst my:file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+			"Recover file name handlers and GC values after startup."
+			(setq file-name-handler-alist my:file-name-handler-alist)
+			(setq gc-cons-threshold 800000)))
 
 ;; Package
 (eval-and-compile
@@ -46,8 +29,6 @@
     (package-install 'leaf))
 
   (leaf leaf-keywords
-    :doc "Use leaf as a package manager"
-    :url "https://github.com/conao3/leaf.e"
     :ensure t
     :init
     (leaf hydra :ensure t)
@@ -57,15 +38,13 @@
     :config
     (leaf-keywords-init)))
 
-
-;;  Auto byte compile
+;;  Auto compile
 (defun auto-compile-inits ()
   "Byte compile Lisp files modified in the directory."
   (interactive)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
-
 
 ;; Load user configurations after startup
 (setq load-path (cons "~/.emacs.d/elisp/" load-path))
