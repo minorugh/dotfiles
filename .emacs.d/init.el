@@ -28,10 +28,10 @@
     (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
     (add-hook 'emacs-startup-hook
               (lambda ()
-                "Recover file name handlers."
+                "Recover file name handlers and GC values after startup."
                 (setq file-name-handler-alist
-                      (delete-dups (append file-name-handler-alist old-value))))
-              101)))
+                      (delete-dups (append file-name-handler-alist old-value)))
+				101))))
 
 ;; Package
 (eval-and-compile
