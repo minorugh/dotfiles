@@ -7,15 +7,31 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Speed up startup
-(defconst my:file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
-(add-hook 'emacs-startup-hook
-          (lambda ()
-			"Recover file name handlers and GC values after startup."
-			(setq file-name-handler-alist my:file-name-handler-alist)
-			(setq gc-cons-threshold 800000)))
+(when (version< emacs-version "27.1")
+  (error "This requires Emacs 27.1 and above!"))
 
+;; Speed up startup
+;; Defer garbage collection further back in the startup process
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Prevent flashing of unstyled modeline at startup
+(setq-default mode-line-format nil)
+
+;; Don't pass case-insensitive to `auto-mode-alist'
+(setq auto-mode-case-fold nil)
+
+(unless (or (daemonp) noninteractive init-file-debug)
+  ;; Suppress file handlers operations at startup
+  ;; `file-name-handler-alist' is consulted on each call to `require' and `load'
+  (let ((old-value file-name-handler-alist))
+    (setq file-name-handler-alist nil)
+    (set-default-toplevel-value 'file-name-handler-alist file-name-handler-alist)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                "Recover file name handlers."
+                (setq file-name-handler-alist
+                      (delete-dups (append file-name-handler-alist old-value))))
+              101)))
 
 ;; Package
 (eval-and-compile
@@ -46,11 +62,20 @@
 (defun auto-compile-inits ()
   "Byte compile Lisp files modified in the directory."
   (interactive)
-  (byte-compile-file "~/.emacs.d/init.el")
   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
+
+;; Load user configuration
+(leaf *load-user-config
+  :doc "Load user configurations after startup"
+  :config
+  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
+  (add-hook 'emacs-startup-hook
+			(lambda ()
+			  (require 'my:dired)
+			  (require 'my:template))))
 
 ;; Init loader
 (leaf init-loader

@@ -110,16 +110,6 @@
   (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
-(leaf *load-user-config
-  :doc "Load user configurations after startup"
-  :config
-  (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-  (add-hook 'emacs-startup-hook
-			(lambda ()
-			  (require 'my:dired)
-			  (require 'my:template))))
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
