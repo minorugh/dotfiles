@@ -37,6 +37,13 @@
   :custom (display-line-numbers-width-start . t))
 
 
+(leaf page-break-lines
+  :ensure t
+  :after dashboard
+  :hook (after-init-hook . global-page-break-lines-mode)
+  :global-minor-mode t)
+
+
 (leaf *whitespace
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)

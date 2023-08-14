@@ -19,7 +19,6 @@
 		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
-  (leaf page-break-lines :ensure t :after dashboard :global-minor-mode t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
   (eval-and-compile (require 'dashboard))
