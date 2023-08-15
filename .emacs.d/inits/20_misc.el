@@ -60,6 +60,7 @@
   :custom ((flycheck-emacs-lisp-initialize-packages . t))
   :config
   (eval-and-compile (require 'flycheck))
+  ;; Fixing leaf-keywords "Unrecognized keyword" error
   (setq flycheck-emacs-lisp-package-initialize-form
 		(flycheck-sexp-to-string
 		 '(progn
