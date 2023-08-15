@@ -18,8 +18,8 @@
 
 
 ;; Load path
-;; Optimize: Force "elisp" at the head to reduce the startup time.
-(push (expand-file-name "elisp" user-emacs-directory) load-path)
+;; Add both elisp and its immediate subdirs to `load-path'
+(push (expand-file-name "elisp/" user-emacs-directory) load-path)
 
 
 ;; Package
