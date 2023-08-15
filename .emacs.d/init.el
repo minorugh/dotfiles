@@ -46,12 +46,15 @@
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
-;; Load user configurations after startup
+
+;; Load user configurations
 (setq load-path (cons "~/.emacs.d/elisp/" load-path))
-(add-hook 'emacs-startup-hook
-		  (lambda ()
-			(require 'my:dired)
-			(require 'my:template)))
+(defun load-user-conf ()
+  "Load user configurations."
+  (interactive)
+  (require 'my:dired)
+  (require 'my:template))
+(add-hook 'emacs-startup-hook 'load-user-conf)
 
 
 ;; Init loader
