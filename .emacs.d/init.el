@@ -18,7 +18,7 @@
 
 
 ;; Load path
-;; Add both elisp and its immediate subdirs to `load-path'
+;; Add user directory "elisp" to load-path
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 
 
