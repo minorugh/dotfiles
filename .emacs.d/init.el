@@ -16,6 +16,12 @@
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
 
+
+;; Load path
+;; Optimize: Force "elisp" at the head to reduce the startup time.
+(push (expand-file-name "elisp" user-emacs-directory) load-path)
+
+
 ;; Package
 (eval-and-compile
   (customize-set-variable
@@ -48,7 +54,6 @@
 
 
 ;; Load user configurations
-(setq load-path (cons "~/.emacs.d/elisp/" load-path))
 (defun load-user-conf ()
   "Load user configurations."
   (interactive)
