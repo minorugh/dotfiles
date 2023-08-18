@@ -57,6 +57,11 @@
 	:custom
 	(exec-path-from-shell-check-startup-files . nil))
 
+  ;; Server Start
+  (eval-and-compile (require 'server))
+  (unless (server-running-p)
+	(server-start))
+
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
@@ -67,7 +72,7 @@
 
   ;; Fonts
   (if (string-match "e590" (shell-command-to-string "uname -n"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-18"))
+	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
 	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; Recentf
