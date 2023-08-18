@@ -15,7 +15,7 @@
 		  ("C-@"  . er/expand-region)
 		  ("M-."  . nil)
 		  ("@"    . other-window-or-split)
-		  ("?"    . chromium-vim-chert)
+		  ("?"    . (lambda() (interactive) (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html")))
 		  ([home] . open-dashboard))
 		 (:evil-visual-state-map
 		  ([muhenkan] . my:return-to-normal-state)
