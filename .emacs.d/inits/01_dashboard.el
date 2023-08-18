@@ -11,10 +11,10 @@
 		 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
 		 (:dashboard-mode-map
-		  ("c" . chromium-calendar)
-		  ("n" . chromium-nhk-news)
-		  ("w" . chromium-weather)
-		  ("h" . chromium-homepage)
+		  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
+		  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
+		  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/week/6/31/")))
+		  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
 		  ("m" . (lambda () (interactive) (compile "sylpheed")))
 		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
@@ -57,15 +57,7 @@
 	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
-	(dashboard-goto-recent-files)
-	(restart-server))
-
-  (defun restart-server ()
-	"Server Start."
-	(interactive)
-	(eval-and-compile (require 'server))
-	(unless (server-running-p)
-	  (server-start))))
+	(dashboard-goto-recent-files)))
 
 
 ;; Local Variables:
