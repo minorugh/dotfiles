@@ -57,11 +57,6 @@
 	:custom
 	(exec-path-from-shell-check-startup-files . nil))
 
-  ;; Server Start
-  (eval-and-compile (require 'server))
-  (unless (server-running-p)
-	(server-start))
-
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)

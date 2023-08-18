@@ -57,7 +57,15 @@
 	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
-	(dashboard-goto-recent-files)))
+	(dashboard-goto-recent-files)
+	(restart-server))
+
+  (defun restart-server ()
+	"Server Start."
+	(interactive)
+	(eval-and-compile (require 'server))
+	(unless (server-running-p)
+	  (server-start))))
 
 
 ;; Local Variables:
