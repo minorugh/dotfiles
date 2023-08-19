@@ -10,8 +10,8 @@
   (hydra-package
    (:color red :hint nil)
    "
-  Package: _i_nstall _r_emove _l_ist up_a_ll    el-get:_u_pdate.re_m_ove
-"
+    Package: _i_nstall _r_emove _l_ist up_a_ll    el-get:_u_pdate.re_m_ove
+  "
    ("i" package-install)
    ("l" package-utils-list-upgrades)
    ("r" package-utils-remove-by-name)
