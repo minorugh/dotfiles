@@ -17,7 +17,6 @@
 			(setq gc-cons-threshold 800000)))
 
 
-;; Load path
 ;; Add user directory "elisp" to load-path
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 
