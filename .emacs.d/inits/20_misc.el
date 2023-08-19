@@ -59,8 +59,8 @@
   :hook (prog-mode-hook . flycheck-mode)
   :custom ((flycheck-emacs-lisp-initialize-packages . t))
   :config
-  (eval-and-compile (require 'flycheck))
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
+  (eval-and-compile (require 'flycheck))
   (setq flycheck-emacs-lisp-package-initialize-form
 		(flycheck-sexp-to-string
 		 '(progn
