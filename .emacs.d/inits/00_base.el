@@ -46,6 +46,7 @@
 	;; Use the X11 clipboard
 	(select-enable-clipboard  . t)
 	;; change-default-file-location
+	(request-storage-directory . "~/.emacs.d/tmp/request")
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
@@ -67,7 +68,7 @@
 
   ;; Fonts
   (if (string-match "e590" (shell-command-to-string "uname -n"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
+	  (add-to-list 'default-frame-alist '(font . "Cica-21"))
 	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; Recentf

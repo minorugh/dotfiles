@@ -3,12 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; (leaf nerd-icons-dired
+;;   :ensure t
+;;   :if (display-graphic-p)
+;;   :hook (dired-mode-hook . nerd-icons-dired-mode)
+;;   :custom (nerd-icons-scale-factor . 0.9))
 (leaf all-the-icons-dired
   :ensure t
   :if (display-graphic-p)
   :hook (dired-mode-hook . all-the-icons-dired-mode)
   :custom `((all-the-icons-dired-monochrome . nil)
 			(all-the-icons-scale-factor . 0.9)))
+
 
 (leaf dired
   :after dired
@@ -72,10 +78,10 @@
 	"Sort dired listings with directories first.
   see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
 	(save-excursion
-      (let (buffer-read-only)
+	  (let (buffer-read-only)
 		(forward-line 2) ;; beyond dir. header
 		(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-      (set-buffer-modified-p nil)))
+	  (set-buffer-modified-p nil)))
   (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
   (defun call-sxiv ()
