@@ -123,6 +123,7 @@
   "Open tselect file."
   (interactive)
   (find-file "~/Dropbox/GH/tselect/tex/minoru_sen.txt")
+  (evil-insert-state)
   (goto-char (point-min)))
 
 (defun my:tselext ()
