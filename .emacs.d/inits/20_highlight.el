@@ -37,10 +37,9 @@
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
 
-(leaf volatile-highlights
+(leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
-  :ensure t
   :defun (my:vhl-pulse vhl/.make-hl)
   :hook (after-init-hook . volatile-highlights-mode)
   :custom-face
@@ -53,17 +52,15 @@
 	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 
-(leaf rainbow-delimiters
+(leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
-  :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 
-(leaf rainbow-mode
+(leaf rainbow-mode :ensure t
   :doc "Color letter that indicate the color"
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :ensure t
   :bind ("C-c w" . rainbow-mode))
 
 

@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf package-utils
-  :ensure t
+(leaf package-utils :ensure t
   :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package

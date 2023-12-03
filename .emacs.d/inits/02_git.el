@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-(leaf diff-hl
-  :ensure t
+(leaf diff-hl :ensure t
   :hook
   ((after-init-hook . global-diff-hl-mode)
    (after-init-hook . diff-hl-margin-mode)
@@ -16,8 +15,7 @@
 	(diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
-(leaf magit
-  :ensure t
+(leaf magit :ensure t
   :bind '(("C-x g" . magit-status)
 		  ("M-g" . hydra-git/body))
   :custom
@@ -39,8 +37,7 @@
    ("<muhenkan>" nil))
   :config
   (leaf git-timemachine	:ensure t)
-  (leaf browse-at-remote
-	:ensure t
+  (leaf browse-at-remote :ensure t
 	:custom	(browse-at-remote-prefer-symbolic . nil))
 
   (defun gitk-open ()

@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf company
+(leaf company :ensure t
   :doc "Modular in-buffer completion framework"
-  :ensure t
   :defun (company-mode/backend-with-yas)
   :hook (after-init-hook . global-company-mode)
   :bind (("C-1"          . company-complete)
@@ -33,14 +32,12 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 
-(leaf yasnippet
+(leaf yasnippet :ensure t
   :doc "Template system"
-  :ensure t
   :hook (after-init-hook . yas-global-mode)
   :custom (yas-indent-line . 'fixed)
   :init
-  (leaf yasnippet-snippets
-	:ensure t
+  (leaf yasnippet-snippets :ensure t
 	:after yasnippet))
 
 

@@ -3,8 +3,7 @@
 ;;; Code:
 ;;(setq debug-on-error t)
 
-(leaf dashboard
-  :ensure t
+(leaf dashboard :ensure t
   :if (display-graphic-p)
   :defun (dashboard-goto-recent-files nerd-icons-octicon dashboard-refresh-buffer restart-server)
   :hook ((emacs-startup-hook . open-dashboard)

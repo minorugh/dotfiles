@@ -3,27 +3,23 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf undo-fu
-  :ensure t
+(leaf undo-fu :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 		 ("C-/" . undo-fu-only-redo)))
 
 
-(leaf undohist
-  :ensure t
+(leaf undohist :ensure t
   :hook (after-init-hook . undohist-initialize)
   :custom `((undohist-directory     . "~/.emacs.d/tmp/undohist")
 			(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
 
-(leaf smartparens
-  :ensure t
+(leaf smartparens :ensure t
   :hook (after-init-hook . smartparens-global-mode)
   :config (leaf smartparens-config :require t))
 
 
-(leaf darkroom
-  :ensure t
+(leaf darkroom :ensure t
   :bind (([f12] . my:darkroom-in)
 		 (:darkroom-mode-map
 		  ([f12] . my:darkroom-out)))
@@ -49,8 +45,7 @@
 	(evil-normal-state)))
 
 
-(leaf atomic-chrome
-  :ensure t
+(leaf atomic-chrome :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom (atomic-chrome-buffer-open-style . 'full))
 

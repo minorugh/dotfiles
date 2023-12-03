@@ -3,10 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf easy-hugo
+(leaf easy-hugo :ensure t
   :doc "Write blogs made with hugo"
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :ensure t
   :bind (("C-c C-e" . easy-hugo)
 		 (:easy-hugo-mode-map
 		  ("<tab>" . easy-hugo-no-help)
@@ -35,8 +34,7 @@
   ;; Load custom configuration for evil-mode
   (require 'evil-easy-hugo)
   (leaf popup :ensure t)
-  (leaf request
-	:ensure t
+  (leaf request	:ensure t
 	:config
 	(setq request-storage-directory "~/.emacs.d/tmp/request"))
 

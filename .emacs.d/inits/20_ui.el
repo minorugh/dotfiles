@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf doom-themes
-  :ensure t
+(leaf doom-themes :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom ((doom-themes-enable-italic . nil))
   :config
@@ -15,8 +14,7 @@
   (hl-line . '((t (:background "#3B4252" :extend t)))))
 
 
-(leaf doom-modeline
-  :ensure t
+(leaf doom-modeline :ensure t
   :hook (after-init-hook . doom-modeline-mode)
   :custom
   `((doom-modeline-icon            . t)
@@ -26,8 +24,7 @@
   (line-number-mode 0)
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
-  (leaf hide-mode-line
-	:ensure t
+  (leaf hide-mode-line :ensure t
 	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
 
 
@@ -37,8 +34,7 @@
   :custom (display-line-numbers-width-start . t))
 
 
-(leaf page-break-lines
-  :ensure t
+(leaf page-break-lines :ensure t
   :after dashboard
   :hook (after-init-hook . global-page-break-lines-mode)
   :global-minor-mode t)

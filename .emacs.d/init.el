@@ -33,12 +33,10 @@
     (package-refresh-contents)
     (package-install 'leaf))
 
-  (leaf leaf-keywords
-    :ensure t
+  (leaf leaf-keywords :ensure t
     :init
     (leaf hydra :ensure t)
-    (leaf el-get
-      :ensure t
+    (leaf el-get :ensure t
       :custom (el-get-git-shallow-clone . t))
     :config
     (leaf-keywords-init)))
@@ -62,8 +60,7 @@
 
 
 ;; Init loader
-(leaf init-loader
-  :ensure t
+(leaf init-loader :ensure t
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

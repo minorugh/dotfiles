@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf swiper
-  :ensure t
+(leaf swiper :ensure t
   :bind (("C-s" . swiper-region)
 		 ("C-c r" . swiper-thing-at-point))
   :config
@@ -27,9 +26,8 @@ If the region isn't selected, `swiper'."
 	(migemo-init)))
 
 
-(leaf migemo
+(leaf migemo :ensure t
   :if (executable-find "cmigemo")
-  :ensure t
   :hook (after-init-hook . migemo-init)
   :custom
   `((migemo-command    . "cmigemo")

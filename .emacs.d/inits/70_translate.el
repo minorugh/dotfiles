@@ -4,16 +4,15 @@
 ;; (setq debug-on-error t)
 
 (leaf deepl-translate
+  :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
-  :el-get "minorugh/deepl-translate"
   :bind ("C-c C-d" . deepl-translate))
 
 
-(leaf go-translate
+(leaf go-translate :ensure	t
   :doc "Display Deepl and Google Translat eresults in other buffer"
   :url "https://github.com/lorniu/go-translate"
-  :ensure	t
   :bind ("C-c t" . gts-do-translate)
   :init
   (load "~/Dropbox/backup/emacs/api/deepl-api")

@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf dimmer
+(leaf dimmer :ensure t
   :doc "Visually highlight the selected buffer"
-  :ensure t
   :defun (my:dimmer-activate dimmer-process-all dimmer-on dimmer-off)
   :chord (".." . my:toggle-dimmer)
   :custom

@@ -3,10 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf yatex
+(leaf yatex :ensure t
   :doc "Yet Another tex-mode for emacs"
   :url "https://github.com/emacsmirror/yatex"
-  :ensure t
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :custom
   `((tex-command              . "platex")

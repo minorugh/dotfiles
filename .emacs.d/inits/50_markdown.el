@@ -3,13 +3,14 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf markdown-mode
-  :ensure t
-  :mode ("\\.md\\'")
+(leaf markdown-mode :ensure t
+  :mode ("\\.md\\'" . gfm-mode)
   :custom
-  `((markdown-command . "pandoc")
+  `((markdown-command . '("pandoc" "--from=markdown" "--to=html5"))
 	(markdown-command-needs-filename . t)
 	(markdown-fontify-code-blocks-natively . t)
+	(markdown-header-scaling . t)
+	(markdown-indent-on-enter . 'indent-and-new-item)
 	(markdown-content-type . "application/xhtml+xml")
 	(markdown-css-paths . '("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"))
 	(markdown-xhtml-header-content . "

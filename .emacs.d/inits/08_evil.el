@@ -3,9 +3,8 @@
 ;;; code:
 ;; (setq debug-on-error t)
 
-(leaf evil
+(leaf evil :ensure t
   :doc "The extensible vi layer for Emacs"
-  :ensure t
   :defun (evil-swap-key ad:switch-to-buffer)
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook  . my:evil-find-file))
