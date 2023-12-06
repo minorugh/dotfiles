@@ -46,6 +46,12 @@
       (emacs-lock-mode 'kill))))
 
 
+(leaf bs
+  :doc "Menu for selecting and displaying buffers."
+  :bind (("M-]" . bs-cycle-next)
+		 ("M-[" . bs-cycle-previous)))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
