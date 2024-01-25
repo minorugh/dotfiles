@@ -62,13 +62,13 @@
   (defalias 'exit 'save-buffers-kill-emacs)
 
   ;; Encoding
-  (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8)
+  ;; (set-language-environment "Japanese")
+  ;; (prefer-coding-system 'utf-8)
 
   ;; Fonts
-  (if (string-match "e590" (shell-command-to-string "uname -n"))
-	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
-	(add-to-list 'default-frame-alist '(font . "Cica-15")))
+  ;; (if (string-match "e590" (shell-command-to-string "uname -n"))
+  ;; 	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
+  ;; 	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; Recentf
   (setq recentf-auto-cleanup 'never)
@@ -92,6 +92,15 @@
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
+
+  ;;Server
+  (defun restart-server ()
+	"Server Start."
+	(interactive)
+	(eval-and-compile (require 'server))
+	(unless (server-running-p)
+	  (server-start)))
+  (add-hook 'emacs-startup-hook 'restart-server)
 
   ;; Emacs init time
   (defun ad:emacs-init-time ()

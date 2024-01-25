@@ -12,9 +12,11 @@
 		 (:dashboard-mode-map
 		  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 		  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
-		  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/week/6/31/")))
+		  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
+		  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/week/6/31/")) )
 		  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
-		  ("m" . (lambda () (interactive) (compile "sylpheed")))
+		  ;; ("m" . (lambda () (interactive) (compile "sylpheed")))
+		  ("m" . (lambda () (interactive) (compile "thunderbird")))
 		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
   :init
@@ -40,7 +42,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes."
 	(interactive)
-	(insert " GH: (h)    WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
+	(insert " GH: (h)   Twitter: (x)   WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
@@ -57,14 +59,7 @@
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files)
-	(restart-server))
-
-  (defun restart-server ()
-	"Server Start."
-	(interactive)
-	(eval-and-compile (require 'server))
-	(unless (server-running-p)
-	  (server-start))))
+	(restart-server)))
 
 
 ;; Local Variables:

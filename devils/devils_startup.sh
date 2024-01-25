@@ -1,6 +1,6 @@
 #!/bin/bash
 devilspie &
 emacs &
-sylpheed &
-sleep 1s
+thunderbird &
+sleep 5s
 killall -9 devilspie

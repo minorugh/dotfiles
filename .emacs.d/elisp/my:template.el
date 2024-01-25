@@ -107,15 +107,17 @@
   (forward-line)
   (insert
    ";--------------------------------------------------------------------\n"
-   (format-time-string "*[%Y%m%d]\n")
+   (format-time-string "*[%Y%m%d] \n")
    ";--------------------------------------------------------------------\n"
-   (format-time-string "-*[%Y%m%d%H%M%S]やまだみのる\n")
-   "<div style=\"margin:1em\">\n()\n</div>\n-(\n--\n=[\n= 合評\n"
+   (format-time-string "-*[%Y%m%d%H%M%S]臼井菜々\n")
+   "<div style=\"margin:1em\">\n()\n</div>\n-(\n;; <-hi>\n--\n<h3>合評</h3>\n"
+   "<div class=\"border\">\n"
    (format-time-string "<iframe class=\"autoHeight\" src=\"apiframe.cgi?%Y%m%d\"></iframe>\n")
-   "\; -[\n\; -]\n=]\n-)\n\n")
+   "</div>\n-)\n\n")
   (goto-char (point-min))
   (forward-line 2)
-  (forward-char 11))
+  (forward-char 11)
+  (my:toggle-input-method))
 
 
 (defun my:tselext-new-post ()
@@ -138,32 +140,32 @@
   (forward-line 2)
   (insert
    ";--------------------------------------------------------------------\n"
-   "=<\n"
-   (format-time-string "-*\n")
-   ";--------------------------------------------------------------------\n"
-   (format-time-string "--*\n")
-   "<-tframe>\n"
-   "-(\n\n-)\n"
-   "</div></div>\n"
-   "=>\n"
-   ";--------------------------------------------------------------------\n"
-   "=<\n"
-   (format-time-string "-*\n")
-   ";--------------------------------------------------------------------\n"
-   (format-time-string "--*\n")
-   "<-tframe>\n"
-   "-(\n\n-)\n"
-   "</div></div>\n"
-   "=>\n"
-   ";--------------------------------------------------------------------\n"
-   "=<\n"
-   (format-time-string "-*\n")
-   ";--------------------------------------------------------------------\n"
-   (format-time-string "--*\n")
-   "<-tframe>\n"
-   "-(\n\n-)\n"
-   "</div></div>\n"
-   "=>\n")
+  "=<\n"
+  (format-time-string "-*\n")
+  ";--------------------------------------------------------------------\n"
+  (format-time-string "--*\n")
+  "<-tframe>\n"
+  "-(\n\n-)\n"
+  "</div></div>\n"
+  "=>\n"
+  ";--------------------------------------------------------------------\n"
+  "=<\n"
+  (format-time-string "-*\n")
+  ";--------------------------------------------------------------------\n"
+  (format-time-string "--*\n")
+  "<-tframe>\n"
+  "-(\n\n-)\n"
+  "</div></div>\n"
+  "=>\n"
+  ";--------------------------------------------------------------------\n"
+  "=<\n"
+  (format-time-string "-*\n")
+  ";--------------------------------------------------------------------\n"
+  (format-time-string "--*\n")
+  "<-tframe>\n"
+  "-(\n\n-)\n"
+  "</div></div>\n"
+  "=>\n")
   (goto-char (point-min))
   (forward-line 2)
   (forward-char 11))
