@@ -174,6 +174,15 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config
 
+thunderbird: ## Install Thunderbird and add external_editor_revived.json
+	$(APT) $@
+	sudo ln -vsfn ${PWD}/bin/external-editor-revived /usr/local/bin
+	sudo chmod +x /usr/local/bin/external-editor-revived
+	mkdir -p ${HOME}/.mozilla/native-messaging-hosts
+	external-editor-revived | tee ${HOME}/.mozilla/native-messaging-hosts/external_editor_revived.json
+# apply the add-on external-editor-revived at first
+# see https://github.com/Frederick888/external-editor-revived/wiki
+
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools
 	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
