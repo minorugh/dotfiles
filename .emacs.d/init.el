@@ -7,7 +7,9 @@
 (when (version< emacs-version "27.1")
   (error "This requires Emacs 27.1 and above!"))
 
+
 ;; Speed up startup
+(toggle-frame-fullscreen)
 (defconst my:file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
@@ -15,7 +17,6 @@
 			"Recover file name handlers and GC values after startup."
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
-(toggle-frame-fullscreen)
 
 
 ;; Add user directory "elisp" to load-path

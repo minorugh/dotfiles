@@ -1,6 +1,6 @@
 #!/bin/bash
 devilspie &
-emacs &
+# emacs &
 thunderbird &
 sleep 5s
 killall -9 devilspie
