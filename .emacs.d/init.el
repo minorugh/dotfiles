@@ -15,6 +15,7 @@
 			"Recover file name handlers and GC values after startup."
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
+(toggle-frame-fullscreen)
 
 
 ;; Add user directory "elisp" to load-path
