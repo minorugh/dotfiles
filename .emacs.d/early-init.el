@@ -34,7 +34,6 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (set-fringe-mode '(0 . 1))
 
-
 ;; Prevent flashing of unstyled modeline at startup
 (setq-default mode-line-format nil)
 

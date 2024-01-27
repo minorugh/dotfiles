@@ -9,7 +9,6 @@
 
 
 ;; Speed up startup
-(toggle-frame-fullscreen)
 (defconst my:file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook

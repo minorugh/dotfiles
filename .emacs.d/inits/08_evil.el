@@ -16,9 +16,6 @@
 		  ("@"    . other-window-or-split)
 		  ("?"    . (lambda() (interactive) (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html")))
 		  ([home] . open-dashboard))
-		 (:evil-visual-state-map
-		  ([muhenkan] . my:return-to-normal-state)
-		  ("SPC"      . hydra-selected/body))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
 		  ([escape]   . my:return-to-normal-state)))
