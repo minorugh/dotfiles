@@ -28,13 +28,14 @@
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode dashboard-mode dired-mode
-				  neotree-mode howm-mode yatex-mode
+				  neotree-mode howm-mode yatex-mode mail-mode
 				  git-timemachine-mode easy-hugo-mode))
 	(add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+  ;; (add-hook 'mail-mode-hook 'evil-emacs-state)
 
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
