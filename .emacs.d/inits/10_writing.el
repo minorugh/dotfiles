@@ -53,8 +53,8 @@
 (leaf mail-mode
   :doc "Using mail-mode for eml files for Thunderbird plugin support"
   :mode ("\\.eml\\'" . mail-mode)
-  ;; :hook (mail-mode-hook . darkroom-mode)
-  )
+  :hook (mail-mode-hook . darkroom-mode))
+
 
 ;; (leaf pangu-spacing
 ;;   :ensure t
