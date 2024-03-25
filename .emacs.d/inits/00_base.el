@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-(setq warning-minimum-level :emergency)
 
 (leaf *generic-configuration
   :defun (ad:emacs-init-time)
@@ -46,6 +45,8 @@
 	(set-mark-command-repeat-pop . t)
 	;; Use the X11 clipboard
 	(select-enable-clipboard  . t)
+	;; Disable warnings at initialization
+	(warning-minimum-level . :emergency)
 	;; change-default-file-location
 	(request-storage-directory . "~/.emacs.d/tmp/request")
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
