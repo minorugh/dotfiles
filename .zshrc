@@ -422,5 +422,5 @@ function optimize-png() {
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Perlbrew : curl -L http://install.perlbrew.pl | bash
-source ~/perl5/perlbrew/etc/bashrc
+# source ~/perl5/perlbrew/etc/bashrc
 
