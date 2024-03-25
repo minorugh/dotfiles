@@ -72,7 +72,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
-nextinstall: google-chrome filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
+nextinstall: google-chrome filezilla devilspie sxiv lepton zoom
 
 .ONESHELL:
 SHELL = /bin/bash
