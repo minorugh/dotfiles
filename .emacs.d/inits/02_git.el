@@ -40,6 +40,10 @@
   (leaf browse-at-remote :ensure t
 	:custom	(browse-at-remote-prefer-symbolic . nil))
 
+  (defun seq-keep (function sequence)
+	"Apply FUNCTION to SEQUENCE and return the list of all the non-nil results."
+	(delq nil (seq-map function sequence)))
+
   (defun gitk-open ()
 	"Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
