@@ -42,7 +42,7 @@
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm keychain
 PACKAGES	:= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
-PACKAGES	+= ruby gnome-terminal nautilus-sendto xclip vim tmux
+PACKAGES	+= ruby gnome-terminal xclip vim tmux
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
@@ -59,7 +59,7 @@ BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
 BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
-BASE_PKGS	+= libgccjit0 libgccjit-10-dev
+BASE_PKGS	+= libgccjit0
 
 APT			:= sudo apt install -y
 .DEFAULT_GOAL := help
@@ -72,7 +72,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
-nextinstall: google-chrome spotify filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
+nextinstall: google-chrome filezilla keepassxc sylpheed devilspie sxiv lepton zoom slack mattermost google-earth
 
 .ONESHELL:
 SHELL = /bin/bash
