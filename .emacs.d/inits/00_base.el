@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+(setq warning-minimum-level :emergency)
 
 (leaf *generic-configuration
   :defun (ad:emacs-init-time)
