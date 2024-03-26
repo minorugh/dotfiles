@@ -230,7 +230,7 @@ zoom: ## Install zoom
 	cd ${HOME}/Downloads && \
 	wget https://zoom.us/client/latest/zoom_amd64.deb
 	sudo gdebi zoom_amd64.deb
-	ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
+	# ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 	rm -f ./zoom_amd64.deb
 
 slack: ## Install slack
