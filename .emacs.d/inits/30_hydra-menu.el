@@ -177,7 +177,7 @@
    ("b" (browse-url "http://blog.gospel-haiku.com/"))
    ("e" (browse-url "https://es.gospel-haiku.com/post/"))
    ("m" (browse-url "https://snap.minorugh.com/"))
-   ("S" (browse-url "http://www.sanyo-bus.co.jp/pdf/20201124tarusan_schedule.pdf"))
+   ("S" (browse-url "https://www.sanyo-bus.co.jp/highway/maiko.html"))
    ("I" (browse-url "https://www.instagram.com/"))
    ("j" (browse-url "https://www.jorudan.co.jp/"))
    ("n" (browse-url "https://news.yahoo.co.jp/"))
