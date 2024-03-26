@@ -118,7 +118,7 @@
    ("f" flycheck-list-errors)
    ;; ("f" make-frame-command)
    ;; ("0" delete-frame)
-   ("_" delete-other-windows)
+   ("\\" delete-other-windows)
    ("[" hydra-git/body)
    ("]" my:magit-status)
    ("s" my:scr-dir)
