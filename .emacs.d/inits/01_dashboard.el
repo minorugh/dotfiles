@@ -33,7 +33,9 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
-  (setq dashboard-items '((recents . 8)(agenda . 5)))
+  (if (string-match "e590" (shell-command-to-string "uname -n"))
+	  (setq dashboard-items '((recents . 8)(agenda . 5)))
+	(setq dashboard-items '(recents . 8)))
   ;; Set the footer
   (setq dashboard-footer-messages
 		'("Be joyful always. Pray constantly. Be thankful for Everything."))
