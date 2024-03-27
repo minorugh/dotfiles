@@ -58,7 +58,7 @@
 ;; Fonts
 (if (string-match "e590" (shell-command-to-string "uname -n"))
 	(add-to-list 'default-frame-alist '(font . "Cica-21"))
-  (add-to-list 'default-frame-alist '(font . "Cica-15")))
+  (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 
 (provide 'early-init)
