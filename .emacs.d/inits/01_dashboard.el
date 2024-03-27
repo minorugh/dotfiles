@@ -34,7 +34,7 @@
   (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
   (if (string-match "e590" (shell-command-to-string "uname -n"))
-	  (setq dashboard-items '((recents . 8)(agenda . 5)))
+	  (setq dashboard-items '((recents . 10)))
 	(setq dashboard-items '((recents . 3))))
   ;; Set the footer
   (setq dashboard-footer-messages
