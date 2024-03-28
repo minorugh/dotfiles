@@ -230,14 +230,13 @@ zoom: ## Install zoom
 	cd ${HOME}/Downloads && \
 	wget https://zoom.us/client/latest/zoom_amd64.deb
 	sudo gdebi zoom_amd64.deb
-	# ln -vsfn {${PWD},${HOME}}/.config/zoomus.conf
 	rm -f ./zoom_amd64.deb
 
 slack: ## Install slack
 	cd ${HOME}/Downloads && \
-	wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
-	$(APT) ./slack-desktop-4.0.2-amd64.deb
-	rm -f ./slack-desktop-4.0.2-amd64.deb
+	wget https://downloads.slack-edge.com/releases/linux/4.31.155/prod/x64/slack-desktop-4.31.155-amd64.deb
+	$(APT) ./slack-desktop-4.31.155-amd64.deb
+	rm -f ./slack-desktop-4.31.155-amd64.deb
 
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
