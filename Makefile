@@ -156,18 +156,18 @@ fontawesome: ##  Init Font Awesome
 gist: ## Install gist | $ gist --login from terminal at first
 	sudo gem install gist
 
+cups: ## Install CUPS Printer driver for Brother HL-L2375DW
+	cd ${HOME}/Downloads && \
+	wget https://download.brother.com/welcome/dlf103535/hll2375dwpdrv-4.0.0-1.i386.deb
+	sudo dpkg -i --force-all hll2375dwpdrv-4.0.0-1.i386.deb
+	rm -f ./hll2375dwpdrv-4.0.0-1.i386.deb
+
 ## install for applications
 google-chrome: ## Install Google-chrome-stable
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	$(APT) ./google-chrome-stable_current_amd64.deb
 	rm -f ./google-chrome-stable_current_amd64.deb
-
-spotify: ## Install Spotify for Debian
-	curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-	sudo apt update
-	$(APT) spotify-client
 
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
@@ -193,12 +193,6 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 # asked for a password so enter
 # popup panel for passward input so input '<user passwd>' && use shell
 # use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
-
-sylpheed: ## Init sylpheed
-	$(APT) $@ bogofilter kakasi
-	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
-	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
-## Gmail security requires you to use the app password
 
 devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
@@ -244,9 +238,6 @@ google-earth: ## Install google-earth
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
-mattermost: ## Install mattermost
-	curl -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
-	$(APT) mattermost-desktop
 
 ## From here, Step by step while interacting with SHELL
 texlive: ## Install texlive full
@@ -274,11 +265,6 @@ perlbrew: ## Install perlbrew
 	cpanm Net::FTPSSL && \
 	cpanm Net::SFTP::Foreign
 
-emacs-latest: ## Install development version of emacs
-	git clone -b emacs-27 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
-	cd ${HOME}/src/emacs && ./autogen.sh && ./configure && make && sudo make install && make clean
-	rm -rf ${HOME}/.emacs.d/elpa
-
 emacs-devel: ## Install development version of emacs
 	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation && make && sudo make install && make clean
@@ -302,14 +288,9 @@ github: ## Clone github repository
 	cd ${HOME}/src/github.com/minorugh && \
 	git clone git@github.com:minorugh/GH.git && \
 	git clone git@github.com:minorugh/.emacs.d.git && \
-	git clone git@github.com:minorugh/minorugh.github.io.git && \
 	git clone git@github.com:minorugh/upsftp.git && \
 	git clone git@github.com:minorugh/iceberg-theme.git
 # GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
-
-xfce4: ## Restore xfce4 session
-	test -L ${HOME}/.config/xfce4 || rm -rf ${HOME}/.config/xfce4
-	cp -rf ${HOME}/Dropbox/backup/xfce4 ${HOME}/.config
 
 ## =====================================================================
 ## Custmize settings after Debian install
