@@ -241,7 +241,7 @@ google-earth: ## Install google-earth
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
-fratpak:
+flatpak:
 	$(APT) $@
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.github.PintaProject.Pinta
