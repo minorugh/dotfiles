@@ -13,26 +13,29 @@
 ## 2. Register username to sudoers
 # Log in as root
 # | gpasswd -a ${USER} sudo
+# | exit
+# Log in with ${USER}
 # | logout
 # | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
-# | log out
+# | logout
 
 ## 3. Set home sub directorys to English notation
 # Log in with ${USER}
-# | sudo apt install -y xdg-user-dirs-gtk
+# | sudo apt install -y xdg-user-dirs-gtk ## Not needed on debian12
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
 # | sudo apt install -y zsh git make nautilus
-# | chsh -s /bin/zsh
+# | chsh -s /usr/bin/zsh
 
 ## 4. Install dropbox & setting
+# Before installing, configure the Synapyic repository & Check existence of package 
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
 ## 5. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
-# | git clone https://github.com/minorugh/dotfiles.git
+# | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
 # | make all
 
@@ -72,7 +75,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
-nextinstall: google-chrome filezilla devilspie sxiv lepton zoom cups
+nextinstall: google-chrome filezilla devilspie sxiv lepton zoom pdrv
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -124,7 +127,7 @@ base: ## Install debian base packages
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
-# Set fcitx: Input im-config in terminal and ret → ret → check fcitx
+# Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
 ifeq ($(shell uname -n),e590)
 mozc: ## for mainmachine (Thinkpad E590)
@@ -156,7 +159,7 @@ fontawesome: ##  Init Font Awesome
 gist: ## Install gist | $ gist --login from terminal at first
 	sudo gem install gist
 
-cups: ## Install CUPS Printer driver for Brother HL-L2375DW
+pdrv: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
 	wget https://download.brother.com/welcome/dlf103535/hll2375dwpdrv-4.0.0-1.i386.deb
 	sudo dpkg -i --force-all hll2375dwpdrv-4.0.0-1.i386.deb
@@ -238,8 +241,16 @@ google-earth: ## Install google-earth
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
+fratpak:
+	$(APT) $@
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak install flathub com.github.PintaProject.Pinta
+	flatpak install flathub com.spotify.Client
+## uninstall for package 'flatpak uninstall --delete-data flathub com.spotify.Client'
 
+########################################################
 ## From here, Step by step while interacting with SHELL
+########################################################
 texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
@@ -271,7 +282,7 @@ emacs-devel: ## Install development version of emacs
 	rm -rf ${HOME}/.emacs.d/elpa
 
 docker: ## Install docker
-	sudo apt-get install ca-certificates lsb-release
+	sudo apt install ca-certificates lsb-release
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian  $$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 	sudo apt update
