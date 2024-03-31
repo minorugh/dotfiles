@@ -28,7 +28,7 @@
 # | chsh -s /usr/bin/zsh
 
 ## 4. Install dropbox & setting
-# Before installing, configure the Synapyic repository & Check existence of package 
+# Before installing, configure the Synapyic repository & Check existence of package
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
