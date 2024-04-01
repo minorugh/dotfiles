@@ -1,4 +1,4 @@
-;;; 20_highlight.el --- Highlighting configurations.
+;;; 20_highlight.el --- Highlighting configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

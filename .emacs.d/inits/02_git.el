@@ -1,4 +1,4 @@
-;; 02_git.el  --- Git configurations.
+;; 02_git.el  --- Git configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)

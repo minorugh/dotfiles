@@ -1,4 +1,4 @@
-;;; 70_translate.el --- Deepl translate configurations.
+;;; 70_translate.el --- Deepl translate configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

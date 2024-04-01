@@ -1,4 +1,4 @@
-;;; 30_hydra-menu.el --- Hydra configuration for work menu.
+;;; 30_hydra-menu.el --- Hydra configuration for work menu. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

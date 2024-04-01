@@ -1,4 +1,4 @@
-;;; 06_buffer.el --- Buffer Utility configurations.
+;;; 06_buffer.el --- Buffer Utility configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

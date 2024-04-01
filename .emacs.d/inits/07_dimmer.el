@@ -1,4 +1,4 @@
-;;; 07_dimmer.el --- Window utility configurations.
+;;; 07_dimmer.el --- Window utility configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 20_funcs.el --- Define functions.
+;;; 20_funcs.el --- Define functions. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
