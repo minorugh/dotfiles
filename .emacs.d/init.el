@@ -50,7 +50,6 @@
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
-
 ;; Load user configurations
 (defun load-user-conf ()
   "Load user configurations."
