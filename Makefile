@@ -74,7 +74,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
+allinstall: gnupg ssh install base init keyring tlp emacs-mozc mozc icons fontawesome gist
 nextinstall: google-chrome filezilla sxiv lepton zoom pdrv
 
 .ONESHELL:
@@ -111,7 +111,7 @@ init: ## Initial deploy dotfiles
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
 	done
 
-ifeq ($(shell uname -n),e590)
+ifeq ($(shell uname -n),P1)
 grub:
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
@@ -221,7 +221,7 @@ lepton: ## Init lepton
 	cd ${HOME}/Appimage && \
 	wget https://github.com/hackjutsu/Lepton/releases/download/v1.10.0/Lepton-1.10.0.AppImage
 	chmod a+x Lepton-1.10.0.AppImage
-	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
+#	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 
 zoom: ## Install zoom
 	cd ${HOME}/Downloads && \
