@@ -8,7 +8,6 @@
   :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
-		 ([f8]  . follow-mode)
 		 ("M-w"   . clipboard-kill-ring-save)
 		 ("C-w"   . kill-whole-line-or-region)
 		 ("M-/"   . kill-this-buffer)

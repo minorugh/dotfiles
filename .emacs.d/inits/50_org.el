@@ -41,9 +41,9 @@
 
 (leaf calendar
   :leaf-defer t
-  :bind ((("s-z"  . calendar)
+  :bind ((("<f7>"  . calendar)
 		  (:calendar-mode-map
-		   ("s-z" . calendar-exit))))
+		   ("<f7>" . calendar-exit))))
   :config
   (leaf japanese-holidays :ensure t
 	:require t

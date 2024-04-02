@@ -20,9 +20,9 @@
 
 
 (leaf darkroom :ensure t
-  :bind (([f7] . my:darkroom-in)
+  :bind (([f8] . my:darkroom-in)
 		 (:darkroom-mode-map
-		  ([f7] . my:darkroom-out)))
+		  ([f8] . my:darkroom-out)))
   :config
   (eval-and-compile (require 'evil))
   (defun my:darkroom-in ()
