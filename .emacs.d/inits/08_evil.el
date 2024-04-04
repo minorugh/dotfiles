@@ -13,7 +13,7 @@
 		  ("C-@"  . er/expand-region)
 		  ("M-."  . nil)
 		  ("@"    . other-window-or-split)
-		  ("?"    . (lambda() (interactive) (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html")))
+		  ("?"    . vim-cheat-sheet)
 		  ([home] . open-dashboard))
 		 (:evil-emacs-state-map
 		  ([muhenkan] . my:return-to-normal-state)
@@ -34,7 +34,11 @@
   ;; Force evil-emacs-state for minor modes
   (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
-  ;; (add-hook 'mail-mode-hook 'evil-emacs-state)
+
+  (defun vim-cheat-sheet ()
+	"Vim cheat sheet online."
+	(interactive)
+	(browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html"))
 
   (defun my:return-to-normal-state ()
 	"Turn off input-method then return to normal-state."
