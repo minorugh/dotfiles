@@ -5,7 +5,6 @@
 
 (leaf dimmer :ensure t
   :doc "Visually highlight the selected buffer"
-  :defun (my:dimmer-activate dimmer-process-all dimmer-on dimmer-off)
   :chord (".." . my:toggle-dimmer)
   :custom
   `((dimmer-buffer-exclusion-regexps

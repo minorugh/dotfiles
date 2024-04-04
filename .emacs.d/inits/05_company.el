@@ -5,7 +5,6 @@
 
 (leaf company :ensure t
   :doc "Modular in-buffer completion framework"
-  :defun (company-mode/backend-with-yas)
   :hook (after-init-hook . global-company-mode)
   :bind (("C-1"          . company-complete)
 		 ("C-<tab>"      . company-yasnippet)

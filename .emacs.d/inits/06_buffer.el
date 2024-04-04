@@ -15,7 +15,6 @@
 
 (leaf persistent-scratch :ensure t
   :doc "Save scratch buffer state to file and restore from file"
-  :defun (dimmer-on dimmer-off)
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
   :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/scratch")

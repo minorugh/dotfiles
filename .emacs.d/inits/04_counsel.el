@@ -5,7 +5,6 @@
 
 (leaf counsel :ensure t
   :doc "Various completion functions using Ivy"
-  :defun (thing-at-point-looking-at ad:counsel-ag)
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 		 ("C-x C-b" . counsel-switch-buffer)

@@ -83,25 +83,6 @@
 	  (set-buffer-modified-p nil)))
   (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
-  ;; (defun call-sxiv ()
-  ;; 	(interactive)
-  ;; 	(let ((image-files;画像ファイル名のリスト
-  ;;          (delq nil;この辺はemacs26辺りで filterマクロに置き換えか？
-  ;; 				 (mapcar
-  ;;                 (lambda (f)
-  ;; 					(when (string-match
-  ;;                          "\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"
-  ;;                          f )
-  ;;                     f ))
-  ;;                 (directory-files default-directory) ))));現在のディレクトリ内のファイル名のリスト in alphabetical order
-  ;;     (start-process-shell-command;シェルコマンドを非同期実行
-  ;;      "sxiv"
-  ;;      nil ;プロセス用のバッファを開かない
-  ;;      (format "sxiv -f -n %s %s"
-  ;;              (length image-files);画像ファイルの個数=最後の画像ファイル
-  ;;              (mapconcat 'identity image-files " ") ))));リストを空白区切りで連結
-
-  ;; )
   (defun call-sxiv ()
 	"Show all images in the directory with sxiv.
 see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"

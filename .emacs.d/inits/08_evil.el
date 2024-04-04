@@ -5,7 +5,6 @@
 
 (leaf evil :ensure t
   :doc "The extensible vi layer for Emacs"
-  :defun (evil-swap-key ad:switch-to-buffer)
   :hook ((after-init-hook . evil-mode)
 		 (find-file-hook  . my:evil-find-file))
   :bind ((:evil-normal-state-map

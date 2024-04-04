@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf *define-functions
-  :defun (minibuffer-keyboard-quit)
   :bind	(([f3]  . thunar-open)
 		 ([f4]  . terminal-open)
 		 ([f5]  . ssh-xsrv)
@@ -65,7 +64,6 @@
 
 (leaf *define-gist-commands
   :doc "Gist upload from current buffer or region"
-  :defun (gist-description gist-filename dired-get-filename)
   :init
   (defun gist-description ()
 	"Add gist description."

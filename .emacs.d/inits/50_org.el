@@ -40,7 +40,6 @@
 
 
 (leaf calendar
-  :leaf-defer t
   :bind ((("<f7>"  . calendar)
 		  (:calendar-mode-map
 		   ("<f7>" . calendar-exit))))
