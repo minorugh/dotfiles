@@ -29,9 +29,6 @@
                        ("melpa" . "https://melpa.org/packages/")
                        ("org"   . "https://orgmode.org/elpa/")))
 
-  ;; Include built-in packages as updates
-  ;; (setq package-install-upgrade-built-in t)
-
   (package-initialize)
   (unless (package-installed-p 'leaf)
     (package-refresh-contents)
