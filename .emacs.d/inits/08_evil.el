@@ -22,7 +22,6 @@
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
-  (eval-and-compile (require 'evil))
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode

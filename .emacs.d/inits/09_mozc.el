@@ -16,7 +16,6 @@
 	(mozc-helper-program-name . "mozc_emacs_helper")
 	(mozc-leim-title          . "あ"))
   :config
-  (eval-and-compile (require 'mozc)(require 'evil))
   (leaf mozc-cursor-color
 	:el-get "iRi-E/mozc-el-extensions"
 	:require t
