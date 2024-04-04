@@ -62,7 +62,7 @@
   (defun my:mozc-copy ()
 	"Copy mozc to submachines for avoid conflicts."
 	(interactive)
-	(unless (string-match "e590" (shell-command-to-string "uname -n"))
+	(unless (string-match "P1" (shell-command-to-string "uname -n"))
 	  (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))
 	(add-hook 'emacs-startup-hook 'my:mozc-copy)))
 
