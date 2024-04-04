@@ -5,7 +5,7 @@
 
 (leaf eshell
   :after popwin
-  :bind ("C-c z" . eshell)
+  :bind ("s-z" . eshell)
   :custom
   `((eshell-directory-name . ,"~/.emacs.d/tmp/eshell")
 	(eshell-cmpl-ignore-case . t)
