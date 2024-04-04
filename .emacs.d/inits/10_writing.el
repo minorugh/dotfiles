@@ -24,7 +24,6 @@
 		 (:darkroom-mode-map
 		  ([f8] . my:darkroom-out)))
   :config
-  (eval-and-compile (require 'evil))
   (defun my:darkroom-in ()
 	"Enter to the `darkroom-mode'."
 	(interactive)
