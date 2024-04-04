@@ -1,4 +1,4 @@
-;;; 90_selected.el --- Selected configurations. -*- no-byte-compile: t; -*-
+;;; 90_selected.el --- Selected configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -13,7 +13,7 @@
 		 ("c" . clipboard-kill-ring-save)
 		 ("s" . swiper-thing-at-point)
 		 ("d" . deepl-translate)
-		 ("t" . gts-do-translate)
+		 ("t" . google-translate-auto)
 		 ("W" . my:weblio)
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
@@ -72,6 +72,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 90_selected.el ends here

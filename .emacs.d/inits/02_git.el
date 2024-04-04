@@ -1,4 +1,4 @@
-;; 02_git.el  --- Git configurations. -*- no-byte-compile: t; -*-
+;; 02_git.el  --- Git configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -59,6 +59,6 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 02_git.el ends here

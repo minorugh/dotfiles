@@ -1,4 +1,4 @@
-;;; 00_base.el --- Basic configurations. -*- no-byte-compile: t; -*-
+;;; 00_base.el --- Basic configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -119,6 +119,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 00_base.el ends here

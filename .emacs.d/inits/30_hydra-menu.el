@@ -1,4 +1,4 @@
-;;; 30_hydra-menu.el --- Hydra configuration for work menu. -*- no-byte-compile: t; -*-
+;;; 30_hydra-menu.el --- Hydra configuration for work menu.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -209,6 +209,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 30_hydra-menu.el ends here

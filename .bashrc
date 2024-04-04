@@ -156,3 +156,6 @@ cdls ()
 }
 alias cd="cdls"
 
+
+export PATH="$HOME/.evm/bin:$PATH"
+

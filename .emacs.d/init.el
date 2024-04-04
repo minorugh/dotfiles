@@ -30,7 +30,7 @@
                        ("org"   . "https://orgmode.org/elpa/")))
 
   ;; Include built-in packages as updates
-  (setq package-install-upgrade-built-in t)
+  ;; (setq package-install-upgrade-built-in t)
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
@@ -72,6 +72,6 @@
 
 (provide 'init)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; init.el ends here

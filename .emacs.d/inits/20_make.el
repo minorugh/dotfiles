@@ -4,17 +4,19 @@
 ;; (setq debug-on-error t)
 
 ;; custom-compilation
-(add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
-(setq compilation-scroll-output t)
-(setq compilation-always-kill t)
-(setq compilation-finish-functions 'compile-autoclose)
-(defun compile-autoclose (buffer string)
-  "Automatically close the compilation."
-  (cond ((string-match "compilation" (buffer-name buffer))
-		 (string-match "finished" string)
-		 (delete-other-windows)
-		 (message "Compile successful."))
-		(t (message "Compilation exited abnormally: %s" string))))
+(leaf *custom-compilation
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
+  (setq compilation-scroll-output t)
+  (setq compilation-always-kill t)
+  (setq compilation-finish-functions 'compile-autoclose)
+  (defun compile-autoclose (buffer string)
+	"Automatically close the compilation."
+	(cond ((string-match "compilation" (buffer-name buffer))
+		   (string-match "finished" string)
+		   (delete-other-windows)
+		   (message "Compile successful."))
+		  (t (message "Compilation exited abnormally: %s" string)))))
 
 
 ;; user make function
@@ -62,6 +64,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 20_make.el ends here

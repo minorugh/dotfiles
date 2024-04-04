@@ -1,61 +1,54 @@
-;;; 70_translate.el --- Deepl translate configurations. -*- no-byte-compile: t; -*-
+;;; 70_translate.el --- Google translate configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; Google translate configurations
+(leaf google-translate
+  :ensure t
+  :bind ("C-t" . google-translate-auto)
+  :config
+  (defun google-translate-auto ()
+	"Automatically recognize and translate Japanese and English."
+	(interactive)
+	(if (use-region-p)
+		(let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
+		  (deactivate-mark)
+		  (if (string-match (format "\\`[%s]+\\'" "[:ascii:]")
+							string)
+			  (google-translate-translate
+			   "en" "ja"
+			   string)
+			(google-translate-translate
+			 "ja" "en"
+			 string)))
+	  (let ((string (read-string "Google Translate: ")))
+		(if (string-match
+			 (format "\\`[%s]+\\'" "[:ascii:]")
+			 string)
+			(google-translate-translate
+			 "en" "ja"
+			 string)
+		  (google-translate-translate
+		   "ja" "en"
+		   string)))))
+
+  (defun google-translate--get-b-d1 ()
+	"Fix error of `Failed to search TKK`."
+	(list 427110 1469889687)))
+
+
+;; Deeple translate configurations
 (leaf deepl-translate
   :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
-  :bind ("C-c C-d" . deepl-translate))
-
-
-(leaf go-translate :ensure	t
-  :doc "Display Deepl and Google Translat eresults in other buffer"
-  :url "https://github.com/lorniu/go-translate"
-  :bind ("C-c t" . gts-do-translate)
+  :bind ("C-c C-d" . deepl-translate)
   :init
-  (load "~/Dropbox/backup/emacs/api/deepl-api")
-  :config
-  (eval-and-compile (require 'go-translate))
-  (setq gts-translate-list '(("en" "ja") ("ja" "en")))
-  (setq gts-default-translator
-		(gts-translator
-		 :picker  (gts-noprompt-picker)
-		 :engines (list
-				   (gts-google-engine)
-				   (gts-deepl-engine
-					:auth-key (format deepl-auth-key) :pro nil))
-		 :render  (gts-buffer-render))))
-
-
-(leaf *chromium-deepl-translate
-  :doc "Deepl translation in web page"
-  :bind ("C-c C-t" . chromium-deepl-translate)
-  :init
-  (defun chromium-deepl-translate (&optional string)
-	"Hoge."
-	(interactive)
-	(setq string
-		  (cond ((stringp string) string)
-				((use-region-p)
-				 (buffer-substring (region-beginning) (region-end)))
-				(t
-				 (save-excursion
-				   (let (s)
-					 (forward-char 1)
-					 (backward-sentence)
-					 (setq s (point))
-					 (forward-sentence)
-					 (buffer-substring s (point)))))))
-	(run-at-time 0.1 nil 'deactivate-mark)
-	(browse-url
-	 (concat
-	  "https://www.deepl.com/translator#en/ja/"
-	  (url-hexify-string string)))))
+  (load "~/Dropbox/backup/emacs/api/deepl-api"))
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 70_translate.el ends here

@@ -59,6 +59,6 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 40_neotree.el ends here

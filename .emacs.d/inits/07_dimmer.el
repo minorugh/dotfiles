@@ -1,4 +1,4 @@
-;;; 07_dimmer.el --- Window utility configurations. -*- no-byte-compile: t; -*-
+;;; 07_dimmer.el --- Window utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -53,6 +53,6 @@ If there are two or more windows, it will go to another window."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 07_dimmer.el ends here

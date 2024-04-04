@@ -97,6 +97,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 20_funcs.el ends here

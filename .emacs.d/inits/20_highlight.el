@@ -1,4 +1,4 @@
-;;; 20_highlight.el --- Highlighting configurations. -*- no-byte-compile: t; -*-
+;;; 20_highlight.el --- Highlighting configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -65,6 +65,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; 20_highlight.el ends here
