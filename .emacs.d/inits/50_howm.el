@@ -29,7 +29,6 @@
 		 "# memo: %cursor\n%date%file"
 		 "# tech: %cursor\n%date%file")))
   :config
-  (eval-and-compile (require 'howm)(require 'evil))
   (defun my:howm-create-memo ()
     "Create by inserting tags automatically."
 	(interactive)
