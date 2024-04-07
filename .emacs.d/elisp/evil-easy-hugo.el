@@ -17,8 +17,7 @@
   :config
   (eval-and-compile (require 'easy-hugo))
   (defun easy-hugo-newpost (post-file)
-	"Create a new post with hugo.
-POST-FILE needs to have and extension '.md' or '.org' or '.ad' or '.rst' or '.mmark' or '.html'."
+	"Create a new post with hugo."
 	(interactive (list (read-from-minibuffer
 						"Filename: "
 						`(,easy-hugo-default-ext . 1) nil nil nil)))
