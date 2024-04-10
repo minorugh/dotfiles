@@ -1,0 +1,10 @@
+[Unit]
+Description=VBox task stop at service stop.
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStop=/home/minoru/.VMService/stop.sh
+
+[Install]
+WantedBy=multi-user.target
