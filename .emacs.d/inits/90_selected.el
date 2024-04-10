@@ -15,7 +15,6 @@
 		 ("d" . deepl-translate)
 		 ("t" . google-translate-auto)
 		 ("w" . my:weblio)
-		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
   :config
@@ -41,12 +40,6 @@
   (defun my:google (str)
 	(interactive (list (region-or-read-string nil)))
 	(browse-url (format "https://www.google.com/search?hl=ja&q=%s"
-						(upcase (url-hexify-string str)))))
-
-  (defun my:koujien (str)
-	"Search koujien."
-	(interactive (list (region-or-read-string nil)))
-	(browse-url (format "https://sakura-paris.org/dict/広辞苑/prefix/%s"
 						(upcase (url-hexify-string str)))))
 
   (defun my:weblio (str)
