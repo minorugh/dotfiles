@@ -14,7 +14,7 @@
 		 ("s" . swiper-thing-at-point)
 		 ("d" . deepl-translate)
 		 ("t" . google-translate-auto)
-		 ("W" . my:weblio)
+		 ("w" . my:weblio)
 		 ("k" . my:koujien)
 		 ("j" . my:eijiro)
 		 ("g" . my:google))
