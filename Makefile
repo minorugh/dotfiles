@@ -107,7 +107,6 @@ init: ## Initial deploy dotfiles
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
-	ln -vsfn {${PWD},${HOME}}/.VMService
 	for item in gitconfig gist; do
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
 	done
