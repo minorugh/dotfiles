@@ -30,7 +30,6 @@
 	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
 	  (amx-history-length . 20)))
   :config
-  (eval-and-compile (require 'ivy))
   (defun my:ivy-format-function-arrow (cands)
 	"Transform into a string for minibuffer with CANDS."
 	(ivy--format-function-generic
@@ -45,8 +44,7 @@
 	 "\n"))
 
   (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
-	"Fast full-text search.
-see https://takaxp.github.io/init.html#org29c7b6b7"
+	"Fast full-text search. see https://takaxp.github.io/init.html#org29c7b6b7"
 	(apply f (or initial-input
 				 (and (not (thing-at-point-looking-at "^\\*+"))
 					  (ivy-thing-at-point)))

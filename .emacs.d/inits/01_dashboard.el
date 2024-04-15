@@ -14,7 +14,7 @@
 		  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
 		  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/week/6/31/")) )
 		  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
-		  ;; ("m" . (lambda () (interactive) (compile "sylpheed")))
+		  ("g" . (lambda () (interactive) (browse-url "https://github.com/minorugh")))
 		  ("m" . (lambda () (interactive) (compile "thunderbird")))
 		  ("s" . (lambda () (interactive) (compile "slack")))
 		  ("." . hydra-browse/body)))
@@ -43,7 +43,7 @@
   (defun dashboard-insert-custom (list-size)
 	"Insert custom itemes."
 	(interactive)
-	(insert " GH: (h)   Twitter: (x)   WX: (w)   Cal: (c)    News: (n)    Mail: (m)    Slack: (s)    (.)"))
+	(insert " GH: (h)   WX: (w)   Cal: (c)    News: (n)    Mail: (m)   : (x)  : (g)  : (s)    (.)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
