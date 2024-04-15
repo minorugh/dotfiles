@@ -24,15 +24,13 @@
   :config
   ;; Customize for my help menu
   (setq easy-hugo-help-line 5
-		easy-hugo-help "
-  n .. New blog post    r .. Rename file     p .. Preview          g .. Refresh
+		easy-hugo-help "  n .. New blog post    r .. Rename file     p .. Preview          g .. Refresh
   d .. Delete post      a .. Search blog ag  P .. Publish clever   G .. GitHub deploy
   c .. Open config      o .. Open base dir   < .. Previous blog    > .. Next bloge
   , .. Prev postdir     . .. Next postdir    ; .. Select blog      v .. Open view mode
   N .. No help [tab]    s .. Sort time       u .. Sort Publish     e .. Edit easy-hugo
 ")
-  ;; Load custom configuration for evil-mode
-  (require 'evil-easy-hugo)
+  ;; Load related packages
   (leaf popup :ensure t)
   (leaf request	:ensure t
 	:config
