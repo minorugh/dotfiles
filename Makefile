@@ -221,7 +221,7 @@ lepton: ## Init lepton
 	cd ${HOME}/Appimage && \
 	wget https://github.com/hackjutsu/Lepton/releases/download/v1.10.0/Lepton-1.10.0.AppImage
 	chmod a+x Lepton-1.10.0.AppImage
-#	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 
 zoom: ## Install zoom
 	cd ${HOME}/Downloads && \
