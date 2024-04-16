@@ -42,12 +42,15 @@
     :config
     (leaf-keywords-init)))
 
-;;  Auto compile
+;;  Native compile
+(with-eval-after-load 'comp
+  (setq native-comp-async-jobs-number 8)
+  (setq native-comp-speed 3))
 (defun auto-compile-inits ()
   "Byte compile Lisp files modified in the directory."
   (interactive)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+  (native-compile-async "~/.emacs.d/init.el")
+  (native-compile-async "~/.emacs.d/early-init.el"))
 (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 ;; Load user configurations
