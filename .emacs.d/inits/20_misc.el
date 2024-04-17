@@ -52,7 +52,16 @@
   :bind (:flycheck-mode-map
          ("M-n" . flycheck-next-error)
          ("M-p" . flycheck-previous-error))
-  :custom ((flycheck-emacs-lisp-initialize-packages . t)))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :config
+  ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
+  (eval-and-compile (require 'flycheck))
+  (setq flycheck-emacs-lisp-package-initialize-form
+		(flycheck-sexp-to-string
+		 '(progn
+			(with-demoted-errors "Error during package initialization: %S"
+              (package-initialize))
+			(leaf-keywords-init)))))
 
 
 ;; Local Variables:
