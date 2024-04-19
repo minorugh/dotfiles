@@ -55,6 +55,10 @@
   :hook (mail-mode-hook . darkroom-mode))
 
 
+;; (leaf fontawesom :ensure t
+;;   :doc "Use with 'M-x counsel-fontawesom'")
+
+
 ;; (leaf pangu-spacing
 ;;   :ensure t
 ;;   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
