@@ -12,6 +12,8 @@
 
 
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
+;; packages are compiled ahead-of-time when they are installed and site files
+;; are compiled when gccemacs is installed.
 (setq native-comp-deferred-compilation nil ;; obsolete since 29.1
       native-comp-jit-compilation nil)
 
@@ -68,6 +70,6 @@
 
 (provide 'early-init)
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; early-init.el ends here
