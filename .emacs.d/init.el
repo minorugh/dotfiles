@@ -61,6 +61,6 @@
 
 (provide 'init)
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; init.el ends here
