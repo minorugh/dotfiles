@@ -43,9 +43,8 @@
   :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
-  :bind ("C-c C-d" . deepl-translate)
-  :init
-  (load "~/Dropbox/backup/emacs/api/deepl-api"))
+  :require my:deepl-api
+  :bind ("C-c d" . deepl-translate))
 
 
 ;; Local Variables:
