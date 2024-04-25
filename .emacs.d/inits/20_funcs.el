@@ -12,8 +12,8 @@
 		 ("M-/"   . kill-this-buffer)
 		 ("C-M-/" . delete-this-file)
 		 ("M-,"   . xref-find-definitions)
-		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS
-		 ("s-v"   . clipboard-yank)           ;; Like macOS
+		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+		 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 		 ("C-x b" . ibuffer)
 		 ("C-x C-c" . iconify-frame)
 		 ([muhenkan] . my:muhenkan))
