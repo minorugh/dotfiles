@@ -27,16 +27,16 @@
 
   (package-initialize)
   (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+	(package-refresh-contents)
+	(package-install 'leaf))
 
   (leaf leaf-keywords :ensure t
-    :init
-    (leaf hydra :ensure t)
-    (leaf el-get :ensure t
+	:init
+	(leaf hydra :ensure t)
+	(leaf el-get :ensure t
       :custom (el-get-git-shallow-clone . t))
-    :config
-    (leaf-keywords-init)))
+	:config
+	(leaf-keywords-init)))
 
 ;; Load user configurations
 (defun load-user-conf ()
