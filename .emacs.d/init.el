@@ -19,7 +19,7 @@
 
 
 ;; Package
-;;(eval-and-compile
+(eval-and-compile
 (customize-set-variable
  'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                      ("melpa" . "https://melpa.org/packages/")
@@ -36,8 +36,7 @@
   (leaf el-get :ensure t
     :custom (el-get-git-shallow-clone . t))
   :config
-  (leaf-keywords-init))
-;;)
+  (leaf-keywords-init)))
 
 ;; Load user configurations
 (defun load-user-conf ()
