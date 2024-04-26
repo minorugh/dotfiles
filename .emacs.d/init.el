@@ -19,24 +19,25 @@
 
 
 ;; Package
-(eval-and-compile
-  (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("org"   . "https://orgmode.org/elpa/")))
+;;(eval-and-compile
+(customize-set-variable
+ 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                     ("melpa" . "https://melpa.org/packages/")
+                     ("org"   . "https://orgmode.org/elpa/")))
 
-  (package-initialize)
-  (unless (package-installed-p 'leaf)
-	(package-refresh-contents)
-	(package-install 'leaf))
+(package-initialize)
+(unless (package-installed-p 'leaf)
+  (package-refresh-contents)
+  (package-install 'leaf))
 
-  (leaf leaf-keywords :ensure t
-	:init
-	(leaf hydra :ensure t)
-	(leaf el-get :ensure t
-      :custom (el-get-git-shallow-clone . t))
-	:config
-	(leaf-keywords-init)))
+(leaf leaf-keywords :ensure t
+  :init
+  (leaf hydra :ensure t)
+  (leaf el-get :ensure t
+    :custom (el-get-git-shallow-clone . t))
+  :config
+  (leaf-keywords-init))
+;;)
 
 ;; Load user configurations
 (defun load-user-conf ()
