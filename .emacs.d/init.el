@@ -4,10 +4,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(when (version< emacs-version "27.1")
-  (error "This requires Emacs 27.1 and above!"))
-
-
 ;; Speed up startup
 (defconst my:file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
@@ -25,7 +21,8 @@
 ;; Package
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("melpa" . "https://melpa.org/packages/")
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                       ("melpa" . "https://melpa.org/packages/")
                        ("org"   . "https://orgmode.org/elpa/")))
 
   (package-initialize)
@@ -58,7 +55,6 @@
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 
-(provide 'init)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
