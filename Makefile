@@ -281,6 +281,13 @@ emacs-devel: ## Install development version of emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation && make && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
+emacs-27:
+	cd ${HOME}/src
+	wget http://ftp.jaist.ac.jp/pub/GNU/emacs/emacs-27.2.tar.gz
+	tar xvf emacs-27.2.tar.gz
+	cd emacs-27.2 && ./autogen.sh && ./configure && sudo make && sudo make install
+
+
 docker: ## Install docker
 	sudo apt install ca-certificates lsb-release
 	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
