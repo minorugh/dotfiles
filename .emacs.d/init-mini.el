@@ -17,6 +17,12 @@
 (load-theme 'misterioso t)
 
 ;; Package
+;; Packages
+;; Without this comment Emacs25 adds (package-initialize) here
+(setq package-archives
+      '(("gnu"   . "http://elpa.gnu.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")))
+
 (unless (bound-and-true-p package--initialized) ;; To avoid warnings in 27
   (setq package-enable-at-startup nil)          ;; To prevent initializing twice
   (package-initialize))
