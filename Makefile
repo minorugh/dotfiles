@@ -307,7 +307,9 @@ github: ## Clone github repository
 	git clone git@github.com:minorugh/GH.git && \
 	git clone git@github.com:minorugh/.emacs.d.git && \
 	git clone git@github.com:minorugh/upsftp.git && \
-	git clone git@github.com:minorugh/iceberg-theme.git
+	git clone git@github.com:minorugh/iceberg-theme.git \
+	git clone git@github.com:minorugh/emacs.d.git && \
+	git clone git@github.com:minorugh/minorugh.github.io.git
 # GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
 
 ## =====================================================================
