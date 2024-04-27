@@ -39,14 +39,12 @@
   :doc "Load user configurations"
   :require (my:dired my:template))
 
-;; Autorevert
 (leaf autorevert
   :doc "revert buffers when files on disk change"
   :tag "builtin"
   :custom ((auto-revert-interval . 0.1))
   :global-minor-mode global-auto-revert-mode)
 
-;; Syntax checker
 (leaf flycheck
   :doc "On-the-fly syntax checking"
   :ensure t
@@ -55,9 +53,9 @@
   :custom ((flycheck-emacs-lisp-initialize-packages . t))
   :hook prog-mode-hook)
 
-
-;; Init loader
-(leaf init-loader :ensure t
+(leaf init-loader
+  :doc "Loader of configuration files"
+  :ensure t
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
