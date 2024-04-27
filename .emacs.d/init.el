@@ -57,11 +57,10 @@
 (leaf flycheck
   :doc "On-the-fly syntax checking"
   :ensure t
-  ;; :hook (prog-mode-hook . flycheck-mode)
-  :hook prog-mode-hook
   :bind (("M-n" . flycheck-next-error)
          ("M-p" . flycheck-previous-error))
-  :custom ((flycheck-emacs-lisp-initialize-packages . t)))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :hook prog-mode-hook)
 
 
 ;; Init loader
