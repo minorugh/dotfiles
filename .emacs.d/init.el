@@ -13,38 +13,31 @@
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
 
-
-;; Add user directory "elisp" to load-path
-(push (expand-file-name "elisp/" user-emacs-directory) load-path)
-
-
 ;; Package
 (eval-and-compile
-(customize-set-variable
- 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                     ("melpa" . "https://melpa.org/packages/")
-                     ("org"   . "https://orgmode.org/elpa/")))
+  (customize-set-variable
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                       ("melpa" . "https://melpa.org/packages/")
+                       ("org"   . "https://orgmode.org/elpa/")))
 
-(package-initialize)
-(unless (package-installed-p 'leaf)
-  (package-refresh-contents)
-  (package-install 'leaf))
+  (package-initialize)
+  (unless (package-installed-p 'leaf)
+	(package-refresh-contents)
+	(package-install 'leaf))
 
-(leaf leaf-keywords :ensure t
-  :init
-  (leaf hydra :ensure t)
-  (leaf el-get :ensure t
-    :custom (el-get-git-shallow-clone . t))
-  :config
-  (leaf-keywords-init)))
+  (leaf leaf-keywords :ensure t
+	:init
+	(leaf hydra :ensure t)
+	(leaf el-get :ensure t
+      :custom (el-get-git-shallow-clone . t))
+	:config
+	(leaf-keywords-init)))
 
 ;; Load user configurations
-(defun load-user-conf ()
-  "Load user configurations."
-  (interactive)
-  (require 'my:dired)
-  (require 'my:template))
-(add-hook 'emacs-startup-hook 'load-user-conf)
+(push (expand-file-name "elisp/" user-emacs-directory) load-path)
+(leaf load-user-conf
+  :doc "Load user configurations"
+  :require (my:dired my:template))
 
 ;; Autorevert
 (leaf autorevert
