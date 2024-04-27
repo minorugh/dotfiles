@@ -51,25 +51,9 @@
 	(url-configuration-directory . "~/.emacs.d/tmp/url")
 	(bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  ;; Share PATH from shell environment variables
-  (leaf exec-path-from-shell :ensure t
-	:when (memq window-system '(mac ns x))
-	:hook (emacs-startup-hook . exec-path-from-shell-initialize)
-	:custom
-	(exec-path-from-shell-check-startup-files . nil))
-
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
-
-  ;; Encoding
-  ;; (set-language-environment "Japanese")
-  ;; (prefer-coding-system 'utf-8)
-
-  ;; Fonts
-  ;; (if (string-match "e590" (shell-command-to-string "uname -n"))
-  ;; 	  (add-to-list 'default-frame-alist '(font . "Cica-20"))
-  ;; 	(add-to-list 'default-frame-alist '(font . "Cica-15")))
 
   ;; Recentf
   (setq recentf-auto-cleanup 'never)
@@ -77,10 +61,6 @@
 		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode)
-
-  ;; Autorevert
-  ;; (setq auto-revert-interval 0.1)
-  ;; (add-hook 'after-init-hook 'global-auto-revert-mode)
 
   ;; Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
