@@ -47,12 +47,12 @@
 			(web-mode-code-indent-offset . 2)))
 
 
-(leaf flycheck :ensure t
-  :hook (prog-mode-hook . flycheck-mode)
-  :bind (:flycheck-mode-map
-         ("M-n" . flycheck-next-error)
-         ("M-p" . flycheck-previous-error))
-  :custom ((flycheck-emacs-lisp-initialize-packages . t)))
+;; (leaf flycheck :ensure t
+;;   :hook (prog-mode-hook . flycheck-mode)
+;;   :bind (:flycheck-mode-map
+;;          ("M-n" . flycheck-next-error)
+;;          ("M-p" . flycheck-previous-error))
+;;   :custom ((flycheck-emacs-lisp-initialize-packages . t)))
 
 
 ;; Local Variables:
