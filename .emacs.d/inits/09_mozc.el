@@ -4,7 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf mozc :ensure t
-  :hook (after-init-hook . mozc-mode)
+  ;; :hook (after-init-hook . mozc-mode)
+  :hook after-init-hook
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 		 ("s-d" . my:mozc-word-regist)
 		 (:mozc-mode-map
