@@ -46,6 +46,24 @@
   (require 'my:template))
 (add-hook 'emacs-startup-hook 'load-user-conf)
 
+;; Autorevert
+(leaf autorevert
+  :doc "revert buffers when files on disk change"
+  :tag "builtin"
+  :custom ((auto-revert-interval . 0.1))
+  :global-minor-mode global-auto-revert-mode)
+
+;; Syntax checker
+(leaf flycheck
+  :doc "On-the-fly syntax checking"
+  :ensure t
+  ;; :hook (prog-mode-hook . flycheck-mode)
+  :hook prog-mode-hook
+  :bind (("M-n" . flycheck-next-error)
+         ("M-p" . flycheck-previous-error))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t)))
+
+
 ;; Init loader
 (leaf init-loader :ensure t
   :config
