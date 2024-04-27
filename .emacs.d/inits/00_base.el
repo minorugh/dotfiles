@@ -79,8 +79,8 @@
   (add-hook 'after-init-hook 'recentf-mode)
 
   ;; Autorevert
-  (setq auto-revert-interval 0.1)
-  (add-hook 'after-init-hook 'global-auto-revert-mode)
+  ;; (setq auto-revert-interval 0.1)
+  ;; (add-hook 'after-init-hook 'global-auto-revert-mode)
 
   ;; Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
@@ -108,7 +108,7 @@
 	"Advice `emacs-init-time'."
 	(interactive)
 	(let ((str
-		   (format "%.3f seconds"
+		   (format "%.1f seconds"
 				   (float-time
 					(time-subtract after-init-time before-init-time)))))
 	  (if (called-interactively-p 'interactive)
