@@ -25,7 +25,8 @@
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line :ensure t
-	:hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
+	;; :hook ((imenu-list-major-mode-hook neotree-mode-hook) . hide-mode-line-mode)))
+	:hook (imenu-list-major-mode-hook neotree-mode-hook)))
 
 
 (leaf *display-line-numbers
