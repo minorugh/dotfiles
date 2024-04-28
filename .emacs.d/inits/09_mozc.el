@@ -3,7 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf mozc :ensure t
+(leaf mozc
+  :doc "minor mode to input Japanese with Mozc"
+  :ensure t
   :hook after-init-hook
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 		 ("s-d" . my:mozc-word-regist)
@@ -16,10 +18,13 @@
 	(mozc-leim-title          . "あ"))
   :config
   (leaf mozc-cursor-color
+	:doc "Set cursor color corresponding to mozc's input state"
 	:el-get "iRi-E/mozc-el-extensions"
 	:require t
 	:config	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
-  (leaf mozc-cand-posframe :ensure t
+  (leaf mozc-cand-posframe
+	:doc "Posframe frontend for mozc"
+	:ensure t
 	:if (display-graphic-p)
 	:hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
 	:require t
