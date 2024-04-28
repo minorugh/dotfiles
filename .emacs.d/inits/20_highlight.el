@@ -11,6 +11,8 @@
 
 
 (leaf *whitespace
+  :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
+  :tag "Builtin"
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom ((show-trailing-whitespace . nil))

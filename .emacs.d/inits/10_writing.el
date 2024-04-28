@@ -3,23 +3,28 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf undo-fu :ensure t
+(leaf undo-fu
+  :doc "Undo helper with redo"
+  :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 		 ("C-/" . undo-fu-only-redo)))
 
-
-(leaf undohist :ensure t
+(leaf undohist
+  :doc "Persistent undo history"
+  :ensure t
   :hook (after-init-hook . undohist-initialize)
   :custom `((undohist-directory     . "~/.emacs.d/tmp/undohist")
 			(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
-
-(leaf smartparens :ensure t
+(leaf smartparens
+  :doc "minor mode for dealing with pairs"
+  :ensure t
   :hook (after-init-hook . smartparens-global-mode)
   :config (leaf smartparens-config :require t))
 
-
-(leaf darkroom :ensure t
+(leaf darkroom
+  :doc "Remove visual distractions and focus on writing"
+  :ensure t
   :bind (([f8] . my:darkroom-in)
 		 (:darkroom-mode-map
 		  ([f8] . my:darkroom-out)))
@@ -43,20 +48,16 @@
 	(setq-local line-spacing 0)
 	(evil-normal-state)))
 
-
-(leaf atomic-chrome :ensure t
+(leaf atomic-chrome
+  :doc "Edit Chrome text area with Emacs"
+  :ensure t
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom (atomic-chrome-buffer-open-style . 'full))
-
 
 (leaf mail-mode
   :doc "Using mail-mode for eml files for Thunderbird plugin support"
   :mode ("\\.eml\\'" . mail-mode)
   :hook (mail-mode-hook . darkroom-mode))
-
-
-;; (leaf fontawesom :ensure t
-;;   :doc "Use with 'M-x counsel-fontawesom'")
 
 
 ;; (leaf pangu-spacing
