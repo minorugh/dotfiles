@@ -4,6 +4,7 @@
 ;; (setq debug-on-erro t)
 
 (leaf diff-hl
+  :doc "Highlight uncommitted changes using VC"
   :ensure t
   :hook
   ((after-init-hook . global-diff-hl-mode)
@@ -17,6 +18,7 @@
 
 
 (leaf magit
+  :doc "A Git porcelain inside Emacs"
   :ensure t
   :bind '(("C-x g" . magit-status)
 		  ("M-g" . hydra-git/body))
