@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf counsel :ensure t
+(leaf counsel
   :doc "Various completion functions using Ivy"
+  :ensure t
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 		 ("C-x C-b" . counsel-switch-buffer)
@@ -23,9 +24,11 @@
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist      . '((t . my:ivy-format-function-arrow))))
   :init
-  (leaf ivy-rich :ensure t
+  (leaf ivy-rich
+	:ensure t
 	:hook (after-init-hook . ivy-rich-mode))
-  (leaf amx	:ensure t
+  (leaf amx
+	:ensure t
 	:custom
 	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")
 	  (amx-history-length . 20)))

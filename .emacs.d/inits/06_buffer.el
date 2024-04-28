@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf super-save :ensure t
+(leaf super-save
   :doc "Smart auto save buffers"
+  :ensure t
   :hook (after-init-hook . super-save-mode)
   :custom
   `((super-save-auto-save-when-idle . t)
@@ -13,8 +14,9 @@
 	(super-save-exclude             . '(".gpg"))))
 
 
-(leaf persistent-scratch :ensure t
+(leaf persistent-scratch
   :doc "Save scratch buffer state to file and restore from file"
+  :ensure t
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
   :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/scratch")
