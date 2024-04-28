@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; custom-compilation
-(leaf *custom-compilation
+(leaf compile
+  :doc "run compiler as inferior of Emacs"
+  :tag "Builtin"
   :config
   (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
   (setq compilation-scroll-output t)
@@ -19,48 +20,51 @@
 		  (t (message "Compilation exited abnormally: %s" string)))))
 
 
-;; user make function
-(defun my:make-k ()
-  "Make k."
-  (interactive)
-  (compile "make -k"))
+(leaf my:make-function
+  :doc "User make functions"
+  :init
+  (defun my:make-k ()
+	"Make k."
+	(interactive)
+	(compile "make -k"))
 
-(defun my:make-draft ()
-  "Make kinnei draft."
-  (interactive)
-  (compile "make df"))
+  (defun my:make-draft ()
+	"Make kinnei draft."
+	(interactive)
+	(compile "make df"))
 
-(defun my:make-upsftp ()
-  "Make upfstp."
-  (interactive)
-  (compile "make up"))
+  (defun my:make-upsftp ()
+	"Make upfstp."
+	(interactive)
+	(compile "make up"))
 
-(defun my:make-move ()
-  "Make move."
-  (interactive)
-  (compile "make mv"))
+  (defun my:make-move ()
+	"Make move."
+	(interactive)
+	(compile "make mv"))
 
-(defun my:make-bklog ()
-  "Make bklog."
-  (interactive)
-  (compile "make bk"))
+  (defun my:make-bklog ()
+	"Make bklog."
+	(interactive)
+	(compile "make bk"))
 
-(defun my:make-git ()
-  "Make git."
-  (interactive)
-  (compile "make git"))
+  (defun my:make-git ()
+	"Make git."
+	(interactive)
+	(compile "make git"))
 
-(defun my:make-sort ()
-  "Make sort for filelist."
-  (interactive)
-  (compile "make sort")
-  (find-file "~/Dropbox/GH/upsftp/filelist.txt")
-  (goto-char (point-min)))
+  (defun my:make-sort ()
+	"Make sort for filelist."
+	(interactive)
+	(compile "make sort")
+	(find-file "~/Dropbox/GH/upsftp/filelist.txt")
+	(goto-char (point-min)))
 
-(defun my:make-clean ()
-  "Make clean."
-  (interactive)
-  (compile "make clean"))
+  (defun my:make-clean ()
+	"Make clean."
+	(interactive)
+	(compile "make clean")))
+
 
 
 ;; Local Variables:
