@@ -60,7 +60,19 @@
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
 	(dashboard-goto-recent-files)
-	(restart-server)))
+	(restart-server))
+
+  (defun ad:emacs-init-time ()
+	"Advice `emacs-init-time'."
+	(interactive)
+	(let ((str
+		   (format "%.1f seconds"
+				   (float-time
+					(time-subtract after-init-time before-init-time)))))
+	  (if (called-interactively-p 'interactive)
+		  (message "%s" str)
+		str)))
+  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
 
 
 ;; Local Variables:
