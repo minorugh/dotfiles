@@ -41,7 +41,8 @@
    ("<muhenkan>" nil))
   :config
   (leaf git-timemachine	:ensure t)
-  (leaf browse-at-remote :ensure t
+  (leaf browse-at-remote
+	:ensure t
 	:custom	(browse-at-remote-prefer-symbolic . nil))
 
   (defun seq-keep (function sequence)

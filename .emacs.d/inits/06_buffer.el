@@ -48,7 +48,8 @@
 
 
 (leaf bs
-  :doc "Menu for selecting and displaying buffers."
+  :doc "Menu for selecting and displaying buffers"
+  :tag "builtin"
   :bind (("M-]" . bs-cycle-next)
 		 ("M-[" . bs-cycle-previous)))
 

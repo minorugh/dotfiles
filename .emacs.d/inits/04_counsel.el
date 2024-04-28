@@ -25,9 +25,11 @@
 	(ivy-format-functions-alist      . '((t . my:ivy-format-function-arrow))))
   :init
   (leaf ivy-rich
+	:doc "More friendly display transformer for ivy"
 	:ensure t
 	:hook (after-init-hook . ivy-rich-mode))
   (leaf amx
+	:doc "Alternative 'M-x' with extra features"
 	:ensure t
 	:custom
 	`((amx-save-file . ,"~/.emacs.d/tmp/amx-items")

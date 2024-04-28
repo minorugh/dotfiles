@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf swiper
+  :doc "Isearch with an overview"
   :ensure t
   :bind (("C-s" . swiper-region)
 		 ("C-c r" . swiper-thing-at-point))
@@ -17,6 +18,7 @@ If the region isn't selected, `swiper'."
       (swiper-thing-at-point)))
 
   (leaf swiper-migemo
+	:doc "ivy/counsel/swiper with migemo"
 	:el-get "tam17aki/swiper-migemo"
 	:hook (after-init-hook . global-swiper-migemo-mode)
 	:config
@@ -27,6 +29,7 @@ If the region isn't selected, `swiper'."
 
 
 (leaf migemo
+  :doc "Japanese incremental search through dynamic pattern expansion"
   :ensure t
   :if (executable-find "cmigemo")
   :hook (after-init-hook . migemo-init)
