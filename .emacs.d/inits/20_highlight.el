@@ -14,7 +14,7 @@
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :custom ((show-trailing-whitespace . nil))
-  :init
+  :preface
   (defun my:cleanup-for-spaces ()
 	"Remove contiguous line breaks at end of line + end of file."
 	(interactive)
@@ -28,6 +28,7 @@
 
 (leaf *paren
   :doc "Highlight matching parens"
+  :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
   :custom
   `((show-paren-style . 'parenthesis)
@@ -37,8 +38,9 @@
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
 
-(leaf volatile-highlights :ensure t
+(leaf volatile-highlights
   :doc "Hilight the pasted region"
+  :ensure t
   :url "https://github.com/k-talo/volatile-highlights.el"
   :hook (after-init-hook . volatile-highlights-mode)
   :custom-face
@@ -51,14 +53,16 @@
 	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 
-(leaf rainbow-delimiters :ensure t
+(leaf rainbow-delimiters
   :doc "Display brackets in rainbow"
+  :ensure t
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
+  :hook prog-mode-hook)
 
 
-(leaf rainbow-mode :ensure t
+(leaf rainbow-mode
   :doc "Color letter that indicate the color"
+  :ensure t
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
   :bind ("C-c w" . rainbow-mode))
 
