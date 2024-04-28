@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf doom-themes
-  :doc ""
+  :doc "Pack of modern color-themes"
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom ((doom-themes-enable-italic . nil))
@@ -17,7 +17,7 @@
 
 
 (leaf doom-modeline
-  :doc ""
+  :doc "A minimal and modern mode-line"
   :ensure t
   :custom
   `((doom-modeline-icon            . t)
@@ -29,12 +29,12 @@
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
-	:doc ""
+	:doc "Hides the mode-line in current buffer"
 	:ensure t
 	:hook (imenu-list-major-mode-hook neotree-mode-hook)))
 
 
-(leaf *display-line-numbers
+(leaf display-line-numbers
   :doc "interface for display-line-numbers"
   :tag "builtin"
   :bind  ([f9] . display-line-numbers-mode)
@@ -43,7 +43,7 @@
 
 
 (leaf page-break-lines
-  :doc ""
+  :doc "Display ^L page breaks as tidy horizontal lines"
   :ensure t
   :after dashboard
   :hook (after-init-hook . global-page-break-lines-mode)
