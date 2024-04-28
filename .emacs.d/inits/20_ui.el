@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf doom-themes
+  :doc ""
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :custom ((doom-themes-enable-italic . nil))
@@ -16,6 +17,7 @@
 
 
 (leaf doom-modeline
+  :doc ""
   :ensure t
   :custom
   `((doom-modeline-icon            . t)
@@ -27,6 +29,7 @@
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
+	:doc ""
 	:ensure t
 	:hook (imenu-list-major-mode-hook neotree-mode-hook)))
 
@@ -40,24 +43,24 @@
 
 
 (leaf page-break-lines
+  :doc ""
   :ensure t
   :after dashboard
   :hook (after-init-hook . global-page-break-lines-mode)
   :global-minor-mode t)
 
 
-(leaf *cus-cursor
-  :doc "Controls cursor blinking"
+(leaf blink-cursor
+  :doc "Blinking cursor mode for GNU Emacs"
+  :tag "Builtin"
   :hook (emacs-startup-hook . blink-cursor-mode)
   :custom
   `((blink-cursor-blinks   . 0)
 	(blink-cursor-interval . 0.3)
 	(blink-cursor-delay    . 10))
   :init
-  (leaf *hide-cursor
-	:doc "Hide cursor in inactive window"
-	:config
-	(setq-default cursor-in-non-selected-windows nil)))
+  ;;Hide cursor in inactive window
+  (setq-default cursor-in-non-selected-windows nil))
 
 
 ;; Local Variables:
