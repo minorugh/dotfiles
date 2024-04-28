@@ -42,22 +42,21 @@
 (leaf autorevert
   :doc "revert buffers when files on disk change"
   :tag "builtin"
-  :custom ((auto-revert-interval . 0.1))
+  :custom (auto-revert-interval . 0.1)
   :global-minor-mode global-auto-revert-mode)
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"
   :when (memq window-system '(mac ns x))
-  :custom
-  (exec-path-from-shell-check-startup-files . nil)
-  :hook (emacs-startup-hook . exec-path-from-shell-initialize))
+  :custom (exec-path-from-shell-check-startup-files . nil)
+  :hook (after-init-hook . exec-path-from-shell-initialize))
 
 (leaf flycheck
   :doc "On-the-fly syntax checking"
   :ensure t
   :bind (("M-n" . flycheck-next-error)
          ("M-p" . flycheck-previous-error))
-  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :custom (flycheck-emacs-lisp-initialize-packages . t)
   :hook prog-mode-hook)
 
 (leaf init-loader
