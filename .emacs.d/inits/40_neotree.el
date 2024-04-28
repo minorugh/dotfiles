@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf all-the-icons :ensure t
+(leaf all-the-icons
   :doc "utility package to collect various Icon Fonts"
+  :ensure t
   :after dashboard
   :if (display-graphic-p)
   :config
@@ -12,8 +13,9 @@
 	(all-the-icons-install-fonts t)))
 
 
-(leaf neotree :ensure t
+(leaf neotree
   :doc "Tree plugin like NerdTree for Vim"
+  :ensure t
   :url "https://github.com/jaypei/emacs-neotree"
   :commands neotree-find
   :bind (("<f10>"    . my:neotree-find)
