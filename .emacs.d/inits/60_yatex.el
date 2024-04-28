@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf yatex :ensure t
+(leaf yatex
   :doc "Yet Another tex-mode for emacs"
+  :ensure t
   :url "https://github.com/emacsmirror/yatex"
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :custom

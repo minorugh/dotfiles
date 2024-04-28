@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf howm :ensure t
+(leaf howm
   :doc "Wiki-like note-taking tool"
+  :ensure t
   :url "https://howm.osdn.jp"
   :hook ((after-init-hook . howm-mode))
   :bind ((:howm-view-summary-mode-map
