@@ -4,6 +4,8 @@
 ;;(setq debug-on-error t)
 
 (leaf eshell
+  :doc "Emacs command shell"
+  :tag "builtin"
   :after popwin
   :bind ("s-z" . eshell)
   :custom
