@@ -13,7 +13,7 @@
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
 
-
+;; Package
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
@@ -36,25 +36,12 @@
 	:config
 	(leaf-keywords-init)))
 
-;; Load-path for user configurations
+
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
   :doc "Load user configurations"
   :require (my:dired my:template))
 
-(leaf autorevert
-  :doc "revert buffers when files on disk change"
-  :tag "builtin"
-  :custom (auto-revert-interval . 0.1)
-  :global-minor-mode global-auto-revert-mode)
-
-(leaf flycheck
-  :doc "On-the-fly syntax checking"
-  :ensure t
-  :bind (("M-n" . flycheck-next-error)
-         ("M-p" . flycheck-previous-error))
-  :custom (flycheck-emacs-lisp-initialize-packages . t)
-  :hook  prog-mode-hook)
 
 (leaf init-loader
   :doc "Loader of configuration files"

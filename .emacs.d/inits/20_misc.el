@@ -39,6 +39,15 @@
   :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
 
 
+(leaf flycheck
+  :doc "On-the-fly syntax checking"
+  :ensure t
+  :bind (("M-n" . flycheck-next-error)
+         ("M-p" . flycheck-previous-error))
+  :custom (flycheck-emacs-lisp-initialize-packages . t)
+  :hook  prog-mode-hook)
+
+
 (leaf imenu-list
   :doc "Show imenu entries in a separate buffer"
   :ensure t

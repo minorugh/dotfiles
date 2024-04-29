@@ -45,45 +45,22 @@
     ;; Use the X11 clipboard
     (select-enable-clipboard  . t)
     ;; Disable warnings at initialization
-    ;; (warning-minimum-level . :emergency)
+    (warning-minimum-level . :emergency)
     ;; change-default-file-location
     (request-storage-directory . "~/.emacs.d/tmp/request")
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  ;; Change to short command
-  (defalias 'yes-or-no-p #'y-or-n-p)
-  (defalias 'exit 'save-buffers-kill-emacs)
-
-  ;; exec-path-from-shell
-  (leaf exec-path-from-shell :ensure t
-	:doc "Share PATH from shell environment variables"
-	:when (memq window-system '(mac ns x))
-	:custom (exec-path-from-shell-check-startup-files . nil)
-	:hook (after-init-hook . exec-path-from-shell-initialize))
-
-  ;;Server-start
-  (leaf server
-	:doc "Server start for emacsclient"
-	:tag "Builtin"
-	:require t
-	:config
-	(unless (server-running-p)
-	  (server-start)))
-
-  ;; Recentf
-  (leaf recentf
-	:doc ""
-	:tag "Builtin"
-	:config
-	(setq recentf-auto-cleanup 'never)
-	(setq recentf-exclude
-		  '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
-	:hook after-init-hook)
+  ;;Auto revert
+  (setq auto-revert-interval 0.1)
+  (add-hook 'after-init-hook 'global-auto-revert-mode)
 
   ;; Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
+  ;; Change to short command
+  (defalias 'yes-or-no-p #'y-or-n-p)
+  (defalias 'exit 'save-buffers-kill-emacs)
 
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
@@ -92,7 +69,24 @@
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
-  (add-hook 'after-init-hook 'savehist-mode))
+  (add-hook 'after-init-hook 'savehist-mode)
+
+  ;; Recentf
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude
+		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (add-hook 'after-init-hook 'recentf-mode)
+
+  (leaf exec-path-from-shell :ensure t
+	:doc "Share PATH from shell environment variables"
+	:when (memq window-system '(mac ns x))
+	:custom (exec-path-from-shell-check-startup-files . nil)
+	:hook (after-init-hook . exec-path-from-shell-initialize))
+
+  (eval-and-compile (require 'server))
+  (unless (server-running-p)
+	(add-hook 'after-init-hook 'server-start)))
 
 
 ;; Local Variables:
