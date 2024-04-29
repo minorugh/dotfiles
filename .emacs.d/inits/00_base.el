@@ -45,7 +45,7 @@
     ;; Use the X11 clipboard
     (select-enable-clipboard  . t)
     ;; Disable warnings at initialization
-    (warning-minimum-level . :emergency)
+    ;; (warning-minimum-level . :emergency)
     ;; change-default-file-location
     (request-storage-directory . "~/.emacs.d/tmp/request")
     (url-configuration-directory . "~/.emacs.d/tmp/url")
@@ -54,6 +54,15 @@
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
+
+  ;;Server-start
+  (defun restart-server ()
+	"Server Start."
+	(interactive)
+	(eval-and-compile (require 'server))
+	(unless (server-running-p)
+      (server-start)))
+  (add-hook 'emacs-startup-hook 'restart-server)
 
   ;; Recentf
   (setq recentf-auto-cleanup 'never)
@@ -72,16 +81,7 @@
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
-  (add-hook 'after-init-hook 'savehist-mode)
-
-  ;;Server
-  (defun restart-server ()
-    "Server Start."
-    (interactive)
-    (eval-and-compile (require 'server))
-    (unless (server-running-p)
-      (server-start)))
-  (add-hook 'emacs-startup-hook 'restart-server))
+  (add-hook 'after-init-hook 'savehist-mode))
 
 
 ;; Local Variables:
