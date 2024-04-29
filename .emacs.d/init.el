@@ -57,7 +57,7 @@
   :bind (("M-n" . flycheck-next-error)
          ("M-p" . flycheck-previous-error))
   :custom (flycheck-emacs-lisp-initialize-packages . t)
-  :hook prog-mode-hook)
+  :hook  prog-mode-hook)
 
 (leaf init-loader
   :doc "Loader of configuration files"
