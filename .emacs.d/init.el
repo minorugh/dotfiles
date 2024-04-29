@@ -13,8 +13,6 @@
 			(setq file-name-handler-alist my:file-name-handler-alist)
 			(setq gc-cons-threshold 800000)))
 
-;; Load-path for user configurations
-(push (expand-file-name "elisp/" user-emacs-directory) load-path)
 
 (eval-and-compile
   (customize-set-variable
@@ -38,6 +36,8 @@
 	:config
 	(leaf-keywords-init)))
 
+;; Load-path for user configurations
+(push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
   :doc "Load user configurations"
   :require (my:dired my:template))
@@ -55,12 +55,6 @@
          ("M-p" . flycheck-previous-error))
   :custom (flycheck-emacs-lisp-initialize-packages . t)
   :hook  prog-mode-hook)
-
-(leaf exec-path-from-shell :ensure t
-  :doc "Share PATH from shell environment variables"
-  :when (memq window-system '(mac ns x))
-  :custom (exec-path-from-shell-check-startup-files . nil)
-  :hook (after-init-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader
   :doc "Loader of configuration files"

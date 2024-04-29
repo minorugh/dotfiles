@@ -59,8 +59,7 @@
 	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
-	(dashboard-goto-recent-files)
-	(restart-server))
+	(dashboard-goto-recent-files))
 
   (defun ad:emacs-init-time ()
 	"Advice `emacs-init-time'."

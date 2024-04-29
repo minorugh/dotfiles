@@ -55,21 +55,32 @@
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
 
+  ;; exec-path-from-shell
+  (leaf exec-path-from-shell :ensure t
+	:doc "Share PATH from shell environment variables"
+	:when (memq window-system '(mac ns x))
+	:custom (exec-path-from-shell-check-startup-files . nil)
+	:hook (after-init-hook . exec-path-from-shell-initialize))
+
   ;;Server-start
-  (defun restart-server ()
-	"Server Start."
-	(interactive)
-	(eval-and-compile (require 'server))
+  (leaf server
+	:doc "Server start for emacsclient"
+	:tag "Builtin"
+	:require t
+	:config
 	(unless (server-running-p)
-      (server-start)))
-  (add-hook 'emacs-startup-hook 'restart-server)
+	  (server-start)))
 
   ;; Recentf
-  (setq recentf-auto-cleanup 'never)
-  (setq recentf-exclude
-		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
+  (leaf recentf
+	:doc ""
+	:tag "Builtin"
+	:config
+	(setq recentf-auto-cleanup 'never)
+	(setq recentf-exclude
+		  '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	(setq recentf-save-file "~/.emacs.d/tmp/recentf")
+	:hook after-init-hook)
 
   ;; Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
