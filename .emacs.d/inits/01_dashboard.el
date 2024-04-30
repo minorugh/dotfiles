@@ -3,7 +3,8 @@
 ;;; Code:
 ;;(setq debug-on-error t)
 
-(leaf dashboard :ensure t
+(leaf dashboard
+  :ensure t
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
 		 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
@@ -37,8 +38,7 @@
 	(setq dashboard-items '((recents . 3))))
   ;; Set the footer
   (setq dashboard-footer-messages
-		;; '("Be joyful always. Pray constantly. Be thankful for Everything."))
-		'("いつも喜んでいなさい。絶えず祈りなさい。すべての事について感謝しなさい。"))
+		'("Be joyful always. Pray constantly. Be thankful for Everything."))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
   ;; Set the insert custom
   (defun dashboard-insert-custom (list-size)
@@ -60,19 +60,7 @@
 	(setq default-directory "~/")
 	(delete-other-windows)
 	(dashboard-refresh-buffer)
-	(dashboard-goto-recent-files))
-
-  (defun ad:emacs-init-time ()
-	"Advice `emacs-init-time'."
-	(interactive)
-	(let ((str
-		   (format "%.3f seconds"
-				   (float-time
-					(time-subtract after-init-time before-init-time)))))
-	  (if (called-interactively-p 'interactive)
-		  (message "%s" str)
-		str)))
-  (advice-add 'emacs-init-time :override #'ad:emacs-init-time))
+	(dashboard-goto-recent-files)))
 
 
 ;; Local Variables:
