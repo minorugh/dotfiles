@@ -4,6 +4,7 @@
 ;;(setq debug-on-error t)
 
 (leaf dashboard
+  :doc "An extracted startup screen"
   :ensure t
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
