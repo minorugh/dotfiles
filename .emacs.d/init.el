@@ -36,9 +36,9 @@
 	:config
 	(leaf-keywords-init)))
 
-;; Encode
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
+;;Auto revert
+(setq auto-revert-interval 0.1)
+(add-hook 'after-init-hook 'global-auto-revert-mode)
 
 ;; Fonts
 (if (string-match "P1" (shell-command-to-string "uname -n"))
@@ -48,13 +48,13 @@
 ;; Server
 (eval-and-compile (require 'server))
 (unless (server-running-p)
-  (add-hook 'after-init-hook 'server-start))
+  (add-hook 'emacs-startup-hook 'server-start))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"
   :when (memq window-system '(mac ns x))
   :custom (exec-path-from-shell-check-startup-files . nil)
-  :hook (after-init-hook . exec-path-from-shell-initialize))
+  :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
