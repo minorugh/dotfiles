@@ -16,18 +16,17 @@
 (setq native-comp-deferred-compilation nil ;; obsolete since 29.1
       native-comp-jit-compilation nil)
 
-;; Package initialize occurs automatically, before `user-init-file' is loaded,
-;; but after `early-init-file'. We handle package initialization,
-;; so we must prevent Emacs from doing it early!
+;; For slightly faster startup
 (setq package-enable-at-startup nil)
 
-;; In noninteractive sessions, prioritize non-byte-compiled source files to
-;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
-;; to skip the mtime checks on every *.elc file.
-(setq load-prefer-newer  noninteractive)
+;; Always load newest byte code
+(setq load-prefer-newer t)
 
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
+
+;; Disable warnings at initialization
+(setq warning-minimum-level :emergency)
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
@@ -40,6 +39,13 @@
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
 
+;; No startup screen appears
+(setq inhibit-splash-screen t)
+
+;; Encode
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
   (setq inhibit-message t)
@@ -48,8 +54,20 @@
 			  (setq inhibit-redisplay nil)
 			  (setq inhibit-message nil)
 			  (redisplay)))
-  (custom-set-faces
-   '(default ((t (:background "#282a36"))))))
+  (custom-set-faces '(default ((t (:background "#282a36"))))))
+
+;; Expand display digits of emacs-init-time
+(defun ad:emacs-init-time ()
+  "Advice `emacs-init-time'."
+  (interactive)
+  (let ((str
+		 (format "%.1f seconds"
+				 (float-time
+				  (time-subtract after-init-time before-init-time)))))
+	(if (called-interactively-p 'interactive)
+		(message "%s" str)
+	  str)))
+(advice-add 'emacs-init-time :override #'ad:emacs-init-time)
 
 
 (provide 'early-init)
