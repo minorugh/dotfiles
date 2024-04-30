@@ -26,10 +26,6 @@
 ;; to skip the mtime checks on every *.elc file.
 (setq load-prefer-newer  noninteractive)
 
-;; Encoding
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
 
@@ -39,7 +35,10 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (set-fringe-mode '(0 . 1))
+
+;; Hide modeline and headerline while loading
 (setq-default mode-line-format nil)
+(setq-default header-line-format nil)
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
@@ -51,11 +50,6 @@
 			  (redisplay)))
   (custom-set-faces
    '(default ((t (:background "#282a36"))))))
-
-;; Fonts
-(if (string-match "P1" (shell-command-to-string "uname -n"))
-	(add-to-list 'default-frame-alist '(font . "Cica-21.5"))
-  (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 
 (provide 'early-init)

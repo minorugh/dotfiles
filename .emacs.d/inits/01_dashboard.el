@@ -37,7 +37,8 @@
 	(setq dashboard-items '((recents . 3))))
   ;; Set the footer
   (setq dashboard-footer-messages
-		'("Be joyful always. Pray constantly. Be thankful for Everything."))
+		;; '("Be joyful always. Pray constantly. Be thankful for Everything."))
+		'("いつも喜んでいなさい。絶えず祈りなさい。すべての事について感謝しなさい。"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
   ;; Set the insert custom
   (defun dashboard-insert-custom (list-size)

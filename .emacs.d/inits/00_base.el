@@ -76,17 +76,7 @@
   (setq recentf-exclude
 		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
-
-  (leaf exec-path-from-shell :ensure t
-	:doc "Share PATH from shell environment variables"
-	:when (memq window-system '(mac ns x))
-	:custom (exec-path-from-shell-check-startup-files . nil)
-	:hook (after-init-hook . exec-path-from-shell-initialize))
-
-  (eval-and-compile (require 'server))
-  (unless (server-running-p)
-	(add-hook 'after-init-hook 'server-start)))
+  (add-hook 'after-init-hook 'recentf-mode))
 
 
 ;; Local Variables:

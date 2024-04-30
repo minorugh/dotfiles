@@ -36,12 +36,30 @@
 	:config
 	(leaf-keywords-init)))
 
+;; Encode
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+
+;; Fonts
+(if (string-match "P1" (shell-command-to-string "uname -n"))
+	(add-to-list 'default-frame-alist '(font . "Cica-21.5"))
+  (add-to-list 'default-frame-alist '(font . "Cica-18")))
+
+;; Server
+(eval-and-compile (require 'server))
+(unless (server-running-p)
+  (add-hook 'after-init-hook 'server-start))
+
+(leaf exec-path-from-shell :ensure t
+  :doc "Share PATH from shell environment variables"
+  :when (memq window-system '(mac ns x))
+  :custom (exec-path-from-shell-check-startup-files . nil)
+  :hook (after-init-hook . exec-path-from-shell-initialize))
 
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
   :doc "Load user configurations"
   :require (my:dired my:template))
-
 
 (leaf init-loader
   :doc "Loader of configuration files"

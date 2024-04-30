@@ -36,7 +36,7 @@
 (leaf aggressive-indent
   :doc "Minor mode to aggressively keep your code always indented"
   :ensure t
-  :hook ((emacs-lisp-mode-hook css-mode-hook) . aggressive-indent-mode))
+  :hook (emacs-lisp-mode-hook css-mode-hook))
 
 
 (leaf flycheck
