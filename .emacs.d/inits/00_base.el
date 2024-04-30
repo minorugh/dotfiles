@@ -5,9 +5,7 @@
 
 (leaf *generic-configuration
   :custom
-  `(;; No startup screen appears
-    (inhibit-splash-screen . t)
-    ;; Faster rendering by not corresponding to right-to-left language
+  `(;; Faster rendering by not corresponding to right-to-left language
     (bidi-display-reordering . nil)
     ;; Do not make a backup file like *.~
     (make-backup-files . nil)
@@ -44,17 +42,11 @@
     (set-mark-command-repeat-pop . t)
     ;; Use the X11 clipboard
     (select-enable-clipboard  . t)
-    ;; Disable warnings at initialization
-    (warning-minimum-level . :emergency)
     ;; change-default-file-location
     (request-storage-directory . "~/.emacs.d/tmp/request")
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  ;;Auto revert
-  (setq auto-revert-interval 0.1)
-  (add-hook 'after-init-hook 'global-auto-revert-mode)
-
   ;; Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
