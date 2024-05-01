@@ -9,7 +9,7 @@
   :after neotree
   :if (display-graphic-p)
   :custom `((all-the-icons-dired-monochrome . nil)
-			(all-the-icons-scale-factor . 0.9))
+			(all-the-icons-scale-factor . 0.8))
   :config
   (unless (member "all-the-icons" (font-family-list))
 	(all-the-icons-install-fonts t)))

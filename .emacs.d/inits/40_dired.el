@@ -7,7 +7,7 @@
   :ensure t
   :if (display-graphic-p)
   :hook (dired-mode-hook . nerd-icons-dired-mode)
-  :custom (nerd-icons-scale-factor . 0.9))
+  :custom (nerd-icons-scale-factor . 0.8))
 
 (leaf dired
   :after dired
