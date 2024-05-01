@@ -44,6 +44,7 @@
   (leaf browse-at-remote :ensure t
 	:custom	(browse-at-remote-prefer-symbolic . nil))
   :preface
+  ;; Suppress for "Symbol's function definition is void: seq-keep"
   (when (version< emacs-version "29.1")
 	(defun seq-keep (function sequence)
 	  (delq nil (seq-map function sequence)))))
