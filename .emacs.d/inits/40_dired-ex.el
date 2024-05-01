@@ -1,4 +1,4 @@
-;;; 41_dired-ex.el --- Dired expand configurations.
+;;; 40_dired-ex.el --- Dired expand configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -28,23 +28,22 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 			 (mapconcat 'identity image-files " ")))))
 
 
-(leaf *gitk-gitgui-command
-  :config
-  (defun gitk-open ()
-	"Open gitk with current dir.
+(defun gitk-open ()
+  "Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
-	(interactive)
-	(shell-command "gitk &")
-	(delete-other-windows))
+  (interactive)
+  (shell-command "gitk &")
+  (delete-other-windows))
 
-  (defun git-gui-open ()
-	"Tools for creating commits."
-	(interactive)
-	(shell-command "git gui &")
-	(delete-other-windows)))
+
+(defun git-gui-open ()
+  "Tools for creating commits."
+  (interactive)
+  (shell-command "git gui &")
+  (delete-other-windows))
 
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 41_dired-ex.el ends here
+;;; 40_dired-ex.el ends here
