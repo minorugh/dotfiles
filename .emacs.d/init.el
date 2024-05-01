@@ -19,7 +19,8 @@
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                        ("melpa" . "https://melpa.org/packages/")
                        ("org"   . "https://orgmode.org/elpa/")))
-  ;; not use signature
+
+  ;; Do not check GPG signatures
   (setq package-check-signature nil)
 
   (package-initialize)
