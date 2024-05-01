@@ -48,27 +48,27 @@
 	(setq-local line-spacing 0)
 	(evil-normal-state)))
 
-(leaf atomic-chrome
-  :doc "Edit Chrome text area with Emacs"
-  :ensure t
-  :hook (after-init-hook . atomic-chrome-start-server)
-  :custom (atomic-chrome-buffer-open-style . 'full))
+;; (leaf atomic-chrome
+;;   :doc "Edit Chrome text area with Emacs"
+;;   :ensure t
+;;   :hook (after-init-hook . atomic-chrome-start-server)
+;;   :custom (atomic-chrome-buffer-open-style . 'full))
 
 (leaf mail-mode
   :doc "Using mail-mode for eml files for Thunderbird plugin support"
   :mode ("\\.eml\\'" . mail-mode)
   :hook (mail-mode-hook . darkroom-mode))
 
-(leaf pangu-spacing
-  :doc "Add space between Chinese and English characters"
-  :ensure t
-  :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-  :config
-  (setq pangu-spacing-real-insert-separtor t)
-  (setq pangu-spacing-include-regexp ;; alphabet only
-		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-						 (group-n 1 (or (category japanese))))))
-			(group-n 2 (in "a-zA-Z")))))
+;; (leaf pangu-spacing
+;;   :doc "Add space between Chinese and English characters"
+;;   :ensure t
+;;   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+;;   :config
+;;   (setq pangu-spacing-real-insert-separtor t)
+;;   (setq pangu-spacing-include-regexp ;; alphabet only
+;; 		(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+;; 						 (group-n 1 (or (category japanese))))))
+;; 			(group-n 2 (in "a-zA-Z")))))
 
 
 ;; Local Variables:
