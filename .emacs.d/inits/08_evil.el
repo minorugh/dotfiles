@@ -13,7 +13,6 @@
 		  ("SPC"  . evil-insert)
 		  ("C-@"  . er/expand-region)
 		  ("M-."  . nil)
-		  ("@"    . other-window-or-split)
 		  ("?"    . vim-cheat-sheet)
 		  ([home] . open-dashboard))
 		 (:evil-emacs-state-map
