@@ -45,22 +45,6 @@
 	:custom	(browse-at-remote-prefer-symbolic . nil)))
 
 
-(leaf git-command-extentions
-  :config
-  (defun gitk-open ()
-	"Open gitk with current dir.
-see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
-	(interactive)
-	(shell-command "gitk &")
-	(delete-other-windows))
-
-  (defun git-gui-open ()
-	"Tools for creating commits."
-	(interactive)
-	(shell-command "git gui &")
-	(delete-other-windows)))
-
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
