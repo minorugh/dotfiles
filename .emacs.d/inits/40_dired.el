@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :after dired
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 		 (dired-load-hook . (lambda () (require 'dired-x)))
 		 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
