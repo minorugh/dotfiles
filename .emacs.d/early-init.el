@@ -19,9 +19,6 @@
 ;; For slightly faster startup
 (setq package-enable-at-startup nil)
 
-;; Change to not use GPG signature（It's not a good method, but...）
-(setq package-check-signature nil)
-
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
