@@ -40,15 +40,17 @@
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
   :config
-  (leaf git-timemachine	:ensure t)
-  (leaf browse-at-remote
-	:ensure t
-	:custom	(browse-at-remote-prefer-symbolic . nil))
+  (leaf git-timemachine :ensure t)
+  (leaf browse-at-remote :ensure t
+	:custom	(browse-at-remote-prefer-symbolic . nil)))
+  ;; Suppress for "Symbol's function definition is void: seq-keep"
+  ;; obsolete since 29.1
+  ;; (defun seq-keep (function sequence)
+  ;; 	(delq nil (seq-map function sequence))))
 
-  (defun seq-keep (function sequence)
-	"Apply FUNCTION to SEQUENCE and return the list of all the non-nil results."
-	(delq nil (seq-map function sequence)))
 
+(leaf git-command-extentions
+  :config
   (defun gitk-open ()
 	"Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
