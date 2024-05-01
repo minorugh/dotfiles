@@ -43,10 +43,10 @@
   (leaf git-timemachine :ensure t)
   (leaf browse-at-remote :ensure t
 	:custom	(browse-at-remote-prefer-symbolic . nil))
-  ;; Suppress for "Symbol's function definition is void: seq-keep"
-  ;; obsolete since 29.1
-  (defun seq-keep (function sequence)
-	(delq nil (seq-map function sequence))))
+  :preface
+  (when (version< emacs-version "29.1")
+	(defun seq-keep (function sequence)
+	  (delq nil (seq-map function sequence)))))
 
 
 ;; Local Variables:
