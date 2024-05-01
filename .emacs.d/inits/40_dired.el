@@ -3,18 +3,11 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; (leaf nerd-icons-dired
-;;   :ensure t
-;;   :if (display-graphic-p)
-;;   :hook (dired-mode-hook . nerd-icons-dired-mode)
-;;   :custom (nerd-icons-scale-factor . 0.9))
-(leaf all-the-icons-dired
+(leaf nerd-icons-dired
   :ensure t
   :if (display-graphic-p)
-  :hook (dired-mode-hook . all-the-icons-dired-mode)
-  :custom `((all-the-icons-dired-monochrome . nil)
-			(all-the-icons-scale-factor . 0.9)))
-
+  :hook (dired-mode-hook . nerd-icons-dired-mode)
+  :custom (nerd-icons-scale-factor . 0.9))
 
 (leaf dired
   :after dired

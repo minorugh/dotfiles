@@ -6,8 +6,10 @@
 (leaf all-the-icons
   :doc "utility package to collect various Icon Fonts"
   :ensure t
-  :after dashboard
+  :after neotree
   :if (display-graphic-p)
+  :custom `((all-the-icons-dired-monochrome . nil)
+			(all-the-icons-scale-factor . 0.9))
   :config
   (unless (member "all-the-icons" (font-family-list))
 	(all-the-icons-install-fonts t)))
