@@ -46,9 +46,10 @@
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 ;; Server
-(eval-and-compile (require 'server))
-(unless (server-running-p)
-  (add-hook 'emacs-startup-hook 'server-start))
+(eval-when-compile
+  (require 'server)
+  (unless (server-running-p)
+	(add-hook 'emacs-startup-hook 'server-start)))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"

@@ -23,7 +23,7 @@
 	(enable-recursive-minibuffers    . t)
 	(counsel-find-file-ignore-regexp . (regexp-opt completion-ignored-extensions))
 	(ivy-format-functions-alist      . '((t . my:ivy-format-function-arrow))))
-  :init
+  :preface
   (leaf ivy-rich
 	:doc "More friendly display transformer for ivy"
 	:ensure t
