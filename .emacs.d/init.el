@@ -19,10 +19,9 @@
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                        ("melpa" . "https://melpa.org/packages/")
                        ("org"   . "https://orgmode.org/elpa/")))
+  ;; not use signature
+  (setq package-check-signature nil)
 
-  (if (and (fboundp 'native-comp-available-p)
-		   (native-comp-available-p))
-	  (setq package-native-compile t))
   (package-initialize)
   (unless (package-installed-p 'leaf)
 	(package-refresh-contents)
