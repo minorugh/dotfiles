@@ -9,6 +9,7 @@
   :bind (("C-_" . undo-fu-only-undo)
 		 ("C-/" . undo-fu-only-redo)))
 
+
 (leaf undohist
   :doc "Persistent undo history"
   :ensure t
@@ -16,11 +17,13 @@
   :custom `((undohist-directory     . "~/.emacs.d/tmp/undohist")
 			(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
 
+
 (leaf smartparens
   :doc "minor mode for dealing with pairs"
   :ensure t
   :hook (after-init-hook . smartparens-global-mode)
   :config (leaf smartparens-config :require t))
+
 
 (leaf darkroom
   :doc "Remove visual distractions and focus on writing"
@@ -48,16 +51,12 @@
 	(setq-local line-spacing 0)
 	(evil-normal-state)))
 
-;; (leaf atomic-chrome
-;;   :doc "Edit Chrome text area with Emacs"
-;;   :ensure t
-;;   :hook (after-init-hook . atomic-chrome-start-server)
-;;   :custom (atomic-chrome-buffer-open-style . 'full))
 
 (leaf mail-mode
   :doc "Using mail-mode for eml files for Thunderbird plugin support"
   :mode ("\\.eml\\'" . mail-mode)
   :hook (mail-mode-hook . darkroom-mode))
+
 
 ;; (leaf pangu-spacing
 ;;   :doc "Add space between Chinese and English characters"
