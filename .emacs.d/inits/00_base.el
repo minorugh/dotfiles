@@ -47,9 +47,8 @@
     (url-configuration-directory . "~/.emacs.d/tmp/url")
     (bookmark-file . "~/.emacs.d/tmp/bookmarks"))
   :config
-  ;; Goto address
+  ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
