@@ -45,6 +45,18 @@
 	(evil-insert-state)))
 
 
+(defun open-junk-file ()
+  "Open junk file without install Package."
+  (interactive)
+  (let* ((file (expand-file-name
+                (format-time-string
+                 "%Y-%m-%d-%H%M%S." (current-time))
+                "~/Dropbox/howm/junk/"))
+         (dir (file-name-directory file)))
+    (make-directory dir t)
+    (find-file-other-window (read-string "Junk Code: " file))))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
