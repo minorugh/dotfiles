@@ -11,7 +11,7 @@
    (:hint nil :exit t)
    "
    Project.menu
-  _d_:日記  _m_:毎日  _z_:雑詠  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _x_srv._g_^^
+  _d_:日記  _m_:毎日  _z_:雑詠  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _j_unk._g_^^
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
@@ -43,6 +43,8 @@
    ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
+   ("j" open-junk-file)
+   ("J" (find-file "~/Dropbox/howm/junk/"))
    ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
    ("g" my:github-dir)
    ("G" chromium-github)
