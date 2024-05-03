@@ -46,21 +46,16 @@
   :doc "Display ^L page breaks as tidy horizontal lines"
   :ensure t
   :after dashboard
-  :global-minor-mode t
-  :hook after-init-hook)
+  :global-minor-mode t)
 
 
 (leaf blink-cursor
   :doc "Blinking cursor mode for GNU Emacs"
   :tag "Builtin"
-  :hook (emacs-startup-hook . blink-cursor-mode)
   :custom
   `((blink-cursor-blinks   . 0)
 	(blink-cursor-interval . 0.3)
-	(blink-cursor-delay    . 10))
-  :init
-  ;;Hide cursor in inactive window
-  (setq-default cursor-in-non-selected-windows nil))
+	(blink-cursor-delay    . 10)))
 
 
 ;; Local Variables:
