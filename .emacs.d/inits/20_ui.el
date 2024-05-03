@@ -39,15 +39,15 @@
   :tag "builtin"
   :bind  ([f9] . display-line-numbers-mode)
   :custom (display-line-numbers-width-start . t)
-  :hook ((prog-mode-hook text-mode-hook) . display-line-numbers-mode))
+  :hook (prog-mode-hook text-mode-hook))
 
 
 (leaf page-break-lines
   :doc "Display ^L page breaks as tidy horizontal lines"
   :ensure t
   :after dashboard
-  :hook (after-init-hook . global-page-break-lines-mode)
-  :global-minor-mode t)
+  :global-minor-mode t
+  :hook after-init-hook)
 
 
 (leaf blink-cursor
