@@ -265,7 +265,8 @@ alias sv='sudo vim'
 
 # For emacs
 alias en='emacs -nw'
-alias e='/usr/bin/emacsclient -n'
+# alias e='/usr/bin/emacsclient -n'
+alias e="emacsclient -t -a ''"
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 
 # Password generator
