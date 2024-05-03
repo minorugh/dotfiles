@@ -15,16 +15,15 @@
 		  ("M-."  . nil)
 		  ("?"    . vim-cheat-sheet)
 		  ([home] . open-dashboard))
-		 (:evil-operator-state-map
-		  ([muhenkan] . my:return-to-normal-state)
-		  ("SPC"  . evil-emacs-state))
 		 (:evil-emacs-state-map
-		  ([muhenkan] . my:return-to-normal-state)))
+		  ([muhenkan] . my:return-to-normal-state)
+		  ([escape]   . my:return-to-normal-state)))
   :init
   (setq evil-cross-lines t)
   (setq evil-undo-system 'undo-fu)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
+  (defalias 'evil-operator-state 'evil-normal-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode dashboard-mode dired-mode
