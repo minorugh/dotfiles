@@ -56,18 +56,17 @@
 			  (redisplay)))
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
-;; Expand display digits of emacs-init-time
-(defun ad:emacs-init-time ()
-  "Advice `emacs-init-time'."
+
+(defun emacs-init-time ()
+  "Overwrite `emacs-init-time'."
   (interactive)
   (let ((str
-		 (format "%.1f seconds"
+		 (format "%.3f seconds"
 				 (float-time
 				  (time-subtract after-init-time before-init-time)))))
 	(if (called-interactively-p 'interactive)
 		(message "%s" str)
 	  str)))
-(advice-add 'emacs-init-time :override #'ad:emacs-init-time)
 
 
 (provide 'early-init)
