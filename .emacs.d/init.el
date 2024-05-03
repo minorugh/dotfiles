@@ -5,6 +5,7 @@
 ;; (setq debug-on-error t)
 
 ;; Speed up startup
+(setq gc-cons-threshold most-positive-fixnum)
 (defconst my:file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
@@ -22,7 +23,6 @@
 
   ;; Do not check GPG signatures
   (setq package-check-signature nil)
-
   (package-initialize)
   (unless (package-installed-p 'leaf)
 	(package-refresh-contents)

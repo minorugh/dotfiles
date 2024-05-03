@@ -35,7 +35,7 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (set-fringe-mode '(0 . 1))
 
-;; Hide modeline and headerline while loading
+;; Prevent flashing of unstyled modeline and headerline at startup
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
 
