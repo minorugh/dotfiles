@@ -18,7 +18,7 @@
 (leaf neotree
   :doc "Tree plugin like NerdTree for Vim"
   :ensure t
-  :url "https://github.com/jaypei/emacs-neotree"
+  :after projectile
   :commands neotree-find
   :bind (("<f10>"    . my:neotree-find)
 		 (:neotree-mode-map
