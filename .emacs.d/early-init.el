@@ -42,7 +42,7 @@
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
 
-;; Encode
+;; Language & encode
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
