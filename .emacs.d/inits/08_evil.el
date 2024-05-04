@@ -23,7 +23,6 @@
   (setq evil-undo-system 'undo-fu)
   :config
   (defalias 'evil-insert-state 'evil-emacs-state)
-  (defalias 'evil-operator-state 'evil-normal-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
 				  fundamental-mode dashboard-mode dired-mode
