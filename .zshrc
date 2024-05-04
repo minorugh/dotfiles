@@ -265,7 +265,7 @@ alias sv='sudo vim'
 
 # For emacs
 alias en='emacs -nw'
-# alias e='/usr/bin/emacsclient -n'
+# alias e='/usr/bin/Emacsclient -n'
 alias e="emacsclient -t -a ''"
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 
@@ -421,9 +421,3 @@ function optimize-png() {
 
 # zsh-syntax-highlighting : sudo apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Perlbrew : curl -L http://install.perlbrew.pl | bash
-# source ~/perl5/perlbrew/etc/bashrc
-
-export PATH="$HOME/.evm/bin:$PATH"
-
