@@ -201,8 +201,8 @@ devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
 	$(APT) $@
 	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/thunderbird.ds  ${HOME}/.devilspie
+	# sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
+	# sudo ln -vsfn ${PWD}/devils/thunderbird.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
 
