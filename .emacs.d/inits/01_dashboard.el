@@ -22,6 +22,8 @@
 		  ("." . hydra-browse/body)))
   :init
   (setq dashboard-icon-type 'nerd-icons)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
   :config
   ;; Set the title
   (setq dashboard-banner-logo-title
@@ -31,8 +33,6 @@
   ;; Set the banner
   (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
   (setq show-week-agenda-p t)
   (if (string-match "P1" (shell-command-to-string "uname -n"))
 	  (setq dashboard-items '((recents . 10)))
