@@ -21,7 +21,7 @@
                        ("melpa" . "https://melpa.org/packages/")
                        ("org"   . "https://orgmode.org/elpa/")))
 
-  ;; Do not check GPG signatures
+  ;; Do not check signatures
   (setq package-check-signature nil)
   (package-initialize)
   (unless (package-installed-p 'leaf)
