@@ -56,7 +56,6 @@
 	      (redisplay)))
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
-
 (defun emacs-init-time ()
   "Overwrite `emacs-init-time'."
   (interactive)
