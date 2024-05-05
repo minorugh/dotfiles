@@ -52,23 +52,23 @@
    ("<muhenkan>" nil))
   :init
   (defun keepassxc ()
-	"Open keepassxc with auto passwd input."
-	(interactive)
-	(compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
-	(delete-other-windows))
+    "Open keepassxc with auto passwd input."
+    (interactive)
+    (compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
+    (delete-other-windows))
 
   (defun my:magit-status ()
-	"Display message if magit in dashboard."
-	(interactive)
-	(if (string= "*dashboard*" (buffer-name))
-		(message "Can't magit in Dashboard！")
-	  (magit-status)))
+    "Display message if magit in dashboard."
+    (interactive)
+    (if (string= "*dashboard*" (buffer-name))
+	(message "Can't magit in Dashboard！")
+      (magit-status)))
 
   (defun filezilla ()
-	"Open filezilla."
-	(interactive)
-	(compile "filezilla -s")
-	(delete-other-windows)))
+    "Open filezilla."
+    (interactive)
+    (compile "filezilla -s")
+    (delete-other-windows)))
 
 
 ;; Local Variables:
