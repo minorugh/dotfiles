@@ -57,20 +57,17 @@
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
-
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
-
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
-
   ;; Recentf
   (setq recentf-auto-cleanup 'never)
   (setq recentf-exclude
-		'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+	'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 

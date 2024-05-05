@@ -1,10 +1,8 @@
-;;; my:dired.el --- User dired configurations. -*- lexical-binding: t -*-
+;;; my:dired.el --- User dired configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(require 'evil)
-(require 'dired-x)
 
 ;; Custom functions to open the desired project directory
 (defun my:dotfiles-dir ()
@@ -189,6 +187,6 @@
 
 (provide 'my:dired)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; my:dired.el ends here

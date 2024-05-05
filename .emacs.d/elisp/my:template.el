@@ -3,8 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(require 'evil)
-
 (defun my:diary-new-post ()
   "Open diary file and insert template."
   (interactive)
@@ -14,8 +12,8 @@
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
   (unless (string-match (format-time-string "%Y%m:") string)
-	(forward-line -1)
-	(insert (format-time-string "%Y%m:\n")))
+    (forward-line -1)
+    (insert (format-time-string "%Y%m:\n")))
   ;; Insert template
   (goto-char (point-min))
   (forward-line)
@@ -272,6 +270,6 @@
 
 (provide 'my:template)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; no-byte-compile: t
 ;; End:
 ;;; my:template.el ends here
