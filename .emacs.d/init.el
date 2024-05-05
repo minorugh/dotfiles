@@ -46,9 +46,9 @@
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 ;; Server
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+(leaf server :require t
+  (unless (server-running-p)
+	(server-start)))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"
