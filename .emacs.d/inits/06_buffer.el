@@ -40,10 +40,10 @@
   :hook (after-init-hook . my:lock-mode)
   :init
   (defun my:lock-mode ()
-	(interactive)
-	(with-current-buffer "*scratch*"
+    (interactive)
+    (with-current-buffer "*scratch*"
       (emacs-lock-mode 'kill))
-	(with-current-buffer "*Messages*"
+    (with-current-buffer "*Messages*"
       (emacs-lock-mode 'kill))))
 
 
