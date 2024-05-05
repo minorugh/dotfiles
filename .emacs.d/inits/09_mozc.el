@@ -20,7 +20,8 @@
     :doc "Set cursor color corresponding to mozc's input state"
     :el-get "iRi-E/mozc-el-extensions"
     :require t
-    :config	(setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
+    :config
+    (setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
   (leaf mozc-cand-posframe
     :doc "Posframe frontend for mozc"
     :ensure t
