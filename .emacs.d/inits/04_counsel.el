@@ -16,13 +16,6 @@
 	 ("s-a"     . counsel-ag)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))
-  :config
-  (setq search-default-mode          nil)
-  (setq ivy-use-virtual-buffers      t)
-  (setq ivy-use-selectable-prompt    t)
-  (setq enable-recursive-minibuffers t)
-  (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
-  (setq ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
   :preface
   (leaf ivy-rich
     :doc "More friendly display transformer for ivy"
@@ -31,11 +24,16 @@
   (leaf amx
     :doc "Alternative 'M-x' with extra features"
     :ensure t
-    :init
-    (setq amx-save-file ,"~/.emacs.d/tmp/amx-items")
     :config
+    (setq amx-save-file "~/.emacs.d/tmp/amx-items")
     (setq amx-history-length 20))
   :config
+  (setq search-default-mode          nil)
+  (setq ivy-use-virtual-buffers      t)
+  (setq ivy-use-selectable-prompt    t)
+  (setq enable-recursive-minibuffers t)
+  (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
+  (setq ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
   (defun my:ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."
     (ivy--format-function-generic
@@ -67,6 +65,7 @@
     "Search again with new root directory."
     (let ((current-prefix-arg '(4)))
       (counsel-ag ivy-text nil ""))))
+
 
 
 ;; Local Variables:

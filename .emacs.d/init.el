@@ -10,32 +10,31 @@
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
           (lambda ()
-			"Recover file name handlers and GC values after startup."
-			(setq file-name-handler-alist my:file-name-handler-alist)
-			(setq gc-cons-threshold 800000)))
+	    "Recover file name handlers and GC values after startup."
+	    (setq file-name-handler-alist my:file-name-handler-alist)
+	    (setq gc-cons-threshold 800000)))
 
 ;; Package
-(eval-and-compile
-  (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("org"   . "https://orgmode.org/elpa/")))
+(customize-set-variable
+ 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                     ("melpa" . "https://melpa.org/packages/")
+                     ("org"   . "https://orgmode.org/elpa/")))
 
-  ;; Do not check signatures
-  (setq package-check-signature nil)
-  (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+;; Do not check signatures
+(setq package-check-signature nil)
+(package-initialize)
+(unless (package-installed-p 'leaf)
+  (package-refresh-contents)
+  (package-install 'leaf))
 
-  (leaf leaf-keywords :ensure t
-    :init
-    (leaf hydra :ensure t)
-    (leaf el-get :ensure t
-      :config
-      (setq el-get-git-shallow-clone t))
+(leaf leaf-keywords :ensure t
+  :init
+  (leaf hydra :ensure t)
+  (leaf el-get :ensure t
     :config
-    (leaf-keywords-init)))
+    (setq el-get-git-shallow-clone t))
+  :config
+  (leaf-keywords-init))
 
 ;;Auto revert
 (setq auto-revert-interval 0.1)
@@ -43,13 +42,13 @@
 
 ;; Fonts
 (if (string-match "P1" (shell-command-to-string "uname -n"))
-	(add-to-list 'default-frame-alist '(font . "Cica-21.5"))
+    (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 ;; Server
-(leaf server :require t
-  (unless (server-running-p)
-	(server-start)))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"

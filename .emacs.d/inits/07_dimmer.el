@@ -10,7 +10,7 @@
   :config
   (setq dimmer-buffer-exclusion-regexps
 	'("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
-  (dimmer-fraction . 0.5)
+  (setq dimmer-fraction 0.5)
   (defvar my:dimmer-mode nil)
   (defun my:dimmer-activate ()
     (setq my:dimmer-mode (dimmer-mode 1))
