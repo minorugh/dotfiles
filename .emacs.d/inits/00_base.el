@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *generic-configuration
+(leaf *basic-configuration
   :config
   ;; Faster rendering by not corresponding to right-to-left language
   (setq bidi-display-reordering nil)
