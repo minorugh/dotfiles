@@ -38,7 +38,8 @@
   :doc "interface for display-line-numbers"
   :tag "builtin"
   :bind  ([f9] . display-line-numbers-mode)
-  :config (setq display-line-numbers-width-start t)
+  :config
+  (setq display-line-numbers-width-start t)
   :hook (prog-mode-hook text-mode-hook))
 
 
