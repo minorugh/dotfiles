@@ -53,19 +53,19 @@
    ("." nil))
   :config
   (defun chromium-keep-new ()
-	"Chromium keep new."
-	(interactive)
-	(browse-url "https://keep.new/"))
+    "Chromium keep new."
+    (interactive)
+    (browse-url "https://keep.new/"))
 
   (defun chromium-dropbox ()
-	"Chromium gmail."
-	(interactive)
-	(browse-url "https://www.dropbox.com/h?role=personal/"))
+    "Chromium gmail."
+    (interactive)
+    (browse-url "https://www.dropbox.com/h?role=personal/"))
 
   (defun chromium-tegaki ()
-	"Chromium tegaki."
-	(interactive)
-	(browse-url "https://mojinavi.com/tegaki")))
+    "Chromium tegaki."
+    (interactive)
+    (browse-url "https://mojinavi.com/tegaki")))
 
 
 ;; Local Variables:
