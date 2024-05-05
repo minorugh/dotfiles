@@ -31,8 +31,10 @@
   (leaf amx
     :doc "Alternative 'M-x' with extra features"
     :ensure t
-    :init   (setq amx-save-file ,"~/.emacs.d/tmp/amx-items")
-    :config (setq amx-history-length 20))
+    :init
+    (setq amx-save-file ,"~/.emacs.d/tmp/amx-items")
+    :config
+    (setq amx-history-length 20))
   :config
   (defun my:ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."
