@@ -50,10 +50,10 @@
 (when (file-directory-p "~/.emacs.d/elpa/")
   (setq inhibit-message t)
   (add-hook 'window-setup-hook
-			(lambda ()
-			  (setq inhibit-redisplay nil)
-			  (setq inhibit-message nil)
-			  (redisplay)))
+	    (lambda ()
+	      (setq inhibit-redisplay nil)
+	      (setq inhibit-message nil)
+	      (redisplay)))
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
 
@@ -61,12 +61,12 @@
   "Overwrite `emacs-init-time'."
   (interactive)
   (let ((str
-		 (format "%.1f seconds"
-				 (float-time
-				  (time-subtract after-init-time before-init-time)))))
-	(if (called-interactively-p 'interactive)
-		(message "%s" str)
-	  str)))
+	 (format "%.3f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+	(message "%s" str)
+      str)))
 
 
 (provide 'early-init)

@@ -54,16 +54,16 @@
 (leaf *cus-ps-print
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
-  (setq ps-multibyte-buffer 'non-latin-printer
-		ps-paper-type       'a4
-		ps-printer-name      nil
-		ps-print-header      nil
-		ps-print-footer      nil
-		ps-font-size         9
-		ps-font-family      'Courier
-		ps-line-number-font 'Courier
-		ps-line-number       t
-		ps-show-n-of-n       t)
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-paper-type       'a4)
+  (setq ps-printer-name      nil)
+  (setq ps-print-header      nil)
+  (setq ps-print-footer      nil)
+  (setq ps-font-size         9)
+  (setq ps-font-family      'Courier)
+  (setq ps-line-number-font 'Courier)
+  (setq ps-line-number       t)
+  (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
 

@@ -7,13 +7,14 @@
   :doc "Pack of modern color-themes"
   :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
-  :custom ((doom-themes-enable-italic . nil))
   :config
+  (setq doom-themes-enable-italic nil)
   (doom-themes-neotree-config)
   (doom-themes-org-config)
   :custom-face
   (region  . '((t (:background "#6272a4" :extend t))))
   (hl-line . '((t (:background "#3B4252" :extend t)))))
+
 
 
 (leaf doom-modeline
