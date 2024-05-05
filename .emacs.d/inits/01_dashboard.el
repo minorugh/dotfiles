@@ -36,7 +36,7 @@
   (setq show-week-agenda-p t)
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 10)))
-    (setq dashboard-items '((recents . 4))))
+    (setq dashboard-items '((recents . 5))))
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Be joyful always. Pray constantly. Be thankful for Everything."))
