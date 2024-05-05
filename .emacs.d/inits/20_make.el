@@ -12,58 +12,58 @@
   (setq compilation-always-kill t)
   (setq compilation-finish-functions 'compile-autoclose)
   (defun compile-autoclose (buffer string)
-	"Automatically close the compilation."
-	(cond ((string-match "compilation" (buffer-name buffer))
-		   (string-match "finished" string)
-		   (delete-other-windows)
-		   (message "Compile successful."))
-		  (t (message "Compilation exited abnormally: %s" string)))))
+    "Automatically close the compilation."
+    (cond ((string-match "compilation" (buffer-name buffer))
+	   (string-match "finished" string)
+	   (delete-other-windows)
+	   (message "Compile successful."))
+	  (t (message "Compilation exited abnormally: %s" string)))))
 
 
 (leaf my:make-function
   :doc "User make functions"
   :init
   (defun my:make-k ()
-	"Make k."
-	(interactive)
-	(compile "make -k"))
+    "Make k."
+    (interactive)
+    (compile "make -k"))
 
   (defun my:make-draft ()
-	"Make kinnei draft."
-	(interactive)
-	(compile "make df"))
+    "Make kinnei draft."
+    (interactive)
+    (compile "make df"))
 
   (defun my:make-upsftp ()
-	"Make upfstp."
-	(interactive)
-	(compile "make up"))
+    "Make upfstp."
+    (interactive)
+    (compile "make up"))
 
   (defun my:make-move ()
-	"Make move."
-	(interactive)
-	(compile "make mv"))
+    "Make move."
+    (interactive)
+    (compile "make mv"))
 
   (defun my:make-bklog ()
-	"Make bklog."
-	(interactive)
-	(compile "make bk"))
+    "Make bklog."
+    (interactive)
+    (compile "make bk"))
 
   (defun my:make-git ()
-	"Make git."
-	(interactive)
-	(compile "make git"))
+    "Make git."
+    (interactive)
+    (compile "make git"))
 
   (defun my:make-sort ()
-	"Make sort for filelist."
-	(interactive)
-	(compile "make sort")
-	(find-file "~/Dropbox/GH/upsftp/filelist.txt")
-	(goto-char (point-min)))
+    "Make sort for filelist."
+    (interactive)
+    (compile "make sort")
+    (find-file "~/Dropbox/GH/upsftp/filelist.txt")
+    (goto-char (point-min)))
 
   (defun my:make-clean ()
-	"Make clean."
-	(interactive)
-	(compile "make clean")))
+    "Make clean."
+    (interactive)
+    (compile "make clean")))
 
 
 ;; Local Variables:
