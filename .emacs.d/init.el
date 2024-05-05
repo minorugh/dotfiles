@@ -48,12 +48,11 @@
 ;; Server
 (require 'server)
 (unless (server-running-p)
-  (add-hook 'emacs-startup-hook 'server-start))
+  (server-start))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"
   :when (memq window-system '(mac ns x))
-  :custom (exec-path-from-shell-check-startup-files . nil)
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
