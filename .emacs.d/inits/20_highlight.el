@@ -15,27 +15,28 @@
   :tag "Builtin"
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :custom ((show-trailing-whitespace . nil))
+  :config
+  (setq show-trailing-whitespace nil)
   :preface
   (defun my:cleanup-for-spaces ()
-	"Remove contiguous line breaks at end of line + end of file."
-	(interactive)
-	(delete-trailing-whitespace)
-	(save-excursion
+    "Remove contiguous line breaks at end of line + end of file."
+    (interactive)
+    (delete-trailing-whitespace)
+    (save-excursion
       (save-restriction
-		(widen)
-		(goto-char (point-max))
-		(delete-blank-lines)))))
+	(widen)
+	(goto-char (point-max))
+	(delete-blank-lines)))))
 
 
 (leaf *paren
   :doc "Highlight matching parens"
   :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
-  :custom
-  `((show-paren-style . 'parenthesis)
-	(show-paren-when-point-inside-paren . t)
-	(show-paren-when-point-in-periphery . t))
+  :config
+  (setq show-paren-style . parenthesis)
+  (setq show-paren-when-point-inside-paren t)
+  (setq show-paren-when-point-in-periphery t)
   :custom-face
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 

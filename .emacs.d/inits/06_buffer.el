@@ -7,11 +7,11 @@
   :doc "Smart auto save buffers"
   :ensure t
   :hook (after-init-hook . super-save-mode)
-  :custom
-  `((super-save-auto-save-when-idle . t)
-	(super-save-idle-duration       . 1)
-	(super-save-remote-files        . nil)
-	(super-save-exclude             . '(".gpg"))))
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration       1)
+  (setq super-save-remote-files        nil)
+  (setq super-save-exclude             '(".gpg")))
 
 
 (leaf persistent-scratch
@@ -19,20 +19,20 @@
   :ensure t
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
-  :custom (persistent-scratch-save-file . "~/.emacs.d/tmp/scratch")
   :config
+  (setq persistent-scratch-save-file "~/.emacs.d/tmp/scratch")
   (defun toggle-scratch ()
-	"Toggle current buffer and *scratch* buffer."
-	(interactive)
-	(if (not (string= "*scratch*" (buffer-name)))
-		(progn
-		  (setq toggle-scratch-prev-buffer (buffer-name))
-		  (switch-to-buffer-other-window "*scratch*")
-		  (display-line-numbers-mode 0)
-		  (dimmer-off))
-	  (switch-to-buffer toggle-scratch-prev-buffer)
-	  (delete-other-windows)
-	  (dimmer-on))))
+    "Toggle current buffer and *scratch* buffer."
+    (interactive)
+    (if (not (string= "*scratch*" (buffer-name)))
+	(progn
+	  (setq toggle-scratch-prev-buffer (buffer-name))
+	  (switch-to-buffer-other-window "*scratch*")
+	  (display-line-numbers-mode 0)
+	  (dimmer-off))
+      (switch-to-buffer toggle-scratch-prev-buffer)
+      (delete-other-windows)
+      (dimmer-on))))
 
 
 (leaf *emacs-lock-mode

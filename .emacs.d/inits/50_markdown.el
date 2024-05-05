@@ -6,15 +6,15 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'" . gfm-mode)
-  :custom
-  `((markdown-command . '("pandoc" "--from=markdown" "--to=html5"))
-	(markdown-command-needs-filename . t)
-	(markdown-fontify-code-blocks-natively . t)
-	(markdown-header-scaling . t)
-	(markdown-indent-on-enter . 'indent-and-new-item)
-	(markdown-content-type . "application/xhtml+xml")
-	(markdown-css-paths . '("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"))
-	(markdown-xhtml-header-content . "
+  :config
+  (setq markdown-command '("pandoc" "--from=markdown" "--to=html5"))
+  (setq markdown-command-needs-filename t)
+  (setq markdown-fontify-code-blocks-natively t)
+  (setq markdown-header-scaling t)
+  (setq markdown-indent-on-enter 'indent-and-new-item)
+  (setq markdown-content-type "application/xhtml+xml")
+  (setq markdown-css-paths '("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"))
+  (setq markdown-xhtml-header-content "
 	<meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
 	<style>
 	body {
@@ -37,39 +37,39 @@
 	  });
 	});
 	</script>
-	"))
+	")
   :custom-face `((markdown-code-face . '((t (:inherit nil :background "gray10"))))
-				 (markdown-pre-face  . '((t (:inherit font-lock-constant-face)))))
-  :config
-  (defun md2pdf ()
-	"Use wkhtmltopdf without LaTex."
-	(interactive)
-	(let ((filename (buffer-file-name (current-buffer))))
-	  (shell-command-to-string
-	   (concat "pandoc "
-			   filename
-			   " -f markdown -t html5 -o "
-			   (file-name-sans-extension filename)
-			   ".pdf"))
-	  (shell-command-to-string
-	   (concat "evince "
-			   (file-name-sans-extension filename)
-			   ".pdf"))))
+		 (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))))
 
-  (defun md2docx ()
-	"Generate docx from currently open markdown."
-	(interactive)
-	(let ((filename (buffer-file-name (current-buffer))))
-	  (shell-command-to-string
-	   (concat "pandoc "
-			   filename
-			   " -t docx -o "
-			   (file-name-sans-extension filename)
-			   ".docx -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
-	  (shell-command-to-string
-	   (concat "xdg-open "
-			   (file-name-sans-extension filename)
-			   ".docx")))))
+(defun md2pdf ()
+  "Use wkhtmltopdf without LaTex."
+  (interactive)
+  (let ((filename (buffer-file-name (current-buffer))))
+    (shell-command-to-string
+     (concat "pandoc "
+	     filename
+	     " -f markdown -t html5 -o "
+	     (file-name-sans-extension filename)
+	     ".pdf"))
+    (shell-command-to-string
+     (concat "evince "
+	     (file-name-sans-extension filename)
+	     ".pdf"))))
+
+(defun md2docx ()
+  "Generate docx from currently open markdown."
+  (interactive)
+  (let ((filename (buffer-file-name (current-buffer))))
+    (shell-command-to-string
+     (concat "pandoc "
+	     filename
+	     " -t docx -o "
+	     (file-name-sans-extension filename)
+	     ".docx -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
+    (shell-command-to-string
+     (concat "xdg-open "
+	     (file-name-sans-extension filename)
+	     ".docx"))))
 
 
 ;; Local Variables:

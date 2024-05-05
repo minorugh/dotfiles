@@ -7,7 +7,8 @@
   :ensure t
   :if (display-graphic-p)
   :hook (dired-mode-hook . nerd-icons-dired-mode)
-  :custom (nerd-icons-scale-factor . 0.8))
+  :config
+  (setq nerd-icons-scale-factor 0.8))
 
 
 (defun call-sxiv ()

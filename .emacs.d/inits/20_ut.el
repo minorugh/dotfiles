@@ -5,30 +5,31 @@
 
 (leaf which-key
   :ensure t
-  :custom (which-key-max-description-length . 40)
+  :config
+  (setq which-key-max-description-length 40)
   :hook after-init-hook)
 
 (leaf counsel-tramp
   :ensure t
-  :custom
-  `((tramp-persistency-file-name . ,"~/.emacs.d/tmp/tramp")
-	(tramp-default-method        . "scp")
-	(counsel-tramp-custom-connections
-	 . '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/))))
+  :config
+  (setq tramp-persistency-file-name ,"~/.emacs.d/tmp/tramp")
+  (setq tramp-default-method        "scp")
+  (setq counsel-tramp-custom-connections
+	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
 (leaf sequential-command
   :ensure t
   :config
   (leaf sequential-command-config
-	:hook (after-init-hook . sequential-command-setup-keys)))
+    :hook (after-init-hook . sequential-command-setup-keys)))
 
 (leaf counsel-web
   :ensure t
   :bind ("s-w" . counsel-web-search)
-  :custom
-  `((counsel-web-search-action . #'browse-url)
-	(counsel-web-engine . 'google)
-	(counsel-web-search-dynamic-update . t)))
+  :config
+  (setq counsel-web-search-action #'browse-url)
+  (setq counsel-web-engine 'google)
+  (setq counsel-web-search-dynamic-update t))
 
 (leaf quickrun
   :ensure t
@@ -36,9 +37,10 @@
 
 (leaf key-chord
   :ensure t
-  :custom (key-chord-two-keys-delay . 0.1)
+  :config
+  (setq key-chord-two-keys-delay 0.1)
   :chord (("df" . counsel-descbinds)
-		  ("l;" . init-loader-show-log))
+	  ("l;" . init-loader-show-log))
   :hook after-init-hook)
 
 (leaf iedit

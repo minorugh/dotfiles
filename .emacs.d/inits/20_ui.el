@@ -19,26 +19,25 @@
 (leaf doom-modeline
   :doc "A minimal and modern mode-line"
   :ensure t
-  :custom
-  `((doom-modeline-icon            . t)
-	(doom-modeline-major-mode-icon . nil)
-	(doom-modeline-minor-modes     . nil))
   :hook after-init-hook
   :config
+  (setq doom-modeline-icon            t)
+  (setq doom-modeline-major-mode-icon nil)
+  (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
   (column-number-mode 0)
   (leaf nerd-icons :ensure t)
   (leaf hide-mode-line
-	:doc "Hides the mode-line in current buffer"
-	:ensure t
-	:hook (imenu-list-major-mode-hook neotree-mode-hook)))
+    :doc "Hides the mode-line in current buffer"
+    :ensure t
+    :hook (imenu-list-major-mode-hook neotree-mode-hook)))
 
 
 (leaf display-line-numbers
   :doc "interface for display-line-numbers"
   :tag "builtin"
   :bind  ([f9] . display-line-numbers-mode)
-  :custom (display-line-numbers-width-start . t)
+  :config (setq display-line-numbers-width-start t)
   :hook (prog-mode-hook text-mode-hook))
 
 
@@ -52,10 +51,10 @@
 (leaf blink-cursor
   :doc "Blinking cursor mode for GNU Emacs"
   :tag "Builtin"
-  :custom
-  `((blink-cursor-blinks   . 0)
-	(blink-cursor-interval . 0.3)
-	(blink-cursor-delay    . 10)))
+  :config
+  (setq blink-cursor-blinks   0)
+  (setq blink-cursor-interval 0.3)
+  (setq blink-cursor-delay    10))
 
 
 ;; Local Variables:

@@ -25,16 +25,17 @@
   (setq package-check-signature nil)
   (package-initialize)
   (unless (package-installed-p 'leaf)
-	(package-refresh-contents)
-	(package-install 'leaf))
+    (package-refresh-contents)
+    (package-install 'leaf))
 
   (leaf leaf-keywords :ensure t
-	:init
-	(leaf hydra :ensure t)
-	(leaf el-get :ensure t
-      :custom (el-get-git-shallow-clone . t))
-	:config
-	(leaf-keywords-init)))
+    :init
+    (leaf hydra :ensure t)
+    (leaf el-get :ensure t
+      :config
+      (setq el-get-git-shallow-clone t))
+    :config
+    (leaf-keywords-init)))
 
 ;;Auto revert
 (setq auto-revert-interval 0.1)

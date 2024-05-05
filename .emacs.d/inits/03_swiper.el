@@ -33,9 +33,9 @@ If the region isn't selected, `swiper'."
   :ensure t
   :if (executable-find "cmigemo")
   :hook (after-init-hook . migemo-init)
-  :custom
-  `((migemo-command    . "cmigemo")
-    (migemo-dictionary . "/usr/share/cmigemo/utf-8/migemo-dict")))
+  :config
+  (setq migemo-command    "cmigemo")
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
 
 
 ;; Local Variables:

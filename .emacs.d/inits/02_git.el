@@ -21,11 +21,11 @@
   :doc "A Git porcelain inside Emacs"
   :ensure t
   :bind '(("C-x g" . magit-status)
-		  ("M-g" . hydra-git/body))
-  :custom
-  `((transient-history-file . "~/.emacs.d/tmp/transient-history")
-	;; Do not split window
-	(magit-display-buffer-function . 'magit-display-buffer-fullframe-status-v1))
+	  ("M-g" . hydra-git/body))
+  :config
+  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
+  ;; Do not split window
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   :hydra
   (hydra-git
    (:color red :hint nil)
@@ -42,7 +42,8 @@
   :config
   (leaf git-timemachine :ensure t)
   (leaf browse-at-remote :ensure t
-	:custom	(browse-at-remote-prefer-symbolic . nil)))
+    :config
+    (setq browse-at-remote-prefer-symbolic nil)))
 
 ;; Suppress for "Symbol's function definition is void: seq-keep"
 (when (version< emacs-version "29.1")

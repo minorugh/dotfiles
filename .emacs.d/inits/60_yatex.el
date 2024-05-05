@@ -8,16 +8,15 @@
   :ensure t
   :url "https://github.com/emacsmirror/yatex"
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
-  :custom
-  `((tex-command              . "platex")
-	(dviprint-command-format  . "dvpd.sh %s")
-	(YaTeX-kanji-code         . nil)
-	(YaTeX-latex-message-code . 'utf-8)
-	(YaTeX-default-pop-window-height . 15))
   :config
+  (setq tex-command              "platex")
+  (setq dviprint-command-format  "dvpd.sh %s")
+  (setq YaTeX-kanji-code         nil)
+  (setq YaTeX-latex-message-code 'utf-8)
+  (setq YaTeX-default-pop-window-height 15)
   (leaf yatexprc
     :bind ((("M-c" . YaTeX-typeset-buffer)
-			("M-v" . YaTeX-lpr)))))
+	    ("M-v" . YaTeX-lpr)))))
 
 
 ;;-----------------------------

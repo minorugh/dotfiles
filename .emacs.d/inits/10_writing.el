@@ -14,8 +14,9 @@
   :doc "Persistent undo history"
   :ensure t
   :hook (after-init-hook . undohist-initialize)
-  :custom `((undohist-directory     . "~/.emacs.d/tmp/undohist")
-			(undohist-ignored-files . '("/tmp/" "COMMIT_EDITMSG"))))
+  :config
+  (setq undohist-directory     "~/.emacs.d/tmp/undohist")
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
 (leaf smartparens
