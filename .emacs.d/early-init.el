@@ -35,16 +35,16 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (set-fringe-mode '(0 . 1))
 
+;; Language & encode
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+
 ;; Prevent flashing of unstyled modeline and headerline at startup
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
 
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
-
-;; Language & encode
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
