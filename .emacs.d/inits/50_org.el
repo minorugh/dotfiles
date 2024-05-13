@@ -40,11 +40,11 @@
 	   "# memo: %?\n%U %i")
 	  ("i" " Idea" plain (file my:howm-create-file)
 	   "# idea: %?\n%U %i")
-	  ("e" " Tech" plain (file my:howm-create-file)
+	  ("t" " Tech" plain (file my:howm-create-file)
 	   "# tech: %?\n%U %i")
-	  ("j" " Open Junk file" plain (file my:open-junk-file)
+	  ("j" " Junk" plain (file my:open-junk-file)
 	   "#!/usr/bin/perl\n## %?\n %i")
-	  ("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
+	  ("," " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
 	   "** TODO %?\n SCHEDULED: %^t \n"))))
 
 
