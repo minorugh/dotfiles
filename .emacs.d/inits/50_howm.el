@@ -25,35 +25,24 @@
 	'(("memo:" . (0 'compilation-error))
 	  ("note:" . (0 'compilation-info))
 	  ("tech:" . (0 'compilation-info))))
-  (setq howm-template
-	'("# %title%cursor\n%date%file"
-	  "# memo: %cursor\n%date%file"
-	  "# tech: %cursor\n%date%file"))
-  (defun my:howm-create-memo ()
-    "Create by inserting tags automatically."
-    (interactive)
-    (howm-create 2 nil)
-    (delete-other-windows)
-    (evil-insert-state))
+  ;; (setq howm-template
+  ;; 	'("# %title%cursor\n%date%file"
+  ;; 	  "# memo: %cursor\n%date%file"
+  ;; 	  "# tech: %cursor\n%date%file"))
+  ;; (defun my:howm-create-memo ()
+  ;;   "Create by inserting tags automatically."
+  ;;   (interactive)
+  ;;   (howm-create 2 nil)
+  ;;   (delete-other-windows)
+  ;;   (evil-insert-state))
 
-  (defun my:howm-create-tech ()
-    "Create by inserting tags automatically."
-    (interactive)
-    (howm-create 3 nil)
-    (delete-other-windows)
-    (evil-insert-state)))
-
-
-(defun open-junk-file ()
-  "Open junk file without install Package."
-  (interactive)
-  (let* ((file (expand-file-name
-                (format-time-string
-                 "%Y-%m-%d-%H%M%S." (current-time))
-                "~/Dropbox/howm/junk/"))
-         (dir (file-name-directory file)))
-    (make-directory dir t)
-    (find-file-other-window (read-string "Junk Code: " file))))
+  ;; (defun my:howm-create-tech ()
+  ;;   "Create by inserting tags automatically."
+  ;;   (interactive)
+  ;;   (howm-create 3 nil)
+  ;;   (delete-other-windows)
+  ;;   (evil-insert-state))
+  )
 
 
 ;; Local Variables:
