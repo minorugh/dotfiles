@@ -18,8 +18,7 @@
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
 	  ("g" . (lambda () (interactive) (browse-url "https://github.com/minorugh")))
 	  ("m" . (lambda () (interactive) (compile "thunderbird")))
-	  ("s" . (lambda () (interactive) (compile "slack")))
-	  ("." . hydra-browse/body)))
+	  ("s" . (lambda () (interactive) (compile "slack")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
@@ -45,7 +44,7 @@
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " GH(h)   WX(w)   Cal(c)    News(n)    Mail(m)    (x)   (g)   (s)    (.)"))
+    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Mail(m)    Twitter(x)   Slack(s)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
   (defun dashboard-goto-recent-files ()
