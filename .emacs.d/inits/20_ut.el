@@ -40,7 +40,8 @@
   :config
   (setq key-chord-two-keys-delay 0.1)
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log))
+	  ("l;" . init-loader-show-log)
+	  (".." . hydra-browse/body))
   :hook after-init-hook)
 
 (leaf iedit
