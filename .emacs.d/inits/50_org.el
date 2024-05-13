@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf org
-  :chord ((",," . org-capture))
+  :chord (",," . org-capture)
   :bind ((("C-c a"  . org-agenda)
 	  ("C-c c"  . org-capture)
 	  ("C-c k"  . org-capture-kill)
@@ -22,21 +22,30 @@
 	(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
 		("~/Dropbox/howm/org/remember.org" :level . 1)
 		("~/Dropbox/howm/org/memo.org" :level     . 1)
-		("~/Dropbox/howm/org/task.org" :level     . 1)))))
+		("~/Dropbox/howm/org/task.org" :level     . 1))))
 
+  ;; Capture template
+  (defun my:howm-create-file ()
+    "Make howm create file on 'org-capture'."
+    (interactive)
+    (format-time-string "~/Dropbox/howm/%Y/%m/%Y%m%d%H%M.md" (current-time)))
 
-;; Capture template
-(setq org-capture-templates
-      '(("m" " Memo" entry (file+headline "~/Dropbox/howm/org/memo.org" "Memo")
-	 "* %? %U %i")
-	("i" " Idea" entry (file+headline "~/Dropbox/howm/org/idea.org" "Idea")
-	 "* %? %U %i")
-	("r" " Remember" entry (file+headline "~/Dropbox/howm/org/remember.org" "Remember")
-	 "* %? %U %i")
-	("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
-	 "** TODO %?\n SCHEDULED: %^t \n")
-	("e" " Experiment" entry (file+headline "~/Dropbox/howm/org/experiment.org" "Experiment")
-	 "* %? %i\n#+BEGIN_SRC perl\n\n#+END_SRC\n\n%U")))
+  (defun my:open-junk-file ()
+    "Make create junk file on 'org-capture'."
+    (interactive)
+    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl" (current-time)))
+
+  (setq org-capture-templates
+	'(("m" " Memo" plain (file my:howm-create-file)
+	   "# memo: %?\n%U %i")
+	  ("i" " Idea" plain (file my:howm-create-file)
+	   "# idea: %?\n%U %i")
+	  ("e" " Tech" plain (file my:howm-create-file)
+	   "# tech: %?\n%U %i")
+	  ("j" " Open Junk file" plain (file my:open-junk-file)
+	   "#!/usr/bin/perl\n## %?\n %i")
+	  ("t" " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
+	   "** TODO %?\n SCHEDULED: %^t \n"))))
 
 
 (leaf calendar
