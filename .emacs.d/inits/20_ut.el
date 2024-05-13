@@ -36,10 +36,10 @@
 
 
 (leaf key-chord :ensure t
-  :config
-  (setq key-chord-two-keys-delay 0.1)
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log))
+  :config
+  (setq key-chord-two-keys-delay 0.1)
   :hook after-init-hook)
 
 
