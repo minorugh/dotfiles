@@ -5,6 +5,7 @@
 
 (leaf *hydra-browse
   :doc "Selection menu for project work"
+  :chord (".." . hydra-browse/body)
   :hydra
   (hydra-browse
    (:hint nil :exit t)
