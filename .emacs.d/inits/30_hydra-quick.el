@@ -11,11 +11,10 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _>_draft
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^  _a_genda
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^
   "
    ("p" keepassxc)
-   ("a" (org-agenda nil "a"))
    ("+" text-scale-adjust)
    ("o" my:org-dir)
    ("t" counsel-tramp)
@@ -38,7 +37,6 @@
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)
-   (">" my:make-draft)
    ("/" my:root-dir)
    ("f" flycheck-list-errors)
    ;; ("f" make-frame-command)
