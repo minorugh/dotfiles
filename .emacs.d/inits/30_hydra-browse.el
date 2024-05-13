@@ -13,7 +13,7 @@
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _A_: Amazon     _t_: Twitter    _d_: Dropbox  _g_: ghub.io  _j_: Jorudan   _k_: Keep    _1_: minorugh  _5_: Mail
   _R_: Rakuten    _y_: Youtube    _f_: Flickr   _m_: snap     _n_: News      _p_: Pocket  _2_: gist      _6_: Map
-  _Y_: Yodobashi  _I_: Instagram  _G_: Gdrive   _e_: Essay    _w_: Weather   _q_: Qiita   _3_: explore   _7_: Earth
+  _Y_: Yodobashi  _I_: Instagram  _G_: Gdrive   _e_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _7_: Earth
   _K_: Kakaku     _T_: Tumblr     _x_: Xserver  _b_: Blog     _S_: SanyoBas  _s_: Slack   _4_: Centaur   _8_: Photo
 "
    ("A" (browse-url "https://www.amazon.co.jp/"))
@@ -26,7 +26,7 @@
    ("0" (browse-url "https://gist.github.com/minorugh"))
    ("1" (browse-url "https://github.com/minorugh"))
    ("2" (browse-url "https://gist.github.com/minorugh"))
-   ("3" (browse-url "https://github.com/explore"))
+   ("3" (browse-url "https://github.com/masasam"))
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("5" (browse-url "https://mail.google.com/mail/"))
    ("6" (browse-url "https://www.google.co.jp/maps"))
