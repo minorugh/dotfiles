@@ -8,15 +8,15 @@
   (leaf nerd-icons-dired
     :ensure t
     :if (display-graphic-p)
-    :hook (dired-mode-hook . nerd-icons-dired-mode)
     :config
-    (setq nerd-icons-scale-factor 0.8)))
+    (setq nerd-icons-scale-factor 0.8)
+    :hook dired-mode-hook))
 
 
 (leaf dired
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 	 (dired-load-hook . (lambda () (require 'dired-x)))
-	 (dired-mode-hook . (lambda () (dired-omit-mode 1))))
+	 (dired-mode-hook . dired-omit-mode))
   :bind (:dired-mode-map
 	 ("<left>" . dired-up-alternate-directory)
 	 ("<right>" . dired-open-in-accordance-with-situation)
