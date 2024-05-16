@@ -21,8 +21,8 @@
                      ("org"   . "https://orgmode.org/elpa/")))
 
 ;; Do not check signatures
-(setq package-check-signature nil)
 (package-initialize)
+(setq package-check-signature nil)
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
   (package-install 'leaf))
@@ -69,8 +69,15 @@
   (init-loader-load)
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
+;; (defun auto-compile-inits ()
+;;   "Byte-compile Lisp files modified in the directory."
+;;   (interactive)
+;;   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+;;   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+;; (add-hook 'kill-emacs-hook 'auto-compile-inits)
+
 
 ;; Local Variables:
-;; no-byte-compile: t
+;;  no-byte-compile: t
 ;; End:
 ;;; init.el ends here
