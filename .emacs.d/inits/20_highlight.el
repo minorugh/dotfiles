@@ -34,7 +34,7 @@
   :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
   :config
-  (setq show-paren-style . parenthesis)
+  (setq show-paren-style 'parenthesis)
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t)
   :custom-face
