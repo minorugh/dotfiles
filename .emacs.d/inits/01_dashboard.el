@@ -47,6 +47,7 @@
     (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Mail(m)    Twitter(x)   Slack(s)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
+
   (defun dashboard-goto-recent-files ()
     "Go to recent files."
     (interactive)
