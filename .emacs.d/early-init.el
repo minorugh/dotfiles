@@ -13,8 +13,8 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
-(setq native-comp-deferred-compilation nil ;; obsolete since 29.1
-      native-comp-jit-compilation nil)
+(setq native-comp-deferred-compilation nil) ;; obsolete since 29.1
+(setq native-comp-jit-compilation nil)
 
 ;; For slightly faster startup
 (setq package-enable-at-startup nil)
@@ -60,7 +60,7 @@
   "Overwrite `emacs-init-time'."
   (interactive)
   (let ((str
-	 (format "%.1f seconds"
+	 (format "%.3f seconds"
 		 (float-time
 		  (time-subtract after-init-time before-init-time)))))
     (if (called-interactively-p 'interactive)
