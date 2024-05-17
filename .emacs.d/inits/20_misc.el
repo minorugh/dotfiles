@@ -44,24 +44,24 @@
   :doc "On-the-fly syntax checking"
   :ensure t
   :bind (("M-n" . flycheck-next-error)
-         ("M-p" . flycheck-previous-error))
+	 ("M-p" . flycheck-previous-error))
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
   :hook  prog-mode-hook)
 
 
-(leaf imenu-list
-  :doc "Show imenu entries in a separate buffer"
-  :ensure t
-  :bind ([f2]  . imenu-list-smart-toggle)
-  :config
-  (setq imenu-list-auto-resize t)
-  (setq imenu-list-position    'left)
-  :preface
-  (leaf counsel-css
-    :doc "stylesheet-selector-aware swiper"
+  (leaf imenu-list
+    :doc "Show imenu entries in a separate buffer"
     :ensure t
-    :hook (css-mode-hook . counsel-css-imenu-setup)))
+    :bind ([f2]  . imenu-list-smart-toggle)
+    :config
+    (setq imenu-list-auto-resize t)
+    (setq imenu-list-position    'left)
+    :preface
+    (leaf counsel-css
+      :doc "stylesheet-selector-aware swiper"
+      :ensure t
+      :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
 (leaf web-mode
