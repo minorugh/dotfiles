@@ -14,6 +14,7 @@
 	 ("M-:"     . counsel-buffer-or-recentf)
 	 ("C-,"     . counsel-mark-ring)
 	 ("s-a"     . counsel-ag)
+	 ("C-x C-a" . counsel-linux-app)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))
   :preface
@@ -65,7 +66,6 @@
     "Search again with new root directory."
     (let ((current-prefix-arg '(4)))
       (counsel-ag ivy-text nil ""))))
-
 
 
 ;; Local Variables:
