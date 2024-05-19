@@ -51,7 +51,7 @@
   :doc "Menu for selecting and displaying buffers"
   :tag "builtin"
   :bind (("M-]" . bs-cycle-next)
-		 ("M-[" . bs-cycle-previous)))
+	 ("M-[" . bs-cycle-previous)))
 
 
 ;; Local Variables:
