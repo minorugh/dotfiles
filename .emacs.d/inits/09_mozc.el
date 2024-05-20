@@ -37,42 +37,40 @@
     (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
     (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
 
-  (leaf user-custom-mozc-functiom
-    :config
-    (defadvice toggle-input-method (around toggle-input-method-around activate)
-      "Input method function in key-chord.el not to be nil."
-      (let ((input-method-function-save input-method-function))
-	ad-do-it
-	(setq input-method-function input-method-function-save)))
+  (defadvice toggle-input-method (around toggle-input-method-around activate)
+    "Input method function in key-chord.el not to be nil."
+    (let ((input-method-function-save input-method-function))
+      ad-do-it
+      (setq input-method-function input-method-function-save)))
 
-    (defun my:toggle-input-method ()
-      "If `evil-mode' enabled, set to` emacs-state'."
-      (interactive)
-      (if (boundp 'evil-mode)
-	  (evil-emacs-state))
-      (toggle-input-method)
-      (if (null current-input-method)
-	  (dimmer-on)
-	(dimmer-off)))
+  (defun my:toggle-input-method ()
+    "If `evil-mode' enabled, set to` emacs-state'."
+    (interactive)
+    (if (boundp 'evil-mode)
+	(evil-emacs-state))
+    (toggle-input-method)
+    (if (null current-input-method)
+	(dimmer-on)
+      (dimmer-off)))
 
-    (defun mozc-insert-str (str)
-      "STR Immediately confirmed by punctuation."
-      (interactive)
-      (mozc-handle-event 'enter)
-      (insert str))
+  (defun mozc-insert-str (str)
+    "STR Immediately confirmed by punctuation."
+    (interactive)
+    (mozc-handle-event 'enter)
+    (insert str))
 
-    (defun my:mozc-word-regist ()
-      "Open `mozc-word-regist'."
-      (interactive)
-      (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-      (delete-other-windows))
+  (defun my:mozc-word-regist ()
+    "Open `mozc-word-regist'."
+    (interactive)
+    (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
+    (delete-other-windows))
 
-    (defun my:mozc-copy ()
-      "Copy mozc to submachines for avoid conflicts."
-      (interactive)
-      (unless (string-match "P1" (shell-command-to-string "uname -n"))
-	(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))
-      (add-hook 'emacs-startup-hook 'my:mozc-copy))))
+  (defun my:mozc-copy ()
+    "Copy mozc to submachines for avoid conflicts."
+    (interactive)
+    (unless (string-match "P1" (shell-command-to-string "uname -n"))
+      (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))
+    (add-hook 'emacs-startup-hook 'my:mozc-copy)))
 
 
 ;; Local Variables:
