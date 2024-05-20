@@ -51,6 +51,62 @@
   :bind ("C-@" . er/expand-region))
 
 
+(leaf undo-fu
+  :doc "Undo helper with redo"
+  :ensure t
+  :bind (("C-_" . undo-fu-only-undo)
+	 ("C-/" . undo-fu-only-redo)))
+
+
+(leaf undohist
+  :doc "Persistent undo history"
+  :ensure t
+  :hook (after-init-hook . undohist-initialize)
+  :config
+  (setq undohist-directory     "~/.emacs.d/tmp/undohist")
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
+
+
+(leaf smartparens
+  :doc "minor mode for dealing with pairs"
+  :ensure t
+  :hook (after-init-hook . smartparens-global-mode)
+  :config (leaf smartparens-config :require t))
+
+
+(leaf darkroom
+  :doc "Remove visual distractions and focus on writing"
+  :ensure t
+  :bind (([f8] . my:darkroom-in)
+	 (:darkroom-mode-map
+	  ([f8] . my:darkroom-out)))
+  :config
+  (defun my:darkroom-in ()
+    "Enter to the `darkroom-mode'."
+    (interactive)
+    (diff-hl-mode 0)
+    (display-line-numbers-mode 0)
+    (darkroom-tentative-mode 1)
+    (toggle-frame-fullscreen)
+    (setq-local line-spacing .2)
+    (evil-emacs-state))
+
+  (defun my:darkroom-out ()
+    "Returns from `darkroom-mode' to the previous state."
+    (interactive)
+    (darkroom-tentative-mode 0)
+    (display-line-numbers-mode 1)
+    (toggle-frame-fullscreen)
+    (setq-local line-spacing 0)
+    (evil-normal-state)))
+
+
+(leaf mail-mode
+  :doc "Using mail-mode for eml files for Thunderbird plugin support"
+  :mode ("\\.eml\\'" . mail-mode)
+  :hook (mail-mode-hook . darkroom-mode))
+
+
 (leaf *cus-ps-print
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
