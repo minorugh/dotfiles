@@ -1,4 +1,4 @@
-;;; my:bloglist.el --- Bloglist for easy-hugo. -*- lexical-binding: t -*-
+;;; my:bloglist.el --- Bloglist for easy-hugo.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

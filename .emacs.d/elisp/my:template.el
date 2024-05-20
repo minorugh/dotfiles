@@ -1,4 +1,4 @@
-;;; my:template.el --- User template configuration. -*- lexical-binding: t -*-
+;;; my:template.el --- User template configuration.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
