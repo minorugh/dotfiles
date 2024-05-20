@@ -1,4 +1,4 @@
-;;; 20_highlight.el --- Highlighting configurations.
+;;; 10_highlight.el --- Highlighting configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -6,8 +6,8 @@
 (leaf *hl-line
   :doc "Highlight the current line"
   :hook ((after-init-hook . global-hl-line-mode)
-		 ((dashboard-mode-hook
-		   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
+	 ((dashboard-mode-hook
+	   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
 
 
 (leaf *whitespace
@@ -73,4 +73,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_highlight.el ends here
+;;; 10_highlight.el ends here
