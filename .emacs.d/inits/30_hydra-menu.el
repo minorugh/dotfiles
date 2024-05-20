@@ -39,8 +39,6 @@
    ("u" my:make-upsftp)
    ("/" my:root-dir)
    ("f" flycheck-list-errors)
-   ;; ("f" make-frame-command)
-   ;; ("0" delete-frame)
    ("_" delete-other-windows)
    ("[" hydra-git/body)
    ("]" my:magit-status)
@@ -48,7 +46,7 @@
    ("z" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
-  :init
+  :preface
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
     (interactive)
@@ -114,32 +112,31 @@
    ("g" my:github-dir)
    ("G" chromium-github)
    ("<henkan>" hydra-quick/body)
-   ("<muhenkan>" nil)))
+   ("<muhenkan>" nil))
+  :preface
+  (defun lepton ()
+    "Open lepton."
+    (interactive)
+    (compile "~/Appimage/Lepton-1.10.0.AppImage")
+    (delete-other-windows))
 
+  (defun make-backup ()
+    "Backup all."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make backup")))
 
-(defun lepton ()
-  "Open lepton."
-  (interactive)
-  (compile "~/Appimage/Lepton-1.10.0.AppImage")
-  (delete-other-windows))
+  (defun make-ghuser ()
+    "Sync GH data by rsync."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make rsync-user")))
 
-(defun make-backup ()
-  "Backup all."
-  (interactive)
-  (let* ((default-directory (expand-file-name "~/Dropbox")))
-    (compile "make backup")))
-
-(defun make-ghuser ()
-  "Sync GH data by rsync."
-  (interactive)
-  (let* ((default-directory (expand-file-name "~/Dropbox")))
-    (compile "make rsync-user")))
-
-(defun make-commit ()
-  "Auto commit."
-  (interactive)
-  (let* ((default-directory (expand-file-name "~/Dropbox")))
-    (compile "make git-commit")))
+  (defun make-commit ()
+    "Auto commit."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make git-commit"))))
 
 
 ;; Local Variables:
