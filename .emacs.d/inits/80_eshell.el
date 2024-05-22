@@ -34,10 +34,7 @@
 	" ")))
    '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)")))
 
-Welcome to the Emacs shell
 
-[~/src/github.com/minorugh/dotfiles/.emacs.d/inits]
-$ 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
