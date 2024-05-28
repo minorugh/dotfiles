@@ -18,11 +18,11 @@
   (setq org-startup-folded 'content)
   (setq org-startup-truncated nil)
   (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
-  (setq org-refile-targets
-	(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
-		("~/Dropbox/howm/org/remember.org" :level . 1)
-		("~/Dropbox/howm/org/memo.org" :level     . 1)
-		("~/Dropbox/howm/org/task.org" :level     . 1))))
+  ;; (setq org-refile-targets
+  ;; 	(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
+  ;; 		("~/Dropbox/howm/org/remember.org" :level . 1)
+  ;; 		("~/Dropbox/howm/org/memo.org" :level     . 1)
+  ;; 		("~/Dropbox/howm/org/task.org" :level     . 1))))
 
   ;; Capture template
   (defun my:howm-create-file ()
