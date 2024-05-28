@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf swiper
+(leaf swiper :ensure t
   :doc "Isearch with an overview"
-  :ensure t
   :bind (("C-s" . swiper-region)
 	 ("C-c r" . swiper-thing-at-point))
   :config
@@ -16,10 +15,9 @@ If the region isn't selected, `swiper'."
     (if (not (use-region-p))
 	(swiper)
       (swiper-thing-at-point)))
-  :preface
-  (leaf swiper-migemo
+  :init
+  (leaf swiper-migemo :el-get "tam17aki/swiper-migemo"
     :doc "ivy/counsel/swiper with migemo"
-    :el-get "tam17aki/swiper-migemo"
     :hook (after-init-hook . global-swiper-migemo-mode)
     :config
     (add-to-list 'swiper-migemo-enable-command 'counsel-rg)
@@ -27,9 +25,8 @@ If the region isn't selected, `swiper'."
     (migemo-kill)
     (migemo-init))
 
-  (leaf migemo
+  (leaf migemo :ensure t
     :doc "Japanese incremental search through dynamic pattern expansion"
-    :ensure t
     :if (executable-find "cmigemo")
     :hook (after-init-hook . migemo-init)
     :config

@@ -51,32 +51,28 @@
   :bind ("C-@" . er/expand-region))
 
 
-(leaf undo-fu
+(leaf undo-fu :ensure t
   :doc "Undo helper with redo"
-  :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 	 ("C-/" . undo-fu-only-redo)))
 
 
-(leaf undohist
+(leaf undohist :ensure t
   :doc "Persistent undo history"
-  :ensure t
   :hook (after-init-hook . undohist-initialize)
   :config
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
-(leaf smartparens
+(leaf smartparens :ensure t
   :doc "minor mode for dealing with pairs"
-  :ensure t
   :hook (after-init-hook . smartparens-global-mode)
   :config (leaf smartparens-config :require t))
 
 
-(leaf darkroom
+(leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
-  :ensure t
   :bind (([f8] . my:darkroom-in)
 	 (:darkroom-mode-map
 	  ([f8] . my:darkroom-out)))

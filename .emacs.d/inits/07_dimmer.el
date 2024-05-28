@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf dimmer
+(leaf dimmer :ensure t
   :doc "Visually highlight the selected buffer"
-  :ensure t
   :chord (".." . my:toggle-dimmer)
   :config
   (setq dimmer-buffer-exclusion-regexps

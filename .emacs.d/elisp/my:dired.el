@@ -49,7 +49,8 @@
 (defun my:home-dir ()
   "Open hoge dir."
   (interactive)
-  (find-file "~/"))
+  (find-file "~/")
+  (dired-omit-mode -1))
 
 (defun my:dropbox ()
   "Open dropbox dir."

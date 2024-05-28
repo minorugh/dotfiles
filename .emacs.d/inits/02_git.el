@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-(leaf diff-hl
+(leaf diff-hl :ensure t
   :doc "Highlight uncommitted changes using VC"
-  :ensure t
   :hook
   ((after-init-hook . global-diff-hl-mode)
    (after-init-hook . diff-hl-margin-mode)
@@ -17,9 +16,8 @@
     (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
-(leaf magit
+(leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
-  :ensure t
   :bind '(("C-x g" . magit-status)
 	  ("M-g" . hydra-git/body))
   :config

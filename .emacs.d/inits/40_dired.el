@@ -5,8 +5,7 @@
 
 (leaf nerd-icons :ensure t
   :config
-  (leaf nerd-icons-dired
-    :ensure t
+  (leaf nerd-icons-dired :ensure t
     :if (display-graphic-p)
     :config
     (setq nerd-icons-scale-factor 0.8)

@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf doom-themes
+(leaf doom-themes :ensure t
   :doc "Pack of modern color-themes"
-  :ensure t
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
@@ -17,9 +16,8 @@
 
 
 
-(leaf doom-modeline
+(leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
-  :ensure t
   :hook after-init-hook
   :config
   (setq doom-modeline-icon            t)
@@ -42,9 +40,8 @@
   :hook (prog-mode-hook text-mode-hook))
 
 
-(leaf page-break-lines
+(leaf page-break-lines :ensure t
   :doc "Display ^L page breaks as tidy horizontal lines"
-  :ensure t
   :after dashboard
   :global-minor-mode t)
 

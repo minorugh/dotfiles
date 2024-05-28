@@ -5,6 +5,7 @@
 
 (leaf *hl-line
   :doc "Highlight the current line"
+  :tag "Builtin"
   :hook ((after-init-hook . global-hl-line-mode)
 	 ((dashboard-mode-hook
 	   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
@@ -17,7 +18,7 @@
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :config
   (setq show-trailing-whitespace nil)
-  :preface
+  :init
   (defun my:cleanup-for-spaces ()
     "Remove contiguous line breaks at end of line + end of file."
     (interactive)
@@ -41,31 +42,28 @@
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
 
-(leaf volatile-highlights
+(leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
-  :ensure t
   :url "https://github.com/k-talo/volatile-highlights.el"
   :hook (after-init-hook . volatile-highlights-mode)
   :custom-face
   (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
   :config
   (when (fboundp 'pulse-momentary-highlight-region)
-	(defun my:vhl-pulse (beg end &optional _buf face)
-	  "Pulse the changes."
-	  (pulse-momentary-highlight-region beg end face))
-	(advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
+    (defun my:vhl-pulse (beg end &optional _buf face)
+      "Pulse the changes."
+      (pulse-momentary-highlight-region beg end face))
+    (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 
-(leaf rainbow-delimiters
+(leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
-  :ensure t
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook prog-mode-hook)
 
 
-(leaf rainbow-mode
+(leaf rainbow-mode :ensure t
   :doc "Color letter that indicate the color"
-  :ensure t
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
   :bind ("C-c w" . rainbow-mode))
 

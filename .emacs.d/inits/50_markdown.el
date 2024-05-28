@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf markdown-mode
-  :ensure t
+(leaf markdown-mode :ensure t
   :mode ("\\.md\\'" . gfm-mode)
   :config
   (setq markdown-command '("pandoc" "--from=markdown" "--to=html5"))

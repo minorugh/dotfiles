@@ -28,24 +28,24 @@
   (package-install 'leaf))
 
 (leaf leaf-keywords :ensure t
+  :config
+  (leaf-keywords-init)
   :init
   (leaf hydra :ensure t)
   (leaf el-get :ensure t
     :config
-    (setq el-get-git-shallow-clone t))
-  :config
-  (leaf-keywords-init))
+    (setq el-get-git-shallow-clone t)))
 
 ;;Auto revert
 (setq auto-revert-interval 0.1)
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 
-;; Fonts
+;; Font settings on the main machine or sub machine
 (if (string-match "P1" (shell-command-to-string "uname -n"))
     (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
-;; Server
+;; Start server unless running
 (require 'server)
 (unless (server-running-p)
   (server-start))
@@ -60,9 +60,8 @@
   :doc "Load user configurations"
   :require my:dired my:template my:make)
 
-(leaf init-loader
+(leaf init-loader :ensure t
   :doc "Loader of configuration files"
-  :ensure t
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

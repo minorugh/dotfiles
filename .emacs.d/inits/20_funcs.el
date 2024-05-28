@@ -83,6 +83,7 @@
 
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
+  :tag "Be configured to be able to use gist on the command line from the terminal"
   :init
   (defun gist-description ()
     "Add gist description."

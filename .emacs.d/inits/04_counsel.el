@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf counsel
+(leaf counsel :ensure t
   :doc "Various completion functions using Ivy"
-  :ensure t
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 	 ("C-x C-b" . counsel-switch-buffer)
@@ -17,14 +16,12 @@
 	 ("C-x C-a" . counsel-linux-app)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))
-  :preface
-  (leaf ivy-rich
+  :init
+  (leaf ivy-rich :ensure t
     :doc "More friendly display transformer for ivy"
-    :ensure t
     :hook (after-init-hook . ivy-rich-mode))
-  (leaf amx
+  (leaf amx :ensure t
     :doc "Alternative 'M-x' with extra features"
-    :ensure t
     :config
     (setq amx-save-file "~/.emacs.d/tmp/amx-items")
     (setq amx-history-length 20))

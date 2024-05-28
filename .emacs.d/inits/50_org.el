@@ -53,8 +53,7 @@
 	 (:calendar-mode-map
 	  ("<f7>" . calendar-exit)))
   :config
-  (leaf japanese-holidays
-    :ensure t
+  (leaf japanese-holidays :ensure t
     :require t
     :hook '((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
 	    (calendar-today-invisible-hook . japanese-holiday-mark-weekend)

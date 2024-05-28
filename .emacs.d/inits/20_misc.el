@@ -3,17 +3,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf projectile
+(leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
-  :ensure t
   :config
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
   :hook after-init-hook)
 
 
-(leaf prescient
+(leaf prescient :ensure t
   :doc "Better sorting and filtering"
-  :ensure t
   :hook (after-init-hook . prescient-persist-mode)
   :config
   (setq prescient-aggressive-file-save t)
@@ -22,49 +20,42 @@
   (leaf company-prescient :ensure t :global-minor-mode t))
 
 
-(leaf popwin
+(leaf popwin :ensure t
   :doc "popup window manager for Emacs"
-  :ensure t
   :hook after-init-hook)
 
 
-(leaf posframe
+(leaf posframe :ensure t
   :doc "Pop a posframe (just a frame) at point"
-  :ensure t
   :when window-system)
 
 
-(leaf aggressive-indent
+(leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
-  :ensure t
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
 
-(leaf flycheck
+(leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
-  :ensure t
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
   :hook  prog-mode-hook)
 
 
-(leaf imenu-list
+(leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
-  :ensure t
   :bind ([f2]  . imenu-list-smart-toggle)
   :config
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position    'left)
-  :preface
-  (leaf counsel-css
+  :init
+  (leaf counsel-css :ensure t
     :doc "stylesheet-selector-aware swiper"
-    :ensure t
     :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 
-(leaf web-mode
+(leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
-  :ensure t
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
   :config
   (setq web-mode-markup-indent-offset 2)

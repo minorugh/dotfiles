@@ -46,7 +46,7 @@
    ("z" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
-  :preface
+  :init
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
     (interactive)
@@ -113,7 +113,7 @@
    ("G" chromium-github)
    ("<henkan>" hydra-quick/body)
    ("<muhenkan>" nil))
-  :preface
+  :init
   (defun lepton ()
     "Open lepton."
     (interactive)

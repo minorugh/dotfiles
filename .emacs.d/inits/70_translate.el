@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; Google translate configurations
-(leaf google-translate
-  :ensure t
+(leaf google-translate :ensure t
+  :doc "Google translate configurations"
   :bind ("C-t" . google-translate-auto)
   :config
   (defun google-translate-auto ()
@@ -39,9 +38,8 @@
 
 
 ;; Deeple translate configurations
-(leaf deepl-translate
+(leaf deepl-translate :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
-  :el-get "minorugh/deepl-translate"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :bind ("C-c d" . deepl-translate)
   :init

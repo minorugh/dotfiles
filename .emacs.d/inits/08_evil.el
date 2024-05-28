@@ -3,9 +3,8 @@
 ;;; code:
 ;; (setq debug-on-error t)
 
-(leaf evil
+(leaf evil :ensure t
   :doc "The extensible vi layer for Emacs"
-  :ensure t
   :hook ((after-init-hook . evil-mode)
 	 (find-file-hook  . my:evil-find-file))
   :bind ((:evil-normal-state-map

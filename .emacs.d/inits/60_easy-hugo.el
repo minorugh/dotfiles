@@ -3,9 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf easy-hugo
+(leaf easy-hugo :ensure t
   :doc "Write blogs made with hugo"
-  :ensure t
   :url "https://github.com/masasam/emacs-easy-hugo"
   :bind (("C-c C-e" . easy-hugo)
 	 (:easy-hugo-mode-map
