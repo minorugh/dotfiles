@@ -37,7 +37,6 @@
     (list 427110 1469889687)))
 
 
-;; Deeple translate configurations
 (leaf deepl-translate :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
