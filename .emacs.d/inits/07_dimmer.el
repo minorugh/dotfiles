@@ -5,7 +5,7 @@
 
 (leaf dimmer :ensure t
   :doc "Visually highlight the selected buffer"
-  :chord (".." . my:toggle-dimmer)
+  :chord ("::" . my:toggle-dimmer)
   :config
   (setq dimmer-buffer-exclusion-regexps
 	'("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
