@@ -23,7 +23,25 @@
   (setq howm-user-font-lock-keywords
 	'(("memo:" . (0 'compilation-error))
 	  ("note:" . (0 'compilation-info))
-	  ("tech:" . (0 'compilation-info)))))
+	  ("tech:" . (0 'compilation-info))))
+  (setq howm-template
+	'("# %title%cursor\n%date%file"
+	  "# memo: %cursor\n%date%file"
+	  "# tech: %cursor\n%date%file"))
+
+  (defun my:howm-create-memo ()
+    "Create by inserting tags automatically."
+    (interactive)
+    (howm-create 2 nil)
+    (delete-other-windows)
+    (evil-insert-state))
+
+  (defun my:howm-create-tech ()
+    "Create by inserting tags automatically."
+    (interactive)
+    (howm-create 3 nil)
+    (delete-other-windows)
+    (evil-insert-state)))
 
 
 ;; Local Variables:
