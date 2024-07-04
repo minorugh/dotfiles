@@ -118,6 +118,12 @@
   (find-file "~/Dropbox/GH/s_select/tex/swan.txt")
   (goto-char (point-min)))
 
+(defun my:mj_kukai ()
+  "Open s_select file."
+  (interactive)
+  (find-file "~/Dropbox/GH/mj_select/tex/mj.txt")
+  (goto-char (point-min)))
+
 (defun my:tpost ()
   "Open tselect file."
   (interactive)
