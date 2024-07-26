@@ -31,7 +31,7 @@
    ("@" howm-list-all)
    ("," my:howm-create-memo)
    (";" my:howm-create-tech)
-   ("c" hydra-make/body)
+   ("c" make-commit)
    ("k" my:make-k)
    ("g" my:make-git)
    ("b" my:make-bklog)
