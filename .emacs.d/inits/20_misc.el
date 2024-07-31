@@ -35,21 +35,21 @@
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
 
-(leaf flycheck :ensure t
-  :doc "On-the-fly syntax checking"
-  :config
-  (setq flycheck-emacs-lisp-initialize-packages t)
-  :hook  prog-mode-hook)
-
-
-;; (leaf flymake
-;;   :hook (prog-mode-hook . flymake-mode)
+;; (leaf flycheck :ensure t
+;;   :doc "On-the-fly syntax checking"
 ;;   :config
-;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-;;   (leaf flymake-posframe
-;;     :el-get Ladicle/flymake-posframe
-;;     :hook (flymake-mode-hook . flymake-posframe-mode)
-;;     :custom (flymake-posframe-error-prefix . " ")))
+;;   (setq flycheck-emacs-lisp-initialize-packages t)
+;;   :hook  prog-mode-hook)
+
+
+(leaf flymake
+  :hook (prog-mode-hook . flymake-mode)
+  :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+  (leaf flymake-posframe
+    :el-get Ladicle/flymake-posframe
+    :hook (flymake-mode-hook . flymake-posframe-mode)
+    :custom (flymake-posframe-error-prefix . " ")))
 
 
 (leaf imenu-list :ensure t
