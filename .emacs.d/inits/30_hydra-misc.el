@@ -38,25 +38,6 @@
    ("<muhenkan>" nil)))
 
 
-(leaf *hydra-selected
-  :hydra
-  (hydra-selected
-   (:color red :hint nil)
-   "
-   _g_oogle  _k_oujien  _w_eblio  _e_ijiro  _t_ranslate  _c_lipboard  _s_wiper  comment_;_
-"
-   (";" comment-dwim)
-   ("c" clipboard-kill-ring-save)
-   ("s" swiper-thing-at-point)
-   ("d" deeple-translate)
-   ("t" gts-do-translate)
-   ("w" my:weblio)
-   ("k" my:koujien)
-   ("e" my:eijiro)
-   ("g" my:google)
-   ("<muhenkan>" nil)))
-
-
 (leaf *hydra-browse
   :doc "Selection menu for project work"
   :chord (".." . hydra-browse/body)

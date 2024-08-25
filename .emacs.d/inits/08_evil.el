@@ -24,13 +24,12 @@
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
-		  fundamental-mode dashboard-mode dired-mode
-		  neotree-mode howm-mode yatex-mode mail-mode
-		  git-timemachine-mode easy-hugo-mode markdown-mode))
+		  fundamental-mode dashboard-mode dired-mode neotree-mode
+		  mail-mode howm-mode org-mode yatex-mode  markdown-mode
+		  git-timemachine-mode easy-hugo-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
-  (add-hook 'org-capture-mode-hook 'evil-emacs-state)
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun vim-cheat-sheet ()

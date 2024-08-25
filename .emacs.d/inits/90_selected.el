@@ -6,7 +6,6 @@
 (leaf selected :ensure t
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
-  :defun (selected--on region-or-read-string my:ime-off my:ime-on)
   :hook (after-init-hook . selected-global-mode)
   :bind (:selected-keymap
 	 (";" . comment-dwim)
@@ -15,7 +14,6 @@
 	 ("d" . deepl-translate)
 	 ("t" . google-translate-auto)
 	 ("w" . my:weblio)
-	 ("j" . my:eijiro)
 	 ("g" . my:google))
   :config
   (defvar my:ime-flag nil)
@@ -46,12 +44,6 @@
     "Search weblio."
     (interactive (list (region-or-read-string nil)))
     (browse-url (format "https://www.weblio.jp/content/%s"
-			(upcase (url-hexify-string str)))))
-
-  (defun my:eijiro (str)
-    "Search eijiro."
-    (interactive (list (region-or-read-string nil)))
-    (browse-url (format "https://eow.alc.co.jp/%s/UTF-8/"
 			(upcase (url-hexify-string str)))))
 
   (defun region-or-read-string (prompt &optional initial history default inherit)
