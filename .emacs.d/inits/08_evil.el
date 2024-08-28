@@ -7,7 +7,8 @@
   :ensure t
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
-  :bind ((:evil-normal-state-map
+  :bind (("<zenkaku-hankaku>" . evil-mode)
+	 (:evil-normal-state-map
 	  ("SPC"  . evil-insert)
 	  ("M-."  . nil)
 	  ("?"    . vim-cheat-sheet)
@@ -16,9 +17,12 @@
 	  ([muhenkan] . my:return-to-normal-state)
 	  ([escape]   . my:return-to-normal-state)))
   :init
+  ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
+  ;; Use undo-fu for evil undo
   (setq evil-undo-system 'undo-fu)
   :config
+  ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
@@ -26,12 +30,11 @@
 		  mail-mode howm-mode org-mode yatex-mode markdown-mode
 		  git-timemachine-mode easy-hugo-mode))
     (add-to-list 'evil-insert-state-modes mode))
-
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun vim-cheat-sheet ()
-    "Vim cheat sheet online."
+    "View vim cheat sheet online."
     (interactive)
     (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html"))
 
