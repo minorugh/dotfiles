@@ -3,7 +3,8 @@
 ;;; code:
 ;; (setq debug-on-error t)
 
-(leaf evil :ensure t
+(leaf evil
+  :ensure t
   :doc "The extensible vi layer for Emacs"
   :hook (after-init-hook . evil-mode)
   :bind ((:evil-normal-state-map
@@ -23,7 +24,7 @@
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
 		  fundamental-mode dashboard-mode dired-mode neotree-mode
-		  mail-mode howm-mode org-mode yatex-mode  markdown-mode
+		  mail-mode howm-mode org-mode yatex-mode markdown-mode
 		  git-timemachine-mode easy-hugo-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
