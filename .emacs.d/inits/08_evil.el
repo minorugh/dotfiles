@@ -8,7 +8,6 @@
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
   :bind ((:evil-normal-state-map
-	  ("C-e"  . seq-end) ;; sequential-command
 	  ("SPC"  . evil-insert)
 	  ("M-."  . nil)
 	  ("?"    . vim-cheat-sheet)
@@ -26,7 +25,7 @@
 		  fundamental-mode dashboard-mode dired-mode neotree-mode
 		  mail-mode howm-mode org-mode yatex-mode markdown-mode
 		  git-timemachine-mode easy-hugo-mode))
-    (add-to-list 'evil-emacs-state-modes mode))
+    (add-to-list 'evil-insert-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
