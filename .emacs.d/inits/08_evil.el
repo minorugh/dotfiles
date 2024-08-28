@@ -5,12 +5,10 @@
 
 (leaf evil :ensure t
   :doc "The extensible vi layer for Emacs"
-  :hook ((after-init-hook . evil-mode)
-	 (find-file-hook  . my:evil-find-file))
+  :hook (after-init-hook . evil-mode)
   :bind ((:evil-normal-state-map
 	  ("C-e"  . seq-end) ;; sequential-command
 	  ("SPC"  . evil-insert)
-	  ("C-@"  . er/expand-region)
 	  ("M-."  . nil)
 	  ("?"    . vim-cheat-sheet)
 	  ([home] . open-dashboard))
@@ -45,11 +43,12 @@
     (evil-normal-state)
     (message "-- NORMAL --"))
 
-  (defun my:evil-find-file ()
+  (defun evil-find-file ()
     "New files open in insert-state."
     (interactive)
     (unless (file-exists-p buffer-file-name)
       (evil-insert-state)))
+  (add-hook 'find-file-hooks 'evil-find-file)
 
   ( defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
