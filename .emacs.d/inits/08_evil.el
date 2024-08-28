@@ -6,7 +6,7 @@
 (leaf evil
   :ensure t
   :doc "The extensible vi layer for Emacs"
-  :hook (after-init-hook . evil-mode)
+  :hook after-init-hook
   :bind ((:evil-normal-state-map
 	  ("C-e"  . seq-end) ;; sequential-command
 	  ("SPC"  . evil-insert)
