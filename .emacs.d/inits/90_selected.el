@@ -40,11 +40,6 @@
     (interactive)
     (google-this (current-word) t))
 
-  ;; (defun my:google (str)
-  ;;   (interactive (list (region-or-read-string nil)))
-  ;;   (browse-url (format "https://www.google.com/search?hl=ja&q=%s"
-  ;; 			(upcase (url-hexify-string str)))))
-
   (defun my:weblio (str)
     "Search weblio."
     (interactive (list (region-or-read-string nil)))
