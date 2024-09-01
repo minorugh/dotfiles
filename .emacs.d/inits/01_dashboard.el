@@ -15,7 +15,7 @@
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
 	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
-	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
+ 	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
 	  ("g" . (lambda () (interactive) (browse-url "https://github.com/minorugh")))
 	  ("m" . (lambda () (interactive) (compile "thunderbird")))

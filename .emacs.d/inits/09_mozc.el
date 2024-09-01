@@ -45,10 +45,7 @@
     (interactive)
     (if (boundp 'evil-mode)
 	(evil-emacs-state))
-    (toggle-input-method)
-    (if (null current-input-method)
-	(dimmer-on)
-      (dimmer-off)))
+    (toggle-input-method))
 
   (defun mozc-insert-str (str)
     "STR Immediately confirmed by punctuation."

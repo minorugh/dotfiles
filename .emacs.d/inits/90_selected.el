@@ -14,12 +14,13 @@
 	 ("d" . deepl-translate)
 	 ("t" . google-translate-auto)
 	 ("w" . my:weblio)
-	 ("g" . my:google))
+	 ("g" . my:google-this))
   :config
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
   (add-hook 'activate-mark-hook #'(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
   (add-hook 'deactivate-mark-hook #'(lambda () (unless (null my:ime-flag) (my:ime-on))))
+  (leaf google-this :ensure t)
   :init
   (defun my:activate-selected ()
     (selected-global-mode 1)
@@ -35,10 +36,14 @@
     (interactive)
     (deactivate-input-method))
 
-  (defun my:google (str)
-    (interactive (list (region-or-read-string nil)))
-    (browse-url (format "https://www.google.com/search?hl=ja&q=%s"
-			(upcase (url-hexify-string str)))))
+  (defun my:google-this ()
+    (interactive)
+    (google-this (current-word) t))
+
+  ;; (defun my:google (str)
+  ;;   (interactive (list (region-or-read-string nil)))
+  ;;   (browse-url (format "https://www.google.com/search?hl=ja&q=%s"
+  ;; 			(upcase (url-hexify-string str)))))
 
   (defun my:weblio (str)
     "Search weblio."

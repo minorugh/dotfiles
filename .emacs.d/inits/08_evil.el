@@ -7,12 +7,12 @@
   :ensure t
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
-  :bind (("<zenkaku-hankaku>" . evil-mode)
-	 (:evil-normal-state-map
-	  ("SPC"  . evil-insert)
-	  ("M-."  . nil)
-	  ("?"    . vim-cheat-sheet)
-	  ([home] . open-dashboard))
+  :bind ((:evil-normal-state-map
+	  ("M-."      . nil)
+	  ("?"        . vim-cheat-sheet)
+ 	  ("SPC"      . evil-insert)
+	  ([home]     . open-dashboard)
+       	  ([muhenkan] . evil-insert))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
 	  ([escape]   . my:return-to-normal-state)))
