@@ -9,7 +9,7 @@
   (hydra-pinky
    (:color red :hint nil)
    "
-  :_0_._1_._o_._S_  :_-__.__+_  _d_iff:_n_._p_  buffer:_[__:__]_  _f_ind-file  _s_wiper  _g_oogle"
+  :_0_._1_._o_._S_  :_-__.__+_  _d_iff:_n_._p_  buffer:_[__:__]_  _f_ind-file  _s_wiper"
    ;; window
    ("+" text-scale-increase)
    ("-" text-scale-decrease)
@@ -29,7 +29,6 @@
    ("]" next-buffer)
    ;; Others
    ("f" counsel-find-file)
-   ("g" my:google-this)
    ("s" swiper-thing-at-point)))
 
 
