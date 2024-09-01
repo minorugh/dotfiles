@@ -42,16 +42,6 @@
   :hook  prog-mode-hook)
 
 
-;; (leaf flymake
-;;   :hook (prog-mode-hook . flymake-mode)
-;;   :config
-;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
-;;   (leaf flymake-posframe
-;;     :el-get Ladicle/flymake-posframe
-;;     :hook (flymake-mode-hook . flymake-posframe-mode)
-;;     :custom (flymake-posframe-error-prefix . " ")))
-
-
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
   :bind ([f2]  . imenu-list-smart-toggle)
