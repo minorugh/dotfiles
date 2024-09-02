@@ -58,7 +58,7 @@
 (push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
   :doc "Load user configurations"
-  :require my:dired my:template my:make)
+  :require my:browse my:dired my:template my:make)
 
 (leaf init-loader :ensure t
   :doc "Loader of configuration files"
