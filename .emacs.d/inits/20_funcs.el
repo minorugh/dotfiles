@@ -54,7 +54,7 @@
   (defun ssh-xsrv ()
     "Open terminal and ssh to xsrv."
     (interactive)
-    (shell-command "gnome-terminal -- ssh xsrv"))
+    (shell-command "gnome-terminal --maximize -- ssh xsrv"))
 
   (defun my:muhenkan ()
     (interactive)
