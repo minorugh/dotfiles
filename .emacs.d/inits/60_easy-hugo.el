@@ -7,8 +7,7 @@
   :el-get minorugh/evil-easy-hugo
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :bind (("C-c C-e" . easy-hugo)
-	 (:easy-hugo-mode-map
+  :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o" . easy-hugo-open-basedir)
 	  ("r" . easy-hugo-rename)

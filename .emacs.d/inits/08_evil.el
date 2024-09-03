@@ -26,8 +26,9 @@
   (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(lisp-interaction-mode
-		  fundamental-mode dashboard-mode dired-mode neotree-mode
-		  mail-mode org-mode yatex-mode	git-timemachine-mode easy-hugo-mode))
+		  fundamental-mode dashboard-mode dired-mode
+		  neotree-mode mail-mode org-mode yatex-mode
+		  git-timemachine-mode easy-hugo-mode))
     (add-to-list 'evil-insert-state-modes mode))
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
