@@ -3,7 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-
 ;; Custom functions to open the desired project directory
 (defun my:dotfiles-dir ()
   "Open dotfile dir."
