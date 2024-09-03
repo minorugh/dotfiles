@@ -1,4 +1,4 @@
-;;; 30_hydra-dired.el --- Hydra configuration for quick dired.
+;;; 30_hydra-menu.el --- Hydra configuration for quick menu.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -144,4 +144,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-dired.el ends here
+;;; 30_hydra-menu.el ends here
