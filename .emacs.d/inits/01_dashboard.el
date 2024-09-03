@@ -12,6 +12,7 @@
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
+	  ("."    . hydra-browse/body)
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
 	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
