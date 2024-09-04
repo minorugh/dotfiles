@@ -276,17 +276,12 @@ perlbrew: ## Install perlbrew
 	cpanm Net::FTPSSL && \
 	cpanm Net::SFTP::Foreign
 
-emacs-devel: ## Install development version of emacs
-	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
-	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation && make && sudo make install && make clean
-	rm -rf ${HOME}/.emacs.d/elpa
-
-emacs-27:
+emacs-devel: ## Install emacs29.1
+	sudo apt-get build-dep emacs-gtk
 	cd ${HOME}/src
-	wget http://ftp.jaist.ac.jp/pub/GNU/emacs/emacs-27.2.tar.gz
-	tar xvf emacs-27.2.tar.gz
-	cd emacs-27.2 && ./autogen.sh && ./configure && sudo make && sudo make install
-
+	wget http://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz
+	tar xvf emacs-29.1.tar.xz
+	cd emacs-29.1 && ./autogen.sh && ./configure --with-native-compilation && sudo make && sudo make install
 
 docker: ## Install docker
 	sudo apt install ca-certificates lsb-release
