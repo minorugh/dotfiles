@@ -70,6 +70,7 @@
 
 
 (provide 'my:browse)
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

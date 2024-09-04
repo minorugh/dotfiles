@@ -5,7 +5,7 @@
 
 (leaf mozc :ensure t
   :doc "minor mode to input Japanese with Mozc"
-  :hook emacs-startup-hook
+  :hook after-init-hook
   :bind (("<hiragana-katakana>" . my:toggle-input-method)
 	 ("s-d" . my:mozc-word-regist)
 	 (:mozc-mode-map
@@ -44,7 +44,7 @@
     "If `evil-mode' enabled, set to` emacs-state'."
     (interactive)
     (if (boundp 'evil-mode)
-	(evil-emacs-state))
+	(evil-insert-state))
     (toggle-input-method))
 
   (defun mozc-insert-str (str)
