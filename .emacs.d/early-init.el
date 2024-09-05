@@ -10,9 +10,7 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
-;; packages are compiled ahead-of-time when they are installed and site files
-;; are compiled when gccemacs is installed.
+;; Prevent emacs from JIT compiling packages
 (setq native-comp-jit-compilation nil)
 
 ;; For slightly faster startup
