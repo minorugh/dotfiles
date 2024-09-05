@@ -4,7 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf easy-hugo
-  :el-get minorugh/evil-easy-hugo
+  :vc (:url "https://github.com/minorugh/evil-easy-hugo" :rev :newest)
+  ;; :el-get minorugh/evil-easy-hugo
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
   :hook (view-mode-hook . evil-emacs-state)

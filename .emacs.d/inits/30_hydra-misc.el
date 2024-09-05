@@ -9,14 +9,12 @@
   (hydra-package
    (:color red :hint nil)
    "
-    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll    _e_l-get:update _r_emove
+    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll
   "
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
    ("a" package-upgrade-all)
-   ("e" el-get-update-all)
-   ("r" el-get-remove)
    ("<muhenkan>" nil)))
 
 

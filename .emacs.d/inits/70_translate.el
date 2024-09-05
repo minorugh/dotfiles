@@ -37,7 +37,9 @@
     (list 427110 1469889687)))
 
 
-(leaf deepl-translate :el-get "minorugh/deepl-translate"
+(leaf deepl-translate
+  :vc (:url "https://github.com/minorugh/deepl-translate" :rev :newest)
+  ;; :el-get "minorugh/deepl-translate"
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :bind ("C-c d" . deepl-translate)

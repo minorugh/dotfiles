@@ -16,7 +16,9 @@
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
 
-  (leaf mozc-cursor-color :el-get "iRi-E/mozc-el-extensions"
+  (leaf mozc-cursor-color
+    :vc (:url "https://github.com/iRi-E/mozc-el-extensions" :rev :newest)
+    ;; :el-get "iRi-E/mozc-el-extensions"
     :doc "Set cursor color corresponding to mozc's input state"
     :require t
     :config
