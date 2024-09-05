@@ -68,7 +68,7 @@
     "Overwrite `emacs-init-time'."
     (interactive)
     (let ((str
-	   (format "%.1f seconds"
+	   (format "%.3f seconds"
 		   (float-time
 		    (time-subtract after-init-time before-init-time)))))
       (if (called-interactively-p 'interactive)

@@ -35,7 +35,7 @@
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
   (setq dired-recursive-deletes 'always)
-  (setq dired-listing-switches  "-AFl")
+  (setq dired-listing-switches "-AFl --group-directories-first")
   (setq ls-lisp-use-insert-directory-program nil)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
@@ -67,16 +67,6 @@
     (interactive)
     (let* ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
-
-  (defun my:dired-sort ()
-    "Sort dired listings with directories first.
-  see https://www.emacswiki.org/emacs/DiredSortDirectoriesFirst?utm_source=pocket_saves"
-    (save-excursion
-      (let (buffer-read-only)
-	(forward-line 2) ;; beyond dir. header
-	(sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-      (set-buffer-modified-p nil)))
-  (add-hook 'dired-after-readin-hook 'my:dired-sort)
 
   (defun call-sxiv ()
     "Show all images in the directory with sxiv.
