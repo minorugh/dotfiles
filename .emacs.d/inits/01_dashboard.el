@@ -7,7 +7,7 @@
   :doc "An extracted startup screen"
   :ensure t
   :if (display-graphic-p)
-  :hook ((emacs-startup-hook . open-dashboard)
+  :hook ((after-init-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map

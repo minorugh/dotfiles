@@ -26,11 +26,8 @@
 	(progn
 	  (setq toggle-scratch-prev-buffer (buffer-name))
 	  (switch-to-buffer "*scratch*")
-	  (display-line-numbers-mode 0)
-	  (dimmer-off))
-      (switch-to-buffer toggle-scratch-prev-buffer)
-      (delete-other-windows)
-      (dimmer-on))))
+	  (display-line-numbers-mode 0))
+      (switch-to-buffer toggle-scratch-prev-buffer))))
 
 
 (leaf *emacs-lock-mode
