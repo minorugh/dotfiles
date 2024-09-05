@@ -3,20 +3,20 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf package-utils :ensure t
+(leaf package-update
   :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)
    "
-    Package: _i_nstall _r_emove _l_ist up_a_ll    el-get:_u_pdate.re_m_ove
+    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll    _e_l-get:update _r_emove
   "
    ("i" package-install)
-   ("l" package-utils-list-upgrades)
-   ("r" package-utils-remove-by-name)
-   ("a" package-utils-upgrade-all-and-restart)
-   ("u" el-get-update-all)
-   ("m" el-get-remove)
+   ("u" package-upgrade)
+   ("d" package-delete)
+   ("a" package-upgrade-all)
+   ("e" el-get-update-all)
+   ("r" el-get-remove)
    ("<muhenkan>" nil)))
 
 

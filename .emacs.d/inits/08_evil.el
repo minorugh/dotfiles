@@ -10,9 +10,9 @@
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil)
 	  ("?"        . vim-cheat-sheet)
- 	  ("SPC"      . hydra-pinky/body)
-	  ([home]     . open-dashboard)
-       	  ([muhenkan] . evil-insert))
+ 	  ("SPC"      . evil-insert)
+       	  ([muhenkan] . evil-insert)
+	  ([home]     . open-dashboard))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
 	  ([escape]   . my:return-to-normal-state)))

@@ -37,9 +37,10 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
+  :hook prog-mode-hook
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
-  :hook  prog-mode-hook)
+  (add-hook 'lisp-interaction-mode-hook '(lambda () (flycheck-mode 0))))
 
 
 (leaf imenu-list :ensure t
