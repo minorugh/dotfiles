@@ -17,7 +17,7 @@
   (setq mozc-leim-title          "あ")
 
   (leaf mozc-cursor-color
-    :vc (:url "https://github.com/iRi-E/mozc-el-extensions" :rev :newest)
+    :vc (:url "https://github.com/iRi-E/mozc-el-extensions")
     :doc "Set cursor color corresponding to mozc's input state"
     :require t
     :config
