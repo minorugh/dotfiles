@@ -13,34 +13,53 @@
   (setq super-save-exclude             '(".gpg")))
 
 
-(leaf *auto-save-scratch
-  :doc "Auto save the *scratch* buffer & display toggle"
+(leaf persistent-scratch :ensure t
+  :doc "Save scratch buffer state to file and restore from file"
+  :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
-  :hook (after-init-hook . save-scratch-session)
-  :init
-  (defun save-scratch-session ()
-    "Saves the *scratch* buffer in between sessions."
-    (interactive)
-    (when (file-exists-p (concat user-emacs-directory ".scratch"))
-      (insert-file-contents (concat user-emacs-directory ".scratch")))
-    (add-hook 'kill-emacs-hook
-              (lambda ()
-		(switch-to-buffer "*scratch*")
-		(write-file (concat user-emacs-directory ".scratch")))))
-
+  :config
+  (setq persistent-scratch-save-file "~/.emacs.d/tmp/scratch")
   (defun toggle-scratch ()
     "Toggle current buffer and *scratch* buffer."
     (interactive)
     (if (not (string= "*scratch*" (buffer-name)))
 	(progn
 	  (setq toggle-scratch-prev-buffer (buffer-name))
-	  ;; (switch-to-buffer-other-window "*scratch*")
-	  (switch-to-buffer "*scratch*")
+	  (switch-to-buffer-other-window "*scratch*")
 	  (display-line-numbers-mode 0)
 	  (dimmer-off))
       (switch-to-buffer toggle-scratch-prev-buffer)
       (delete-other-windows)
       (dimmer-on))))
+
+;; (leaf *auto-save-scratch
+;;   :doc "Auto save the *scratch* buffer & display toggle"
+;;   :bind ("S-<return>" . toggle-scratch)
+;;   ;;  :hook (after-init-hook . save-scratch-session)
+;;   :init
+;;   (defun save-scratch-session ()
+;;     "Saves the *scratch* buffer in between sessions."
+;;     (interactive)
+;;     (when (file-exists-p (concat user-emacs-directory ".scratch"))
+;;       (insert-file-contents (concat user-emacs-directory ".scratch")))
+;;     (add-hook 'kill-emacs-hook
+;;               (lambda ()
+;; 		(switch-to-buffer "*scratch*")
+;; 		(write-file (concat user-emacs-directory ".scratch")))))
+
+;;   (defun toggle-scratch ()
+;;     "Toggle current buffer and *scratch* buffer."
+;;     (interactive)
+;;     (if (not (string= "*scratch*" (buffer-name)))
+;; 	(progn
+;; 	  (setq toggle-scratch-prev-buffer (buffer-name))
+;; 	  ;; (switch-to-buffer-other-window "*scratch*")
+;; 	  (switch-to-buffer "*scratch*")
+;; 	  (display-line-numbers-mode 0)
+;; 	  (dimmer-off))
+;;       (switch-to-buffer toggle-scratch-prev-buffer)
+;;       (delete-other-windows)
+;;       (dimmer-on))))
 
 
 (leaf *emacs-lock-mode
