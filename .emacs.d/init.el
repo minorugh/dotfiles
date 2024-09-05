@@ -18,10 +18,8 @@
 (customize-set-variable
  'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                      ("melpa" . "https://melpa.org/packages/")))
-
-;; Do not check signatures
 (package-initialize)
-(setq package-check-signature nil)
+
 (unless (package-installed-p 'leaf)
   (package-refresh-contents)
   (package-install 'leaf))
