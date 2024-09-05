@@ -18,7 +18,6 @@
 
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/iRi-E/mozc-el-extensions" :rev :newest)
-    ;; :el-get "iRi-E/mozc-el-extensions"
     :doc "Set cursor color corresponding to mozc's input state"
     :require t
     :config

@@ -18,7 +18,6 @@ If the region isn't selected, `swiper'."
   :init
   (leaf swiper-migemo
     :vc (:url "https://github.com/tam17aki/swiper-migemo" :rev :newest)
-    ;; :el-get "tam17aki/swiper-migemo"
     :doc "ivy/counsel/swiper with migemo"
     :hook (after-init-hook . global-swiper-migemo-mode)
     :config
