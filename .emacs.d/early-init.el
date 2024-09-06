@@ -25,20 +25,22 @@
 ;; Disable warnings at initialization
 (setq warning-minimum-level :emergency)
 
+;; Language & encode
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(set-fringe-mode '(0 . 1))
-
-;; Language & encode
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
+(when (featurep 'ns)
+  (push '(ns-transparent-titlebar . t) default-frame-alist))
 
 ;; Prevent flashing of unstyled modeline and headerline at startup
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
+(set-fringe-mode '(0 . 1))
 
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
