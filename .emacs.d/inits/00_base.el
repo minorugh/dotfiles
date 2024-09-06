@@ -54,6 +54,8 @@
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+  ;;Auto revert
+  (add-hook 'after-init-hook 'global-auto-revert-mode)
   ;; Change to short command
   (defalias 'yes-or-no-p #'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
