@@ -17,7 +17,7 @@
   (setq org-src-fontify-natively t)
   (setq org-startup-folded 'content)
   (setq org-startup-truncated nil)
-  (setq org-agenda-files '("~/Dropbox/howm/org"))
+  (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
   ;; (setq org-refile-targets
   ;; 	(quote (("~/Dropbox/howm/org/archives.org" :level . 1)
   ;; 		("~/Dropbox/howm/org/remember.org" :level . 1)
