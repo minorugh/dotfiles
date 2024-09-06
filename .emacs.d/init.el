@@ -64,7 +64,31 @@
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 
-;; Local Variables:
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(init-loader-show-log-after-init 'error-only)
+ '(package-vc-selected-packages
+   '((deepl-translate :url "https://github.com/minorugh/deepl-translate")
+     (easy-hugo :url "https://github.com/minorugh/evil-easy-hugo")
+     (swiper-migemo :url "https://github.com/tam17aki/swiper-migemo"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diff-hl-change ((t (:background "#8adf80" :foreground "#333"))) nil "Customized with leaf in `diff-hl' block at `/home/minoru/.emacs.d/inits/02_git.el'")
+ '(diff-hl-delete ((t (:background "#ff8f88" :foreground "#333"))) nil "Customized with leaf in `diff-hl' block at `/home/minoru/.emacs.d/inits/02_git.el'")
+ '(diff-hl-insert ((t (:background "#bfc9ff" :foreground "#333"))) nil "Customized with leaf in `diff-hl' block at `/home/minoru/.emacs.d/inits/02_git.el'")
+ '(hl-line ((t (:background "#3B4252" :extend t))) nil "Customized with leaf in `doom-themes' block at `/home/minoru/.emacs.d/inits/20_ui.el'")
+ '(markdown-code-face ((t (:inherit nil :background "gray10"))) nil "Customized with leaf in `markdown-mode' block at `/home/minoru/.emacs.d/inits/50_markdown.el'")
+ '(markdown-pre-face ((t (:inherit font-lock-constant-face))) nil "Customized with leaf in `markdown-mode' block at `/home/minoru/.emacs.d/inits/50_markdown.el'")
+ '(region ((t (:background "#6272a4" :extend t))) nil "Customized with leaf in `doom-themes' block at `/home/minoru/.emacs.d/inits/20_ui.el'")
+ '(show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold))) nil "Customized with leaf in `*paren' block at `/home/minoru/.emacs.d/inits/10_highlight.el'")
+ '(vhl/default-face ((t (:foreground "#FF3333" :background "#FFCDCD"))) nil "Customized with leaf in `volatile-highlights' block at `/home/minoru/.emacs.d/inits/10_highlight.el'"))
+ ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
 ;;; init.el ends here
