@@ -4,6 +4,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(when (version< emacs-version "27.1")
+  (error "This requires Emacs 27.1 and above!"))
+
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
 (defconst my:file-name-handler-alist file-name-handler-alist)
