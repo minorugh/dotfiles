@@ -28,14 +28,16 @@
   (package-refresh-contents)
   (package-install 'leaf))
 
+(leaf auto-package-update
+  :config
+  (setq auto-package-update-interval 1)
+  (auto-package-update-maybe))
+
 (leaf leaf-keywords :ensure t
   :config
   (leaf-keywords-init)
   :init
   (leaf hydra :ensure t))
-
-;;Auto revert
-(add-hook 'after-init-hook 'global-auto-revert-mode)
 
 ;; Font settings on the main machine or sub machine
 (if (string-match "P1" (shell-command-to-string "uname -n"))
