@@ -29,6 +29,12 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
+;; Do not use file selection window
+(setq use-file-dialog nil)
+
+;; Suppress use of buffer menu
+(setq inhibit-startup-buffer-menu t)
+
 ;; Faster to disable these here (before they've been initialized)
 (push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -45,7 +51,8 @@
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
 
-;; Suppress flashing at startup
+;; Emacs really shouldn't be displaying anything until it has fully started
+;; up. This saves a bit of time.
 (when (file-directory-p "~/.emacs.d/elpa/")
   (setq inhibit-message t)
   (add-hook 'window-setup-hook
@@ -57,6 +64,7 @@
 
 
 (provide 'early-init)
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
