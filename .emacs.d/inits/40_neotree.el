@@ -26,6 +26,8 @@
 	  ("<right>" . neotree-change-root)
 	  ("<f10>"   . neotree-toggle)))
   :config
+  (with-eval-after-load 'doom-themes
+    (doom-themes-neotree-config)) ;; need all-the-icons
   (setq neo-mode-line-type nil)
   (setq neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
@@ -37,10 +39,10 @@
 
   (defun neotree-text-scale ()
     "Neotree text scale.
-see https://github.com/jaypei/emacs-neotree/issues/218"
+  see https://github.com/jaypei/emacs-neotree/issues/218"
     (interactive)
     (text-scale-adjust 0)
-    (text-scale-decrease 0.8)
+    (text-scale-decrease 1)
     (message nil))
   (add-hook 'neo-after-create-hook
 	    (lambda (_)
