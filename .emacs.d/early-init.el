@@ -51,15 +51,15 @@
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
 
-;; Emacs really shouldn't be displaying anything until it has fully started
-;; up. This saves a bit of time.
+;; Emacs really shouldn't be displaying anything
+;; until it has fully started up. This saves a bit of time.
 (when (file-directory-p "~/.emacs.d/elpa/")
-  (setq inhibit-message t)
   (add-hook 'window-setup-hook
 	    (lambda ()
 	      (setq inhibit-redisplay nil)
 	      (setq inhibit-message nil)
 	      (redisplay)))
+  (setq inhibit-message t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
 
