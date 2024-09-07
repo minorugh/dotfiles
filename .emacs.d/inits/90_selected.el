@@ -13,6 +13,7 @@
 	 ("s" . swiper-thing-at-point)
 	 ("d" . deepl-translate)
 	 ("t" . google-translate-auto)
+	 ("T" . my:deepl-translate)
 	 ("w" . my:weblio)
 	 ("g" . my:google-this))
   :config
