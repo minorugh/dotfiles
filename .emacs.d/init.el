@@ -34,34 +34,28 @@
   :init
   (leaf hydra :ensure t))
 
-;; Font settings on the main machine or sub machine
-(if (string-match "P1" (shell-command-to-string "uname -n"))
-    (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
-  (add-to-list 'default-frame-alist '(font . "Cica-18")))
+(leaf font
+  :config
+  (if (string-match "P1" (shell-command-to-string "uname -n"))
+      (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
+    (add-to-list 'default-frame-alist '(font . "Cica-18"))))
 
-;; Start server unless running
-;; (leaf server
-;;   :commands (server-running-p)
-;;   :require t
-;;   :hook
-;;   (emacs-startup-hook . (lambda ()
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-;; )))
+(leaf server
+  :commands (server-running-p)
+  :hook
+  (emacs-startup-hook . (lambda ()
+			  (unless (server-running-p)
+			    (server-start)))))
 
 (leaf exec-path-from-shell :ensure t
-  :doc "Share PATH from shell environment variables"
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-(push (expand-file-name "elisp/" user-emacs-directory) load-path)
 (leaf load-user-conf
-  :doc "Load user configurations"
+  :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template my:make)
 
 (leaf init-loader :ensure t
-  :doc "Loader of configuration files"
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
