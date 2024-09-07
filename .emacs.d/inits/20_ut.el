@@ -103,12 +103,6 @@
   :hook (mail-mode-hook . darkroom-mode))
 
 
-(leaf xclip :ensure t
-  :if (and (executable-find "xclip")
-           (eq system-type 'gnu/linux))
-  :hook (emacs-startup-hook
-         . (lambda () (xclip-mode +1))))
-
 (leaf ps-mule
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"

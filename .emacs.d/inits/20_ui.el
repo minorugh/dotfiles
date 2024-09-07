@@ -26,12 +26,7 @@
   (column-number-mode 0)
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
-    :hook (imenu-list-major-mode-hook neotree-mode-hook))
-  :preface
-  (leaf nyan-mode :ensure t
-    :hook after-init-hook
-    :config
-    (setq nyan-animate-nyancat t)))
+    :hook (imenu-list-major-mode-hook neotree-mode-hook)))
 
 
 (leaf display-line-numbers
