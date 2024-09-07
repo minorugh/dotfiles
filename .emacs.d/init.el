@@ -40,12 +40,15 @@
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 ;; Start server unless running
-(leaf server
-  :commands (server-running-p)
-  :hook
-  (emacs-startup-hook . (lambda ()
-			  (unless (server-running-p)
-			    (server-start)))))
+;; (leaf server
+;;   :commands (server-running-p)
+;;   :require t
+;;   :hook
+;;   (emacs-startup-hook . (lambda ()
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+;; )))
 
 (leaf exec-path-from-shell :ensure t
   :doc "Share PATH from shell environment variables"
