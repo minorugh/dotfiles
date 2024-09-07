@@ -12,6 +12,7 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
+	  ("a"    . org-agenda)
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
 	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
@@ -45,7 +46,7 @@
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Mail(m)    Twitter(x)   Slack(s)"))
+    (insert " GH(h)   Agenda(a)   Weather(w)   Cal(c)    News(n)    Mail(m)    Twit(x)   Slack(s)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 

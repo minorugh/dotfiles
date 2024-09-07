@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf package-update
-  :chord ("p@" . hydra-package/body)
+  :chord ("@@" . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)
