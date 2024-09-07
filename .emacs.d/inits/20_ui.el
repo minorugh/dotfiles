@@ -8,7 +8,6 @@
   :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
-  (doom-themes-neotree-config)
   (doom-themes-org-config)
   :custom-face
   (region  . '((t (:background "#6272a4" :extend t))))
@@ -28,7 +27,13 @@
   (leaf hide-mode-line
     :doc "Hides the mode-line in current buffer"
     :ensure t
-    :hook (imenu-list-major-mode-hook neotree-mode-hook)))
+    :hook (imenu-list-major-mode-hook neotree-mode-hook))
+  :preface
+  (leaf nyan-mode
+    :ensure t
+    :hook after-init-hook
+    :config
+    (setq nyan-animate-nyancat t)))
 
 
 (leaf display-line-numbers
