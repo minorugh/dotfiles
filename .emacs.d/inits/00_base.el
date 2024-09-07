@@ -57,7 +57,7 @@
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
   ;; Change to short command
-  (defalias 'yes-or-no-p #'y-or-n-p)
+  (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
