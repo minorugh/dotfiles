@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf super-save
-  :ensure t
+(leaf super-save :ensure t
   :doc "Smart auto save buffers"
   :hook (after-init-hook . super-save-mode)
   :config
@@ -14,8 +13,7 @@
   (setq super-save-exclude             '(".gpg")))
 
 
-(leaf persistent-scratch
-  :ensure t
+(leaf persistent-scratch :ensure t
   :doc "Save *scratch* buffer state to file and restore from file"
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)

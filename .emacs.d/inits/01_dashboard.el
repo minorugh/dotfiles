@@ -3,9 +3,8 @@
 ;;; Code:
 ;;(setq debug-on-error t)
 
-(leaf dashboard
+(leaf dashboard :ensure t
   :doc "An extracted startup screen"
-  :ensure t
   :if (display-graphic-p)
   :hook ((after-init-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))

@@ -24,13 +24,11 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
   (column-number-mode 0)
-  (leaf hide-mode-line
+  (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
-    :ensure t
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
   :preface
-  (leaf nyan-mode
-    :ensure t
+  (leaf nyan-mode :ensure t
     :hook after-init-hook
     :config
     (setq nyan-animate-nyancat t)))

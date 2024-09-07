@@ -3,8 +3,7 @@
 ;;; code:
 ;; (setq debug-on-error t)
 
-(leaf evil
-  :ensure t
+(leaf evil :ensure t
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
   :bind ((:evil-normal-state-map
