@@ -51,8 +51,8 @@
 ;; No startup screen appears
 (setq inhibit-splash-screen t)
 
-;; Emacs really shouldn't be displaying anything
-;; until it has fully started up. This saves a bit of time.
+;; Do not display anything until Emacs is fully started,
+;; this can reduce startup time
 (when (file-directory-p "~/.emacs.d/elpa/")
   (add-hook 'window-setup-hook
 	    (lambda ()
