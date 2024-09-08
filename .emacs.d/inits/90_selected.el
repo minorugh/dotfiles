@@ -14,7 +14,6 @@
 	 ("d" . deepl-translate)
  	 ("t" . gt-do-translate)
 	 ("T" . google-translate-auto)
-	 ("D" . my:deepl-translate)
 	 ("w" . my:weblio)
 	 ("g" . my:google-this))
   :config
