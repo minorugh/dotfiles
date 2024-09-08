@@ -8,7 +8,7 @@
   :chord ("::" . my:toggle-dimmer)
   :config
   (setq dimmer-buffer-exclusion-regexps
-	'("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Go-Translate*\\|\\magit\\|\\COMMIT_EDITMSG"))
+	'("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*\\|\\magit\\|\\COMMIT_EDITMSG"))
   (setq dimmer-fraction 0.5)
   (defvar my:dimmer-mode nil)
   (defun my:dimmer-activate ()
