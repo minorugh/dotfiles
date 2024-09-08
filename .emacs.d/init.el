@@ -34,7 +34,7 @@
   :init
   (leaf hydra :ensure t))
 
-(leaf font
+(leaf *font
   :config
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
