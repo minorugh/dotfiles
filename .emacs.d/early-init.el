@@ -55,7 +55,6 @@
 
 
 (provide 'early-init)
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

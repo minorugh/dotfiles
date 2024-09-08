@@ -47,6 +47,7 @@
 
 
 (leaf *my:deepl-translate
+  :doc "Use deepl-transrate on web"
   :commands my:deepl-translate
   :bind (("C-x T" . my:deepl-translate))
   :preface
