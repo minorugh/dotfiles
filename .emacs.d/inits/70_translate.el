@@ -37,20 +37,23 @@
     (list 427110 1469889687)))
 
 
+(leaf go-translate :ensure t
+  :doc "Translation framework on Emacs"
+  :url "https://github.com/lorniu/go-translate"
+  :bind ("C-c t" . gt-do-translate)
+  :config
+  (setq gt-langs '(en ja))
+  (defvar gt-default-translator nil)
+  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
+
+
 (leaf deepl-translate
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :doc "Display translation results in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :bind ("C-c d" . deepl-translate)
   :init
-  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
-
-(leaf go-translate
-  :ensure t
-  :bind ("C-c t" . gt-do-translate)
-  :config
-  (setq gt-langs '(en ja))
-  (defvar gt-default-translator nil)
+  (defvar deepl-auth-key nil)
   (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
 
 
