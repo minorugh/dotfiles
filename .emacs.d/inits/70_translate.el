@@ -43,8 +43,40 @@
   :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
   :bind ("C-c d" . deepl-translate)
   :init
-  (load "~/Dropbox/backup/emacs/api/deepl-api.el"))
+  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
 
+(leaf go-translate
+  :ensure t
+  :bind ("C-c t" . gt-do-translate)
+  :config
+  (setq gt-langs '(en ja))
+  (defvar gt-default-translator nil)
+  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
+
+;; Deepl translation on web page
+(leaf my:deeple-traqslate
+  :bind ("C-c D" . my:deepl-translate)
+  :preface
+  (defun my:deepl-translate (&optional string)
+    (interactive)
+    (setq string
+          (cond ((stringp string) string)
+		((use-region-p)
+		 (buffer-substring (region-beginning) (region-end)))
+		(t
+		 (save-excursion
+		   (let (s)
+		     (forward-char 1)
+		     (backward-sentence)
+		     (setq s (point))
+		     (forward-sentence)
+		     (buffer-substring s (point)))))))
+    (run-at-time 0.1 nil 'deactivate-mark)
+    (browse-url
+     (concat
+      "https://www.deepl.com/translator#en/ja/"
+      (url-hexify-string string)
+      ))))
 
 (leaf *my:deepl-translate
   :doc "Use deepl-transrate on web"
