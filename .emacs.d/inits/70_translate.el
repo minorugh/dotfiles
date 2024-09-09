@@ -1,41 +1,7 @@
-;;; 70_translate.el --- Google translate configurations.
+;;; 70_translate.el --- Deepl translate configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-
-(leaf google-translate :ensure t
-  :doc "Google translate configurations"
-  :bind ("C-t" . google-translate-auto)
-  :config
-  (defun google-translate-auto ()
-    "Automatically recognize and translate Japanese and English."
-    (interactive)
-    (if (use-region-p)
-	(let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
-	  (deactivate-mark)
-	  (if (string-match (format "\\`[%s]+\\'" "[:ascii:]")
-			    string)
-	      (google-translate-translate
-	       "en" "ja"
-	       string)
-	    (google-translate-translate
-	     "ja" "en"
-	     string)))
-      (let ((string (read-string "Google Translate: ")))
-	(if (string-match
-	     (format "\\`[%s]+\\'" "[:ascii:]")
-	     string)
-	    (google-translate-translate
-	     "en" "ja"
-	     string)
-	  (google-translate-translate
-	   "ja" "en"
-	   string)))))
-
-  (defun google-translate--get-b-d1 ()
-    "Fix error of `Failed to search TKK`."
-    (list 427110 1469889687)))
-
 
 (leaf *deepl-api
   :doc "Load Deeepl-auth-key from external file (for security)"
@@ -53,7 +19,7 @@
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
   :url "https://github.com/lorniu/go-translate"
-  :bind ("C-c t" . gt-do-translate)
+  :bind ("C-t" . gt-do-translate)
   :config
   (setq gt-langs '(en ja))
   (setq gt-default-translator
@@ -63,6 +29,32 @@
 		   (gt-google-engine)
 		   (gt-deepl-engine :key deepl-auth-key :pro nil))
 	 :render  (gt-buffer-render))))
+
+(leaf deepl-translate-web
+  :doc "Use deepl-transrate on web"
+  :commands my:deepl-translate
+  :bind (("C-c t" . my:deepl-translate))
+  :preface
+  (require 'url-util)
+  (defun my:deepl-translate (&optional string)
+    (interactive)
+    (setq string
+          (cond ((stringp string) string)
+                ((use-region-p)
+                 (buffer-substring (region-beginning) (region-end)))
+                (t
+                 (save-excursion
+                   (let (s)
+                     (forward-char 1)
+                     (backward-sentence)
+                     (setq s (point))
+                     (forward-sentence)
+                     (buffer-substring s (point)))))))
+    (run-at-time 0.1 nil 'deactivate-mark)
+    (browse-url
+     (concat
+      "https://www.deepl.com/translator#en/ja/"
+      (url-hexify-string string)))))
 
 
 ;; Local Variables:
