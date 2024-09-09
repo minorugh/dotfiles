@@ -1,0 +1,54 @@
+# ~/.mbsyncrc
+Expunge Both
+Create Both
+
+# accounts
+IMAPAccount work
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/mailpass_work.gpg"
+Host awesomeserver.mycompany.com
+User kobayashi
+SSLType IMAPS
+AuthMechs LOGIN
+
+IMAPAccount private
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/mailpass_private.gpg"
+Host myserver.mydomain.jp
+User yagshi
+SSLType IMAPS
+AuthMechs LOGIN
+
+# IMAPStores
+IMAPStore work-server
+Account work
+IMAPStore private-server
+Account private
+
+# MaildirStores
+MaildirStore work-local
+Path ~/Maildir/work
+Inbox ~/Maildir/work/Inbox
+
+MaildirStore private-local
+Path ~/Maildir/private
+Inbox ~/Maildir/private/Inbox
+
+# Channels
+# 例として、work は全部ひっくるめて work としています。
+# private は日本語フォルダがあるという前提で "inbox" と "迷惑メール" のみを同期することにします。
+Channel work
+Master :work-server:                       # 最新版では Master ではなく Far 推奨
+Slave  :work-local:                        # 最新版では Slave  ではなく Near 推奨
+Patterns: % !Archive !Deleted              # Archive と Deleted フォルダは同期しない
+
+Channel private-inbox
+Master :private-server:inbox               # サーバ側の "inbox" を……
+Slave  :private-local:inbox                # ローカルの "inbox" にマップ。
+
+Channel private-junk
+Master :private-server:"&j,dg0TDhMPww6w-"  # サーバ側の "迷惑メール" (modified UTF-7) を……
+Slave  :private-local:junk                 # ローカルの "junk" にマップ。
+
+# Group (private の 2つのチャンネルをまとめて private グループを定義)
+Group private
+Channel private-inbox
+Channel private-junk
