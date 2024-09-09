@@ -37,24 +37,32 @@
     (list 427110 1469889687)))
 
 
+(leaf *deepl-api
+  :doc "Load Deeepl-auth-key from external file (for security)"
+  :config
+  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
+
+(leaf deepl-translate
+  :vc (:url "https://github.com/minorugh/deepl-translate")
+  :doc "Translation in mini-buffer & copy to clipboard"
+  :url "https://gist.github.com/masatoi/"
+  :bind ("C-c d" . deepl-translate)
+  :config
+  (setq deepl-auth-key 'deepl-auth-key))
+
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
   :url "https://github.com/lorniu/go-translate"
   :bind ("C-c t" . gt-do-translate)
   :config
   (setq gt-langs '(en ja))
-  (defvar gt-default-translator nil)
-  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
-
-
-(leaf deepl-translate
-  :vc (:url "https://github.com/minorugh/deepl-translate")
-  :doc "Display translation results in mini-buffer & copy to clipboard"
-  :url "https://gist.github.com/masatoi/ec90d49331e40983427025f8167d01ee"
-  :bind ("C-c d" . deepl-translate)
-  :init
-  (defvar deepl-auth-key nil)
-  (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
+  (setq gt-default-translator
+	(gt-translator
+	 :taker   (gt-taker :text 'buffer :pick 'paragraph)
+	 :engines (list
+		   (gt-google-engine)
+		   (gt-deepl-engine :key deepl-auth-key :pro nil))
+	 :render  (gt-buffer-render))))
 
 
 ;; Local Variables:
