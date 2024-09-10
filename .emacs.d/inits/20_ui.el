@@ -14,7 +14,6 @@
   (hl-line . '((t (:background "#3B4252" :extend t)))))
 
 
-
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
   :hook after-init-hook

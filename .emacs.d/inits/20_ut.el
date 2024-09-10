@@ -23,14 +23,6 @@
     :hook (after-init-hook . sequential-command-setup-keys)))
 
 
-(leaf counsel-web :ensure t
-  :bind ("s-w" . counsel-web-search)
-  :config
-  (setq counsel-web-search-action #'browse-url)
-  (setq counsel-web-engine 'google)
-  (setq counsel-web-search-dynamic-update t))
-
-
 (leaf quickrun :ensure t
   :bind ([f6] . quickrun))
 
@@ -41,10 +33,6 @@
   :config
   (setq key-chord-two-keys-delay 0.1)
   :hook after-init-hook)
-
-
-(leaf iedit :ensure t
-  :bind ([insert] . iedit-mode))
 
 
 (leaf expand-region :ensure t
@@ -71,36 +59,6 @@
   :config (leaf smartparens-config :require t))
 
 
-(leaf darkroom :ensure t
-  :doc "Remove visual distractions and focus on writing"
-  :bind (([f8] . my:darkroom-in)
-	 (:darkroom-mode-map
-	  ([f8] . my:darkroom-out)))
-  :config
-  (defun my:darkroom-in ()
-    "Enter to the `darkroom-mode'."
-    (interactive)
-    (diff-hl-mode 0)
-    (display-line-numbers-mode 0)
-    (darkroom-tentative-mode 1)
-    (toggle-frame-fullscreen)
-    (setq-local line-spacing .2)
-    (evil-emacs-state))
-
-  (defun my:darkroom-out ()
-    "Returns from `darkroom-mode' to the previous state."
-    (interactive)
-    (darkroom-tentative-mode 0)
-    (display-line-numbers-mode 1)
-    (toggle-frame-fullscreen)
-    (setq-local line-spacing 0)
-    (evil-normal-state)))
-
-
-(leaf mail-mode
-  :doc "Using mail-mode for eml files for Thunderbird plugin support"
-  :mode ("\\.eml\\'" . mail-mode)
-  :hook (mail-mode-hook . darkroom-mode))
 
 
 (leaf ps-mule
