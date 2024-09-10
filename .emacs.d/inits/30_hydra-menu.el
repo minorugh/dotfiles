@@ -75,8 +75,8 @@
    (:hint nil :exit t)
    "
    Project.menu
-  _d_:日記  _m_:毎日  _z_:雑詠  _t_:定例  _M_:ＭＪ  _[__]_:創作  _e_:hugo^^  _p_s._r_  _j_unk._g_^^
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _O_:ＯＧ  _y__,_:年度  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _j_unk._g_^^
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._L_  re_@_p^^  _b_kup._c_._u_
 "
    ("p" ps-print-buffer)
    ("r" ps-print-region)
@@ -93,7 +93,8 @@
    ("d" my:diary)
    ("D" my:diary-new-post)
    ("i" gist-region-or-buffer)
-   ("l" (browse-url "https://gist.github.com/minorugh"))
+   ("L" (browse-url "https://gist.github.com/minorugh"))
+   ("l" lepton)
    ("t" my:teirei)
    ("T" my:teirei-new-post)
    ("s" my:swan)
@@ -101,9 +102,7 @@
    ("K" my:kinnei)
    ("k" my:kinnei-draft)
    ("m" my:d_kukai)
-   ("M" my:mj_kukai)
-   ("O" my:og_kukai)
-   ("z" my:m_kukai)
+   ("w" my:m_kukai)
    ("f" my:dselext)
    ("F" my:dselext-new-post)
    ("+" text-scale-adjust)
