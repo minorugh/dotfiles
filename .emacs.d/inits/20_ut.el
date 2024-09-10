@@ -59,8 +59,6 @@
   :config (leaf smartparens-config :require t))
 
 
-
-
 (leaf ps-mule
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
