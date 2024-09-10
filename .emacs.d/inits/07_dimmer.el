@@ -6,15 +6,21 @@
 (leaf dimmer :ensure t
   :doc "Visually highlight the selected buffer"
   :chord ("::" . my:toggle-dimmer)
+  :hook ((emacs-startup-hook . dimmer-excludes)
+	 (minibuffer-setup-hook . dimmer-off)
+	 (minibuffer-exit-hook  . dimmer-on))
   :config
   (setq dimmer-buffer-exclusion-regexps
-	;; '("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*\\|\\COMMIT_EDITMSG"))
 	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*"))
   (setq dimmer-fraction 0.5)
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit)
-  (dimmer-configure-hydra)
-  (dimmer-configure-org)
+
+  (defun dimmer-excludes ()
+    "Settings to suppress the dimmer."
+    (interactive)
+    (dimmer-configure-which-key)
+    (dimmer-configure-magit)
+    (dimmer-configure-hydra)
+    (dimmer-configure-org))
 
   (defvar my:dimmer-mode nil)
   (defun my:dimmer-activate ()
@@ -22,11 +28,8 @@
     (remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
   (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
 
-  ;; for swiper/counsel
-  (add-hook 'minibuffer-setup-hook 'dimmer-off)
-  (add-hook 'minibuffer-exit-hook  'dimmer-on)
-
   (defun my:toggle-dimmer ()
+    "Toggle dimmer-mode on and off."
     (interactive)
     (unless (one-window-p)
       (if (setq my:dimmer-mode (not my:dimmer-mode))
