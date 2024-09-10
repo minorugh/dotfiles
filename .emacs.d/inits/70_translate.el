@@ -8,6 +8,7 @@
   :config
   (load "~/Dropbox/backup/emacs/api/deepl-key.el"))
 
+
 (leaf deepl-translate
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :doc "Translation in mini-buffer & copy to clipboard"
@@ -15,6 +16,7 @@
   :bind ("C-c d" . deepl-translate)
   :config
   (setq deepl-auth-key 'deepl-auth-key))
+
 
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
@@ -29,6 +31,7 @@
 		   (gt-google-engine)
 		   (gt-deepl-engine :key deepl-auth-key :pro nil))
 	 :render  (gt-buffer-render))))
+
 
 (leaf deepl-translate-web
   :doc "Use deepl-transrate on web"
