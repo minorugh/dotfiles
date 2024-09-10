@@ -8,8 +8,14 @@
   :chord ("::" . my:toggle-dimmer)
   :config
   (setq dimmer-buffer-exclusion-regexps
-	'("^ \\*which-key\\|^ \\*Lv\\|\\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*\\|\\magit\\|\\COMMIT_EDITMSG"))
+	;; '("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*\\|\\COMMIT_EDITMSG"))
+	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*"))
   (setq dimmer-fraction 0.5)
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit)
+  (dimmer-configure-hydra)
+  (dimmer-configure-org)
+
   (defvar my:dimmer-mode nil)
   (defun my:dimmer-activate ()
     (setq my:dimmer-mode (dimmer-mode 1))
