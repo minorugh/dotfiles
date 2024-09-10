@@ -59,8 +59,7 @@
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
-  (init-loader-load)
-  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+  (init-loader-load))
 
 
 (provide 'init)
