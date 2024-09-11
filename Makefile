@@ -229,12 +229,6 @@ zoom: ## Install zoom
 	sudo gdebi zoom_amd64.deb
 	rm -f ./zoom_amd64.deb
 
-slack: ## Install slack
-	cd ${HOME}/Downloads && \
-	wget https://downloads.slack-edge.com/releases/linux/4.31.155/prod/x64/slack-desktop-4.31.155-amd64.deb
-	$(APT) ./slack-desktop-4.31.155-amd64.deb
-	rm -f ./slack-desktop-4.31.155-amd64.deb
-
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
@@ -246,6 +240,7 @@ flatpak:
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.github.PintaProject.Pinta
 	flatpak install flathub com.spotify.Client
+	flatpak install flathub com.slack.Slack
 ## uninstall for package 'flatpak uninstall --delete-data flathub com.spotify.Client'
 
 ########################################################
@@ -305,6 +300,7 @@ github: ## Clone github repository
 	git clone git@github.com:minorugh/upsftp.git && \
 	git clone git@github.com:minorugh/iceberg-theme.git \
 	git clone git@github.com:minorugh/emacs.d.git && \
+	git clone git@github.com:minorugh/emacs-easy-hugo.git \
 	git clone git@github.com:minorugh/minorugh.github.io.git
 # GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
 
