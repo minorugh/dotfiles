@@ -25,12 +25,19 @@
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
 	  ("<f10>"   . neotree-toggle)))
+  :init
+  (setq neo-keymap-style 'concise)
+  ;; conciseにするとキーバインドをシンプルにする
+  ;;  C ルートディレクトリ変更
+  ;;  c 作成
+  ;;  + 作成
+  ;;  d 削除
+  ;;  r リネーム
+  ;;  e エンター
   :config
   (with-eval-after-load 'doom-themes
     (doom-themes-neotree-config)) ;; need all-the-icons
-  (setq-default neo-keymap-style 'concise)
   (setq neo-mode-line-type nil)
-;;  (setq neo-keymap-style 'concise)
   (setq neo-create-file-auto-open t)
   (defun my:neotree-find ()
     "Neotree-find with dimmer-off."
