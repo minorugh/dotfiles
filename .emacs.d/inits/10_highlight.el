@@ -62,10 +62,10 @@
   :hook prog-mode-hook)
 
 
-;; (leaf rainbow-mode :ensure t
-;;   :doc "Color letter that indicate the color"
-;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-;;   :bind ("C-c w" . rainbow-mode))
+(leaf rainbow-mode :ensure t
+  :doc "Color letter that indicate the color"
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :bind ("C-c w" . rainbow-mode))
 
 
 ;; Local Variables:
