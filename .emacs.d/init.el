@@ -37,7 +37,7 @@
 (leaf *font
   :config
   (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (add-to-list 'default-frame-alist '(font . "Cica-21.5"))
+      (add-to-list 'default-frame-alist '(font . "Cica-20"))
     (add-to-list 'default-frame-alist '(font . "Cica-18"))))
 
 (leaf server

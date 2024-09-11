@@ -201,8 +201,6 @@ devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
 	$(APT) $@
 	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
-	# sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
-	# sudo ln -vsfn ${PWD}/devils/thunderbird.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
 
@@ -234,6 +232,12 @@ google-earth: ## Install google-earth
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
+
+slack: ## Install slack
+	cd ${HOME}/Downloads && \
+	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
+	sudo gdebi slack-desktop-4.39.95-amd64.deb # Filename must be confirmed each time
+	rm -f slack-desktop-4.39.95-amd64.deb
 
 flatpak:
 	$(APT) $@
@@ -296,7 +300,6 @@ github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh && \
 	git clone git@github.com:minorugh/GH.git && \
-	git clone git@github.com:minorugh/.emacs.d.git && \
 	git clone git@github.com:minorugh/upsftp.git && \
 	git clone git@github.com:minorugh/iceberg-theme.git \
 	git clone git@github.com:minorugh/emacs.d.git && \
