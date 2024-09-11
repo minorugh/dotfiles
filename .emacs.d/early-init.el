@@ -52,9 +52,6 @@
   (setq inhibit-message t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
-;; Specify custom files
-(setq custom-file "~/.emacs.d/tmp/custom.el")
-
 
 (provide 'early-init)
 ;; Local Variables:

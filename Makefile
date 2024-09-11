@@ -25,7 +25,6 @@
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
 # | sudo apt install -y zsh git make nautilus
-# | chsh -s /usr/bin/zsh
 
 ## 4. Install dropbox & setting
 # Before installing, configure the Synapyic repository & Check existence of package
@@ -38,12 +37,13 @@
 # | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
 # | make all
+# | chsh -s /usr/bin/zsh
 
 ## =======================================================================
 ## Run make from here
 ## =======================================================================
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm keychain
-PACKAGES	:= zsh-syntax-highlighting silversearcher-ag expect arc-theme
+PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
 PACKAGES	+= ruby gnome-terminal xclip vim tmux freerdp2-x11
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
@@ -206,7 +206,7 @@ devilspie: ## Init devilspie for minimize_startup applications
 
 gitk: ## Init gitk for git-gui
 	$(APT) $@
-	ln -vsfn {${PWD},${HOME}}/.config/git/gitk
+	sudo ln -vsfn {${PWD},${HOME}}/.config/git/gitk
 
 sxiv: ## Init sxiv
 	$(APT) $@
@@ -283,19 +283,6 @@ emacs-devel: ## Install emacs29.1
 	cd emacs-29.1 && ./autogen.sh && ./configure --with-native-compilation && sudo make && sudo make install  && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
-docker: ## Install docker
-	sudo apt install ca-certificates lsb-release
-	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian  $$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-	sudo apt update
-	sudo apt install docker-ce docker-ce-cli containerd.io
-	sudo gpasswd -a ${USER} docker
-	sudo systemctl enable --now docker
-
-docker-compose: ## Install docker-compose
-	sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-	sudo chmod +x /usr/local/bin/docker-compose
-
 github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh && \
@@ -314,6 +301,6 @@ github: ## Clone github repository
 # 2. Window Manager(in setting manager)>> style-> Arc-Dark, edit keyboard-> switch windows (Super+Alt), switch applications (Ctrl+Super), hide window (Alt+f9 to End key)
 # 3. Exterior setting>> select style:Arc-Dark, font size:14
 # 4. Print setting >> edit command: `sudo system-config-printer'
-# 5. Keyboad setting>> emacs:s-e, sylpheed:s-s, chrome:s-c, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
+# 5. Keyboad setting>> emacs:s-e, chrome:s-x, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
 # 6. Screen-saver>> select Atlantis with Only One mode
 # 7. session & launch>> Add minimized startup for command:devils_startup.sh

@@ -55,6 +55,9 @@
   :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template my:make)
 
+;; Specify custom files
+(setq custom-file "~/.emacs.d/tmp/custom.el")
+
 (leaf init-loader :ensure t
   :config
   (custom-set-variables

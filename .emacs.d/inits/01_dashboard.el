@@ -40,7 +40,8 @@
     (setq dashboard-items '((recents . 5))))
   ;; Set the footer
   (setq dashboard-footer-messages
-	'("Be joyful always. Pray constantly. Be thankful for Everything."))
+	;; '("Be joyful always. Pray constantly. Be thankful for Everything."))
+	'("Old men will dream dreams. Young men will see visions. (Joel 2.28)"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
   ;; Set the insert custom
   (defun dashboard-insert-custom (list-size)
