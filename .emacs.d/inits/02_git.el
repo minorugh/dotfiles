@@ -21,7 +21,7 @@
   :bind '(("C-x g" . magit-status)
 	  ("M-g" . hydra-git/body))
   :config
-  (setq transient-history-file "~/.emacs.d/tmp/transient/history")
+  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
   ;; Do not split window
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   :hydra
