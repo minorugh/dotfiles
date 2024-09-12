@@ -12,15 +12,15 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
+	  ("l"    . counsel-linux-app)
 	  ("a"    . org-agenda)
+	  ("m"    . sylpheed)
+	  ("s"    . slack)
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
 	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
  	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
-	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
-	  ("g" . (lambda () (interactive) (browse-url "https://github.com/minorugh")))
-	  ("m" . (lambda () (interactive) (compile "sylpheed")))
-	  ("s" . (lambda () (interactive) (compile "slack")))))
+	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
@@ -47,7 +47,7 @@
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " Agenda(a)   Weather(w)   Calendar(c)    News(n)    (m)    (x)   (s)   (h)"))
+    (insert " Agenda(a)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)   Twit(x)   GH(h)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
