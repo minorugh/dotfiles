@@ -233,18 +233,22 @@ google-earth: ## Install google-earth
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
-slack: ## Install slack
+slack: ## Install slack desktop
 	cd ${HOME}/Downloads && \
 	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
 	sudo gdebi slack-desktop-4.39.95-amd64.deb # Filename must be confirmed each time
 	rm -f slack-desktop-4.39.95-amd64.deb
 
-flatpak:
+spotify: ## Install sptify client
+	curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	sudo apt update
+	sudo apt install spotify-client
+
+flatpak: ## Install Pinta from flatpak
 	$(APT) $@
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.github.PintaProject.Pinta
-	flatpak install flathub com.spotify.Client
-	flatpak install flathub com.slack.Slack
 ## uninstall for package 'flatpak uninstall --delete-data flathub com.spotify.Client'
 
 ########################################################
