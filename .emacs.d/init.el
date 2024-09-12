@@ -34,12 +34,6 @@
   :init
   (leaf hydra :ensure t))
 
-(leaf *font
-  :config
-  (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (add-to-list 'default-frame-alist '(font . "Cica-20"))
-    (add-to-list 'default-frame-alist '(font . "Cica-18"))))
-
 (leaf server
   :commands (server-running-p)
   :hook
@@ -54,9 +48,6 @@
 (leaf *load-user-conf
   :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template my:make)
-
-;; Specify custom files
-(setq custom-file "~/.emacs.d/tmp/custom.el")
 
 (leaf init-loader :ensure t
   :config
