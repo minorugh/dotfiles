@@ -19,7 +19,7 @@
  	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))
 	  ("g" . (lambda () (interactive) (browse-url "https://github.com/minorugh")))
-	  ("m" . (lambda () (interactive) (compile "thunderbird")))
+	  ("m" . (lambda () (interactive) (compile "sylpheed")))
 	  ("s" . (lambda () (interactive) (compile "slack")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)

@@ -177,6 +177,13 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config
 
+sylpheed: ## Init sylpheed
+	$(APT) $@ bogofilter kakasi
+	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
+	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
+## Gmail security requires you to use the app password
+
+
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@
 	sudo ln -vsfn ${PWD}/bin/external-editor-revived /usr/local/bin

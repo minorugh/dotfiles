@@ -55,6 +55,12 @@
     "Open terminal and ssh to xsrv."
     (interactive)
     (shell-command "gnome-terminal --maximize -- ssh xsrv-emacs"))
+
+  ;; (defun sylpheed ()
+  ;;   "Open sylpheed."
+  ;;   (interactive)
+  ;;   (shell-command "sylpheed"))
+
   (defun my:muhenkan ()
     (interactive)
     (if (not (use-region-p))
