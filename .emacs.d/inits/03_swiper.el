@@ -6,7 +6,7 @@
 (leaf swiper :ensure t
   :doc "Isearch with an overview"
   :bind (("C-s" . swiper-region)
-	 ("C-c r" . swiper-thing-at-point))
+	 ("C-r" . swiper-thing-at-point))
   :config
   (defun swiper-region ()
     "If region is selected, `swiper-thing-at-point'.
