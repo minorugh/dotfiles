@@ -56,10 +56,15 @@
     (interactive)
     (shell-command "gnome-terminal --maximize -- ssh xsrv-emacs"))
 
-  ;; (defun sylpheed ()
-  ;;   "Open sylpheed."
-  ;;   (interactive)
-  ;;   (shell-command "sylpheed"))
+  (defun sylpheed ()
+    "Open sylpheed."
+    (interactive)
+    (compile "sylpheed"))
+
+  (defun slack ()
+    "Open slack-desktop."
+    (interactive)
+    (compile "slack"))
 
   (defun my:muhenkan ()
     (interactive)
