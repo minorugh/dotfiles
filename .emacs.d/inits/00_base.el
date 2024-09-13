@@ -46,8 +46,10 @@
   (setq set-mark-command-repeat-pop t)
   ;; Use the X11 clipboard
   (setq select-enable-clipboard  t)
-  ;;Hide cursor in inactive window
+  ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
+  ;; Confirm yes/no when exiting Emacs
+  (setq confirm-kill-emacs 'y-or-n-p)
   ;; change-default-file-location
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
