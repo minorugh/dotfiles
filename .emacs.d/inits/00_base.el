@@ -48,11 +48,6 @@
   (setq select-enable-clipboard  t)
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
-  ;; Override `X' button action to minimize
-  (defun handle-delete-frame (event)
-    "Overwrite-handle-delete-frame."
-    (interactive "e")
-    (iconify-frame))
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
@@ -63,6 +58,11 @@
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
+  ;; Override `X' button action to minimize
+  (defun handle-delete-frame (event)
+    "Overwrite-handle-delete-frame."
+    (interactive "e")
+    (iconify-frame))
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
