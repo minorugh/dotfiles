@@ -58,9 +58,9 @@
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
-  ;; Override `X' button action to minimize
+  ;; Overwrite-handle-delete-frame
   (defun handle-delete-frame (event)
-    "Overwrite-handle-delete-frame."
+    "Override `X' button action to minimize."
     (interactive "e")
     (iconify-frame))
   ;; Recovery
