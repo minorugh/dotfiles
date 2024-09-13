@@ -11,10 +11,11 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _l_inuxApp
+  _r_estart  magit_[__]_  _t_ramp  GH_h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^  _a_genda
   "
-   ("p" keepassxc)
+   ("a" org-agenda)
+   ("i" my:inits-dir)
    ("+" text-scale-adjust)
    ("o" my:org-dir)
    ("t" counsel-tramp)
@@ -23,6 +24,7 @@
    ("d" my:dropbox)
    ("D" chromium-dropbox)
    ("." my:dotfiles-dir)
+   ("l" counsel-linux-app)
    ("i" my:inits-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
@@ -34,6 +36,7 @@
    ("c" make-commit)
    ("k" my:make-k)
    ("g" my:make-git)
+   ("p" keepassxc)
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)
