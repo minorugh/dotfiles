@@ -49,10 +49,10 @@
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
   ;; Override `X' button action to minimize
-  ;; (defun handle-delete-frame (event)
-  ;;   "Overwrite-handle-delete-frame."
-  ;;   (interactive "e")
-  ;;   (iconify-frame))
+  (defun handle-delete-frame (event)
+    "Overwrite-handle-delete-frame."
+    (interactive "e")
+    (iconify-frame))
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
