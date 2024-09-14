@@ -210,6 +210,7 @@ devilspie: ## Init devilspie for minimize_startup applications
 	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
+# then session & launch>> Add minimized startup for command:devils_startup.sh
 
 gitk: ## Init gitk for git-gui
 	$(APT) $@
