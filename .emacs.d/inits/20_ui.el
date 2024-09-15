@@ -52,6 +52,10 @@
   (setq blink-cursor-delay    10))
 
 
+(leaf fontawesome :ensure t
+  :doc "Emacs fontawesome utility")
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
