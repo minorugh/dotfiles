@@ -27,7 +27,7 @@
 	  ("<f10>"   . neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
-  ;; conciseにするとキーバインドをシンプルにする
+  ;; conciseにするとキーバインドをシンプルにできる
   ;;  C ルートディレクトリ変更
   ;;  c 作成
   ;;  + 作成
