@@ -22,6 +22,7 @@ If the region isn't selected, `swiper'."
     :hook (after-init-hook . global-swiper-migemo-mode)
     :config
     (add-to-list 'swiper-migemo-enable-command 'counsel-rg)
+    (add-to-list 'swiper-migemo-enable-command 'counsel-web)
     (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
     (migemo-kill)
     (migemo-init))
@@ -32,7 +33,12 @@ If the region isn't selected, `swiper'."
     :hook (after-init-hook . migemo-init)
     :config
     (setq migemo-command    "cmigemo")
-    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
+    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
+
+  (leaf counsel-web :ensure t
+    :doc "Dynamic web search and suggestions with ivy"
+    :bind ("s-w" . counsel-web-search)
+    :config (setq counsel-web-search-action #'browse-url)))
 
 
 ;; Local Variables:
