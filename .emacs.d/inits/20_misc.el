@@ -35,6 +35,11 @@
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
 
+(leaf iedit :ensure t
+  :doc "Edit multiple occurrences in the same way simultaneously"
+  :bind ("<insert>" . iedit-mode))
+
+
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
   :hook prog-mode-hook
