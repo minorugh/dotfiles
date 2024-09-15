@@ -63,18 +63,7 @@
     (setq default-directory "~/")
     (delete-other-windows)
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files))
-
-  (defun emacs-init-time ()
-    "Overwrite `emacs-init-time'."
-    (interactive)
-    (let ((str
-	   (format "%.1f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
-	  (message "%s" str)
-	str))))
+    (dashboard-goto-recent-files)))
 
 
 ;; Local Variables:
