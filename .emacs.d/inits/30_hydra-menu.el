@@ -78,9 +78,11 @@
    (:hint nil :exit t)
    "
    Project.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _j_unk._g_^^
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._L_  re_@_p^^  _b_kup._c_._u_
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _j_unk._g_^^  _2_:frame
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._L_  re_@_p^^  _b_kup._c_._u_  _0_:frame
 "
+   ("2" make-frame-command)
+   ("0" delete-frame)
    ("p" ps-print-buffer)
    ("r" ps-print-region)
    ("y" my:year)
