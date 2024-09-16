@@ -43,7 +43,7 @@
   (hydra-pinky
    (:color red :hint nil)
    "
-  :_0_._1_._o_._S_  :_-__.__+_  _d_iff:_n_._p_  buffer:_[__:__]_  _f_ind-file  _s_wiper"
+  :_0_._1_._o_._S_._5_._/_  :_-__.__+_  _d_iff:_n_._p_  buffer:_[__:__]_  _f_ind-file  _s_wiper"
    ;; window
    ("+" text-scale-increase)
    ("-" text-scale-decrease)
@@ -51,6 +51,8 @@
    ("0" delete-window)
    ("1" delete-other-windows)
    ("2" split-window-below)
+   ("5" make-frame-command)
+   ("/" delete-frame)
    ("S" window-swap-states)
    ("o" other-window-or-split)
    ;; diff-hl
