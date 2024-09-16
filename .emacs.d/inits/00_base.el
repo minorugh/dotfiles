@@ -69,7 +69,24 @@
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
-  (add-hook 'after-init-hook 'savehist-mode))
+  (add-hook 'after-init-hook 'savehist-mode)
+  ;; Recentf
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude
+	'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (add-hook 'after-init-hook 'recentf-mode)
+  ;;Overwrite `emacs-init-time
+  (defun emacs-init-time ()
+    "Overwrite `emacs-init-time'."
+    (interactive)
+    (let ((str
+	   (format "%.1f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))))
+      (if (called-interactively-p 'interactive)
+	  (message "%s" str)
+	str))))
 
 
 ;; Local Variables:
