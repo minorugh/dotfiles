@@ -49,6 +49,14 @@
   :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template my:make)
 
+;; Recentf
+(setq recentf-auto-cleanup 'never)
+(setq recentf-exclude
+      '("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
+(setq recentf-save-file "~/.emacs.d/tmp/recentf")
+(add-hook 'after-init-hook 'recentf-mode)
+
+;; Init loader
 (leaf init-loader :ensure t
   :config
   (custom-set-variables
