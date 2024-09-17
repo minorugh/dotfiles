@@ -44,6 +44,14 @@
   ;; It keeps going steadily the local mark ...  C-u C-SPC C-SPC
   ;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
   (setq set-mark-command-repeat-pop t)
+  ;; Display project name in title bar
+  (setq icon-title-format
+	(setq frame-title-format
+              '((:eval
+		 (let ((project-name (projectile-project-name)))
+                   (unless (string= "-" project-name)
+                     (format "(%s) - " project-name))))
+		"%b")))
   ;; Use the X11 clipboard
   (setq select-enable-clipboard  t)
   ;; Hide cursor in inactive window

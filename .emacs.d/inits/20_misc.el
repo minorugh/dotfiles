@@ -7,16 +7,7 @@
   :doc "Manage and navigate projects in Emacs"
   :config
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
-  :hook after-init-hook
-  :preface
-  ;; Project name displayed in title bar
-  (setq icon-title-format
-	(setq frame-title-format
-              '((:eval
-		 (let ((project-name (projectile-project-name)))
-                   (unless (string= "-" project-name)
-                     (format "(%s) - " project-name))))
-		"%b"))))
+  :hook after-init-hook)
 
 
 (leaf prescient :ensure t
