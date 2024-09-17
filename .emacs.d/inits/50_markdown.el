@@ -5,6 +5,7 @@
 
 (leaf markdown-mode :ensure t
   :mode ("\\.md\\'" . gfm-mode)
+  :bind ("C-c RET"  . markdown-follow-link-at-point)
   :config
   (setq markdown-command '("pandoc" "--from=markdown" "--to=html5"))
   (setq markdown-command-needs-filename t)
