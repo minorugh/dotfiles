@@ -1,4 +1,4 @@
-;;; 40_dired-ut.el --- Dired util configurations.
+;;; 41_dired-ut.el --- Dired util configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -39,4 +39,4 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 40_dired-ut.el ends here
+;;; 41_dired-ut.el ends here

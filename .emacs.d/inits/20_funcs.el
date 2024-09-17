@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *define-functions
+(leaf *user-define-functions
   :doc "User custom key bind"
   :bind	(([f3]  . thunar-open)
 	 ([f4]  . terminal-open)
