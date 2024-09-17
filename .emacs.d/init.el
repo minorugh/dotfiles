@@ -47,7 +47,7 @@
 
 (leaf *load-user-conf
   :load-path "~/.emacs.d/elisp/"
-  :require my:browse my:dired my:template my:make)
+  :require my:browse my:dired my:template)
 
 ;; Init loader
 (leaf init-loader :ensure t

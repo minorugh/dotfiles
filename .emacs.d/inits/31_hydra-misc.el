@@ -1,4 +1,4 @@
-;;; 30_hydra-misc.el --- hydra misc mode configurations.
+;;; 31_hydra-misc.el --- hydra misc mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,4 +71,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-misc.el ends here
+;;; 31_hydra-misc.el ends here

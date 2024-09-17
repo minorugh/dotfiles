@@ -21,6 +21,45 @@
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
 
+(leaf *user-make-function
+  :doc "User make functions"
+  :init
+  (defun my:make-k ()
+    "Make k."
+    (interactive)
+    (compile "make -k"))
+
+  (defun my:make-draft ()
+    "Make kinnei draft."
+    (interactive)
+    (compile "make df"))
+
+  (defun my:make-upsftp ()
+    "Make upfstp."
+    (interactive)
+    (compile "make up"))
+
+  (defun my:make-move ()
+    "Make move."
+    (interactive)
+    (compile "make mv"))
+
+  (defun my:make-bklog ()
+    "Make bklog."
+    (interactive)
+    (compile "make bk"))
+
+  (defun my:make-git ()
+    "Make git."
+    (interactive)
+    (compile "make git"))
+
+  (defun my:make-clean ()
+    "Make clean."
+    (interactive)
+    (compile "make clean")))
+
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
