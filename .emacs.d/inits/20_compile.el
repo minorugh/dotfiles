@@ -21,8 +21,8 @@
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
 
-(leaf *user-make-function
-  :doc "User make functions"
+(leaf *user-make-command
+  :doc "User make command functions"
   :init
   (defun my:make-k ()
     "Make k."
