@@ -10,7 +10,6 @@
 	 ((dashboard-mode-hook
 	   eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
 
-
 (leaf *whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :tag "Builtin"
@@ -29,7 +28,6 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
-
 (leaf *paren
   :doc "Highlight matching parens"
   :tag "builtin"
@@ -40,7 +38,6 @@
   (setq show-paren-when-point-in-periphery t)
   :custom-face
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
-
 
 (leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
@@ -55,18 +52,16 @@
       (pulse-momentary-highlight-region beg end face))
     (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
-
 (leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook prog-mode-hook)
 
-
-(leaf rainbow-mode :ensure t
-  :doc "Color letter that indicate the color"
-  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :hook prog-mode-hook
-  :bind ("C-c w" . rainbow-mode))
+;; (leaf rainbow-mode :ensure t
+;;   :doc "Color letter that indicate the color"
+;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+;;   :hook prog-mode-hook
+;;   :bind ("C-c w" . rainbow-mode))
 
 
 ;; Local Variables:

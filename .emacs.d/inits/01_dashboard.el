@@ -12,8 +12,6 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
-	  ("l"    . counsel-linux-app)
-	  ("A"    . org-agenda)
 	  ("m"    . sylpheed)
 	  ("s"    . slack)
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
@@ -40,14 +38,13 @@
     (setq dashboard-items '((recents . 5))))
   ;; Set the footer
   (setq dashboard-footer-messages
-	;; '("Be joyful always. Pray constantly. Be thankful for Everything."))
 	'("Old men will dream dreams. Young men will see visions. (Joel 2.28)"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
   ;; Set the insert custom
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " Agenda(A)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)   Twitter(x)   GH(h)"))
+    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)   Twitter(x)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
@@ -63,7 +60,17 @@
     (setq default-directory "~/")
     (delete-other-windows)
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files)))
+    (dashboard-goto-recent-files))
+
+  (defun sylpheed ()
+    "Open sylpheed."
+    (interactive)
+    (compile "sylpheed"))
+
+  (defun slack ()
+    "Open slack-desktop."
+    (interactive)
+    (compile "slack")))
 
 
 ;; Local Variables:

@@ -37,13 +37,6 @@
   (setq next-line-add-newlines nil)
   ;; Make it easy to see when it is the same name file
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-  ;; Disallow adding new lines with newline at the end of the buffer
-  (setq next-line-add-newlines nil)
-  ;; Make it easy to see when it is the same name file
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-  ;; It keeps going steadily the local mark ...  C-u C-SPC C-SPC
-  ;; It keeps going steadily the global mark ... C-x C-SPC C-SPC
-  (setq set-mark-command-repeat-pop t)
   ;; Use the X11 clipboard
   (setq select-enable-clipboard  t)
   ;; Hide cursor in inactive window
@@ -75,18 +68,7 @@
   (setq recentf-exclude
 	'("\\.howm-keys" "Dropbox/backup" ".emacs.d/tmp/" ".emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
-  ;;Overwrite `emacs-init-time
-  (defun emacs-init-time ()
-    "Overwrite `emacs-init-time'."
-    (interactive)
-    (let ((str
-	   (format "%.3f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
-	  (message "%s" str)
-	str))))
+  (add-hook 'after-init-hook 'recentf-mode))
 
 
 ;; Local Variables:

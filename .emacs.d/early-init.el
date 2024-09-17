@@ -55,6 +55,18 @@
     (add-to-list 'default-frame-alist '(font . "Cica-20"))
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
+;; Overwrite `emacs-init-time'
+(defun emacs-init-time ()
+  "Overwrite `emacs-init-time'."
+  (interactive)
+  (let ((str
+	 (format "%.3f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+	(message "%s" str)
+      str)))
+
 ;; Custom files
 (setq custom-file "~/.emacs.d/tmp/custom.el")
 

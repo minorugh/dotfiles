@@ -3,17 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf all-the-icons :ensure t
-  :doc "utility package to collect various Icon Fonts"
-  :after neotree
-  :if (display-graphic-p)
-  :config
-  (setq all-the-icons-dired-monochrome nil)
-  (setq all-the-icons-scale-factor 0.8)
-  (unless (member "all-the-icons" (font-family-list))
-    (all-the-icons-install-fonts t)))
-
-
 (leaf neotree :ensure t
   :doc "Tree plugin like NerdTree for Vim"
   :after projectile
