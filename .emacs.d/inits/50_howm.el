@@ -19,7 +19,7 @@
   :config
   (setq howm-view-split-horizontally t)
   (setq howm-view-summary-persistent nil)
-  (setq howm-normalizer              'howm-sort-items-by-reverse-date)
+  (setq howm-normalizer 'howm-sort-items-by-reverse-date)
   (setq howm-user-font-lock-keywords
 	'(("memo:" . (0 'compilation-error))
 	  ("note:" . (0 'compilation-info))
