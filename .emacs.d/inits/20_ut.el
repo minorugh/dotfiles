@@ -3,11 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key :ensure t
-  :config
-  (setq which-key-max-description-length 40)
-  :hook after-init-hook)
-
 (leaf counsel-tramp :ensure t
   :config
   (setq tramp-persistency-file-name "~/.emacs.d/tmp/tramp")
@@ -45,12 +40,19 @@
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
-(leaf smartparens :ensure t
-  :doc "minor mode for dealing with pairs"
-  :hook (after-init-hook . smartparens-global-mode)
-  :config (leaf smartparens-config :require t))
-
+(leaf elec-pair
+  :doc "Automatic parenthesis pairing"
+  :tag "Builtin"
+  :hook (after-init-hook . electric-pair-mode)
+  :config
+  (defadvice electric-pair-post-self-insert-function
+      (around electric-pair-post-self-insert-function-around activate)
+    "Don't insert the closing pair in comments or strings"
+    (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+      ad-do-it)))
+					;
 (leaf ps-mule
+  :tag "Builtin"
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config

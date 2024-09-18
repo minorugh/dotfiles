@@ -3,12 +3,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(leaf which-key :ensure t
+  :config
+  (setq which-key-max-description-length 40)
+  :hook after-init-hook)
+
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
   :config
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
   :hook after-init-hook)
-
 
 (leaf prescient :ensure t
   :doc "Better sorting and filtering"
@@ -19,26 +23,21 @@
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
-
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
   :hook after-init-hook)
-
 
 (leaf posframe :ensure t
   :doc "Pop a posframe (just a frame) at point"
   :when window-system)
 
-
 (leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
-
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))
-
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
@@ -46,7 +45,6 @@
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
   (add-hook 'lisp-interaction-mode-hook '(lambda () (flycheck-mode 0))))
-
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
@@ -58,7 +56,6 @@
   (leaf counsel-css :ensure t
     :doc "stylesheet-selector-aware swiper"
     :hook (css-mode-hook . counsel-css-imenu-setup)))
-
 
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"

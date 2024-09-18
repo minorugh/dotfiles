@@ -16,7 +16,7 @@
 	  ("s" . (lambda () (interactive) (shell-command "slack")))
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
- 	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
+	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)
