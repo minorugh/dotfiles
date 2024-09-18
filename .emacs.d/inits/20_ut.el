@@ -52,6 +52,7 @@
       ad-do-it)))
 					;
 (leaf ps-mule
+  :doc "provide multi-byte character facility to ps-print"
   :tag "Builtin"
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
