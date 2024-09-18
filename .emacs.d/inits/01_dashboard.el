@@ -34,7 +34,7 @@
   (setq show-week-agenda-p t)
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
-    (setq dashboard-items '((recents . 5))))
+    (setq dashboard-items '((recents . 3))))
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Old men will dream dreams. Young men will see visions. (Joel 2.28)"))
