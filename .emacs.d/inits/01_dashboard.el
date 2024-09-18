@@ -16,7 +16,6 @@
 	  ("s" . (lambda () (interactive) (shell-command "slack")))
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
-	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
  	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
@@ -44,7 +43,7 @@
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)   Twitter(x)"))
+    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
@@ -60,7 +59,18 @@
     (setq default-directory "~/")
     (delete-other-windows)
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files)))
+    (dashboard-goto-recent-files))
+
+  (defun emacs-init-time ()
+    "Overwrite `emacs-init-time'."
+    (interactive)
+    (let ((str
+	   (format "%.1f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))))
+      (if (called-interactively-p 'interactive)
+	  (message "%s" str)
+	str))))
 
 
 ;; Local Variables:

@@ -48,7 +48,7 @@
    ("w" (browse-url "https://tenki.jp/week/6/31/"))
    ("g" (browse-url "https://minorugh.github.io/"))
    ("p" (browse-url "https://getpocket.com/a/queue/"))
-   ("t" (browse-url "https://tweetdeck.twitter.com/"))
+   ("t" (browse-url "https://twitter.com/gospelhaiku"))
    ("s" (browse-url "https://emacs-jp.slack.com/messages/C1B73BWPJ/"))
    ("<muhenkan>" nil)
    ("." nil))
