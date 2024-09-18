@@ -23,6 +23,11 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
+;; Font
+(if (string-match "P1" (shell-command-to-string "uname -n"))
+    (add-to-list 'default-frame-alist '(font . "Cica-20"))
+  (add-to-list 'default-frame-alist '(font . "Cica-18")))
+
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
@@ -46,11 +51,6 @@
 	      (redisplay)))
   (setq inhibit-message t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
-
-;; Font
-(if (string-match "P1" (shell-command-to-string "uname -n"))
-    (add-to-list 'default-frame-alist '(font . "Cica-20"))
-  (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
 ;; Custom files
 (setq custom-file "~/.emacs.d/tmp/custom.el")
