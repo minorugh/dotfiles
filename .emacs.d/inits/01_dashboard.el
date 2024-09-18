@@ -12,8 +12,8 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
-	  ("m"    . sylpheed)
-	  ("s"    . slack)
+	  ("m" . (lambda () (interactive) (shell-command "sylpheed")))
+	  ("s" . (lambda () (interactive) (shell-command "slack")))
 	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
 	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
 	  ("x" . (lambda () (interactive) (browse-url "https://twitter.com/gospelhaiku")))
@@ -60,17 +60,7 @@
     (setq default-directory "~/")
     (delete-other-windows)
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files))
-
-  (defun sylpheed ()
-    "Open sylpheed."
-    (interactive)
-    (compile "sylpheed"))
-
-  (defun slack ()
-    "Open slack-desktop."
-    (interactive)
-    (compile "slack")))
+    (dashboard-goto-recent-files)))
 
 
 ;; Local Variables:

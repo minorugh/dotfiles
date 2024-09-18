@@ -29,11 +29,6 @@
     (interactive)
     (compile "make -k"))
 
-  (defun my:make-draft ()
-    "Make kinnei draft."
-    (interactive)
-    (compile "make df"))
-
   (defun my:make-upsftp ()
     "Make upfstp."
     (interactive)

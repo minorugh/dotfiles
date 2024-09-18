@@ -1,4 +1,4 @@
-;;; 20_funcs.el --- Define functions.
+;;; 20_func.el --- Define functions.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,4 +66,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_funcs.el ends here
+;;; 20_func.el ends here
