@@ -1,4 +1,4 @@
-;;; 20_misc.el --- Misc utility configurations.
+;;; 20_ut-misc.el --- Misc utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -57,6 +57,7 @@
     :doc "stylesheet-selector-aware swiper"
     :hook (css-mode-hook . counsel-css-imenu-setup)))
 
+
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
@@ -69,4 +70,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_misc.el ends here
+;;; 20_ut-misc.el ends here

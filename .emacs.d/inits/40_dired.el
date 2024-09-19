@@ -51,13 +51,7 @@
 	       (dired-goto-subdir up))
 	  (progn
 	    (find-alternate-file up)
-	    (dired-goto-file dir)))))
-
-  (defun dired-open-file ()
-    "In dired, open the file in associated application."
-    (interactive)
-    (let* ((file (dired-get-filename nil t)))
-      (call-process "xdg-open" nil 0 nil file))))
+	    (dired-goto-file dir))))))
 
 
 ;; Local Variables:

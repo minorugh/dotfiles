@@ -1,4 +1,4 @@
-;;; 30_hydra-dired.el --- Hydra configuration for quick dired.
+;;; 30_hydra-quick.el --- Hydra configuration for quick dired.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -50,8 +50,6 @@
   :init
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
-    (interactive)
-    (compile "secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx")
     (delete-other-windows))
 
   (defun my:magit-status ()
@@ -71,4 +69,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-dired.el ends here
+;;; 30_hydra-quick.el ends here

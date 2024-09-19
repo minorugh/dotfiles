@@ -1,4 +1,4 @@
-;;; 30_hydra-work.el --- Hydra configuration for work menu.
+;;; 30_hydra-works.el --- Hydra configuration for work menu.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -72,4 +72,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-work.el ends here
+;;; 30_hydra-works.el ends here

@@ -1,10 +1,16 @@
-;;; 41_dired-ut.el --- Dired util configurations.
+;;; 40_init-dired.el --- Dired util configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf dired-ut
   :config
+  (defun dired-open-file ()
+    "In dired, open the file in associated application."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (call-process "xdg-open" nil 0 nil file)))
+
   (defun call-sxiv ()
     "Show all images in the directory with sxiv.
 see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
@@ -39,4 +45,4 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 41_dired-ut.el ends here
+;;; 40_init-dired.el ends here
