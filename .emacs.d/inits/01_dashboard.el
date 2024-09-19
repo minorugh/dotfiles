@@ -11,13 +11,7 @@
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
-	  ("."    . hydra-browse/body)
-	  ("m" . (lambda () (interactive) (shell-command "sylpheed")))
-	  ("s" . (lambda () (interactive) (shell-command "slack")))
-	  ("c" . (lambda () (interactive) (browse-url "https://calendar.google.com/calendar/r")))
-	  ("n" . (lambda () (interactive) (browse-url "https://www.nhk.or.jp/news/")))
-	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/forecast/6/31/6310/28100/")) )
-	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
+	  ("."    . hydra-browse/body)))
   :init
   (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
@@ -39,13 +33,6 @@
   (setq dashboard-footer-messages
 	'("Old men will dream dreams. Young men will see visions. (Joel 2.28)"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
-  ;; Set the insert custom
-  (defun dashboard-insert-custom (list-size)
-    "Insert custom itemes."
-    (interactive)
-    (insert " GH(h)   Weather(w)   Calendar(c)    News(n)    Gmail(m)   Slack(s)"))
-  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
-  (add-to-list 'dashboard-items '(custom) t)
 
   (defun dashboard-goto-recent-files ()
     "Go to recent files."
