@@ -1,4 +1,4 @@
-;;; 20_ut-misc.el --- Misc utility configurations.
+;;; 21_ut-misc.el --- Misc utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -70,4 +70,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_ut-misc.el ends here
+;;; 21_ut-misc.el ends here

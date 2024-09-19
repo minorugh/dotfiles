@@ -1,4 +1,4 @@
-;;; 30_hydra-quick.el --- Hydra configuration for quick dired.
+;;; 30_hydra-dired.el --- Hydra configuration for quick dired.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -69,4 +69,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 30_hydra-quick.el ends here
+;;; 30_hydra-dired.el ends here
