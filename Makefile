@@ -290,9 +290,9 @@ perlbrew: ## Install perlbrew
 emacs-devel: ## Install emacs29.1
 	sudo apt-get build-dep emacs-gtk
 	cd ${HOME}/src
-	wget http://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz
-	tar xvf emacs-29.1.tar.xz
-	cd emacs-29.1 && ./autogen.sh && ./configure --with-native-compilation && sudo make && sudo make install  && make clean
+	wget http://ftp.gnu.org/gnu/emacs/emacs-29.4.tar.xz
+	tar xvf emacs-29.4.tar.xz
+	cd emacs-29.4 && ./autogen.sh && ./configure --with-native-compilation && sudo make && sudo make install  && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
 github: ## Clone github repository
