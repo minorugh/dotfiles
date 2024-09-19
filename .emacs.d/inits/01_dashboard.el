@@ -11,7 +11,10 @@
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
-	  ("."    . hydra-browse/body)))
+	  ("."    . hydra-browse/body)
+	  ("m" . (lambda () (interactive) (shell-command "sylpheed")))
+	  ("s" . (lambda () (interactive) (shell-command "slack")))
+	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
@@ -28,7 +31,7 @@
   (setq show-week-agenda-p t)
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
-    (setq dashboard-items '((recents . 3))))
+    (setq dashboard-items '((recents . 5))))
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Old men will dream dreams. Young men will see visions. (Joel 2.28)"))
