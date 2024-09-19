@@ -61,7 +61,6 @@
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
-  (leaf popup :ensure t)
   (leaf request	:ensure t
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request"))
