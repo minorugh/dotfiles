@@ -49,7 +49,7 @@
     (toggle-input-method))
 
   (defun mozc-insert-str (str)
-    "STR Immediately confirmed by punctuation."
+    "Immediately confirmed by punctuation."
     (interactive)
     (mozc-handle-event 'enter)
     (insert str))
