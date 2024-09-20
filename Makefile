@@ -313,4 +313,6 @@ github: ## Clone github repository
 # 4. Print setting >> edit command: `sudo system-config-printer'
 # 5. Keyboad setting>> emacs:s-e, chrome:s-x, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
 # 6. Screen-saver>> select Atlantis with Only One mode
-# 7. session & launch>> Add minimized startup for command:devils_startup.sh
+# 7. Session & launch>> Add minimized startup for command:devils_startup.sh
+# 8. Session & launch>> Uncheck "Save Session Self-Recyclically on Logout" on general Tags.
+# 9. Action button on panel>> Uncheck "Save session for next login" on Logout selection panel.
