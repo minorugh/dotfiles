@@ -316,3 +316,16 @@ github: ## Clone github repository
 # 7. Session & launch>> Add minimized startup for command:devils_startup.sh
 # 8. Session & launch>> Uncheck "Save Session Self-Recyclically on Logout" on general Tags.
 # 9. Action button on panel>> Uncheck "Save session for next login" on Logout selection panel.
+
+## ====================================================================
+## Debian インストール後に設定をカスタマイズする
+## ====================================================================
+# 1. Capsキーを Ctrl に置き換えます>> `sudo nano /etc/default/keyboard' && XKBOPTIONS="ctrl:nocaps" に編集して再起動します
+# 2. ウィンドウマネージャー(設定マネージャー内)>> スタイル-> Arc-Dark、キーボード編集-> ウィンドウの切り替え (Super+Alt)、アプリケーションの切り替え (Ctrl+Super)、ウィンドウの非表示 (Alt+f9 から End キー)
+# 3. 外部設定 >> スタイル:Arc-Dark、フォントサイズ:14 を選択
+# 4. 印刷設定 >> コマンド編集: `sudo system-config-printer'
+# 5. キーボード設定>> emacs:s-e, chrome:s-x, gnome-terminal:C-z, xfce4-screenshooter -r:Alt+Shift, xfce4-screenshooter -w:Alt+Ctrl
+# 6. スクリーンセーバー >> Atlantis with Only One モードを選択します
+# 7. セッションと起動>> コマンドの最小化スタートアップを追加:devils_startup.sh
+# 8. セッションと起動>> 一般タグの「ログアウト時にセッションを自己循環的に保存」のチェックを外します。
+# 9. パネルのアクションボタン>> ログアウト選択パネルの「次回のログインのためにセッションを保存する」のチェックを外します。

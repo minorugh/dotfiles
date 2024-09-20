@@ -12,8 +12,8 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
-	  ("m" . (lambda () (interactive) (shell-command "sylpheed")))
-	  ("s" . (lambda () (interactive) (shell-command "slack")))
+	  ("m" . (lambda () (interactive) (compile "sylpheed")))
+	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-icon-type 'nerd-icons)

@@ -22,7 +22,7 @@
   (defun thunar-open ()
     "Open thunar with current dir."
     (interactive)
-    (shell-command (concat "thunar " default-directory)))
+    (compile (concat "thunar " default-directory)))
 
   (defun terminal-open ()
     "Open termninal with current dir."
@@ -31,12 +31,12 @@
       (when (and (eq system-type 'gnu/linux)
 		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
-      (shell-command (concat "gnome-terminal --working-directory " dir))))
+      (compile (concat "gnome-terminal --working-directory " dir))))
 
   (defun ssh-xsrv ()
     "Open terminal and ssh to xsrv."
     (interactive)
-    (shell-command "gnome-terminal --maximize -- ssh xsrv-emacs"))
+    (compile "gnome-terminal --maximize -- ssh xsrv-emacs"))
 
   (defun my:muhenkan ()
     (interactive)
