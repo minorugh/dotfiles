@@ -32,14 +32,15 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
     "Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (interactive)
-    (shell-command "gitk &")
+    (compile "gitk")
     (delete-other-windows))
 
-  (defun git-gui-open ()
-    "Tools for creating commits."
-    (interactive)
-    (shell-command "git gui &")
-    (delete-other-windows)))
+  ;; (defun git-gui-open ()
+  ;;   "Tools for creating commits."
+  ;;   (interactive)
+  ;;   (compile "git gui &")
+  ;;   (delete-other-windows))
+  )
 
 
 ;; Local Variables:
