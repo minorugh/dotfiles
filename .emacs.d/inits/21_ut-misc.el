@@ -27,9 +27,9 @@
   :doc "popup window manager for Emacs"
   :hook after-init-hook)
 
-(leaf posframe :ensure t
-  :doc "Pop a posframe (just a frame) at point"
-  :when window-system)
+;; (leaf posframe :ensure t
+;;   :doc "Pop a posframe (just a frame) at point"
+;;   :when window-system)
 
 (leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
@@ -56,7 +56,6 @@
   (leaf counsel-css :ensure t
     :doc "stylesheet-selector-aware swiper"
     :hook (css-mode-hook . counsel-css-imenu-setup)))
-
 
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"

@@ -18,8 +18,7 @@
     "Settings to suppress the dimmer."
     (interactive)
     (dimmer-configure-which-key)
-    (dimmer-configure-posframe)
-    (dimmer-configure-magit)
+    ;; (dimmer-configure-magit)
     (dimmer-configure-hydra)
     (dimmer-configure-org))
 
