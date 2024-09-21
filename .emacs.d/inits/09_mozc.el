@@ -11,9 +11,6 @@
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
-  :preface
-  (leaf mozc-temp :ensure t
-    :bind ("<henkan>" . mozc-temp-convert))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
