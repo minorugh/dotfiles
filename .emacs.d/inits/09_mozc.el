@@ -11,6 +11,9 @@
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
+  :preface
+  (leaf mozc-temp :ensure t
+    :bind ("<henkan>" . mozc-temp-convert))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
@@ -23,17 +26,10 @@
     :config
     (setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
 
-  (leaf mozc-cand-posframe :ensure t
-    :doc "Posframe frontend for mozc"
-    :if (display-graphic-p)
-    :hook (mozc-cand-posframe-hook . (lambda () (interactive) (dimmer-mode -1)))
+  (leaf mozc-popup :ensure t
     :require t
     :config
-    (setq mozc-candidate-style 'posframe )
-    :custom-face
-    (mozc-cand-posframe-normal-face  . '((t (:background "#1E2029" :foreground "#C7C9D1"))))
-    (mozc-cand-posframe-focused-face . '((t (:background "#393F60" :foreground "#C7C9D1"))))
-    (mozc-cand-posframe-footer-face  . '((t (:background "#1E2029" :foreground "#454D73")))))
+    (setq mozc-candidate-style 'popup))
 
   (defadvice toggle-input-method (around toggle-input-method-around activate)
     "Input method function in key-chord.el not to be nil."

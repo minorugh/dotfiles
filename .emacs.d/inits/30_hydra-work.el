@@ -5,7 +5,7 @@
 
 (leaf *hydra-works
   :doc "Selection menu for project work"
-  :bind ("<henkan>" . hydra-work/body)
+  ;; :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
    (:hint nil :exit t)
