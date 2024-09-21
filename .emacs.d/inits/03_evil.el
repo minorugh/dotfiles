@@ -1,4 +1,4 @@
-;;; 02_evil.el --- Evil mode configurations.
+;;; 03_evil.el --- Evil mode configurations.
 ;;; Commentary:
 ;;; code:
 ;; (setq debug-on-error t)
@@ -71,4 +71,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 02_evil.el ends here
+;;; 03_evil.el ends here

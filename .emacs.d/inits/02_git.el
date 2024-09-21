@@ -1,4 +1,4 @@
-;; 03_git.el  --- Git configurations.
+;; 02_git.el  --- Git configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -48,4 +48,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 03_git.el ends here
+;;; 02_git.el ends here

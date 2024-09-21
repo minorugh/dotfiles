@@ -41,10 +41,10 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
-  :hook prog-mode-hook
+  :hook  ((after-init-hook prog-mode-hook)
+	  (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :config
-  (setq flycheck-emacs-lisp-initialize-packages t)
-  (add-hook 'lisp-interaction-mode-hook '(lambda () (flycheck-mode 0))))
+  (setq flycheck-emacs-lisp-initialize-packages t))
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
