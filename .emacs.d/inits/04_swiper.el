@@ -1,4 +1,4 @@
-;;; 03_swiper.el --- Counsel configurations.
+;;; 04_swiper.el --- Counsel configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -38,4 +38,4 @@ If the region isn't selected, `swiper'."
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 03_swiper.el ends here
+;;; 04_swiper.el ends here

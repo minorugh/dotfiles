@@ -1,4 +1,4 @@
-;;; 06_buffer.el --- Buffer Utility configurations.
+;;; 07_buffer.el --- Buffer Utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -53,4 +53,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 06_buffer.el ends here
+;;; 07_buffer.el ends here

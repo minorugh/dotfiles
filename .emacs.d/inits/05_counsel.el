@@ -1,4 +1,4 @@
-;;; 04_counsel.el --- Counsel configurations.
+;;; 05_counsel.el --- Counsel configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -68,4 +68,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 04_counsel.el ends here
+;;; 05_counsel.el ends here

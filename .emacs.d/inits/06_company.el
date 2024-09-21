@@ -1,4 +1,4 @@
-;;; 05_company.el --- Company configurations.
+;;; 06_company.el --- Company configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -41,4 +41,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 05_company.el ends here
+;;; 06_company.el ends here

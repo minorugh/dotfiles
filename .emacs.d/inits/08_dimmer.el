@@ -1,4 +1,4 @@
-;;; 07_dimmer.el --- Window utility configurations.
+;;; 08_dimmer.el --- Window utility configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -18,7 +18,6 @@
     "Settings to suppress the dimmer."
     (interactive)
     (dimmer-configure-which-key)
-    ;; (dimmer-configure-magit)
     (dimmer-configure-hydra)
     (dimmer-configure-org))
 
@@ -62,4 +61,4 @@ If there are two or more windows, it will go to another window."
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 07_dimmer.el ends here
+;;; 08_dimmer.el ends here
