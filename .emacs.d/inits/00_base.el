@@ -65,7 +65,8 @@
   (add-hook 'after-init-hook 'savehist-mode)
   ;; Recentf
   (setq recentf-exclude
-	'("\\.howm-keys" "\\^/session" "Dropbox/backup" "task.org" "/.emacs.d/elpa/" "/scp:"))
+	'("\\.howm-keys" "\\^/session" "task.org"
+	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 
