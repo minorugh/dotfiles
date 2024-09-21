@@ -20,11 +20,6 @@
   :doc "A Git porcelain inside Emacs"
   :bind '(("C-x g" . magit-status)
 	  ("M-g" . hydra-git/body))
-  :config
-  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
-  (setq transient-directory-name "~/.emacs.d/tmp/transient")
-  ;; Do not split window
-  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   :hydra
   (hydra-git
    (:color red :hint nil)
@@ -39,6 +34,11 @@
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
   :config
+  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
+  (setq transient-directory-name "~/.emacs.d/tmp/transient")
+  ;; Do not split window
+  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
+  :preface
   (leaf git-timemachine :ensure t)
   (leaf browse-at-remote :ensure t
     :config

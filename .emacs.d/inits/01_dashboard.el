@@ -8,6 +8,7 @@
   :if (display-graphic-p)
   :hook ((after-init-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
+  ;; :bind ([home] . open-dashboard)
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)

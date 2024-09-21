@@ -27,6 +27,7 @@
     (setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
 
   (leaf mozc-popup :ensure t
+    :doc "Mozc with popup."
     :require t
     :config
     (setq mozc-candidate-style 'popup))
