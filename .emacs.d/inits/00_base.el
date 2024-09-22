@@ -91,34 +91,7 @@
 	'("\\.howm-keys" "\\^/session" "task.org"
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
-
-  ;; Language & Encode
-  (set-language-environment "Japanese")
-  (prefer-coding-system 'utf-8)
-
-  ;; Font
-  (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (add-to-list 'default-frame-alist '(font . "Cica-20"))
-    (add-to-list 'default-frame-alist '(font . "Cica-18")))
-
-  ;; Start server
-  (leaf server
-    :commands (server-running-p)
-    :hook
-    (emacs-startup-hook . (lambda ()
-			    (unless (server-running-p)
-			      (server-start)))))
-
-  ;; PATH from shell
-  (leaf exec-path-from-shell :ensure t
-    :when (memq window-system '(mac ns x))
-    :hook (emacs-startup-hook . exec-path-from-shell-initialize))
-
-  ;; Load user configuration
-  (leaf *load-user-conf
-    :load-path "~/.emacs.d/elisp/"
-    :require my:browse my:dired my:template))
+  (add-hook 'after-init-hook 'recentf-mode))
 
 
 ;; Local Variables:

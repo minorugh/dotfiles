@@ -10,6 +10,9 @@
 ;; For slightly faster startup
 (setq package-enable-at-startup nil)
 
+;; Disable warnings at initialization
+(setq warning-minimum-level :emergency)
+
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 

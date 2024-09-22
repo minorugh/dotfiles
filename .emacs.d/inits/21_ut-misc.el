@@ -27,10 +27,6 @@
   :doc "popup window manager for Emacs"
   :hook after-init-hook)
 
-;; (leaf posframe :ensure t
-;;   :doc "Pop a posframe (just a frame) at point"
-;;   :when window-system)
-
 (leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
   :hook (emacs-lisp-mode-hook css-mode-hook))

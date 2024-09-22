@@ -6,6 +6,7 @@
 (leaf dashboard :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
+  :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
   :hook ((after-init-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
   :bind (([home] . open-dashboard)
