@@ -34,24 +34,9 @@
   :init
   (leaf hydra :ensure t))
 
-(leaf server
-  :commands (server-running-p)
-  :hook
-  (emacs-startup-hook . (lambda ()
-			  (unless (server-running-p)
-			    (server-start)))))
 
-(leaf exec-path-from-shell :ensure t
-  :when (memq window-system '(mac ns x))
-  :hook (emacs-startup-hook . exec-path-from-shell-initialize))
-
-(leaf *load-user-conf
-  :doc "Load user configuration"
-  :load-path "~/.emacs.d/elisp/"
-  :require my:browse my:dired my:template)
-
+;; Init loader
 (leaf init-loader :ensure t
-  :doc "Init loader"
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

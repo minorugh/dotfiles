@@ -16,18 +16,6 @@
 ;; Inhibit resizing frame
 (setq frame-inhibit-implied-resize t)
 
-;; Disable warnings at initialization
-(setq warning-minimum-level :emergency)
-
-;; Language & encode
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-
-;; Font
-(if (string-match "P1" (shell-command-to-string "uname -n"))
-    (add-to-list 'default-frame-alist '(font . "Cica-20"))
-  (add-to-list 'default-frame-alist '(font . "Cica-18")))
-
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
