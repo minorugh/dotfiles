@@ -4,9 +4,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(when (version< emacs-version "27.1")
-  (error "This requires Emacs 27.1 and above!"))
-
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
 (defconst my:file-name-handler-alist file-name-handler-alist)
@@ -34,7 +31,7 @@
   :init
   (leaf hydra :ensure t))
 
-;; Language & Encode
+;; Set language & System encoding
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
@@ -43,7 +40,7 @@
     (add-to-list 'default-frame-alist '(font . "Cica-20"))
   (add-to-list 'default-frame-alist '(font . "Cica-18")))
 
-;; Start server
+;; Server start
 (leaf server
   :commands (server-running-p)
   :hook
