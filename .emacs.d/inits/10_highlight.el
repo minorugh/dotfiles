@@ -57,11 +57,11 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook prog-mode-hook)
 
-;; (leaf rainbow-mode :ensure t
-;;   :doc "Color letter that indicate the color"
-;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-;;   :hook prog-mode-hook
-;;   :bind ("C-c w" . rainbow-mode))
+(leaf rainbow-mode :ensure t
+  :doc "Color letter that indicate the color"
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :hook after-init-hook
+  :bind ("C-c r" . rainbow-mode))
 
 
 ;; Local Variables:
