@@ -1,4 +1,4 @@
-;;; early-init.el --- Early Initialization.
+;;; early-init.el --- Early Initialization. -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -11,7 +11,8 @@
 (setq package-enable-at-startup nil)
 
 ;; Disable warnings at initialization
-(setq warning-minimum-level :emergency)
+(eval-and-compile
+  (setq warning-minimum-level :emergency))
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)
@@ -48,7 +49,4 @@
 
 
 (provide 'early-init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; early-init.el ends here

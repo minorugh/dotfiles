@@ -8,11 +8,13 @@
   (setq which-key-max-description-length 40)
   :hook after-init-hook)
 
+
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
   :config
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
   :hook after-init-hook)
+
 
 (leaf prescient :ensure t
   :doc "Better sorting and filtering"
@@ -23,24 +25,29 @@
   (leaf ivy-prescient :ensure t :global-minor-mode t)
   (leaf company-prescient :ensure t :global-minor-mode t))
 
+
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
   :hook after-init-hook)
+
 
 (leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
+
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))
 
-(leaf flycheck :ensure t
-  :doc "On-the-fly syntax checking"
-  :hook  ((after-init-hook prog-mode-hook)
-	  (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
-  :config
-  (setq flycheck-emacs-lisp-initialize-packages t))
+(leaf flymake
+  :doc "A universal on-the-fly syntax checker"
+  :hook ((prog-mode-hook)
+	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
+  :bind ((prog-mode-map
+	  ("M-n" . flymake-goto-next-error)
+	  ("M-p" . flymake-goto-prev-error))))
+
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"

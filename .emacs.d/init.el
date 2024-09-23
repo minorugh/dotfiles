@@ -15,21 +15,18 @@
 	    (setq gc-cons-threshold 800000)))
 
 ;; Package
-(customize-set-variable
- 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                     ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-(setq package-check-signature nil)
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                       ("melpa" . "https://melpa.org/packages/")))
+  (package-initialize)
+  (use-package leaf :ensure t)
 
-(unless (package-installed-p 'leaf)
-  (package-refresh-contents)
-  (package-install 'leaf))
-
-(leaf leaf-keywords :ensure t
-  :config
-  (leaf-keywords-init)
-  :init
-  (leaf hydra :ensure t))
+  (leaf leaf-keywords :ensure t
+    :config
+    (leaf-keywords-init)
+    :init
+    (leaf hydra :ensure t)))
 
 ;; Set language & System encoding
 (set-language-environment "Japanese")
@@ -67,7 +64,4 @@
 
 
 (provide 'init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here
