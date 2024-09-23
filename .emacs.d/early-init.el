@@ -1,4 +1,4 @@
-;;; early-init.el --- Early Initialization. -*- lexical-binding: t; -*-
+;;; early-init.el --- Early Initialization.
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -29,7 +29,6 @@
 ;; Prevent flashing of unstyled modeline and headerline at startup
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
-(set-fringe-mode '(0 . 1))
 
 ;; No startup screen appears
 (setq inhibit-splash-screen t)

@@ -6,9 +6,7 @@
 (leaf dashboard :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
-  :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook ((after-init-hook . open-dashboard)
-	 (dashboard-mode-hook . (lambda () (setq left-margin-width 1))))
+  :hook (after-init-hook . open-dashboard)
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
@@ -17,10 +15,10 @@
 	  ("m" . (lambda () (interactive) (compile "sylpheed")))
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
-  :init
-  (setq dashboard-icon-type 'nerd-icons)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
+  :custom
+  (dashboard-icon-type 'nerd-icons)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
   :config
   ;; Set the title
   (setq dashboard-banner-logo-title

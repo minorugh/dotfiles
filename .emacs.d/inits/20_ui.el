@@ -66,6 +66,7 @@
     (all-the-icons-install-fonts t)))
 
 
+
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

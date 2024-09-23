@@ -53,7 +53,7 @@
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-;; Load user configuration
+;; User configuration
 (leaf *load-user-conf
   :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template)

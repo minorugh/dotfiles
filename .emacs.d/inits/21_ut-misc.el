@@ -48,6 +48,19 @@
 	  ("M-n" . flymake-goto-next-error)
 	  ("M-p" . flymake-goto-prev-error))))
 
+;; (leaf flycheck
+;;   :ensure t
+;;   :hook (prog-mode-hook . flycheck-mode)
+;;   :custom ((flycheck-emacs-lisp-initialize-packages . t))
+;;   :config
+;;   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
+;;   (eval-and-compile (require 'flycheck))
+;;   (setq flycheck-emacs-lisp-package-initialize-form
+;; 	(flycheck-sexp-to-string
+;; 	 '(progn
+;; 	    (with-demoted-errors "Error during package initialization: %S"
+;;               (package-initialize))
+;; 	    (leaf-keywords-init)))))
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"

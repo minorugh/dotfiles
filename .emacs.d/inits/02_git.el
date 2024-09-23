@@ -3,17 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-erro t)
 
-(leaf diff-hl :ensure t
-  :doc "Highlight uncommitted changes using VC"
-  :hook ((after-init-hook . (global-diff-hl-mode diff-hl-margin-mode))
-	 (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
-	 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
-  :custom-face
-  `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
-    (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
-    (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
-
-
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
   :bind '(("C-x g" . magit-status)
@@ -41,6 +30,18 @@
   (leaf browse-at-remote :ensure t
     :config
     (setq browse-at-remote-prefer-symbolic nil)))
+
+
+(leaf diff-hl :ensure t
+  :doc "Highlight uncommitted changes using VC"
+  :hook ((after-init-hook . global-diff-hl-mode)
+	 (after-init-hook . diff-hl-margin-mode)
+	 (magit-pre-refresh-hook  . diff-hl-magit-pre-refresh)
+	 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
+  :custom-face
+  `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
+    (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
+    (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
 ;; Local Variables:
