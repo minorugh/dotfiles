@@ -1,8 +1,14 @@
-;;; early-init.el --- Early Initialization.
+;;; early-init.el --- Emacs early init -*- lexical-binding: t; -*-
 ;;; Commentary:
-;;
+
+;; Emacs 27 introduced early-init.el, which is run before init.el, before
+;; package and UI initialization happens.
+
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;; Always load newest byte code
+(setq load-prefer-newer t)
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -10,21 +16,25 @@
 ;; For slightly faster startup
 (setq package-enable-at-startup nil)
 
+;; Write any customizations to a temp file so they are discarded.
+(setq custom-file "~/.emacs.d/tmp/custom.el")
+
 ;; Disable warnings at initialization
 (eval-and-compile
   (setq warning-minimum-level :emergency))
-
-;; Always load newest byte code
-(setq load-prefer-newer t)
-
-;; Inhibit resizing frame
-(setq frame-inhibit-implied-resize t)
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+
+;; Default frame settings.
 (push '(fullscreen . maximized) default-frame-alist)
+(push '(ns-transparent-titlebar . t) default-frame-alist)
+
+;; Inhibit resizing frame
+(setq frame-inhibit-implied-resize t)
+(setq frame-resize-pixelwise t)
 
 ;; Prevent flashing of unstyled modeline and headerline at startup
 (setq-default mode-line-format nil)
@@ -42,9 +52,6 @@
 	      (redisplay)))
   (setq inhibit-message t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
-
-;; Custom files
-(setq custom-file "~/.emacs.d/tmp/custom.el")
 
 
 (provide 'early-init)
