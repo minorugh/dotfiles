@@ -16,9 +16,9 @@
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :custom
-  (dashboard-icon-type 'nerd-icons)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
+  (dashboard-icon-type . 'nerd-icons)
+  (dashboard-set-heading-icons . t)
+  (dashboard-set-file-icons . t)
   :config
   ;; Set the title
   (setq dashboard-banner-logo-title
