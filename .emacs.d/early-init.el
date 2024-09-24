@@ -50,9 +50,6 @@
 (setq-default mode-line-format nil)
 (setq-default header-line-format nil)
 
-;; No startup screen appears
-(setq inhibit-splash-screen t)
-
 ;; Do not display anything until Emacs is fully started
 ;; If there is no elpa directory nothing suppresses
 (when (file-directory-p "~/.emacs.d/elpa/")
@@ -63,6 +60,7 @@
 	      (redisplay)))
   (setq inhibit-redisplay t)
   (setq inhibit-message t)
+  (setq inhibit-splash-screen t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
 
