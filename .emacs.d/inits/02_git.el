@@ -25,8 +25,9 @@
   (setq transient-directory-name "~/.emacs.d/tmp/transient")
   ;; Do not split window
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
-  :preface
+  ;; Walk through git revisions of a file
   (leaf git-timemachine :ensure t)
+  ;; Open github page from Emacs
   (leaf browse-at-remote :ensure t
     :config
     (setq browse-at-remote-prefer-symbolic nil)))
