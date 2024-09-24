@@ -13,25 +13,18 @@
 ;; Prevent unwanted runtime compilation for native-comp users
 (setq native-comp-jit-compilation nil)
 
-;; For slightly faster startup
+;; Package initialize occurs automatically, before `user-init-file' is
+;; loaded, but after `early-init-file'. We handle package
+;; initialization, so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
-
-;; In noninteractive sessions, prioritize non-byte-compiled source files to
-;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
-;; to skip the mtime checks on every *.elc file.
 (setq load-prefer-newer noninteractive)
+
+;; Do not resize the frame at this early stage.
+(setq frame-inhibit-implied-resize t)
 
 ;; Set language & System encoding
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
-
-;; Inhibit resizing frame
-(setq frame-inhibit-implied-resize t)
-(setq frame-resize-pixelwise t)
-
-;; Disable warnings at initialization
-(eval-and-compile
-  (setq warning-minimum-level :emergency))
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -54,6 +47,10 @@
   (setq inhibit-message t)
   (setq inhibit-splash-screen t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
+
+;; Disable warnings at initialization
+(eval-and-compile
+  (setq warning-minimum-level :emergency))
 
 ;; Write any customizations to a temp file so they are discarded.
 (setq custom-file "~/.emacs.d/tmp/custom.el")
