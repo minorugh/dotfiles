@@ -42,13 +42,10 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+(setq-default mode-line-format nil)
 
 ;; Default frame settings.
 (push '(fullscreen . maximized) default-frame-alist)
-
-;; Prevent flashing of unstyled modeline and headerline at startup
-(setq-default mode-line-format nil)
-(setq-default header-line-format nil)
 
 ;; Do not display anything until Emacs is fully started
 ;; If there is no elpa directory nothing suppresses
