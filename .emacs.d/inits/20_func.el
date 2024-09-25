@@ -7,7 +7,7 @@
   :doc "User custom key bind"
   :bind	(([f3]  . thunar-open)
 	 ([f4]  . terminal-open)
-	 ([f5]  . ssh-xsrv)
+	 ([f5]  . ssh-gh)
 	 ("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-whole-line-or-region)
 	 ("M-/"   . kill-this-buffer)
@@ -20,7 +20,7 @@
 	 ([muhenkan] . my:muhenkan))
   :init
   (defun my:upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
+    "convert previous word (or ARG words) to upper case."
     (interactive "p")
     (upcase-word (- arg)))
 
@@ -48,10 +48,10 @@
 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
       (compile (concat "gnome-terminal --working-directory " dir))))
 
-  (defun ssh-xsrv ()
+  (defun ssh-gh ()
     "Open terminal and ssh to xsrv."
     (interactive)
-    (compile "gnome-terminal --maximize -- ssh xsrv-emacs"))
+    (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
 
   (defun my:muhenkan ()
     (interactive)
