@@ -1,4 +1,4 @@
-;;; 42_neotree.el --- Neotree configurations.
+;;; 40_neotree.el --- Neotree configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 42_neotree.el ends here
+;;; 40_neotree.el ends here
