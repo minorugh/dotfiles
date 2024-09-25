@@ -1,4 +1,4 @@
-;;; init.el --- Emacs first Configuration.
+;;; init.el --- Emacs first Configuration
 ;;; Commentary:
 ;;
 ;;; Code:
