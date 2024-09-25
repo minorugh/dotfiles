@@ -17,6 +17,10 @@
 	    (setq file-name-handler-alist my:file-name-handler-alist)
 	    (setq gc-cons-threshold 800000)))
 
+;; In noninteractive sessions, prioritize non-byte-compiled source files to
+;; prevent the use of stale byte-code.
+(setq load-prefer-newer noninteractive)
+
 ;; Package
 (eval-and-compile
   (customize-set-variable
