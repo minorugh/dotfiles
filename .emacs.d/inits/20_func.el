@@ -19,6 +19,21 @@
 	 ("C-x C-c" . iconify-frame)
 	 ([muhenkan] . my:muhenkan))
   :init
+  (defun my:upcase-word (arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my:downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my:capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg)))
+
   (defun thunar-open ()
     "Open thunar with current dir."
     (interactive)

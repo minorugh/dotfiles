@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _j_unk._g_^^
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._l_  re_@_p^^  _b_kup._c_._u_
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._l_  re_@_p^^  _b_ackup-all^^^^
 "
    ("p" ps-print-buffer)
    ("r" ps-print-region)
@@ -22,8 +22,11 @@
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("b" make-backup)
-   ("u" make-ghuser)
-   ("c" make-commit)
+   ;; ("u" make-ghuser)
+   ;; ("c" make-commit)
+   ("c" my:capitalize-word)
+   ("u" my:upcase-word)
+   ("n" my:downcase-word)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
@@ -43,9 +46,7 @@
    ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
-   ("j" (find-file "~/Dropbox/howm/junk/"))
    ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
-   ("g" my:github-dir)
    ("G" chromium-github)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))

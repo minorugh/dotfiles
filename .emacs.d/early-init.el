@@ -10,7 +10,9 @@
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Prevent unwanted runtime compilation for native-comp users
+;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
+;; packages are compiled ahead-of-time when they are installed and site files
+;; are compiled when gccemacs is installed.
 (setq native-comp-jit-compilation nil)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
@@ -19,12 +21,12 @@
 (setq package-enable-at-startup nil)
 (setq load-prefer-newer noninteractive)
 
-;; Do not resize the frame at this early stage.
-(setq frame-inhibit-implied-resize t)
-
 ;; Set language & System encoding
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
+
+;; Do not resize the frame at this early stage.
+(setq frame-inhibit-implied-resize t)
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
