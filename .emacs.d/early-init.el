@@ -50,10 +50,6 @@
 	      (setq inhibit-message nil)
 	      (redisplay))))
 
-;; Disable warnings at initialization
-(eval-and-compile
-  (setq warning-minimum-level :emergency))
-
 ;; Write any customizations to a temp file so they are discarded.
 (setq custom-file "~/.emacs.d/tmp/custom.el")
 

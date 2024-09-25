@@ -21,11 +21,14 @@
 ;; prevent the use of stale byte-code.
 (setq load-prefer-newer noninteractive)
 
+;; Disable warnings at initialization
+(setq warning-minimum-level :emergency)
+
 ;; Package
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                       ("melpa" . "https://melpa.org/packages/")))
+		       ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
   (use-package leaf :ensure t)
 
