@@ -19,7 +19,6 @@
 ;; loaded, but after `early-init-file'. We handle package
 ;; initialization, so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
-(setq load-prefer-newer noninteractive)
 
 ;; Set language & System encoding
 (set-language-environment "Japanese")
@@ -37,18 +36,19 @@
 ;; Default frame settings.
 (push '(fullscreen . maximized) default-frame-alist)
 
-;; Do not display anything until Emacs is fully started
 ;; If there is no elpa directory nothing suppresses
 (when (file-directory-p "~/.emacs.d/elpa/")
+  ;; Emacs really shouldn't be displaying anything until it has fully started.
+  ;; This saves a bit of time.
+  (setq inhibit-redisplay t)
+  (setq inhibit-message t)
+  (setq inhibit-splash-screen t)
+  (custom-set-faces '(default ((t (:background "#282a36")))))
   (add-hook 'window-setup-hook
 	    (lambda ()
 	      (setq inhibit-redisplay nil)
 	      (setq inhibit-message nil)
-	      (redisplay)))
-  (setq inhibit-redisplay t)
-  (setq inhibit-message t)
-  (setq inhibit-splash-screen t)
-  (custom-set-faces '(default ((t (:background "#282a36"))))))
+	      (redisplay))))
 
 ;; Disable warnings at initialization
 (eval-and-compile
