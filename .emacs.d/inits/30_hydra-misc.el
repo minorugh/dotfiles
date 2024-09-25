@@ -1,4 +1,4 @@
-;;; 30_hydra-misc.el --- hydra misc mode configurations.
+;;; 30_hydra-misc.el --- Hydra misc configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

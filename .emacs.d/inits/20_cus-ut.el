@@ -1,4 +1,4 @@
-;;; 20_func.el --- Define functions.
+;;; 20_cus-ut.el --- Customized user configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -81,4 +81,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; 20_func.el ends here
+;;; 20_cus-ut.el ends here

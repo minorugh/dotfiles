@@ -1,4 +1,4 @@
-;;; 50_yatex.el --- YaTex configuration.
+;;; 50_yatex.el --- YaTex configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

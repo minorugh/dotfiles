@@ -1,4 +1,4 @@
-;;; 08_dimmer.el --- Window utility configurations.
+;;; 08_dimmer.el --- Dimmer configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

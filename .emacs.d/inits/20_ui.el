@@ -1,4 +1,4 @@
-;;; 20_ui.el --- Graphical interface configurations.
+;;; 20_ui.el --- Better lookings and appearances.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,4 +1,4 @@
-;;; 50_markdown.el --- Markdown configurations.
+;;; 50_markdown.el --- Markdown mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

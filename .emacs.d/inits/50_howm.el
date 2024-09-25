@@ -1,4 +1,4 @@
-;;; 50_howm.el --- howm mode configurations.
+;;; 50_howm.el --- Howm mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

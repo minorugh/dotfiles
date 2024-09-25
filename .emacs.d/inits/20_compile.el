@@ -1,4 +1,4 @@
-;;; 20_compile.el --- Define compile functions.
+;;; 20_compile.el --- Compilation configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

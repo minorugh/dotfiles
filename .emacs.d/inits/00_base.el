@@ -1,4 +1,4 @@
-;;; 00_base.el --- Basic configurations.
+;;; 00_base.el --- Better default configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

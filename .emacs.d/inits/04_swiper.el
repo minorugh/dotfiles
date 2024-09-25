@@ -1,4 +1,4 @@
-;;; 04_swiper.el --- Counsel configurations.
+;;; 04_swiper.el --- Swiper configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

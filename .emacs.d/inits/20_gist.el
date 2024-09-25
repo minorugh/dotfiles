@@ -1,4 +1,4 @@
-;;; 20_gist.el --- Define gist command functions.
+;;; 20_gist.el --- Gist command configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

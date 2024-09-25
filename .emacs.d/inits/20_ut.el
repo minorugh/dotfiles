@@ -1,4 +1,4 @@
-;;; 20_ut.el --- Counsel ut configurations.
+;;; 20_ut.el --- Utilities configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
