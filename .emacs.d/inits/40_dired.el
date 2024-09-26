@@ -1,4 +1,4 @@
-;;; 40_dired.el --- Dired configurations.
+;;; 40_dired.el --- Ddired configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
