@@ -5,7 +5,7 @@
 
 (leaf doom-themes :ensure t
   :doc "Pack of modern color-themes"
-  :hook (emacs-startup-hook . (lambda () (load-theme 'doom-dracula t)))
+  :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
   (doom-themes-org-config)

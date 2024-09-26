@@ -55,7 +55,4 @@
 
 
 (provide 'early-init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; early-init.el ends here

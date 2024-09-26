@@ -22,7 +22,8 @@
 (setq load-prefer-newer noninteractive)
 
 ;; Disable warnings at initialization
-(setq warning-minimum-level :emergency)
+(eval-and-compile
+  (setq warning-minimum-level :emergency))
 
 ;; Package
 (eval-and-compile
@@ -70,7 +71,4 @@
 
 
 (provide 'init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here
