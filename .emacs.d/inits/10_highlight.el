@@ -28,7 +28,7 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
-(leaf *paren
+(leaf paren
   :doc "Highlight matching parens"
   :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
