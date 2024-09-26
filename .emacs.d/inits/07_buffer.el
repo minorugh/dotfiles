@@ -5,12 +5,12 @@
 
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
-  :hook (after-init-hook . super-save-mode)
   :config
   (setq super-save-auto-save-when-idle t)
   (setq super-save-idle-duration       1)
   (setq super-save-remote-files        nil)
-  (setq super-save-exclude             '(".gpg")))
+  (setq super-save-exclude             '(".gpg"))
+  :hook after-init-hook)
 
 
 (leaf persistent-scratch :ensure t
