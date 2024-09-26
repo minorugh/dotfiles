@@ -60,6 +60,7 @@
 					;
 
 (leaf which-key :ensure t
+  :doc "Display available keybindings in popup"
   :config
   (setq which-key-max-description-length 40)
   :hook after-init-hook)
@@ -128,22 +129,22 @@
 
 
 (leaf ps-mule
-  :doc "provide multi-byte character facility to ps-print"
-  :tag "Builtin"
-  :if (executable-find "lpr")
-  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
-  :config
-  (setq ps-multibyte-buffer 'non-latin-printer)
-  (setq ps-paper-type       'a4)
-  (setq ps-printer-name      nil)
-  (setq ps-print-header      nil)
-  (setq ps-print-footer      nil)
-  (setq ps-font-size         9)
-  (setq ps-font-family      'Courier)
-  (setq ps-line-number-font 'Courier)
-  (setq ps-line-number       t)
-  (setq ps-show-n-of-n       t)
-  (defalias 'ps-mule-header-string-charsets 'ignore))
+:doc "provide multi-byte character facility to ps-print"
+:tag "Builtin"
+:if (executable-find "lpr")
+:url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+:config
+(setq ps-multibyte-buffer 'non-latin-printer)
+(setq ps-paper-type       'a4)
+(setq ps-printer-name      nil)
+(setq ps-print-header      nil)
+(setq ps-print-footer      nil)
+(setq ps-font-size         9)
+(setq ps-font-family      'Courier)
+(setq ps-line-number-font 'Courier)
+(setq ps-line-number       t)
+(setq ps-show-n-of-n       t)
+(defalias 'ps-mule-header-string-charsets 'ignore))
 
 
 ;; Local Variables:
