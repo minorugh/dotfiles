@@ -1,4 +1,4 @@
-;;; early-init.el --- Emacs early init
+;;; early-init.el --- Emacs early init configurations.
 ;;; Commentary:
 
 ;; Emacs 27 introduced early-init.el, which is run before init.el, before
