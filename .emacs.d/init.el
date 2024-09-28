@@ -68,13 +68,6 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-;; NativeComp for emacs init files
-(defun my:native-comp-packages ()
-  "NativeComp for `init.el' and `early-init.el'."
-  (interactive)
-  (native-compile-async "~/.emacs.d/init.el")
-  (native-compile-async "~/.emacs.d/early-init.el"))
-
 
 (provide 'init)
 ;;; init.el ends here
