@@ -25,7 +25,7 @@
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
-    :global-minor-mode t
+    :require t
     :config
     (setq mozc-candidate-style 'popup))
 
