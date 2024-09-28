@@ -36,19 +36,17 @@
 ;; Default frame settings.
 (push '(fullscreen . maximized) default-frame-alist)
 
-;; If there is no elpa directory nothing suppresses
+;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
-  ;; Emacs really shouldn't be displaying anything until it has fully started.
-  ;; This saves a bit of time.
-  (setq inhibit-redisplay t)
-  (setq inhibit-message t)
-  (setq inhibit-splash-screen t)
-  (custom-set-faces '(default ((t (:background "#282a36")))))
   (add-hook 'window-setup-hook
 	    (lambda ()
 	      (setq inhibit-redisplay nil)
 	      (setq inhibit-message nil)
-	      (redisplay))))
+	      (redisplay)))
+  (setq inhibit-redisplay t)
+  (setq inhibit-message t)
+  (setq inhibit-splash-screen t)
+  (custom-set-faces '(default ((t (:background "#282a36"))))))
 
 ;; Write any customizations to a temp file so they are discarded.
 (setq custom-file "~/.emacs.d/tmp/custom.el")

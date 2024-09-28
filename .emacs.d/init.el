@@ -17,9 +17,8 @@
 	    (setq file-name-handler-alist my:file-name-handler-alist)
 	    (setq gc-cons-threshold 800000)))
 
-;; In noninteractive sessions, prioritize non-byte-compiled source files to
-;; prevent the use of stale byte-code.
-(setq load-prefer-newer noninteractive)
+;; Always load newest byte code
+(setq load-prefer-newer t)
 
 ;; Disable warnings at initialization
 (eval-and-compile
@@ -68,6 +67,12 @@
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
+
+(defun my:native-comp-packages ()
+  "NativeComp for `init.el' and `early-init.el'."
+  (interactive)
+  (native-compile-async "~/.emacs.d/init.el")
+  (native-compile-async "~/.emacs.d/early-init.el"))
 
 
 (provide 'init)

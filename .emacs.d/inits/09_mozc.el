@@ -25,7 +25,7 @@
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
-    :require t
+    :hook after-init-hook
     :config
     (setq mozc-candidate-style 'popup))
 
