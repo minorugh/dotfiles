@@ -58,6 +58,7 @@ If there are two or more windows, it will go to another window."
       (other-window 1))))
 
 
+(provide '08_dimmer)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

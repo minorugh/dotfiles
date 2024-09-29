@@ -38,6 +38,7 @@
   (leaf yasnippet-snippets :ensure t))
 
 
+(provide '06_company)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

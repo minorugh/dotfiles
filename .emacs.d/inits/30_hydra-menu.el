@@ -131,6 +131,7 @@
       (compile "make git-commit"))))
 
 
+(provide '30_hydra-menu)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

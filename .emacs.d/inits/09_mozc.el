@@ -62,6 +62,7 @@
     (add-hook 'emacs-startup-hook 'my:mozc-copy)))
 
 
+(provide '09_mozc)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

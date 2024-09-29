@@ -58,6 +58,7 @@
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
 
+(provide '40_neotree)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

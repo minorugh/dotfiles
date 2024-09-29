@@ -35,6 +35,7 @@
    '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)")))
 
 
+(provide '80_eshell)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

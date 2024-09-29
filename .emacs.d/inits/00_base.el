@@ -94,6 +94,7 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
+(provide '00_base)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

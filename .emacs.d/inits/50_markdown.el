@@ -72,6 +72,7 @@
 	     ".docx"))))
 
 
+(provide '50_markdown)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

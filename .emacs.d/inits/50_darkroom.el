@@ -29,6 +29,7 @@
     (evil-normal-state)))
 
 
+(provide '50_darkroom)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

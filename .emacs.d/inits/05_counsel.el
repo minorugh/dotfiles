@@ -65,6 +65,7 @@
       (counsel-ag ivy-text nil ""))))
 
 
+(provide '05_counsel)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

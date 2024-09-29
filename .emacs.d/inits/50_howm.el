@@ -44,6 +44,7 @@
     (evil-insert-state)))
 
 
+(provide '50_howm)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

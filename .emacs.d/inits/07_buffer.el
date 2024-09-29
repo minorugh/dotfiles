@@ -50,6 +50,7 @@
 	 ("M-[" . bs-cycle-previous)))
 
 
+(provide '07_buffer)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

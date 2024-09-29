@@ -71,6 +71,7 @@
     (find-file "~/.emacs.d/inits/60_easy-hugo.el")))
 
 
+(provide '60_easy-hugo)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

@@ -45,6 +45,7 @@
     (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
+(provide '02_git)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

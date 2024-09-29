@@ -66,7 +66,7 @@
     (all-the-icons-install-fonts t)))
 
 
-
+(provide '20_ui)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

@@ -55,7 +55,7 @@
     "Overwrite `emacs-init-time'."
     (interactive)
     (let ((str
-	   (format "%.3f seconds"
+	   (format "%.1f seconds"
 		   (float-time
 		    (time-subtract after-init-time before-init-time)))))
       (if (called-interactively-p 'interactive)
@@ -63,6 +63,7 @@
 	str))))
 
 
+(provide '01_dashboard)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

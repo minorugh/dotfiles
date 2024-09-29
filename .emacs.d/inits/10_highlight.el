@@ -64,6 +64,7 @@
   :bind ("C-c r" . rainbow-mode))
 
 
+(provide '10_highlight)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

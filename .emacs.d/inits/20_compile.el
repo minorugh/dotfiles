@@ -55,6 +55,7 @@
     (compile "make clean")))
 
 
+(provide '20_compile)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

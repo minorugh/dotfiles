@@ -56,6 +56,7 @@
 	(message "")))))
 
 
+(provide '90_selected)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

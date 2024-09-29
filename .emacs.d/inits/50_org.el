@@ -64,6 +64,7 @@
   (setq calendar-mark-holidays-flag t))
 
 
+(provide '50_org)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

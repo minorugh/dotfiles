@@ -78,6 +78,7 @@
       (kill-this-buffer))))
 
 
+(provide '20_cus-func)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

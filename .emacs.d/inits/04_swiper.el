@@ -35,6 +35,7 @@ If the region isn't selected, `swiper'."
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 
+(provide '04_swiper)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

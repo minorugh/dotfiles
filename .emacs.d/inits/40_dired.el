@@ -84,6 +84,7 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (delete-other-windows)))
 
 
+(provide '40_dired)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

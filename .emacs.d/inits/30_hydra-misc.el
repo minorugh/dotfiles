@@ -68,6 +68,7 @@
    ("s" swiper-thing-at-point)))
 
 
+(provide '30_hydra-misc)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

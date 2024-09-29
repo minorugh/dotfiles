@@ -68,6 +68,7 @@
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
+(provide '03_evil)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

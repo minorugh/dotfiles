@@ -149,6 +149,7 @@
 (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
+(provide '20_ut)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

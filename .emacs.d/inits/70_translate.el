@@ -60,6 +60,7 @@
       (url-hexify-string string)))))
 
 
+(provide '70_translate)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
