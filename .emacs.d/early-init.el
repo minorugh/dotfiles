@@ -31,18 +31,15 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(setq-default mode-line-format nil)
-
-;; Default frame settings.
 (push '(fullscreen . maximized) default-frame-alist)
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
   (add-hook 'window-setup-hook
-	    (lambda ()
-	      (setq inhibit-redisplay nil)
-	      (setq inhibit-message nil)
-	      (redisplay)))
+   	    (lambda ()
+   	      (setq inhibit-redisplay nil)
+   	      (setq inhibit-message nil)
+   	      (redisplay)))
   (setq inhibit-redisplay t)
   (setq inhibit-message t)
   (setq inhibit-splash-screen t)
@@ -53,4 +50,7 @@
 
 
 (provide 'early-init)
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; early-init.el ends here
