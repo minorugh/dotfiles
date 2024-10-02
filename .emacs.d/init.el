@@ -38,31 +38,31 @@
     :init
     (leaf hydra :ensure t)))
 
-;; Font
-(if (string-match "P1" (shell-command-to-string "uname -n"))
-    (add-to-list 'default-frame-alist '(font . "Cica-20"))
-  (add-to-list 'default-frame-alist '(font . "Cica-18")))
-
-;; Server start
 (leaf server
+  :doc "Check if the Emacs server is running and start it"
   :commands (server-running-p)
   :hook
   (emacs-startup-hook . (lambda ()
 			  (unless (server-running-p)
 			    (server-start)))))
 
-;; PATH from shell
 (leaf exec-path-from-shell :ensure t
+  :doc "Get environment variables such as `$PATH' from the shell"
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-;; Load user configuration
 (leaf *load-user-conf
+  :doc "Load user configurations"
   :load-path "~/.emacs.d/elisp/"
   :require my:browse my:dired my:template)
 
-;; Init loader
+(leaf cus-edit
+  :doc "tools for customizing Emacs and Lisp packages"
+  :tag "builtin" "faces" "help"
+  :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))))
+
 (leaf init-loader :ensure t
+  :doc "Init loader."
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
@@ -70,4 +70,7 @@
 
 
 (provide 'init)
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; init.el ends here

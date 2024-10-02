@@ -24,6 +24,11 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
+;; Font
+(if (string-match "P1" (shell-command-to-string "uname -n"))
+    (add-to-list 'default-frame-alist '(font . "Cica-20"))
+  (add-to-list 'default-frame-alist '(font . "Cica-18")))
+
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
@@ -45,9 +50,9 @@
   (setq inhibit-splash-screen t)
   (custom-set-faces '(default ((t (:background "#282a36"))))))
 
-;; Write any customizations to a temp file so they are discarded.
-(setq custom-file "~/.emacs.d/tmp/custom.el")
-
 
 (provide 'early-init)
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; early-init.el ends here

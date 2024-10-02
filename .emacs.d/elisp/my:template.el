@@ -3,7 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(defun my:diary-new-post ()
+(leaf *user-template
+  :config
+  (defun my:diary-new-post ()
   "Open diary file and insert template."
   (interactive)
   (find-file (expand-file-name "diary.txt" "~/Dropbox/GH/dia/"))
@@ -265,7 +267,7 @@
    (format-time-string "> %Y年%-m月%-d日 (%a)\n")
    (format-time-string "PLACE:\n\n"))
   (forward-line -2)
-  (forward-char 6))
+  (forward-char 6)))
 
 
 (provide 'my:template)
