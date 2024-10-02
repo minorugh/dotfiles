@@ -269,7 +269,6 @@
 
 
 (provide 'my:template)
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

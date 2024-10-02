@@ -192,7 +192,6 @@
 
 
 (provide 'my:dired)
-
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
