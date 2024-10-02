@@ -290,7 +290,7 @@ perlbrew: ## Install perlbrew
 
 emacs-devel: ## Install development version of emacs
 	sudo apt-get build-dep emacs-gtk
-	git clone -b emacs-29 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
+	git clone -b emacs-30 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation=aot && make && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
