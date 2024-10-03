@@ -20,7 +20,6 @@ set virtualedit=onemore
 set scrolloff=8
 set whichwrap=b,s,h,l,<,>,[,]
 set linebreak
-colorscheme iceberg
 let g:mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Esc> :noh<CR>
@@ -30,9 +29,12 @@ call plug#begin()
   Plug 'tpope/vim-commentary'
   Plug 'jiangmiao/auto-pairs'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
-" ファイル指定なしでVimを起動した場合だけ表示したい場合は下記行を追加。
+colorscheme dracula
+
+" NERDTree ファイル指定なしでVimを起動した場合だけ表示したい場合は下記行を追加。
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:NERDTreeShowHidden=1
