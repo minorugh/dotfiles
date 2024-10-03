@@ -1,4 +1,4 @@
-;;; 00_base.el --- Better default configurations.
+;;; 00_base.el --- Better default configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -94,8 +94,4 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
-(provide '00_base)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 00_base.el ends here

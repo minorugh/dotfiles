@@ -1,4 +1,4 @@
-;;; 50_yatex.el --- YaTex configurations.
+;;; 50_yatex.el --- YaTex configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -47,8 +47,4 @@
 ;; rm *.lo*
 
 
-(provide '60_yatex)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 60_yatex.el ends here

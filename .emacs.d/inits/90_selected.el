@@ -1,4 +1,4 @@
-;;; 90_selected.el --- Selected configurations.
+;;; 90_selected.el --- Selected configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -56,8 +56,4 @@
 	(message "")))))
 
 
-(provide '90_selected)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 90_selected.el ends here

@@ -1,4 +1,4 @@
-;;; 50_org.el --- Org mode configurations.
+;;; 50_org.el --- Org mode configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -64,8 +64,4 @@
   (setq calendar-mark-holidays-flag t))
 
 
-(provide '50_org)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 50_org.el ends here

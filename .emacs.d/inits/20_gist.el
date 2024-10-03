@@ -1,4 +1,4 @@
-;;; 20_gist.el --- Gist command configurations.
+;;; 20_gist.el --- Gist command configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,9 +36,4 @@ If region isn't selected, post from the buffer."
     (delete-other-windows)))
 
 
-(provide '20_gist)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 20_gist.el ends here
-

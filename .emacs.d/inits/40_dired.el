@@ -1,4 +1,4 @@
-;;; 40_dired.el --- Ddired configurations.
+;;; 40_dired.el --- Ddired configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -84,8 +84,4 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (delete-other-windows)))
 
 
-(provide '40_dired)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 40_dired.el ends here

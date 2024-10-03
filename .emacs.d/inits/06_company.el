@@ -1,4 +1,4 @@
-;;; 06_company.el --- Company configurations.
+;;; 06_company.el --- Company configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -38,8 +38,4 @@
   (leaf yasnippet-snippets :ensure t))
 
 
-(provide '06_company)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 06_company.el ends here

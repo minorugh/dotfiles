@@ -1,4 +1,4 @@
-;;; 50_howm.el --- Howm mode configurations.
+;;; 50_howm.el --- Howm mode configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -44,8 +44,4 @@
     (evil-insert-state)))
 
 
-(provide '50_howm)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 50_howm.el ends here

@@ -1,4 +1,4 @@
-;;; 05_counsel.el --- Counsel configurations.
+;;; 05_counsel.el --- Counsel configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -65,8 +65,4 @@
       (counsel-ag ivy-text nil ""))))
 
 
-(provide '05_counsel)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 05_counsel.el ends here

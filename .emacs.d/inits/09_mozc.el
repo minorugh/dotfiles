@@ -1,4 +1,4 @@
-;;; 09_mozc.el --- Japanese mozc configurations.
+;;; 09_mozc.el --- Japanese mozc configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -62,8 +62,4 @@
     (add-hook 'emacs-startup-hook 'my:mozc-copy)))
 
 
-(provide '09_mozc)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 09_mozc.el ends here

@@ -1,4 +1,4 @@
-;;; 80_eshell.el --- Eshell configurations.
+;;; 80_eshell.el --- Eshell configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -35,8 +35,4 @@
    '(eshell-prompt-regexp "^\\(\\[[^]\n]+\\]\\|[$#] \\)")))
 
 
-(provide '80_eshell)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 80_eshell.el ends here

@@ -1,4 +1,4 @@
-;;; 04_swiper.el --- Swiper configurations.
+;;; 04_swiper.el --- Swiper configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -35,8 +35,4 @@ If the region isn't selected, `swiper'."
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 
-(provide '04_swiper)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 04_swiper.el ends here

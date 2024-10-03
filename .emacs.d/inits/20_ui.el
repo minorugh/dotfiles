@@ -1,4 +1,4 @@
-;;; 20_ui.el --- Better lookings and appearances.
+;;; 20_ui.el --- Better lookings and appearances. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,8 +66,4 @@
     (all-the-icons-install-fonts t)))
 
 
-(provide '20_ui)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 20_ui.el ends here

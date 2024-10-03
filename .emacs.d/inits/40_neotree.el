@@ -1,4 +1,4 @@
-;;; 40_neotree.el --- Neotree configurations.
+;;; 40_neotree.el --- Neotree configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -58,8 +58,4 @@
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
 
-(provide '40_neotree)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 40_neotree.el ends here

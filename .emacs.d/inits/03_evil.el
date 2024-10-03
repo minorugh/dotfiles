@@ -1,4 +1,4 @@
-;;; 03_evil.el --- Evil mode configurations.
+;;; 03_evil.el --- Evil mode configurations. -*- no-byte-compile: t; -*- 
 ;;; Commentary:
 ;;; code:
 ;; (setq debug-on-error t)
@@ -68,8 +68,4 @@
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
-(provide '03_evil)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 03_evil.el ends here

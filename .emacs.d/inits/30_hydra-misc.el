@@ -1,4 +1,4 @@
-;;; 30_hydra-misc.el --- Hydra misc configurations.
+;;; 30_hydra-misc.el --- Hydra misc configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -68,8 +68,4 @@
    ("s" swiper-thing-at-point)))
 
 
-(provide '30_hydra-misc)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 30_hydra-misc.el ends here

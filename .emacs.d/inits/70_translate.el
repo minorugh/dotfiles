@@ -1,4 +1,4 @@
-;;; 70_translate.el --- Deepl translate configurations.
+;;; 70_translate.el --- Deepl translate configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -60,8 +60,4 @@
       (url-hexify-string string)))))
 
 
-(provide '70_translate)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 70_translate.el ends here

@@ -1,4 +1,4 @@
-;;; 20_cus-func.el --- Cstomized user configurations.
+;;; 20_cus-func.el --- Cstomized user configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -78,8 +78,4 @@
       (kill-this-buffer))))
 
 
-(provide '20_cus-func)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 20_cus-func.el ends here

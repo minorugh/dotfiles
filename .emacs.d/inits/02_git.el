@@ -1,4 +1,4 @@
-;; 02_git.el  --- Git configurations.
+;; 02_git.el  --- Git configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -45,8 +45,4 @@
     (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
 
-(provide '02_git)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 02_git.el ends here

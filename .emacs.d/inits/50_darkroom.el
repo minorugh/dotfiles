@@ -1,4 +1,4 @@
-;;; 50_darkroom.el --- Writing mode configurations.
+;;; 50_darkroom.el --- Writing mode configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -29,8 +29,4 @@
     (evil-normal-state)))
 
 
-(provide '50_darkroom)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 50_darkroom.el ends here

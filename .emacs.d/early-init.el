@@ -1,4 +1,4 @@
-;;; early-init.el --- Emacs early init configurations.
+;;; early-init.el --- Emacs early init configurations.  -*- no-byte-compile: t; -*-
 ;;; Commentary:
 
 ;; Emacs 27 introduced early-init.el, which is run before init.el, before
@@ -52,7 +52,4 @@
 
 
 (provide 'early-init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; early-init.el ends here

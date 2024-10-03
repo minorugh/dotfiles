@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- Dashboard configurations.
+;;; 01_dashboard.el --- Dashboard configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -63,8 +63,4 @@
 	str))))
 
 
-(provide '01_dashboard)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 01_dashboard.el ends here

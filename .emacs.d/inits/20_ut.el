@@ -1,4 +1,4 @@
-;;; 20_ut.el --- Utilities configurations.
+;;; 20_ut.el --- Utilities configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -149,8 +149,4 @@
 (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
-(provide '20_ut)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 20_ut.el ends here

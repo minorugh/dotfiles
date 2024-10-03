@@ -1,4 +1,4 @@
-;;; 20_compile.el --- Compilation configurations.
+;;; 20_compile.el --- Compilation configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -55,8 +55,4 @@
     (compile "make clean")))
 
 
-(provide '20_compile)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 20_compile.el ends here

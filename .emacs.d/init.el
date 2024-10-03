@@ -1,4 +1,4 @@
-;;; init.el --- Emacs first Configuration
+;;; init.el --- Emacs first Configuration.  -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -70,7 +70,4 @@
 
 
 (provide 'init)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here

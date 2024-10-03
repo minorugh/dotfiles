@@ -1,4 +1,4 @@
-;;; 30_hydra-menu.el --- Hydra quick menu configurations.
+;;; 30_hydra-menu.el --- Hydra quick menu configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -131,8 +131,4 @@
       (compile "make git-commit"))))
 
 
-(provide '30_hydra-menu)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 30_hydra-menu.el ends here

@@ -1,4 +1,4 @@
-;;; 60_easy-hugo.el --- Easy-Hugo configurations.
+;;; 60_easy-hugo.el --- Easy-Hugo configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,8 +71,4 @@
     (find-file "~/.emacs.d/inits/60_easy-hugo.el")))
 
 
-(provide '60_easy-hugo)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 60_easy-hugo.el ends here

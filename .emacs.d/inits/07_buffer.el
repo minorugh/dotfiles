@@ -1,4 +1,4 @@
-;;; 07_buffer.el --- Buffer Utility configurations.
+;;; 07_buffer.el --- Buffer Utility configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -50,8 +50,4 @@
 	 ("M-[" . bs-cycle-previous)))
 
 
-(provide '07_buffer)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 07_buffer.el ends here
