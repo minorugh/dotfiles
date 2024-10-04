@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf easy-hugo
-  :vc (:url "https://github.com/minorugh/emacs-easy-hugo")
+  :vc (:url "https://github.com/minorugh/evil-easy-hugo")
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
   :hook (view-mode-hook . evil-emacs-state)
@@ -29,7 +29,7 @@
 	  ;; blog3 setting
 	  ((easy-hugo-basedir . "~/src/github.com/minorugh/minorugh.github.io/")
 	   (easy-hugo-url . "https://minorugh.github.io")
-	   (easy-hugo-postdir . "content/posts"))
+	   (easy-hugo-postdir . "docs"))
 	  ;; blog4 setting
 	  ((easy-hugo-basedir . "~/Dropbox/GH/gg/")
 	   (easy-hugo-url . "https://gg.gospel-haiku.com")
