@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _P_ages
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^  _x_serv
   "
    ("i" my:inits-dir)
    ("+" text-scale-adjust)
@@ -35,6 +35,7 @@
    ("k" my:make-k)
    ("g" my:make-git)
    ("p" keepassxc)
+   ("P" my:pages-dir)
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)
@@ -45,6 +46,7 @@
    ("]" my:magit-status)
    ("s" my:scr-dir)
    ("z" filezilla)
+   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init
@@ -74,8 +76,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _x_panel  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _l_epton  g_i_st._l_  re_@_p^^  _b_ackup-all^^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  g_i_st._l_  re_@_p^^  _b_ackup-all^^^^
 "
    ("p" ps-print-buffer)
    ("r" ps-print-region)
@@ -107,7 +109,6 @@
    ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
-   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
    ("G" chromium-github)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))

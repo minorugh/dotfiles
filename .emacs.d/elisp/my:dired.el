@@ -69,6 +69,11 @@
     (interactive)
     (find-file "~/Dropbox/GH/"))
 
+  (defun my:pages-dir ()
+    "Open GH dir."
+    (interactive)
+    (find-file "~/src/github.com/minorugh/minorugh.github.io/docs/"))
+
   (defun my:inits-dir ()
     "Open inits dir."
     (interactive)
