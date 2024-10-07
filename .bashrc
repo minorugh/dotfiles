@@ -123,9 +123,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# for perlrew
-source ~/perl5/perlbrew/etc/bashrc
-
 # eval $(gpg-agent --daemon)
 
 SSH_AGENT_FILE="$HOME/.ssh/ssh_agent"

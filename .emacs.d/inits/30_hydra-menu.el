@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _P_ages
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _p_assx  howm._,__;__@_|md_v_^^^^  _x_serv
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _p_ages
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  _x_serv
   "
    ("i" my:inits-dir)
    ("+" text-scale-adjust)
@@ -34,8 +34,8 @@
    ("c" make-commit)
    ("k" my:make-k)
    ("g" my:make-git)
-   ("p" keepassxc)
-   ("P" my:pages-dir)
+   ("P" keepassxc)
+   ("p" my:pages-dir)
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)

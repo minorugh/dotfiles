@@ -28,6 +28,7 @@
     (doom-themes-neotree-config)) ;; need all-the-icons
   (setq neo-mode-line-type nil)
   (setq neo-create-file-auto-open t)
+  ;; (setq neo-theme 'nerd-icons)
   (defun my:neotree-find ()
     "Neotree-find with dimmer-off."
     (interactive)

@@ -60,10 +60,7 @@
   :after neotree
   :if (display-graphic-p)
   :config
-  (setq all-the-icons-dired-monochrome nil)
-  (setq all-the-icons-scale-factor 0.8)
-  (unless (member "all-the-icons" (font-family-list))
-    (all-the-icons-install-fonts t)))
+  (setq all-the-icons-scale-factor 0.8))
 
 
 ;;; 20_ui.el ends here

@@ -1,14 +1,14 @@
 ### Dotfiles to restore Debian GNU/Linux
 # author Minoru Yamada. 2021.10.11
-# update 2022.09.22
+# update 2022.09.22 for Debian10
+# update 2024.10.01 for Debian12
 
 ## =====================================================================
 ## Manual setting before executing make
 ## =====================================================================
 ## 1. Boot from USB to install Debian latest
 # Create installation USB from netinst iso image. Use Rufs.exe on Windows
-# Download firmware from https://bre.is/f2LBmD3t for using WiFi
-# Unzip firmware.zip, then paste to firmware directory of install USB
+# rufs https://rufus.ie/ja/
 
 ## 2. Register username to sudoers
 # Log in as root
@@ -62,10 +62,10 @@ BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
 BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
-BASE_PKGS	+= libgccjit0
+BASE_PKGS	+= libgccjit0 build-dep emacs-gtk
 
-APT			:= sudo apt install -y
-.DEFAULT_GOAL := help
+APT		:= sudo apt install -y
+.DEFAULT_GOAL	:= help
 
 .PHONY: all allinstall nextinstall
 help:
@@ -112,7 +112,7 @@ init: ## Initial deploy dotfiles
 	done
 
 ifeq ($(shell uname -n),P1)
-grub:
+grub: ## Configure grub
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
@@ -129,12 +129,12 @@ emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
 # Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
-ifeq ($(shell uname -n),e590)
-mozc: ## for mainmachine (Thinkpad E590)
+ifeq ($(shell uname -n),P1)
+mozc: ## For mainmachine (Thinkpad P1)
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
 else
-mozc: ## for submachine (Thinkpad X250)
+mozc: ## For submachine (Thinkpad X250)
 	cp -rf ~/Dropbox/backup/mozc/.mozc ~/
 endif
 
@@ -149,14 +149,14 @@ keyring: ## Init gnome keyrings
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/Dropbox/backup/keyrings ${HOME}/.local/share/keyrings
 
-icons: ## Copy icons to picture folder
+icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/Documents/icons/* ${HOME}/Pictures
 
-fontawesome: ##  Init Font Awesome
+fonts: ## Symlink for user fonts
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
-gist: ## Install gist | $ gist --login from terminal at first
+gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
 
 pdrv: ## Install Printer driver for Brother HL-L2375DW
@@ -285,11 +285,8 @@ perlbrew: ## Install perlbrew
 	perlbrew install 5.30.3
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm && \
-	cpanm Net::FTPSSL && \
-	cpanm Net::SFTP::Foreign
 
 emacs-devel: ## Install development version of emacs
-	sudo apt-get build-dep emacs-gtk
 	git clone -b emacs-30 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation=aot && make && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
@@ -299,9 +296,7 @@ github: ## Clone github repository
 	cd ${HOME}/src/github.com/minorugh && \
 	git clone git@github.com:minorugh/GH.git && \
 	git clone git@github.com:minorugh/upsftp.git && \
-	git clone git@github.com:minorugh/iceberg-theme.git \
-	git clone git@github.com:minorugh/emacs.d.git && \
-	git clone git@github.com:minorugh/emacs-easy-hugo.git \
+	git clone git@github.com:minorugh/evil-easy-hugo.git \
 	git clone git@github.com:minorugh/minorugh.github.io.git
 # GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
 
@@ -330,4 +325,3 @@ github: ## Clone github repository
 # 7. セッションと起動>> コマンドの最小化スタートアップを追加:devils_startup.sh
 # 8. セッションと起動>> 一般タグの「ログアウト時にセッションを自己循環的に保存」のチェックを外します。
 # 9. パネルのアクションボタン>> ログアウト選択パネルの「次回のログインのためにセッションを保存する」のチェックを外します。
-#10. devils がうまく機能しないときは、~/.cache/sessions/ を削除して再起動するとよい。
