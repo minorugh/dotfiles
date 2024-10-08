@@ -43,6 +43,15 @@
       (emacs-lock-mode 'kill))))
 
 
+(leaf ediff
+  :doc "Edit while viewing the difference"
+  :hook (ediff-mode-hook . dimmer-off)
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+	ediff-split-window-function 'split-window-horizontally
+	ediff-diff-options "-twB"))
+
+
 (leaf bs
   :doc "Menu for selecting and displaying buffers"
   :tag "builtin"
