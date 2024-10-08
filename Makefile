@@ -62,7 +62,7 @@ BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
 BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
-BASE_PKGS	+= libgccjit0 build-dep emacs-gtk
+BASE_PKGS	+= libgccjit0 build-dep emacs-gtk python3.11 python3.11-venv
 
 APT		:= sudo apt install -y
 .DEFAULT_GOAL	:= help
@@ -95,16 +95,10 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources autologin.sh; do
+	for item in zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
-	chmod 600 ${HOME}/.autologin.sh
-	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
-	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/org-protocol.desktop
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/keepass.desktop
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
 	for item in gitconfig gist; do
@@ -118,6 +112,11 @@ grub: ## Configure grub
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
 	sudo update-grub2
 endif
+
+autologin: ## Run ssh-add with passphrase auto input at GUI startup
+	ln -vsf {${PWD},${HOME}}/.autologin.sh
+	chmod 600 ${HOME}/.autologin.sh
+	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
@@ -211,7 +210,7 @@ devilspie: ## Init devilspie for minimize_startup applications
 	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
 	sudo chmod +x /usr/local/bin/devils_startup.sh
-# then session & launch>> Add minimized startup for command:devils_startup.sh
+	ln -vsf {${PWD},${HOME}}/.config/autostart/devils_startup.desktop
 
 gitk: ## Init gitk for git-gui
 	$(APT) $@
@@ -247,6 +246,7 @@ slack: ## Install slack desktop
 	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
 	sudo gdebi slack-desktop-4.39.95-amd64.deb # Filename must be confirmed each time
 	rm -f slack-desktop-4.39.95-amd64.deb
+	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 
 spotify: ## Install sptify client
 	curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
