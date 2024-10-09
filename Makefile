@@ -293,6 +293,21 @@ perlbrew: ## Install perlbrew
 	perlbrew switch 5.30.3
 	perlbrew install-cpanm && \
 
+emacs-stable: ## Install stable version of emacs
+	cd ~/src/
+	wget http://mirrors.nav.ro/gnu/emacs/emacs-29.4.tar.xz
+	tar xvf emacs-29.4.tar.xz
+	./autogen.sh
+	./configure --with-native-compilation=aot
+	make -j 4   # Replace the number 4 with the number of cores that your CPU has.
+	sudo make install
+
+# Uninstallation
+# Change directory to the folder containing the source and perform the following steps:
+# $ sudo make uninstall
+# $ make clean
+# $ make distclean
+
 emacs-devel: ## Install development version of emacs
 	git clone -b emacs-30 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation=aot && make && sudo make install && make clean
