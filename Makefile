@@ -104,6 +104,7 @@ init: ## Initial deploy dotfiles
 	for item in gitconfig gist; do
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
 	done
+	ln -vsf {${PWD},${HOME}}/.config/hub
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub
