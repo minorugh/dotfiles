@@ -1,1 +1,2 @@
 secretdir/** filter=git-crypt diff=git-crypt
+.config/hub filter=git-crypt diff=git-crypt
