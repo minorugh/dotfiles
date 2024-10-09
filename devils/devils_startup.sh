@@ -3,5 +3,5 @@ devilspie &
 sylpheed &
 emacs &
 rm /home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/session*
-sleep 3s
+sleep 30s
 killall devilspie
