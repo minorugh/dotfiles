@@ -42,7 +42,7 @@
 ## =======================================================================
 ## Run make from here
 ## =======================================================================
-PACKAGES	:= hugo nkf wget curl file unar unzip gcc golang npm keychain
+PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
 PACKAGES	+= ruby gnome-terminal xclip vim tmux freerdp2-x11
@@ -112,6 +112,13 @@ grub: ## Configure grub
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
 	sudo update-grub2
 endif
+
+ghq: ## Instll go & ghq
+	sudo rm -rf /usr/local/go
+	sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
+# Add /usr/local/go/bin to the PATH environment variable.
+# 'export PATH=$PATH:/usr/local/go/bin' then install ghq from github
+	go install github.com/x-motemen/ghq@latest
 
 autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.autologin.sh
