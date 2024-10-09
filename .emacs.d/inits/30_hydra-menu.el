@@ -77,7 +77,7 @@
    "
    Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  g_i_st._l_  re_@_p^^  _b_ackup-all^^^^
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._l_  re_@_p^^  _b_ackup-all^^^^
 "
    ("p" ps-print-buffer)
    ("r" ps-print-region)
@@ -94,7 +94,7 @@
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
-   ("i" gist-region-or-buffer)
+   ("g" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
    ("T" my:teirei-new-post)
