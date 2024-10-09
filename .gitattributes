@@ -1,4 +1,3 @@
 secretdir/** filter=git-crypt diff=git-crypt
 
-* linguist-vendored
-*.el linguist-vendored=false
+*.tex linguist-language=Emacs-lisp
