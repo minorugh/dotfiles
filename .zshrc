@@ -306,6 +306,7 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
 # PATH
+export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME
 export PATH="$PATH:$GOPATH/bin:/usr/sbin"
 export EDITOR='emacsclient'
