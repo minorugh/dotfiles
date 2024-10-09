@@ -1,4 +1,4 @@
-;;; 20_cus-func.el --- Cstomized user configurations. -*- no-byte-compile: t; -*-
+;;; 20_defuncs.el --- User functions configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -19,21 +19,6 @@
 	 ("C-x C-c" . iconify-frame)
 	 ([muhenkan] . my:muhenkan))
   :init
-  (defun my:upcase-word (arg)
-    "convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
-
-  (defun my:downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
-
-  (defun my:capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg)))
-
   (defun thunar-open ()
     "Open thunar with current dir."
     (interactive)
@@ -78,4 +63,4 @@
       (kill-this-buffer))))
 
 
-;;; 20_cus-func.el ends here
+;;; 20_defuncs.el ends here

@@ -39,6 +39,17 @@
   :custom-face
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
+(leaf elec-pair
+  :doc "Automatic parenthesis pairing"
+  :tag "Builtin"
+  :hook (after-init-hook . electric-pair-mode)
+  :config
+  (defadvice electric-pair-post-self-insert-function
+      (around electric-pair-post-self-insert-function-around activate)
+    "Don't insert the closing pair in comments or strings"
+    (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+      ad-do-it)))
+					;
 (leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
