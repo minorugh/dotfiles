@@ -1,1 +1,4 @@
 secretdir/** filter=git-crypt diff=git-crypt
+
+* linguist-vendored
+*.js linguist-vendored=false
