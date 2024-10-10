@@ -2,7 +2,6 @@
 
 # Read password
 source ~/.mutt/password.rc
-
 set send_charset="iso-2022-jp:utf-8"
 
 # sidebar
@@ -10,12 +9,6 @@ set sidebar_visible  = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 
 # Remote gmail folders
-# set folder    = "imaps://imap.gmail.com:993"
-# set spoolfile = "+INBOX"
-# set postponed = "+[Gmail]/Drafts"
-# set record    = "+[Gmail]/Sent"
-# set trash     = "+[Gmail]/Trash"
-# mailboxes     "+INBOX" "+[Gmail]/Drafts" "+[Gmail]/Sent" "+[Gmail]/Trash"
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed

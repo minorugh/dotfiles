@@ -32,7 +32,7 @@ call plug#begin()
   Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
-colorscheme dracula
+colorscheme iceberg
 
 " NERDTree ファイル指定なしでVimを起動した場合だけ表示したい場合は下記行を追加。
 autocmd StdinReadPre * let s:std_in=1
