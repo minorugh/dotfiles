@@ -1,3 +1,4 @@
 secretdir/** filter=git-crypt diff=git-crypt
+.goobookrc filter=git-crypt diff=git-crypt
 
 *.tex linguist-language=Emacs-lisp
