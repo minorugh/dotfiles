@@ -194,6 +194,13 @@ sylpheed: ## Init sylpheed
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 ## Gmail security requires you to use the app password
 
+neomutt: ## Init neomutt mail client
+	$(APT) $@ goobook
+	mkdir -p ${HOME}/.mutt
+	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
+	for item in passwds.gpg mailcap certifcates aliases signature; do ln -vsf {${PWD},${HOME}}/.mutt/$$item; done
+	ln -vsf {${PWD},${HOME}}/.goobookrc
+	# goobook authenticate
 
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@
