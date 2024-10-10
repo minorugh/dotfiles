@@ -1,0 +1,106 @@
+# ~/.mutt/muttrc
+
+# set from = "minorugh@gmail.com"
+# set realname = "First Last"
+# # IMAP settings
+# set imap_user = "minorugh@gmail.com"
+# # set imap_pass = "<mailbox password>"
+# # SMTP settings
+# set smtp_url = "smtps://minorugh@smtp.gmail.com"
+# # set smtp_pass = "<mailbox password>"
+# # Remote Gmail folders
+# set folder = "imaps://imap.gmail.com/"
+# set spoolfile = "+INBOX"
+# set postponed = "+[Gmail]/Drafts"
+# set record = "+[Gmail]/Sent Mail"
+# set trash = "+[Gmail]/Trash"
+
+# password for imap_pass/smtp_pass
+source "gpg -d ~/.mutt/passwds.gpg |" # 暗号化したパスワードを読み込み
+
+# account
+set from = "minorug@gmail.com"
+set realname = "Minoru Ymada"
+
+# Imap settings
+set imap_user = "minorugh@gmail.com"
+
+# Smtp settings
+set smtp_url = "smtps://minorugh@smtp.gmail.com"
+
+# Remote gmail folders
+set folder    = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record    = "+[Gmail]/Sent"
+set trash     = "+[Gmail]/Trash"
+mailboxes     "+INBOX" "+[Gmail]/Drafts" "+[Gmail]/Sent" "+[Gmail]/Trash"
+
+# sidebar
+set sidebar_visible  = yes
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
+# mail sort
+set mail_check_stats                                        # 定期的にメールの状態をチェック
+set sort_aux         = reverse-date                         # 日付の降順でメール一覧を表示
+set use_from         = yes                                  # メールのFromヘッダを自動生成ON
+
+# My mailboxes
+# set folder = "imaps://imap.gmail.com:993"
+# set spoolfile = "+INBOX"
+
+# Where to put the stuff
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+
+# Etc
+set mail_check = 30
+set move = no
+set imap_keepalive = 900
+set sort = threads
+set editor = "emacsclient"
+set smtp_authenticators = 'gssapi:login'
+
+# GnuPG bootstrap
+# source ~/.mutt/gpg.rc
+
+# Gmail-style keyboard shortcuts
+# macro index,pager ga "<change-folder>=[Gmail]/All<tab><enter>" "Go to all mail"
+# macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+# macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+# macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+# macro index,pager e "<enter-command>unset trash\n <delete-message>" "Gmail archive message" # different from Gmail, but wanted to keep "y" to show folders.
+
+# bind
+bind index,pager ] sidebar-next # 次のメールボックスを選択
+bind index,pager [ sidebar-prev # 前のメールボックスを選択
+bind index,pager } sidebar-open # 選択してゐるメールボックスを開く
+bind index,pager { sidebar-toggle-visible # サイドバーを開閉
+
+bind index,attach g first-entry # 最初のエントリへ移動
+bind index,attach G last-entry # 最後のエントリへ移動
+bind index l display-message # メールを開く
+bind index i fetch-mail # POP サーバからメールを取得
+bind index J next-new-then-unread # 次の新着・未読メールへ移動
+bind index K previous-new-then-unread # 前の新着・未読メールへ移動
+bind index,pager f next-page # 次のページへ移動
+bind index,pager b previous-page # 前のページへ移動
+bind pager g top # メールの一番上へ移動
+bind pager G bottom # メールの一番下へ移動
+bind pager j next-line # 一行下へスクロール
+bind pager k previous-line # 一行上へスクロール
+bind pager h exit # メニューを終了
+bind pager l display-toggle-weed # ヘッダ抑止の切替
+bind alias l select-entry # エントリを選択
+bind compose l view-attach # 添附ファイルを開く
+bind index,pager F forward-message # メールを転送
+
+macro index 'c' '<change-folder>+' # 指定フォルダへ移動
+macro index,pager 'C' '<copy-message>+' # メールを指定フォルダへコピー
+macro index,pager 's' '<save-message>+' # メール・添附ファイルを指定メールボックス・ファイルへ保存
+macro index 'I' '<change-folder>+inbox/sinumade<enter><fetch-mail><change-folder>+inbox<enter><fetch-mail>' # POP サーバからメールを取得
+macro index,pager '0' '<sync-mailbox><change-folder>+trash<enter>' # ゴミ箱へ移動
+macro index,pager '9' '<sync-mailbox><change-folder>+hold<enter>' # 保留へ移動
+macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # 受信箱へ移動
+macro index,pager '2' '<sync-mailbox><change-folder>+inbox/sinumade<enter>'
