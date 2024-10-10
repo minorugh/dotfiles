@@ -1,15 +1,8 @@
 ### ~/.muttrc
 
-# Read encrypted password
-source "gpg -d ~/.mutt/passwds.gpg |" # 暗号化したパスワードを読み込む
+# Read password
+source ~/.mutt/password.rc
 
-# account
-set from = "minorug@gmail.com"
-set realname = "Minoru Ymada"
-# Imap settings
-set imap_user = "minorugh@gmail.com"
-# Smtp settings
-set smtp_url = "smtps://minorugh@smtp.gmail.com"
 set send_charset="iso-2022-jp:utf-8"
 
 # sidebar
