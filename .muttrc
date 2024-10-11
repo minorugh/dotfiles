@@ -1,13 +1,18 @@
-### ~/.muttrc
-
+##########################################
+## neomutt configuration  2024.10.10
+## ~/.muttrc
+##########################################
 ### Read password
 source ~/.mutt/password.rc
 
+### character code
 set send_charset="iso-2022-jp:utf-8"
+
+### Enable Japanese search
 set thorough_search=yes
  
 ### sidebar
-# set sidebar_visible  = yes
+#set sidebar_visible  = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 
 ### Remote gmail folders
@@ -62,7 +67,7 @@ set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new me
 # macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
 # bind editor <Tab> complete-query
 
-### Abook
+### Abook 
 set query_command= "abook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 bind editor        <Tab> complete-query
