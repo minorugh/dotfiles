@@ -11,6 +11,7 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
+	  ("n"    . neomutt)
 	  ("x" . (lambda () (interactive) (compile "/home/minoru/.webcatalog/X/X")))
 	  ("m" . (lambda () (interactive) (compile "sylpheed")))
 	  ("s" . (lambda () (interactive) (compile "slack")))

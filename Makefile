@@ -227,6 +227,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 devilspie: ## Init devilspie for minimize_startup applications
 	mkdir -p ${HOME}/.devilspie
 	$(APT) $@
+	sudo ln -vsfn ${PWD}/devils/neomutt.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
 	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin

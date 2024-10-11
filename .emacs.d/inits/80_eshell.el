@@ -7,7 +7,7 @@
   :doc "Emacs command shell"
   :tag "builtin"
   :after popwin
-  :bind ("s-z" . eshell)
+  :bind ("C-x z" . eshell)
   :init
   (setq eshell-command-aliases-list
 	(append
