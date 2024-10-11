@@ -99,7 +99,7 @@ init: ## Initial deploy dotfiles
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
-	ln -vsfn {${PWD},${HOME}}/.fonts
+	ln -Vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
 	for item in gitconfig gist; do
 		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
