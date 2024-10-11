@@ -1,6 +1,6 @@
 #!/bin/bash
 
-current_window=$(xdotool getwindowfocus)
+current_window=$(xdotool Getwindowfocus)
 emacs_window=$(xdotool search --name --onlyvisible "Emacs")
 browser_window=$(xdotool search --name --onlyvisible "Chrome")
 
