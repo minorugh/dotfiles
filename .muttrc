@@ -2,8 +2,9 @@
 ## neomutt configuration  2024.10.10
 ## ~/.muttrc
 ##########################################
-### Read password
+### Read password & bind
 source ~/.mutt/password.rc
+source ~/.mutt/bind.rc
 
 ### character code
 set send_charset="iso-2022-jp:utf-8"
