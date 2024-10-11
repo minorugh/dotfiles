@@ -120,11 +120,6 @@ ghq: ## Instll go & ghq
 # 'export PATH=$PATH:/usr/local/go/bin' then install ghq from github
 	go install github.com/x-motemen/ghq@latest
 
-toggle: ## Switch active window to emacs or chrome
-	ln -vsf {${PWD},${HOME}}/.toggle.sh
-	chmod 600 ${HOME}/.toggle.sh
-# Register for application shortcut keys [s-alt]
-
 autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.autologin.sh
 	chmod 600 ${HOME}/.autologin.sh
