@@ -47,6 +47,7 @@ set ssl_force_tls     = yes # SSLを次世代規格のTLSに強制的に変更
 
 ### The print command generates mail.pdf and outputs it to ~/
 set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - mail.pdf | evince mail.pdf"
+#set print_command="muttprint --printer TO_FILE:$HOME/Desktop/muttprint.ps %s;ps2pdf
 
 #### muttprint:
 # set print_command="muttprint"

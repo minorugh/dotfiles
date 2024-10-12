@@ -1,3 +1,8 @@
+#########################################################
+## bind bind.rc -- Custom key bind
+## cat ~/.muttrc
+## source ~/.mutt/bind.rc
+#########################################################
 bind index,pager ]   sidebar-next # 次のメールボックスを選択
 bind index,pager [   sidebar-prev # 前のメールボックスを選択
 bind index,pager ^   sidebar-open # 選択してゐるメールボックスを開く
@@ -5,8 +10,6 @@ bind index,pager \Cv sidebar-toggle-visible # サイドバーを開閉
 
 bind index,attach g first-entry # 最初のエントリへ移動
 bind index,attach G last-entry # 最後のエントリへ移動
-#bind index l display-message # メールを開く
-#bind index i fetch-mail # POP サーバからメールを取得
 bind index J next-new-then-unread # 次の新着・未読メールへ移動
 bind index K previous-new-then-unread # 前の新着・未読メールへ移動
 bind index,pager f next-page # 次のページへ移動
@@ -17,17 +20,13 @@ bind pager j next-line # 一行下へスクロール
 bind pager k previous-line # 一行上へスクロール
 bind pager h exit # メニューを終了
 bind pager l display-toggle-weed # ヘッダ抑止の切替
-#bind alias l select-entry # エントリを選択
-#bind compose l view-attach # 添附ファイルを開く
 bind index,pager F forward-message # メールを転送
 
 macro index 'c' '<change-folder>+' # 指定フォルダへ移動
-#macro index,pager 'C' '<copy-message>+' # メールを指定フォルダへコピー
+macro index,pager 'C' '<copy-message>+' # メールを指定フォルダへコピー
 macro index,pager 's' '<save-message>+' # メール・添附ファイルを指定メールボックス・ファイルへ保存
-#macro index 'I' '<change-folder>+inbox/sinumade<enter><fetch-mail><change-folder>+inbox<enter><fetch-mail>' # POP サーバからメールを取得
 macro index,pager '0' '<sync-mailbox><change-folder>+trash<enter>' # ゴミ箱へ移動
 macro index,pager '9' '<sync-mailbox><change-folder>+hold<enter>' # 保留へ移動
 macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # 受信箱へ移動
-#macro index,pager '2' '<sync-mailbox><change-folder>+inbox/sinumade<enter>'
 
 
