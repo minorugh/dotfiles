@@ -2,33 +2,24 @@
 ## neomutt configuration  2024.10.10
 ## ~/.muttrc
 ##########################################
-### Read password.rc & bind.rc
-source ~/.mutt/password.rc
-source ~/.mutt/bind.rc
-
-### character code
+### Character code
 set send_charset="iso-2022-jp:utf-8"
 
 ### Enable Japanese search
 set thorough_search=yes
 
-### sidebar
-set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
-bind index,pager ]   sidebar-next # 次のメールボックスを選択
-bind index,pager [   sidebar-prev # 前のメールボックスを選択
-bind index,pager ^   sidebar-open # 選択してゐるメールボックスを開く
-bind index,pager \Cv sidebar-toggle-visible # サイドバーを開閉
-
-### Remote gmail folders
+### Gmail settings
+source ~/.mutt/password.rc
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
+# set postponed = "+[GMail]/Drafts"
+# set record = "+[GMail]/Sent Mail"
 set imap_check_subscribed
 set hostname = gmail.com
 set mail_check = 60
 set timeout = 300
+
 set imap_keepalive = 300
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -45,23 +36,24 @@ hdr_order Date From To Cc
 set pager_index_lines=8
 
 ### security settings
-set ssl_starttls      = yes # 受送信メールサーバまでの通信を暗号化                                              
-set ssl_force_tls     = yes # SSLを次世代規格のTLSに強制的に変更
+set ssl_starttls   = yes # 受送信メールサーバまでの通信を暗号化                                              
+set ssl_force_tls  = yes # SSLを次世代規格のTLSに強制的に変更
+
+### sidebar
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+bind index,pager ]   sidebar-next # 次のメールボックスを選択
+bind index,pager [   sidebar-prev # 前のメールボックスを選択
+bind index,pager ^   sidebar-open # 選択してゐるメールボックスを開く
+bind index,pager \Cv sidebar-toggle-visible # サイドバーを開閉
+
+### Read custom bind
+source ~/.mutt/bind.rc
 
 ### The print command generates mail.pdf and outputs it to ~/
 set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - muttmail.pdf | evince muttmail.pdf"
-#set print_command="muttprint --printer TO_FILE:$HOME/Desktop/muttprint.ps %s;ps2pdf
 
-#### muttprint:
-# set print_command="muttprint"
-# set print_split
- 
-# Dump all headers
-# macro index p "<display-toggle-weed> <print-message> <display-toggle-weed> <exit>"
-# macro pager p "<display-toggle-weed> <print-message> <display-toggle-weed>"
- 
-# No confirmation before printing
-# set print="yes"
+### muttprint --- So far I'm getting errors and it's not working.
+#set print_command="muttprint --printer TO_FILE:$HOME/Desktop/muttprint.ps %s;ps2pdf
 
 ### mailcap
 alternative_order text/plain text/html *
