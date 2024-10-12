@@ -8,7 +8,8 @@
 # To print in a file, use the following entry:
 # PRINTER="TO_FILE:/home/berwal/test.ps"
 #PRINTER="lp"
- 
+PRINTER="http://192.168.1.61:631/printers/Broter_HL_L2375DW_series"
+
 #
 # Here you can set the print command
 # $PRINTER is substituted by the PRINTER

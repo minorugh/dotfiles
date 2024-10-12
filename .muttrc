@@ -12,12 +12,6 @@ set send_charset="iso-2022-jp:utf-8"
 ### Enable Japanese search
 set thorough_search=yes
 
-### Specify the default folder to save attachments to
-### By default, Mutt saves attachments in the folder from which they were started.
-### Create the following alias to ensure that attachments are always stored in ~/Downloads.
-### This will cause Mutt to launch from ~/Downloads:
-### alias mutt='cd ~/Downloads && mutt'
-
 ### sidebar
 #set sidebar_visible  = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
@@ -52,17 +46,18 @@ set ssl_starttls      = yes # 受送信メールサーバまでの通信を暗�
 set ssl_force_tls     = yes # SSLを次世代規格のTLSに強制的に変更
 
 ### The print command generates mail.pdf and outputs it to ~/
-# set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - mail.pdf | evince mail.pdf"
+set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - mail.pdf | evince mail.pdf"
+
 #### muttprint:
-set print_command="muttprint"
-set print_split
+# set print_command="muttprint"
+# set print_split
  
 # Dump all headers
-macro index p "<display-toggle-weed> <print-message> <display-toggle-weed> <exit>"
-macro pager p "<display-toggle-weed> <print-message> <display-toggle-weed>"
+# macro index p "<display-toggle-weed> <print-message> <display-toggle-weed> <exit>"
+# macro pager p "<display-toggle-weed> <print-message> <display-toggle-weed>"
  
 # No confirmation before printing
-set print="yes"
+# set print="yes"
 
 
 ### mailcap
