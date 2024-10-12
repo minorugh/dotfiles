@@ -189,7 +189,7 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
 neomutt: ## Init neomutt mail client with abook
-	$(APT) $@ abook mattprint
+	$(APT) $@ abook
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
 	ln -vsf {${PWD},${HOME}}/.muttprintrc
