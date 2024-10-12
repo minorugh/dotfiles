@@ -2,7 +2,7 @@
 ## neomutt configuration  2024.10.10
 ## ~/.muttrc
 ##########################################
-### Read password & bind
+### Read password.rc & bind.rc
 source ~/.mutt/password.rc
 source ~/.mutt/bind.rc
 
@@ -11,7 +11,13 @@ set send_charset="iso-2022-jp:utf-8"
 
 ### Enable Japanese search
 set thorough_search=yes
- 
+
+### Specify the default folder to save attachments to
+### By default, Mutt saves attachments in the folder from which they were started.
+### Create the following alias to ensure that attachments are always stored in ~/Downloads.
+### This will cause Mutt to launch from ~/Downloads:
+### alias mutt='cd ~/Downloads && mutt'
+
 ### sidebar
 #set sidebar_visible  = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
@@ -40,9 +46,24 @@ ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
-bind editor ^T complete
-bind editor <space> noop
-bind index,pager B sidebar-toggle-visible
+
+### security settings
+set ssl_starttls      = yes # 受送信メールサーバまでの通信を暗号化                                              
+set ssl_force_tls     = yes # SSLを次世代規格のTLSに強制的に変更
+
+### The print command generates mail.pdf and outputs it to ~/
+# set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - mail.pdf | evince mail.pdf"
+#### muttprint:
+set print_command="muttprint"
+set print_split
+ 
+# Dump all headers
+macro index p "<display-toggle-weed> <print-message> <display-toggle-weed> <exit>"
+macro pager p "<display-toggle-weed> <print-message> <display-toggle-weed>"
+ 
+# No confirmation before printing
+set print="yes"
+
 
 ### mailcap
 alternative_order text/plain text/html *
@@ -159,7 +180,7 @@ color index         color136        color160        "~v~(~D)"                   
 #color index         color64         color234        "~S"                       # superseded messages
 #color index         color160        color234        "~T"                       # tagged messages
 #color index         color166        color160        "~="                       # duplicated messages
-
+#
 ### message headers ------------------------------------------------------
 
 #color header        color240        color234        "^"
