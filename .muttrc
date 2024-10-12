@@ -13,8 +13,11 @@ set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes
 
 ### sidebar
-#set sidebar_visible  = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+bind index,pager ]   sidebar-next # 次のメールボックスを選択
+bind index,pager [   sidebar-prev # 前のメールボックスを選択
+bind index,pager ^   sidebar-open # 選択してゐるメールボックスを開く
+bind index,pager \Cv sidebar-toggle-visible # サイドバーを開閉
 
 ### Remote gmail folders
 set folder = "imaps://imap.gmail.com:993"

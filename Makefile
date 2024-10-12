@@ -189,7 +189,7 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
 neomutt: ## Init neomutt mail client with abook
-	# $(APT) $@ abook mattprint
+	$(APT) $@ abook mattprint
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
 	ln -vsf {${PWD},${HOME}}/.muttprintrc
@@ -197,6 +197,11 @@ neomutt: ## Init neomutt mail client with abook
 	for item in password.rc signature; do ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item; done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${PWD},${HOME}}/.abook
+
+mutt-startup: ## Run neomutt with startup
+	# ln -vsf {${PWD},${HOME}}/.muttstart.sh
+	# chmod 600 ${HOME}/.muttstart.sh
+	ln -vsf {${PWD},${HOME}}/.config/autostart/mutt_startup.desktop
 
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@

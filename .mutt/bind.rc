@@ -3,11 +3,6 @@
 ## cat ~/.muttrc
 ## source ~/.mutt/bind.rc
 #########################################################
-bind index,pager ]   sidebar-next # 次のメールボックスを選択
-bind index,pager [   sidebar-prev # 前のメールボックスを選択
-bind index,pager ^   sidebar-open # 選択してゐるメールボックスを開く
-bind index,pager \Cv sidebar-toggle-visible # サイドバーを開閉
-
 bind index,attach g first-entry # 最初のエントリへ移動
 bind index,attach G last-entry # 最後のエントリへ移動
 bind index J next-new-then-unread # 次の新着・未読メールへ移動
