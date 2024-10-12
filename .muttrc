@@ -59,7 +59,6 @@ set print_command="nkf -em | e2ps -p -box -head mail 2>/dev/null| ps2pdf - mail.
 # No confirmation before printing
 # set print="yes"
 
-
 ### mailcap
 alternative_order text/plain text/html *
 set mailcap_path = ~/.mutt/mailcap
@@ -71,7 +70,8 @@ set editor="emacsclient"
 # set editor="vim"
 
 ### notify-send
-set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new messages, %u unread.' &"
+# set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new messages, %u unread.' &"
+set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
 
 ### alias
 # set alias_file = "~/.mutt/aliases"
