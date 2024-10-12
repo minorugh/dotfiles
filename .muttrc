@@ -89,6 +89,9 @@ bind editor        <Tab> complete-query
 set pager_context = 3
 unset markers
 
+### urlview
+macro pager \cb 'urlview' 'Follow links with urlview'
+
 ### make sure that you are using mutt linked against slang, not ncurses, or
 ### suffer the consequences of weird color issues. use "mutt -v" to check this.
 
