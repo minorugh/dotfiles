@@ -1,6 +1,6 @@
 #!/bin/bash
 devilspie &
-sylpheed &
+# sylpheed &
 emacs &
 rm /home/minoru/src/github.com/minorugh/dotfiles/.emacs.d/session*
 sleep 5s

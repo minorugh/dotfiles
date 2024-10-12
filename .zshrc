@@ -259,12 +259,6 @@ alias dcdn="docker-compose down -v"
 alias dcex="docker container exec -it webcgi bash"
 alias dcps="docker-compose ps"
 
-# For neomutt
-# By default, Mutt will save attachments in the folder from which it was started.
-# If you want attachments to always be stored in ~/Downloads
-# Change the following to always save attachments to ~/Downloads
-alias neomutt='cd ~/Downloads && neomutt'
-
 # For vim
 alias v='vim'
 alias sv='sudo vim'

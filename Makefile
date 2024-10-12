@@ -198,11 +198,6 @@ neomutt: ## Init neomutt mail client with abook
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${PWD},${HOME}}/.abook
 
-mutt-startup: ## Run neomutt with startup
-	# ln -vsf {${PWD},${HOME}}/.muttstart.sh
-	# chmod 600 ${HOME}/.muttstart.sh
-	ln -vsf {${PWD},${HOME}}/.config/autostart/mutt_startup.desktop
-
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@
 	sudo ln -vsfn ${PWD}/bin/external-editor-revived /usr/local/bin

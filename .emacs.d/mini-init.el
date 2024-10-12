@@ -127,4 +127,4 @@
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; init-mini.el ends here
+;;; mini-init.el ends here

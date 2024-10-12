@@ -1,9 +1,0 @@
-[Desktop Entry]
- Version=1.0
- Name=AutoLogin
- Comment=Run neomutt autostart
- Exec=gnome-terminal --maximize -- neomutt
- Icon=neomutt
- Terminal=false
- Type=Application
- Categories=Application;
