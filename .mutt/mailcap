@@ -1,6 +1,4 @@
-# text/html; xdg-open %s &> /dev/null &; nametemplate=%s.html
-# application/*; xdg-open %s &> /dev/null &; 
-# image/*; xdg-open %s &> /dev/null &;
+# mailcap
 
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 # text/markdown; w3m -I %{charset} -T text/markdown; copiousoutput;

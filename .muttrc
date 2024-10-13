@@ -1,27 +1,20 @@
-##########################################
-## neomutt configuration  2024.10.10
-## ~/.
-##########################################
-### Japanese environment
+#########################################################
+# Neomutt Configuration  2024.10.10
+# ~/.muttrc
+# @author Minoru Yamada <minorugh@gmail.com>
+
+# Japanese environment
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes
 
-### Gmail Authentication configuration
-## Load another file because it cannot be published.
+# Basic setting
+# -- Can't disclose personal information here,
+# -- then will be read from other sources.
 source ~/.mutt/password.rc
-#############################################################
-## sample password.rc
-# set imap_user = "your_address@gmail.com"
-# set imap_pass = "your_imap_password"
-# set smtp_url  = "smtp://your_address@smtp.gmail.com:587/"
-# set smtp_pass = "your_imap_password"
-# set from      = "your_address@gmail.com"
-# set realname  = "Pico Taro"
-##############################################################
-
-### Basic setting
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
+set postponed = "+[GMail]/Drafts"
+set record = "+[GMail]/Sent Mail"
 set imap_check_subscribed
 set hostname = gmail.com
 set mail_check = 60
@@ -42,58 +35,58 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
 
-### security settings
+# security settings
 set ssl_starttls   = yes
 set ssl_force_tls  = yes
 
-### sidebar
+# sidebar
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 bind index,pager ]   sidebar-next # Select next mailbox
 bind index,pager [   sidebar-prev # Select previous mailbox
 bind index,pager ^   sidebar-open # Open the selected mailbox
-bind index,pager \Cv sidebar-toggle-visible # Open and close sidebar
+bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
 
-### Load custom bind
+# Load custom bind
 source ~/.mutt/bind.rc
 
-### Print command
+# Print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
-### mailcap
+# mailcap
 alternative_order text/plain text/html *
 set mailcap_path = ~/.mutt/mailcap
 auto_view text/html
 
-### External editor
-# set editor="vim"
+# External editor
 set editor="emacsclient"
+#set editor="vim"
 
-### New mail command
+# New mail command
 set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
 
-### Address book function
-## alias
+# Address book function
+# -- alias
 # set alias_file = "~/.mutt/aliases"
 # set sort_alias = alias
 # set reverse_alias = yes
 # source $alias_file
-## GooBook
+# -- GooBook
 # set query_command="goobook query '%s'"
 # macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
 # bind editor <Tab> complete-query
-## Abook -- I'm using this.
+# -- Abook -- I'm using this.
 set query_command= "abook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 bind editor        <Tab> complete-query
 
-### pager
+# pager
 set pager_context = 3
 unset markers
 
-### Load color scheme
+# Load color scheme
 #source ~/.mutt/color/masasam.muttrc
 source ~/.mutt/color/dracula.muttrc
 
 
-## .muttrc ends here
+# .muttrc ends here
 ####################################################################
