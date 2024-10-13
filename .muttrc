@@ -73,6 +73,10 @@ unset markers
 
 # color scheme
 #source ~/.mutt/color/masasam.muttrc
+#source ~/.mutt/color/solarized.muttrc
+#source ~/.mutt/color/neonwolf.muttrc
+#source ~/.mutt/color/vombatidae.muttrc
+#source ~/.mutt/color/zenburn.muttrc
 source ~/.mutt/color/dracula.muttrc
 
 
