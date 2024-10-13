@@ -3,15 +3,17 @@
 # ~/.muttrc
 # @author Minoru Yamada <minorugh@gmail.com>
 
-# -- Can't disclose personal information here,
-# -- then will be read from other sources.
+# Sources Auth information
 source ~/.mutt/password.rc
 
-# japanese environment
+# For japanese environment
+# see "https://emaillab.org/mutt/1.4/doc/usage-japanese.ja.html#id2432623"
 set send_charset="iso-2022-jp:utf-8"
-set thorough_search=yes
+set thorough_search=yes    ## enable body search in Japanese
+set rfc2047_parameters=yes ## filename for japanese
+#set edit_headers=yes
 
-# basic setting
+# Basic settings
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
@@ -36,10 +38,10 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
 
-# sidebar
+# Sidebar
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 
-# print command
+# Print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # mailcap
@@ -64,7 +66,7 @@ set query_command= "abook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 bind editor        <Tab> complete-query
 
-# custom bind for vim like
+# Custom bind for vim like
 bind index,pager ]   sidebar-next # Select next mailbox
 bind index,pager [   sidebar-prev # Select previous mailbox
 bind index,pager ^   sidebar-open # Open the selected mailbox
@@ -92,7 +94,7 @@ macro index,pager '0' '<sync-mailbox><change-folder>+trash<enter>' # Move to tra
 macro index,pager '9' '<sync-mailbox><change-folder>+hold<enter>'  # Move to hold
 macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # Move to Inbox
 
-# color scheme
+# Color scheme
 #source ~/.mutt/color/masasam.rc
 #source ~/.mutt/color/solarized.rc
 #source ~/.mutt/color/neonwolf.rc
