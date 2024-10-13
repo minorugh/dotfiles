@@ -200,6 +200,10 @@ neomutt: ## Init neomutt mail client with abook
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
 
+	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/neomutt.sh
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
+
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@
 	sudo ln -vsfn ${PWD}/bin/external-editor-revived /usr/local/bin

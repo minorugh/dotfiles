@@ -42,7 +42,7 @@
   (defun neomutt ()
     "Open terminal and ssh to xsrv."
     (interactive)
-    (compile "gnome-terminal --maximize -- neomutt"))
+    (compile "neomutt.sh"))
 
   (defun my:muhenkan ()
     (interactive)
