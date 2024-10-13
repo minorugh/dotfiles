@@ -3,23 +3,24 @@
 # ~/.muttrc
 # @author Minoru Yamada <minorugh@gmail.com>
 
+# -- Can't disclose personal information here,
+# -- then will be read from other sources.
+source ~/.mutt/password.rc
+
 # Japanese environment
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes
 
 # Basic setting
-# -- Can't disclose personal information here,
-# -- then will be read from other sources.
-source ~/.mutt/password.rc
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
 set imap_check_subscribed
 set hostname = gmail.com
 set mail_check = 60
 set timeout = 300
 set imap_keepalive = 300
+set postponed = "+[GMail]/Drafts"
+set record = "+[GMail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -35,9 +36,8 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
 
-# security settings
-set ssl_starttls   = yes
-set ssl_force_tls  = yes
+# Print command
+set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # sidebar
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
@@ -48,9 +48,6 @@ bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
 
 # Load custom bind
 source ~/.mutt/bind.rc
-
-# Print command
-set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # mailcap
 alternative_order text/plain text/html *
