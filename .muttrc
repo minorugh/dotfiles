@@ -36,6 +36,9 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
 
+# sidebar
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
 # print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
@@ -61,14 +64,12 @@ bind editor        <Tab> complete-query
 set pager_context = 3
 unset markers
 
-# sidebar
-set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+# custom bind for vim like
 bind index,pager ]   sidebar-next # Select next mailbox
 bind index,pager [   sidebar-prev # Select previous mailbox
 bind index,pager ^   sidebar-open # Open the selected mailbox
 bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
 
-# Custom keybind for vim like
 bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
 bind index J next-new-then-unread     # Go to next new/unread mail
