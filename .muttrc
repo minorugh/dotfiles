@@ -39,16 +39,6 @@ set pager_index_lines=8
 # print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
-# sidebar
-set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
-bind index,pager ]   sidebar-next # Select next mailbox
-bind index,pager [   sidebar-prev # Select previous mailbox
-bind index,pager ^   sidebar-open # Open the selected mailbox
-bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
-
-# custom bind
-source ~/.mutt/bind.rc
-
 # mailcap
 alternative_order text/plain text/html *
 set mailcap_path = ~/.mutt/mailcap
@@ -71,13 +61,43 @@ bind editor        <Tab> complete-query
 set pager_context = 3
 unset markers
 
+# sidebar
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+bind index,pager ]   sidebar-next # Select next mailbox
+bind index,pager [   sidebar-prev # Select previous mailbox
+bind index,pager ^   sidebar-open # Open the selected mailbox
+bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
+
+# Custom keybind for vim like
+bind index,attach g first-entry       # Go to first entry
+bind index,attach G last-entry        # Go to last entry
+bind index J next-new-then-unread     # Go to next new/unread mail
+bind index K previous-new-then-unread # Go to previous new/unread mail
+bind index,pager f next-page          # Go to next page
+bind index,pager b previous-page      # Go to previous page
+
+bind pager g top                      # Go to the top of the email
+bind pager G bottom                   # Go to the bottom of the email
+bind pager j next-line                # Scroll down one line
+bind pager k previous-line            # Scroll up one line
+bind pager h exit                     # Exit Menu
+bind pager l display-toggle-weed      # header suppression switching
+bind index,pager F forward-message    # Forwarding Mail
+
+macro index 'c' '<change-folder>+'      # Move to specified folder
+macro index,pager 'C' '<copy-message>+' # Copy mail to designated folder
+macro index,pager 's' '<save-message>+' # Save mail and attached files to designated mailbox/file
+macro index,pager '0' '<sync-mailbox><change-folder>+trash<enter>' # Move to trash
+macro index,pager '9' '<sync-mailbox><change-folder>+hold<enter>'  # Move to hold
+macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # Move to Inbox
+
 # color scheme
-#source ~/.mutt/color/masasam.muttrc
-#source ~/.mutt/color/solarized.muttrc
-#source ~/.mutt/color/neonwolf.muttrc
-#source ~/.mutt/color/vombatidae.muttrc
-#source ~/.mutt/color/zenburn.muttrc
-source ~/.mutt/color/dracula.muttrc
+#source ~/.mutt/color/masasam.rc
+#source ~/.mutt/color/solarized.rc
+#source ~/.mutt/color/neonwolf.rc
+#source ~/.mutt/color/vombatidae.rc
+#source ~/.mutt/color/zenburn.rc
+source ~/.mutt/color/dracula.rc
 
 
 # .muttrc ends here

@@ -1,6 +1,5 @@
 #########################################################
-# Neomutt Custom keybind
-# export to .muttrc for use 'source ~/.mutt/bind.rc'
+# Custom keybind
 
 # Set to Vim like
 bind index,attach g first-entry       # Go to first entry
