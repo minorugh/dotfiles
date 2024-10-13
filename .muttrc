@@ -7,11 +7,11 @@
 # -- then will be read from other sources.
 source ~/.mutt/password.rc
 
-# Japanese environment
+# japanese environment
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes
 
-# Basic setting
+# basic setting
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
@@ -36,7 +36,7 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set pager_index_lines=8
 
-# Print command
+# print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # sidebar
@@ -46,7 +46,7 @@ bind index,pager [   sidebar-prev # Select previous mailbox
 bind index,pager ^   sidebar-open # Open the selected mailbox
 bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
 
-# Load custom bind
+# custom bind
 source ~/.mutt/bind.rc
 
 # mailcap
@@ -54,24 +54,15 @@ alternative_order text/plain text/html *
 set mailcap_path = ~/.mutt/mailcap
 auto_view text/html
 
-# External editor
+# emacs
 set editor="emacsclient"
+# vim
 #set editor="vim"
 
-# New mail command
+# notify-send
 set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
 
-# Address book function
-# -- alias
-# set alias_file = "~/.mutt/aliases"
-# set sort_alias = alias
-# set reverse_alias = yes
-# source $alias_file
-# -- GooBook
-# set query_command="goobook query '%s'"
-# macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
-# bind editor <Tab> complete-query
-# -- Abook -- I'm using this.
+# addressbook
 set query_command= "abook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 bind editor        <Tab> complete-query
@@ -80,7 +71,7 @@ bind editor        <Tab> complete-query
 set pager_context = 3
 unset markers
 
-# Load color scheme
+# color scheme
 #source ~/.mutt/color/masasam.muttrc
 source ~/.mutt/color/dracula.muttrc
 
