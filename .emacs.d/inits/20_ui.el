@@ -21,7 +21,7 @@
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
-  (column-number-mode 0)
+  (column-number-mode 1)
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
     :hook (imenu-list-major-mode-hook neotree-mode-hook)))

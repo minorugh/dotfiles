@@ -1,9 +1,9 @@
-#########################################################
+############################################################
 # Neomutt Configuration  2024.10.10
 # ~/.muttrc
 # @author Minoru Yamada <minorugh@gmail.com>
 
-# Sources Auth information
+# Sources for Auth configuration ---------------------------
 source ~/.mutt/password.rc
 
 # For japanese environment
@@ -11,9 +11,8 @@ source ~/.mutt/password.rc
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes    ## enable body search in Japanese
 set rfc2047_parameters=yes ## filename for japanese
-#set edit_headers=yes
 
-# Basic settings
+# Basic configuration --------------------------------------
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
@@ -29,49 +28,67 @@ set certificate_file=~/.mutt/certificates
 set signature =~/.mutt/signature
 set move = no
 set include
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
 set auto_tag = yes
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
-set pager_index_lines=8
+alternative_order text/plain text/html *
+auto_view text/html
 
-# Sidebar
-set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+# mailcap
+set mailcap_path = ~/.mutt/mailcap
 
 # Print command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
-# mailcap
-alternative_order text/plain text/html *
-set mailcap_path = ~/.mutt/mailcap
-auto_view text/html
-
-# emacs
-set editor="emacsclient"
-# vim
-#set editor="vim"
-
-# notify-send
+# notify-send ----------------------------------------------
 set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
 
-# pager
-set pager_context = 3
-unset markers
+# Change the following line to a different editor you prefer.
+set editor="emacsclient"
+#set editor="vim"
 
 # addressbook use Abook
 set query_command= "abook --mutt-query '%s'"
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 bind editor        <Tab> complete-query
 
-# Custom bind for vim like
-bind index,pager ]   sidebar-next # Select next mailbox
-bind index,pager [   sidebar-prev # Select previous mailbox
-bind index,pager ^   sidebar-open # Open the selected mailbox
-bind index,pager \cv sidebar-toggle-visible # Open and close sidebar
+# Sidebar Patch --------------------------------------------
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+#set sidebar_visible = yes
+set sidebar_width   = 28
 
+# Status Bar -----------------------------------------------
+set status_chars  = " *%A"
+set status_format = "---[ Folder: %f ]---[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]---%>-%?p?( %p postponed )?---"
+
+# Index View Options ---------------------------------------
+set date_format = "%m/%d"
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+# Pager View Options ---------------------------------------
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
+
+# Sidebar Navigation ---------------------------------------
+bind index,pager ]   sidebar-next
+bind index,pager [   sidebar-prev
+bind index,pager ^   sidebar-open
+bind index,pager \cv sidebar-toggle-visible
+
+# Index Key Bindings ---------------------------------------
 bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
 bind index J next-new-then-unread     # Go to next new/unread mail
@@ -79,6 +96,7 @@ bind index K previous-new-then-unread # Go to previous new/unread mail
 bind index,pager f next-page          # Go to next page
 bind index,pager b previous-page      # Go to previous page
 
+# Pager Key Bindings ---------------------------------------
 bind pager g top                      # Go to the top of the email
 bind pager G bottom                   # Go to the bottom of the email
 bind pager j next-line                # Scroll down one line
@@ -87,14 +105,7 @@ bind pager h exit                     # Exit Menu
 bind pager l display-toggle-weed      # header suppression switching
 bind index,pager F forward-message    # Forwarding Mail
 
-macro index 'c' '<change-folder>+'      # Move to specified folder
-macro index,pager 'C' '<copy-message>+' # Copy mail to designated folder
-macro index,pager 's' '<save-message>+' # Save mail and attached files to designated mailbox/file
-macro index,pager '0' '<sync-mailbox><change-folder>+trash<enter>' # Move to trash
-macro index,pager '9' '<sync-mailbox><change-folder>+hold<enter>'  # Move to hold
-macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # Move to Inbox
-
-# Color scheme
+# # Color settings for mutt --------------------------------
 #source ~/.mutt/color/masasam.rc
 #source ~/.mutt/color/solarized.rc
 #source ~/.mutt/color/neonwolf.rc
@@ -102,6 +113,5 @@ macro index,pager '1' '<sync-mailbox><change-folder>+inbox<enter>' # Move to Inb
 #source ~/.mutt/color/zenburn.rc
 source ~/.mutt/color/dracula.rc
 
-
 # .muttrc ends here
-####################################################################
+############################################################
