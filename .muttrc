@@ -43,13 +43,12 @@ set mailcap_path = ~/.mutt/mailcap
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # notify-send ----------------------------------------------
-set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
+set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm'\
+'New Email' '%n new messages, %u unread.' &"
 
 # Open URL using w3m ---------------------------------------
-macro index,pager \cb \
-": unset wait_key; set pipe_decode\n|w3m\n: \
-set wait_key; unset pipe_decode\n" \
-"call w3m to extract URLs out of a message"
+macro index,pager \cb ": unset wait_key; set pipe_decode\n|w3m\n: \
+set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
 
 # Tips from "https://hanagurotanuki.blogspot.com/2015/04/mutturlw3m.html?utm_source=pocket_shared#google_vignette"
 # -----------------------------------------------------------
