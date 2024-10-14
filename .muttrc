@@ -45,6 +45,23 @@ set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 # notify-send ----------------------------------------------
 set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm' 'New Email' '%n new messages, %u unread.' &"
 
+# Open URL using w3m ---------------------------------------
+# After typing Ctrl-B to launch w3m, type : (a colon) to tell w3m to convert URL strings to links.
+# w3m's Option Setting Panel (type o) and set the "Treat URL-like strings as links in all pages" to YES.
+# Then you won't have to keep typing : as you page through the message.
+# ----------------------------------------------------------
+macro index,pager \cb \
+": unset wait_key; set pipe_decode\n|w3m\n: \
+set wait_key; unset pipe_decode\n" \
+"call w3m to extract URLs out of a message"
+
+#############################################################
+# Open w3m url in an external plaza--------------------------
+# Open w3m, type o to open the Option Setting Panel,
+# scroll down to "External Program Settings" and set the "External Browser" or "Second External 
+# Browser" to "firefox" or "google-chrome". Select "OK" to save the setting.
+# To use the External Browser, type M to view the current page or <Esc>M to follow a link; 
+
 # Change the following line to a different editor you prefer.
 set editor="emacsclient"
 #set editor="vim"
@@ -91,8 +108,6 @@ bind index,pager \cv sidebar-toggle-visible
 # Index Key Bindings ---------------------------------------
 bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
-bind index J next-new-then-unread     # Go to next new/unread mail
-bind index K previous-new-then-unread # Go to previous new/unread mail
 bind index,pager f next-page          # Go to next page
 bind index,pager b previous-page      # Go to previous page
 
