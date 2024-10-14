@@ -3,16 +3,16 @@
 # ~/.muttrc
 # @author Minoru Yamada <minorugh@gmail.com>
 
-# Sources for Auth configuration ---------------------------
+# Sources for Auth Configuration ---------------------------
 source ~/.mutt/password.rc
 
-# For japanese environment
+# For japanese Environment
 # see "https://emaillab.org/mutt/1.4/doc/usage-japanese.ja.html#id2432623"
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes    ## enable body search in Japanese
 set rfc2047_parameters=yes ## filename for japanese
 
-# Basic configuration --------------------------------------
+# Basic Configuration --------------------------------------
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
@@ -39,7 +39,7 @@ auto_view text/html
 # mailcap
 set mailcap_path = ~/.mutt/mailcap
 
-# Print command
+# Print Command
 set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # notify-send ----------------------------------------------
@@ -55,9 +55,9 @@ macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this s
 bind editor        <Tab> complete-query
 
 # Sidebar Patch --------------------------------------------
-set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_format   = "%B%?F? [%F]?%* %?N?%N/?%S"
 #set sidebar_visible = yes
-set sidebar_width   = 28
+set sidebar_width    = 28
 
 # Status Bar -----------------------------------------------
 set status_chars  = " *%A"
