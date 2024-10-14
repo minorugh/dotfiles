@@ -189,9 +189,10 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
 neomutt: ## Init neomutt mail client with abook
-	$(APT) $@ abook
+	$(APT) $@ abook w3m
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
+	ln -vsf {${PWD},${HOME}}/.w3m/keymap
 	for item in masasam.rc dracula.rc neonwolf.rc solarized.rc vombatidae.rc zenburn.rc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/color/$$item;
 	done
