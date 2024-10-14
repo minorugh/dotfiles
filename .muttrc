@@ -46,8 +46,9 @@ set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
 set new_mail_command="notify-send --icon='/usr/share/pixmaps/neomutt.xpm'\
 'New Email' '%n new messages, %u unread.' &"
 
-# Open URL using w3m --------------------
-macro pager \cb <pipe-entry>"w3m"<enter> "Follow links with w3m, Open with external browser"
+# Open URL using w3m ---------------------------------------
+macro index,pager \cb ": unset wait_key; set pipe_decode\n|w3m\n: \
+set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
 
 # Change the following line to a different editor you prefer.
 set editor="emacsclient"
