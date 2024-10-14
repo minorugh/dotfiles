@@ -259,6 +259,9 @@ alias dcdn="docker-compose down -v"
 alias dcex="docker container exec -it webcgi bash"
 alias dcps="docker-compose ps"
 
+# For neomutt to start at ~/Downloads
+alias neomutt='/usr/local/bin/neomutt.sh'
+
 # For vim
 alias v='vim'
 alias sv='sudo vim'
