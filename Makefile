@@ -50,7 +50,7 @@ PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
-PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd w3m
+PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd w3m vlc
 
 BASE_PKGS	:= automake autoconf texinfo openssl patch build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
