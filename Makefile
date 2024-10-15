@@ -50,7 +50,7 @@ PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
-PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd
+PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd w3m
 
 BASE_PKGS	:= automake autoconf texinfo openssl patch build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
@@ -189,14 +189,11 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
 neomutt: ## Init neomutt mail client with abook
-	$(APT) $@ abook w3m
+	$(APT) $@ abook
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
 	ln -vsf {${PWD},${HOME}}/.w3m/keymap
-	for item in masasam.rc dracula.rc neonwolf.rc solarized.rc vombatidae.rc zenburn.rc; do
-		ln -vsf {${PWD},${HOME}}/.mutt/color/$$item;
-	done
-	for item in mailcap certifcates; do ln -vsf {${PWD},${HOME}}/.mutt/$$item; done
+	for item in mailcap certifcates dracula.muttrc; do ln -vsf {${PWD},${HOME}}/.mutt/$$item; done
 	for item in password.rc signature; do ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item; done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
@@ -204,6 +201,12 @@ neomutt: ## Init neomutt mail client with abook
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
+
+dracula-theme: ## Install dracula theme for gnome-terminal
+	cd ${HOME}/Downloads
+	git clone https://github.com/dracula/gnome-terminal
+	cd gnome-terminal && ./install.sh
+	rm -fr ${HOME}/Downloads/gnome-terminal
 
 thunderbird: ## Install Thunderbird and add external_editor_revived.json
 	$(APT) $@
