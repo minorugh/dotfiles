@@ -193,7 +193,7 @@ neomutt: ## Init neomutt mail client with abook
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
 	ln -vsf {${PWD},${HOME}}/.w3m/keymap
-	for item in mailcap certifcates dracula.muttrc; do ln -vsf {${PWD},${HOME}}/.mutt/$$item; done
+	for item in mailcap certifcates dracula.muttrc nord.muttrc; do ln -vsf {${PWD},${HOME}}/.mutt/$$item; done
 	for item in password.rc signature; do ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item; done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
@@ -206,6 +206,13 @@ dracula-theme: ## Install dracula theme for gnome-terminal
 	cd ${HOME}/Downloads
 	git clone https://github.com/dracula/gnome-terminal
 	cd gnome-terminal && ./install.sh
+	rm -fr ${HOME}/Downloads/gnome-terminal
+
+nord-theme: ## Install dracula theme for gnome-terminal
+	sudo apt install dconf-cli uuid-runtime
+	cd ${HOME}/Downloads
+	git clone https://github.com/nordtheme/gnome-terminal.git
+	cd gnome-terminal/src && ./nord.sh
 	rm -fr ${HOME}/Downloads/gnome-terminal
 
 thunderbird: ## Install Thunderbird and add external_editor_revived.json

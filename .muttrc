@@ -110,8 +110,10 @@ bind pager h exit                     # Exit Menu
 bind pager l display-toggle-weed      # header suppression switching
 bind index,pager F forward-message    # Forwarding Mail
 
-# # Color settings for mutt --------------------------------
-source ~/.mutt/dracula.muttrc
+# Color settings for mutt --------------------------------
+#source ~/.mutt/dracula.muttrc
+source ~/.mutt/nord.muttrc
+
 
 # .muttrc ends here
 ############################################################
