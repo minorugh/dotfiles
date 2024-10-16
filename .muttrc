@@ -4,6 +4,7 @@
 # @author Minoru Yamada <minorugh@gmail.com>
 
 # Sources for Auth Configuration ---------------------------
+source ~/.mutt/password.rc
 
 # For japanese Environment
 # see "https://emaillab.org/mutt/1.4/doc/usage-japanese.ja.html#id2432623"
