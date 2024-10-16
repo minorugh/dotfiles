@@ -24,8 +24,8 @@ color header	       cyan	       default "^Subject:"
 # message body ------- foreground ---- background -----------------------------
 color attachment       magenta	       default          # attachments
 color signature	       brightwhite     default          # sigs
-color body	       brightgreen     default         (https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+  # links
-color body	       brightgreen     default         [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+          # email-addresses
+color body	       brightgreen     default		(https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+  # links
+color body	       brightgreen     default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+          # email-addresses
 color search	       brightred       black            # highlight results
 color quoted   	       cyan	       default          # quote colours
 color quoted1	       brightcyan      default

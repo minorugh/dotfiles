@@ -14,6 +14,12 @@
   (region  . '((t (:background "#6272a4" :extend t))))
   (hl-line . '((t (:background "#3B4252" :extend t)))))
 
+;; (leaf iceberg-theme
+;;   :ensure t
+;;   :config
+;;   (iceberg-theme-create-theme-file)
+;;   (load-theme 'solarized-iceberg-dark t))
+
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
   :hook after-init-hook
