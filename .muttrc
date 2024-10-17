@@ -4,7 +4,7 @@
 # @author Minoru Yamada <minorugh@gmail.com>
 
 # Sources for Auth Configuration ---------------------------
-source "gpg -d ~/.mutt/password.gpg |"
+source ~/.mutt/password.rc
 
 # For japanese Environment
 # see "https://emaillab.org/mutt/1.4/doc/usage-japanese.ja.html#id2432623"
@@ -25,7 +25,7 @@ set record = "+[GMail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
-set signature = "gpg -d ~/.mutt/signaturegpg |"
+set signature = ~/.mutt/signature
 set move = no
 set include
 set auto_tag = yes
