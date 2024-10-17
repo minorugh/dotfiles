@@ -4,7 +4,6 @@
 # @author Minoru Yamada <minorugh@gmail.com>
 
 # Sources for Auth Configuration ---------------------------
-# source ~/.mutt/password.rc
 source "gpg -d ~/.mutt/password.gpg |"
 
 # For japanese Environment
