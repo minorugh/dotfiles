@@ -193,7 +193,7 @@ neomutt: ## Init neomutt mail client with abook
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
 	ln -vsf {${PWD},${HOME}}/.w3m/keymap
-	for item in password.rc.gpg signature.gpg mailcap certifcates dracula.muttrc nord.muttrc; do
+	for item in passwords.gpg signature.gpg mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item;
 	done
 	# for item in password.rc signature; do
