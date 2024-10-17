@@ -196,9 +196,6 @@ neomutt: ## Init neomutt mail client with abook
 	for item in password.gpg signature.gpg mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item;
 	done
-	for item in password.rc signature; do
-		ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
-	done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
 
