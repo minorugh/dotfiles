@@ -100,6 +100,7 @@ bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
 bind index,pager  f next-page         # Go to next page
 bind index,pager  b previous-page     # Go to previous page
+bind index,pager  p search-opposite   # Search in reverse order
 
 # Pager Key Bindings ---------------------------------------
 bind pager g top                      # Go to the top of the email
@@ -111,8 +112,8 @@ bind pager l display-toggle-weed      # header suppression switching
 bind index,pager F forward-message    # Forwarding Mail
 
 # Color settings for mutt --------------------------------
-#source ~/.mutt/dracula.muttrc
-source ~/.mutt/nord.muttrc
+source ~/.mutt/dracula.muttrc
+#source ~/.mutt/nord.muttrc
 
 
 # .muttrc ends here
