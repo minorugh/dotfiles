@@ -189,7 +189,6 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 
 neomutt: ## Init neomutt mail client with abook
 	$(APT) $@ abook w3m
-	$(PACMAN) neomutt
 	mkdir -p ${HOME}/.mutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in mailcap certifcates dracula.muttrc nord.muttrc; do
@@ -198,13 +197,13 @@ neomutt: ## Init neomutt mail client with abook
 	for item in password.rc signature; do
 		ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
 	done
-	# ln -vsfn {${PWD},${HOME}}/.w3m
-	# test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
-	# ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
+	ln -vsfn {${PWD},${HOME}}/.w3m
+	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
+	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
 
-	# sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
-	# sudo chmod +x /usr/local/bin/neomutt.sh
-	# ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
+	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/neomutt.sh
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
 
 dracula-theme: ## Install dracula theme for gnome-terminal
 	cd ${HOME}/Downloads
