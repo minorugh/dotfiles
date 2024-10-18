@@ -80,6 +80,10 @@ nextinstall: google-chrome filezilla sxiv lepton zoom pdrv
 .ONESHELL:
 SHELL = /bin/bash
 
+gnupg: ## Copy .gnupg
+	$(APT) $@
+	cp -r ${HOME}/Dropbox/backup/gpg/.gnupg ${HOME}/
+
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
 	for item in config known_hosts id_rsa github_id_rsa xsrv; do
@@ -192,9 +196,6 @@ neomutt: ## Init neomutt mail client with abook
 	for item in password.rc.gpg signature.gpg mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item;
 	done
-	# for item in password.rc signature; do
-	# 	ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
-	# done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
 
