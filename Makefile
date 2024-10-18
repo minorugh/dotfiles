@@ -189,12 +189,9 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 
 neomutt: ## Init neomutt mail client with abook
 	$(APT) $@ abook w3m
-	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
+	ln -vsfn {${PWD},${HOME}}/.mutt
 	ln -vsfn {${PWD},${HOME}}/.w3m
-	for item in password.rc.gpg signature.gpg mailcap certifcates dracula.muttrc nord.muttrc; do
-		ln -vsf {${PWD},${HOME}}/.mutt/$$item;
-	done
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
 
