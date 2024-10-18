@@ -195,8 +195,8 @@ neomutt: ## Init neomutt mail client with abook
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
 	done
 	ln -vsfn {${PWD},${HOME}}/.w3m
-	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
-	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
+	mkdir -p ${HOME}/.abook
+	ln -vsfn {${PWD},${HOME}}/.abook/addressbook
 
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
