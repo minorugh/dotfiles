@@ -194,7 +194,8 @@ neomutt: ## Init neomutt mail client with abook
 	for item in password.rc signature mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
 	done
-	ln -vsfn {${PWD},${HOME}}/.w3m
+	mkdir -p ${HOME}/.w3m
+	ln -vsfn {${PWD},${HOME}}/.w3m/keymap
 	mkdir -p ${HOME}/.abook
 	ln -vsfn {${PWD},${HOME}}/.abook/addressbook
 
