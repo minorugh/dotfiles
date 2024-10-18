@@ -191,12 +191,12 @@ neomutt: ## Init neomutt mail client with abook
 	$(APT) $@ abook w3m
 	mkdir -p ${HOME}/.mutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
-	for item in mailcap certifcates dracula.muttrc nord.muttrc; do
+	for item in password.rc signature mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
 	done
-	for item in password.rc signature; do
-		ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
-	done
+	# for item in password.rc signature; do
+	# 	ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
+	# done
 	ln -vsfn {${PWD},${HOME}}/.w3m
 	test -L ${HOME}/.abook || rm -rf ${HOME}/.abook
 	ln -vsfn {${HOME}/Dropbox/backup/mutt,${HOME}}/.abook
