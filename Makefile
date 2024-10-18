@@ -187,6 +187,7 @@ neomutt: ## Init neomutt mail client with abook
 	$(APT) $@ abook w3m
 	mkdir -p ${HOME}/.mutt
 	ln -vsf {${PWD},${HOME}}/.muttrc
+	ln -vsf {${PWD},${HOME}}/.w3m
 	ln -vsf {${PWD},${HOME}}/.w3m/keymap
 	for item in mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item;
