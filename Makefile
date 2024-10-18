@@ -80,7 +80,7 @@ nextinstall: google-chrome filezilla sxiv lepton zoom pdrv
 .ONESHELL:
 SHELL = /bin/bash
 
-gnupg: ## Copy .gnupg
+gnupg: ## Copy gnupg
 	$(APT) $@
 	cp -r ${HOME}/Dropbox/backup/gpg/.gnupg ${HOME}/
 
