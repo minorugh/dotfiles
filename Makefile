@@ -83,6 +83,7 @@ SHELL = /bin/bash
 gnupg: ## Copy gnupg
 	$(APT) $@
 	cp -r ${HOME}/Dropbox/backup/gpg/.gnupg ${HOME}/
+	chmod 700 ${HOME}/.gnupg ## Suppress warnings
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
