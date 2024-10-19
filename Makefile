@@ -74,8 +74,8 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install base init grub keyring tlp emacs-mozc mozc icons fontawesome gist
-nextinstall: google-chrome filezilla sxiv lepton zoom pdrv
+allinstall: gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+nextinstall: google-chrome filezilla neomutt sxiv lepton zoom pdrv
 
 .ONESHELL:
 SHELL = /bin/bash
