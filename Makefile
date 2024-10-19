@@ -80,10 +80,10 @@ nextinstall: google-chrome filezilla sxiv lepton zoom pdrv
 .ONESHELL:
 SHELL = /bin/bash
 
-gnupg: ## Copy gnupg
+gnupg: ## Copy .gnupg with Master key removed
 	$(APT) $@
-	cp -r ${HOME}/Dropbox/backup/gpg/.gnupg ${HOME}/
-	chmod 700 ${HOME}/.gnupg ## Suppress warnings
+	cp -r ${HOME}/Dropbox/backup/gpg/gnupg ${HOME}/.gnupg/
+	chmod 700 ${HOME}/.gnupg ## To suppress warnings
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.ssh
