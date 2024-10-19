@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _p_ages
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  _x_serv
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  ::_p_ages
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  _D_ocuments
   "
    ("i" my:inits-dir)
    ("+" text-scale-adjust)
@@ -21,7 +21,7 @@
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
    ("d" my:dropbox)
-   ("D" chromium-dropbox)
+   ("D" my:documents)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
    ("e" my:emacs-dir)
@@ -46,7 +46,6 @@
    ("]" my:magit-status)
    ("s" my:scr-dir)
    ("z" filezilla)
-   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init

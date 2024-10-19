@@ -7,6 +7,12 @@
 (leaf *user-custom-functions
   :defun dired-omit-mode evil-insert-state
   :config
+  (defun my:documents ()
+    "Open dotfile dir."
+    (interactive)
+    (find-file "~/Dropbox/Documents/")
+    (dired-omit-mode -1))
+
   (defun my:dotfiles-dir ()
     "Open dotfile dir."
     (interactive)

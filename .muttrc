@@ -113,7 +113,6 @@ bind index,pager F forward-message    # Forwarding Mail
 
 # Color settings for mutt --------------------------------
 source ~/.mutt/dracula.muttrc
-#source ~/.mutt/nord.muttrc
 
 
 # .muttrc ends here
