@@ -178,7 +178,7 @@ google-chrome: ## Install Google-chrome-stable
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn ${HOME}/Dropbox/backup/filezilla ${HOME}/.config
+	ln -vsfn {${PWD},${HOME}}/.config/filezilla
 
 sylpheed: ## Init sylpheed（Use App Password for authentication）
 	$(APT) $@ bogofilter kakasi
