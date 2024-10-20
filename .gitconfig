@@ -16,8 +16,7 @@
 	quotepath = false
 	safecrlf = true
 [ghq]
-	root=~/bin/ghq
-	root=~/bin/.ghq
+	root = ~/src
 [push]
 	default = simple
 [credential]
