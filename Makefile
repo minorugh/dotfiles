@@ -86,9 +86,9 @@ gnupg: ## Copy .gnupg with Master key removed
 	chmod 700 ${HOME}/.gnupg ## To suppress warnings
 
 ssh: ## Init ssh
-	mkdir -p ${HOME}/.ssh
+	mkdir -p ${HOME}/.$@
 	for item in config known_hosts id_rsa github_id_rsa xsrv; do
-		ln -vsfn ${HOME}/Dropbox/backup/ssh/$$item ${HOME}/.ssh/$$item
+		ln -vsfn {${PWD},${HOME}}/.ssh/$$item
 	done
 	chmod 600 ${HOME}/.ssh/id_rsa ${HOME}/.ssh/github_id_rsa
 
