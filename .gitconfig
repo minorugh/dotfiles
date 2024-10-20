@@ -15,6 +15,9 @@
 	ignorecase = false
 	quotepath = false
 	safecrlf = true
+[ghq]
+	root=~/bin/ghq
+	root=~/bin/.ghq
 [push]
 	default = simple
 [credential]

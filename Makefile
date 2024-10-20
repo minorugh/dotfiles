@@ -99,6 +99,7 @@ init: ## Initial deploy dotfiles
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
+	ln -vsf {${PWD},${HOME}}/.config/hub
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
 
