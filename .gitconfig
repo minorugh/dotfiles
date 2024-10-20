@@ -10,3 +10,12 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[core]
+	ignorecase = false
+	quotepath = false
+	safecrlf = true
+	editor = emacsclient
+[push]
+	default = simple
+[credential]
+	helper = wincred
