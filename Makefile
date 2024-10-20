@@ -75,7 +75,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
-nextinstall: google-chrome filezilla neomutt sxiv lepton zoom printer
+nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -95,7 +95,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig gist zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources; do
+	for item in gitconfig zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
@@ -110,11 +110,16 @@ grub: ## Configure grub
 	sudo update-grub2
 endif
 
-ghq: ## Instll go & ghq
+go: ## Instll go for version 1.23.2 see https://go.dev/doc/install
+	cd ${HOME}/Downloads && \
+	wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
 	sudo rm -rf /usr/local/go
 	sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
+	rm go1.23.2.linux-amd64.tar.gz
 # Add /usr/local/go/bin to the PATH environment variable.
-# 'export PATH=$PATH:/usr/local/go/bin' then install ghq from github
+# 'export PATH=$PATH:/usr/local/go/bin'
+
+ghq: ## Install ghq see https://github.com/x-motemen/ghq
 	go install github.com/x-motemen/ghq@latest
 
 autologin: ## Run ssh-add with passphrase auto input at GUI startup
@@ -161,6 +166,7 @@ fonts: ## Symlink for user fonts
 
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
+	ln -vsf {${PWD},${HOME}}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
@@ -185,43 +191,33 @@ sylpheed: ## Init sylpheed（Use App Password for authentication）
 	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
 	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
 
+mutt: neomutt w3m abook
 neomutt: ## Init neomutt mail client with abook
-	$(APT) $@ abook w3m
+	$(APT) $@
 	mkdir -p ${HOME}/.mutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in password.rc signature mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
 	done
-	mkdir -p ${HOME}/.w3m
-	ln -vsfn {${PWD},${HOME}}/.w3m/keymap
-	mkdir -p ${HOME}/.abook
-	ln -vsfn {${PWD},${HOME}}/.abook/addressbook
-
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
+
+w3m: ## Install w3m
+	$(APT) $@
+	mkdir -p ${HOME}/.w3m
+	ln -vsfn {${PWD},${HOME}}/.w3m/keymap
+
+abook: ## Install Abook
+	$(APT) $@
+	mkdir -p ${HOME}/.abook
+	ln -vsfn {${PWD},${HOME}}/.abook/addressbook
 
 dracula-theme: ## Install dracula theme for gnome-terminal
 	cd ${HOME}/Downloads
 	git clone https://github.com/dracula/gnome-terminal
 	cd gnome-terminal && ./install.sh
 	rm -fr ${HOME}/Downloads/gnome-terminal
-
-nord-theme: ## Install dracula theme for gnome-terminal
-	sudo apt install dconf-cli uuid-runtime
-	cd ${HOME}/Downloads
-	git clone https://github.com/nordtheme/gnome-terminal.git
-	cd gnome-terminal/src && ./nord.sh
-	rm -fr ${HOME}/Downloads/gnome-terminal
-
-thunderbird: ## Install Thunderbird and add external_editor_revived.json
-	$(APT) $@
-	sudo ln -vsfn ${PWD}/bin/external-editor-revived /usr/local/bin
-	sudo chmod +x /usr/local/bin/external-editor-revived
-	mkdir -p ${HOME}/.mozilla/native-messaging-hosts
-	external-editor-revived | tee ${HOME}/.mozilla/native-messaging-hosts/external_editor_revived.json
-# apply the add-on external-editor-revived at first
-# see https://github.com/Frederick888/external-editor-revived/wiki
 
 keepassxc: ## Install keeypassXC and auto start with master passwd.
 	$(APT) $@ libsecret-tools

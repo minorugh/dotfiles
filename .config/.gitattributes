@@ -1,1 +1,2 @@
 filezilla/** filter=git-crypt diff=git-crypt
+hub filter=git-crypt diff=git-crypt

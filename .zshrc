@@ -309,17 +309,12 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
 # PATH
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME
+export GOPATH="/usr/local/go"
 export PATH="$PATH:$GOPATH/bin:/usr/sbin"
 export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
-
-# Ruby exports
-export GEM_HOME=$HOME/gems
-export PATH=$HOME/gems/bin:$PATH
 
 # cdr
 autoload -Uz is-at-least
@@ -356,6 +351,25 @@ function cde() {
         default-directory))" | sed 's/^"\(.*\)"$/\1/'`
     echo "chdir to $EMACS_CWD"
     cd "$EMACS_CWD"
+}
+
+function github-new() {
+    if [ $# = 1 ]; then
+	ghq root && cat ~/.config/hub | grep user \
+	    && cd $(ghq root)/github.com/$(cat ~/.config/hub \
+					       | grep user | awk '{print $3}') && mkdir $1
+	if [ $? = 0 ]; then
+	    cd $1
+	    git init .
+	    hub create
+	    touch README.md
+	    git add README.md
+	    git commit -m 'first commit'
+	    git push origin master
+	fi
+    else
+	echo 'usage: github-new reponame'
+    fi
 }
 
 function webm2gif() {
