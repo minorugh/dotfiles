@@ -75,7 +75,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
-nextinstall: google-chrome filezilla neomutt sxiv lepton zoom pdrv
+nextinstall: google-chrome filezilla neomutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -162,7 +162,7 @@ fonts: ## Symlink for user fonts
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
 
-pdrv: ## Install Printer driver for Brother HL-L2375DW
+printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
 	wget https://download.brother.com/welcome/dlf103535/hll2375dwpdrv-4.0.0-1.i386.deb
 	sudo dpkg -i --force-all hll2375dwpdrv-4.0.0-1.i386.deb
