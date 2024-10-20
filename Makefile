@@ -95,15 +95,15 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources; do
+	for item in gitconfig zprofile zshrc vimrc bashrc tmux.conf Xmodmap Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
 	ln -Vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
-	for item in gitconfig gist; do
-		ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
-	done
+	# for item in gitconfig gist; do
+	# 	ln -vsf ${HOME}/Dropbox/backup/.$$item ${HOME}/.$$item
+	# done
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub
