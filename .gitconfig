@@ -5,6 +5,15 @@
 	email = minorugh@gmail.com
 [alias]
 	st = status
+[alias]
+	st = status
+	co = checkout
+	ri = rebase -i
+	lv = log --graph --branches --tags --remotes --pretty=format:'%Cred%h%Creset - %s%C(yellow)%d%Creset %Cgreen(%cr:%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
+	b = branch
+	ba = branch -a
+	fap = fetch --all --prune
+	pff = pull --ff
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
