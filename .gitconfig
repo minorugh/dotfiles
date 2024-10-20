@@ -11,10 +11,10 @@
 	fap = fetch --all --prune
 	pff = pull --ff
 [core]
+	editor = emacsclient
 	ignorecase = false
 	quotepath = false
 	safecrlf = true
-	editor = emacsclient
 [push]
 	default = simple
 [credential]
