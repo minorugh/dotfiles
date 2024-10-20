@@ -1,10 +1,6 @@
-[github]
-	user = minorugh
 [user]
 	name = Minoru Yamada
 	email = minorugh@gmail.com
-[alias]
-	st = status
 [alias]
 	st = status
 	co = checkout
@@ -14,11 +10,6 @@
 	ba = branch -a
 	fap = fetch --all --prune
 	pff = pull --ff
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [core]
 	ignorecase = false
 	quotepath = false
@@ -28,3 +19,10 @@
 	default = simple
 [credential]
 	helper = wincred
+[github]
+	user = minorugh
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
