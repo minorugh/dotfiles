@@ -82,7 +82,7 @@ SHELL = /bin/bash
 
 gnupg: ## Copy .gnupg with Master key removed
 	$(APT) $@
-	cp -r ${HOME}/Dropbox/backup/gpg/gnupg ${HOME}/.gnupg/
+	cp -r {${PWD},${HOME}}/.gnupg/
 	chmod 700 ${HOME}/.gnupg ## To suppress warnings
 
 ssh: ## Init ssh
