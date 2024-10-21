@@ -158,7 +158,6 @@ keyring: ## Init gnome keyrings
 	mkdir -p ${HOME}/.local/share
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn ${HOME}/{backup,.local/share}/keyrings
-	# ln -vsfn ${HOME}/Dropbox/backup/keyrings ${HOME}/.local/share/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/Documents/icons/* ${HOME}/Pictures
