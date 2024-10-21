@@ -74,11 +74,16 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: restor gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
+
+restor: ## Clone and restore a backup from github private repository
+	mkdir -p ${HOME}/backup
+	cd ${HOME}
+	git clone git@github.com:minorugh/backup.git
 
 gnupg: ## Copy .gnupg with Master key removed
 	$(APT) $@
@@ -337,12 +342,13 @@ emacs-devel: ## Install development version of emacs
 
 github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
-	cd ${HOME}/src/github.com/minorugh && \
-	git clone git@github.com:minorugh/GH.git && \
-	git clone git@github.com:minorugh/upsftp.git && \
-	git clone git@github.com:minorugh/evil-easy-hugo.git \
+	cd ${HOME}/src/github.com/minorugh
+	git clone git@github.com:minorugh/GH.git
+	git clone git@github.com:minorugh/upsftp.git
+	git clone git@github.com:minorugh/evil-easy-hugo.git
 	git clone git@github.com:minorugh/minorugh.github.io.git
-# GH.git saves `.git' folder only and removes other data. These restored from Dropbox.
+# GH.git will keep only `.git' and delete all other files.
+
 
 ## =====================================================================
 ## Custmize settings after Debian install
