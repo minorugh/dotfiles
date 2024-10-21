@@ -4,9 +4,9 @@
 ;; (setq debug-on-error t)
 
 (leaf *deepl-api
-  :doc "Load Deeepl-auth-key from external file (for security)"
+  :doc "Load Deeepl-auth-key from external file for security"
   :config
-  (load "~/backup/deepl-auth/deepl-key.el"))
+  (load "~/Dropbox/backup/deepl-auth/deepl-key.el"))
 
 
 (leaf deepl-translate
