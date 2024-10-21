@@ -31,11 +31,20 @@
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
-## 5. Clone dotfiles from GitHub
+## 5. Clone backup from GitHub
+# | mkdir -p ~/backup
+# | cd ~/backup
+# | git clone git@github.com:minorugh/backup.git
+# | git-crypt unlock
+dotfilesを make all した後でこちらも git-crypt unlock する
+
+
+## 6. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
 # | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
+# | git-crypt unlock
 # | make all
 # | chsh -s /usr/bin/zsh
 
@@ -86,7 +95,7 @@ restor: ## Clone and restore a backup from github private repository
 	git clone git@github.com:minorugh/backup.git
 
 gnupg: ## Copy .gnupg with Master key removed
-	$(APT) $@
+	$(APT) $@ git-crypt
 	cp -r {${PWD},${HOME}}/.gnupg/
 	chmod 700 ${HOME}/.gnupg ## To suppress warnings
 
