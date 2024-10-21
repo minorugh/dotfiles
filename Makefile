@@ -31,14 +31,6 @@
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
-## 5. Clone backup from GitHub
-# | mkdir -p ~/backup
-# | cd ~/backup
-# | git clone git@github.com:minorugh/backup.git
-# | git-crypt unlock
-dotfilesを make all した後でこちらも git-crypt unlock する
-
-
 ## 6. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
@@ -88,11 +80,6 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
-
-restor: ## Clone and restore a backup from github private repository
-	mkdir -p ${HOME}/backup
-	cd ${HOME}
-	git clone git@github.com:minorugh/backup.git
 
 gnupg: ## Copy .gnupg with Master key removed
 	$(APT) $@ git-crypt
@@ -171,7 +158,7 @@ keyring: ## Init gnome keyrings
 	$(APT) seahorse
 	mkdir -p ${HOME}/.local/share
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
-	ln -vsfn ${HOME}/{backup,.local/share}/keyrings
+	ln -vsfn ${HOME}/{Dropbox/backup,.local/share}/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/Documents/icons/* ${HOME}/Pictures
