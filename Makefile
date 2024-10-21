@@ -31,12 +31,11 @@
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
-## 6. Clone dotfiles from GitHub
+## 5. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
 # | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
-# | git-crypt unlock
 # | make all
 # | chsh -s /usr/bin/zsh
 
@@ -89,7 +88,7 @@ gnupg: ## Copy .gnupg with Master key removed
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
 	for item in config known_hosts id_rsa github_id_rsa xsrv; do
-		ln -vsfn {${PWD},${HOME}}/.ssh/$$item
+		ln -vsfn ${HOME}/Dropbox/backup/ssh/$$item ${HOME}/.ssh/$$item
 	done
 	chmod 600 ${HOME}/.ssh/id_rsa ${HOME}/.ssh/github_id_rsa
 
@@ -100,7 +99,7 @@ init: ## Initial deploy dotfiles
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
-	ln -vsf {${PWD},${HOME}}/.config/hub
+	ln -vsf ${HOME}/Dropbox/backup/hub ${HOME}/.config/hub
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	ln -vsfn {${PWD},${HOME}}/.vim
 
@@ -169,7 +168,7 @@ fonts: ## Symlink for user fonts
 
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
-	ln -vsf {${PWD},${HOME}}/.gist
+	ln -vsf ${HOME}/Dropbox/backup/gist ${HOME}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
@@ -187,7 +186,7 @@ google-chrome: ## Install Google-chrome-stable
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn {${PWD},${HOME}}/.config/filezilla
+	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.config}/filezilla
 
 sylpheed: ## Init sylpheed（Use App Password for authentication）
 	$(APT) $@ bogofilter kakasi
@@ -199,8 +198,11 @@ neomutt: ## Init neomutt mail client with abook
 	$(APT) $@
 	mkdir -p ${HOME}/.mutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
-	for item in password.rc signature mailcap certifcates dracula.muttrc nord.muttrc; do
+	for item in mailcap certifcates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
+	done
+	for item in password.rc signature; do
+		ln -vsf {${HOME}/Dropbox/backup/mutt,${HOME}/.mutt}/$$item;
 	done
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
@@ -214,7 +216,7 @@ w3m: ## Install w3m
 abook: ## Install Abook
 	$(APT) $@
 	mkdir -p ${HOME}/.abook
-	ln -vsfn {${PWD},${HOME}}/.abook/addressbook
+	ln -vsf ${HOME}/Dropbox/backup/abook ${HOME}/.abook
 
 dracula-theme: ## Install dracula theme for gnome-terminal
 	cd ${HOME}/Downloads
