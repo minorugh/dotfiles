@@ -1,4 +1,4 @@
-# My dotfiles based on Makefile
+# My dotfiles on Makefile
 
 ## Screenshot
 ![Debian11 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg) 
