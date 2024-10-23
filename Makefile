@@ -87,7 +87,7 @@ gnupg: ## Deploy gnupg (Run after Private Key Import)
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
-	for item in config known_hosts id_rsa xsrv env.sh; do
+	for item in config known_hosts id_rsa xsrv passwd.rc; do
 		ln -vsfn {${PWD},${HOME}}/.ssh/$$item
 	done
 	chmod 600 ${HOME}/.ssh/id_rsa
