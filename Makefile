@@ -213,7 +213,7 @@ w3m: ## Install w3m
 abook: ## Install Abook
 	$(APT) $@
 	mkdir -p ${HOME}/.abook
-	ln -vsf {${HOME}/Dropbox/backup/abook,${HOME}/.abook}/addressbook
+	ln -vsf {${PWD},${HOME}}/.abook/addressbook
 
 dracula-theme: ## Install dracula theme for gnome-terminal
 	cd ${HOME}/Downloads
