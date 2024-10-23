@@ -1,0 +1,6 @@
+# key: bible
+# name: bible
+# --
+=bible<
+$1
+=bible>

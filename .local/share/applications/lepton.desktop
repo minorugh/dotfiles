@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Lepton
+Comment=Lean code snippet manager
+Exec=/home/minoru/Appimage/Lepton-1.10.0.AppImage
+Icon=/home/minoru/Pictures/icons/lepton.png
+Categories=Development;
+Path=
+Terminal=false
+StartupNotify=false
