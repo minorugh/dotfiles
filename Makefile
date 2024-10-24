@@ -31,13 +31,10 @@
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
 
-## 5. Import gpg private_key
-# | cd ~/Dropbox/backup/gnupg -- Zip file of private key is backed up here
-# | unzip -P xxxx encrypt-pub.zip -- pub.key is extracted
-# | unzip -P xxxx encrypt-sec.zip -- sec.key is extracted
-# | import gpg pub.key
-# | import gpg pub.key -- Asked for your passphrase
-# | shred -uvz pub.key -- Unrecoverable deletions
+## 5. Import GPG private_key
+# Wait for Dropbox sync to complete.
+# | cd ~/Dropbox/backup
+# | make gpg
 
 ## 6. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
