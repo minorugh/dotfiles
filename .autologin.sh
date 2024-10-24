@@ -3,7 +3,7 @@
 # Look ${PWD}/.config/autostart/autologin.desktop
 
 # Include Password
-source ~/.config/env.sh
+source ~/src/github.com/minorugh/dotfiles/.config/env.sh
 
 spawn ssh-add /home/minoru/.ssh/id_rsa
 expect "Enter passphrase for /home/minoru/.ssh/id_rsa:"
