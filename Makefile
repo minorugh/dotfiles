@@ -260,7 +260,7 @@ sxiv: ## Init sxiv
 	ln -vsfn {${PWD},${HOME}}/.config/sxiv/exec/image-info
 	chmod +x ${HOME}/.config/sxiv/exec/image-info
 
-webcatalog: ## Install Webcatalog
+webcatalog: ## Install Webcatalog for Appimage
 	mkdir -p ${HOME}/Appimage
 	cd ${HOME}/Appimage && \
 	wget https://webcatalog.io/api/download/?platform=linux&arch=x64
