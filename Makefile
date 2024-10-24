@@ -21,23 +21,30 @@
 
 ## 3. Set home sub directorys to English notation
 # Log in with ${USER}
-# | sudo apt install -y xdg-user-dirs-gtk ## Not needed on debian12
+# | sudo apt install -y xdg-user-dirs-gtk ## Not needed for debian12 or later
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh unzip git make nautilus
+# | sudo apt install -y zsh make unzip git gnupg git-crypt nautilus
 
 ## 4. Install dropbox & setting
 # Before installing, configure the Synapyic repository & Check existence of package
 # | sudo apt install -y nautilus-dropbox
 # | Launch dropbox from Menu then install and initial settings
-# | Import gpg private key | unzip -P xxxx private_key.zip | gpg --import private_key
 
+## 5. Import gpg private_key
+# | cd ~/Dropbox/backup/gnupg -- Zip file of private key is backed up here
+# | unzip -P xxxx encrypt-pub.zip -- pub.key is extracted
+# | unzip -P xxxx encrypt-sec.zip -- sec.key is extracted
+# | import gpg pub.key
+# | import gpg pub.key -- Asked for your passphrase
+# | shred -uvz pub.key -- Unrecoverable deletions
 
-## 5. Clone dotfiles from GitHub
+## 6. Clone dotfiles from GitHub
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
 # | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
+# | git-crypt unlock
 # | make all
 # | chsh -s /usr/bin/zsh
 
@@ -83,6 +90,8 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 SHELL = /bin/bash
 
 gnupg: ## Deploy gnupg (Run after Private Key Import)
+	$(APT) $@ git-crypt
+	mkdir -p ${HOME}/.$@
 	ln -vsf {${PWD},${HOME}}/.$@/gpg-agent.conf
 
 ssh: ## Init ssh
