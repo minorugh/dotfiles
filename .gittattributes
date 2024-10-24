@@ -1,4 +1,4 @@
-# Disable
-tex/** -linguist-documentation
+# Set code language in repository on GitHub
 
-.gist filter=git-crypt diff=git-crypt
+*.sty linguist-language=Emacs-Lisp
+
