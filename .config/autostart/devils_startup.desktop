@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=devils_startup
+Comment=Auto startup & minimize
+Exec=sh /usr/local/bin/devils_startup.sh
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Application;
+RunHook=0
+

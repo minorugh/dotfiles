@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Keepass-auto
+Comment=KeepassXC autologin
+Exec=/usr/local/bin/keepass.sh
+Icon=/home/minoru/Pictures/icons/KeePassXC.png
+
+Categories=Development;
+Path=
+Terminal=false
+StartupNotify=false

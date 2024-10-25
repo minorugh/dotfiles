@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=AutoLogin
+Comment=Run ssh-add with passphrase auto input at GUI startup
+Exec=gnome-terminal -- zsh -c "expect $HOME/.autologin.sh"
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Application;
+Hidden=false
+

@@ -1,0 +1,4 @@
+# Set code language in repository on GitHub
+*.sty linguist-language=Emacs-Lisp
+
+.gist git-crypt diff=git-crypt 

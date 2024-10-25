@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Neomutt
+Comment=Neomutt start at ~/Downloads
+Exec=/usr/local/bin/neomutt.sh
+Icon=neomutt
+Categories=Development;Network;Email
+Path=
+Terminal=false
+StartupNotify=false

@@ -1,0 +1,3 @@
+! ~/.Xresources
+! Disable Emacs XIM
+Emacs*useXIM: false

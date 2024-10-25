@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: shell
+# key: shell
+# --
+\`\`\`shell
+$0
+\`\`\`
