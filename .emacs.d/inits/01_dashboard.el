@@ -11,9 +11,8 @@
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
-	  ("n"    . neomutt)
+	  ("m"    . neomutt)
 	  ("x" . (lambda () (interactive) (compile "/home/minoru/.webcatalog/X/X")))
-	  ("m" . (lambda () (interactive) (compile "sylpheed")))
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
