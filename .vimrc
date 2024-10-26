@@ -29,8 +29,8 @@ call plug#begin()
   Plug 'tpope/vim-commentary'
   Plug 'jiangmiao/auto-pairs'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'nordtheme/vim'
+"  Plug 'dracula/vim', { 'as': 'dracula' }
+"  Plug 'nordtheme/vim'
 call plug#end()
 
 colorscheme iceberg
