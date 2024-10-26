@@ -101,7 +101,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig zshrc zprofile zlogout vimrc tmux.conf Xmodmap Xresources; do
+	for item in gitconfig zshrc vimrc tmux.conf Xmodmap Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
