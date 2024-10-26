@@ -1,0 +1,577 @@
+% sfkanbun.sty by Shinsaku Fujita 2000/01/20
+%   Copyright (C) 1998, 2000 by Shinsaku Fujita, All rights reserved. 
+%   Version 1.01 
+%
+%
+%  藤田眞作著「入門・縦横文書術」所載
+%
+%    名称をkanbun.styからsfkanbun.styに変更。
+%
+%    版面の小口の端にきたときの対処。
+%    ・ルビの高さを0ptとして、版面からはみ出すように
+%      する(\hamidashitrue)。標準設定。
+%    ・\hamidashifalseとすると版面からはみ出さない。したがって、
+%      偶数ページの右端の一行は、ルビあるなしで狂う。
+%    
+%    肩ツキレ点が版面の上端からはみだすかどうか。
+%     \retenhamidashifalse (標準設定)。\retenhamidashitrue (はみ出し)
+%
+%    訓点の大きさを\kundokusizeで設定できるようにした。
+%     \let\kundokusize=\tiny (標準設定)。
+%
+%    これにともなって、送りがなの開始位置を\kundokusizeに依存するように
+%    変更。
+%
+%    kansi環境、kanshiyomi環境およびkanshiyomii環境を新設
+%
+% renamed from: 
+%   kanbun.sty by Shinsaku Fujita 1998/08/19
+%   Copyright (C) 1998 by Shinsaku Fujita, All rights reserved. 
+%
+% 漢文の返り点などの組み方をサポートするマクロ集です。
+%
+%  作成者: 藤田眞作
+%          京都工芸繊維大学工芸学部物質工学科
+%          fujitas@chem.kit.ac.jp
+%
+%  藤田眞作著「続LaTeX2e階梯(縦組み編)」所載
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\def\j@urnalname{kanbun}
+%\def\versi@ndate{August 19, 1998}
+%\def\versi@nno{ver1.00}
+%\def\copyrighth@lder{SF} % Shinsaku Fujita
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\j@urnalname{sfkanbun}
+\def\versi@ndate{January 20, 2000}
+\def\versi@nno{ver1.01}
+\def\copyrighth@lder{S. Fujita} % Shinsaku Fujita
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\typeout{Option Style `\j@urnalname' (\versi@nno) <\versi@ndate>\space 
+[\copyrighth@lder]}
+\typeout{藤田眞作著「続LaTeX2e階梯(縦組み編)」所載}
+\typeout{藤田眞作著「入門・縦横文書術」所載}
+% ********
+% * 警告 *
+% ********
+% ルビ活字は、本文活字の1/2のものを用いるのが原則です。
+% 原則をはずれる場合もなんとか対処できるようにしてありますが、
+% 最初に警告を出しておきます。
+%
+\let\kundokusize=\tiny
+\setbox0=\hbox{漢}
+\setbox1=\hbox{\kundokusize あ}
+\dimen0=\wd0 \divide\dimen0 by2\relax
+\dimen1=\dimen0
+\advance\dimen0 by.01zw
+\advance\dimen1 by-.01zw
+\ifdim\wd1<\dimen1\relax
+\typeout{ルビの活字が小さすぎます。}\fi
+\ifdim\wd1>\dimen0\relax
+\typeout{ルビの活字が大きすぎます。}\fi
+\@ifundefined{kintou}{\input{jdkintou.sty}}{}
+%
+% 返り点の定義
+%
+%  \reten    レ  (あまりうまくない)
+%   片かなのレを使うこと
+%
+%  \ichreten  一
+%             レ
+%
+%  \uereten   上
+%             レ
+%
+\def\reten{　\kern-1zw%全角スペース
+\lower.3zw\hbox{\vbox{%
+\hbox{\vbox to0.88zw{\vss\hbox to0.6zw{\hss$\backslash$\kern-.2zw}}}%
+\hrule height.01zw depth0.06zw}}
+\kern-1zw　%全角スペース
+}
+\def\ichireten{　\kern-1zw%全角スペース
+\hbox{\hbox{一}\kern-.68zw\hbox{レ}}
+\kern-1zw%
+　%全角スペース
+}
+\def\uereten{　\kern-1zw%全角スペース
+\hbox{\hbox{上}\kern-.25zw\hbox{レ}}
+\kern-1zw%
+　%全角スペース
+}
+%
+% 二の字点
+% 2000/01/22 by Shinsaku Fujita 追加
+%
+\def\ninojiten{%
+　\kern-1zw%全角空白
+\raise.2zw\hbox to1zw{\smash{\kern-.1zw\hbox to0zw{%
+{\scriptsize ゝ\kern-.5zw\smash{\raise.1zh\hbox{ヽ}}}\hss}}\hss}%
+\kern-1zw 　%全角空白
+}
+%
+% 親文字と振りがなとの間隔
+% 標準は0pt。さらに開けたい場合は、プルアンブルで変更。
+%
+\newdimen\kanbunaki
+\kanbunaki=0pt
+%
+%    版面の小口の端にきたときの対処。
+%
+\newif\ifhamidashi \hamidashitrue
+%
+%    レ点が版面の上端にきたときの対処。
+%    デフォルトはレ点がはみ出さない
+%
+\newif\ifretenhamidashi \retenhamidashifalse
+%
+% 句読点の詰め組み
+%
+\def\kutoten#1#2{\kern-#1\hbox{#2}\kern#1}
+%
+% 音合符
+%
+\def\ongofu#1#2{\leavevmode\vbox{\hbox{%
+\smash{\raise.1zw\hbox{#2}}}%
+\nointerlineskip
+\hbox{#1}}}
+\def\ongofuno{\ongofu{　}{ー}}%全角空白
+\def\ongofuni{\ongofu{二}{ー}}
+\def\ongofuge{\ongofu{下}{ー}}
+%
+% 訓合符
+%
+\def\kungofu#1#2{\leavevmode\vbox{\hbox{%
+\smash{\lower1zw\hbox{#2}}}%
+\nointerlineskip
+\hbox{\raise.2zw\hbox{#1}}}}
+\def\kungofuno{\kungofu{　}{ー}}%全角空白
+\def\kungofuni{\kungofu{二}{ー}}
+\def\kungofuge{\kungofu{下}{ー}}
+%
+% 書式:
+% \kundoku[制御]{親文字}{ルビ}{送りがな}{返り点}[肩返り点](句読点)
+%
+\newif\if@nagairuby \@nagairubyfalse
+\def\kundoku{\@ifnextchar[%]
+{\@kundoku}{\@kundoku[1]}}
+\def\@kundoku[#1]#2#3#4#5{\@ifnextchar[%]
+{\@k@ndoku[#1]{#2}{#3}{#4}{#5}}{\@k@ndoku[#1]{#2}{#3}{#4}{#5}[]}}
+%
+\def\@k@ndoku[#1]#2#3#4#5[#6]{\@ifnextchar<%>
+{\@k@nd@ku[#1]{#2}{#3}{#4}{#5}[#6]}%
+{\@k@nd@ku[#1]{#2}{#3}{#4}{#5}[#6]<>}}
+%
+\def\@k@nd@ku[#1]#2#3#4#5[#6]<#7>{\@ifnextchar(%)
+{\@k@nd@ku@[#1]{#2}{#3}{#4}{#5}[#6]<#7>}%
+{\@k@nd@ku@[#1]{#2}{#3}{#4}{#5}[#6]<#7>()}}
+%
+% 主処理命令
+%
+% 書式:
+% \@k@nd@ku@[制御]{親文字}{ルビ}{送りがな}{返り点}%
+%  [肩返り点]<左送りがな>(句読点)
+%
+%  送り仮名の開始位置を変更 
+%  2000/1/29 by Shinsaku Fujita 
+%
+%
+\def\@k@nd@ku@[#1]#2#3#4#5[#6]<#7>(#8){%
+\leavevmode
+\ifhmode\edef\@x@sf{\the\spacefactor}\fi
+　\kern-1zw%全角スペース
+\hbox{\kanjiskip=0zw plus0.01zw minus0.01zw
+  \def\temptopleft{#6}%左上の返り点(レ点のみ)
+  \def\tempbottomleft{#5}%返り点
+  \def\tempkundoku{レ}%
+  \@nagairubyfalse
+  \setbox0=\hbox{\kundokusize #3}\dimen8=\wd0\relax
+  \setbox1=\hbox{\kundokusize #4}\dimen1=\wd1\relax
+  \setbox4=\hbox{\kundokusize あ}\dimen6=\wd4\relax
+	\dimen5=-\dimen6\relax
+	\advance\dimen5 by1zw%ルビの正味領域
+  \ifdim\dimen8<.1zw\relax%ルビがほとんど空のとき
+    \ifdim\wd1<.1zw%送りがながほとんど空のとき
+     \dimen1=1zw
+    \else%送りがなあり
+     \advance\dimen1 by\dimen5\relax
+    \fi
+  \else\relax%ルビありrelaxがないと正常にうごかない
+		\ifdim\dimen8>\dimen5\relax%ルビが正味領域を越えるとき
+     \@nagairubytrue
+     \advance\dimen1 by\dimen8\relax
+		\else%ルビが正味領域に入るとき
+	    \ifdim\wd1<.1zw%送りかながほとんど空のとき
+  	   \dimen1=1zw
+    	\else%送りがなあり
+     	\advance\dimen1 by\dimen5\relax
+   		\fi
+   \fi
+  \fi
+  \setbox2=\hbox{\kundokusize #5}\dimen2=\wd2\relax
+  \advance\dimen2 by1zw
+  \setbox3=\hbox{\kundokusize #7}\dimen3=\wd3\relax
+  \advance\dimen3 by.5zw
+ \ifdim\dimen1>\dimen2 %文字幅をルビ+送りかなの長さにあわせる
+  \@@kundoku{#1}{#2}{#3}{#4}{#5}{#6}{\dimen1}{#7}{#8}%
+ \else%文字幅を親文字+返り点の長さにあわせる
+  \@@kundoku{#1}{#2}{#3}{#4}{#5}{#6}{\dimen2}{#7}{#8}%
+ \fi}%
+\ifhmode\spacefactor\@x@sf\fi%
+\kern-1zw　%全角スペース
+\def\tempdelim{#8}%区切り記号の処理
+\ifx\tempdelim\empty\else\hskip.5zw
+\spacefactor=3000\relax\fi}
+%
+% 内部処理命令
+%
+% 書式
+% \@@kundoku{制御}{親文字}{ルビ}{送りがな}{返り点}{肩返り点}{正味幅}{句読点}
+% 名称変更 2000/1/21 by Shinsaku Fujita
+% \orig@@kundoku{制御}{親文字}{ルビ}{送りがな}{返り点}{肩返り点}
+%    {正味幅}{句読点}%
+\def\orig@@kundoku#1#2#3#4#5#6#7#8#9{%
+\leavevmode
+ \def\hidarikana{#8}%
+ \def\tempdelim{#9}%
+ \setbox5=\hbox to#7{%箱5の中で組み立てる
+ \vbox{%
+ % ルビと送りがなの処理
+  \if@nagairuby
+  \hbox to\dimen1{\hbox{\kundokusize #3}\hbox{\kundokusize #4}\hss}%
+  \else
+  \hbox to\dimen1{\hbox to\dimen5{\kundokusize #3\hss}\hss
+  \hbox{\kundokusize #4}}%
+  \fi
+ % 区切り記号の処理
+  \nointerlineskip
+  \kern\kanbunaki
+  \ifx\tempdelim\empty\else
+   \smash{\hbox to1zw{\hss\lower.5zw\hbox to0zw{\tate#9\hss}}}%
+  \fi
+ % 左送りがなの処理(かなり無理な処理)
+  \nointerlineskip
+  \dimen4=.80zw\advance\dimen4 by\dimen6\advance\dimen4 by\kanbunaki
+  \ifx\hidarikana\empty\else
+   \smash{%
+    \hbox{\lower\dimen4\hbox to\dimen3{\kern\dimen5%
+		\hbox{\kundokusize #8\hss}\hss}}}%
+  \fi
+ % 親文字と返り点の処理
+  \nointerlineskip
+  \ifx\tempbottomleft\tempkundoku\relax
+   \ifx\temptopleft\empty
+     \ifcase#1\relax% オプション[0]のとき
+			\@tempdima=1zw\advance\@tempdima by\dimen6
+       \hbox to\@tempdima{\hbox to1zw{\hss#2\hss}%
+				\lower.25zw\hbox{\kundokusize #5}\hss}%
+      \or%オプション[1}のとき(標準)
+      \hbox to#7{\hbox to1zw{\hss#2\hss}\hss
+				\lower.25zw\hbox{\kundokusize #5}}%
+     \fi
+    \else%左肩ツキのレ点
+    \hbox to#7{\lower.25zw\hbox to0zw{\hss\kundokusize#6}%
+          \hbox to1zw{\hss#2\hss}\hss
+          \lower.25zw\hbox{\kundokusize#5}}%
+    \fi
+  \else
+   \ifx\temptopleft\empty
+    \hbox to\dimen2{\hbox to1zw{\hss#2\hss}%
+			\lower.25zw\hbox{\kundokusize #5}\hss}%
+    \else
+    \hbox to\dimen2{\lower.25zw\hbox to0zw{\hss\kundokusize#6}%
+			\hbox to1zw{#2}%
+        \lower.25zw\hbox{\kundokusize#5}\hss}%
+   \fi\fi
+}}%箱5の作成終わり
+%箱5の長さ調整。左肩ツキのレ点の分を追加。
+% はみ出し処理を追加2000/01/20 by Shinsaku Fujita
+% \dp5の計算法を変更2000/01/20 by Shinsaku Fujita
+\ifhamidashi\dp5=.5zw\ht5=.5zw\else
+\ifx\hidarikana\empty\else
+\dimen0=0.85zw \advance\dimen0 by\kanbunaki \dp5=\dimen0\fi\fi
+\ifx\temptopleft\empty\box5\relax\else\hbox{%
+\ifretenhamidashi\else\kern\dimen6\fi\box5}\fi}
+%2000/1/21 by Shinsaku Fujita
+\def\kanbunokuri{\let\@@kundoku=\orig@@kundoku}
+\kanbunokuri
+%
+% 字幅を全角に固定
+% 2000/1/21 by Shinsaku Fujita
+%
+\def\kansi@@kundoku#1#2#3#4#5#6#7#8#9{\hbox to1zw{%
+\orig@@kundoku{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}\hss}}
+\def\kansiokuri{\let\@@kundoku=\kansi@@kundoku}
+%
+% 漢詩環境
+% \begin{kanshi}
+%   (字間が二分アキになります)
+% \end{kanshi}
+% 2000/1/21 by Shinsaku Fujita
+%
+\newenvironment{kanshi}
+  {\let\\\@normalcr
+	 \let\@@kundoku=\kansi@@kundoku
+   \par%念のため\kanjiskipの影響が及ばないように指定
+   \list{}{%
+		\kanjiskip=0.5zw plus .125zw minus 0.03125zw
+    \xkanjiskip=\kanjiskip
+    \itemsep=\z@ \topsep=\z@ \parsep=\z@
+    \leftmargin=2zw	\labelwidth=0zw
+		\labelsep=2zw \itemindent=1.5zw
+    \listparindent=\itemindent
+    \rightmargin=0zw}%
+    \item\relax}{\par\endlist}
+%
+% 漢詩読み環境(i)
+% 2000/1/21 by Shinsaku Fujita
+% \begin{kanshiyomi}{寸法1}{寸法2}
+%   漢詩一段(字間が二分アキになります)+一行の書き下し文
+% \end{kanshiyomi}
+% 寸法1は、漢詩の字どり
+% 寸法2は、書き下し文の長さ
+% (寸法1)+(寸法1)<\hsize
+% subtinyが定義してあるときは、これをつかう。
+%
+% \daisakushai{#1}{#2} 題と作者
+%
+\@ifundefined{subtiny}{\let\kanshiyomisize=\Large
+\let\kanshirubysize=\tiny
+\let\kanshikakisize=\normalsize}%
+{\let\kanshiyomisize=\large
+\let\kanshirubysize=\subtiny
+\let\kanshikakisize=\small}%
+\def\kanshiyomi#1#2{\begingroup
+\let\@@kundoku=\kansi@@kundoku
+\kanshiyomisize
+\par\noindent\tabskip=0pt
+\@ifundefined{subtiny}{\baselineskip=1.5\normalbaselineskip}
+{\baselineskip=1.2\normalbaselineskip}%
+\halign to\hsize\bgroup\tabskip=0pt
+\hskip\parindent\kanshiyomisize%
+\kintou{#1}{##}\hskip1zw&
+\kanshikakisize \let\rubykatuji=\kanshirubysize
+\hskip1zw
+\parbox{#2}{##}\tabskip=0pt plus1fil \cr}
+\def\endkanshiyomi{\crcr\egroup\endgroup\par}
+\def\daisakushai#1#2{\omit\kanshiyomisize
+\hskip\parindent\hskip2zw#1
+\hfil & \omit\kanshiyomisize #2 \hfil\tabskip=0pt plus1fil\cr}
+%
+% 漢詩読み環境(ii)
+% 2000/1/21 by Shinsaku Fujita
+% \begin{kanshiyomii}{寸法1}{寸法2}
+%   漢詩二段(字間が二分アキになります)+二行の書き下し文
+% \end{kanshiyomii}
+% 寸法1は、漢詩(二段)の字どり
+% 寸法2は、書き下し文(二行)の長さ
+% (寸法1)x2+(寸法1)<\hsize
+%
+% \daisakushaii{#1}{#2} 題と作者
+%
+\def\kanshiyomii#1#2{\begingroup%
+\let\@@kundoku=\kansi@@kundoku
+\kanshiyomisize
+\par\noindent\tabskip=0pt
+\halign to\hsize\bgroup\tabskip=0pt
+\kanshiyomisize%
+\hskip\parindent\kintou{#1}{##}\hskip.5zw&
+\kanshiyomisize%
+\kintou{#1}{##}\hskip.5zw& 
+\vrule##&
+\kanshikakisize \let\rubykatuji=\kanshirubysize
+\hskip.5zw
+\parbox{#2}{\baselineskip=1.6zw
+ \mbox{}\\[-.25\baselineskip]##
+\\[-.5\baselineskip]}%
+\tabskip=0pt plus1fil \cr}
+\def\endkanshiyomii{\crcr\egroup\endgroup\par}
+\def\daisakushaii#1#2{\omit\kanshiyomisize
+\hskip\parindent\hskip2zw#1
+\hfill & \omit\kanshiyomisize #2 &\omit& \cr}
+%
+% 振り漢字(肩ツキ)
+% \furikanjikt{本文}{右振り漢字}{左振り漢字}
+%
+\let\furikanjikatuji=\scriptsize
+\def\furikanjikt#1#2#3{%
+\leavevmode
+%振り漢字の大きさの設定
+\def\@furikanjikatuji{\furikanjikatuji}%
+%文字列の長さを比べる
+\setbox1=\hbox{#1}\dimen0=\wd1\dimen4=\ht0%
+\setbox2=\hbox{\@furikanjikatuji #2}%
+\ifdim\dimen0>\wd2\relax\else\dimen0=\wd2\fi
+\def\migifuri{#2}%
+\setbox3=\hbox{\@furikanjikatuji #3}%
+\def\hidarifuri{#3}%
+%最長文字列の寸法
+\ifdim\dimen0>\wd3\relax\else\dimen0=\wd3\fi
+%深さの寸法
+\ifdim\dimen4<\ht3\relax\else\dimen4=\ht3\fi
+%内容をbox5の中で組み立てる。
+\setbox5=\vbox{%
+  \ifx\migifuri\empty\else
+  \hbox to\dimen0{\raise.3zw\hbox{\@furikanjikatuji #2}\hss}%
+  \kern\kanbunaki
+  \kern.1zw
+  \fi
+  \nointerlineskip
+  \ifx\hidarifuri\empty\else
+  \smash{%
+  \dimen5=\dimen4 \advance\dimen5 by1.15zw
+  \advance\dimen5 by\kanbunaki
+   \hbox{\lower\dimen5\hbox to\dimen0{%
+     \hbox{\@furikanjikatuji #3}\hss}}}%
+  \fi
+  \nointerlineskip
+  \hbox to\dimen0{#1\hss}}%box5の終わり
+%box5の深さを追加
+\ifhamidashi\dp5=.5zw\ht5=.5zw\else
+\ifx\hidarifuri\empty\else
+\dimen6=\dp5 \advance\dimen6 by\dimen4
+\advance\dimen6 by\kanbunaki
+\advance\dimen6 by.45zw
+\dp5=\dimen6\fi\fi　\kern-1zw%全角スペース
+\box5\kern-1zw　%全角スペース
+}
+%
+% 振り漢字
+% 親文字に比べて、振り漢字が短いときのみ中ツキ
+% 長いときは肩ツキ
+% \furikanji{親文字}{右振り漢字}{左振り漢字}
+%
+\newif\if@nagaimigiruby \@nagaimigirubyfalse
+\newif\if@nagaihidariruby \@nagaihidarirubyfalse
+\let\furikanjikatuji=\scriptsize
+\def\furikanji#1#2#3{%
+\leavevmode
+\@nagaimigirubyfalse\@nagaihidarirubyfalse
+%振り漢字の大きさの設定
+\def\@furikanjikatuji{\furikanjikatuji}%
+%文字列の長さを比べる
+\setbox1=\hbox{#1}%
+\dimen0=\wd1\dimen7=\wd1\dimen4=\ht0%
+\setbox2=\hbox{\@furikanjikatuji #2}%
+\ifdim\dimen0>\wd2\relax
+ \else\@nagaimigirubytrue\dimen0=\wd2\fi
+\def\migifuri{#2}%
+\setbox3=\hbox{\@furikanjikatuji #3}%
+\def\hidarifuri{#3}%
+%最長文字列の寸法
+\ifdim\dimen0>\wd3\relax\else\dimen0=\wd3\fi
+\ifdim\wd1>\wd3\relax\else\@nagaihidarirubytrue\fi
+%深さの寸法
+\ifdim\dimen4<\ht3\relax\else\dimen4=\ht3\fi
+%内容をbox5の中で組み立てる。
+\setbox5=\vbox{%
+%右振り漢字
+  \ifx\migifuri\empty\else
+  \if@nagaimigiruby
+  \hbox to\dimen0{\raise.3zw\hbox{\@furikanjikatuji #2}\hss}%
+  \else
+  \hbox to\dimen0{%
+  \hbox{\raise.2zw\hbox to\dimen7{\hss
+  \kanjiskip=0pt plus1fil minus1fill
+  \@furikanjikatuji #2\hss}}%
+  \hss}%
+  \fi\kern\kanbunaki\kern.1zw\fi
+%左振り漢字
+  \nointerlineskip
+  \ifx\hidarifuri\empty\else
+  \if@nagaihidariruby
+  \smash{%
+  \dimen5=\dimen4 \advance\dimen5 by1.15zw
+  \advance\dimen5 by\kanbunaki
+   \hbox{\lower\dimen5\hbox to\dimen0{%
+     \hbox{\@furikanjikatuji #3}\hss}}}%
+  \else
+  \smash{%
+  \dimen5=\dimen4 \advance\dimen5 by1.15zw
+  \advance\dimen5 by\kanbunaki
+   \hbox{%
+    \lower\dimen5\hbox to\dimen0{%
+     \hbox to\dimen7{\hss
+     \kanjiskip=0pt plus1fil minus1fill
+     \@furikanjikatuji #3\hss}%
+   \hss}%
+   }}%
+  \fi\fi
+  \nointerlineskip
+  \hbox to\dimen0{#1\hss}}%box5の終わり
+%box5の深さを追加
+\ifx\hidarifuri\empty\else
+\dimen6=\dp5 \advance\dimen6 by\dimen4
+\advance\dimen6 by.45zw
+\advance\dimen6 by\kanbunaki
+\dp5=\dimen6\fi
+　\kern-1zw%全角スペース
+\hbox{\box5}\kern-1zw　%全角スペース
+}
+%
+% 振り漢字
+% 親文字に比べて、振り漢字が短いときのみ中ツキ
+% 振り漢字の文字の大きさを\tinyとする。
+% 長いときは肩ツキ
+% \FuriKanji{親文字}{右振り漢字}{左振り漢字}
+%
+\def\FuriKanjikt#1#2#3{%
+{\let\furikanjikatuji=\tiny
+\furikanjikt{#1}{#2}{#3}}}
+%
+% 多行割
+% 文字の大きさ\scriptsize(可変)
+% \tagyobox{項目１ \\ 項目２ \\ ...}
+%
+\def\tagyostretch{1.0}
+\def\tagyobox#1{%
+\begingroup　\kern-1zw%全角空白
+\tabcolsep=0pt
+\furikanjikatuji%標準は\scriptsize
+\def\arraystretch{\tagyostretch}%
+\begin{tabular}{l}#1
+\end{tabular}\kern-1zw　%全角空白
+\endgroup}
+%
+% 複多行割
+% 文字の大きさ\tiny
+% \fukutagyobox{項目１ \\ 項目２ \\ ...}
+%
+\def\fukutagyobox#1{%
+\begingroup\let\furikanjikatuji=\tiny
+\tagyobox{#1}\endgroup}
+%
+% 多行割環境
+% 文字の大きさ\scriptsize(可変)
+% \begin{tagyo} 項目１ \\ 項目２ \\ ... \end{tagyo}
+%
+\newenvironment{tagyo}%
+{\begingroup　\kern-1zw%全角空白
+\tabcolsep=0pt
+\furikanjikatuji%標準は\scriptsize
+\def\arraystretch{\tagyostretch}%
+\begin{tabular}{l}}
+{\end{tabular}\kern-1zw　%全角空白
+\endgroup}
+%
+% 複多行割環境
+% 文字の大きさ\tiny
+% \begin{fukutagyo} 項目１ \\ 項目２ \\ ... \end{fukutagyo}
+%
+\newenvironment{fukutagyo}%
+{\begingroup　\kern-1zw%全角空白
+\tabcolsep=0pt\tiny
+\def\arraystretch{\tagyostretch}%
+\begin{tabular}{l}}
+{\end{tabular}\kern-1zw　%全角空白
+\endgroup}
+%
+% ルビを右に動かす
+%
+\def\migishift#1{{\setbox0=\hbox{あ}%
+%
+% 送りがなを指定寸法に約める
+%
+\raise\wd0\hbox to\wd0{\kern-\wd0 #1\hss}}}
+\def\tudume#1#2{\hbox to#1{\hss#2}}
+\endinput
