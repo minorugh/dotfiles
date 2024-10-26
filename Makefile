@@ -107,7 +107,10 @@ init: ## Initial deploy dotfiles
 	xmodmap ${HOME}/.Xmodmap
 	ln -vsf {${PWD},${HOME}}/.config/hub
 	ln -vsfn {${PWD},${HOME}}/.fonts
+
+vim: ## Install vim plug
 	ln -vsfn {${PWD},${HOME}}/.vim
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub

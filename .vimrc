@@ -33,9 +33,9 @@ call plug#begin()
   Plug 'nordtheme/vim'
 call plug#end()
 
-colorscheme iceberg
+" colorscheme iceberg
 " colorscheme dracula
-" colorscheme nord
+colorscheme nord
 
 
 " NERDTree ファイル指定なしでVimを起動した場合だけ表示したい場合は下記行を追加。
