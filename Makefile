@@ -108,7 +108,10 @@ init: ## Initial deploy dotfiles
 	ln -vsf {${PWD},${HOME}}/.config/hub
 	ln -vsfn {${PWD},${HOME}}/.fonts
 	# ln -vsfn {${PWD},${HOME}}/.vim
-	cp -rf {${PWD},${HOME}}/.vim
+	# cp -rf {${PWD},${HOME}}/.vim
+
+vim: ## Install vim plug
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub
