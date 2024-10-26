@@ -30,7 +30,7 @@ call plug#begin()
   Plug 'jiangmiao/auto-pairs'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "  Plug 'dracula/vim', { 'as': 'dracula' }
-"  Plug 'nordtheme/vim'
+  Plug 'nordtheme/vim'
 call plug#end()
 
 colorscheme iceberg
