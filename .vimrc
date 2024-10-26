@@ -24,6 +24,12 @@ let g:mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Esc> :noh<CR>
 
+if empty(glob('$HOME/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin()
   Plug 'preservim/nerdtree'
   Plug 'tpope/vim-commentary'
