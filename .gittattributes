@@ -1,4 +1,4 @@
 # Set code language in repository on GitHub
 tex/* linguist-vendored
-.vim/color/* linguist-vendored 
+color/* linguist-vendored 
 .gist git-crypt diff=git-crypt 
