@@ -1,4 +1,3 @@
-.vim/colors/* linguist-vendored
-.vim/plugged/* linguist-vendored
+.html linguist-vendored
 .gist git-crypt diff=git-crypt 
 
