@@ -80,7 +80,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: restor gnupg ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
