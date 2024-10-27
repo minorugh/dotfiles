@@ -249,7 +249,7 @@ devilspie: ## Init devilspie for minimize_startup applications
 
 gitk: ## Init gitk for git-gui
 	$(APT) $@
-	sudo ln -vsfn {${PWD},${HOME}}/.config/git/gitk
+	sudo ln -vsfn {${PWD}/.config,${HOME}/.config/git}/gitk
 
 sxiv: ## Init sxiv
 	$(APT) $@
