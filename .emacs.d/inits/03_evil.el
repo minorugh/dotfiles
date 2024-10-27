@@ -35,7 +35,7 @@
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
     (interactive)
-    (browse-url "https://minorugh.github.io/emacs.d/vim-cheat.html"))
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat.html"))
 
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
