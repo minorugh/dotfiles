@@ -24,7 +24,7 @@
 # | sudo apt install -y xdg-user-dirs-gtk ## Not needed for debian12 or later
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh make unzip git gnupg git-crypt nautilus
+# | sudo apt install -y make git nautilus
 
 ## 4. Install dropbox & setting
 # Before installing, configure the Synapyic repository & Check existence of package
@@ -32,8 +32,10 @@
 # | Launch dropbox from Menu then install and initial settings
 
 ## 5. Import GPG private_key
-# Wait for Dropbox sync to complete.
-# | cd ~/Dropbox/backup
+# | mkdir -p ~/src/github.com/minorugh
+# | cd ~/src/github.com/minorugh
+# | git clone git@github.com:minorugh/gpgimport.git
+# | cd gpgimport
 # | make gpg
 
 ## 6. Clone dotfiles from GitHub
