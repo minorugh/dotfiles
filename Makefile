@@ -88,10 +88,11 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 .ONESHELL:
 SHELL = /bin/bash
 
-gnupg: ## Deploy gnupg (Run after Private Key Import)
-	$(APT) $@ git-crypt
-	mkdir -p ${HOME}/.$@
-	ln -vsf {${PWD},${HOME}}/.$@/gpg-agent.conf
+rclone: ## Init rclone
+	$(APT) $@
+	chmod 600 ${PWD}/.config/rclone/rclone.conf
+	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
+	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
