@@ -256,8 +256,7 @@ gitk: ## Init gitk for git-gui
 sxiv: ## Init sxiv
 	$(APT) $@
 	mkdir -p ${HOME}/.config/sxiv/exec
-	ln -vsfn {${PWD},${HOME}}/.config/sxiv/exec/image-info
-	chmod +x ${HOME}/.config/sxiv/exec/image-info
+	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
 
 webcatalog: ## Install Webcatalog for Appimage
 	mkdir -p ${HOME}/Appimage
