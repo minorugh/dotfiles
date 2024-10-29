@@ -268,8 +268,8 @@ rclone: ## Init rclone
 
 rdp: ## RDP Connection to Windows
 	$(APT) freerdp2-x11
-	ln -vsf {${PWD},${HOME}}/backup/rdp/freerdp.sh
-	chmod 600 ${HOME}/backup/rdp/freerdp.sh
+	ln -vsf {${PWD}/bin,${HOME}}/.freerdp.sh
+	chmod 600 ${HOME}/.freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
 webcatalog: ## Install Webcatalog for Appimage
