@@ -104,7 +104,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig bashrc zshrc vimrc tmux.conf Xmodmap Xresources; do
+	for item in gitconfig gist bashrc zshrc vimrc tmux.conf Xmodmap Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
@@ -180,9 +180,9 @@ fonts: ## Symlink for user fonts
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
-gist: ## Install gist for use gist-command from shell
-	sudo gem install gist
-	ln -vsf {${PWD}/gist,${HOME}}/.gist
+# gist: ## Install gist for use gist-command from shell
+# 	sudo gem install gist
+# 	ln -vsf {${PWD}/gist,${HOME}}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
