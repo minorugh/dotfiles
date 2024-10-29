@@ -263,10 +263,10 @@ rclone: ## Init rclone
 	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
 	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
 
-freerdp: ## RDP Connection to Windows
+rdp: ## RDP Connection to Windows
 	$(APT) freerdp2-x11
-	ln -vsf {${PWD},${HOME}}/.freerdp.sh
-	chmod 600 ${HOME}/.freerdp.sh
+	ln -vsf {${PWD},${HOME}}/backup/freerdp.sh
+	chmod 600 ${HOME}//backup/freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
 webcatalog: ## Install Webcatalog for Appimage
