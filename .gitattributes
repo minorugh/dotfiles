@@ -1,3 +1,4 @@
 tex/** -linguist-detectable
+ssh/**    filter=git-crypt diff=git-crypt
 backup/** filter=git-crypt diff=git-crypt
 
