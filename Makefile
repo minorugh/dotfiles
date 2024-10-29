@@ -174,7 +174,7 @@ keyring: ## Init gnome keyrings
 	ln -vsfn ${HOME}/{Dropbox/backup,.local/share}/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
-	ln -vsf ${HOME}/Dropbox/Documents/icons/* ${HOME}/Pictures
+	ln -vsf ${HOME}/Dropbox/icons/* ${HOME}/Pictures
 
 fonts: ## Symlink for user fonts
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
