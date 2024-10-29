@@ -1,2 +1,2 @@
-gist filter=git-crypt diff=git-crypt
+backup/** filter=git-crypt diff=git-crypt
 
