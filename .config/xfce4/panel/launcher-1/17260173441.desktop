@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=KeePassXC
+GenericName=Password Manager
+GenericName[ja]=パスワードマネージャー
+Comment=Community-driven port of the Windows application “KeePass Password Safe”
+Exec=/usr/local/bin/keepass.sh 
+TryExec=keepassxc
+Icon=keepassxc
+StartupWMClass=keepassxc
+StartupNotify=true
+Terminal=false
+Type=Application
+Version=1.0
+Categories=Utility;Security;Qt;
+MimeType=application/x-keepass2;
+Path=
+X-XFCE-Source=file:///home/minoru/Desktop/org.keepassxc.KeePassXC.desktop
