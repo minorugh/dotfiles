@@ -182,7 +182,7 @@ fonts: ## Symlink for user fonts
 
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
-	ln -vsf ${PWD}/.config/gist ${HOME}/.gist
+	ln -vsf {${PWD}/.config,${HOME}}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
@@ -200,7 +200,7 @@ google-chrome: ## Install Google-chrome-stable
 filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:servers
 	$(APT) $@
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
-	ln -vsfn {${HOME}/Dropbox/backup/config,${HOME}/.config}/filezilla
+	ln -vsfn {${HOME}/Dropbox/backup,${HOME}}/.config/filezilla
 	chmod 700 ~/.config/filezilla
 
 sylpheed: ## Init sylpheed（Use App Password for authentication）
