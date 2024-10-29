@@ -19,7 +19,7 @@ xmodmap ~/.Xmodmap
 export NO_AT_BRIDGE=1
 
 # zsh_history
-HISTFILE=~/Dropbox/backup/zsh/.zsh_history
+HISTFILE=~/Dropbox/zsh/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 # ask you if you have over 10000 history
@@ -334,7 +334,7 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
   zstyle ':completion:*' recent-dirs-insert both
   zstyle ':chpwd:*' recent-dirs-max 5000
   zstyle ':chpwd:*' recent-dirs-default true
-  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/backup/zsh/chpwd-recent-dirs"
+  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/zsh/chpwd-recent-dirs"
   zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
