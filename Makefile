@@ -181,8 +181,8 @@ fonts: ## Symlink for user fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
 
 gist: ## Install gist for use gist-command from shell
-	sudo gem install gist
-	ln -vsf ${PWD}/gist ${HOME}/.gist
+	# sudo gem install gist
+	ln -vsf ${PWD}/.config/gist ${HOME}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
