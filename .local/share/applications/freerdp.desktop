@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=FreeRDP
+Comment=Open Wiqdows in freerdp
+Exec=sh /home/minoru/.freerdp.sh
+Icon=/home/minoru/Pictures/icons/vboxwin.png
+Categories=Development;
+Path=
+Terminal=false
+StartupNotify=false

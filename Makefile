@@ -137,6 +137,11 @@ autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	chmod 600 ${HOME}/.autologin.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 
+freerdp: ## RDP Connection to Windows
+	ln -vsf {${PWD},${HOME}}/.freerdp.sh
+	chmod 600 ${HOME}/.freerdp.sh
+	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
+
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 
