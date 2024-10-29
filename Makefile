@@ -88,10 +88,9 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 .ONESHELL:
 SHELL = /bin/bash
 
-bkdir:
+bk-dir:
 	mkdir -p ${HOME}/backup
 	lndir {${PWD},${HOME}}/backup
-
 
 rclone: ## Init rclone
 	$(APT) $@
