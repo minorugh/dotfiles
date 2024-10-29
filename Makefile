@@ -53,7 +53,7 @@
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
-PACKAGES	+= ruby gnome-terminal xclip vim tmux freerdp2-x11 xdotool
+PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
 PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
@@ -138,6 +138,7 @@ autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 
 freerdp: ## RDP Connection to Windows
+	$(APT) freerdp2-x11
 	ln -vsf {${PWD},${HOME}}/.freerdp.sh
 	chmod 600 ${HOME}/.freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
