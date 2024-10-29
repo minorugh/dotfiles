@@ -82,7 +82,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: rclone ssh install base init grub autologin freerdp keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
@@ -174,7 +174,7 @@ keyring: ## Init gnome keyrings
 	ln -vsfn ${HOME}/{Dropbox/backup,.local/share}/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
-	ln -vsf ${HOME}/Dropbox/icons/* ${HOME}/Pictures
+	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures
 
 fonts: ## Symlink for user fonts
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
