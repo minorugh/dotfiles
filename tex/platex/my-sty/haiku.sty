@@ -1,0 +1,53 @@
+% haiku.sty 
+% by Shinsaku Fujita 
+% Copyright (C) S. Fujita (1999). All rights reserved. 
+% Version 1.00 1999/12/29
+%
+%  作成者: 藤田眞作
+%          fujitas@chem.kit.ac.jp
+%
+%   藤田眞作著「入門・縦横文書術」所載
+%
+%\typeout{Option Style `haiku.sty' by S. Fujita}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\j@urnalname{haiku}
+\def\versi@ndate{December 29, 1999}
+\def\versi@nno{ver1.00}
+\def\copyrighth@lder{SF} % Shinsaku Fujita
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\typeout{Option Style `\j@urnalname' (\versi@nno) <\versi@ndate>\space 
+[\copyrighth@lder]}
+\typeout{藤田眞作著「入門・縦横文書術」所載}
+%
+% \kintou
+% by Shinsaku Fujita 1995/05/27
+%
+\@ifundefined{kintou}{%
+\def\kintou#1#2{\hbox to#1{%
+ \kanjiskip=0pt plus 1fill minus 1fill
+ \xkanjiskip=\kanjiskip #2}}}{}
+%
+% 書式: 
+%  \begin{haiku}[俳句字どり](作者字どり)<字下げ,字上げ>
+%   俳句 & 作者名 \cr
+%  \end{haiku}
+%
+\def\haiku{\@ifnextchar[{\@haiku}{\@haiku[19zw]}}
+\def\@haiku[#1]{\@ifnextchar({\@h@iku[#1]}{\@h@iku[#1](4zw)}}
+\def\@h@iku[#1](#2){\@ifnextchar<{\@@h@iku[#1](#2)}%
+{\@@h@iku[#1](#2)<2zw,1zw>}}
+\def\@@h@iku[#1](#2)<#3,#4>{\tabskip=0pt
+\def\tempa{#3}\def\tempb{#4}%
+\halign to \hsize\bgroup\tabskip=0pt\relax
+\ifx\tempa\empty\relax\hskip2zw\else\hskip#3\fi
+\kintou{#1}{##\unskip}\tabskip=\@centering&\tabskip=0pt
+\kintou{#2}{##\unskip}\ifx\tempb\empty\hskip1zw\else\hskip#4\fi
+\tabskip=0pt\crcr\ignorespaces} 
+\def\end@@h@iku{\egroup}
+\let\end@h@iku=\end@@h@iku
+\let\end@haiku=\end@h@iku
+\let\endhaiku=\end@haiku
+
+\endinput
+
+
