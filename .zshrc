@@ -334,7 +334,7 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
   zstyle ':completion:*' recent-dirs-insert both
   zstyle ':chpwd:*' recent-dirs-max 5000
   zstyle ':chpwd:*' recent-dirs-default true
-  zstyle ':chpwd:*' recent-dirs-file "$HOME/backup/zsh/chpwd-recent-dirs"
+  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/backup/zsh/chpwd-recent-dirs"
   zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
