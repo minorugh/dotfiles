@@ -1,2 +1,3 @@
+tex/** -linguist-detectable
 backup/** filter=git-crypt diff=git-crypt
 
