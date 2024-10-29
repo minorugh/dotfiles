@@ -329,9 +329,9 @@ texlive: ## Install texlive full
 	sudo tlmgr update --self --all
 
 latex: ## Symbolic link for dvpd.sh && mysty
-	sudo ln -vsfn ${HOME}/Dropbox/backup/tex/dvpd.sh /usr/local/bin
+	sudo ln -vsfn ${PWD}/tex/dvpd.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/dvpd.sh
-	sudo ln -vsfn ${HOME}/Dropbox/backup/tex/platex/my-sty /usr/local/texlive/2024/texmf-dist/tex/platex
+	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/2024/texmf-dist/tex/platex
 	sudo mktexlsr
 
 perlbrew: ## Install perlbrew
