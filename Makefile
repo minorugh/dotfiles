@@ -176,7 +176,7 @@ keyring: ## Init gnome keyrings
 	$(APT) seahorse
 	mkdir -p ${HOME}/.local/share
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
-	ln -vsfn ${HOME}/{Dropbox/backup,.local/share}/keyrings
+	ln -vsfn {${HOME}/backup,.local/share}/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures
