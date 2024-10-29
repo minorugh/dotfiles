@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Downloads
+Comment=
+Exec=thunar /home/minoru/Downloads/
+Icon=/home/minoru/Dropbox/Documents/icons/icons/downloads-removebg-preview.png
+Path=
+Terminal=false
+StartupNotify=false
+X-XFCE-Source=file:///home/minoru/Desktop/Downloads.desktop

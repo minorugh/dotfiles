@@ -1,0 +1,24 @@
+[Desktop Entry]
+Version=1.0
+Name=Pinta
+Name[ja]=Pinta
+Comment=Easily create and edit images
+Comment[ja]=簡単に画像を作成したり編集を行います
+GenericName=Image Editor
+GenericName[ja]=画像エディター
+X-GNOME-FullName=Pinta Image Editor
+X-GNOME-FullName[ja]=Pinta 画像エディター
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=pinta --file-forwarding com.github.PintaProject.Pinta @@ %F @@
+Icon=/home/minoru/Dropbox/Documents/icons/icons/paint-4.png
+StartupNotify=false
+StartupWMClass=Pinta
+Terminal=false
+Type=Application
+Categories=Graphics;2DGraphics;RasterGraphics;GTK;
+Keywords=draw;drawing;paint;painting;graphics;raster;2d;
+Keywords[ja]=描画;ペイント;グラフィックス;ラスター;2d;
+MimeType=image/bmp;image/gif;image/jpeg;image/jpg;image/pjpeg;image/png;image/svg+xml;image/tiff;image/x-bmp;image/x-gray;image/x-icb;image/x-ico;image/x-png;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-xbitmap;image/x-xpixmap;image/x-pcx;image/x-targa;image/x-tga;image/openraster;
+X-Flatpak-RenamedFrom=pinta.desktop;
+X-Flatpak=com.github.PintaProject.Pinta
+X-XFCE-Source=file:///var/lib/flatpak/exports/share/applications/com.github.PintaProject.Pinta.desktop
+Path=

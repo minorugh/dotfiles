@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Win11
+Comment=
+Exec=xfreerdp /d:x250-win /p:gospel /size:1920x1040 /v:192.168.1.143
+Icon=/home/minoru/Dropbox/Documents/icons/icons/vboxwin.png
+Path=
+Terminal=false
+StartupNotify=false
+X-XFCE-Source=file:///home/minoru/Desktop/Win11-rdp.desktop

@@ -1,0 +1,21 @@
+[Desktop Entry]
+Name=Darktable
+GenericName=Virtual Lighttable and Darkroom
+GenericName[ja]=バーチャルのライトテーブルとダークルーム
+Comment=Organize and develop images from digital cameras
+Comment[ja]=デジタルカメラで撮影した画像を整理し現像します
+X-GNOME-FullName=Darktable Photo Workflow Software
+Version=1.0
+Type=Application
+Categories=Graphics;Photography;GTK;
+Keywords=graphics;photography;raw;
+Keywords[ja]=グラフィックス、写真、RAW
+Exec=/usr/bin/darktable %U
+TryExec=/usr/bin/darktable
+Terminal=false
+StartupNotify=true
+MimeType=application/x-darktable;image/x-dcraw;image/x-adobe-dng;image/x-canon-cr2;image/x-canon-crw;image/x-fuji-raf;image/x-kodak-dcr;image/x-kodak-kdc;image/x-minolta-mrw;image/x-nikon-nef;image/x-nikon-nrw;image/x-olympus-orf;image/x-panasonic-rw;image/x-panasonic-rw2;image/x-pentax-pef;image/x-sony-arw;image/x-sony-sr2;image/x-sony-srf;image/jpeg;image/png;image/tiff;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-portable-floatmap;image/vnd.radiance;image/avif;image/x-canon-cr3;image/x-exr;image/aces;image/heif;image/heic;image/jp2;image/jxl;image/webp
+Icon=darktable
+StartupWMClass=darktable
+X-Unity-IconBackgroundColor=#252525
+X-XFCE-Source=file:///home/minoru/Desktop/org.darktable.darktable.desktop
