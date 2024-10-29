@@ -88,7 +88,7 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 .ONESHELL:
 SHELL = /bin/bash
 
-bk-dir:
+linkdir: ## Symbolic link for all contents of backup dir
 	mkdir -p ${HOME}/backup
 	lndir {${PWD},${HOME}}/backup
 
