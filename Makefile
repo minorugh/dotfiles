@@ -82,7 +82,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: rclone ssh install base init grub autologin freerdp keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: linkdir ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
@@ -91,12 +91,6 @@ SHELL = /bin/bash
 linkdir: ## Symbolic link for all contents of backup dir
 	mkdir -p ${HOME}/backup
 	lndir {${PWD},${HOME}}/backup
-
-rclone: ## Init rclone
-	$(APT) $@
-	chmod 600 ${PWD}/.config/rclone/rclone.conf
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
@@ -140,12 +134,6 @@ autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.autologin.sh
 	chmod 600 ${HOME}/.autologin.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
-
-freerdp: ## RDP Connection to Windows
-	$(APT) freerdp2-x11
-	ln -vsf {${PWD},${HOME}}/.freerdp.sh
-	chmod 600 ${HOME}/.freerdp.sh
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
@@ -269,6 +257,18 @@ sxiv: ## Init sxiv
 	mkdir -p ${HOME}/.config/sxiv/exec
 	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
 
+rclone: ## Init rclone
+	$(APT) $@
+	chmod 600 ${PWD}/.config/rclone/rclone.conf
+	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
+	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
+
+freerdp: ## RDP Connection to Windows
+	$(APT) freerdp2-x11
+	ln -vsf {${PWD},${HOME}}/.freerdp.sh
+	chmod 600 ${HOME}/.freerdp.sh
+	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
+
 webcatalog: ## Install Webcatalog for Appimage
 	mkdir -p ${HOME}/Appimage
 	cd ${HOME}/Appimage && \
@@ -288,6 +288,9 @@ zoom: ## Install zoom
 	sudo gdebi zoom_amd64.deb
 	rm -f ./zoom_amd64.deb
 
+########################################################
+## From here, Step by step while interacting with SHELL
+########################################################
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
@@ -313,9 +316,6 @@ flatpak: ## Install Pinta from flatpak
 	flatpak install flathub com.github.PintaProject.Pinta
 ## uninstall for package 'flatpak uninstall --delete-data flathub com.spotify.Client'
 
-########################################################
-## From here, Step by step while interacting with SHELL
-########################################################
 texlive: ## Install texlive full
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
