@@ -45,7 +45,10 @@
 # | cd dotfiles
 # | git-crypt unlock
 # | make all
+
+## 7. Change shell to zsh
 # | chsh -s /usr/bin/zsh
+
 
 ## =======================================================================
 ## Run make from here
