@@ -131,7 +131,7 @@ go: ## Instll go for version 1.23.2 see https://go.dev/doc/install
 ghq: ## Install ghq see https://github.com/x-motemen/ghq
 	go install github.com/x-motemen/ghq@latest
 # go version needs to be 1.23 or higher.
-# 'export PATH=$PATH:$HOME/bin'
+# 'export PATH=$PATH:$HOME/go/bin'
 
 autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.autologin.sh

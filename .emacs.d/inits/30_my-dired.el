@@ -11,10 +11,9 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  ::_l_._p_._n_
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  _D_ocuments
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _l_ocal._p_ages
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  my_D_ocuments
   "
-   ("n" my:github-new)
    ("l" my:github-local)
    ("+" text-scale-adjust)
    ("o" my:org-dir)
@@ -65,14 +64,7 @@
     "Open filezilla."
     (interactive)
     (compile "filezilla -s")
-    (delete-other-windows))
-
-  (defun my:github-new ()
-    "Open filezilla."
-    (interactive)
-    (shell-command "github-new hoge")
-    ;; (find-file "~/src/github.com/minorugh")
-    ))
+    (delete-other-windows)))
 
 
 ;;; 30_my-dired.el ends here
