@@ -318,12 +318,12 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
 # PATH
-export GOPATH="/usr/local/go"
-export PATH="$PATH:$GOPATH/bin:$HOME/bin:/usr/sbin"
+export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin:/usr/sbin"
 export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
+
 
 # cdr
 autoload -Uz is-at-least

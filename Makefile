@@ -73,7 +73,7 @@ BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
 BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
-BASE_PKGS	+= libgccjit0 build-dep emacs-gtk python3.11 python3.11-venv
+BASE_PKGS	+= libgccjit0 python3.11 python3.11-venv
 
 APT		:= sudo apt install -y
 .DEFAULT_GOAL	:= help
@@ -90,8 +90,7 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
-
-cpenv: ## Symbolic link for all contents of backup dir
+cpenv: ## Copy non-public data to a local folder
 	mkdir -p ${HOME}/backup
 	cp -r ${PWD}/backup/zsh ${HOME}/backup
 	cp -r ${PWD}/backup/deepl ${HOME}/backup
@@ -165,9 +164,8 @@ tlp: ## Setting for power saving and preventing battery deterioration
 
 keyring: ## Init gnome keyrings
 	$(APT) seahorse
-	mkdir -p ${HOME}/.local/share
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
-	ln -vsfn {${HOME}/Dropbox/backup,.local/share}/keyrings
+	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.local/share}/keyrings
 
 icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures
@@ -254,6 +252,7 @@ devilspie: ## Init devilspie for minimize_startup applications
 
 gitk: ## Init gitk for git-gui
 	$(APT) $@
+	mkdir -p ${HOME}/.config/git
 	sudo ln -vsfn {${PWD},${HOME}}/.config/git/gitk
 
 sxiv: ## Init sxiv
@@ -344,6 +343,7 @@ perlbrew: ## Install perlbrew
 	perlbrew install-cpanm && \
 
 emacs-stable: ## Install stable version of emacs
+	sudo apt build-dep emacs-gtk
 	cd ~/src/
 	wget http://mirrors.nav.ro/gnu/emacs/emacs-29.4.tar.xz
 	tar xvf emacs-29.4.tar.xz
@@ -360,6 +360,7 @@ emacs-stable: ## Install stable version of emacs
 # $ make distclean
 
 emacs-devel: ## Install development version of emacs
+	sudo apt build-dep emacs-gtk
 	git clone -b emacs-30 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
 	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation=aot && make && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
