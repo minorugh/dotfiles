@@ -86,7 +86,7 @@ help:
 
 all: allinstall nextinstall
 allinstall: ssh install base init keymap grub autologin keyring tlp emacs-mozc mozc icons gist fonts
-nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
+nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -199,12 +199,6 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	ln -vsfn {${PWD},${HOME}}/.config/filezilla
 	chmod 700 ~/.config/filezilla
 
-sylpheed: ## Init sylpheed（Use App Password for authentication）
-	$(APT) $@ bogofilter kakasi
-	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
-	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
-
-mutt: neomutt w3m abook
 neomutt: ## Init neomutt mail client with abook
 	$(APT) $@
 	mkdir -p ${HOME}/.mutt
@@ -226,32 +220,6 @@ abook: ## Install Abook
 	mkdir -p ${HOME}/.abook
 	ln -vsf {${PWD},${HOME}}/.abook/addressbook
 
-dracula-theme: ## Install dracula theme for gnome-terminal
-	cd ${HOME}/Downloads
-	git clone https://github.com/dracula/gnome-terminal
-	cd gnome-terminal && ./install.sh
-	rm -fr ${HOME}/Downloads/gnome-terminal
-
-keepassxc: ## Install keeypassXC and auto start with master passwd.
-	$(APT) $@ libsecret-tools
-	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/keepass.sh
-	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
-# select-tool setup at first
-# | sudo secret-tool store --label "KeePassXC master password" type kbd
-# asked for a password so enter
-# popup panel for passward input so input '<user passwd>' && use shell
-# use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
-
-devilspie: ## Init devilspie for minimize_startup applications
-	mkdir -p ${HOME}/.devilspie
-	$(APT) $@
-	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
-	sudo chmod +x /usr/local/bin/devils_startup.sh
-	ln -vsf {${PWD},${HOME}}/.config/autostart/devils_startup.desktop
-
 gitk: ## Init gitk for git-gui
 	$(APT) $@
 	mkdir -p ${HOME}/.config/git
@@ -261,18 +229,6 @@ sxiv: ## Init sxiv
 	$(APT) $@
 	mkdir -p ${HOME}/.config/sxiv/exec
 	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
-
-rclone: ## Init rclone
-	$(APT) $@
-	chmod 600 ${PWD}/.config/rclone/rclone.conf
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
-
-rdp: ## RDP Connection to Windows
-	$(APT) freerdp2-x11
-	sudo ln -vsf {${PWD},/usr/local}/bin/freerdp.sh
-	sudo chmod 600 /usr/local/bin/freerdp.sh
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
 lepton: ## Install lepton
 	mkdir -p ${HOME}/Appimage
@@ -290,6 +246,49 @@ zoom: ## Install zoom
 ########################################################
 ## From here, Step by step while interacting with SHELL
 ########################################################
+rclone: ## Init rclone
+	$(APT) $@
+	chmod 600 ${PWD}/.config/rclone/rclone.conf
+	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
+	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
+
+rdp: ## RDP Connection to Windows
+	$(APT) freerdp2-x11
+	sudo ln -vsf {${PWD},/usr/local}/bin/freerdp.sh
+	sudo chmod 600 /usr/local/bin/freerdp.sh
+	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
+
+devilspie: ## Init devilspie for minimize_startup applications
+	mkdir -p ${HOME}/.devilspie
+	$(APT) $@
+	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
+	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
+	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
+	sudo chmod +x /usr/local/bin/devils_startup.sh
+	ln -vsf {${PWD},${HOME}}/.config/autostart/devils_startup.desktop
+
+dracula-theme: ## Install dracula theme for gnome-terminal
+	cd ${HOME}/Downloads
+	git clone https://github.com/dracula/gnome-terminal
+	cd gnome-terminal && ./install.sh
+	rm -fr ${HOME}/Downloads/gnome-terminal
+
+keepassxc: ## Install keeypassXC and auto start with master passwd.
+	$(APT) $@ libsecret-tools
+	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/keepass.sh
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
+# select-tool setup at first
+# | sudo secret-tool store --label "KeePassXC master password" type kbd
+# asked for a password so enter
+# popup panel for passward input so input '<user passwd>' && use shell
+# use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
+
+sylpheed: ## Init sylpheed（Use App Password for authentication）
+	$(APT) $@ bogofilter kakasi
+	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
+	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
+
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
