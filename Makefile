@@ -272,12 +272,6 @@ rdp: ## RDP Connection to Windows
 	chmod 600 ${HOME}/.freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
-webcatalog: ## Install Webcatalog for Appimage
-	mkdir -p ${HOME}/Appimage
-	cd ${HOME}/Appimage && \
-	wget https://webcatalog.io/api/download/?platform=linux&arch=x64
-	chmod a+x WebCatalog-60.0.0.AppImage
-
 lepton: ## Install lepton
 	mkdir -p ${HOME}/Appimage
 	cd ${HOME}/Appimage && \
@@ -335,12 +329,6 @@ latex: ## Symbolic link for dvpd.sh && mysty
 	sudo chmod +x /usr/local/bin/dvpd.sh
 	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/2024/texmf-dist/tex/platex
 	sudo mktexlsr
-
-perlbrew: ## Install perlbrew
-	curl -L http://install.perlbrew.pl | bash
-	perlbrew install 5.30.3
-	perlbrew switch 5.30.3
-	perlbrew install-cpanm && \
 
 emacs-stable: ## Install stable version of emacs
 	sudo apt build-dep emacs-gtk
