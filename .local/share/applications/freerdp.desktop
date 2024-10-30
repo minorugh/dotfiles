@@ -2,8 +2,8 @@
 Type=Application
 Encoding=UTF-8
 Name=FreeRDP
-Comment=Open Windows in freerdp
-Exec=sh /home/minoru/.freerdp.sh
+Comment=Open Winqdows in freerdp
+Exec=sh /usr/local/bin/freerdp.sh
 Icon=/home/minoru/Pictures/icons/vboxwin.png
 Categories=Development;
 Path=

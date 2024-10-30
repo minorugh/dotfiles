@@ -268,8 +268,8 @@ rclone: ## Init rclone
 
 rdp: ## RDP Connection to Windows
 	$(APT) freerdp2-x11
-	ln -vsf {${PWD}/bin,${HOME}}/.freerdp.sh
-	chmod 600 ${HOME}/.freerdp.sh
+	sudo ln -vsf {${PWD},/usr/local}/bin/freerdp.sh
+	sudo chmod 600 /usr/local/bin/freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
 lepton: ## Install lepton
