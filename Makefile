@@ -85,7 +85,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: linkdir ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
@@ -346,6 +346,7 @@ emacs-stable: ## Install stable version of emacs
 	cd ~/src/
 	wget http://mirrors.nav.ro/gnu/emacs/emacs-29.4.tar.xz
 	tar xvf emacs-29.4.tar.xz
+	cd emacs-29.4
 	./autogen.sh
 	./configure --with-native-compilation=aot
 	make -j 4   # Replace the number 4 with the number of cores that your CPU has.
