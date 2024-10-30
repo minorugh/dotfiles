@@ -85,7 +85,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: ssh install base init grub autologin keyring tlp emacs-mozc mozc icons gist fonts
+allinstall: ssh install base init keymap grub autologin keyring tlp emacs-mozc mozc icons gist fonts
 nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 
 .ONESHELL:
@@ -108,13 +108,10 @@ init: ## Initial deploy dotfiles
 	for item in gitconfig gist bashrc zshrc vimrc tmux.conf Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
-	xmodmap ${HOME}/.Xmodmap
 	ln -vsf {${PWD},${HOME}}/.config/hub
-	ln -vsfn {${PWD},${HOME}}/.fonts
 
-xkeymap: ## Custom Keymap
-	ln -vsf ${PWD}/.xprofile ${HOME}/.xprofile
-	ln -vsf ${PWD}/.Xmodmap ${HOME}/..Xmodmap
+keymap: ## Custom Keymap
+	ln -vsf {${PWD},${HOME}}/.Xmodmap
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub
@@ -177,6 +174,7 @@ icons: ## Copy Collected icons & wallpaper to picture folder
 fonts: ## Symlink for user fonts
 	test -L ${HOME}/.local/share/fonts || rm -rf ${HOME}/.local/share/fonts
 	ln -vsfn {${PWD},${HOME}}/.local/share/fonts
+	ln -vsfn {${PWD},${HOME}}/.fonts
 
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist

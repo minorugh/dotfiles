@@ -14,6 +14,10 @@ unsetopt promptcr
 # Suppres "Couldn't connect to accessibility bus:" gnome-terminal on Emacs
 export NO_AT_BRIDGE=1
 
+# Custom keyboard map
+setxkbmap -option ctrl:nocaps
+xmodmap ~/.Xmodmap
+
 # zsh_history
 HISTFILE=~/Dropbox/backup/zsh/.zsh_history
 HISTSIZE=1000000
