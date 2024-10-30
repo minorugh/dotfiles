@@ -91,9 +91,10 @@ nextinstall: google-chrome filezilla mutt sxiv lepton zoom printer
 .ONESHELL:
 SHELL = /bin/bash
 
-linkdir: ## Symbolic link for all contents of backup dir
+cpenv: ## Symbolic link for all contents of backup dir
 	mkdir -p ${HOME}/backup
-	lndir {${PWD},${HOME}}/backup
+	cp -r ${PWD}/backup/zsh ${HOME}/backup
+	cp -r ${PWD}/backup/deepl ${HOME}/backup
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
