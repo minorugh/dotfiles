@@ -1,3 +1,6 @@
+# bash_history
+HISTFILE=~/Dropbox/zsh/.bash_history
+
 # alias
 alias rm='rm -i'
 alias cp='cp -i'
