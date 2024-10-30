@@ -105,12 +105,16 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig gist bashrc zshrc vimrc tmux.conf Xmodmap Xresources; do
+	for item in gitconfig gist bashrc zshrc vimrc tmux.conf Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	xmodmap ${HOME}/.Xmodmap
 	ln -vsf {${PWD},${HOME}}/.config/hub
 	ln -vsfn {${PWD},${HOME}}/.fonts
+
+xkeymap: ## Custom Keymap
+	ln -vsf ${PWD}/.xprofile ${HOME}/.xprofile
+	ln -vsf ${PWD}/.Xmodmap ${HOME}/..Xmodmap
 
 ifeq ($(shell uname -n),P1)
 grub: ## Configure grub
