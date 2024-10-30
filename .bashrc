@@ -1,5 +1,5 @@
 # bash_history
-HISTFILE=~/Dropbox/zsh/.bash_history
+HISTFILE=~/Dropbox/ckup/bash/.bash_history
 
 # alias
 alias rm='rm -i'
