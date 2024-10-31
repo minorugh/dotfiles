@@ -13,9 +13,7 @@
 ## 2. Register username to sudoers
 # Log in as root
 # | gpasswd -a ${USER} sudo
-# | exit
-# Log in with ${USER}
-# | sudo nano /etc/sudoers
+# | nano /etc/sudoers
 # Add and edit correction as follows
 # ----------------------------------
 # # User privilege specification

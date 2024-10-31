@@ -69,7 +69,7 @@
     "Backup all."
     (interactive)
     (let* ((default-directory (expand-file-name "~/Dropbox")))
-      (compile "make backup")))
+      (compile "make -k")))
 
   (defun make-ghuser ()
     "Sync GH data by rsync."
