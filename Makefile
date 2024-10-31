@@ -15,9 +15,15 @@
 # | gpasswd -a ${USER} sudo
 # | exit
 # Log in with ${USER}
-# | logout
-# | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
-# | logout
+# | sudo nano /etc/sudoers
+# Add and edit correction as follows
+# ----------------------------------
+# # User privilege specification
+# root    ALL=(ALL:ALL) ALL
+# minoru ALL=(ALL:ALL) NOPASSWD:ALL
+# # Allow members of group sudo to execute any command
+# %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
+# ----------------------------------
 
 ## 3. Set home sub directorys to English notation
 # Log in with ${USER}
