@@ -15,6 +15,11 @@
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+	      "Recover file name handlers and GC values after startup."
+	      (unless (string-match "P1" (shell-command-to-string "uname -n"))
+		(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/iRi-E/mozc-el-extensions")
@@ -52,14 +57,7 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows))
-
-  (defun my:mozc-copy ()
-    "Copy mozc to submachines for avoid conflicts."
-    (interactive)
-    (unless (string-match "P1" (shell-command-to-string "uname -n"))
-      (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))
-    (add-hook 'emacs-startup-hook 'my:mozc-copy)))
+    (delete-other-windows)))
 
 
 ;;; 09_mozc.el ends here

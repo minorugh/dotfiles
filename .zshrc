@@ -459,4 +459,5 @@ function optimize-png() {
 # zsh-syntax-highlighting : sudo apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+eval "$(gh completion -s zsh)"
 ### end
