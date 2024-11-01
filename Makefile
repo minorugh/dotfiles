@@ -153,15 +153,6 @@ emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
 # Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
-ifeq ($(shell uname -n),P1)
-mozc: ## For mainmachine (Thinkpad P1)
-	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn ${HOME}/Dropbox/backup/mozc/.mozc ${HOME}/.mozc
-else
-mozc: ## For submachine (Thinkpad X250)
-	cp -rf ~/Dropbox/backup/mozc/.mozc ~/
-endif
-
 tlp: ## Setting for power saving and preventing battery deterioration
 	$(APT) $@ tlp-rdw powertop
 	sudo ln -vsf ${PWD}/etc/default/tlp /etc/default/tlp
