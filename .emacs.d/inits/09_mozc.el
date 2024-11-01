@@ -17,7 +17,7 @@
   (setq mozc-leim-title          "あ")
   (add-hook 'emacs-startup-hook
             (lambda ()
-	      "Recover file name handlers and GC values after startup."
+	      "Avoiding conflicting copies with submachines."
 	      (unless (string-match "P1" (shell-command-to-string "uname -n"))
 		(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
