@@ -3,6 +3,15 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+	    "Avoiding conflicting copies with submachines."
+	    (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
+(add-hook 'kill-emacs-hook
+          (lambda ()
+	    "Avoiding conflicting copies with submachines."
+	    (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
+
 (leaf mozc :ensure t
   :doc "minor mode to input Japanese with Mozc"
   :hook after-init-hook
@@ -15,11 +24,6 @@
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-	      "Avoiding conflicting copies with submachines."
-	      (unless (string-match "P1" (shell-command-to-string "uname -n"))
-		(compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/"))))
 
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/iRi-E/mozc-el-extensions")
