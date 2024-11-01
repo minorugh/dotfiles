@@ -144,7 +144,7 @@
 					<BypassProxy>0</BypassProxy>
 					<Name>Backup</Name>
 					<Site>0/Backup</Site>
-					<RemotePath>1 0 4 home 8 minorugh 6 backup</RemotePath>
+					<RemotePath>1 0 4 home 8 minorugh 6 backup 6 backup</RemotePath>
 					<LocalPath>/home/minoru/Dropbox/</LocalPath>
 				</Tab>
 			</Tabs>

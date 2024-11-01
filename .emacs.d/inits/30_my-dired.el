@@ -11,10 +11,11 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _l_ocal._p_ages
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  my_D_ocuments
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  scale_+_  _z_illa  make._c__k__g_|_b__m__u_  _:_.loca_l_
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _f_lychk  _P_assx  howm._,__;__@_|md_v_^^^^  _D_ocuments
   "
    ("l" my:github-local)
+   (":" (browse-url "https://github.com/minorugh"))
    ("+" text-scale-adjust)
    ("o" my:org-dir)
    ("t" counsel-tramp)
@@ -35,7 +36,6 @@
    ("k" my:make-k)
    ("g" my:make-git)
    ("P" keepassxc)
-   ("p" my:pages-dir)
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)
