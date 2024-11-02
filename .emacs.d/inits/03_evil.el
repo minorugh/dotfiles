@@ -1,4 +1,4 @@
-;;; 03_evil.el --- Evil mode configurations. -*- no-byte-compile: t; -*- 
+;;; 03_evil.el --- Evil mode configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; code:
 ;; (setq debug-on-error t)
