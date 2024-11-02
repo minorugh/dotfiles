@@ -276,8 +276,9 @@ alias v='vim'
 alias sv='sudo vim'
 
 # For emacs
-alias e='emacs'
+# alias emacs="emacsclient -nw --alternate-editor='' "
 alias ec='/usr/local/bin/emacsclient -n'
+alias e='emacs'
 # alias e="emacsclient -t -a ''"
 alias eq='emacs -q -l ~/.emacs.d/mini-init.el'
 

@@ -63,7 +63,7 @@ PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
-PACKAGES	+= libsecret-tools xscreensaver xscreensaver-gl-extra nodejs
+PACKAGES	+= xscreensaver xscreensaver-gl-extra nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd vlc
 
@@ -151,6 +151,8 @@ base: ## Install debian base packages
 
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
+	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
+	cp -rf ~/Dropbox/backup/mozc/.mozc ~/
 # Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
 tlp: ## Setting for power saving and preventing battery deterioration

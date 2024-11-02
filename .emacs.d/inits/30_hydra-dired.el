@@ -1,4 +1,4 @@
-;;; 30_my-dired.el --- Hydra quick dired configurations. -*- no-byte-compile: t; -*-
+;;; 30_hydra-dired.el --- Hydra quick dired configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -67,4 +67,4 @@
     (delete-other-windows)))
 
 
-;;; 30_my-dired.el ends here
+;;; 30_hydra-dired.el ends here

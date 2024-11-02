@@ -5,15 +5,15 @@
 
 (leaf mozc :ensure t
   :doc "minor mode to input Japanese with Mozc"
-  :hook
-  ((emacs-startup-hook . mozc-mode)
-   (after-init-hook . (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-   (kill-emacs-hook . (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc"))))
+  :hook after-init-hook
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-d" . my:mozc-word-regist)
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
+  :init
+  (add-hook 'after-init-hook (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
+  (add-hook 'kill-emacs-hook (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
@@ -28,7 +28,7 @@
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
-    :hook after-init-hook
+    :require t
     :config
     (setq mozc-candidate-style 'popup))
 
