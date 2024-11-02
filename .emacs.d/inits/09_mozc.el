@@ -5,7 +5,7 @@
 
 (leaf mozc :ensure t
   :doc "minor mode to input Japanese with Mozc"
-  :hook after-init-hook
+  :hook emacs-startup-hook
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-d" . my:mozc-word-regist)
 	 (:mozc-mode-map
