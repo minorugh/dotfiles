@@ -13,12 +13,8 @@
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :init
   ;; Settings for sharing Mozc on multiple devices
-  (add-hook 'after-init-hook
-	    (lambda ()
-	      (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  (add-hook 'kill-emacs-hook
-	    (lambda ()
-	      (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
+  (add-hook 'after-init-hook (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
+  (add-hook 'kill-emacs-hook (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
