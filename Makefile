@@ -109,7 +109,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig gist bashrc zprofile zshrc vimrc tmux.conf Xresources; do
+	for item in gitconfig bashrc zshrc vimrc tmux.conf Xresources; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf {${PWD},${HOME}}/.config/hub
