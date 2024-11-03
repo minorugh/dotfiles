@@ -20,7 +20,7 @@ xmodmap ~/.Xmodmap
 
 # zsh_history
 if [ $(uname -n) = "P1" ]; then
-    HISTFILE=~/Dropbox/backup/shell/.zsh_history
+    HISTFILE=~/Dropbox/backup/zsh/.zsh_history
 else
     HISTFILE=~/.zsh_history
 fi
