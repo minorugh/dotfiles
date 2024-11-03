@@ -7,13 +7,14 @@
   :doc "minor mode to input Japanese with Mozc"
   :hook after-init-hook
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
-  :bind (("s-d" . my:mozc-word-regist)
+  :bind (("s-m" . my:mozc-config)
+	 ("s-d" . my:mozc-word-regist)
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
-  :init
-  (add-hook 'after-init-hook (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  (add-hook 'kill-emacs-hook (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
+  ;; :init
+  ;; (add-hook 'after-init-hook (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
+  ;; (add-hook 'kill-emacs-hook (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")
@@ -50,6 +51,12 @@
     (interactive)
     (mozc-handle-event 'enter)
     (insert str))
+
+  (defun my:mozc-config ()
+    "Open `mozc-word-regist'."
+    (interactive)
+    (compile "/usr/lib/mozc/mozc_tool --mode=config_dialog")
+    (delete-other-windows))
 
   (defun my:mozc-word-regist ()
     "Open `mozc-word-regist'."
