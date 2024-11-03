@@ -5,3 +5,4 @@
 
 xfreerdp /d:x250-win /p:gospel /size:1920x1180 /v:192.168.1.143
 
+exit

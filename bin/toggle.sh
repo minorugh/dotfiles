@@ -10,3 +10,5 @@ then
 else
   xdotool windowactivate $emacs_window
 fi
+
+exit

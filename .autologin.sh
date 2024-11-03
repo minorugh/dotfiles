@@ -9,3 +9,5 @@ spawn ssh-add /home/minoru/.ssh/id_rsa
 expect "Enter passphrase for /home/minoru/.ssh/id_rsa:"
 send "${PW}\n";
 interact
+
+exit

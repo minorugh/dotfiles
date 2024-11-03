@@ -4,3 +4,5 @@
 # Add option to start gonome-terminal with maximized mode
 
 cd ~/Downloads && gnome-terminal --maximize -- neomutt
+
+exit
