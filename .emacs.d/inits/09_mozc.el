@@ -12,9 +12,6 @@
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
-  ;; :init
-  ;; (add-hook 'after-init-hook (lambda () (compile "cp -rf ~/Dropbox/backup/mozc/.mozc ~/")))
-  ;; (add-hook 'kill-emacs-hook (lambda () (compile "cp -rf ~/.mozc ~/Dropbox/backup/mozc")))
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-helper-program-name "mozc_emacs_helper")

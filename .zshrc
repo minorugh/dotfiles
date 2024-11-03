@@ -310,11 +310,6 @@ function get-github-api () {
 curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
 }
 
-
-if [[string-match "x250" (shell-command-to-string "uname -n")]]then
-'cp -rf ~/Dropbox/mozc/.mozc ~/'
-fi
-
 # create howm memo with vim
 function memo () {
 echo "# memo:
