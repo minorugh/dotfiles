@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=AutoStart
+Comment=Mozc copy for submachine at GUI startup
+Exec=sh $HOME/.autostart.sh
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Application;
+Hidden=false
+

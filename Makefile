@@ -143,6 +143,11 @@ autologin: ## Run ssh-add with passphrase auto input at GUI startup
 	chmod 600 ${HOME}/.autologin.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
 
+autostart: ## Run mozc copy for submachine at GUI startup
+	ln -vsf {${PWD},${HOME}}/.autostart.sh
+	chmod 600 ${HOME}/.autostart.sh
+	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
+
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 
