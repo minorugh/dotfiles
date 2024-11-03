@@ -30,7 +30,7 @@
    ("3" (browse-url "https://github.com/masasam"))
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
-   ("m" (shell-command "sylpheed"))
+   ("m" (compile "neomutt.sh"))
    ("M" (browse-url "https://www.google.co.jp/maps"))
    ("B" (browse-url "http://blog.gospel-haiku.com/"))
    ("E" (browse-url "https://es.gospel-haiku.com/post/"))
