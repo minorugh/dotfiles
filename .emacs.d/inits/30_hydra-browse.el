@@ -1,4 +1,4 @@
-;;; my:browse.el --- hydra browse configurations.
+;;; 30_hydra-browse.el --- hydra browse configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -69,8 +69,7 @@
     (browse-url "https://mojinavi.com/tegaki")))
 
 
-(provide 'my:browse)
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
-;;; my:browse.el ends here
+;;; 30_hydra-browse.el ends here

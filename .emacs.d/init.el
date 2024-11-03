@@ -54,7 +54,7 @@
 (leaf *load-user-conf
   :doc "Load user configurations"
   :load-path "~/.emacs.d/elisp/"
-  :require my:browse my:dired my:template)
+  :require my:dired my:template)
 
 (leaf cus-edit
   :doc "tools for customizing Emacs and Lisp packages"
