@@ -310,12 +310,6 @@ function get-github-api () {
 curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
 }
 
-# Mozc copy for submachine (conflict prevention)
-if [ ! $(uname -n) = "P1" ]; then
-    rm -rf ${HOME}/.mozc
-    cp -rf ~/Dropbox/backup/mozc/.mozc ~/
-fi
-
 # create howm memo with vim
 function memo () {
 echo "# memo:
