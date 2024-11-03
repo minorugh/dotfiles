@@ -19,7 +19,13 @@ setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 
 # zsh_history
-HISTFILE=~/Dropbox/backup/shell/.zsh_history
+if [ $(uname -n) = "P1" ]; then
+    HISTFILE=~/Dropbox/backup/shell/.zsh_history
+else
+    HISTFILE=~/.zsh_history
+fi
+
+
 HISTSIZE=1000000
 SAVEHIST=1000000
 # ask you if you have over 10000 history

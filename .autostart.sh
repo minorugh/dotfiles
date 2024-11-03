@@ -7,6 +7,7 @@
 if [ ! $(uname -n) = "P1" ]; then
     rm -rf ${HOME}/.mozc
     cp -rf ~/Dropbox/backup/mozc/.mozc ~/
+    cp -f ~/Dropbox/backup/shell/.zsh_history ./
 fi
 
 exit
