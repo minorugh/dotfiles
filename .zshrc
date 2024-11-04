@@ -18,11 +18,11 @@ export NO_AT_BRIDGE=1
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 
-# zsh_history(Avoiding conflicting copies with sub-machines)
-if [ $(uname -n) = "P1" ]; then
+# zsh_history
+if [ $(uname -n) = "P1" ]; then ## for main machine
     HISTFILE=~/Dropbox/backup/zsh/.zsh_history
 else
-    HISTFILE=~/.zsh_history
+    HISTFILE=~/.zsh_history ## for sub machine
 fi
 
 HISTSIZE=1000000
