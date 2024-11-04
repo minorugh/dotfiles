@@ -165,7 +165,7 @@ tlp: ## Setting for power saving and preventing battery deterioration
 	sudo ln -vsf ${PWD}/etc/default/tlp /etc/default/tlp
 	sudo tlp start
 
-keyring: ## Init gnome keyrings
+keyring: ## Init gnome keyring
 	$(APT) seahorse
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.local/share}/keyrings
