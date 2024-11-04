@@ -2,7 +2,8 @@
 Version=1.0
 Name=AutoStart
 Comment=Mozc copy for submachine at GUI startup
-Exec=sh $HOME/.autostart.sh
+# Exec=sh $HOME/.autostart.sh
+Exec=gnome-terminal -- zsh c "sh $HOME/.autostart.sh""
 Icon=utilities-terminal
 Terminal=false
 Type=Application
