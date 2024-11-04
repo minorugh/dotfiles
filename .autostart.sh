@@ -4,7 +4,7 @@
 # Copy ~/Dropbox/backup/mozc/.mozc to the sub machine
 # Do this on every startup so .mozc is always up to date
 
-if [ ! $(uname -n) = "P1" ]; then
+ if [ ! $(hostname) = "P1" ]; then
     rm -rf ${HOME}/.mozc
     cp -rf ~/Dropbox/backup/mozc/.mozc ~/
     cp -f ~/Dropbox/backup/shell/.zsh_history ./
