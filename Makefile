@@ -94,6 +94,12 @@ nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom pri
 
 .ONESHELL:
 SHELL = /bin/bash
+rclone: ## Init rclone
+	$(APT) $@
+	chmod 600 ${PWD}/.config/rclone/rclone.conf
+	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
+	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
+
 cpenv: ## Copy non-public data to a local folder
 	mkdir -p ${HOME}/backup
 	cp -r ${PWD}/backup/zsh ${HOME}/backup
