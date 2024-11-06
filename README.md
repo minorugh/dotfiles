@@ -19,36 +19,52 @@ The guidance is as follows:
 ## =====================================================================
 ## Manual setting before executing make
 ## =====================================================================
-## 1. Boot from USB to netinstall Debian latest
-# Create installation USB from netinst iso image, use Rufs.exe on Windows
-# Download firmware from https://bre.is/f2LBmD3t
-# Unzip firmware.zip, then paste to firmware directory of install USB
+## 1. Boot from USB to install Debian latest
+# Create installation USB from netinst iso image. Use Rufs.exe on Windows
+# rufs https://rufus.ie/ja/
 
 ## 2. Register username to sudoers
 # Log in as root
 # | gpasswd -a ${USER} sudo
-# | logout
-# | sudo visudo ## edit sudoers file to [%sudo  ALL=(ALL:ALL) NOPASSWD:ALL]
-# | log out
+# | sudo nano /etc/sudoers
+# Add and edit correction as follows
+# ----------------------------------
+# # User privilege specification
+# root    ALL=(ALL:ALL) ALL
+# minoru ALL=(ALL:ALL) NOPASSWD:ALL
+# # Allow members of group sudo to execute any command
+# %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
+# ----------------------------------
 
 ## 3. Set home sub directorys to English notation
 # Log in with ${USER}
-# | sudo apt install -y xdg-user-dirs-gtk
+# | sudo apt install -y xdg-user-dirs-gtk ## Not needed for debian12 or later
 # | LANG=C xdg-user-dirs-gtk-update --force
 # | sudo apt update
-# | sudo apt install -y zsh git make nautilus
-# | chsh -s /bin/zsh
+# | sudo apt install -y make git nautilus
 
 ## 4. Install dropbox & setting
+# Before installing, configure the Synapyic repository & Check existence of package
 # | sudo apt install -y nautilus-dropbox
-# | Launch dropbox from Menu then install and setting
+# | Launch dropbox from Menu then install and initial settings
 
-## 5. Restore dotfiles
+## 5. Import GPG private_key
 # | mkdir -p ~/src/github.com/minorugh
 # | cd ~/src/github.com/minorugh
-# | git clone https://github.com/minorugh/dotfiles.git
+# | git clone git@github.com:minorugh/gpgimport.git
+# | cd gpgimport
+# | make gpg
+
+## 6. Clone dotfiles from GitHub
+# | mkdir -p ~/src/github.com/minorugh
+# | cd ~/src/github.com/minorugh
+# | git clone git@github.com:minorugh/dotfiles.git
 # | cd dotfiles
+# | git-crypt unlock
 # | make all
+
+## 7. Change shell to zsh
+# | chsh -s /usr/bin/zsh
 
 ## =====================================================================
 ## Run make from here
