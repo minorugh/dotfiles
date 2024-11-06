@@ -265,7 +265,10 @@ alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/
 alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
 alias xsrv='ssh xsrv'
 alias lepton='/home/minoru/Appimage/Lepton-1.10.0.AppImage'
-alias synconedrive='rclone copy -P /home/minoru/Dropbox/Documents onedrive:Documents'
+
+# Rclone
+alias synconedrive='time rclone sync /home/minoru/Dropbox/Documents onedrive:Documents'
+alias syncbackup='time rclone sync /home/minoru/Dropbox/backup onedrive:backup'
 
 # For docker-compose
 alias dcbd="docker-compose up -d --build"

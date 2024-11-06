@@ -6,7 +6,7 @@
 (leaf *deepl-api
   :doc "Load Deeepl-auth-key from external file for security"
   :config
-  (load "~/backup/deepl/deepl-key.el"))
+  (load "~/Dropbox/backup/deepl/deepl-key.el"))
 
 
 (leaf deepl-translate

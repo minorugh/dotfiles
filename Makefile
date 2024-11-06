@@ -95,7 +95,7 @@ nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom pri
 .ONESHELL:
 SHELL = /bin/bash
 rclone: ## Init rclone
-	$(APT) $@
+	sudo -v ; curl https://rclone.org/install.sh | sudo bash
 	chmod 600 ${PWD}/.config/rclone/rclone.conf
 	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
 	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
@@ -186,7 +186,7 @@ fonts: ## Symlink for user fonts
 
 gist: ## Install gist for use gist-command from shell
 	sudo gem install gist
-	ln -vsf ${PWD}/backup/gist ${HOME}/.gist
+	ln -vsf ${HOME}/Dropbox/backup/gist ${HOME}/.gist
 
 printer: ## Install Printer driver for Brother HL-L2375DW
 	cd ${HOME}/Downloads && \
