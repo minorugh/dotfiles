@@ -331,7 +331,8 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 export GOPATH="/usr/local/go"
 export PATH="$PATH:$GOPATH/bin:usr/sbin"
 export GHQPATH="$HOME/go"
-export PATH=$PATH:$GHQPATH/bin
+export PATH="$PATH:$GHQPATH/bin"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
@@ -347,7 +348,7 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
   zstyle ':completion:*' recent-dirs-insert both
   zstyle ':chpwd:*' recent-dirs-max 5000
   zstyle ':chpwd:*' recent-dirs-default true
-  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/zsh/chpwd-recent-dirs"
+  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/backup/zsh/chpwd-recent-dirs"
   zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
