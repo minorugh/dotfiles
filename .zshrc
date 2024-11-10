@@ -267,7 +267,8 @@ alias xsrv='ssh xsrv'
 alias lepton='/home/minoru/Appimage/Lepton-1.10.0.AppImage'
 
 # Rclone
-alias synconedrive='time rclone sync /home/minoru/Dropbox/Documents onedrive:Documents'
+alias syncdrive='time  rclone sync /home/minoru/Dropbox/Documents onedrive:Documents'
+alias bsyncdrive='time  rclone sync onedrive:Documents /home/minoru/Dropbox/Documents'
 alias syncbackup='time rclone sync /home/minoru/Dropbox/backup onedrive:backup'
 
 # For docker-compose
