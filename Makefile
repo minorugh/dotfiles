@@ -163,7 +163,7 @@ base: ## Install debian base packages
 emacs-mozc:  ## Install emacs-mozc fcitx-mozc
 	$(APT) $@ fcitx-mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsfn -rf ~/Dropbox/backup/mozc/.mozc ~/
+	ln -vsfn -rf ~/Dropbox/backup/mozc/.Mozc ~/
 # Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
 tlp: ## Setting for power saving and preventing battery deterioration
