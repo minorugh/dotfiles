@@ -268,7 +268,7 @@ alias lepton='/home/minoru/Appimage/Lepton-1.10.0.AppImage'
 
 # Rclone
 alias syncdrive='time rclone sync ${HOME}/Dropbox/Documents onedrive:Documents'
-alias bsyndrive='time rclone sync onedrive:Documents ${HOME}/Dropbox/Documents'
+alias bsyncdrive='time rclone sync onedrive:Documents ${HOME}/Dropbox/Documents'
 alias syncbackup='time rclone sync ${HOME}/Dropbox/backup onedrive:backup'
 
 # For docker-compose
