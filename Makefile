@@ -94,12 +94,6 @@ nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom pri
 
 .ONESHELL:
 SHELL = /bin/bash
-rclone: ## Init rclone
-	sudo -v ; curl https://rclone.org/install.sh | sudo bash
-	chmod 600 ${PWD}/.config/rclone/rclone.conf
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
-
 cpenv: ## Copy non-public data to a local folder
 	mkdir -p ${HOME}/backup
 	cp -r ${PWD}/backup/zsh ${HOME}/backup
@@ -255,10 +249,10 @@ zoom: ## Install zoom
 ## From here, Step by step while interacting with SHELL
 ########################################################
 rclone: ## Init rclone
-	$(APT) $@
-	chmod 600 ${PWD}/.config/rclone/rclone.conf
+	sudo -v ; curl https://rclone.org/install.sh | sudo bash
 	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${PWD}/.config/rclone ${HOME}/.config/rclone
+	ln -vsfn ${HOME}/Dropbox/backup/config/rclone ${HOME}/.config/rclone
+	chmod 600 ${HOME}/.config/rclone/rclone.conf
 
 rdp: ## RDP Connection to Windows
 	$(APT) freerdp2-x11
