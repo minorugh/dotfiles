@@ -1,4 +1,4 @@
-;;; 30_hydra-works.el --- Hydra quick work configurations. -*- no-byte-compile: t; -*-
+;;; 30_hydra-work.el --- Hydra quick work configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -84,4 +84,4 @@
       (compile "make git-commit"))))
 
 
-;;; 30_hydra-works.el ends here
+;;; 30_hydra-work.el ends here
