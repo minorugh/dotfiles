@@ -68,6 +68,12 @@
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
 
+(leaf atomic-chrome
+  :ensure t
+  :hook (after-init-hook . atomic-chrome-start-server)
+  :custom (atomic-chrome-buffer-open-style . 'full))
+
+
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))
