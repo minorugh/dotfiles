@@ -22,8 +22,8 @@ set hostname = gmail.com
 set mail_check = 60
 set timeout = 300
 set imap_keepalive = 300
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
 set header_cache=~/.mutt/cache/headers
 set certificate_file=~/.mutt/certificates
 set signature =~/.mutt/signature
@@ -64,7 +64,7 @@ bind editor        <Tab> complete-query
 
 # Sidebar Patch --------------------------------------------
 set sidebar_format   = "%B%?F? [%F]?%* %?N?%N/?%S"
-#set sidebar_visible = yes
+# set sidebar_visible = yes
 set sidebar_width    = 28
 
 # Status Bar -----------------------------------------------
