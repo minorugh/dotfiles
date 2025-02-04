@@ -40,7 +40,7 @@
    ("K" my:kinnei)
    ("k" my:kinnei-draft)
    ("m" my:d_kukai)
-   ("w" my:m_kukai)
+   ("w" my:tpost)
    ("f" my:dselext)
    ("F" my:dselext-new-post)
    ("+" text-scale-adjust)
