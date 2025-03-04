@@ -21,8 +21,7 @@
    ("t" git-timemachine-toggle)
    ("<muhenkan>" nil))
   :config
-  (setq transient-history-file "~/.emacs.d/tmp/transient-history")
-  (setq transient-directory-name "~/.emacs.d/tmp/transient")
+  (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
   ;; Do not split window
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   ;; Walk through git revisions of a file
