@@ -27,7 +27,7 @@
   (dolist (mode '(lisp-interaction-mode
 		  fundamental-mode dashboard-mode dired-mode
 		  neotree-mode mail-mode org-mode yatex-mode
-		  git-timemachine-mode easy-hugo-mode text-mode))
+		  git-timemachine-mode text-mode))
     (add-to-list 'evil-insert-state-modes mode))
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
