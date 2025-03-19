@@ -10,4 +10,7 @@ if [ ! $(hostname) == "P1" ]; then
     cp -f ~/Dropbox/backup/shell/.zsh_history ./
 fi
 
+# run xmodmap at startup
+xmodmap /home/minoru/.Xmodmap
+
 exit
