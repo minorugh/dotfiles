@@ -60,6 +60,7 @@
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request"))
 
+
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
     (interactive)
