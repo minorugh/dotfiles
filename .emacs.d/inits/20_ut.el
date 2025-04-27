@@ -15,15 +15,15 @@
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
 
-(leaf flymake
-  :doc "A universal on-the-fly syntax checker"
-  :hook ((prog-mode-hook)
-	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
-  :bind ((prog-mode-map
-	  ("M-n" . flymake-goto-next-error)
-	  ("M-p" . flymake-goto-prev-error)))
-  :config
-  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
+;; (leaf flymake
+;;   :doc "A universal on-the-fly syntax checker"
+;;   :hook ((prog-mode-hook)
+;; 	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
+;;   :bind ((prog-mode-map
+;; 	  ("M-n" . flymake-goto-next-error)
+;; 	  ("M-p" . flymake-goto-prev-error)))
+;;   :config
+;;   (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"

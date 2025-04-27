@@ -264,7 +264,7 @@ alias ex='exit'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
 alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
 alias xsrv='ssh xsrv'
-alias lepton='/home/minoru/Appimage/Lepton-1.10.0.AppImage'
+alias lepton='/snap/bin/lepton'
 
 # Rclone
 alias syncdrive='time rclone sync ${HOME}/Dropbox/Documents onedrive:Documents'

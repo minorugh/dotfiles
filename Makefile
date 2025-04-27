@@ -233,10 +233,10 @@ sxiv: ## Init sxiv
 	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
 
 lepton: ## Install lepton
-	mkdir -p ${HOME}/Appimage
-	cd ${HOME}/Appimage && \
-	wget https://github.com/hackjutsu/Lepton/releases/download/v1.10.0/Lepton-1.10.0.AppImage
-	chmod a+x Lepton-1.10.0.AppImage
+	sudo apt update
+	sudo apt install snapd
+	sudo snap install snapd
+	sudo snap install lepton
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 
 zoom: ## Install zoom

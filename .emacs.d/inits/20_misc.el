@@ -35,6 +35,14 @@
   (setq which-key-max-description-length 40)
   :hook after-init-hook)
 
+(leaf flycheck
+  :doc "On-the-fly syntax checking"
+  :url "http://www.flycheck.org"
+  :ensure t
+  :hook (prog-mode-hook . flycheck-mode)
+  :bind (("M-n" . flycheck-next-error)
+	 ("M-p" . flycheck-previous-error)))
+
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
   :config
