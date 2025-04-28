@@ -10,7 +10,7 @@
 	 ([f5]  . ssh-gh)
 	 ("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-whole-line-or-region)
-	 ("M-/"   . kill-this-buffer)
+	 ("M-/"   . my:kill-buffer)
 	 ("C-M-/" . delete-this-file)
 	 ("M-,"   . xref-find-definitions)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -50,6 +50,12 @@
 	(minibuffer-keyboard-quit)
       (keyboard-quit)))
 
+  (defun my:kill-buffer (arg)
+    (interactive "P")
+    (if arg
+	(call-interactively 'kill-buffer)
+      (kill-buffer)))
+
   (defun kill-whole-line-or-region ()
     "If the region is active, to kill region.
   If the region is inactive, to kill whole line."
@@ -66,7 +72,7 @@
     (when (yes-or-no-p (format "Really delete '%s'?"
 			       (file-name-nondirectory buffer-file-name)))
       (delete-file (buffer-file-name))
-      (kill-this-buffer))))
+      (my:kill-buffer))))
 
 
 ;;; 20_funcs.el ends here
