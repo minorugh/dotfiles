@@ -358,7 +358,7 @@ emacs-devel: ## Install development version of emacs
 	sudo apt build-dep emacs-gtk
 	./autogen.sh
 	./configure --with-native-compilation=aot && make -j8 && sudo make install && make clean
-	rm -rf ${HOME}/.emacs.d/elpa
+	# rm -rf ${HOME}/.emacs.d/elpa
 
 github: ## Clone github repository
 	mkdir -p ${HOME}/src/github.com/minorugh
