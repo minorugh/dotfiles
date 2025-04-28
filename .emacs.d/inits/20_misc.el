@@ -11,8 +11,7 @@
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log))
   :config
-  (setq key-chord-two-keys-delay 0.1)
-  :hook after-init-hook)
+  (setq key-chord-two-keys-delay 0.1))
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))
@@ -29,11 +28,11 @@
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
-(leaf which-key :ensure t
+(leaf which-key
   :doc "Display available keybindings in popup"
+  :hook (after-init-hook . which-key-mode)
   :config
-  (setq which-key-max-description-length 40)
-  :hook after-init-hook)
+  (setq which-key-max-description-length 40))
 
 (leaf flycheck
   :doc "On-the-fly syntax checking"
