@@ -32,11 +32,12 @@
   (package-initialize)
   (use-package leaf :ensure t)
 
-  (leaf leaf-keywords :ensure t
-    :config
-    (leaf-keywords-init)
+  (leaf leaf-keywords
+    :ensure t
     :init
-    (leaf hydra :ensure t)))
+    (leaf hydra :ensure t)
+    :config
+    (leaf-keywords-init)))
 
 (leaf server
   :doc "Check if the Emacs server is running and start it"
