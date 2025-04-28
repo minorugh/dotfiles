@@ -351,9 +351,13 @@ emacs-stable: ## Install stable version of emacs
 # $ make distclean
 
 emacs-devel: ## Install development version of emacs
+	cd ~/src/
+	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.1.tar.gz
+	tar xvfz emacs-30.1.tar.gz
+	cd emacs-30.1
 	sudo apt build-dep emacs-gtk
-	git clone -b emacs-30 git@github.com:emacs-mirror/emacs.git ${HOME}/src/emacs
-	cd ${HOME}/src/emacs && ./autogen.sh && ./configure --with-native-compilation=aot && make && sudo make install && make clean
+	./autogen.sh
+	./configure --with-native-compilation=aot && make -j8 && sudo make install && make clean
 	rm -rf ${HOME}/.emacs.d/elpa
 
 github: ## Clone github repository
