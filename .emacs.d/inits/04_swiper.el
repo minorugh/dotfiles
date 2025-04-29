@@ -15,17 +15,23 @@ If the region isn't selected, `swiper'."
     (if (not (use-region-p))
 	(swiper)
       (swiper-thing-at-point)))
-  :init
-  (leaf swiper-migemo
-    :vc (:url "https://github.com/tam17aki/swiper-migemo")
-    :doc "ivy/counsel/swiper with migemo"
-    :hook (after-init-hook . global-swiper-migemo-mode)
-    :config
-    (add-to-list 'swiper-migemo-enable-command 'counsel-rg)
-    (setq migemo-options '("--quiet" "--nonewline" "--emacs"))
-    (migemo-kill)
-    (migemo-init))
 
+  ;; For swiper-migemo
+  ;; see "https://www.yewton.net/2020/05/21/migemo-ivy/"
+  (defun my:ivy-migemo-re-builder (str)
+    "Own function for my:ivy-migemo."
+    (let* ((sep " \\|\\^\\|\\.\\|\\*")
+	   (splitted (--map (s-join "" it)
+			    (--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
+					    (s-split "" str t)))))
+      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
+			      ((s-matches? sep it) it)
+			      (t (migemo-get-pattern it)))
+			splitted))))
+
+  (setq ivy-re-builders-alist '((t . ivy--regex-plus)
+				(swiper . my:ivy-migemo-re-builder)))
+  :init
   (leaf migemo :ensure t
     :doc "Japanese incremental search through dynamic pattern expansion"
     :if (executable-find "cmigemo")
