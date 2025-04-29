@@ -20,7 +20,6 @@
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state"
-    :commands mozc-mode
     :require t)
 
   (leaf mozc-popup :ensure t
