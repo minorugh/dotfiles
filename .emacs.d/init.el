@@ -27,13 +27,13 @@
 ;; Package
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+   'package-archives '(("org"   . "https://orgmode.org/elpa/")
+		       ("gnu"   . "https://elpa.gnu.org/packages/")
 		       ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
   (use-package leaf :ensure t)
 
-  (leaf leaf-keywords
-    :ensure t
+  (leaf leaf-keywords :ensure t
     :init
     (leaf hydra :ensure t)
     :config

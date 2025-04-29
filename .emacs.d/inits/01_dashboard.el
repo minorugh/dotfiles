@@ -6,7 +6,7 @@
 (leaf dashboard :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
-  :hook (after-init-hook . open-dashboard)
+  :hook (after-init-hook . dashboard-setup-startup-hook)
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
