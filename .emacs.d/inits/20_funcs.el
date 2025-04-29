@@ -18,6 +18,7 @@
 	 ("C-x b" . ibuffer)
 	 ("C-x m" . neomutt)
 	 ("C-x C-c" . iconify-frame)
+	 ("C-c RET" . markdown-follow-link-at-point)
 	 ([muhenkan] . my:muhenkan))
   :init
   (defun thunar-open ()
