@@ -18,11 +18,10 @@
   (setq mozc-leim-title          "あ")
 
   (leaf mozc-cursor-color
-    :vc (:url "https://github.com/iRi-E/mozc-el-extensions")
+    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state"
-    :require t
-    :config
-    (setq mozc-cursor-color-alist '((direct . "#50fa7b") (hiragana . "#ff5555"))))
+    :commands mozc-mode
+    :require t)
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
