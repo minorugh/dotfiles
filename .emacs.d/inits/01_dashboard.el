@@ -16,10 +16,13 @@
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
-  (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
+  (setq dashboard-icon-type 'nerd-icons)
   :config
+  (if (string-match "P1" (shell-command-to-string "uname -n"))
+      (setq dashboard-items '((recents . 8)(agenda . 5)))
+    (setq dashboard-items '((recents . 5))))
   ;; Set the title
   (setq dashboard-banner-logo-title
 	(concat "GNU Emacs " emacs-version " kernel "
@@ -29,9 +32,6 @@
   (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq show-week-agenda-p t)
-  (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (setq dashboard-items '((recents . 8)(agenda . 5)))
-    (setq dashboard-items '((recents . 5))))
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))
