@@ -20,6 +20,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-icon-type 'nerd-icons)
   :config
+  ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
     (setq dashboard-items '((recents . 5))))
