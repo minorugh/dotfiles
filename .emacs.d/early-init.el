@@ -35,7 +35,9 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
-(set-fringe-mode '1)
+
+;; Minimize the fringe
+(set-fringe-mode 1)
 
 ;; Suppress flashing at startup
 (when (file-directory-p "~/.emacs.d/elpa/")
