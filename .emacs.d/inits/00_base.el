@@ -58,7 +58,7 @@
 
   ;; Overwrite handle-delete-frame
   (defun handle-delete-frame (event)
-    "Override `X' button action to minimize."
+    "Minimize Emacs window with Window-Manager's close button."
     (interactive "e")
     (iconify-frame))
 
