@@ -13,7 +13,7 @@
 	 ("M-:"     . counsel-buffer-or-recentf)
 	 ("C-,"     . counsel-mark-ring)
 	 ("s-a"     . counsel-ag)
-	 ("C-x a" . counsel-linux-app)
+	 ("C-x a"   . counsel-linux-app)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))
   :init

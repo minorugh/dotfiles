@@ -27,7 +27,7 @@
   (defun my:abook ()
     "Open zshrc."
     (interactive)
-    (find-file "~/Dropbox/backup/mutt/.abook/addressbook"))
+    (find-file "~/src/github.com/minorugh/dotfiles/.abook/addressbook"))
 
   (defun my:mutt ()
     "Open zshrc."
