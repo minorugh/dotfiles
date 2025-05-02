@@ -57,6 +57,7 @@
   (defalias 'exit 'save-buffers-kill-emacs)
 
   ;; Overwrite handle-delete-frame
+  ;; see "https://tinyurl.com/23rah56r"
   (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
     "If it's the last frame, minimize it without deleting it."
     (let ((frame   (posn-window (event-start event)))
