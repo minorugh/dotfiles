@@ -56,10 +56,9 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
 
-  ;; Overwrite `handle-delete-frame
+  ;; Overwrite `handle-delete-frame. see https://tinyurl.com/23rah56r
   (defun handle-delete-frame (event)
-    "If it's the last frame, minimize it without deleting it.
-  see `https://tinyurl.com/23rah56r`."
+    "If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame   (posn-window (event-start event)))
           (numfrs  (length (visible-frame-list))))
