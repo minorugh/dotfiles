@@ -57,10 +57,12 @@
   (defalias 'exit 'save-buffers-kill-emacs)
 
   ;; Overwrite handle-delete-frame
-  (defun handle-delete-frame (event)
-    "Minimize Emacs window with Window-Manager's close button."
-    (interactive "e")
-    (iconify-frame))
+  (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
+    "If it's the last frame, minimize it without deleting it."
+    (let ((frame   (posn-window (event-start event)))
+          (numfrs  (length (visible-frame-list))))
+      (when (or (> numfrs 1) (iconify-frame))
+        ad-do-it)))
 
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")

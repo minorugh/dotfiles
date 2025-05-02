@@ -10,7 +10,8 @@
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log)))
+	  ("l;" . init-loader-show-log)
+	  ("nn" . make-frame-command)))
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))
