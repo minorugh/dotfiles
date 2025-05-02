@@ -17,7 +17,7 @@
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ("C-x b" . ibuffer)
 	 ("C-x m" . neomutt)
-	 ("C-x C-c" . iconify-frame)
+	 ("C-x C-c" . server-edit) ;; server editing buffers exist. Replace "C-x #"
 	 ("C-c RET" . markdown-follow-link-at-point)
 	 ([muhenkan] . my:muhenkan))
   :init
