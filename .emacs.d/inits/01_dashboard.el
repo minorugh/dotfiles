@@ -12,8 +12,8 @@
 	  ([home] . previous-buffer)
 	  ("."    . hydra-browse/body)
 	  ("m"    . neomutt)
-	  ("x" . (lambda () (interactive) (compile "/home/minoru/.webcatalog/X/X")))
 	  ("s" . (lambda () (interactive) (compile "slack")))
+	  ("x" . (lambda () (interactive) (browse-url "https://x.com/minoruGH")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-set-heading-icons t)
