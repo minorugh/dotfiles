@@ -56,15 +56,14 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
 
-  ;; my-handle-delete-frame-advice
-  ;; see "https://tinyurl.com/23rah56r"
-  (defadvice handle-delete-frame (around my-handle-delete-frame-advice activate)
+  ;; Overwrite `handle-delete-frame, see https://tinyurl.com/23rah56r
+  (defun handle-delete-frame (event)
     "If it's the last frame, minimize it without deleting it."
-    (let ((frame   (posn-window (event-start event)))
-          (numfrs  (length (visible-frame-list))))
-      (when (or (> numfrs 1) (iconify-frame))
-        ad-do-it)))
-
+    (interactive "e")
+    (let ((frame  (posn-window (event-start event)))
+          (numfrs (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+            ((iconify-frame)))))
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
