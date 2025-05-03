@@ -85,6 +85,7 @@
           (numfrs  (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
             ((iconify-frame)))))
+
   (advice-add 'handle-delete-frame :override
 	      #'my:handle-delete-frame))
 
