@@ -73,7 +73,20 @@
     (when (yes-or-no-p (format "Really delete '%s'?"
 			       (file-name-nondirectory buffer-file-name)))
       (delete-file (buffer-file-name))
-      (my:kill-buffer))))
+      (my:kill-buffer)))
+
+  ;; Directly copied from frame.el but minimize it without deleting it
+  ;; it when last frame will be closed
+  ;; see https://tinyurl.com/23rah56r
+  (defun my:handle-delete-frame (event)
+    "If it's the last frame, minimize it without deleting it."
+    (interactive "e")
+    (let ((frame   (posn-window (event-start event)))
+          (numfrs  (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+            ((iconify-frame)))))
+  (advice-add 'handle-delete-frame :override
+	      #'my:handle-delete-frame))
 
 
 ;;; 20_funcs.el ends here
