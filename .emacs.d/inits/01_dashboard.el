@@ -53,7 +53,7 @@
     (dashboard-goto-recent-files))
 
   (defun emacs-init-time ()
-    "Overwrite `emacs-init-time'."
+    "Overwrite `emacs-init-time' defined in time.el."
     (interactive)
     (let ((str
 	   (format "%.3f seconds"
