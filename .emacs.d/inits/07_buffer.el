@@ -43,13 +43,12 @@
       (emacs-lock-mode 'kill))))
 
 
-;; Directly copied from frame.el but minimize it without deleting it
-;; it when last frame will be closed
+;; Override the function in frame.el
 (leaf *ad:handle-delete-frame
   :url "https://tinyurl.com/23rah56r"
+  :doc "If it's the last frame, minimize it without deleting it."
   :config
   (defun my:handle-delete-frame (event)
-    "If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame   (posn-window (event-start event)))
           (numfrs  (length (visible-frame-list))))
