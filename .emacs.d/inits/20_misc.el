@@ -28,16 +28,15 @@
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
-(leaf which-key
+(leaf which-key :tag "builtin"
   :doc "Display available keybindings in popup"
   :hook (after-init-hook . which-key-mode)
   :config
   (setq which-key-max-description-length 40))
 
-(leaf flycheck
+(leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
   :url "http://www.flycheck.org"
-  :ensure t
   :hook ((after-init-hook . global-flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :bind (:flycheck-mode-map
