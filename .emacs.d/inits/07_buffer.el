@@ -43,21 +43,6 @@
       (emacs-lock-mode 'kill))))
 
 
-;; Override the function in frame.el
-(leaf *ad:handle-delete-frame
-  :url "https://tinyurl.com/23rah56r"
-  :doc "If it's the last frame, minimize it without deleting it."
-  :config
-  (defun my:handle-delete-frame (event)
-    (interactive "e")
-    (let ((frame   (posn-window (event-start event)))
-          (numfrs  (length (visible-frame-list))))
-      (cond ((> numfrs 1) (delete-frame frame t))
-            ((iconify-frame)))))
-
-  (advice-add 'handle-delete-frame :override
-	      #'my:handle-delete-frame))
-
 (leaf bs
   :doc "Menu for selecting and displaying buffers"
   :tag "builtin"

@@ -65,6 +65,16 @@
 	(clipboard-kill-region (region-beginning) (region-end))
       (kill-whole-line)))
 
+  ;; Override the function in frame.el
+  ;; see https://tinyurl.com/23rah56r
+  (defun handle-delete-frame (event)
+    "If it's the last frame, minimize it without deleting it."
+    (interactive "e")
+    (let ((frame   (posn-window (event-start event)))
+          (numfrs  (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+            ((iconify-frame)))))
+
   (defun delete-this-file ()
     "Delete the current file, and kill the buffer."
     (interactive)
