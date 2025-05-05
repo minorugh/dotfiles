@@ -69,8 +69,8 @@
     "Overwrite `handle-delete-frame` defined in `frame.el`.
   If it's the last frame, minimize it without deleting it."
     (interactive "e")
-    (let ((frame   (posn-window (event-start event)))
-	  (numfrs  (length (visible-frame-list))))
+    (let ((frame  (posn-window (event-start event)))
+	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame)))))
 
