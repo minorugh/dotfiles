@@ -66,8 +66,8 @@
       (kill-whole-line)))
 
   (defun handle-delete-frame (event)
-    "If it's the last frame, minimize it without deleting it.
-  Overwrite `handle-delete-frame` defined in `frame.el`."
+    "Overwrite `handle-delete-frame` defined in `frame.el`.
+  If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame   (posn-window (event-start event)))
 	  (numfrs  (length (visible-frame-list))))
