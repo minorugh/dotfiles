@@ -14,9 +14,8 @@
   (setq YaTeX-latex-message-code 'utf-8)
   (setq YaTeX-default-pop-window-height 15)
   (leaf yatexprc
-    :bind ((("M-c" . YaTeX-typeset-buffer)
-	    ("M-v" . YaTeX-lpr)))))
-
+    :bind (("M-c" . YaTeX-typeset-buffer)
+	   ("M-v" . YaTeX-lpr))))
 
 ;;-----------------------------
 ;; dvpd.sh for Linux
