@@ -52,7 +52,25 @@
   (defun my:make-clean ()
     "Make clean."
     (interactive)
-    (compile "make clean")))
+    (compile "make clean"))
+
+  (defun make-backup ()
+    "Backup all."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make -k")))
+
+  (defun make-ghuser ()
+    "Sync GH data by rsync."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make rsync-user")))
+
+  (defun make-commit ()
+    "Auto commit."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make git-commit"))))
 
 
 ;;; 20_compile.el ends here

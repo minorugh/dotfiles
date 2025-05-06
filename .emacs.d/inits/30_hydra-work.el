@@ -63,25 +63,7 @@
   (defun my:capitalize-word (arg)
     "Convert previous word (or ARG words) to capitalize."
     (interactive "p")
-    (capitalize-word (- arg)))
-
-  (defun make-backup ()
-    "Backup all."
-    (interactive)
-    (let* ((default-directory (expand-file-name "~/Dropbox")))
-      (compile "make -k")))
-
-  (defun make-ghuser ()
-    "Sync GH data by rsync."
-    (interactive)
-    (let* ((default-directory (expand-file-name "~/Dropbox")))
-      (compile "make rsync-user")))
-
-  (defun make-commit ()
-    "Auto commit."
-    (interactive)
-    (let* ((default-directory (expand-file-name "~/Dropbox")))
-      (compile "make git-commit"))))
+    (capitalize-word (- arg))))
 
 
 ;;; 30_hydra-work.el ends here
