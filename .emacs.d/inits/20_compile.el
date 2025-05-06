@@ -22,7 +22,6 @@
 
 
 (leaf *user-make-command
-  :doc "User make command functions"
   :init
   (defun my:make-k ()
     "Make k."
