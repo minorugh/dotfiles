@@ -14,9 +14,9 @@
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ("C-x b" . ibuffer)
-	 ("C-x C-c" . server-edit) ;; server editing buffers exist. Replace "C-x #"
-	 ("C-c RET" . markdown-follow-link-at-point)
-	 ([muhenkan] . my:muhenkan))
+	 ("C-x C-c"  . server-edit) ;; server editing buffers exist. Replace "C-x #"
+	 ("C-c RET"  . markdown-follow-link-at-point)
+	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun thunar-open ()
     "Open thunar with current dir."
@@ -37,7 +37,7 @@
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
 
-  (defun my:muhenkan ()
+  (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))
 	(minibuffer-keyboard-quit)
