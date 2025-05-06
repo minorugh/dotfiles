@@ -4,9 +4,9 @@
 ;; (setq debug-on-error t)
 
 (leaf *user-define-functions
-  :bind	(([f3]  . thunar-open)
-	 ([f4]  . terminal-open)
-	 ([f5]  . ssh-gh)
+  :bind	(([f3]    . thunar-open)
+	 ([f4]    . terminal-open)
+	 ([f5]    . ssh-gh)
 	 ("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-whole-line-or-region)
 	 ("M-/"   . my:kill-buffer)
