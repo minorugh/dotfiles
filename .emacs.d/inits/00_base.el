@@ -72,8 +72,5 @@
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 
-;; Mutt support.
-(setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
 
 ;;; 00_base.el ends here

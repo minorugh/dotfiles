@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf *user-define-functions
-  :doc "User custom key bind"
   :bind	(([f3]  . thunar-open)
 	 ([f4]  . terminal-open)
 	 ([f5]  . ssh-gh)
@@ -12,11 +11,9 @@
 	 ("C-w"   . kill-whole-line-or-region)
 	 ("M-/"   . my:kill-buffer)
 	 ("C-M-/" . delete-this-file)
-	 ("M-,"   . xref-find-definitions)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ("C-x b" . ibuffer)
-	 ("C-x m" . neomutt)
 	 ("C-x C-c" . server-edit) ;; server editing buffers exist. Replace "C-x #"
 	 ("C-c RET" . markdown-follow-link-at-point)
 	 ([muhenkan] . my:muhenkan))
@@ -40,11 +37,6 @@
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
 
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "neomutt.sh"))
-
   (defun my:muhenkan ()
     (interactive)
     (if (not (use-region-p))
@@ -56,6 +48,16 @@
     (if arg
 	(call-interactively 'kill-buffer)
       (kill-buffer)))
+
+  (defun delete-this-file ()
+    "Delete the current file, and kill the buffer."
+    (interactive)
+    (unless (buffer-file-name)
+      (error "No file is currently being edited"))
+    (when (yes-or-no-p (format "Really delete '%s'?"
+			       (file-name-nondirectory buffer-file-name)))
+      (delete-file (buffer-file-name))
+      (my:kill-buffer)))
 
   (defun kill-whole-line-or-region ()
     "If the region is active, to kill region.
@@ -72,17 +74,7 @@
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame)))))
-
-  (defun delete-this-file ()
-    "Delete the current file, and kill the buffer."
-    (interactive)
-    (unless (buffer-file-name)
-      (error "No file is currently being edited"))
-    (when (yes-or-no-p (format "Really delete '%s'?"
-			       (file-name-nondirectory buffer-file-name)))
-      (delete-file (buffer-file-name))
-      (my:kill-buffer))))
+	    ((iconify-frame))))))
 
 
 ;;; 20_funcs.el ends here

@@ -52,6 +52,12 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files))
 
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (compile "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
   (defun emacs-init-time ()
     "Overwrite `emacs-init-time' defined in time.el."
     (interactive)
