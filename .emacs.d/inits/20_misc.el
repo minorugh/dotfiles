@@ -36,7 +36,6 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
-  :url "http://www.flycheck.org"
   :hook ((after-init-hook . global-flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :bind (:flycheck-mode-map
