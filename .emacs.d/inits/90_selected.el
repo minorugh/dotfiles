@@ -7,14 +7,15 @@
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
   :hook (after-init-hook . selected-global-mode)
-  :bind (:selected-keymap
-	 (";" . comment-dwim)
-	 ("c" . clipboard-kill-ring-save)
-	 ("s" . swiper-thing-at-point)
-	 ("d" . deepl-translate)
- 	 ("t" . gt-do-translate)
-	 ("w" . my:weblio)
-	 ("g" . my:google-this))
+  :bind (("C-c g" . my:google-this)
+	 (:selected-keymap
+	  (";" . comment-dwim)
+	  ("c" . clipboard-kill-ring-save)
+	  ("s" . swiper-thing-at-point)
+	  ("d" . deepl-translate)
+ 	  ("t" . gt-do-translate)
+	  ("w" . my:weblio)
+	  ("g" . my:google-this)))
   :config
   (defvar my:ime-flag nil)
   (add-hook 'activate-mark-hook 'my:activate-selected)
