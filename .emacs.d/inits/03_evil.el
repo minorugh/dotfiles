@@ -87,17 +87,18 @@
     "o" 'other-window-or-split
     "[" 'previous-buffer
     "]" 'next-buffer
+    "l" 'recenter-top-bottom
     "c" 'clipboard-kill-ring-save
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "t" 'gt-do-translate
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
+    "w" 'avy-goto-word-1
     ";" 'comment-dwim
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
-    "w" 'my:weblio
     "x" 'counsel-M-x
     "SPC" 'set-mark-command))
 
