@@ -18,6 +18,8 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))
   :init
+  (leaf avy :ensure t
+    :doc "Jump to arbitrary positions quicly.")
   (leaf ivy-rich :ensure t
     :doc "More friendly display transformer for ivy"
     :hook after-init-hook)
