@@ -67,5 +67,12 @@
       (evil-insert-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
+(leaf evil-leader :ensure t
+  :hook (after-init-hook . global-evil-leader-mode)
+  :config
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key
+   "t" 'gt-do-translate
+   "SPC" 'set-mark-command))
 
 ;;; 03_evil.el ends here
