@@ -73,6 +73,8 @@
 
 (leaf evil-leader :ensure t
   :hook (after-init-hook . global-evil-leader-mode)
+  :init
+  (leaf avy :ensure t)
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
