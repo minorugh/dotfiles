@@ -11,7 +11,7 @@
 	 (:selected-keymap
 	  (";" . comment-dwim)
 	  ("c" . clipboard-kill-ring-save)
-	  ("s" . swiper-thing-at-point)
+ 	  ("s" . swiper-thing-at-point)
 	  ("d" . deepl-translate)
  	  ("t" . gt-do-translate)
 	  ("w" . my:weblio)

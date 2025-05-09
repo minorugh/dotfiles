@@ -12,6 +12,9 @@
  	  ("SPC"      . evil-insert)
        	  ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
+	 (:evil-visual-state-map
+	  ("c"        . clipboard-kill-ring-save)
+	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
 	  ([escape]   . my:return-to-normal-state)))
@@ -67,12 +70,35 @@
       (evil-insert-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
+
 (leaf evil-leader :ensure t
   :hook (after-init-hook . global-evil-leader-mode)
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
-   "t" 'gt-do-translate
-   "SPC" 'set-mark-command))
+    "0" 'delete-window
+    "1" 'delete-other-windows
+    "2" 'split-window-below
+    "3" 'split-window-right
+    "5" 'make-frame-command
+    "m" 'other-frame
+    "/" 'delete-frame
+    "S" 'window-swap-states
+    "o" 'other-window-or-split
+    "[" 'previous-buffer
+    "]" 'next-buffer
+    "c" 'clipboard-kill-ring-save
+    "j" 'diff-hl-next-hunk
+    "k" 'diff-hl-previous-hunk
+    "t" 'gt-do-translate
+    "s" 'swiper-thing-at-point
+    "g" 'my:google-this
+    ";" 'comment-dwim
+    ":" 'counsel-switch-buffer
+    "f" 'counsel-find-file
+    "r" 'counsel-recentf
+    "x" 'counsel-M-x
+    "SPC" 'set-mark-command))
+
 
 ;;; 03_evil.el ends here
