@@ -10,7 +10,7 @@
 	  ("M-."      . nil)
 	  ("?"        . vim-cheat-sheet)
  	  ("SPC"      . evil-insert)
-       	  ([muhenkan] . evil-insert)
+          ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
 	  ("c"        . clipboard-kill-ring-save)
@@ -30,7 +30,7 @@
   (dolist (mode '(lisp-interaction-mode
 		  fundamental-mode dashboard-mode dired-mode
 		  neotree-mode mail-mode org-mode yatex-mode
-		  git-timemachine-mode easy-hugo-mode text-mode))
+		  git-timemachine-mode easy-hugo-mode))
     (add-to-list 'evil-insert-state-modes mode))
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
@@ -97,6 +97,7 @@
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
+    "w" 'my:weblio
     "x" 'counsel-M-x
     "SPC" 'set-mark-command))
 
