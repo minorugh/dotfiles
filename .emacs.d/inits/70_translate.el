@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *deepl-api
-  :doc "Load auth key from backup"
+  :doc "Load auth key from Dropbox/backup"
   :config
   (load "~/Dropbox/backup/deepl/deepl-api.el"))
 
