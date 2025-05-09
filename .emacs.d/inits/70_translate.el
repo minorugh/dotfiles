@@ -6,7 +6,7 @@
 (leaf *deepl-api
   :doc "Load auth key from backup"
   :config
-  (load "~/Dropbox/backup/deepl/deepl-apikey.el"))
+  (load "~/Dropbox/backup/deepl/deepl-api.el"))
 
 
 (leaf deepl-translate
