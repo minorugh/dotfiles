@@ -32,7 +32,8 @@
   :doc "Display available keybindings in popup"
   :hook (after-init-hook . which-key-mode)
   :config
-  (setq which-key-max-description-length 40))
+  (setq which-key-max-description-length 40)
+  (setq which-key-delay 0.0))
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"

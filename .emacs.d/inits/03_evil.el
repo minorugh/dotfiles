@@ -29,8 +29,8 @@
 
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(howm-view-summary-mode
-		  dashboard-mode easy-hugo-mode fundamental-mode
-		  yatex-mode org-mode neotree-mode git-timemachine-mode))
+		  easy-hugo-mode fundamental-mode yatex-mode
+		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
