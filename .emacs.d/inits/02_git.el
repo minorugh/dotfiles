@@ -12,32 +12,28 @@
 	  ("M-g k" . gitk-open)
 	  ("M-g t" . git-timemachine-toggle))
   :config
-  (setq magit-refs-show-commit-count 'all
-        magit-log-buffer-file-locked t
-        magit-revision-show-gravatars nil
-        ;; magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1
-	;; Do not split window
-	magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1
-	)
+  (setq magit-refs-show-commit-count 'all)
+  (setq magit-log-buffer-file-locked t)
+  (setq magit-revision-show-gravatars nil)
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
+  :preface
   ;; Walk through git revisions of a file
   (leaf git-timemachine :ensure t)
   ;; Open github page from Emacs
   (leaf browse-at-remote :ensure t
     :config
-    (setq browse-at-remote-prefer-symbolic nil)))
-
-
-(leaf diff-hl :ensure t
-  :doc "Highlight uncommitted changes using VC"
-  :hook ((after-init-hook . global-diff-hl-mode)
-	 (after-init-hook . diff-hl-margin-mode)
-	 (magit-pre-refresh-hook  . diff-hl-magit-pre-refresh)
-	 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
-  :custom-face
-  `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
-    (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
-    (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
+    (setq browse-at-remote-prefer-symbolic nil))
+  ;; Highlight uncommitted changes using VC
+  (leaf diff-hl :ensure t
+    :hook ((after-init-hook . global-diff-hl-mode)
+	   (after-init-hook . diff-hl-margin-mode)
+	   (magit-pre-refresh-hook  . diff-hl-magit-pre-refresh)
+	   (magit-post-refresh-hook . diff-hl-magit-post-refresh))
+    :custom-face
+    `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
+      (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
+      (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333")))))))
 
 
 ;;; 02_git.el ends here
