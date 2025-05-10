@@ -10,9 +10,9 @@
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
-	  ("m"    . neomutt)
 	  ("a"    . org-agenda)
 	  ("c"    . org-capture)
+	  ("m"    . neomutt)
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("x" . (lambda () (interactive) (browse-url "https://x.com/minoruGH")))
 	  ("n" . (lambda () (interactive) (browse-url "https://news.yahoo.co.jp/")))
@@ -25,7 +25,7 @@
   :config
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (setq dashboard-items '((recents . 8)(agenda . 5)))
+      (setq dashboard-items '((recents . 10)))
     (setq dashboard-items '((recents . 5))))
   ;; Set the title
   (setq dashboard-banner-logo-title
@@ -44,7 +44,7 @@
   (defun dashboard-insert-custom (list-size)
     "Insert custom itemes."
     (interactive)
-    (insert " GH(h)    Weather(w)    Capture(c)    Agenda(a)    News(n)    Mutt(m)    Slack(s)    Twit(x)"))
+    (insert " GH(h)   Agenda(a)    Capture(c)    Mutt(m)    Slack(s)    Twit(x)    Weather(w)    News(n)"))
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
 
