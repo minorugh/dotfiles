@@ -81,7 +81,8 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame-command
+    "5" 'make-frame
+    "n" 'make-frame
     "_" 'other-frame
     "m" 'hydra-magit/body
     "/" 'delete-frame
