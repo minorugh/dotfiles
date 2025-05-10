@@ -7,7 +7,6 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :hook (view-mode-hook . evil-emacs-state)
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o" . easy-hugo-open-basedir)
