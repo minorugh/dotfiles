@@ -10,10 +10,13 @@
   :bind (([home] . open-dashboard)
 	 (:dashboard-mode-map
 	  ([home] . previous-buffer)
-	  ("."    . hydra-browse/body)
 	  ("m"    . neomutt)
+	  ("a"    . org-agenda)
+	  ("c"    . org-capture)
 	  ("s" . (lambda () (interactive) (compile "slack")))
 	  ("x" . (lambda () (interactive) (browse-url "https://x.com/minoruGH")))
+	  ("n" . (lambda () (interactive) (browse-url "https://news.yahoo.co.jp/")))
+	  ("w" . (lambda () (interactive) (browse-url "https://tenki.jp/week/6/31/")))
 	  ("h" . (lambda () (interactive) (browse-url "https://gospel-haiku.com/")))))
   :init
   (setq dashboard-set-heading-icons t)
@@ -37,6 +40,13 @@
   (setq dashboard-footer-messages
 	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
+  ;; Set the insert custom
+  (defun dashboard-insert-custom (list-size)
+    "Insert custom itemes."
+    (interactive)
+    (insert " GH(h)    Weather(w)    Capture(c)    Agenda(a)    News(n)    Mutt(m)    Slack(s)    Twit(x)"))
+  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+  (add-to-list 'dashboard-items '(custom) t)
 
   (defun dashboard-goto-recent-files ()
     "Go to recent files."
