@@ -13,7 +13,6 @@
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
-	  ("c"        . clipboard-kill-ring-save)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -94,6 +93,7 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "t" 'gt-do-translate
+    "d" 'deeple-translate
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
     "w" 'avy-goto-word-1
@@ -104,7 +104,28 @@
     "f" 'counsel-find-file
     "r" 'counsel-recentf
     "x" 'counsel-M-x
-    "SPC" 'set-mark-command))
+    "SPC" 'set-mark-command)
+  :init
+  (leaf google-this :ensure t
+    :bind ("C-c g" . my:google-this))
+  (defun my:google-this ()
+    (interactive)
+    (google-this (current-word) t))
+
+  (defun my:weblio (str)
+    "Search weblio."
+    (interactive (list (region-or-read-string nil)))
+    (browse-url (format "https://www.weblio.jp/content/%s"
+			(upcase (url-hexify-string str)))))
+
+  (defun region-or-read-string (prompt &optional initial history default inherit)
+    "If region is specified, get the string, otherwise call `read-string'."
+    (if (not (region-active-p))
+	(read-string prompt initial history default inherit)
+      (prog1
+	  (buffer-substring-no-properties (region-beginning) (region-end))
+	(deactivate-mark)
+	(message "")))))
 
 
 ;;; 03_evil.el ends here
