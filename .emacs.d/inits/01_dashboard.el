@@ -18,7 +18,7 @@
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
-    (setq dashboard-items '((recents . 3)(agenda . 5))))
+    (setq dashboard-items '((recents . 5))))
 
   ;; Set the title
   (setq dashboard-banner-logo-title
