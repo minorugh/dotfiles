@@ -7,9 +7,7 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :hook (after-init-hook . dashboard-setup-startup-hook)
-  :bind (([home] . open-dashboard)
-	 (:dashboard-mode-map
-	  ([home] . previous-buffer)))
+  :bind ([home] . open-dashboard)
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)

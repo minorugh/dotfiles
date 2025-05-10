@@ -10,7 +10,7 @@
   :bind (("s-m" . my:mozc-config)
 	 ("s-d" . my:mozc-word-regist)
 	 (:mozc-mode-map
-	  ("," . (lambda () (interactive) (mozc-insert-str "、")c))
+	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :config
   (setq default-input-method     "japanese-mozc")
