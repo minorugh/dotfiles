@@ -25,7 +25,10 @@
   :config
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (setq dashboard-items '((recents . 10)))
+      (progn
+	(setq dashboard-items '((recents . 10)))
+	(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+	(add-to-list 'dashboard-items '(custom) t))
     (setq dashboard-items '((recents . 5))))
   ;; Set the title
   (setq dashboard-banner-logo-title
@@ -45,8 +48,6 @@
     "Insert custom itemes."
     (interactive)
     (insert " GH(h)   Agenda(a)    Capture(c)    Mutt(m)    Slack(s)    Twit(x)    Weather(w)    News(n)"))
-  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
-  (add-to-list 'dashboard-items '(custom) t)
 
   (defun dashboard-goto-recent-files ()
     "Go to recent files."
