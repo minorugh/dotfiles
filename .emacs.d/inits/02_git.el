@@ -6,11 +6,20 @@
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
   :bind '(("C-x g" . magit-status)
-	  ("M-g b" . magit-blame)
-	  ("M-g c" . magit-file-checkout)
-	  ("M-g l" . magit-log-buffer-file)
-	  ("M-g k" . gitk-open)
-	  ("M-g t" . git-timemachine-toggle))
+	  ("M-g"   . hydra-magit/body))
+  :hydra
+  (hydra-magit
+   (:color red :hint nil)
+   "
+    magit-_s_tatus  _b_lame  _c_heckout  _l_og  _g_itk-open _t_imemachine
+  "
+   ("s" magit-status)
+   ("b" magit-blame)
+   ("c" magit-file-checkout)
+   ("l" magit-log-buffer-file)
+   ("g" gitk-open)
+   ("t" git-timemachine)
+   ("<muhenkan>" nil))				;
   :config
   (setq magit-refs-show-commit-count 'all)
   (setq magit-log-buffer-file-locked t)
