@@ -35,13 +35,15 @@
   (setq which-key-max-description-length 40)
   (setq which-key-delay 0.0))
 
-(leaf flycheck :ensure t
+(leaf flymake
   :doc "On-the-fly syntax checking"
-  :hook ((after-init-hook . global-flycheck-mode)
-	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
-  :bind (:flycheck-mode-map
-         ("M-n" . flycheck-next-error)
-         ("M-p" . flycheck-previous-error)))
+  :hook (((after-init-hook prog-mode-hook) . flymake-mode)
+	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
+  :bind (:flymake-mode-map
+         ("M-n" . flymake-goto-next-error)
+         ("M-p" . flymake-goto-prev-error))
+  :config
+  (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
