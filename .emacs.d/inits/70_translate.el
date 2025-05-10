@@ -21,7 +21,7 @@
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
   :url "https://github.com/lorniu/go-translate"
-  :bind ("C-t" . gt-do-translate)
+  :bind ("C-c t" . gt-do-translate)
   :config
   (setq gt-langs '(en ja))
   (setq gt-default-translator
@@ -36,7 +36,7 @@
 (leaf deepl-translate-web
   :doc "Use deepl-transrate on web"
   :commands my:deepl-translate
-  :bind (("C-c t" . my:deepl-translate))
+  :bind (("C-c w" . my:deepl-translate))
   :preface
   (require 'url-util)
   (defun my:deepl-translate (&optional string)
