@@ -6,24 +6,19 @@
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
   :bind '(("C-x g" . magit-status)
-	  ("M-g" . hydra-git/body))
-  :hydra
-  (hydra-git
-   (:color red :hint nil)
-   "
-    magit: _s_tatus  _b_lame  _c_heckout  _l_og  _g_itk  _t_imemachine
-  "
-   ("s" magit-status)
-   ("b" magit-blame-addition)
-   ("c" magit-file-checkout)
-   ("l" magit-log-buffer-file)
-   ("g" gitk-open)
-   ("t" git-timemachine-toggle)
-   ("<muhenkan>" nil))
+	  ("M-g b" . magit-blame)
+	  ("M-g c" . magit-file-checkout)
+	  ("M-g l" . magit-log-buffer-file)
+	  ("M-g g" . gitk-open)
+	  ("M-g t" . git-timemachine-toggle))
   :config
+  (setq magit-refs-show-commit-count 'all
+        magit-log-buffer-file-locked t
+        magit-revision-show-gravatars nil
+        magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
   ;; Do not split window
-  (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
+  ;; (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   ;; Walk through git revisions of a file
   (leaf git-timemachine :ensure t)
   ;; Open github page from Emacs
