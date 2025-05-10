@@ -26,12 +26,13 @@
   :config
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
+
   ;; Force evil-emacs-state for major modes
-  (dolist (mode '(lisp-interaction-mode
-		  fundamental-mode dashboard-mode dired-mode
-		  neotree-mode mail-mode org-mode yatex-mode
-		  git-timemachine-mode easy-hugo-mode))
+  (dolist (mode '(howm-view-summary-mode
+		  dashboard-mode easy-hugo-mode fundamental-mode
+		  yatex-mode org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
+
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
@@ -72,6 +73,7 @@
 
 
 (leaf evil-leader :ensure t
+  :doc ""
   :hook (after-init-hook . global-evil-leader-mode)
   :config
   (evil-leader/set-leader ",")
@@ -95,6 +97,8 @@
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
     "w" 'avy-goto-word-1
+    "." 'org-agenda
+    "," 'org-capture
     ";" 'comment-dwim
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
