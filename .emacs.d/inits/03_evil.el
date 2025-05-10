@@ -72,7 +72,7 @@
 
 
 (leaf evil-leader :ensure t
-  :doc ""
+  :doc "Free keymap on evil-mode"
   :hook (after-init-hook . global-evil-leader-mode)
   :config
   (evil-leader/set-leader ",")
