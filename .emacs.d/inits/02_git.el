@@ -9,16 +9,17 @@
 	  ("M-g b" . magit-blame)
 	  ("M-g c" . magit-file-checkout)
 	  ("M-g l" . magit-log-buffer-file)
-	  ("M-g g" . gitk-open)
+	  ("M-g k" . gitk-open)
 	  ("M-g t" . git-timemachine-toggle))
   :config
   (setq magit-refs-show-commit-count 'all
         magit-log-buffer-file-locked t
         magit-revision-show-gravatars nil
-        magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+        ;; magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1
+	;; Do not split window
+	magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1
+	)
   (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
-  ;; Do not split window
-  ;; (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   ;; Walk through git revisions of a file
   (leaf git-timemachine :ensure t)
   ;; Open github page from Emacs
