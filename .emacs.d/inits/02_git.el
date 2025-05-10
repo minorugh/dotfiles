@@ -9,11 +9,11 @@
 	  ("M-g"   . hydra-magit/body))
   :hydra
   (hydra-magit
-   (:color red :hint nil)
+   (:hint nil :exit t)
    "
-    magit-_s_tatus  _b_lame  _c_heckout  _l_og  _g_itk-open _t_imemachine
+    _m_agit-status  _b_lame  _c_heckout  _l_og  _g_itk-open _t_imemachine
   "
-   ("s" magit-status)
+   ("m" magit-status)
    ("b" magit-blame)
    ("c" magit-file-checkout)
    ("l" magit-log-buffer-file)
