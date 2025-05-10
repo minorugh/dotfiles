@@ -83,8 +83,8 @@
     "3" 'split-window-right
     "5" 'make-frame
     "n" 'make-frame
-    "_" 'other-frame
-    "m" 'hydra-magit/body
+    "m" 'other-frame
+    "_" 'magit-status
     "/" 'delete-frame
     "S" 'window-swap-states
     "o" 'other-window-or-split

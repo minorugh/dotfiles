@@ -42,7 +42,7 @@
    ("/" my:root-dir)
    ("f" flycheck-list-errors)
    ("_" delete-other-windows)
-   ("[" hydra-git/body)
+   ("[" hydra-magit/body)
    ("]" my:magit-status)
    ("s" my:scr-dir)
    ("z" filezilla)
