@@ -8,8 +8,10 @@
   :hook after-init-hook
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil)
+ 	  ("C-a"      . seq-home)
+ 	  ("C-e"      . seq-end)
+ 	  ("SPC"      . evil-visual-line)
 	  ("?"        . vim-cheat-sheet)
- 	  ("SPC"      . evil-insert)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
@@ -17,7 +19,8 @@
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
 	  ("w"        . my:weblio)
-	  ("t"        . deepl-translate)
+	  ("d"        . deepl-translate)
+	  ("t"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -90,7 +93,6 @@
     "n" 'make-frame
     "_" 'other-frame
     "m" 'hydra-magit/body
-    "." 'xref-find-definitions
     "/" 'delete-frame
     "S" 'window-swap-states
     "o" 'other-window-or-split
@@ -103,7 +105,6 @@
     "g" 'my:google-this
     "a" 'org-agenda
     "," 'org-capture
-    "t" 'gt-do-translate
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
