@@ -17,7 +17,8 @@
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
 	  ("w"        . my:weblio)
-	  ("t"        . gt-do-translate)
+	  ("t"        . deepl-translate)
+	  ("T"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
