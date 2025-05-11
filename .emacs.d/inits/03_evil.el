@@ -13,6 +13,11 @@
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
+	  (";"        . comment-dwim)
+	  ("c"        . clipboard-kill-ring-save)
+	  ("g"        . my:google-this)
+	  ("w"        . my:weblio)
+	  ("t"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -84,24 +89,19 @@
     "5" 'make-frame
     "n" 'make-frame
     "m" 'other-frame
-    "_" 'magit-status
+    "." 'xref-find-definitions
     "/" 'delete-frame
     "S" 'window-swap-states
     "o" 'other-window-or-split
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    "c" 'clipboard-kill-ring-save
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
-    "t" 'gt-do-translate
-    "d" 'deeple-translate
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
-    "w" 'avy-goto-word-1
-    "." 'org-agenda
+    "a" 'org-agenda
     "," 'org-capture
-    ";" 'comment-dwim
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
