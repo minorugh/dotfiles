@@ -11,7 +11,7 @@
 	 (minibuffer-exit-hook  . dimmer-on))
   :config
   (setq dimmer-buffer-exclusion-regexps
-	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Google Translate*\\|\\*gt-result*"))
+	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*gt-result*"))
   (setq dimmer-fraction 0.5)
 
   (defun dimmer-excludes ()
