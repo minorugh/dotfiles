@@ -88,7 +88,8 @@
     "3" 'split-window-right
     "5" 'make-frame
     "n" 'make-frame
-    "m" 'other-frame
+    "_" 'other-frame
+    "m" 'hydra-magit/body
     "." 'xref-find-definitions
     "/" 'delete-frame
     "S" 'window-swap-states
