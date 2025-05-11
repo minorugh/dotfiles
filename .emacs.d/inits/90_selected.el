@@ -10,6 +10,7 @@
   :bind (("C-c g" . my:google-this)
 	 (:selected-keymap
 	  (";" . comment-dwim)
+	  ("c" . clipboard-kill-ring-save)
 	  ("y" . clipboard-kill-ring-save)
  	  ("s" . swiper-thing-at-point)
 	  ("d" . deepl-translate)
