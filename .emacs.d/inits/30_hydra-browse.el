@@ -12,10 +12,10 @@
    "
   ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
-  _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: Calendar
-  _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: Mail
-  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _M_: Maps
-  _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _4_: Centaur   _P_: Photo
+  _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
+  _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: mail
+  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _M_: maps
+  _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _4_: Centaur   _P_: photo
 "
    ("a" (browse-url "https://www.amazon.co.jp/"))
    ("r" (browse-url "https://www.rakuten.co.jp/"))
@@ -30,7 +30,7 @@
    ("3" (browse-url "https://github.com/masasam"))
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
-   ("m" (compile "neomutt.sh"))
+   ("m" neomutt)
    ("M" (browse-url "https://www.google.co.jp/maps"))
    ("B" (browse-url "http://blog.gospel-haiku.com/"))
    ("E" (browse-url "https://es.gospel-haiku.com/post/"))

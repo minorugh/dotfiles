@@ -13,8 +13,6 @@
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	 ("C-x b" . ibuffer)
-	 ("C-x C-c"  . server-edit) ;; server editing buffers exist. Replace "C-x #"
 	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun thunar-open ()
