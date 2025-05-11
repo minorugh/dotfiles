@@ -55,7 +55,7 @@
       (evil-insert-state)))
   (add-hook 'find-file-hooks 'evil-find-file)
 
-  ( defun evil-swap-key (map key1 key2)
+  (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
     (let ((def1 (lookup-key map key1))
 	  (def2 (lookup-key map key2)))
@@ -106,28 +106,7 @@
     "f" 'counsel-find-file
     "r" 'counsel-recentf
     "x" 'counsel-M-x
-    "SPC" 'set-mark-command)
-  :init
-  (leaf google-this :ensure t
-    :bind ("C-c g" . my:google-this))
-  (defun my:google-this ()
-    (interactive)
-    (google-this (current-word) t))
-
-  (defun my:weblio (str)
-    "Search weblio."
-    (interactive (list (region-or-read-string nil)))
-    (browse-url (format "https://www.weblio.jp/content/%s"
-			(upcase (url-hexify-string str)))))
-
-  (defun region-or-read-string (prompt &optional initial history default inherit)
-    "If region is specified, get the string, otherwise call `read-string'."
-    (if (not (region-active-p))
-	(read-string prompt initial history default inherit)
-      (prog1
-	  (buffer-substring-no-properties (region-beginning) (region-end))
-	(deactivate-mark)
-	(message "")))))
+    "SPC" 'set-mark-command))
 
 
 ;;; 03_evil.el ends here

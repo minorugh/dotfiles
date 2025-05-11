@@ -13,7 +13,6 @@
 	 ("M-:"     . counsel-buffer-or-recentf)
 	 ("C-,"     . counsel-mark-ring)
 	 ("s-a"     . counsel-ag)
-	 ("M-,"     . xref-find-definitions)
 	 ("C-x a"   . counsel-linux-app)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf))

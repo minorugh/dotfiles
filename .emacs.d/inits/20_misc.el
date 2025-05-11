@@ -11,7 +11,7 @@
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log)
-	  ("nn" . make-frame-command)))
+	  ("jk" . xref-find-definitions)))
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))
