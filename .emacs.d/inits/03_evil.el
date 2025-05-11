@@ -18,7 +18,6 @@
 	  ("g"        . my:google-this)
 	  ("w"        . my:weblio)
 	  ("t"        . deepl-translate)
-	  ("T"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -103,6 +102,7 @@
     "g" 'my:google-this
     "a" 'org-agenda
     "," 'org-capture
+    "t" 'gt-do-translate
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
