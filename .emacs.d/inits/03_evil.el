@@ -10,6 +10,7 @@
 	  ("M-."      . nil)      ;; Used for other purposes
  	  ("C-a"      . seq-home) ;; Used sequential-command.el
  	  ("C-e"      . seq-end)  ;; Used sequential-command.el
+ 	  ("C-r"      . avy-goto-word-1) ;; Overwrite evil-redo
  	  ("SPC"      . evil-visual-line)
 	  ("?"        . vim-cheat-sheet)
           ([muhenkan] . evil-insert)
@@ -86,7 +87,7 @@
   (evil-leader/set-leader ",")
   (evil-leader/set-key
     "0" 'delete-window
-    "1" 'delete-other-windows
+    "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
     "5" 'make-frame
@@ -103,7 +104,6 @@
     "k" 'diff-hl-previous-hunk
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
-    "." 'org-agenda
     "," 'org-capture
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file

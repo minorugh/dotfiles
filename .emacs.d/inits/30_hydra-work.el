@@ -11,16 +11,16 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_  _._mutt
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._l_  re_@_p^^  _b_ackup-all^^^^  _a_book
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  _c_ap._u_p.dw_n_  _._agenda
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__;_:年度  _g_ist._l_  re_@_p^^  _b_ackup-all^^^^  _,_capture
 "
-   ("a" my:abook)
-   ("." my:mutt)
+   ("," org-capture)
+   ("." org-agenda)
    ("p" ps-print-buffer)
    ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
-   ("," my:year-draft)
+   (";" my:year-draft)
    ("v" my:apvoice)
    ("V" my:apvoice-new-post)
    ("b" make-backup)
