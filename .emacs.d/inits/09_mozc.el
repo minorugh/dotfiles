@@ -17,10 +17,6 @@
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
 
-  (leaf mozc-temp :ensure t
-    :doc "Wrapper to modulate input by `mozc.el`."
-    :bind* ("<henkan>" . mozc-temp-convert))
-
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state"
