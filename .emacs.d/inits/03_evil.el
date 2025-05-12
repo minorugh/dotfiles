@@ -103,7 +103,7 @@
     "k" 'diff-hl-previous-hunk
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
-    "a" 'org-agenda
+    "." 'org-agenda
     "," 'org-capture
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
