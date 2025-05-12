@@ -104,11 +104,11 @@
     "k" 'diff-hl-previous-hunk
     "s" 'swiper-thing-at-point
     "g" 'my:google-this
+    "a" 'org-agenda
     "," 'org-capture
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
     "r" 'counsel-recentf
-    "x" 'counsel-M-x
     "SPC" 'set-mark-command))
 
 
