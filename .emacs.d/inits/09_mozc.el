@@ -17,6 +17,10 @@
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
 
+  (leaf mozc-temp :ensure t
+    :doc "Wrapper to modulate input by `mozc.el`."
+    :bind* ("<henkan>" . mozc-temp-convert))
+
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state"
@@ -58,18 +62,6 @@
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
     (delete-other-windows)))
-
-
-;; (leaf pangu-spacing :ensure t
-;;   :doc "Put a space between Japanese and English"
-;;   :url "http://github.com/coldnew/pangu-spacing"
-;;   :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
-;;   :config
-;;   (setq pangu-spacing-real-insert-separtor t)
-;;   (setq pangu-spacing-include-regexp ;; alphabet only
-;; 	(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-;; 			 (group-n 1 (or (category japanese))))))
-;; 	    (group-n 2 (in "a-zA-Z")))))
 
 
 ;;; 09_mozc.el ends here
