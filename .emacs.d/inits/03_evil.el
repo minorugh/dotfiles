@@ -7,9 +7,9 @@
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
   :bind ((:evil-normal-state-map
-	  ("M-."      . nil)
- 	  ("C-a"      . seq-home)
- 	  ("C-e"      . seq-end)
+	  ("M-."      . nil)      ;; Used for other purposes
+ 	  ("C-a"      . seq-home) ;; Used sequential-command.el
+ 	  ("C-e"      . seq-end)  ;; Used sequential-command.el
  	  ("SPC"      . evil-visual-line)
 	  ("?"        . vim-cheat-sheet)
           ([muhenkan] . evil-insert)
