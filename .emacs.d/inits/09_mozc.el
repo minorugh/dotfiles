@@ -35,7 +35,7 @@
       (setq input-method-function input-method-function-save)))
 
   (defun my:toggle-input-method ()
-    "If `evil-mode' enabled, set to` emacs-state'."
+    "If `evil-mode' enabled, set to` evil-insert-state'."
     (interactive)
     (if (boundp 'evil-mode)
 	(evil-insert-state))
