@@ -28,7 +28,7 @@
 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
       (compile (concat "gnome-terminal --working-directory " dir))))
 
-  (defun ssh-gh ()
+  (defun ssh-xsrv ()
     "Open terminal and ssh to xsrv."
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH"))

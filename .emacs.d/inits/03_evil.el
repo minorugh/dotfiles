@@ -90,9 +90,8 @@
     "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame
     "n" 'make-frame
-    "_" 'other-frame
+    "m" 'other-frame
     "/" 'delete-frame
     "s" 'window-swap-states
     "o" 'other-window-or-split
@@ -105,6 +104,7 @@
     "a" 'org-agenda
     "," 'org-capture
     "." 'terminal-open
+    "_" 'ssh-xsrv
     "u" 'thunar-open
     "@" 'browse-at-remote
     ":" 'counsel-switch-buffer
