@@ -11,21 +11,21 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint  org:_a__,_  _._:gterm-open
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  repo_@_  _b_ackup^^  ___thunar-open
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  print_b_/_r_  _a_genda._c_apture  _B_ackup
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  _@_point^^  _._terminal-open^^  Th_u_nar
 "
-   ("," org-capture)
+   ("c" org-capture)
    ("a" org-agenda)
-   ("p" ps-print-buffer)
-   ("P" ps-print-region)
+   ("b" ps-print-buffer)
+   ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
    ("n" my:year-draft)
    ("v" my:apvoice)
    ("V" my:apvoice-new-post)
-   ("b" make-backup)
+   ("B" make-backup)
    ("." terminal-open)
-   ("_" thunar-open)
+   ("u" thunar-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)

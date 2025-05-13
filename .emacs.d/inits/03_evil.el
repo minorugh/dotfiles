@@ -92,7 +92,7 @@
     "3" 'split-window-right
     "5" 'make-frame
     "n" 'make-frame
-    "m" 'other-frame
+    "_" 'other-frame
     "/" 'delete-frame
     "s" 'window-swap-states
     "o" 'other-window-or-split
@@ -105,7 +105,7 @@
     "a" 'org-agenda
     "," 'org-capture
     "." 'terminal-open
-    "_" 'thunar-open
+    "u" 'thunar-open
     "@" 'browse-at-remote
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
