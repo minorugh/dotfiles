@@ -90,6 +90,7 @@
     "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
+    "5" 'make-frame
     "n" 'make-frame
     "m" 'other-frame
     "/" 'delete-frame
@@ -101,14 +102,7 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "g" 'my:google-this
-    "a" 'org-agenda
     "," 'org-capture
-    "." 'terminal-open
-    "_" 'ssh-xsrv
-    "u" 'thunar-open
-    "@" 'browse-at-remote
-    ":" 'counsel-switch-buffer
-    "f" 'counsel-find-file
     "SPC" 'set-mark-command))
 
 

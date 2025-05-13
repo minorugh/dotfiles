@@ -11,11 +11,9 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  print_b_/_r_  _a_genda/_c_apture  _B_ackup  
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  _@_point^^  _._term/ssh___xsrv  Th_u_nar
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  print_b_/_r_  _._term  _B_ackup
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  _@_point^^  ___xsrv  Th_u_nar
 "
-   ("c" org-capture)
-   ("a" org-agenda)
    ("b" ps-print-buffer)
    ("r" ps-print-region)
    ("y" my:year)

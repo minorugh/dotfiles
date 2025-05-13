@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf quickrun :ensure t
-  :bind ([f6] . quickrun))
+  :bind ([f5] . quickrun))
 
 (leaf key-chord
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")

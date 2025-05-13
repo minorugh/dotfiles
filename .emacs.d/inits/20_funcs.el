@@ -4,8 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *user-define-functions
-  :bind	(([f5]    . ssh-gh)
-	 ("M-w"   . clipboard-kill-ring-save)
+  :bind	(("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-whole-line-or-region)
 	 ("M-/"   . my:kill-buffer)
 	 ("C-M-/" . delete-this-file)
