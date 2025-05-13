@@ -43,11 +43,6 @@
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
-  (defun vim-cheat-sheet ()
-    "View vim cheat sheet online."
-    (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
-
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
     (interactive)
@@ -76,7 +71,12 @@
     "Set buffer for automatic `evil-insert-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+
+  (defun vim-cheat-sheet ()
+    "View vim cheat sheet online."
+    (interactive)
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 
 (leaf evil-leader :ensure t
