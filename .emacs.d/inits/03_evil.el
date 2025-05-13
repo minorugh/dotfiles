@@ -13,8 +13,7 @@
  	  ("C-r"      . avy-goto-word-1) ;; Overwrite evil-redo
  	  ("SPC"      . evil-visual-line)
           ([muhenkan] . evil-insert)
-	  ([home]     . open-dashboard)
-	  )
+	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
