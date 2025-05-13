@@ -90,25 +90,25 @@
     "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame
     "n" 'make-frame
-    "_" 'other-frame
-    "m" 'hydra-magit/body
+    "m" 'other-frame
     "/" 'delete-frame
-    "S" 'window-swap-states
+    "s" 'window-swap-states
     "o" 'other-window-or-split
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
-    "s" 'swiper-thing-at-point
     "g" 'my:google-this
     "a" 'org-agenda
     "," 'org-capture
+    "." 'terminal-open
+    "_" 'thunar-open
+    "@" 'browse-at-remote
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
-    "r" 'counsel-recentf
+    "r" 'avy-avy-goto-word-1
     "SPC" 'set-mark-command))
 
 

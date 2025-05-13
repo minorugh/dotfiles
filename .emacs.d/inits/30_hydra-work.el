@@ -11,22 +11,21 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_s._r_  org:_a__,_
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  re_@_p^^  _b_ackup^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint  org:_a__,_  _._:gterm-open
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  repo_@_  _b_ackup^^  ___thunar-open
 "
    ("," org-capture)
    ("a" org-agenda)
    ("p" ps-print-buffer)
-   ("r" ps-print-region)
+   ("P" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
    ("n" my:year-draft)
    ("v" my:apvoice)
    ("V" my:apvoice-new-post)
    ("b" make-backup)
-   ;; ("c" my:capitalize-word)
-   ;; ("u" my:upcase-word)
-   ;; ("n" my:downcase-word)
+   ("." terminal-open)
+   ("_" thunar-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
@@ -47,6 +46,7 @@
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("G" chromium-github)
+   ("SPC" set-mark-command)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init

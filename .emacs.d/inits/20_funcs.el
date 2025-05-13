@@ -4,15 +4,14 @@
 ;; (setq debug-on-error t)
 
 (leaf *user-define-functions
-  :bind	(([f3]    . thunar-open)
-	 ([f4]    . terminal-open)
-	 ([f5]    . ssh-gh)
+  :bind	(([f5]    . ssh-gh)
 	 ("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-whole-line-or-region)
 	 ("M-/"   . my:kill-buffer)
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	 ("s-t"   . thunar-open)
 	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun thunar-open ()

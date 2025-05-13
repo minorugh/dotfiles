@@ -179,13 +179,14 @@
   ;; Insert a new date if the date has changed
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
   (unless (string-match (format-time-string "%Y%m:") string)
-	(forward-line -1)
-	(insert (format-time-string "%Y%m:\n")))
+    (forward-line -1)
+    (insert (format-time-string "%Y%m:\n"))
+    (insert (format-time-string "*%Y年%-m月%-d日\n")))
   (forward-line 1)
   (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
   (unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
-	;; (forward-line 1)
-	(insert (format-time-string "*%Y年%-m月%-d日\n")))
+    (forward-line 1)
+    (insert (format-time-string "*%Y年%-m月%-d日\n")))
   ;; Insert template
   (goto-char (point-min))
   (forward-line 2)
@@ -219,55 +220,55 @@
   (forward-char 11))
 
 
-(defun my:year-new-post ()
-  "Open tselext file and insert template."
-  (interactive)
-  (insert
-   ";----------------------------------------------------------\n"
-   "--\n"
-   (format-time-string "*さん\n")
-   "--\n"
-   "<div class=\"box\">\n"
-   "<div class=\"vertical\">\n"
-   "--\n"
-   "参加年 = <br>\n"
-   "性　別 = <br>\n"
-   "都道府県 = \n"
-   "--\n"
-   "&ensp;\n"
-   "--\n"
-   "<insert p tag>\n"
-   "--\n"
-   "</div></div>\n"
-   "--\n"
-   (format-time-string "-*さんのコメント\n")
-   "--\n"
-   "-((\n"
-   "<insert comment>\n"
-   "-))\n"
-   "--\n"))
+  (defun my:year-new-post ()
+    "Open tselext file and insert template."
+    (interactive)
+    (insert
+     ";----------------------------------------------------------\n"
+     "--\n"
+     (format-time-string "*さん\n")
+     "--\n"
+     "<div class=\"box\">\n"
+     "<div class=\"vertical\">\n"
+     "--\n"
+     "参加年 = <br>\n"
+     "性　別 = <br>\n"
+     "都道府県 = \n"
+     "--\n"
+     "&ensp;\n"
+     "--\n"
+     "<insert p tag>\n"
+     "--\n"
+     "</div></div>\n"
+     "--\n"
+     (format-time-string "-*さんのコメント\n")
+     "--\n"
+     "-((\n"
+     "<insert comment>\n"
+     "-))\n"
+     "--\n"))
 
 
-(defun my:haiku-note ()
-  "Open haiku note file."
-  (interactive)
-  (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
-  (evil-insert-state)
-  (goto-char (point-min)))
+  (defun my:haiku-note ()
+    "Open haiku note file."
+    (interactive)
+    (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+    (evil-insert-state)
+    (goto-char (point-min)))
 
 
-(defun my:haiku-note-post ()
-  "Insert template."
-  (interactive)
-  (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
-  (evil-insert-state)
-  (goto-char (point-min))
-  (forward-line -2)
-  (insert
-   (format-time-string "> %Y年%-m月%-d日 (%a)\n")
-   (format-time-string "PLACE:\n\n"))
-  (forward-line -2)
-  (forward-char 6)))
+  (defun my:haiku-note-post ()
+    "Insert template."
+    (interactive)
+    (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+    (evil-insert-state)
+    (goto-char (point-min))
+    (forward-line -2)
+    (insert
+     (format-time-string "> %Y年%-m月%-d日 (%a)\n")
+     (format-time-string "PLACE:\n\n"))
+    (forward-line -2)
+    (forward-char 6)))
 
 
 (provide 'my:template)
