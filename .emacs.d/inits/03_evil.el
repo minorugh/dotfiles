@@ -90,6 +90,7 @@
     "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
+    "5" 'make-frame
     "n" 'make-frame
     "m" 'other-frame
     "/" 'delete-frame
@@ -108,7 +109,6 @@
     "@" 'browse-at-remote
     ":" 'counsel-switch-buffer
     "f" 'counsel-find-file
-    "r" 'avy-avy-goto-word-1
     "SPC" 'set-mark-command))
 
 
