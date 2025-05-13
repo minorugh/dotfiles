@@ -12,9 +12,9 @@
  	  ("C-e"      . seq-end)  ;; Used sequential-command.el
  	  ("C-r"      . avy-goto-word-1) ;; Overwrite evil-redo
  	  ("SPC"      . evil-visual-line)
-	  ("?"        . vim-cheat-sheet)
           ([muhenkan] . evil-insert)
-	  ([home]     . open-dashboard))
+	  ([home]     . open-dashboard)
+	  )
 	 (:evil-visual-state-map
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
@@ -90,7 +90,6 @@
     "1" 'delete-other-window
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame
     "n" 'make-frame
     "m" 'other-frame
     "/" 'delete-frame
@@ -103,6 +102,7 @@
     "k" 'diff-hl-previous-hunk
     "g" 'my:google-this
     "," 'org-capture
+    "." 'vim-cheat-sheet
     "SPC" 'set-mark-command))
 
 
