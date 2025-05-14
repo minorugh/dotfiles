@@ -31,6 +31,9 @@
   ;; Use undo-fu for evil undo
   (setq evil-undo-system 'undo-fu)
   :config
+  ;; Do not exit emacs with quit, close the buffer instead
+  (evil-ex-define-cmd "q[uit]" 'my:kill-buffer)
+
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
@@ -71,12 +74,8 @@
     "Set buffer for automatic `evil-insert-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-insert-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
-  (defun vim-cheat-sheet ()
-    "View vim cheat sheet online."
-    (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 
 (leaf evil-leader :ensure t
@@ -102,7 +101,12 @@
     "g" 'my:google-this
     "," 'org-capture
     "." 'vim-cheat-sheet
-    "SPC" 'set-mark-command))
+    "SPC" 'set-mark-command)
+  :init
+  (defun vim-cheat-sheet ()
+    "View vim cheat sheet online."
+    (interactive)
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 
 ;;; 03_evil.el ends here
