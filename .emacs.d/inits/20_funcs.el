@@ -10,7 +10,6 @@
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	 ("s-t"   . thunar-open)
 	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun thunar-open ()

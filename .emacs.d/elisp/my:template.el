@@ -182,12 +182,11 @@
 	(forward-line -1)
 	(insert (format-time-string "%Y%m:\n"))
 	(insert (format-time-string "*%Y年%-m月%-d日\n")))
-      (progn
-	(forward-line 1)
-	(setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
-	(unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
-	  (forward-line 1)
-	  (insert (format-time-string "*%Y年%-m月%-d日\n")))))
+      (forward-line 1)
+    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
+      (forward-line 1)
+      (insert (format-time-string "*%Y年%-m月%-d日\n"))))
   ;; Insert template
   (goto-char (point-min))
   (forward-line 2)

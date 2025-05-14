@@ -15,6 +15,7 @@
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
+	  ;; Single-char bind are executed when the region is active
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
@@ -40,7 +41,7 @@
   ;; Force evil-emacs-state for major modes
   (dolist (mode '(howm-view-summary-mode
 		  easy-hugo-mode fundamental-mode yatex-mode
-		  org-mode neotree-mode git-timemachine-mode))
+ 		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
@@ -77,7 +78,6 @@
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
-
 (leaf evil-leader :ensure t
   :doc "Free keymap on evil-mode"
   :hook (after-init-hook . global-evil-leader-mode)
@@ -85,13 +85,13 @@
   (evil-leader/set-leader ",")
   (evil-leader/set-key
     "0" 'delete-window
-    "1" 'delete-other-window
+    "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
     "n" 'make-frame
-    "m" 'other-frame
+    "-" 'other-frame
     "/" 'delete-frame
-    "s" 'window-swap-states
+    "S" 'window-swap-states
     "o" 'other-window-or-split
     "[" 'previous-buffer
     "]" 'next-buffer
@@ -99,6 +99,12 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "g" 'my:google-this
+    "@" 'er/expand-region
+    "m" 'magit-status
+    "a" 'counsel-ag
+    "s" 'swiper-thing-at-point
+    ":" 'counsel-switch-buffer
+    "r" 'avy-goto-word-1
     "," 'org-capture
     "." 'vim-cheat-sheet
     "SPC" 'set-mark-command)
