@@ -10,7 +10,7 @@
 	  ("M-."      . nil)      ;; Used for other purposes
  	  ("C-a"      . seq-home) ;; Used sequential-command.el
  	  ("C-e"      . seq-end)  ;; Used sequential-command.el
- 	  ("C-r"      . avy-goto-word-1) ;; Overwrite evil-redo
+ 	  ("@"        . er/expand-region)
  	  ("SPC"      . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
@@ -99,15 +99,13 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "g" 'my:google-this
-    "@" 'er/expand-region
     "m" 'magit-status
     "a" 'counsel-ag
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "r" 'avy-goto-word-1
     "," 'org-capture
-    "." 'vim-cheat-sheet
-    "SPC" 'set-mark-command)
+    "." 'vim-cheat-sheet)
   :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
