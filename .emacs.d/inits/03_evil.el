@@ -33,7 +33,8 @@
   (setq evil-undo-system 'undo-fu)
   :config
   ;; Do not exit emacs with quit, close the buffer instead
-  (evil-ex-define-cmd "q[uit]" 'my:kill-buffer)
+  (evil-ex-define-cmd "q[uit]"  'my:kill-buffer)
+  (evil-ex-define-cmd "wq[uit]" 'my:kill-buffer)
 
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)

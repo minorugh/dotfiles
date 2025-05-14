@@ -12,25 +12,6 @@
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
   :init
-  (defun thunar-open ()
-    "Open thunar with current dir."
-    (interactive)
-    (compile (concat "thunar " default-directory)))
-
-  (defun terminal-open ()
-    "Open termninal with current dir."
-    (interactive)
-    (let ((dir (directory-file-name default-directory)))
-      (when (and (eq system-type 'gnu/linux)
-		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
-	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
-      (compile (concat "gnome-terminal --working-directory " dir))))
-
-  (defun ssh-xsrv ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
-
   (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))

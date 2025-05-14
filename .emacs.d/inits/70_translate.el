@@ -21,7 +21,7 @@
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
   :url "https://github.com/lorniu/go-translate"
-  :bind ("C-c t" . gt-do-translate)
+  :bind ("C-t" . gt-do-translate)
   :config
   (setq gt-langs '(en ja))
   (setq gt-default-translator

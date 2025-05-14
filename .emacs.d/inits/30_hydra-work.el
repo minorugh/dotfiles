@@ -44,25 +44,27 @@
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("_" ssh-xsrv)
-   ("G" chromium-github)
-   ("SPC" set-mark-command)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
-  (defun my:upcase-word (arg)
-    "convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
+  (defun thunar-open ()
+    "Open thunar with current dir."
+    (interactive)
+    (compile (concat "thunar " default-directory)))
 
-  (defun my:downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
+  (defun terminal-open ()
+    "Open termninal with current dir."
+    (interactive)
+    (let ((dir (directory-file-name default-directory)))
+      (when (and (eq system-type 'gnu/linux)
+		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
+      (compile (concat "gnome-terminal --working-directory " dir))))
 
-  (defun my:capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg))))
+  (defun ssh-xsrv ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
 
 
 ;;; 30_hydra-work.el ends here
