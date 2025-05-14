@@ -11,11 +11,11 @@
  	  ("C-a"      . seq-home) ;; Overwrite to sequential-command
  	  ("C-e"      . seq-end)  ;; Overwrite to sequential-command
  	  ("@"        . er/expand-region)
- 	  ("SPC"      . evil-visual-line)
+ 	  ("SPC"      . evil-insert)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
-	  ;; Single-char bind are executed when the region is active
+	  ;; Single-char binding is performed when selected region
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
@@ -98,14 +98,16 @@
     "l" 'recenter-top-bottom
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
-    "g" 'my:google-this
     "m" 'magit-status
     "a" 'counsel-ag
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "r" 'avy-goto-word-1
     "," 'org-capture
-    "." 'vim-cheat-sheet)
+    "." 'xref-find-definitions
+    "?" 'vim-cheat-sheet
+    "q" 'keyboard-quit
+    "SPC" 'evil-visual-line)
   :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
