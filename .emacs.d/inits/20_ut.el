@@ -10,7 +10,9 @@
   (setq counsel-tramp-custom-connections
 	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
-(leaf sequential-command :ensure t
+(leaf sequential-command
+  :vc (:url "https://github.com/HKey/sequential-command")
+  :doc "Move to first and last line of buffer"
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
