@@ -11,8 +11,6 @@
 	 ("<left>" . dired-up-alternate-directory)
 	 ("<right>" . dired-open-in-accordance-with-situation)
 	 ("RET" . dired-open-in-accordance-with-situation)
-	 ("<" . beginning-of-buffer)
-	 (">" . end-of-buffer)
 	 ("r" . wdired-change-to-wdired-mode)
 	 ("s" . sudo-edit) ;; Load from package
 	 ("o" . dired-open-file)
@@ -74,14 +72,7 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
        "sxiv" nil
        (format "sxiv -f -t -n %s %s"
 	       (length image-files)
-	       (mapconcat 'identity image-files " ")))))
-
-  (defun gitk-open ()
-    "Open gitk with current dir.
-see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
-    (interactive)
-    (compile "gitk")
-    (delete-other-windows)))
+	       (mapconcat 'identity image-files " "))))))
 
 
 ;;; 40_dired.el ends here

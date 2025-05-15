@@ -27,14 +27,16 @@
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
   :preface
-  ;; Walk through git revisions of a file
-  (leaf git-timemachine :ensure t)
-  ;; Open github page from Emacs
+  (leaf git-timemachine :ensure t
+    :doc "Walk through git revisions of a file")
+
   (leaf browse-at-remote :ensure t
+    :doc "Open github page from Emacs"
     :config
     (setq browse-at-remote-prefer-symbolic nil))
-  ;; Highlight uncommitted changes using VC
+
   (leaf diff-hl :ensure t
+    :doc "Highlight uncommitted changes using VC"
     :hook ((after-init-hook . global-diff-hl-mode)
 	   (after-init-hook . diff-hl-margin-mode)
 	   (magit-pre-refresh-hook  . diff-hl-magit-pre-refresh)
@@ -42,7 +44,14 @@
     :custom-face
     `((diff-hl-change . '((t (:background "#8adf80" :foreground "#333"))))
       (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
-      (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333")))))))
+      (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
+
+  (defun gitk-open ()
+    "Open gitk with current dir.
+see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
+    (interactive)
+    (compile "gitk")
+    (delete-other-windows)))
 
 
 ;;; 02_git.el ends here
