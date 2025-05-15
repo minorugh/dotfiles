@@ -42,7 +42,7 @@
   ;; Force evil-emacs-me-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  easy-hugo-mode fundamental-mode yatex-mode
- 		  org-mode neotree-mode git-timemachine-mode))
+     		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
@@ -90,7 +90,7 @@
     "2" 'split-window-below
     "3" 'split-window-right
     "n" 'make-frame
-    "-" 'other-frame
+    "_" 'other-frame
     "/" 'delete-frame
     "S" 'window-swap-states
     "o" 'other-window-or-split
@@ -99,15 +99,15 @@
     "l" 'recenter-top-bottom
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
-    "m" 'magit-status
-    "s" 'swiper-thing-at-point
+    "a" 'counsel-ag
+    "s" 'swiper-region
     ":" 'counsel-switch-buffer
     "r" 'avy-goto-word-1
     "," 'org-capture
-    "." 'xref-find-definitions
+    "." 'terminal-open
     "?" 'vim-cheat-sheet
     "q" 'keyboard-quit
-    "w" 'my:clipboard-kill-region
+    "w" 'kill-word-or-region
     "SPC" 'evil-visual-line)
   :init
   (defun vim-cheat-sheet ()

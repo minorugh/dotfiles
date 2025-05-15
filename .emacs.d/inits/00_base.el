@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *basic-configurations
+  :doc ""
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
@@ -72,6 +73,75 @@
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
+
+
+(leaf *user-define-functions
+  :doc ""
+  :bind	(("M-w"   . clipboard-kill-ring-save)
+	 ("C-w"   . kill-word-or-region)
+	 ("M-/"   . my:kill-buffer)
+	 ("M-c"   . my:capitalize-word)
+	 ("M-l"   . my:downcase-word)
+	 ("M-u"   . my:upcase-word)
+	 ("C-z"   . other-frame)
+	 ("C-M-/" . delete-this-file)
+	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	 ([muhenkan] . my:keyboard-quit))
+  :init
+  (defun my:keyboard-quit ()
+    (interactive)
+    (if (not (use-region-p))
+	(minibuffer-keyboard-quit)
+      (keyboard-quit)))
+
+  (defun my:kill-buffer (arg)
+    (interactive "P")
+    (if arg
+	(call-interactively 'kill-buffer)
+      (kill-buffer)))
+
+  (defun delete-this-file ()
+    "Delete the current file, and kill the buffer."
+    (interactive)
+    (unless (buffer-file-name)
+      (error "No file is currently being edited"))
+    (when (yes-or-no-p (format "Really delete '%s'?"
+			       (file-name-nondirectory buffer-file-name)))
+      (delete-file (buffer-file-name))
+      (my:kill-buffer)))
+
+  (defun handle-delete-frame (event)
+    "Overwrite `handle-delete-frame` defined in `frame.el`.
+  If it's the last frame, minimize it without deleting it."
+    (interactive "e")
+    (let ((frame  (posn-window (event-start event)))
+	  (numfrs (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+	    ((iconify-frame)))))
+
+  (defun kill-word-or-region ()
+    "If the region is active, `clipboard-kill-region'.
+If the region is inactive, `backward-kill-word'."
+    (interactive)
+    (if (use-region-p)
+	(clipboard-kill-region (region-beginning) (region-end))
+      (backward-kill-word 1)))
+
+  (defun my:upcase-word (arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my:downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my:capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg))))
 
 
 ;;; 00_base.el ends here
