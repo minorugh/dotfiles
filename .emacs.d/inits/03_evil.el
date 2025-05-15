@@ -45,6 +45,9 @@
  		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
 
+  ;; Force evil-emacs-state for minor modes
+  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
     (interactive)
