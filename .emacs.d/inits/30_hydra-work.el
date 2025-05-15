@@ -11,25 +11,29 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint._r_e  _._term  _b_ackup
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__n_:年度  _g_ist._l_  _@_point^^  ___xsrv  Th_u_nar
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint._r_e  _._term  _b_ackup  _c_ap:_u_p/d_n_
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  _@_point^^  ___xsrv  Thun_a_r  File_z_illa^^^^
 "
+   ("c" my:capitalize-word)
+   ("u" my:upcase-word)
+   ("n" my:downcase-word)
    ("p" ps-print-buffer)
    ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
-   ("n" my:year-draft)
+   ("," my:year-draft)
    ("v" my:apvoice)
    ("V" my:apvoice-new-post)
    ("b" make-backup)
    ("." terminal-open)
-   ("u" thunar-open)
+   ("a" thunar-open)
+   ("z" filezilla-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("d" my:diary)
    ("D" my:diary-new-post)
    ("g" gist-region-or-buffer)
-   ("l" (browse-url "https://gist.github.com/minorugh"))
+   ("B" (browse-url "https://gist.github.com/minorugh"))
    ("t" my:teirei)
    ("T" my:teirei-new-post)
    ("s" my:swan)
@@ -47,6 +51,11 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
+  (defun filezilla-open ()
+    "Open filezilla."
+    (interactive)
+    (compile "filezilla -s"))
+
   (defun thunar-open ()
     "Open thunar with current dir."
     (interactive)

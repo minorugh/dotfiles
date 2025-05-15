@@ -39,14 +39,11 @@
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
-  ;; Force evil-emacs-state for major modes
+  ;; Force evil-emacs-me-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  easy-hugo-mode fundamental-mode yatex-mode
  		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
-
-  ;; Force evil-emacs-state for minor modes
-  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
@@ -100,7 +97,6 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "m" 'magit-status
-    "a" 'counsel-ag
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "r" 'avy-goto-word-1
@@ -108,6 +104,7 @@
     "." 'xref-find-definitions
     "?" 'vim-cheat-sheet
     "q" 'keyboard-quit
+    "w" 'my:clipboard-kill-region
     "SPC" 'evil-visual-line)
   :init
   (defun vim-cheat-sheet ()

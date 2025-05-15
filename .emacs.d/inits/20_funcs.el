@@ -5,7 +5,7 @@
 
 (leaf *user-define-functions
   :bind	(("M-w"   . clipboard-kill-ring-save)
-	 ("C-w"   . kill-whole-line-or-region)
+	 ("C-w"   . my:clipboard-kill-region)
 	 ("M-/"   . my:kill-buffer)
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -34,14 +34,6 @@
       (delete-file (buffer-file-name))
       (my:kill-buffer)))
 
-  (defun kill-whole-line-or-region ()
-    "If the region is active, to kill region.
-  If the region is inactive, to kill whole line."
-    (interactive)
-    (if (use-region-p)
-	(clipboard-kill-region (region-beginning) (region-end))
-      (kill-whole-line)))
-
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.
   If it's the last frame, minimize it without deleting it."
@@ -49,7 +41,38 @@
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
+	    ((iconify-frame)))))
+
+  (defun my:kill-whole-line-or-region ()
+    "If the region is active, to `clipboard-kill-region'.
+  If the region is inactive, to `kill-whole-line'."
+    (interactive)
+    (if (use-region-p)
+	(clipboard-kill-region (region-beginning) (region-end))
+      (kill-whole-line)))
+
+  (defun my:clipboard-kill-region ()
+    "If the region is active, `clipboard-kill-region'.
+If the region is inactive, `backward-kill-word'."
+    (interactive)
+    (if (use-region-p)
+	(clipboard-kill-region (region-beginning) (region-end))
+      (backward-kill-word 1)))
+
+  (defun my:upcase-word (arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my:downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my:capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg))))
 
 
 ;;; 20_funcs.el ends here
