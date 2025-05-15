@@ -42,7 +42,7 @@
   ;; Force evil-emacs-me-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  easy-hugo-mode fundamental-mode yatex-mode
-     		  dired-mode org-mode neotree-mode git-timemachine-mode))
+     		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
