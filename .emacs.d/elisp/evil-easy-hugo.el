@@ -1,5 +1,11 @@
 ;;; evil-easy-hugo.el --- User custom configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
+
+;; This is a customized version of the easy-hugo-newpost function in easy-hugo.el.
+;; When easy-hugo-newpost is invoked in evil-mode,
+;; a new file is opened in evil-normal-state.
+;; so this is modified to open it in evil-insert-state.
+
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -34,8 +40,12 @@
      (when (get-buffer "*hugo*")
        (kill-buffer "*hugo*"))
      (find-file filename)
+
+     ;; Customize from here
      (when evil-mode
        (evil-insert-state))
+     ;; so far
+
      (when (and easy-hugo-org-header
 		(string-equal file-ext "org"))
        (insert (easy-hugo--org-headers (file-name-base post-file))))
