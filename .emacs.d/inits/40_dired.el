@@ -11,7 +11,7 @@
 	 ("<left>" . dired-up-alternate-directory)
 	 ("<right>" . dired-open-in-accordance-with-situation)
 	 ("RET" . dired-open-in-accordance-with-situation)
-	 ("r" . wdired-change-to-wdired-mode)
+	 ("w" . wdired-change-to-wdired-mode)
 	 ("s" . sudo-edit) ;; Load from package
 	 ("o" . dired-open-file)
 	 ("[" . dired-hide-details-mode)

@@ -11,7 +11,7 @@
  	  ("C-a"      . seq-home) ;; Overwrite to sequential-command
  	  ("C-e"      . seq-end)  ;; Overwrite to sequential-command
  	  ("@"        . er/expand-region)
- 	  ("SPC"      . evil-insert)
+ 	  ("SPC"      . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
