@@ -55,10 +55,12 @@
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
+  ;; Load the custom command and open newpost with evil-insert-state.
+  (load-file "~/.emacs.d/elisp/evil-easy-hugo.el")
+
   (leaf request	:ensure t
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request"))
-
 
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
