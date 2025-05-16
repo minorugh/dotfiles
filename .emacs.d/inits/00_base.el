@@ -144,4 +144,22 @@ If the region is inactive, `backward-kill-word'."
     (capitalize-word (- arg))))
 
 
+(leaf compile
+  :doc "run compiler as inferior of Emacs"
+  :tag "Builtin"
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
+  (setq compilation-scroll-output t)
+  (setq compilation-always-kill t)
+  (setq compilation-finish-functions 'compile-autoclose)
+  :init
+  (defun compile-autoclose (buffer string)
+    "Automatically close the compilation."
+    (cond ((string-match "compilation" (buffer-name buffer))
+	   (string-match "finished" string)
+	   (delete-other-windows)
+	   (message "Compile successful."))
+	  (t (message "Compilation exited abnormally: %s" string)))))
+
+
 ;;; 00_base.el ends here

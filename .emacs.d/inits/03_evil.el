@@ -11,7 +11,7 @@
  	  ("C-a"      . seq-home) ;; Overwrite to sequential-command
  	  ("C-e"      . seq-end)  ;; Overwrite to sequential-command
  	  ("@"        . er/expand-region)
- 	  ("SPC"      . evil-visual-line)
+ 	  ("SPC"      . set-mark-command)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
@@ -100,7 +100,7 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "a" 'counsel-ag
-    "s" 'swiper-region
+    "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "r" 'avy-goto-word-1
     "," 'org-capture

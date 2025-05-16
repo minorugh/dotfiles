@@ -1,4 +1,4 @@
-;;; 08_dimmer.el --- Dimmer configurations. -*- no-byte-compile: t; -*-
+;;; 06_dimmer.el --- Dimmer configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -58,4 +58,4 @@ If there are two or more windows, it will go to another window."
       (other-window 1))))
 
 
-;;; 08_dimmer.el ends here
+;;; 06_dimmer.el ends here

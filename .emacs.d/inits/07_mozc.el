@@ -1,4 +1,4 @@
-;;; 09_mozc.el --- Japanese mozc configurations. -*- no-byte-compile: t; -*-
+;;; 07_mozc.el --- Japanese mozc configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -60,4 +60,4 @@
     (delete-other-windows)))
 
 
-;;; 09_mozc.el ends here
+;;; 07_mozc.el ends here

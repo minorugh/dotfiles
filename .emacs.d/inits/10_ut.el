@@ -10,14 +10,12 @@
   (setq counsel-tramp-custom-connections
 	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
-
 (leaf sequential-command
   :vc (:url "https://github.com/HKey/sequential-command")
   :doc "Move to first and last line of buffer"
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
-
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
@@ -27,9 +25,7 @@
   (setq imenu-list-position    'left)
   :init
   (leaf counsel-css :ensure t
-    :doc "stylesheet-selector-aware swiper"
     :hook (css-mode-hook . counsel-css-imenu-setup)))
-
 
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
@@ -39,7 +35,6 @@
   (setq web-mode-css-indent-offset    2)
   (setq web-mode-code-indent-offset   2))
 
-
 (leaf ediff
   :doc "Edit while viewing the difference"
   :hook (ediff-mode-hook . dimmer-off)
@@ -47,7 +42,6 @@
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
 	ediff-split-window-function 'split-window-horizontally
 	ediff-diff-options "-twB"))
-
 
 (leaf ps-mule
   :doc "provide multi-byte character facility to ps-print"
@@ -67,18 +61,68 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
+(leaf iedit :ensure t
+  :doc "Edit multiple occurrences in the same way simultaneously"
+  :bind ("<insert>" . iedit-mode))
 
 (leaf atomic-chrome :ensure t
   :doc "Edit text areas of the browser in Emacs"
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom (atomic-chrome-buffer-open-style . 'full))
 
+(leaf flycheck :ensure t
+  :doc "On-the-fly syntax checking"
+  :hook (((after-init-hook prog-mode-hook) . flycheck-mode)
+	 (lisp-interaction-mode-hook . (lambda () (interactive)(flycheck-mode 0))))
+  :bind (("M-n" . flycheck-next-error)
+	 ("M-p" . flycheck-previous-error)))
 
-(leaf iedit :ensure t
-  :doc "Edit multiple occurrences in the same way simultaneously"
-  :bind ("<insert>" . iedit-mode))
+
+;; Various settings for buffer control
+(leaf super-save :ensure t
+  :doc "Smart auto save buffers"
+  :config
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-idle-duration       1)
+  (setq super-save-remote-files        nil)
+  (setq super-save-exclude             '(".gpg"))
+  :hook after-init-hook)
+
+(leaf persistent-scratch :ensure t
+  :doc "Save *scratch* buffer state to file and restore from file"
+  :hook (after-init-hook . persistent-scratch-autosave-mode)
+  :bind ("S-<return>" . toggle-scratch)
+  :config
+  (setq persistent-scratch-save-file "~/.emacs.d/tmp/scratch")
+  (defun toggle-scratch ()
+    "Toggle current buffer and *scratch* buffer."
+    (interactive)
+    (if (not (string= "*scratch*" (buffer-name)))
+	(progn
+	  (setq toggle-scratch-prev-buffer (buffer-name))
+	  (switch-to-buffer "*scratch*")
+	  (display-line-numbers-mode 0))
+      (switch-to-buffer toggle-scratch-prev-buffer))))
+
+(leaf *emacs-lock-mode :tag "builtin"
+  :doc "Set buffer that can not be killed"
+  :hook (after-init-hook . my:lock-mode)
+  :init
+  (defun my:lock-mode ()
+    (interactive)
+    (with-current-buffer "*scratch*"
+      (emacs-lock-mode 'kill))
+    (with-current-buffer "*Messages*"
+      (emacs-lock-mode 'kill))))
+
+(leaf bs
+  :doc "Menu for selecting and displaying buffers"
+  :tag "builtin"
+  :bind (("M-]" . bs-cycle-next)
+	 ("M-[" . bs-cycle-previous)))
 
 
+;; GIST configurations
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
   :tag "Be configured to be able to use gist on the command line from the terminal"

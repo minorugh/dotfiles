@@ -1,4 +1,4 @@
-;;; 06_company.el --- Company configurations. -*- no-byte-compile: t; -*-
+;;; 05_company.el --- Company configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -38,4 +38,4 @@
   (leaf yasnippet-snippets :ensure t))
 
 
-;;; 06_company.el ends here
+;;; 05_company.el ends here

@@ -11,6 +11,7 @@
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o" . easy-hugo-open-basedir)
 	  ("r" . easy-hugo-rename)
+	  ("n" . my:easy-hugo-newpost)
 	  ("e" . my:edit-easy-hugo)))
   :init
   ;; Main blog (=blog1)
@@ -58,14 +59,14 @@
   ;; Load a user custom package to support evil-mode
   (load-file "~/.emacs.d/elisp/evil-easy-hugo.el")
 
-  (leaf request	:ensure t
-    :config
-    (setq request-storage-directory "~/.emacs.d/tmp/request"))
-
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
     (interactive)
-    (find-file "~/.emacs.d/inits/60_easy-hugo.el")))
+    (find-file "~/.emacs.d/inits/60_easy-hugo.el"))
+  :preface
+  (leaf request	:ensure t
+    :config
+    (setq request-storage-directory "~/.emacs.d/tmp/request")))
 
 
 ;;; 60_easy-hugo.el ends here
