@@ -64,14 +64,5 @@
   :doc "Minor mode to aggressively keep your code always indented"
   :hook (emacs-lisp-mode-hook css-mode-hook))
 
-(leaf atomic-chrome :ensure t
-  :doc "Edit text areas of the browser in Emacs"
-  :hook (after-init-hook . atomic-chrome-start-server)
-  :custom (atomic-chrome-buffer-open-style . 'full))
-
-(leaf iedit :ensure t
-  :doc "Edit multiple occurrences in the same way simultaneously"
-  :bind ("<insert>" . iedit-mode))
-
 
 ;;; 20_misc.el ends here

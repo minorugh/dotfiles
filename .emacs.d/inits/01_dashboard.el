@@ -12,6 +12,10 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-icon-type 'nerd-icons)
+  (leaf page-break-lines :ensure t
+    :doc "Display ^L page breaks as tidy horizontal lines"
+    :after dashboard
+    :global-minor-mode t)
   :config
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
