@@ -1,4 +1,4 @@
-;;; 20_ut.el --- Utilities configurations. -*- no-byte-compile: t; -*-
+;;; 10_ut.el --- Utilities configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -156,4 +156,4 @@ If region isn't selected, post from the buffer."
     (delete-other-windows)))
 
 
-;;; 20_ut.el ends here
+;;; 10_ut.el ends here
