@@ -55,7 +55,7 @@
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
-  ;; Load the custom command and open newpost with evil-insert-state.
+  ;; Load a user custom package to support evil-mode
   (load-file "~/.emacs.d/elisp/evil-easy-hugo.el")
 
   (leaf request	:ensure t
