@@ -12,13 +12,12 @@
 	 ("<right>" . dired-open-in-accordance-with-situation)
 	 ("RET" . dired-open-in-accordance-with-situation)
 	 ("w" . wdired-change-to-wdired-mode)
-	 ("s" . sudo-edit) ;; Load from package
+	 ("s" . sudo-edit)
 	 ("o" . dired-open-file)
 	 ("[" . dired-hide-details-mode)
 	 ("a" . dired-omit-mode)
-	 ("i" . call-sxiv) ;; defun in dired-ut.el
-	 ("." . gitk-open) ;; defun in dired-ut.el
-	 ("@" . dired-do-gist)) ;; defun in gist.el
+	 ("i" . call-sxiv)
+	 ("@" . dired-do-gist))
   :config
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
