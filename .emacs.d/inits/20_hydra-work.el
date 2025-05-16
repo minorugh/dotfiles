@@ -1,4 +1,4 @@
-;;; 30_hydra-work.el --- Hydra quick work configurations. -*- no-byte-compile: t; -*-
+;;; 20_hydra-work.el --- Hydra quick work configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint._r_e  _._term  _b_ackup  _c_ap:_u_p/d_n_
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  _@_point^^  ___xsrv  Thun_a_r  File_z_illa^^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint._r_e  _._term  _+_scale  _c_ap./_u_p/d_n_
+  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  _@_point^^  ___xsrv  Thun_a_r  _b_ackup-all^^^^
 "
    ("c" my:capitalize-word)
    ("u" my:upcase-word)
@@ -76,4 +76,4 @@
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
 
 
-;;; 30_hydra-work.el ends here
+;;; 20_hydra-work.el ends here
