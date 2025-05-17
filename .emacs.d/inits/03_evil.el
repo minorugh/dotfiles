@@ -10,7 +10,7 @@
 	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
- 	  ("@"        . er/expand-region)
+	  ("@"        . er/expand-region)
  	  ("SPC"      . set-mark-command)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
@@ -89,7 +89,7 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "n" 'make-frame
+    "5" 'make-frame
     "_" 'other-frame
     "/" 'delete-frame
     "S" 'window-swap-states
@@ -97,10 +97,10 @@
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    ">" 'diff-hl-next-hunk
-    "<" 'diff-hl-previous-hunk
+    "n" 'diff-hl-next-hunk
+    "p" 'diff-hl-previous-hunk
     "j" 'evil-join-whitespace
-    "a" 'counsel-ag
+    "r" 'avy-goto-word-1
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "," 'org-capture
