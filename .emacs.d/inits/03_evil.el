@@ -10,12 +10,12 @@
 	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
+ 	  ("C-w"      . evil-delete-backward-word)
 	  ("@"        . er/expand-region)
  	  ("SPC"      . set-mark-command)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
-	  ;; Single-char command is performed when selected region
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
