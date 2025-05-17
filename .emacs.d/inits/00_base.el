@@ -8,7 +8,7 @@
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
-	 ("M-,"     . xref-find-definitions))
+	 ("<f6>"    . xref-find-definitions))
   :init
   ;; Faster rendering by not corresponding to right-to-left language
   (setq bidi-display-reordering nil)
