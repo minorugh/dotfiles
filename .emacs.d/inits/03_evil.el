@@ -100,14 +100,12 @@
     ">" 'diff-hl-next-hunk
     "<" 'diff-hl-previous-hunk
     "j" 'evil-join-whitespace
-    "J" 'evil-join
     "a" 'counsel-ag
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
-    "r" 'avy-goto-word-1
     "," 'org-capture
     "." 'terminal-open
-    "?" 'vim-cheat-sheet
+    "h" 'vim-cheat-sheet
     "q" 'keyboard-quit
     "w" 'kill-word-or-region
     "SPC" 'evil-visual-line)
