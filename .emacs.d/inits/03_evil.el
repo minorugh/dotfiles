@@ -22,6 +22,7 @@
 	  ("w"        . my:weblio)
 	  ("d"        . deepl-translate)
 	  ("t"        . gt-do-translate)
+	  ("<f6>"     . iedit-mode)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -44,7 +45,6 @@
 		  easy-hugo-mode fundamental-mode yatex-mode
      		  org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
-
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
@@ -107,7 +107,7 @@
     "." 'terminal-open
     "h" 'vim-cheat-sheet
     "q" 'keyboard-quit
-    "w" 'kill-word-or-region
+    "a" 'counsel-ag
     "SPC" 'evil-visual-line)
   :init
   (defun vim-cheat-sheet ()

@@ -63,7 +63,7 @@
 
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
-  :bind ("<insert>" . iedit-mode))
+  :bind ("<f6>" . iedit-mode))
 
 (leaf atomic-chrome :ensure t
   :doc "Edit text areas of the browser in Emacs"
