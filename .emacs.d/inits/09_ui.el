@@ -31,16 +31,19 @@
     :tag "Builtin"
     :hook ((after-init-hook . global-hl-line-mode)
 	   ((dashboard-mode-hook
-	     eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil))))))
-
-(leaf nerd-icons :ensure t
-  :if (display-graphic-p)
-  :config
-  (leaf nerd-icons-dired :ensure t
+	     eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil)))))
+  (leaf nerd-icons :ensure t
+    :if (display-graphic-p)
     :config
-    (setq nerd-icons-scale-factor 0.8)
-    :hook dired-mode-hook))
+    (leaf nerd-icons-dired :ensure t
+      :config
+      (setq nerd-icons-scale-factor 0.8)
+      :hook dired-mode-hook)))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Highlight configurations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :tag "Builtin"
