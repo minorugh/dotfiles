@@ -99,7 +99,9 @@
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
 
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compilation and autoclose
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf compile
   :doc "run compiler as inferior of Emacs"
   :tag "Builtin"
