@@ -99,7 +99,7 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "J" 'evil-join-whitespace
-    "e" 'iedit-mode
+    "e" 'evil-iedit
     "r" 'avy-goto-word-1
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer

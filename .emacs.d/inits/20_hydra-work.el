@@ -49,7 +49,7 @@
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("_" ssh-xsrv)
-   ("q" iedit-quit)
+   ("q" iedit--quit)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
@@ -87,10 +87,17 @@
 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
       (compile (concat "gnome-terminal --working-directory " dir))))
 
+  (defun evil-iedit ()
+    "Hoge."
+    (interactive)
+    (evil-insert-state)
+    (iedit-mode))
+
   (defun ssh-xsrv ()
     "Open terminal and ssh to xsrv."
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
+
 
 
 (leaf compile
