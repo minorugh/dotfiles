@@ -50,6 +50,21 @@
    ("_" ssh-xsrv)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
+  :config
+  (defun my:upcase-word (arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my:downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my:capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg)))
   :init
   (defun filezilla-open ()
     "Open filezilla."
@@ -74,6 +89,24 @@
     "Open terminal and ssh to xsrv."
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
+
+
+(leaf compile
+  :doc "run compiler as inferior of Emacs"
+  :tag "Builtin"
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
+  (setq compilation-scroll-output t)
+  (setq compilation-always-kill t)
+  (setq compilation-finish-functions 'compile-autoclose)
+  :init
+  (defun compile-autoclose (buffer string)
+    "Automatically close the compilation."
+    (cond ((string-match "compilation" (buffer-name buffer))
+	   (string-match "finished" string)
+	   (delete-other-windows)
+	   (message "Compile successful."))
+	  (t (message "Compilation exited abnormally: %s" string)))))
 
 
 ;;; 20_hydra-work.el ends here

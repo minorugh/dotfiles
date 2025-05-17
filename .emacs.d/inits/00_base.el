@@ -80,9 +80,6 @@
   :bind	(("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-word-or-region)
 	 ("M-/"   . my:kill-buffer)
-	 ("M-c"   . my:capitalize-word)
-	 ("M-l"   . my:downcase-word)
-	 ("M-u"   . my:upcase-word)
 	 ("C-z"   . other-frame)
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -126,40 +123,7 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
-
-  (defun my:upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
-
-  (defun my:downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
-
-  (defun my:capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg))))
-
-
-(leaf compile
-  :doc "run compiler as inferior of Emacs"
-  :tag "Builtin"
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
-  (setq compilation-scroll-output t)
-  (setq compilation-always-kill t)
-  (setq compilation-finish-functions 'compile-autoclose)
-  :init
-  (defun compile-autoclose (buffer string)
-    "Automatically close the compilation."
-    (cond ((string-match "compilation" (buffer-name buffer))
-	   (string-match "finished" string)
-	   (delete-other-windows)
-	   (message "Compile successful."))
-	  (t (message "Compilation exited abnormally: %s" string)))))
+      (backward-kill-word 1))))
 
 
 ;;; 00_base.el ends here

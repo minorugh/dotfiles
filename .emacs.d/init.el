@@ -52,11 +52,6 @@
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-(leaf *load-user-conf
-  :doc "Load user configurations"
-  :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make-command)
-
 (leaf cus-edit
   :doc "tools for customizing Emacs and Lisp packages"
   :tag "builtin" "faces" "help"
@@ -68,6 +63,12 @@
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
+
+;;;###autoload
+(leaf *load-user-conf
+  :doc "Load user configurations"
+  :load-path "~/.emacs.d/elisp/"
+  :require my:dired my:template my:make-command)
 
 
 (provide 'init)
