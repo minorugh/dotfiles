@@ -7,9 +7,9 @@
   :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
   :bind ((:evil-normal-state-map
-	  ("M-."      . nil)      ;; Disable and assign to other use
- 	  ("C-a"      . seq-home) ;; Overwrite to sequential-command
- 	  ("C-e"      . seq-end)  ;; Overwrite to sequential-command
+	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
+	  ("C-a"      . seq-home)
+ 	  ("C-e"      . seq-end)
  	  ("@"        . er/expand-region)
  	  ("SPC"      . set-mark-command)
           ([muhenkan] . evil-insert)
