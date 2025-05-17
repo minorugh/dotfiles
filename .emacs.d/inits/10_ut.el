@@ -61,15 +61,6 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf iedit :ensure t
-  :doc "Edit multiple occurrences in the same way simultaneously"
-  :bind ("<f6>" . iedit-mode))
-
-(leaf atomic-chrome :ensure t
-  :doc "Edit text areas of the browser in Emacs"
-  :hook (after-init-hook . atomic-chrome-start-server)
-  :custom (atomic-chrome-buffer-open-style . 'full))
-
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
   :hook (((after-init-hook prog-mode-hook) . flycheck-mode)
@@ -77,8 +68,20 @@
   :bind (("M-n" . flycheck-next-error)
 	 ("M-p" . flycheck-previous-error)))
 
+(leaf which-key :tag "builtin"
+  :doc "Display available keybindings in popup"
+  :hook (after-init-hook . which-key-mode)
+  :config
+  (setq which-key-max-description-length 40)
+  (setq which-key-delay 0.0))
 
+(leaf iedit :ensure t
+  :doc "Edit multiple occurrences in the same way simultaneously")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Various settings for buffer control
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
   :config
@@ -87,6 +90,7 @@
   (setq super-save-remote-files        nil)
   (setq super-save-exclude             '(".gpg"))
   :hook after-init-hook)
+
 
 (leaf persistent-scratch :ensure t
   :doc "Save *scratch* buffer state to file and restore from file"
@@ -104,6 +108,7 @@
 	  (display-line-numbers-mode 0))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
+
 (leaf *emacs-lock-mode :tag "builtin"
   :doc "Set buffer that can not be killed"
   :hook (after-init-hook . my:lock-mode)
@@ -115,14 +120,16 @@
     (with-current-buffer "*Messages*"
       (emacs-lock-mode 'kill))))
 
+
 (leaf bs
   :doc "Menu for selecting and displaying buffers"
   :tag "builtin"
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GIST configurations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
   :tag "Be configured to be able to use gist on the command line from the terminal"

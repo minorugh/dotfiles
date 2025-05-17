@@ -13,7 +13,6 @@
   (region  . '((t (:background "#6272a4" :extend t))))
   (hl-line . '((t (:background "#3B4252" :extend t)))))
 
-
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
   :hook after-init-hook
@@ -34,6 +33,13 @@
 	   ((dashboard-mode-hook
 	     eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil))))))
 
+(leaf nerd-icons :ensure t
+  :if (display-graphic-p)
+  :config
+  (leaf nerd-icons-dired :ensure t
+    :config
+    (setq nerd-icons-scale-factor 0.8)
+    :hook dired-mode-hook))
 
 (leaf *whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
@@ -53,30 +59,21 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
-
-(leaf paren
-  :doc "Highlight matching parens"
-  :tag "builtin"
-  :hook (after-init-hook . show-paren-mode)
-  :config
-  (setq show-paren-style 'parenthesis)
-  (setq show-paren-when-point-inside-paren t)
-  (setq show-paren-when-point-in-periphery t)
-  :custom-face
-  (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
-
-
-(leaf elec-pair
-  :doc "Automatic parenthesis pairing"
+(leaf blink-cursor
+  :doc "Blinking cursor mode for GNU Emacs"
   :tag "Builtin"
-  :hook (after-init-hook . electric-pair-mode)
   :config
-  (defadvice electric-pair-post-self-insert-function
-      (around electric-pair-post-self-insert-function-around activate)
-    "Don't insert the closing pair in comments or strings"
-    (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
-      ad-do-it)))
-					;
+  (setq blink-cursor-blinks   0)
+  (setq blink-cursor-interval 0.3)
+  (setq blink-cursor-delay    10))
+
+(leaf display-line-numbers
+  :doc "interface for display-line-numbers"
+  :tag "builtin"
+  :bind  ([f9] . display-line-numbers-mode)
+  :config
+  (setq display-line-numbers-width-start t)
+  :hook (prog-mode-hook text-mode-hook))
 
 (leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
@@ -91,12 +88,32 @@
       (pulse-momentary-highlight-region beg end face))
     (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
+(leaf paren
+  :doc "Highlight matching parens"
+  :tag "builtin"
+  :hook (after-init-hook . show-paren-mode)
+  :config
+  (setq show-paren-style 'parenthesis)
+  (setq show-paren-when-point-inside-paren t)
+  (setq show-paren-when-point-in-periphery t)
+  :custom-face
+  (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 
+(leaf elec-pair
+  :doc "Automatic parenthesis pairing"
+  :tag "Builtin"
+  :hook (after-init-hook . electric-pair-mode)
+  :config
+  (defadvice electric-pair-post-self-insert-function
+      (around electric-pair-post-self-insert-function-around activate)
+    "Don't insert the closing pair in comments or strings"
+    (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
+      ad-do-it)))
+					;
 (leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook prog-mode-hook)
-
 
 (leaf rainbow-mode :ensure t
   :doc "Color letter that indicate the color"
@@ -105,33 +122,9 @@
   :bind ("C-c r" . rainbow-mode))
 
 
-(leaf display-line-numbers
-  :doc "interface for display-line-numbers"
-  :tag "builtin"
-  :bind  ([f9] . display-line-numbers-mode)
-  :config
-  (setq display-line-numbers-width-start t)
-  :hook (prog-mode-hook text-mode-hook))
-
-
-(leaf blink-cursor
-  :doc "Blinking cursor mode for GNU Emacs"
-  :tag "Builtin"
-  :config
-  (setq blink-cursor-blinks   0)
-  (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    10))
-
-
-(leaf nerd-icons :ensure t
-  :if (display-graphic-p)
-  :config
-  (leaf nerd-icons-dired :ensure t
-    :config
-    (setq nerd-icons-scale-factor 0.8)
-    :hook dired-mode-hook))
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Writing environment
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
   :bind (([f8] . my:darkroom-in)

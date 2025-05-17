@@ -22,7 +22,6 @@
 	  ("w"        . my:weblio)
 	  ("d"        . deepl-translate)
 	  ("t"        . gt-do-translate)
-	  ("<f6>"     . iedit-mode)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
@@ -89,7 +88,7 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame
+    "n" 'make-frame
     "_" 'other-frame
     "/" 'delete-frame
     "S" 'window-swap-states
@@ -100,7 +99,7 @@
     "j" 'diff-hl-next-hunk
     "k" 'diff-hl-previous-hunk
     "J" 'evil-join-whitespace
-    "g" 'my:google-this
+    "e" 'iedit-mode
     "r" 'avy-goto-word-1
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
