@@ -97,9 +97,10 @@
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    "n" 'diff-hl-next-hunk
-    "p" 'diff-hl-previous-hunk
-    "j" 'evil-join-whitespace
+    "j" 'diff-hl-next-hunk
+    "k" 'diff-hl-previous-hunk
+    "J" 'evil-join-whitespace
+    "g" 'my:google-this
     "r" 'avy-goto-word-1
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
@@ -107,7 +108,6 @@
     "." 'terminal-open
     "h" 'vim-cheat-sheet
     "q" 'keyboard-quit
-    "a" 'counsel-ag
     "SPC" 'evil-visual-line)
   :init
   (defun vim-cheat-sheet ()
