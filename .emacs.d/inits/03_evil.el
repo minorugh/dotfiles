@@ -1,6 +1,6 @@
 ;;; 03_evil.el --- Evil mode configurations. -*- no-byte-compile: t; -*-
 ;;; Commentary:
-;;; code:
+;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
@@ -97,8 +97,10 @@
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    "j" 'diff-hl-next-hunk
-    "k" 'diff-hl-previous-hunk
+    ">" 'diff-hl-next-hunk
+    "<" 'diff-hl-previous-hunk
+    "j" 'evil-join-whitespace
+    "J" 'evil-join
     "a" 'counsel-ag
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer

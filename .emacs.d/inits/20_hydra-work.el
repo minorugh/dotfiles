@@ -50,7 +50,7 @@
    ("_" ssh-xsrv)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
-  :config
+  :init
   (defun my:upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
     (interactive "p")
@@ -65,7 +65,7 @@
     "Convert previous word (or ARG words) to capitalize."
     (interactive "p")
     (capitalize-word (- arg)))
-  :init
+
   (defun filezilla-open ()
     "Open filezilla."
     (interactive)
