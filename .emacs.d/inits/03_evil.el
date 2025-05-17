@@ -15,7 +15,7 @@
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
-	  ;; Single-char binding is performed when selected region
+	  ;; Single-char command is performed when selected region
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
