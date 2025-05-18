@@ -21,6 +21,7 @@
   :doc "Show imenu entries in a separate buffer"
   :bind ([f2]  . imenu-list-smart-toggle)
   :config
+  (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position    'left)
   :init

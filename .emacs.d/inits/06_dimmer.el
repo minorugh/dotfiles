@@ -8,10 +8,11 @@
   :chord ("::" . my:toggle-dimmer)
   :hook ((emacs-startup-hook . dimmer-excludes)
 	 (minibuffer-setup-hook . dimmer-off)
-	 (minibuffer-exit-hook  . dimmer-on))
+	 (minibuffer-exit-hook  . dimmer-on)
+	 (imenu-list-major-mode-hook . dimmer-off))
   :config
   (setq dimmer-buffer-exclusion-regexps
-	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*ilist*\\|\\*gt-result*"))
+	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Ilist*\\|\\*gt-result*"))
   (setq dimmer-fraction 0.5)
 
   (defun dimmer-excludes ()
