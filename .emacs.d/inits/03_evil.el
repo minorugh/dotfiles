@@ -12,7 +12,7 @@
  	  ("C-e"      . seq-end)
  	  ("C-w"      . evil-delete-backward-word)
 	  ("@"        . er/expand-region)
- 	  ("SPC"      . set-mark-command)
+ 	  ("SPC"      . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
@@ -100,14 +100,14 @@
     "k" 'diff-hl-previous-hunk
     "J" 'evil-join-whitespace
     "i" 'my:iedit-mode
-    "r" 'avy-goto-word-1
+    "r" 'xref-find-definitions
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "," 'org-capture
     "." 'terminal-open
-    "h" 'vim-cheat-sheet
+    "?" 'vim-cheat-sheet
     "q" 'keyboard-quit
-    "SPC" 'evil-visual-line)
+    "SPC" 'avy-goto-word-1)
   :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
