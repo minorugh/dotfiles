@@ -23,7 +23,7 @@
   :config
   (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
-  (setq imenu-list-position    'left)
+  (setq imenu-list-position 'left)
   :init
   (leaf counsel-css :ensure t
     :hook (css-mode-hook . counsel-css-imenu-setup)))
