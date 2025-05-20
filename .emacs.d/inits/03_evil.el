@@ -10,9 +10,10 @@
 	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
- 	  ("C-w"      . evil-delete-backward-word)
+  	  ("C-w"      . evil-delete-backward-word)
 	  ("@"        . er/expand-region)
- 	  ("SPC"      . evil-visual-line)
+ 	  ("SPC"      . set-mark-command)
+	  ("."        . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . open-dashboard))
 	 (:evil-visual-state-map
@@ -96,9 +97,8 @@
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    "j" 'diff-hl-next-hunk
-    "k" 'diff-hl-previous-hunk
-    "J" 'evil-join-whitespace
+    "_" 'hydra-diff/body
+    "j" 'evil-join-whitespace
     "i" 'my:iedit-mode
     "r" 'xref-find-definitions
     "s" 'swiper-thing-at-point
@@ -108,6 +108,17 @@
     "?" 'vim-cheat-sheet
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
+  :hydra
+  (hydra-diff
+   (:color red :hint nil)
+   "
+    diff  _]_:next-hunk  _[_:prev-hunk  _g_oto-hunk  _r_evert-hunk  _s_how-hunk"
+   ("]" diff-hl-next-hunk)
+   ("[" diff-hl-previous-hunk)
+   ("g" diff-hl-diff-goto-hunk)
+   ("r" diff-hl-revert-hunk)
+   ("s" diff-hl-show-hunk)
+   ("<muhenkan>" nil))				r
   :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
