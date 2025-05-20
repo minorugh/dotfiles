@@ -55,5 +55,14 @@
   :hook (after-init-hook . atomic-chrome-start-server)
   :custom (atomic-chrome-buffer-open-style . 'full))
 
+(leaf google-this :ensure t
+  :doc "doc"
+  :config
+  (defun my:google-this ()
+    "Run without confirmation"
+    (interactive)
+    (google-this (current-word) t)))
+
 
 ;;; 08_misc.el ends here
+
