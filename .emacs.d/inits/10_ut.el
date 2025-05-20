@@ -19,7 +19,10 @@
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer"
-  :bind ([f2]  . imenu-list-smart-toggle)
+  :bind (([f2]  . imenu-list-smart-toggle)
+	 (:imenu-list-major-mode-map
+	  ("j"   . next-line)
+	  ("k"   . previous-line)))
   :config
   (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
