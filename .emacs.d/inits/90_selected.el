@@ -22,7 +22,6 @@
   (add-hook 'activate-mark-hook 'my:activate-selected)
   (add-hook 'activate-mark-hook #'(lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
   (add-hook 'deactivate-mark-hook #'(lambda () (unless (null my:ime-flag) (my:ime-on))))
-  (leaf google-this :ensure t)
   :init
   (defun my:activate-selected ()
     (selected-global-mode 1)
@@ -37,10 +36,6 @@
   (defun my:ime-off ()
     (interactive)
     (deactivate-input-method))
-
-  (defun my:google-this ()
-    (interactive)
-    (google-this (current-word) t))
 
   (defun my:weblio (str)
     "Search weblio."
