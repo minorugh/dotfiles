@@ -10,6 +10,8 @@
   :bind (("<f10>" . my:neotree-find)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
+	  ("j"       . next-line)
+	  ("k"       . previous-line)
 	  ("a"       . neotree-hidden-file-toggle)
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
