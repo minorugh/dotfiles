@@ -54,13 +54,8 @@
     (interactive)
     (if (not (string= "*dashboard*" (buffer-name)))
 	(open-dashboard)
-      (previous-buffer)))
+      (previous-buffer))))
 
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
 
 ;;;###autoload
 (defun emacs-init-time ()

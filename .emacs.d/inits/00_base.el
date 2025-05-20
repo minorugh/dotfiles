@@ -123,7 +123,13 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1))))
+      (backward-kill-word 1)))
+
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (compile "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
 
 
 ;;; 00_base.el ends here
