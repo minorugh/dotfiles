@@ -20,7 +20,6 @@
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
-	  ("w"        . my:weblio)
 	  ("d"        . deepl-translate)
 	  ("t"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
@@ -36,13 +35,15 @@
   ;; Do not exit emacs with quit, close the buffer instead
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
+
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
-  ;; Force evil-emacs-me-mode-hook 'evil-emacs-state)
+
+  ;; Force evil-emacs-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  imenu-list-major-mode easy-hugo-mode fundamental-mode
 		  yatex-mode org-mode neotree-mode git-timemachine-mode))
-    (add-to-list 'evil-insert-state-modes mode))
+    (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
@@ -59,7 +60,7 @@
     "New files open in insert-state."
     (interactive)
     (unless (file-exists-p buffer-file-name)
-      (evil-insert-state)))
+      (evil-emacs-state)))
   (add-hook 'find-file-hooks 'evil-find-file)
 
   (defun evil-swap-key (map key1 key2)
@@ -74,7 +75,7 @@
   (defun ad:switch-to-buffer (&rest _arg)
     "Set buffer for automatic `evil-insert-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
-      (evil-insert-state)))
+      (evil-emacs-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
 
 
@@ -96,9 +97,10 @@
     "[" 'previous-buffer
     "]" 'next-buffer
     "l" 'recenter-top-bottom
-    "_" 'hydra-diff/body
+    "h" 'hydra-diff/body
     "j" 'evil-join-whitespace
     "i" 'my:iedit-mode
+    "g" 'my:google-this
     "r" 'xref-find-definitions
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
@@ -111,7 +113,7 @@
   (hydra-diff
    (:color red :hint nil)
    "
-    diff  _]_:next-hunk  _[_:prev-hunk  _g_oto-hunk  _r_evert-hunk  _s_how-hunk"
+    diff-hl-hunk  prev.next:_[_._]_  _s_how"
    ("]" diff-hl-next-hunk)
    ("[" diff-hl-previous-hunk)
    ("g" diff-hl-diff-goto-hunk)
