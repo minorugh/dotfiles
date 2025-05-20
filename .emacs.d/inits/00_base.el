@@ -79,7 +79,7 @@
   :doc ""
   :bind	(("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-word-or-region)
-	 ("M-/"   . my:kill-buffer)
+	 ("M-/"   . kill-current-buffer)
 	 ("C-z"   . other-frame)
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -92,11 +92,11 @@
 	(minibuffer-keyboard-quit)
       (keyboard-quit)))
 
-  (defun my:kill-buffer (arg)
-    (interactive "P")
-    (if arg
-	(call-interactively 'kill-buffer)
-      (kill-buffer)))
+  ;; (defun my:kill-buffer (arg)
+  ;;   (interactive "P")
+  ;;   (if arg
+  ;; 	(call-interactively 'kill-buffer)
+  ;;     (kill-buffer)))
 
   (defun delete-this-file ()
     "Delete the current file, and kill the buffer."
@@ -106,7 +106,7 @@
     (when (yes-or-no-p (format "Really delete '%s'?"
 			       (file-name-nondirectory buffer-file-name)))
       (delete-file (buffer-file-name))
-      (my:kill-buffer)))
+      (kill-current-buffer)))
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.

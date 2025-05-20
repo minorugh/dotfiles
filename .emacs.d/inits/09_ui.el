@@ -73,23 +73,24 @@
 (leaf display-line-numbers
   :doc "interface for display-line-numbers"
   :tag "builtin"
+  :hook ((prog-mode-hook text-mode-hook)
+	 (lisp-interaction-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0))))
   :bind  ([f9] . display-line-numbers-mode)
   :config
-  (setq display-line-numbers-width-start t)
-  :hook (prog-mode-hook text-mode-hook))
+  (setq display-line-numbers-width-start t))
 
-(leaf volatile-highlights :ensure t
-  :doc "Hilight the pasted region"
-  :url "https://github.com/k-talo/volatile-highlights.el"
-  :hook (after-init-hook . volatile-highlights-mode)
-  :custom-face
-  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
-  :config
-  (when (fboundp 'pulse-momentary-highlight-region)
-    (defun my:vhl-pulse (beg end &optional _buf face)
-      "Pulse the changes."
-      (pulse-momentary-highlight-region beg end face))
-    (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
+  (leaf volatile-highlights :ensure t
+    :doc "Hilight the pasted region"
+    :url "https://github.com/k-talo/volatile-highlights.el"
+    :hook (after-init-hook . volatile-highlights-mode)
+    :custom-face
+    (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
+    :config
+    (when (fboundp 'pulse-momentary-highlight-region)
+      (defun my:vhl-pulse (beg end &optional _buf face)
+	"Pulse the changes."
+	(pulse-momentary-highlight-region beg end face))
+      (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 (leaf paren
   :doc "Highlight matching parens"

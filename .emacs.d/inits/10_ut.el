@@ -64,7 +64,7 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
-  :hook (((after-init-hook prog-mode-hook) . flycheck-mode)
+  :hook ((prog-mode-hook . flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (interactive)(flycheck-mode 0))))
   :bind (("M-n" . flycheck-next-error)
 	 ("M-p" . flycheck-previous-error)))
@@ -111,8 +111,7 @@
     (if (not (string= "*scratch*" (buffer-name)))
 	(progn
 	  (setq toggle-scratch-prev-buffer (buffer-name))
-	  (switch-to-buffer "*scratch*")
-	  (display-line-numbers-mode 0))
+	  (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
 

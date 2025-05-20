@@ -7,7 +7,7 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :hook (after-init-hook . dashboard-setup-startup-hook)
-  :bind ([home] . open-dashboard)
+  :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
@@ -21,18 +21,15 @@
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
     (setq dashboard-items '((recents . 5))))
-
   ;; Set the title
   (setq dashboard-banner-logo-title
 	(concat "GNU Emacs " emacs-version " kernel "
 		(car (split-string (shell-command-to-string "uname -r")))  " Debian "
 		(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
-
   ;; Set the banner
   (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq show-week-agenda-p t)
-
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))
@@ -52,12 +49,18 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files))
 
+  (defun dashboard-toggle ()
+    "Switch buffer for dashboard and previous buffer."
+    (interactive)
+    (if (not (string= "*dashboard*" (buffer-name)))
+	(open-dashboard)
+      (previous-buffer)))
+
   (defun neomutt ()
     "Open terminal and ssh to xsrv."
     (interactive)
     (compile "neomutt.sh"))
   (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
-
 
 ;;;###autoload
 (defun emacs-init-time ()

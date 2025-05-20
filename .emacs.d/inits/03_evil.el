@@ -15,7 +15,7 @@
  	  ("SPC"      . set-mark-command)
 	  ("."        . evil-visual-line)
           ([muhenkan] . evil-insert)
-	  ([home]     . open-dashboard))
+	  ([home]     . dashboard-toggle))
 	 (:evil-visual-state-map
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
@@ -34,17 +34,16 @@
   (setq evil-undo-system 'undo-fu)
   :config
   ;; Do not exit emacs with quit, close the buffer instead
-  (evil-ex-define-cmd "q[uit]"  'my:kill-buffer)
-  (evil-ex-define-cmd "wq[uit]" 'my:kill-buffer)
-
+  (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
+  (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
-
   ;; Force evil-emacs-me-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  imenu-list-major-mode easy-hugo-mode fundamental-mode
 		  yatex-mode org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-insert-state-modes mode))
+
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
