@@ -132,4 +132,17 @@ If the region is inactive, `backward-kill-word'."
   (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
 
 
+;;;###autoload
+(defun emacs-init-time ()
+  "Overwrite `emacs-init-time' defined in time.el."
+  (interactive)
+  (let ((str
+	 (format "%.3f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+	(message "%s" str)
+      str)))
+
+
 ;;; 00_base.el ends here
