@@ -26,7 +26,7 @@
     :doc "Hides the mode-line in current buffer"
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
   :preface
-  (leaf *hl-line
+  (leaf hl-line
     :doc "Highlight the current line"
     :tag "Builtin"
     :hook ((after-init-hook . global-hl-line-mode)
@@ -44,7 +44,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Highlight configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf *whitespace
+(leaf whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :tag "Builtin"
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
