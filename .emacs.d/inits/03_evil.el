@@ -13,7 +13,7 @@
   	  ("C-w"      . evil-delete-backward-word)
 	  ("@"        . er/expand-region)
  	  ("SPC"      . set-mark-command)
-	  ("."        . evil-visual-line)
+	  ("_"        . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . dashboard-toggle))
 	 (:evil-visual-state-map
