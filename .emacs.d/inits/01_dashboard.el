@@ -41,33 +41,16 @@
     (let ((func (local-key-binding "r")))
       (and func (funcall func))))
 
-  (defun open-dashboard ()
-    "Open the *dashboard* buffer and jump to the first widget."
-    (interactive)
-    (setq default-directory "~/")
-    (delete-other-windows)
-    (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files))
-
   (defun dashboard-toggle ()
     "Switch buffer for dashboard and previous buffer."
     (interactive)
     (if (not (string= "*dashboard*" (buffer-name)))
-	(open-dashboard)
+	(progn
+	  (setq default-directory "~/")
+	  (delete-other-windows)
+	  (dashboard-refresh-buffer)
+	  (dashboard-goto-recent-files))
       (previous-buffer))))
-
-
-;;;###autoload
-(defun emacs-init-time ()
-  "Overwrite `emacs-init-time' defined in time.el."
-  (interactive)
-  (let ((str
-	 (format "%.3f seconds"
-		 (float-time
-		  (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-	(message "%s" str)
-      str)))
 
 
 ;;; 01_dashboard.el ends here
