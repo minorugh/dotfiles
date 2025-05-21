@@ -119,7 +119,7 @@
    ("g" diff-hl-diff-goto-hunk)
    ("r" diff-hl-revert-hunk)
    ("s" diff-hl-show-hunk)
-   ("<muhenkan>" nil))				r
+   ("<muhenkan>" nil))
   :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
