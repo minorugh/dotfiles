@@ -118,7 +118,7 @@
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
 
-(leaf *emacs-lock-mode :tag "builtin"
+(leaf emacs-lock-mode :tag "builtin"
   :doc "Set buffer that can not be killed"
   :hook (after-init-hook . my:lock-mode)
   :init
