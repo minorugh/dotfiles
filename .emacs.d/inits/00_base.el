@@ -80,7 +80,6 @@
   :bind	(("M-w"   . clipboard-kill-ring-save)
 	 ("C-w"   . kill-word-or-region)
 	 ("M-/"   . kill-current-buffer)
-	 ("C-z"   . other-frame)
 	 ("C-M-/" . delete-this-file)
 	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
@@ -91,12 +90,6 @@
     (if (not (use-region-p))
 	(minibuffer-keyboard-quit)
       (keyboard-quit)))
-
-  ;; (defun my:kill-buffer (arg)
-  ;;   (interactive "P")
-  ;;   (if arg
-  ;; 	(call-interactively 'kill-buffer)
-  ;;     (kill-buffer)))
 
   (defun delete-this-file ()
     "Delete the current file, and kill the buffer."
