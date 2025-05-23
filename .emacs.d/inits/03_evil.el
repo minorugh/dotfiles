@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
-  :doc "The extensible vi layer for Emacs"
   :hook after-init-hook
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
@@ -23,6 +22,10 @@
 	  ("d"        . deepl-translate)
 	  ("t"        . gt-do-translate)
 	  ([muhenkan] . my:return-to-normal-state))
+	 (:evil-motion-state-map
+	  ([muhenkan] . my:return-to-normal-state))
+	 (:evil-replace-state-map
+	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-emacs-state-map
 	  ([muhenkan] . my:return-to-normal-state)
 	  ([escape]   . my:return-to-normal-state)))
@@ -32,19 +35,16 @@
   ;; Use undo-fu for evil undo
   (setq evil-undo-system 'undo-fu)
   :config
+  ;; Insert state is automatically changed to emacs state
+  (defalias 'evil-insert-state 'evil-emacs-state)
   ;; Do not exit emacs with quit, close the buffer instead
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
-
-  ;; Insert state is automatically changed to emacs state
-  (defalias 'evil-insert-state 'evil-emacs-state)
-
   ;; Force evil-emacs-mode-hook 'evil-emacs-state)
   (dolist (mode '(howm-view-summary-mode
 		  imenu-list-major-mode easy-hugo-mode fundamental-mode
 		  yatex-mode org-mode neotree-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
-
   ;; Force evil-emacs-state for minor modes
   (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
 
@@ -85,30 +85,30 @@
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
-    "0" 'delete-window
-    "1" 'delete-other-windows
-    "2" 'split-window-below
-    "3" 'split-window-right
-    "n" 'make-frame
-    "_" 'other-frame
-    "/" 'delete-frame
-    "S" 'window-swap-states
-    "o" 'other-window-or-split
-    "[" 'previous-buffer
-    "]" 'next-buffer
-    "l" 'recenter-top-bottom
-    "h" 'hydra-diff/body
-    "j" 'evil-join-whitespace
-    "i" 'my:iedit-mode
-    "g" 'my:google-this
-    "r" 'xref-find-definitions
-    "s" 'swiper-thing-at-point
-    ":" 'counsel-switch-buffer
-    "," 'org-capture
-    "." 'terminal-open
-    "?" 'vim-cheat-sheet
-    "q" 'keyboard-quit
-    "SPC" 'avy-goto-word-1)
+   "0" 'delete-window
+   "1" 'delete-other-windows
+   "2" 'split-window-below
+   "3" 'split-window-right
+   "n" 'make-frame
+   "_" 'other-frame
+   "/" 'delete-frame
+   "S" 'window-swap-states
+   "o" 'other-window-or-split
+   "[" 'previous-buffer
+   "]" 'next-buffer
+   "l" 'recenter-top-bottom
+   "h" 'hydra-diff/body
+   "j" 'evil-join-whitespace
+   "i" 'my:iedit-mode
+   "g" 'my:google-this
+   "r" 'xref-find-definitions
+   "s" 'swiper-thing-at-point
+   ":" 'counsel-switch-buffer
+   "," 'org-capture
+   "." 'terminal-open
+   "?" 'vim-cheat-sheet
+   "q" 'keyboard-quit
+   "SPC" 'avy-goto-word-1)
   :hydra
   (hydra-diff
    (:color red :hint nil)
