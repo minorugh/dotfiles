@@ -7,8 +7,7 @@
   :doc ""
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
-	 ("<f6>"    . xref-find-definitions))
+	 ("C-x m"   . neomutt))     ;; Overwrite compose-maile
   :init
   ;; Faster rendering by not corresponding to right-to-left language
   (setq bidi-display-reordering nil)
@@ -75,54 +74,54 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
-(leaf *user-define-functions
-  :doc ""
-  :bind	(("M-w"   . clipboard-kill-ring-save)
-	 ("C-w"   . kill-word-or-region)
-	 ("M-/"   . kill-current-buffer)
-	 ("C-M-/" . delete-this-file)
-	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	 ([muhenkan] . my:keyboard-quit))
-  :init
-  (defun my:keyboard-quit ()
-    (interactive)
-    (if (not (use-region-p))
-	(minibuffer-keyboard-quit)
-      (keyboard-quit)))
+  (leaf *user-define-functions
+    :doc ""
+    :bind	(("M-w"   . clipboard-kill-ring-save)
+		 ("C-w"   . kill-word-or-region)
+		 ("M-/"   . kill-current-buffer)
+		 ("C-M-/" . delete-this-file)
+		 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+		 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+		 ([muhenkan] . my:keyboard-quit))
+    :init
+    (defun my:keyboard-quit ()
+      (interactive)
+      (if (not (use-region-p))
+	  (minibuffer-keyboard-quit)
+	(keyboard-quit)))
 
-  (defun delete-this-file ()
-    "Delete the current file, and kill the buffer."
-    (interactive)
-    (unless (buffer-file-name)
-      (error "No file is currently being edited"))
-    (when (yes-or-no-p (format "Really delete '%s'?"
-			       (file-name-nondirectory buffer-file-name)))
-      (delete-file (buffer-file-name))
-      (kill-current-buffer)))
+    (defun delete-this-file ()
+      "Delete the current file, and kill the buffer."
+      (interactive)
+      (unless (buffer-file-name)
+	(error "No file is currently being edited"))
+      (when (yes-or-no-p (format "Really delete '%s'?"
+				 (file-name-nondirectory buffer-file-name)))
+	(delete-file (buffer-file-name))
+	(kill-current-buffer)))
 
-  (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el`.
+    (defun handle-delete-frame (event)
+      "Overwrite `handle-delete-frame` defined in `frame.el`.
   If it's the last frame, minimize it without deleting it."
-    (interactive "e")
-    (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
-      (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame)))))
+      (interactive "e")
+      (let ((frame  (posn-window (event-start event)))
+	    (numfrs (length (visible-frame-list))))
+	(cond ((> numfrs 1) (delete-frame frame t))
+	      ((iconify-frame)))))
 
-  (defun kill-word-or-region ()
-    "If the region is active, `clipboard-kill-region'.
+    (defun kill-word-or-region ()
+      "If the region is active, `clipboard-kill-region'.
 If the region is inactive, `backward-kill-word'."
-    (interactive)
-    (if (use-region-p)
-	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
+      (interactive)
+      (if (use-region-p)
+	  (clipboard-kill-region (region-beginning) (region-end))
+	(backward-kill-word 1)))
 
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
+    (defun neomutt ()
+      "Open terminal and ssh to xsrv."
+      (interactive)
+      (compile "neomutt.sh"))
+    (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
 
 
 ;;;###autoload
