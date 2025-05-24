@@ -6,7 +6,7 @@
 (leaf evil :ensure t
   :hook after-init-hook
   :bind ((:evil-normal-state-map
-	  ("M-."      . nil)      ;; Avoid duplication with emacs-state
+	  ("M-."      . nil) ;; Avoid duplication with emacs-state
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
   	  ("C-w"      . evil-delete-backward-word)
@@ -37,16 +37,17 @@
   :config
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
-  ;; Do not exit emacs with quit, close the buffer instead
+
+  ;; Ovewrite `evil-quit` with kill-buffer
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
-  ;; Force evil-emacs-mode-hook 'evil-emacs-state)
+
+  ;; Force evil-emacs-state
   (dolist (mode '(howm-view-summary-mode
-		  imenu-list-major-mode easy-hugo-mode fundamental-mode
-		  yatex-mode org-mode neotree-mode git-timemachine-mode))
+		  imenu-list-major-mode easy-hugo-mode neotree-mode
+		  org-mode fundamental-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
-  ;; Force evil-emacs-state for minor modes
-  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+  (add-hook 'magit-blame-mode-hook 'evil-emacs-state) ;; for minor mode
 
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
