@@ -30,7 +30,7 @@
    ("z" filezilla-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
-   ("i" my:iedit-mode)
+   ("i" iedit-mode)
    ("d" my:diary)
    ("D" my:diary-new-post)
    ("g" gist-region-or-buffer)

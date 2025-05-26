@@ -70,5 +70,9 @@
   (setq nyan-bar-length 24)
   :hook after-init-hook)
 
+(leaf iedit :ensure t
+  :doc "Edit multiple occurrences in the same way simultaneously"
+  :bind ("<insert>" . iedit-mode))
+
 
 ;;; 08_misc.el ends here

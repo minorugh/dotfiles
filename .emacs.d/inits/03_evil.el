@@ -86,30 +86,29 @@
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
-   "0" 'delete-window
-   "1" 'delete-other-windows
-   "2" 'split-window-below
-   "3" 'split-window-right
-   "n" 'make-frame
-   "_" 'other-frame
-   "/" 'delete-frame
-   "S" 'window-swap-states
-   "o" 'other-window-or-split
-   "[" 'previous-buffer
-   "]" 'next-buffer
-   "l" 'recenter-top-bottom
-   "h" 'hydra-diff/body
-   "j" 'evil-join-whitespace
-   "i" 'my:iedit-mode
-   "g" 'my:google-this
-   "r" 'xref-find-definitions
-   "s" 'swiper-thing-at-point
-   ":" 'counsel-switch-buffer
-   "," 'org-capture
-   "." 'terminal-open
-   "?" 'vim-cheat-sheet
-   "q" 'keyboard-quit
-   "SPC" 'avy-goto-word-1)
+    "0" 'delete-window
+    "1" 'delete-other-windows
+    "2" 'split-window-below
+    "3" 'split-window-right
+    "n" 'make-frame
+    "_" 'other-frame
+    "/" 'delete-frame
+    "S" 'window-swap-states
+    "o" 'other-window-or-split
+    "[" 'previous-buffer
+    "]" 'next-buffer
+    "l" 'recenter-top-bottom
+    "h" 'hydra-diff/body
+    "j" 'evil-join-whitespace
+    "g" 'my:google-this
+    "r" 'xref-find-definitions
+    "s" 'swiper-thing-at-point
+    ":" 'counsel-switch-buffer
+    "," 'org-capture
+    "." 'terminal-open
+    "?" 'vim-cheat-sheet
+    "q" 'keyboard-quit
+    "SPC" 'avy-goto-word-1)
   :hydra
   (hydra-diff
    (:color red :hint nil)
