@@ -1,4 +1,4 @@
-;;; my:make-command.el --- User make command configurations.
+;;; my:make-command.el --- User make command configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -53,7 +53,4 @@
 
 
 (provide 'my:make-command)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; my:make-command.el ends here

@@ -41,9 +41,7 @@
       :hook dired-mode-hook)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Highlight configurations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :tag "Builtin"
@@ -62,14 +60,6 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
-(leaf blink-cursor
-  :doc "Blinking cursor mode for GNU Emacs"
-  :tag "Builtin"
-  :config
-  (setq blink-cursor-blinks   0)
-  (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    10))
-
 (leaf display-line-numbers
   :doc "interface for display-line-numbers"
   :tag "builtin"
@@ -79,18 +69,32 @@
   :config
   (setq display-line-numbers-width-start t))
 
-  (leaf volatile-highlights :ensure t
-    :doc "Hilight the pasted region"
-    :url "https://github.com/k-talo/volatile-highlights.el"
-    :hook (after-init-hook . volatile-highlights-mode)
-    :custom-face
-    (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
-    :config
-    (when (fboundp 'pulse-momentary-highlight-region)
-      (defun my:vhl-pulse (beg end &optional _buf face)
-	"Pulse the changes."
-	(pulse-momentary-highlight-region beg end face))
-      (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
+(leaf blink-cursor
+  :doc "Blinking cursor mode for GNU Emacs"
+  :tag "Builtin"
+  :config
+  (setq blink-cursor-blinks   0)
+  (setq blink-cursor-interval 0.3)
+  (setq blink-cursor-delay    10))
+
+(leaf beacon :ensure t
+  :doc ""
+  :hook after-init-hook)
+
+(leaf volatile-highlights :ensure t
+  :doc "Hilight the pasted region"
+  :url "https://github.com/k-talo/volatile-highlights.el"
+  :hook (after-init-hook . volatile-highlights-mode)
+  :custom-face
+  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
+  :config
+  (vhl/define-extension 'my:evil-highlights 'evil-yank 'evil-move 'evil-paste-after)
+  (vhl/install-extension 'my:evil-highlights)
+  (when (fboundp 'pulse-momentary-highlight-region)
+    (defun my:vhl-pulse (beg end &optional _buf face)
+      "Pulse the changes."
+      (pulse-momentary-highlight-region beg end face))
+    (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
 (leaf paren
   :doc "Highlight matching parens"
@@ -126,9 +130,7 @@
   :bind ("C-c r" . rainbow-mode))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Writing environment
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
   :bind (([f8] . my:darkroom-in)

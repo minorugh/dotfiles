@@ -15,7 +15,9 @@
           (lambda ()
 	    "Recover file name handlers and GC values after startup."
 	    (setq file-name-handler-alist my:file-name-handler-alist)
-	    (setq gc-cons-threshold 800000)))
+	    (setq gc-cons-percentage 0.2)
+	    (setq gc-cons-threshold (* 128 1024 1024))
+	    (add-hook 'focus-out-hook #'garbage-collect)))
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)

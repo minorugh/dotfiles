@@ -63,6 +63,12 @@
     (interactive)
     (google-this (current-word) t)))
 
+(leaf nyan-mode :ensure t
+  :doc ""
+  :config
+  (setq nyan-animate-nyancat t)
+  (setq nyan-bar-length 24)
+  :hook after-init-hook)
+
 
 ;;; 08_misc.el ends here
-
