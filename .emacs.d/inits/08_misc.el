@@ -56,7 +56,7 @@
   :custom (atomic-chrome-buffer-open-style . 'full))
 
 (leaf google-this :ensure t
-  :doc "doc"
+  :doc "Google search at region or under point"
   :config
   (defun my:google-this ()
     "Run without confirmation"
@@ -64,7 +64,7 @@
     (google-this (current-word) t)))
 
 (leaf nyan-mode :ensure t
-  :doc ""
+  :doc "Shows position in current buffer in mode-line"
   :config
   (setq nyan-animate-nyancat t)
   (setq nyan-bar-length 24)
