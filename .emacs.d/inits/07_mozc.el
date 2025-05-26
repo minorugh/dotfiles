@@ -17,6 +17,17 @@
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
 
+  (leaf mozc-cursor-color
+    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+    :doc "Set cursor color corresponding to mozc's input state"
+    :require t)
+
+  (leaf mozc-popup :ensure t
+    :doc "Mozc with popup."
+    :require t
+    :config
+    (setq mozc-candidate-style 'popup))
+
   (defadvice toggle-input-method (around toggle-input-method-around activate)
     "Input method function in key-chord.el not to be nil."
     (let ((input-method-function-save input-method-function))
@@ -46,18 +57,7 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows))
-
-  (leaf mozc-cursor-color
-    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-    :doc "Set cursor color corresponding to mozc's input state"
-    :require t)
-
-  (leaf mozc-popup :ensure t
-    :doc "Mozc with popup."
-    :require t
-    :config
-    (setq mozc-candidate-style 'popup)))
+    (delete-other-windows)))
 
 
 ;;; 07_mozc.el ends here
