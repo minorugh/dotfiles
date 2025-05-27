@@ -101,7 +101,6 @@
     "h" 'hydra-diff/body
     "j" 'evil-join-whitespace
     "g" 'my:google-this
-    "r" 'xref-find-definitions
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
     "," 'org-capture
