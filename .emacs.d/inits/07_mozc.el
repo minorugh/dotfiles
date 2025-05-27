@@ -48,18 +48,18 @@
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
     (delete-other-windows))
 
-  ;; <2025/05/04 追記>
-  ;; 仕様変更前にコンパイルした mozc_emacs_helper を新しい mozc.el で利用した場合、
-  ;; 日本語入力時の候補メニューが表示されない問題が発生します。
-  ;; この対策のため下記の advice を設定に追加しました。
+  ;; 2025/05/27
+  ;; mozc_helper_emacs and mozc.el measures against specification changes
   (advice-add 'mozc-protobuf-get
-	      :around (lambda (orig-fun &rest args)
+              :around (lambda (orig-fun &rest args)
 			(when (eq (nth 1 args) 'candidate-window)
-			  (setf (nth 1 args) 'candidates))
+                          (setf (nth 1 args) 'candidates))
 			(apply orig-fun args))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mozc extensions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf mozc-cursor-color
   :vc (:url "https://github.com/minorugh/mozc-cursor-color")
   :doc "Set cursor color corresponding to mozc's input state"
