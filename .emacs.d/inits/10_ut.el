@@ -29,6 +29,7 @@
   (setq imenu-list-position 'left)
   :init
   (leaf counsel-css :ensure t
+    :after counsel
     :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 (leaf web-mode :ensure t

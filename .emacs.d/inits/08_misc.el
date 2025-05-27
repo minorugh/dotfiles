@@ -8,15 +8,14 @@
 
 (leaf key-chord
   :vc (:url "https://github.com/minorugh/key-chord-10240910.1441")
-  :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log)))
+	  ("l;" . init-loader-show-log))
+  :hook after-init-hook)
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))
 
 (leaf undo-fu :ensure t
-  :doc "Undo helper with redo"
   :bind (("C-_" . undo-fu-only-undo)
 	 ("C-/" . undo-fu-only-redo)))
 
@@ -39,8 +38,9 @@
   :config
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
-  (leaf ivy-prescient :ensure t :global-minor-mode t)
-  (leaf company-prescient :ensure t :global-minor-mode t))
+  :init
+  (leaf ivy-prescient :ensure t :after prescient)
+  (leaf company-prescient :ensure t :after prescient))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"

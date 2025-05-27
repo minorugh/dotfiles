@@ -17,17 +17,6 @@
   (setq mozc-helper-program-name "mozc_emacs_helper")
   (setq mozc-leim-title          "あ")
 
-  (leaf mozc-cursor-color
-    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-    :doc "Set cursor color corresponding to mozc's input state"
-    :require t)
-
-  (leaf mozc-popup :ensure t
-    :doc "Mozc with popup."
-    :require t
-    :config
-    (setq mozc-candidate-style 'popup))
-
   (defadvice toggle-input-method (around toggle-input-method-around activate)
     "Input method function in key-chord.el not to be nil."
     (let ((input-method-function-save input-method-function))
@@ -57,7 +46,31 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows)))
+    (delete-other-windows))
+
+  ;; <2025/05/04 追記>
+  ;; 仕様変更前にコンパイルした mozc_emacs_helper を新しい mozc.el で利用した場合、
+  ;; 日本語入力時の候補メニューが表示されない問題が発生します。
+  ;; この対策のため下記の advice を設定に追加しました。
+  (advice-add 'mozc-protobuf-get
+	      :around (lambda (orig-fun &rest args)
+			(when (eq (nth 1 args) 'candidate-window)
+			  (setf (nth 1 args) 'candidates))
+			(apply orig-fun args))))
+
+
+;; mozc extensions
+(leaf mozc-cursor-color
+  :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+  :doc "Set cursor color corresponding to mozc's input state"
+  :after mozc
+  :require t)
+
+(leaf mozc-popup :ensure t
+  :doc "Mozc with popup."
+  :after mozc
+  :require t
+  :config  (setq mozc-candidate-style 'popup))
 
 
 ;;; 07_mozc.el ends here
