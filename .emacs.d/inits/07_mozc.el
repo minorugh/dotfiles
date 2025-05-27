@@ -45,23 +45,30 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows)))
+    (delete-other-windows))
+  :preface
+  (leaf mozc-cursor-color
+    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+    :doc "Set cursor color corresponding to mozc's input state"
+    :after mozc
+    :require t)
 
+  (leaf mozc-popup :ensure t
+    :doc "Mozc with popup."
+    :after mozc
+    :require t
+    :config  (setq mozc-candidate-style 'popup)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; mozc extensions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf mozc-cursor-color
-  :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-  :doc "Set cursor color corresponding to mozc's input state"
-  :after mozc
-  :require t)
-
-(leaf mozc-popup :ensure t
-  :doc "Mozc with popup."
-  :after mozc
-  :require t
-  :config  (setq mozc-candidate-style 'popup))
+;; mozc_helper_emacs and mozc.el measures against specification
+;; https://w.atwiki.jp/ntemacs/pages/48.html
+;; https://github.com/google/mozc/commit/03ab962e8e192057516c9b408311a5bd0c5baac5
+;; ---------------------------------------------------------------------
+(advice-add 'mozc-protobuf-get
+            :around (lambda (orig-fun &rest args)
+                      (when (eq (nth 1 args) 'candidate-window)
+                        (setf (nth 1 args) 'candidates))
+                      (apply orig-fun args)))
+;; ---------------------------------------------------------------------
 
 
 ;;; 07_mozc.el ends here
