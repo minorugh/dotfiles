@@ -48,8 +48,9 @@
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
     (delete-other-windows))
 
-  ;; 2025/05/27
   ;; mozc_helper_emacs and mozc.el measures against specification changes
+  ;; Add the following advice to your
+  ;; see https://w.atwiki.jp/ntemacs/pages/48.html
   (advice-add 'mozc-protobuf-get
               :around (lambda (orig-fun &rest args)
 			(when (eq (nth 1 args) 'candidate-window)
