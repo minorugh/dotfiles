@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf mozc :ensure t
-  :doc "minor mode to input Japanese with Mozc"
   :hook emacs-startup-hook
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-m" . my:mozc-config)
@@ -46,23 +45,23 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows))
+    (delete-other-windows)))
 
-  ;; mozc_helper_emacs and mozc.el measures against specification changes
-  ;; The following settings were added as countermeasures
-  ;; ---------------------------------------------------------------------
-  ;; (advice-add mozc-protobuf-get
-  ;;             around (lambda (orig-fun &rest args)
-  ;; 	   			(when (eq (nth 1 args) 'candidate-window)
-  ;; 	                           (setf (nth 1 args) 'candidates))
-  ;; 	   			(apply orig-fun args)))
-  ;;----------------------------------------------------------------------
-  ;; Replacing it with an older version solved the problem.
-  ;; The above settings are no longer necessary.
-  )
+;; mozc_helper_emacs and mozc.el measures against specification changes
+;; The following settings were added as countermeasures
+;; ---------------------------------------------------------------------
+;; (advice-add mozc-protobuf-get
+;;             around (lambda (orig-fun &rest args)
+;; 	   			(when (eq (nth 1 args) 'candidate-window)
+;; 	                           (setf (nth 1 args) 'candidates))
+;; 	   			(apply orig-fun args)))
+;;----------------------------------------------------------------------
+;; Replacing it with an older version solved the problem.
+;; The above settings are no longer necessary.
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mozc extensions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf mozc-cursor-color
   :vc (:url "https://github.com/minorugh/mozc-cursor-color")
   :doc "Set cursor color corresponding to mozc's input state"
