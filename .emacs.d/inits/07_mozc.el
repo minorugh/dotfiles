@@ -12,15 +12,14 @@
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :config
-  (setq default-input-method     "japanese-mozc")
-  (setq mozc-helper-program-name "mozc_emacs_helper")
-  (setq mozc-leim-title          "あ")
+  (setq default-input-method "japanese-mozc")
+  (setq mozc-leim-title      "あ")
 
-  (defadvice toggle-input-method (around toggle-input-method-around activate)
-    "Input method function in key-chord.el not to be nil."
-    (let ((input-method-function-save input-method-function))
-      ad-do-it
-      (setq input-method-function input-method-function-save)))
+  ;; (defadvice toggle-input-method (around toggle-input-method-around activate)
+  ;;   "Input method function in key-chord.el not to be nil."
+  ;;   (let ((input-method-function-save input-method-function))
+  ;;     ad-do-it
+  ;;     (setq input-method-function input-method-function-save)))
 
   (defun my:toggle-input-method ()
     "If `evil-mode' enabled, set to` evil-insert-state'."
@@ -45,30 +44,33 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows))
-  :preface
-  (leaf mozc-cursor-color
-    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-    :doc "Set cursor color corresponding to mozc's input state"
-    :after mozc
-    :require t)
+    (delete-other-windows)))
 
-  (leaf mozc-popup :ensure t
-    :doc "Mozc with popup."
-    :after mozc
-    :require t
-    :config  (setq mozc-candidate-style 'popup)))
 
-;; mozc_helper_emacs and mozc.el measures against specification
-;; https://w.atwiki.jp/ntemacs/pages/48.html
-;; https://github.com/google/mozc/commit/03ab962e8e192057516c9b408311a5bd0c5baac5
-;; ---------------------------------------------------------------------
+(leaf mozc-cursor-color
+  :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+  :doc "Set cursor color corresponding to mozc's input state"
+  :after mozc
+  :require t)
+
+(leaf mozc-popup :ensure t
+  :doc "Mozc with popup."
+  :after mozc
+  :require t
+  :config  (setq mozc-candidate-style 'popup))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; If you use the old mozc_emacs_helper with the new mozc.el,
+;; there is a problem that conversion candidates are not displayed.
+;; To solve this problem, add the following to the configuration
+;; see https://w.atwiki.jp/ntemacs/pages/48.html
 (advice-add 'mozc-protobuf-get
             :around (lambda (orig-fun &rest args)
                       (when (eq (nth 1 args) 'candidate-window)
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
-;; ---------------------------------------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;; 07_mozc.el ends here

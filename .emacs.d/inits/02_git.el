@@ -28,7 +28,8 @@
   (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
   :preface
   (leaf git-timemachine :ensure t
-    :doc "Walk through git revisions of a file")
+    :doc "Walk through git revisions of a file"
+    :after magit)
 
   (leaf browse-at-remote :ensure t
     :doc "Open github page from Emacs"

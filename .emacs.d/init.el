@@ -4,10 +4,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(when (version< emacs-version "29.1")
-  (error "This requires Emacs 29.1 and above!"))
-
 ;; Speed up startup
+;; --------------------------------------------------------------------
 ;; Optimize Garbage Collection for Startup
 (setq gc-cons-threshold most-positive-fixnum)
 ;; Prevent flash of unstyled mode line
@@ -15,7 +13,6 @@
 ;; Temporarily suppress file-handler processing to speed up startup
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
-
 (add-hook 'emacs-startup-hook
           (lambda ()
 	    "Recover file name handlers and GC values after startup."
@@ -24,6 +21,11 @@
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)
+
+;; Set language & System encoding & font
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Disable warnings at initialization
 (eval-and-compile
@@ -56,13 +58,9 @@
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-(leaf cus-edit
-  :doc "tools for customizing Emacs and Lisp packages"
-  :tag "builtin" "faces" "help"
-  :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))))
-
 (leaf init-loader :ensure t
   :doc "Init loader."
+  :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

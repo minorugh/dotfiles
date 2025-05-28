@@ -20,13 +20,6 @@
 ;; initialization, so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
 
-;; Set language & System encoding
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-
-;; Font
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
-
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
