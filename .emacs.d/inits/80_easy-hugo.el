@@ -10,8 +10,6 @@
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o" . easy-hugo-open-basedir)
-	  ("r" . easy-hugo-rename)
-	  ("n" . easy-hugo-newpost)
 	  ("e" . my:edit-easy-hugo)))
   :init
   ;; Main blog (=blog1)

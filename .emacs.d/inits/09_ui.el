@@ -17,8 +17,8 @@
     :doc "Highlight the current line"
     :tag "Builtin"
     :hook ((after-init-hook . global-hl-line-mode)
-	   ((dashboard-mode-hook
-	     eshell-mode-hook) . (lambda () (setq-local global-hl-line-mode nil))))))
+	   ((dashboard-mode-hook eshell-mode-hook)
+	    . (lambda () (setq-local global-hl-line-mode nil))))))
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
@@ -32,12 +32,10 @@
   :preface
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
-    :after doom-modline
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
   (leaf nerd-icons :ensure t
     :if (display-graphic-p))
   (leaf nerd-icons-dired :ensure t
-    :after nerd-icons
     :config (setq nerd-icons-scale-factor 0.8)
     :hook dired-mode-hook))
 
@@ -85,7 +83,7 @@
 (leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
   :url "https://github.com/k-talo/volatile-highlights.el"
-  :hook (after-init-hook . volatile-highlights-mode)
+  :hook after-init-hook
   :custom-face
   (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
   :config
