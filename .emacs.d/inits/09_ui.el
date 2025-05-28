@@ -99,24 +99,16 @@
   :doc "Highlight matching parens"
   :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
+  :custom-face
+  (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold))))
   :config
   (setq show-paren-style 'parenthesis)
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t)
-  :custom-face
-  (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
+  (leaf elec-pair
+    :doc "Automatic parenthesis pairing"
+    :global-minor-mode electric-pair-mode))
 
-(leaf elec-pair
-  :doc "Automatic parenthesis pairing"
-  :tag "Builtin"
-  :hook (after-init-hook . electric-pair-mode)
-  :config
-  (defadvice electric-pair-post-self-insert-function
-      (around electric-pair-post-self-insert-function-around activate)
-    "Don't insert the closing pair in comments or strings"
-    (unless (nth 8 (save-excursion (syntax-ppss (1- (point)))))
-      ad-do-it)))
-					;
 (leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"

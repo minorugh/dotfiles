@@ -44,7 +44,7 @@
 
        ;; Customize from here
        (when evil-mode
-	 (evil-insert-state))
+	 (evil-emacs-state))
        ;; so far
 
        (when (and easy-hugo-org-header

@@ -22,7 +22,7 @@
 ;; Always load newest byte code
 (setq load-prefer-newer t)
 
-;; Set language & System encoding & font
+;; Set language & encoding & font
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
