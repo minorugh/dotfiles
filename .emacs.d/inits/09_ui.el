@@ -22,10 +22,11 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
   (column-number-mode 0)
+  :preface
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
+    :after doom-modline
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
-  :preface
   (leaf hl-line
     :doc "Highlight the current line"
     :tag "Builtin"

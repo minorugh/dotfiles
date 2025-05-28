@@ -12,11 +12,11 @@
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :config
-  (setq default-input-method "japanese-mozc")
-  (setq mozc-leim-title      "あ")
+  (setq default-input-method     "japanese-mozc")
+  (setq mozc-leim-title          "あ")
 
-  (defun my:togle-input-method ()
-    "If `evil-mde' enabled, set to` evil-insert-state'."
+  (defun my:toggle-input-method ()
+    "If `evil-mode' enabled, set to` evil-insert-state'."
     (interactive)
     (if (boundp 'evil-mode)
 	(evil-insert-state))
@@ -53,17 +53,14 @@
   :require t
   :config  (setq mozc-candidate-style 'popup))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; If you use the old mozc_emacs_helper with the new mozc.el,
-;; there is a problem that conversion candidates are not displayed.
-;; To solve this problem, add the following to the configuration
-;; see https://w.atwiki.jp/ntemacs/pages/48.html
+;; mozc_helper_emacs and mozc.el measures against specification
+;; https://w.atwiki.jp/ntemacs/pages/48.html
+;; ---------------------------------------------------------------------
 (advice-add 'mozc-protobuf-get
             :around (lambda (orig-fun &rest args)
                       (when (eq (nth 1 args) 'candidate-window)
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;; 07_mozc.el ends here

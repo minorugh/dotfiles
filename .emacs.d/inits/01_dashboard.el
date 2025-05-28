@@ -48,8 +48,10 @@
 	(progn
 	  (setq default-directory "~/")
 	  (delete-other-windows)
+	  (switch-to-buffer "*dashboard*")
 	  (dashboard-refresh-buffer)
-	  (dashboard-goto-recent-files))
+	  (dashboard-goto-recent-files)
+	  )
       (previous-buffer))))
 
 
