@@ -11,7 +11,7 @@
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o" . easy-hugo-open-basedir)
 	  ("r" . easy-hugo-rename)
-	  ("n" . my:easy-hugo-newpost)
+	  ("n" . easy-hugo-newpost)
 	  ("e" . my:edit-easy-hugo)))
   :init
   ;; Main blog (=blog1)
@@ -56,9 +56,6 @@
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
-  ;; Load a user custom package to support evil-mode
-  (load-file "~/.emacs.d/elisp/evil-easy-hugo.el")
-
   (defun my:edit-easy-hugo ()
     "Edit setting file for 'easy-hugo'."
     (interactive)

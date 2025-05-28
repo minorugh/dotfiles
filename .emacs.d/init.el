@@ -70,7 +70,7 @@
 (leaf *load-user-conf
   :doc "Load user configurations"
   :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make-command)
+  :require my:dired my:template my:make-command evil-easy-hugo)
 
 
 (provide 'init)
