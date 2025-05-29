@@ -8,9 +8,9 @@
 
 (leaf key-chord
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
+  :global-minor-mode t
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log))
-  :hook after-init-hook)
+	  ("l;" . init-loader-show-log)))
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))

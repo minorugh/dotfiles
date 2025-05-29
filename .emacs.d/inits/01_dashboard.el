@@ -45,13 +45,17 @@
     "Switch buffer for dashboard and previous buffer."
     (interactive)
     (if (not (string= "*dashboard*" (buffer-name)))
-	(progn
-	  (setq default-directory "~/")
-	  (delete-other-windows)
-	  (switch-to-buffer "*dashboard*")
-	  (dashboard-refresh-buffer)
-	  (dashboard-goto-recent-files))
-      (previous-buffer))))
+	(open-dashboard)
+      (previous-buffer)))
+
+  (defun open-dashboard ()
+    "Open the *dashboard* buffer and jump to the first widget."
+    (interactive)
+    (setq default-directory "~/")
+    (delete-other-windows)
+    (switch-to-buffer "*dashboard*")
+    (dashboard-refresh-buffer)
+    (dashboard-goto-recent-files)))
 
 
 ;;; 01_dashboard.el ends here
