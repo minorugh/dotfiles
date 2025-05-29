@@ -8,8 +8,7 @@
 ;; --------------------------------------------------------------------
 ;; Optimize Garbage Collection for Startup
 (setq gc-cons-threshold most-positive-fixnum)
-;; Prevent flash of unstyled mode line
-;; (setq-default mode-line-format nil)
+
 ;; Temporarily suppress file-handler processing to speed up startup
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
