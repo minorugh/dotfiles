@@ -63,13 +63,6 @@
     (interactive)
     (google-this (current-word) t)))
 
-(leaf nyan-mode :ensure t
-  :doc "Shows position in current buffer in mode-line"
-  :config
-  (setq nyan-animate-nyancat t)
-  (setq nyan-bar-length 24)
-  :hook after-init-hook)
-
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))

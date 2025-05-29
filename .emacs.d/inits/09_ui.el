@@ -29,7 +29,12 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
   (column-number-mode 0)
-  :preface
+  (leaf nyan-mode :ensure t
+    :doc "Shows position in current buffer in mode-line"
+    :global-minor-mode t
+    :config
+    (setq nyan-animate-nyancat t)
+    (setq nyan-bar-length 24))
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
