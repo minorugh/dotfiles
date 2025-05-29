@@ -51,7 +51,30 @@
 		  (string-equal file-ext "org"))
 	 (insert (easy-hugo--org-headers (file-name-base post-file))))
        (goto-char (point-max))
-       (save-buffer)))))
+       (save-buffer))))
+
+  (defun easy-hugo-view ()
+    "Open the file on the pointer with `view-mode'."
+    (interactive)
+    (easy-hugo-with-env
+     (if (equal (buffer-name (current-buffer)) easy-hugo--buffer-name)
+	 (progn
+	   (unless (or (string-match "^$" (thing-at-point 'line))
+		       (eq (point) (point-max))
+		       (> (+ 1 easy-hugo--forward-char) (length (thing-at-point 'line))))
+	     (let ((file (expand-file-name
+			  (substring (thing-at-point 'line) easy-hugo--forward-char -1)
+			  easy-hugo-postdir)))
+	       (when (and (file-exists-p file)
+			  (not (file-directory-p file)))
+		 (view-file file)
+		 ;; Customize from here
+		 (when evil-mode
+		   (evil-emacs-state))
+		 ;; so far
+		 ))))
+       (view-file buffer-file-name))))
+  )
 
 
 (provide 'evil-easy-hugo)

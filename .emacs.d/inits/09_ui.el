@@ -9,16 +9,16 @@
   :config
   (setq doom-themes-enable-italic nil)
   (doom-themes-org-config)
-  :custom-face
-  (region  . '((t (:background "#6272a4" :extend t))))
-  (hl-line . '((t (:background "#3B4252" :extend t))))
   :preface
   (leaf hl-line
     :doc "Highlight the current line"
     :tag "Builtin"
     :hook ((after-init-hook . global-hl-line-mode)
 	   ((dashboard-mode-hook eshell-mode-hook)
-	    . (lambda () (setq-local global-hl-line-mode nil))))))
+	    . (lambda () (setq-local global-hl-line-mode nil))))
+    :custom-face
+    (region  . '((t (:background "#6272a4" :extend t))))
+    (hl-line . '((t (:background "#3B4252" :extend t))))))
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
@@ -39,8 +39,6 @@
     :config (setq nerd-icons-scale-factor 0.8)
     :hook dired-mode-hook))
 
-
-;; Highlight configurations
 (leaf whitespace
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :tag "Builtin"
@@ -77,12 +75,11 @@
   (setq blink-cursor-delay    10))
 
 (leaf beacon :ensure t
-  :doc ""
+  :doc "Indicate the cursor's position."
   :hook after-init-hook)
 
 (leaf volatile-highlights :ensure t
   :doc "Hilight the pasted region"
-  :url "https://github.com/k-talo/volatile-highlights.el"
   :hook after-init-hook
   :custom-face
   (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))

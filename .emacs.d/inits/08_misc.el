@@ -7,7 +7,7 @@
   :bind ([f5] . quickrun))
 
 (leaf key-chord
-  :vc (:url "https://github.com/minorugh/key-chord-10240910.1441")
+  :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log))
   :hook after-init-hook)

@@ -9,9 +9,18 @@
   :url "https://github.com/masasam/emacs-easy-hugo"
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
-	  ("o" . easy-hugo-open-basedir)
-	  ("e" . my:edit-easy-hugo)))
+	  ("o"     . easy-hugo-open-basedir)
+	  ("SPC"   . easy-hugo-view)
+	  ("e"     . my:edit-easy-hugo)))
   :init
+  ;; Customize for my help menu
+  (setq easy-hugo-help-line 4)
+  (setq easy-hugo-help
+	"n .. New blog post    R .. Rename file     p .. Preview          g .. Refresh
+d .. Delete post      a .. Seach blog ag   P .. Publish server   e .. Edit easy-hugo
+S .. Sort char        s .. Sort time       < .. Previous blog    > .. Next blog
+N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base dir
+")
   ;; Main blog (=blog1)
   (setq easy-hugo-basedir "~/Dropbox/minorugh.com/snap/")
   (setq easy-hugo-url "https://snap.minorugh.com")
