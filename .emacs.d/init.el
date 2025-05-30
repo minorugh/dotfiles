@@ -16,7 +16,10 @@
           (lambda ()
 	    "Recover file name handlers and GC values after startup."
 	    (setq file-name-handler-alist default-hadlers)
-	    (setq gc-cons-threshold 800000)))
+	    (setq gc-cons-threshold 800000)
+	    (setq inhibit-redisplay nil)
+   	    (setq inhibit-message nil)
+   	    (redisplay)))
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)

@@ -20,13 +20,6 @@
 ;; initialization, so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
 
-;; Set language & System encoding
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-
-;; Font
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
-
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
@@ -38,16 +31,16 @@
 (setq inhibit-startup-message t)
 
 ;; Suppress flashing at startup
-(when (file-directory-p "~/.emacs.d/elpa/")
+(if (file-directory-p "~/.emacs.d/elpa/")
+    (progn
+      (setq inhibit-redisplay t)
+      (setq inhibit-message t)
+      (setq inhibit-splash-screen t)
+      (custom-set-faces '(default ((t (:background "#282a36"))))))
   (add-hook 'window-setup-hook
-   	    (lambda ()
-   	      (setq inhibit-redisplay nil)
-   	      (setq inhibit-message nil)
-   	      (redisplay)))
-  (setq inhibit-redisplay t)
-  (setq inhibit-message t)
-  (setq inhibit-splash-screen t)
-  (custom-set-faces '(default ((t (:background "#282a36"))))))
+            (lambda ()
+	      "Restart Emacs after a clean install of packages."
+	      (restart-emacs))))
 
 
 (provide 'early-init)
