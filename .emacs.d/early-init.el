@@ -29,13 +29,13 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
+(setq inhibit-splash-screen t)
 
 ;; Suppress flashing at startup
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
       (setq inhibit-redisplay t)
       (setq inhibit-message t)
-      (setq inhibit-splash-screen t)
       (custom-set-faces '(default ((t (:background "#282a36"))))))
   (add-hook 'window-setup-hook
             (lambda ()
