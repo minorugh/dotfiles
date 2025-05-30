@@ -77,12 +77,12 @@
 
 (leaf *user-define-functions
   :doc ""
-  :bind	(("M-w"   . clipboard-kill-ring-save)
-	 ("C-w"   . kill-word-or-region)
-	 ("M-/"   . kill-current-buffer)
-	 ("C-M-/" . delete-this-file)
-	 ("s-c"   . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"   . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+  :bind	(("M-w"      . clipboard-kill-ring-save)
+	 ("C-w"      . kill-word-or-region)
+	 ("M-/"      . kill-current-buffer)
+	 ("C-M-/"    . delete-this-file)
+	 ("s-c"      . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	 ("s-v"      . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun my:keyboard-quit ()
