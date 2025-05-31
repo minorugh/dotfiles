@@ -21,12 +21,8 @@
    	    (setq inhibit-message nil)
    	    (redisplay)))
 
-;; Always load newest byte code
-(setq load-prefer-newer t)
-
-;; Set language & encoding & font
+;; Set language & font
 (set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Disable warnings at initialization
@@ -74,5 +70,5 @@
   (init-loader-load))
 
 
-(provide 'init)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

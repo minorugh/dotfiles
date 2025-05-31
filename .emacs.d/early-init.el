@@ -13,12 +13,21 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
-;; (setq native-comp-jit-compilation nil)
+(setq native-comp-jit-compilation nil)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
 ;; loaded, but after `early-init-file'. We handle package
 ;; initialization, so we must prevent Emacs from doing it early!
 (setq package-enable-at-startup nil)
+
+;; In noninteractive sessions, prioritize non-byte-compiled source files to
+;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
+;; to skip the mtime checks on every *.elc file.
+(setq load-prefer-newer noninteractive)
+
+;; Explicitly set the prefered coding systems to avoid annoying prompt
+;; from emacs (especially on Microsoft Windows)
+(prefer-coding-system 'utf-8)
 
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
@@ -46,19 +55,9 @@
 
 ;;; Change eln-cache directory
 (when (boundp 'native-comp-eln-load-path)
-  ;;; Change the output destination for compiled binaries
   (startup-redirect-eln-cache
    (expand-file-name "~/.local/share/emacs/eln-cache/")))
 
-(with-eval-after-load 'comp
-  (setopt native-comp-async-jobs-number 8
-          native-comp-speed 1
-          native-comp-always-compile t))
 
-(with-eval-after-load 'warnings
-  ;; Suppress warning in native comp
-  (setopt warning-suppress-types '((comp))))
-
-
-(provide 'early-init)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
