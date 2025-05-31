@@ -30,6 +30,7 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
+(setq project-file-name "~/.emacs.d/tmp/projects")
 
 ;; Suppress flashing at startup
 (if (file-directory-p "~/.emacs.d/elpa/")
@@ -41,7 +42,7 @@
   (add-hook 'window-setup-hook
             (lambda ()
 	      "Restart Emacs after a clean install of packages."
-	      (delete-file "~/.emacs.d/projects")
+	      ;; (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
 
 

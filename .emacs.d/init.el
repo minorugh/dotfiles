@@ -13,7 +13,7 @@
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
-          (lambda ()
+	  (lambda ()
 	    "Recover file name handlers and GC values after startup."
 	    (setq file-name-handler-alist default-hadlers)
 	    (setq gc-cons-threshold 800000)
@@ -68,7 +68,6 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-;;;###autoload
 (leaf *load-user-conf
   :doc "Load user configurations"
   :load-path "~/.emacs.d/elisp/"

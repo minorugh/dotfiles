@@ -28,9 +28,9 @@
 
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
+  :hook after-init-hook
   :config
-  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
-  :hook after-init-hook)
+  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld"))
 
 (leaf prescient :ensure t
   :doc "Better sorting and filtering"
