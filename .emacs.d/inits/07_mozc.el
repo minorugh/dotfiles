@@ -62,5 +62,5 @@
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 07_mozc.el ends here

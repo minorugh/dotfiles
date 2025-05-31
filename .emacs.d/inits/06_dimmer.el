@@ -58,5 +58,5 @@ If there are two or more windows, it will go to another window."
 	(split-window-horizontally))
       (other-window 1))))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 06_dimmer.el ends here

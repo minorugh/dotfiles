@@ -37,5 +37,5 @@
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 05_company.el ends here

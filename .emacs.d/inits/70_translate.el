@@ -59,5 +59,5 @@
       "https://www.deepl.com/translator#en/ja/"
       (url-hexify-string string)))))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 70_translate.el ends here

@@ -148,5 +148,5 @@
     (setq-local line-spacing 0)
     (evil-normal-state)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 09_ui.el ends here

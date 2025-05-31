@@ -54,5 +54,5 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (compile "gitk")
     (delete-other-windows)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 02_git.el ends here

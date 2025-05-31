@@ -137,5 +137,5 @@ If the region is inactive, `backward-kill-word'."
 	(message "%s" str)
       str)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here

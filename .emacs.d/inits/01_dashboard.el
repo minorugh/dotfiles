@@ -57,5 +57,5 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 01_dashboard.el ends here

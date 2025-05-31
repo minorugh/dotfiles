@@ -43,5 +43,5 @@
     (delete-other-windows)
     (evil-insert-state)))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 50_howm.el ends here

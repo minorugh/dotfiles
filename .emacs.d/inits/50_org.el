@@ -63,5 +63,5 @@
 	(append japanese-holidays holiday-local-holidays holiday-other-holidays))
   (setq calendar-mark-holidays-flag t))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 50_org.el ends here
