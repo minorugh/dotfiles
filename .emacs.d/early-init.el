@@ -13,7 +13,7 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
-(setq native-comp-jit-compilation nil)
+;; (setq native-comp-jit-compilation nil)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
 ;; loaded, but after `early-init-file'. We handle package
@@ -30,7 +30,6 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
-(setq project-file-name "~/.emacs.d/tmp/projects")
 
 ;; Suppress flashing at startup
 (if (file-directory-p "~/.emacs.d/elpa/")
@@ -42,8 +41,23 @@
   (add-hook 'window-setup-hook
             (lambda ()
 	      "Restart Emacs after a clean install of packages."
-	      ;; (delete-file "~/.emacs.d/projects")
+	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
+
+;;; Change eln-cache directory
+(when (boundp 'native-comp-eln-load-path)
+  ;;; Change the output destination for compiled binaries
+  (startup-redirect-eln-cache
+   (expand-file-name "~/.local/share/emacs/eln-cache/")))
+
+(with-eval-after-load 'comp
+  (setopt native-comp-async-jobs-number 8
+          native-comp-speed 1
+          native-comp-always-compile t))
+
+(with-eval-after-load 'warnings
+  ;; Suppress warning in native comp
+  (setopt warning-suppress-types '((comp))))
 
 
 (provide 'early-init)
