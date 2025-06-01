@@ -116,19 +116,18 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1))))
-
-;;;###autoload
-(defun emacs-init-time ()
-  "Overwrite `emacs-init-time' defined in time.el."
-  (interactive)
-  (let ((str
-	 (format "%.3f seconds"
-		 (float-time
-		  (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-	(message "%s" str)
-      str)))
+      (backward-kill-word 1)))
+  :init
+  (defun emacs-init-time ()
+    "Overwrite `emacs-init-time' defined in time.el."
+    (interactive)
+    (let ((str
+	   (format "%.3f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))))
+      (if (called-interactively-p 'interactive)
+	  (message "%s" str)
+	str))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here
