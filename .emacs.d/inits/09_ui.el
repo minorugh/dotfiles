@@ -106,10 +106,12 @@
   :config
   (setq show-paren-style 'parenthesis)
   (setq show-paren-when-point-inside-paren t)
-  (setq show-paren-when-point-in-periphery t)
-  (leaf elec-pair
-    :doc "Automatic parenthesis pairing"
-    :global-minor-mode electric-pair-mode))
+  (setq show-paren-when-point-in-periphery t))
+
+(leaf elec-pair
+  :doc "Automatic parenthesis pairing"
+  :tag "builtin"
+  :hook (after-init-hook . electric-pair-mode))
 
 (leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
@@ -122,7 +124,7 @@
   :hook after-init-hook
   :bind ("C-c r" . rainbow-mode))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Writing environment
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
