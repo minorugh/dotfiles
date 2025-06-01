@@ -84,7 +84,7 @@
 	 ("s-c"      . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"      . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
-  :init
+  :config
   (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))
@@ -116,14 +116,7 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist)))
-
+      (backward-kill-word 1))))
 
 ;;;###autoload
 (defun emacs-init-time ()
