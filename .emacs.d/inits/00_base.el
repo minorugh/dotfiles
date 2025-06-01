@@ -4,11 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf *basic-configurations
-  :doc ""
-  :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
-	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
-	 ("M-,"     . xref-find-definitions))
   :init
   ;; Faster rendering by not corresponding to right-to-left language
   (setq bidi-display-reordering nil)
@@ -76,15 +71,18 @@
 
 
 (leaf *user-define-functions
-  :doc ""
-  :bind	(("M-w"      . clipboard-kill-ring-save)
+  :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
+	 ("C-x b"    . ibuffer)      ;; Overwrite switch-to-buffer
+	 ("C-x m"    . neomutt)      ;; Overwrite compose-maile
+	 ("M-,"      . xref-find-definitions)
+	 ("M-w"      . clipboard-kill-ring-save)
 	 ("C-w"      . kill-word-or-region)
 	 ("M-/"      . kill-current-buffer)
 	 ("C-M-/"    . delete-this-file)
 	 ("s-c"      . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
 	 ("s-v"      . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
-  :config
+  :init
   (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))
@@ -116,18 +114,19 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
-  :init
-  (defun emacs-init-time ()
-    "Overwrite `emacs-init-time' defined in time.el."
-    (interactive)
-    (let ((str
-	   (format "%.3f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
-	  (message "%s" str)
-	str))))
+      (backward-kill-word 1))))
+
+;;;###autoload
+(defun emacs-init-time ()
+  "Overwrite `emacs-init-time' defined in time.el."
+  (interactive)
+  (let ((str
+	 (format "%.3f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+	(message "%s" str)
+      str)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here
