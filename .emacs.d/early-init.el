@@ -13,6 +13,7 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
+(setq native-comp-deferred-compilation nil) ;; obsolete since 29.1
 (setq native-comp-jit-compilation nil)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
@@ -52,11 +53,6 @@
 	      "Restart Emacs after a clean install of packages."
 	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
-
-;;; Change eln-cache directory
-(when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache
-   (expand-file-name "~/.local/share/emacs/eln-cache/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; early-init.el ends here
