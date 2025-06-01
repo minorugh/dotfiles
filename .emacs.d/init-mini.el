@@ -1,4 +1,4 @@
-;;; init-mini.el --- minimal init -*- lexical-binding: t -*-
+;;; init-mini.el --- minimal init -*- no-byte-compile: t; lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; This will start with typing `eq' at shell with minimal Emacs.
@@ -16,7 +16,9 @@
 
 (load-theme 'misterioso t)
 
-;; Package
+(setq native-comp-deferred-compilation nil) ;; obsolete since 29.1
+(setq native-comp-jit-compilation nil)
+
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
 (setq package-archives
@@ -122,9 +124,6 @@
 ;; contain many mode setting
 (require 'generic-x)
 
-
-(provide 'init-mini)
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-mini.el ends here
+
