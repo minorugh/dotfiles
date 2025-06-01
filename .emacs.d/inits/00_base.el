@@ -71,7 +71,7 @@
 
 
 (leaf *user-define-functions
-  :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"c
+  :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"    . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"    . neomutt)      ;; Overwrite compose-maile
 	 ("M-,"      . xref-find-definitions)
@@ -99,6 +99,25 @@
       (delete-file (buffer-file-name))
       (kill-current-buffer)))
 
+  (defun kill-word-or-region ()
+    "If the region is active, `clipboard-kill-region'.
+If the region is inactive, `backward-kill-word'."
+    (interactive)
+    (if (use-region-p)
+	(clipboard-kill-region (region-beginning) (region-end))
+      (backward-kill-word 1)))
+
+  (defun emacs-init-time ()
+    "Overwrite `emacs-init-time' defined in time.el."
+    (interactive)
+    (let ((str
+	   (format "%.3f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))))
+      (if (called-interactively-p 'interactive)
+	  (message "%s" str)
+	str)))
+
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.
   If it's the last frame, minimize it without deleting it."
@@ -106,27 +125,7 @@
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame)))))
-
-  (defun kill-word-or-region ()
-    "If the region is active, `clipboard-kill-region'.
-If the region is inactive, `backward-kill-word'."
-    (interactive)
-    (if (use-region-p)
-	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1))))
-
-;;;###autoload
-(defun emacs-init-time ()
-  "Overwrite `emacs-init-time' defined in time.el."
-  (interactive)
-  (let ((str
-	 (format "%.3f seconds"
-		 (float-time
-		  (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-	(message "%s" str)
-      str)))
+	    ((iconify-frame))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 00_base.el ends here
