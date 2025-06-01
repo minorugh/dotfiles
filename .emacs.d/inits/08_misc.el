@@ -8,9 +8,9 @@
 
 (leaf key-chord
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
-  :global-minor-mode t
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log)))
+	  ("l;" . init-loader-show-log))
+  :hook after-init-hook)
 
 (leaf expand-region :ensure t
   :bind ("C-@" . er/expand-region))
@@ -28,9 +28,9 @@
 
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
-  :hook after-init-hook
   :config
-  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld"))
+  (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
+  :hook after-init-hook)
 
 (leaf prescient :ensure t
   :doc "Better sorting and filtering"
