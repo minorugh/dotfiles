@@ -73,8 +73,7 @@
 		   (evil-emacs-state))
 		 ;; so far
 		 ))))
-       (view-file buffer-file-name))))
-  )
+       (view-file buffer-file-name)))))
 
 
 (provide 'evil-easy-hugo)
