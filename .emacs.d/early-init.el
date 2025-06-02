@@ -47,7 +47,7 @@
       (setq inhibit-redisplay t)
       (setq inhibit-message t)
       (custom-set-faces '(default ((t (:background "#282a36"))))))
-  ;; Processing when elpa directry does not exist
+  ;; When a clean install of all packages
   (add-hook 'window-setup-hook
             (lambda ()
 	      "Restart Emacs after a clean install of packages."
