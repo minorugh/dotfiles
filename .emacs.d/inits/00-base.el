@@ -109,8 +109,11 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
+      (backward-kill-word 1))))
 
+
+(leaf *overwrite-functions
+  :config
   (defun emacs-init-time ()
     "Overwrite `emacs-init-time' defined in time.el."
     (interactive)
@@ -130,7 +133,6 @@ If the region is inactive, `backward-kill-word'."
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
