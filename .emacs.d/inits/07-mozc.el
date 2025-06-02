@@ -1,4 +1,4 @@
-;;; 07_mozc.el --- Japanese mozc configurations. -*- no-byte-compile: t; -*-
+;;; 07-mozc.el --- Japanese mozc configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -62,5 +62,7 @@
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 07_mozc.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 07-mozc.el ends here

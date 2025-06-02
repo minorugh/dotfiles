@@ -1,4 +1,4 @@
-;;; init.el --- Emacs first Configuration.  -*- no-byte-compile: t; -*-
+;;; init.el --- Emacs first Configuration.
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -20,10 +20,6 @@
 	    (setq inhibit-redisplay nil)
    	    (setq inhibit-message nil)
    	    (redisplay)))
-
-;; Set language & font
-(set-language-environment "Japanese")
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Disable warnings at initialization
 (eval-and-compile
@@ -69,5 +65,9 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(provide 'init)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; init.el ends here

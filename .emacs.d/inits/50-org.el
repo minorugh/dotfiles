@@ -1,4 +1,4 @@
-;;; 50_org.el --- Org mode configurations. -*- no-byte-compile: t; -*-
+;;; 50-org.el --- Org mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -63,5 +63,7 @@
 	(append japanese-holidays holiday-local-holidays holiday-other-holidays))
   (setq calendar-mark-holidays-flag t))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 50_org.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 50-org.el ends here

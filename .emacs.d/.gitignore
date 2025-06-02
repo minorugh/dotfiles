@@ -1,7 +1,4 @@
 *.elc
 /elpa/
 /eln-cache/
-/_elpa/
-/_eln-cache/
 /tmp
-/transient/

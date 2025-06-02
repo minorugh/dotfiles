@@ -1,4 +1,4 @@
-;;; 09_ui.el --- Better lookings and appearances. -*- no-byte-compile: t; -*-
+;;; 09-ui.el --- Better lookings and appearances.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -150,5 +150,7 @@
     (setq-local line-spacing 0)
     (evil-normal-state)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 09_ui.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 09-ui.el ends here

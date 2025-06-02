@@ -1,4 +1,4 @@
-;;; 20_hydra-work.el --- Hydra quick work configurations. -*- no-byte-compile: t; -*-
+;;; 20-hydra-work.el --- Hydra quick work configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -113,5 +113,7 @@
 	   (message "Compile successful."))
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 20_hydra-work.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 20-hydra-work.el ends here

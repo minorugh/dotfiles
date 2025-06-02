@@ -1,4 +1,4 @@
-;;; 30_hydra-misc.el --- hydra misc configurations. -*- no-byte-compile: t; -*-
+;;; 30-hydra-misc.el --- hydra misc configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -110,5 +110,7 @@
    ("d" md2docx)
    ("<muhenkan>" nil)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 30_hydra-misc.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 30-hydra-misc.el ends here

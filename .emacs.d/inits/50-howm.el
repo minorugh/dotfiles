@@ -1,4 +1,4 @@
-;;; 50_howm.el --- Howm mode configurations. -*- no-byte-compile: t; -*-
+;;; 50-howm.el --- Howm mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -43,5 +43,7 @@
     (delete-other-windows)
     (evil-insert-state)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 50_howm.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 50-howm.el ends here

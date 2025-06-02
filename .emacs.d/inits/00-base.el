@@ -1,4 +1,4 @@
-;;; 00_base.el --- Better default configurations. -*- no-byte-compile: t; -*-
+;;; 00-base.el --- Better default configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -62,6 +62,10 @@
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
+  ;; Set language & font
+  ;; (set-language-environment "Japanese")
+  (set-language-environment "UTF-8")
+  (add-to-list 'default-frame-alist '(font . "Cica-18"))
   ;; Recentf
   (setq recentf-exclude
 	'("\\.howm-keys" "\\^/session" "task.org"
@@ -127,5 +131,8 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 00_base.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 00-base.el ends here

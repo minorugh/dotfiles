@@ -1,4 +1,4 @@
-;;; 08_misc.e,l --- Misc utilities configurations. -*- no-byte-compile: t; -*-
+;;; 08-misc.e,l --- Misc utilities configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -67,5 +67,7 @@
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 08_misc.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 08-misc.el ends here

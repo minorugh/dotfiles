@@ -1,4 +1,4 @@
-;;; 03_evil.el --- Evil mode configurations. -*- no-byte-compile: t; -*-
+;;; 03-evil.el --- Evil mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -125,5 +125,7 @@
     (interactive)
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 03_evil.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 03-evil.el ends here

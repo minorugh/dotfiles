@@ -1,4 +1,4 @@
-;;; 70_translate.el --- Deepl translate configurations. -*- no-byte-compile: t; -*-
+;;; 70-translate.el --- Deepl translate configurations.a
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -59,5 +59,7 @@
       "https://www.deepl.com/translator#en/ja/"
       (url-hexify-string string)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 70_translate.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 70-translate.el ends here

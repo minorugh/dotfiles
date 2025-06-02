@@ -1,4 +1,4 @@
-;;; 06_dimmer.el --- Dimmer configurations. -*- no-byte-compile: t; -*-
+;;; 06-dimmer.el --- Dimmer configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -58,5 +58,7 @@ If there are two or more windows, it will go to another window."
 	(split-window-horizontally))
       (other-window 1))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 06_dimmer.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 06-dimmer.el ends here

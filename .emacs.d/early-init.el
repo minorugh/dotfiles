@@ -1,4 +1,4 @@
-;;; early-init.el --- Emacs early init configurations.  -*- no-byte-compile: t; -*-
+;;; early-init.el --- Emacs early init configurations.
 ;;; Commentary:
 
 ;; Emacs 27 introduced early-init.el, which is run before init.el, before
@@ -54,5 +54,9 @@
 	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(provide 'early-init)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; early-init.el ends here

@@ -1,4 +1,4 @@
-;;; 01_dashboard.el --- Dashboard configurations. -*- no-byte-compile: t; -*-
+;;; 01-dashboard.el --- Dashboard configurations.
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -57,5 +57,7 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 01_dashboard.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 01-dashboard.el ends here

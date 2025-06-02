@@ -1,4 +1,4 @@
-;;; 10_ut.el --- Utilities configurations. -*- no-byte-compile: t; -*-
+;;; 10-ut.el --- Utilities configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -164,5 +164,7 @@ If region isn't selected, post from the buffer."
       (compile (concat "gist -od " (gist-description) " " file)))
     (delete-other-windows)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 10_ut.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 10-ut.el ends here

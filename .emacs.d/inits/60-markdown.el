@@ -1,4 +1,4 @@
-;;; 60_markdown.el --- Markdown mode configurations. -*- no-byte-compile: t; -*-
+;;; 60-markdown.el --- Markdown mode configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,5 +71,7 @@
 	     (file-name-sans-extension filename)
 	     ".docx"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 60_markdown.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 60-markdown.el ends here

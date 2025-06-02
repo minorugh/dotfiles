@@ -1,4 +1,4 @@
-;;; 05_company.el --- Company configurations. -*- no-byte-compile: t; -*-
+;;; 05-company.el --- Company configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -37,5 +37,7 @@
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 05_company.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 05-company.el ends here

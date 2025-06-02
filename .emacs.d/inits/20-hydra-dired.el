@@ -1,4 +1,4 @@
-;;; 20_hydra-dired.el --- Hydra quick dired configurations. -*- no-byte-compile: t; -*-
+;;; 20-hydra-dired.el --- Hydra quick dired configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,5 +66,7 @@
     (compile "filezilla -s")
     (delete-other-windows)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 20_hydra-dired.el ends here
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+;;; 20-hydra-dired.el ends here
