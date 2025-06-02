@@ -1,4 +1,4 @@
-;;; my:template.el --- User template configuration. -*- no-byte-compile: t; lexical-binding: t -*-
+;;; my:template.el --- User template configuration.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -272,4 +272,8 @@
 
 
 (provide 'my:template)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; my:template.el ends here

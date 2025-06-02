@@ -1,4 +1,4 @@
-;;; my:dired.el --- User dired configurations. -*- lexical-binding: t -*-
+;;; my:dired.el --- User dired configurations.
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -222,4 +222,8 @@
 
 
 (provide 'my:dired)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 ;;; my:dired.el ends here
