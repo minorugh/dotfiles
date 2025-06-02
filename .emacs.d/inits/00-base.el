@@ -112,7 +112,7 @@ If the region is inactive, `backward-kill-word'."
       (backward-kill-word 1))))
 
 
-(leaf *overwrite-functions
+(leaf *user-overwrite-functions
   :config
   (defun emacs-init-time ()
     "Overwrite `emacs-init-time' defined in time.el."
