@@ -22,22 +22,20 @@
    	    (redisplay)))
 
 ;; Disable warnings at initialization
-(eval-and-compile
-  (setq warning-minimum-level :emergency))
+(setq warning-minimum-level :emergency)
 
 ;; Package
-(eval-and-compile
-  (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-		       ("melpa" . "https://melpa.org/packages/")))
-  (package-initialize)
-  (use-package leaf :ensure t)
+(customize-set-variable
+ 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+		     ("melpa" . "https://melpa.org/packages/")))
+(package-initialize)
+(use-package leaf :ensure t)
 
-  (leaf leaf-keywords :ensure t
-    :init
-    (leaf hydra :ensure t)
-    :config
-    (leaf-keywords-init)))
+(leaf leaf-keywords :ensure t
+  :init
+  (leaf hydra :ensure t)
+  :config
+  (leaf-keywords-init))
 
 (leaf server
   :doc "Check if the Emacs server is running and start it"
