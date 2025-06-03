@@ -61,7 +61,6 @@
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
   ;; Set language & font
-  ;; (set-language-environment "Japanese")
   (set-language-environment "UTF-8")
   (add-to-list 'default-frame-alist '(font . "Cica-18"))
   ;; Recentf
