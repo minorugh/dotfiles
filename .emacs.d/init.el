@@ -5,11 +5,8 @@
 ;; (setq debug-on-error t)
 
 ;; Speed up startup
-;; --------------------------------------------------------------------
-;; Optimize Garbage Collection for Startup
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Temporarily suppress file-handler processing to speed up startup
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
@@ -21,8 +18,6 @@
    	    (setq inhibit-message nil)
    	    (redisplay)))
 
-
-;; Package
 (customize-set-variable
  'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
 		     ("melpa" . "https://melpa.org/packages/")))
@@ -36,7 +31,6 @@
   (leaf-keywords-init))
 
 (leaf server
-  :doc "Check if the Emacs server is running and start it"
   :commands server-running-p
   :hook
   (emacs-startup-hook . (lambda ()
@@ -44,12 +38,10 @@
 			    (server-start)))))
 
 (leaf exec-path-from-shell :ensure t
-  :doc "Get environment variables such as `$PATH' from the shell"
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :doc "Init loader."
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:make-command evil-easy-hugo
   :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
