@@ -50,13 +50,11 @@
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-(leaf *load-user-conf
-  :doc "Load user configurations"
-  :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make-command evil-easy-hugo)
-
 (leaf init-loader :ensure t
   :doc "Init loader."
+  :load-path "~/.emacs.d/elisp/"
+  ;; Load user configurations
+  :require my:dired my:template my:make-command evil-easy-hugo
   :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
   :config
   (custom-set-variables
