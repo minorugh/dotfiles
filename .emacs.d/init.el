@@ -39,7 +39,7 @@
 
 (leaf server
   :doc "Check if the Emacs server is running and start it"
-  :commands (server-running-p)
+  :commands server-running-p
   :hook
   (emacs-startup-hook . (lambda ()
 			  (unless (server-running-p)
