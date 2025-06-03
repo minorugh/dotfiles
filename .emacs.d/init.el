@@ -21,8 +21,6 @@
    	    (setq inhibit-message nil)
    	    (redisplay)))
 
-;; Disable warnings at initialization
-(setq warning-minimum-level :emergency)
 
 ;; Package
 (customize-set-variable
