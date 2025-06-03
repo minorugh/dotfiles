@@ -44,8 +44,6 @@
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
-  ;; Default margin
-  (setq-default left-margin-width 1 right-margin-width 1)
   ;; Minimize the fringe
   (set-fringe-mode 1)
   ;;Goto address
