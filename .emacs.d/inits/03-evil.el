@@ -10,7 +10,6 @@
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
   	  ("C-w"      . evil-delete-backward-word)
-	  ("@"        . er/expand-region)
  	  ("SPC"      . set-mark-command)
 	  ("_"        . evil-visual-line)
           ([muhenkan] . evil-insert)

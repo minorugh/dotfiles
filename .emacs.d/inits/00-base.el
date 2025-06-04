@@ -44,25 +44,33 @@
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
+
   ;; Minimize the fringe
   (set-fringe-mode 1)
+
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
+
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
+
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
+
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
   (add-hook 'after-init-hook 'savehist-mode)
+
   ;; Set language & font
   (set-language-environment "UTF-8")
   (add-to-list 'default-frame-alist '(font . "Cica-18"))
+
   ;; Recentf
   (setq recentf-exclude
 	'("\\.howm-keys" "\\^/session" "task.org"
