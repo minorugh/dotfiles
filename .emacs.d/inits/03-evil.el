@@ -6,7 +6,7 @@
 (leaf evil :ensure t
   :hook after-init-hook
   :bind ((:evil-normal-state-map
-	  ("M-."      . nil) ;; Avoid duplication with emacs-state
+	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
   	  ("C-w"      . evil-delete-backward-word)
