@@ -79,7 +79,9 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
-(leaf *user-define-functions
+(leaf *cus-user-configrations
+  :load-path "~/.emacs.d/elisp/"
+  :require my:dired my:template my:make-command evil-easy-hugo
   :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"    . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"    . neomutt)      ;; Overwrite compose-maile
@@ -114,11 +116,8 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1))))
+      (backward-kill-word 1)))
 
-
-(leaf *user-overwrite-functions
-  :config
   (defun emacs-init-time ()
     "Overwrite `emacs-init-time' defined in time.el."
     (interactive)

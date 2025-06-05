@@ -48,16 +48,6 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-(leaf *load-user-elisp
-  :load-path "~/.emacs.d/elisp/"
-  :hook (emacs-startup-hook
-	 . (lambda ()
-	     "Load user configuration elisp."
-	     (require 'my:dired)
-	     (require 'my:template)
-	     (require 'my:make-command)
-	     (require 'evil-easy-hugo))))
-
 (provide 'init)
 
 ;; Local Variables:
