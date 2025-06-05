@@ -52,6 +52,7 @@
   :load-path "~/.emacs.d/elisp/"
   :hook (emacs-startup-hook
 	 . (lambda ()
+	     "Load user configuration elisp."
 	     (require 'my:dired)
 	     (require 'my:template)
 	     (require 'my:make-command)
