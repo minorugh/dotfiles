@@ -32,23 +32,30 @@
 
 (leaf server
   :commands server-running-p
-  :hook
-  (emacs-startup-hook . (lambda ()
-			  (unless (server-running-p)
-			    (server-start)))))
+  :hook (emacs-startup-hook
+	 . (lambda ()
+	     (unless (server-running-p)
+	       (server-start)))))
 
 (leaf exec-path-from-shell :ensure t
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make-command evil-easy-hugo
   :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
+
+(leaf *load-user-elisp
+  :load-path "~/.emacs.d/elisp/"
+  :hook (emacs-startup-hook
+	 . (lambda ()
+	     (require 'my:dired)
+	     (require 'my:template)
+	     (require 'my:make-command)
+	     (require 'evil-easy-hugo))))
 
 (provide 'init)
 
