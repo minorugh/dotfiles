@@ -94,6 +94,12 @@
 	 ("s-v"      . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
   :init
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (compile "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
   (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))
