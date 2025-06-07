@@ -19,6 +19,7 @@
   :config
   (add-hook 'dashboard-mode-hook
             (lambda ()
+	      "Left and right margins are set."
 	      (set-window-margins (selected-window) 1 1)))
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
