@@ -25,11 +25,13 @@
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (setq transient-history-file "~/.emacs.d/tmp/transient/history.el")
-  :preface
+  ;; :preface
+  (leaf transient :ensure t
+    :config
+    (setq transient-history-file "~/.emacs.d/tmp/transient/history.el"))
+
   (leaf git-timemachine :ensure t
-    :doc "Walk through git revisions of a file"
-    :after magit)
+    :doc "Walk through git revisions of a file")
 
   (leaf browse-at-remote :ensure t
     :doc "Open github page from Emacs"
