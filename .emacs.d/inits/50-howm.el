@@ -1,4 +1,4 @@
-;;; 50-howm.el --- Howm mode configurations.
+;;; 50-howm.el --- Howm mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -43,7 +43,4 @@
     (delete-other-windows)
     (evil-insert-state)))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 50-howm.el ends here

@@ -1,4 +1,4 @@
-;;; 06-dimmer.el --- Dimmer configurations.
+;;; 06-dimmer.el --- Dimmer configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -58,7 +58,4 @@ If there are two or more windows, it will go to another window."
 	(split-window-horizontally))
       (other-window 1))))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 06-dimmer.el ends here

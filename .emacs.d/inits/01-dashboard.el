@@ -1,4 +1,4 @@
-;;; 01-dashboard.el --- Dashboard configurations.
+;;; 01-dashboard.el --- Dashboard configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -20,6 +20,7 @@
   (add-hook 'dashboard-mode-hook
             (lambda ()
 	      "Left and right margins are set."
+	      (setq-local global-hl-line-mode nil)
 	      (set-window-margins (selected-window) 1 1)))
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
@@ -61,7 +62,4 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files)))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 01-dashboard.el ends here

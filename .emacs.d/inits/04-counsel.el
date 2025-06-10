@@ -1,4 +1,4 @@
-;;; 04-counsel.el --- Counsel configurations.
+;;; 04-counsel.el --- Counsel configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -108,7 +108,4 @@ If the region isn't selected, `swiper'."
     (setq migemo-command    "cmigemo")
     (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 04-counsel.el ends here

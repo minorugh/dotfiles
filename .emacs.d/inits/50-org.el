@@ -1,4 +1,4 @@
-;;; 50-org.el --- Org mode configurations.
+;;; 50-org.el --- Org mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -22,12 +22,12 @@
 
   ;; Capture template
   (defun my:howm-create-file ()
-    "Make howm create file on 'org-capture'."
+    "Make howm create file on `org-capture'."
     (interactive)
     (format-time-string "~/Dropbox/howm/%Y/%m/%Y%m%d%H%M.md" (current-time)))
 
   (defun my:open-junk-file ()
-    "Make create junk file on 'org-capture'."
+    "Make create junk file on `org-capture'."
     (interactive)
     (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl" (current-time)))
 
@@ -63,7 +63,4 @@
 	(append japanese-holidays holiday-local-holidays holiday-other-holidays))
   (setq calendar-mark-holidays-flag t))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 50-org.el ends here

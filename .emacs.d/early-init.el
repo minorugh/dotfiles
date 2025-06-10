@@ -1,4 +1,4 @@
-;;; early-init.el --- Emacs early init configurations.
+;;; early-init.el --- Emacs early init configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;; Emacs 27 introduced early-init.el, which is run before init.el, before
@@ -13,7 +13,6 @@
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
-(setq native-comp-deferred-compilation nil) ;; obsolete since 29.1
 (setq native-comp-jit-compilation nil)
 
 ;; Package initialize occurs automatically, before `user-init-file' is
@@ -41,6 +40,8 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
+(setq native-comp-async-report-warnings-errors 'silent)
+
 ;; Suppress flashing at startup
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
@@ -55,7 +56,4 @@
 
 (provide 'early-init)
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; early-init.el ends here

@@ -1,4 +1,4 @@
-;;; 80-easy-hugo.el --- Easy-Hugo configurations.
+;;; 80-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -64,15 +64,15 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
   (defun my:edit-easy-hugo ()
-    "Edit setting file for 'easy-hugo'."
+    "Edit setting file for `easy-hugo'."
     (interactive)
-    (find-file "~/.emacs.d/inits/80-easy-hugo.el"))
+    ( find-file-noselect "~/.emacs.d/inits/80-easy-hugo.el"))
   :preface
   (leaf request	:ensure t
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request")))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 80-easy-hugo.el ends here

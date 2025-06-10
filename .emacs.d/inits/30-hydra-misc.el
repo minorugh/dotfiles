@@ -1,4 +1,4 @@
-;;; 30-hydra-misc.el --- hydra misc configurations.
+;;; 30-hydra-misc.el --- hydra misc configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -105,6 +105,6 @@
    ("<muhenkan>" nil)))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 30-hydra-misc.el ends here

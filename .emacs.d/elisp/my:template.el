@@ -273,7 +273,4 @@
 
 (provide 'my:template)
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; my:template.el ends here

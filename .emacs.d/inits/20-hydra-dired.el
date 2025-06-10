@@ -1,4 +1,4 @@
-;;; 20-hydra-dired.el --- Hydra quick dired configurations.
+;;; 20-hydra-dired.el --- Hydra quick dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -67,6 +67,6 @@
     (delete-other-windows)))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 20-hydra-dired.el ends here

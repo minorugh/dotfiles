@@ -1,4 +1,4 @@
-;;; 00-base.el --- Better default configurations.
+;;; 00-base.el --- Better default configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -144,7 +144,12 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
+(defun auto-compile-inits ()
+  "Byte-compile Lisp files modified in the directory."
+  (interactive)
+  (byte-compile-file "~/.emacs.d/init.el")
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+(add-hook 'kill-emacs-hook 'auto-compile-inits)
+
 ;;; 00-base.el ends here

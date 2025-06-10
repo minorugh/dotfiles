@@ -1,11 +1,10 @@
-;;; 40-dired.el --- Ddired configurations.
+;;; 40-dired.el --- Ddired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf dired
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
-	 (dired-load-hook . (lambda () (require 'dired-x)))
 	 (dired-mode-hook . dired-omit-mode))
   :bind (:dired-mode-map
 	 ("<left>" . dired-up-alternate-directory)
@@ -19,6 +18,8 @@
 	 ("i" . call-sxiv)
 	 ("@" . dired-do-gist))
   :config
+  (with-eval-after-load 'dired
+    (require 'dired-x))
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
@@ -74,6 +75,6 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 	       (mapconcat 'identity image-files " "))))))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40-dired.el ends here

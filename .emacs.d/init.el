@@ -1,4 +1,4 @@
-;;; init.el --- Emacs first Configuration.
+;;; init.el --- Emacs first Configuration.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -18,17 +18,18 @@
    	    (setq inhibit-message nil)
    	    (redisplay)))
 
-(customize-set-variable
- 'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-		     ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-(use-package leaf :ensure t)
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+		       ("melpa" . "https://melpa.org/packages/")))
+  (package-initialize)
+  (use-package leaf :ensure t)
 
-(leaf leaf-keywords :ensure t
-  :init
-  (leaf hydra :ensure t)
-  :config
-  (leaf-keywords-init))
+  (leaf leaf-keywords :ensure t
+    :init
+    (leaf hydra :ensure t)
+    :config
+    (leaf-keywords-init)))
 
 (leaf server
   :commands server-running-p
@@ -50,7 +51,4 @@
 
 (provide 'init)
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here

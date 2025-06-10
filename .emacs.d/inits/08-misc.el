@@ -1,4 +1,4 @@
-;;; 08-misc.e,l --- Misc utilities configurations.
+;;; 08-misc.e,l --- Misc utilities configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -27,6 +27,29 @@
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
+(leaf flymake
+  :doc "A universal on-the-fly syntax checker"
+  :hook (prog-mode-hook . flymake-mode)
+  ;; (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
+  :bind ((:prog-mode-map
+          ("M-n" . flymake-goto-next-error)
+          ("M-p" . flymake-goto-prev-error))))
+
+(leaf which-key :tag "builtin"
+  :doc "Display available keybindings in popup"
+  :hook (after-init-hook . which-key-mode)
+  :config
+  (setq which-key-max-description-length 40)
+  (setq which-key-delay 0.0))
+
+(leaf web-mode :ensure t
+  :doc "Web template editing mode for emacs"
+  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset    2)
+  (setq web-mode-code-indent-offset   2))
+
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
   :config
@@ -40,8 +63,7 @@
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
   :init
-  (leaf ivy-prescient :ensure t :after prescient)
-  (leaf company-prescient :ensure t :after prescient))
+  (leaf ivy-prescient :ensure t :after prescient))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
@@ -69,6 +91,6 @@
   :bind ("<insert>" . iedit-mode))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 08-misc.el ends here

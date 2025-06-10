@@ -1,4 +1,4 @@
-;;; 70-translate.el --- Deepl translate configurations.a
+;;; 70-translate.el --- Deepl translate configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -21,6 +21,7 @@
 (leaf go-translate :ensure t
   :doc "Translation framework on Emacs"
   :url "https://github.com/lorniu/go-translate"
+  :defun gt-deepl-engine gt-taker gt-translator gt-buffer-render gt-google-engine
   :bind ("C-t" . gt-do-translate)
   :config
   (setq gt-langs '(en ja))
@@ -60,6 +61,6 @@
       (url-hexify-string string)))))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 70-translate.el ends here

@@ -1,4 +1,4 @@
-;;; 10-ut.el --- Utilities configurations.
+;;; 10-ut.el --- Utilities configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -32,14 +32,6 @@
     :after counsel
     :hook (css-mode-hook . counsel-css-imenu-setup)))
 
-(leaf web-mode :ensure t
-  :doc "Web template editing mode for emacs"
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :config
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset    2)
-  (setq web-mode-code-indent-offset   2))
-
 (leaf ediff
   :doc "Edit while viewing the difference"
   :hook (ediff-mode-hook . dimmer-off)
@@ -66,24 +58,18 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf flycheck :ensure t
-  :doc "On-the-fly syntax checking"
-  :hook ((prog-mode-hook . flycheck-mode)
-	 (lisp-interaction-mode-hook . (lambda () (interactive)(flycheck-mode 0))))
-  :bind (("M-n" . flycheck-next-error)
-	 ("M-p" . flycheck-previous-error)))
-
-(leaf which-key :tag "builtin"
-  :doc "Display available keybindings in popup"
-  :hook (after-init-hook . which-key-mode)
+(leaf corfu
+  :doc "Completion in region function"
+  :ensure t
+  :hook (after-init-hook . global-corfu-mode)
   :config
-  (setq which-key-max-description-length 40)
-  (setq which-key-delay 0.0))
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0)
+  (setq corfu-auto-prefix 1)
+  (setq corfu-popupinfo-delay nil) ; manual
+  :bind ((:corfu-map
+          ("<tab>" . corfu-insert))))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Various settings for buffer control
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
   :config
@@ -92,7 +78,6 @@
   (setq super-save-remote-files        nil)
   (setq super-save-exclude             '(".gpg"))
   :hook after-init-hook)
-
 
 (leaf persistent-scratch :ensure t
   :doc "Save *scratch* buffer state to file and restore from file"
@@ -109,7 +94,6 @@
 	  (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
-
 (leaf emacs-lock-mode :tag "builtin"
   :doc "Set buffer that can not be killed"
   :hook (after-init-hook . my:lock-mode)
@@ -121,17 +105,12 @@
     (with-current-buffer "*Messages*"
       (emacs-lock-mode 'kill))))
 
-
 (leaf bs
   :doc "Menu for selecting and displaying buffers"
   :tag "builtin"
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; GIST configurations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
   :tag "Be configured to be able to use gist on the command line from the terminal"
@@ -165,6 +144,6 @@ If region isn't selected, post from the buffer."
     (delete-other-windows)))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 10-ut.el ends here

@@ -1,4 +1,4 @@
-;;; 40-neotree.el --- Neotree configurations.
+;;; 40-neotree.el --- Neotree configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -6,7 +6,7 @@
 (leaf neotree :ensure t
   :doc "Tree plugin like NerdTree for Vim"
   :after projectile
-  :commands neotree-find
+  :defun neotree-find neo-buffer--execute neo-global--select-mru-window
   :bind (("<f10>" . my:neotree-find)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
@@ -61,6 +61,6 @@
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 40-neotree.el ends here

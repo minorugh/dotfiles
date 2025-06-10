@@ -1,4 +1,4 @@
-;;; 03-evil.el --- Evil mode configurations.
+;;; 03-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,7 +61,7 @@
     (interactive)
     (unless (file-exists-p buffer-file-name)
       (evil-emacs-state)))
-  (add-hook 'find-file-hooks 'evil-find-file)
+  (add-hook 'find-file-hook 'evil-find-file)
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -124,7 +124,4 @@
     (interactive)
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; 03-evil.el ends here

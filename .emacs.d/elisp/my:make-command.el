@@ -55,7 +55,4 @@
 
 (provide 'my:make-command)
 
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 ;;; my:make-command.el ends here

@@ -1,4 +1,4 @@
-;;; 09-ui.el --- Better lookings and appearances.
+;;; 09-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -29,6 +29,7 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
   (column-number-mode 0)
+  :preface
   (leaf nyan-mode :ensure t
     :doc "Shows position in current buffer in mode-line"
     :global-minor-mode t
@@ -124,7 +125,6 @@
   :hook after-init-hook
   :bind ("C-c r" . rainbow-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Writing environment
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
@@ -151,6 +151,6 @@
     (evil-normal-state)))
 
 ;; Local Variables:
-;; no-byte-compile: t
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 09-ui.el ends here
