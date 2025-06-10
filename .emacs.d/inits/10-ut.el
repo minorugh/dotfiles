@@ -58,6 +58,14 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
+(leaf flymake
+  :doc "A universal on-the-fly syntax checker"
+  :hook ((prog-mode-hook . flymake-mode)
+	 (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
+  :bind ((:prog-mode-map
+          ("M-n" . flymake-goto-next-error)
+          ("M-p" . flymake-goto-prev-error))))
+
 (leaf corfu
   :doc "Completion in region function"
   :ensure t

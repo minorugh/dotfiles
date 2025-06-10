@@ -27,21 +27,6 @@
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
-(leaf flymake
-  :doc "A universal on-the-fly syntax checker"
-  :hook ((prog-mode-hook . flymake-mode)
-	 (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
-  :bind ((:prog-mode-map
-          ("M-n" . flymake-goto-next-error)
-          ("M-p" . flymake-goto-prev-error))))
-
-(leaf which-key :tag "builtin"
-  :doc "Display available keybindings in popup"
-  :hook (after-init-hook . which-key-mode)
-  :config
-  (setq which-key-max-description-length 40)
-  (setq which-key-delay 0.0))
-
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")

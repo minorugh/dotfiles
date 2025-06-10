@@ -10,9 +10,8 @@
   (setq doom-themes-enable-italic nil)
   (doom-themes-org-config)
   :preface
-  (leaf hl-line
+  (leaf hl-line :tag "Builtin"
     :doc "Highlight the current line"
-    :tag "Builtin"
     :hook ((after-init-hook . global-hl-line-mode)
 	   ((dashboard-mode-hook eshell-mode-hook)
 	    . (lambda () (setq-local global-hl-line-mode nil))))
@@ -37,18 +36,21 @@
     :config
     (setq nyan-animate-nyancat t)
     (setq nyan-bar-length 24))
+
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
     :hook (imenu-list-major-mode-hook neotree-mode-hook))
+
   (leaf nerd-icons :ensure t
     :if (display-graphic-p))
+
   (leaf nerd-icons-dired :ensure t
     :config (setq nerd-icons-scale-factor 0.8)
     :hook dired-mode-hook))
 
-(leaf whitespace
+
+(leaf whitespace :tag "Builtin"
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
-  :tag "Builtin"
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
   :config
@@ -64,22 +66,13 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
-(leaf display-line-numbers
+(leaf display-line-numbers :tag "builtin"
   :doc "interface for display-line-numbers"
-  :tag "builtin"
   :hook ((prog-mode-hook text-mode-hook)
 	 (lisp-interaction-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0))))
   :bind  ([f9] . display-line-numbers-mode)
   :config
   (setq display-line-numbers-width-start t))
-
-(leaf blink-cursor
-  :doc "Blinking cursor mode for GNU Emacs"
-  :tag "Builtin"
-  :config
-  (setq blink-cursor-blinks   0)
-  (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    10))
 
 (leaf beacon :ensure t
   :doc "Indicate the cursor's position."
@@ -113,6 +106,13 @@
   :doc "Automatic parenthesis pairing"
   :hook (after-init-hook . electric-pair-mode))
 
+(leaf blink-cursor :tag "Builtin"
+  :doc "Blinking cursor mode for GNU Emacs"
+  :config
+  (setq blink-cursor-blinks   0)
+  (setq blink-cursor-interval 0.3)
+  (setq blink-cursor-delay    10))
+
 (leaf rainbow-delimiters :ensure t
   :doc "Display brackets in rainbow"
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
@@ -124,7 +124,13 @@
   :hook after-init-hook
   :bind ("C-c r" . rainbow-mode))
 
-;; Writing environment
+(leaf which-key :tag "builtin"
+  :doc "Display available keybindings in popup"
+  :hook (after-init-hook . which-key-mode)
+  :config
+  (setq which-key-max-description-length 40)
+  (setq which-key-delay 0.0))
+
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
   :bind (([f8] . my:darkroom-in)
