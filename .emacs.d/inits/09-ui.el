@@ -98,9 +98,8 @@
       (pulse-momentary-highlight-region beg end face))
     (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
 
-(leaf paren
+(leaf paren :tag "builtin"
   :doc "Highlight matching parens"
-  :tag "builtin"
   :hook (after-init-hook . show-paren-mode)
   :custom-face
   (show-paren-match . '((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold))))
@@ -109,9 +108,8 @@
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
 
-(leaf elec-pair
+(leaf elec-pair :tag "builtin"
   :doc "Automatic parenthesis pairing"
-  :tag "builtin"
   :hook (after-init-hook . electric-pair-mode))
 
 (leaf rainbow-delimiters :ensure t

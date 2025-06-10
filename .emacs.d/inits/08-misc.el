@@ -29,8 +29,8 @@
 
 (leaf flymake
   :doc "A universal on-the-fly syntax checker"
-  :hook (prog-mode-hook . flymake-mode)
-  ;; (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
+  :hook ((prog-mode-hook . flymake-mode)
+	 (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
   :bind ((:prog-mode-map
           ("M-n" . flymake-goto-next-error)
           ("M-p" . flymake-goto-prev-error))))
@@ -63,7 +63,7 @@
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
   :init
-  (leaf ivy-prescient :ensure t :after prescient))
+  (leaf ivy-prescient   :ensure t :after prescient))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
