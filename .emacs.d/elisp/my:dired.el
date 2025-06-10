@@ -1,4 +1,4 @@
-;;; my:dired.el --- User dired configurations.
+;;; my:dired.el --- User dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)

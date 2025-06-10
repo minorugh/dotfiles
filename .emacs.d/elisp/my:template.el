@@ -1,4 +1,4 @@
-;;; my:template.el --- User template configuration.
+;;; my:template.el --- User template configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -12,7 +12,7 @@
     (evil-insert-state)
     (goto-char 0)
     ;; Insert a new date if the date has changed
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (unless (string-match (format-time-string "%Y%m:") string)
       (forward-line -1)
       (insert (format-time-string "%Y%m:\n")))
@@ -35,7 +35,7 @@
     (find-file (expand-file-name "dia.txt" "~/Dropbox/GH/tpdia/"))
     (goto-char 0)
     ;; Insert a new date if the date has changed
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (unless (string-match (format-time-string "%Y%m:") string)
       (forward-line -1)
       (insert (format-time-string "%Y%m:\n")))
@@ -98,7 +98,7 @@
     (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
     (goto-char 0)
     ;; Insert a new date if the date has changed
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (unless (string-match (format-time-string "%Y%m:") string)
       (forward-line -1)
       (insert (format-time-string "%Y%m:\n")))
@@ -126,12 +126,12 @@
     (find-file (expand-file-name "select.txt" "~/Dropbox/GH/tselext/"))
     (goto-char 0)
     ;; Insert a new date if the date has changed
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (unless (string-match (format-time-string "%Y%m:") string)
       (forward-line -1)
       (insert (format-time-string "%Y%m:\n")))
     (forward-line 1)
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (unless (string-match (format-time-string "*%Y年%-m月") string)
       (forward-line -1)
       (insert (format-time-string "*%Y年%-m月\n")))
@@ -177,13 +177,13 @@
     (find-file (expand-file-name "select.txt" "~/Dropbox/GH/d_selext/"))
     (goto-char 0)
     ;; Insert a new date if the date has changed
-    (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+    (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
     (if (unless (string-match (format-time-string "%Y%m:") string)
 	  (forward-line -1)
 	  (insert (format-time-string "%Y%m:\n"))
 	  (insert (format-time-string "*%Y年%-m月%-d日\n")))
 	(forward-line 1)
-      (setq string (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+      (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
       (unless (string-match (format-time-string "*%Y年%-m月%-d日") string)
 	(forward-line 1)
 	(insert (format-time-string "*%Y年%-m月%-d日\n"))))
@@ -273,4 +273,7 @@
 
 (provide 'my:template)
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; my:template.el ends here

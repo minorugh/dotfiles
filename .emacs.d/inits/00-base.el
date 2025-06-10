@@ -148,10 +148,11 @@ If the region is inactive, `backward-kill-word'."
 (defun auto-compile-inits ()
   "Byte-compile Lisp files modified in the directory."
   (interactive)
+  (compile "make clean")
   (byte-compile-file "~/.emacs.d/early-init.el")
   (byte-compile-file "~/.emacs.d/init.el")
   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
-(add-hook 'kill-emacs-hook 'auto-compile-inits)
+  (add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 ;;; 00-base.el ends here
