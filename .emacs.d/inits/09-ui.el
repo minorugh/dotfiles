@@ -28,8 +28,9 @@
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
-  (column-number-mode 0)
-  :preface
+  (column-number-mode 0))
+
+(with-eval-after-load 'doom-modeline
   (leaf nyan-mode :ensure t
     :doc "Shows position in current buffer in mode-line"
     :global-minor-mode t
