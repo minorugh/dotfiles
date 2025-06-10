@@ -81,7 +81,7 @@
 
 (leaf *cus-user-configrations
   :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make-command evil-easy-hugo
+  :require my:dired my:template my:make my:evil
   :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"    . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"    . neomutt)      ;; Overwrite compose-maile
@@ -144,15 +144,13 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-;; Auto byte-compile for inits files
 (defun auto-compile-inits ()
-  "Byte-compile Lisp files modified in the directory."
+  "Automatic byte-compilation of all initial configuration files"
   (interactive)
-  (compile "make clean")
   (byte-compile-file "~/.emacs.d/early-init.el")
   (byte-compile-file "~/.emacs.d/init.el")
   (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
-  (add-hook 'kill-emacs-hook 'auto-compile-inits)
+(add-hook 'kill-emacs-hook 'auto-compile-inits)
 
 ;;; 00-base.el ends here
