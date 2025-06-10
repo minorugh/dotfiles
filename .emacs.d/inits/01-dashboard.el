@@ -12,14 +12,13 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-icon-type 'nerd-icons)
+  :config
   (leaf page-break-lines :ensure t
     :doc "Display ^L page breaks as tidy horizontal lines"
-    :after dashboard
     :global-minor-mode t)
-  :config
   (add-hook 'dashboard-mode-hook
             (lambda ()
-	      "Left and right margins are set."
+	      "Disable hl-line and set window margins."
 	      (setq-local global-hl-line-mode nil)
 	      (set-window-margins (selected-window) 1 1)))
   ;; Set the items
