@@ -144,6 +144,7 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
+;; Auto byte-compile for inits files
 (defun auto-compile-inits ()
   "Byte-compile Lisp files modified in the directory."
   (interactive)
