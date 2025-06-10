@@ -19,6 +19,7 @@
     "Settings to suppress the dimmer."
     (interactive)
     (dimmer-configure-which-key)
+    (dimmer-configure-magit)
     (dimmer-configure-hydra)
     (dimmer-configure-org))
 
