@@ -49,7 +49,7 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-(leaf *byte-compile-inits
+(leaf *auto-byte-compile
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
   (defun auto-compile-inits ()
