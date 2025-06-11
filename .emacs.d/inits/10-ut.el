@@ -66,18 +66,6 @@
           ("M-n" . flymake-goto-next-error)
           ("M-p" . flymake-goto-prev-error))))
 
-(leaf corfu
-  :doc "Completion in region function"
-  :ensure t
-  :hook (after-init-hook . global-corfu-mode)
-  :config
-  (setq corfu-auto t)
-  (setq corfu-auto-delay 0.5)
-  (setq corfu-auto-prefix 2)
-  (setq corfu-popupinfo-delay nil) ; manual
-  :bind ((:corfu-mode-map
-          ("<tab>" . corfu-insert-separator))))
-
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
   :config

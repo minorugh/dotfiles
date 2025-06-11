@@ -144,13 +144,4 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-(defun auto-compile-inits ()
-  "Automatic byte-compilation of all initial configuration files"
-  (interactive)
-  (byte-compile-file "~/.emacs.d/early-init.el")
-  (byte-compile-file "~/.emacs.d/init.el")
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
-(add-hook 'kill-emacs-hook 'auto-compile-inits)
-
 ;;; 00-base.el ends here

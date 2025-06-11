@@ -53,6 +53,6 @@
 	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
 
-(provide 'early-init)
 
+(provide 'early-init)
 ;;; early-init.el ends here

@@ -49,6 +49,17 @@
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load))
 
-(provide 'init)
+(leaf *byte-compile-inits
+  :hook (kill-emacs-hook . auto-compile-inits)
+  :init
+  (defun auto-compile-inits ()
+    "Automatic byte-compilation of all initial configuration files."
+    (interactive)
+    (byte-compile-file "~/.emacs.d/early-init.el")
+    (byte-compile-file "~/.emacs.d/init.el")
+    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
+
+(provide 'init)
 ;;; init.el ends here
