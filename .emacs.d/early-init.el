@@ -39,6 +39,7 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
+(setq byte-compile-warnings '(cl-functions))
 
 ;; Suppress startup messages when the package is already installed.
 ;; When clean install packages, do not suppress startup messages.
@@ -52,7 +53,6 @@
 	      "Restart Emacs after a clean install of packages."
 	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
-
 
 (provide 'early-init)
 ;;; early-init.el ends here

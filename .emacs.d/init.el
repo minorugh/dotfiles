@@ -60,6 +60,5 @@
     (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
     (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
-
 (provide 'init)
 ;;; init.el ends here

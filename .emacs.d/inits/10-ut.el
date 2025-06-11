@@ -101,9 +101,8 @@
     (with-current-buffer "*Messages*"
       (emacs-lock-mode 'kill))))
 
-(leaf bs
+(leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
-  :tag "builtin"
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
 
