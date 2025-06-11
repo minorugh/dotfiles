@@ -40,8 +40,8 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
-;; Suppress startup messages when the package is already installed,
-;; If clean install packages, do not suppress startup messages.
+;; Suppress startup messages when the package is already installed.
+;; When clean install packages, do not suppress startup messages.
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
       (setq inhibit-redisplay t)
