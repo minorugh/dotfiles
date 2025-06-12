@@ -29,7 +29,6 @@
 	      '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
-
 (leaf yasnippet :ensure t
   :doc "Template system"
   :hook (after-init-hook . yas-global-mode)
