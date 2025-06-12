@@ -5,6 +5,7 @@
 
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
+  :defun magit-display-buffer-fullframe-status-v1
   :bind '(("C-x g" . magit-status)
 	  ("M-g"   . hydra-magit/body))
   :hydra
@@ -24,19 +25,7 @@
   (setq magit-refs-show-commit-count 'all)
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
-  (setq magit-display-buffer-function
-	(lambda (buffer)
-          (display-buffer
-           buffer (if (and (derived-mode-p 'magit-mode)
-                           (memq (with-current-buffer buffer major-mode)
-				 '(magit-process-mode
-                                   magit-revision-mode
-                                   magit-diff-mode
-                                   magit-stash-mode
-                                   magit-status-mode)))
-                      nil
-                    '(display-buffer-same-window)))))
-  ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (defun gitk-open ()
     "Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
