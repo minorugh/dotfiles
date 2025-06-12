@@ -79,7 +79,7 @@
   :hook after-init-hook)
 
 (leaf goggles :ensure t
-  :doc "Pulse modified region"
+  :doc "Highlights the modified region using pulse"
   :hook ((prog-mode-hook text-mode-hook) . goggles-mode)
   :config
   (setq-default goggles-pulse t)
