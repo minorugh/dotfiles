@@ -65,6 +65,10 @@
 	  ("M-n" . flymake-goto-next-error)
 	  ("M-p" . flymake-goto-prev-error))))
 
+(leaf tempbuf
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((magit-mode-hook dired-mode-hook) . turn-on-tempbuf-mode))
+
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
   :config
