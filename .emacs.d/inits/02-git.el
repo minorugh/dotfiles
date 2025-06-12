@@ -26,7 +26,7 @@
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-  (remove-hook 'server-switch-hook 'magit-commit-diff)
+  ;; (remove-hook 'server-switch-hook 'magit-commit-diff)
   (defun gitk-open ()
     "Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
