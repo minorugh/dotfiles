@@ -11,19 +11,22 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _._term  _r_ainbow  _c_ap./_u_p/d_n_
-  _v_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  _@_point^^  ___xsrv  _:_thunar  _b_ackup-all^^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _._term  _r_ainbow  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  _@_point^^  ___xsrv  _:_thunar  _b_ackupall^^^^
 "
    ("c" my:capitalize-word)
    ("u" my:upcase-word)
-   ("n" my:downcase-word)
+   ("o" my:downcase-word)
+   ("n" yas-new-snippet)
+   ("v" yas-visit-snippet-file)
+   ("i" yas-insert-snippet)
    ("p" ps-print-buffer)
    ("e" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
    ("," my:year-draft)
-   ("v" my:apvoice)
-   ("V" my:apvoice-new-post)
+   ("a" my:apvoice)
+   ("A" my:apvoice-new-post)
    ("b" make-backup)
    ("." terminal-open)
    (":" thunar-open)
@@ -53,21 +56,6 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
-  (defun my:upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
-
-  (defun my:downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
-
-  (defun my:capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg)))
-
   (defun filezilla-open ()
     "Open filezilla."
     (interactive)

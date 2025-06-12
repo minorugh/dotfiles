@@ -23,6 +23,8 @@
 ;; In noninteractive sessions, prioritize non-byte-compiled source files to
 ;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
 ;; to skip the mtime checks on every *.elc file.
+;; Always load newest byte code
+;; (setq load-prefer-newer t)
 (setq load-prefer-newer noninteractive)
 
 ;; Explicitly set the prefered coding systems to avoid annoying prompt

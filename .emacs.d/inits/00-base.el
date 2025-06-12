@@ -82,18 +82,36 @@
 (leaf *cus-user-configrations
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:make my:evil
-  :bind (("C-x C-c"  . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	 ("C-x b"    . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"    . neomutt)      ;; Overwrite compose-maile
-	 ("M-,"      . xref-find-definitions)
-	 ("M-w"      . clipboard-kill-ring-save)
-	 ("C-w"      . kill-word-or-region)
-	 ("M-/"      . kill-current-buffer)
-	 ("C-M-/"    . delete-this-file)
-	 ("s-c"      . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"      . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+  :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
+	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
+	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
+	 ("M-,"     . xref-find-definitions)
+	 ("M-w"     . clipboard-kill-ring-save)
+	 ("C-w"     . kill-word-or-region)
+	 ("M-c"     . my:capitalize-word)
+	 ("M-l"     . my:downcase-word)
+	 ("M-u"     . my:upcase-word)
+	 ("M-/"     . kill-current-buffer)
+	 ("C-M-/"   . delete-this-file)
+	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
   :init
+  (defun my:upcase-word (Arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my:downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my:capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg)))
+
   (defun neomutt ()
     "Open terminal and ssh to xsrv."
     (interactive)
