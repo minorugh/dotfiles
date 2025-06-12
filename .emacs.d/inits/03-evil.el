@@ -9,6 +9,7 @@
 	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)
  	  ("C-e"      . seq-end)
+	  ("C-y"      . clipboard-yank)
   	  ("C-w"      . evil-delete-backward-word)
  	  ("SPC"      . set-mark-command)
 	  ("_"        . evil-visual-line)

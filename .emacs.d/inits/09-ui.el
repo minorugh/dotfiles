@@ -80,7 +80,7 @@
 
 (leaf goggles :ensure t
   :doc "Highlights the modified region using pulse"
-  :hook ((prog-mode-hook text-mode-hook) . goggles-mode)
+  :hook prog-mode-hook text-mode-hook
   :config
   (setq-default goggles-pulse t)
   :custom-face
@@ -117,15 +117,15 @@
 (leaf rainbow-mode :ensure t
   :doc "Color letter that indicate the color"
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :hook after-init-hook
-  :bind ("C-c r" . rainbow-mode))
+  :bind ("C-c r" . rainbow-mode)
+  :hook after-init-hook)
 
 (leaf which-key :tag "builtin"
   :doc "Display available keybindings in popup"
-  :hook (after-init-hook . which-key-mode)
   :config
   (setq which-key-max-description-length 40)
-  (setq which-key-delay 0.0))
+  (setq which-key-delay 0.0)
+  :hook after-init-hook)
 
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"

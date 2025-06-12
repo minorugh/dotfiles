@@ -57,7 +57,7 @@
 
 (leaf aggressive-indent :ensure t
   :doc "Minor mode to aggressively keep your code always indented"
-  :hook (emacs-lisp-mode-hook css-mode-hook))
+  :hook emacs-lisp-mode-hook css-mode-hook)
 
 (leaf atomic-chrome :ensure t
   :doc "Edit text areas of the browser in Emacs"
