@@ -34,7 +34,6 @@
   :doc "Template system"
   :hook (after-init-hook . yas-global-mode)
   :config
-  (yas-reload-all)
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 

@@ -88,6 +88,7 @@
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
 	 ("C-w"     . kill-word-or-region)
+	 ("C-y"     . clipboard-yank)
 	 ("M-c"     . my:capitalize-word)
 	 ("M-l"     . my:downcase-word)
 	 ("M-u"     . my:upcase-word)
