@@ -78,19 +78,15 @@
   :doc "Indicate the cursor's position."
   :hook after-init-hook)
 
-(leaf volatile-highlights :ensure t
-  :doc "Hilight the pasted region"
-  :hook after-init-hook
-  :custom-face
-  (vhl/default-face . '((t (:foreground "#FF3333" :background "#FFCDCD"))))
+(leaf goggles :ensure t
+  :doc "Pulse modified region"
+  :hook ((prog-mode-hook text-mode-hook) . goggles-mode)
   :config
-  (vhl/define-extension 'my:evil-highlights 'evil-yank 'evil-move 'evil-paste-after)
-  (vhl/install-extension 'my:evil-highlights)
-  (when (fboundp 'pulse-momentary-highlight-region)
-    (defun my:vhl-pulse (beg end &optional _buf face)
-      "Pulse the changes."
-      (pulse-momentary-highlight-region beg end face))
-    (advice-add #'vhl/.make-hl :override #'my:vhl-pulse)))
+  (setq-default goggles-pulse t)
+  :custom-face
+  (goggles-added    . '((t (:background "#c3fabb"))))
+  (goggles-changed  . '((t (:background "#fae8bb"))))
+  (goggles-removed  . '((t (:background "#fabfbb")))))
 
 (leaf paren :tag "builtin"
   :doc "Highlight matching parens"

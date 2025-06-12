@@ -45,6 +45,7 @@
    ("[" hydra-magit/body)
    ("]" my:magit-status)
    ("s" my:scr-dir)
+   ("f" flymake-mode)
    ("z" filezilla)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
@@ -58,7 +59,7 @@
     (interactive)
     (if (string= "*dashboard*" (buffer-name))
 	(message "Can't magit in Dashboard！")
-      (magit-status)))
+      (magit-status-setup-buffer)))
 
   (defun filezilla ()
     "Open filezilla."
