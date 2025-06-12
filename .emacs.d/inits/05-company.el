@@ -33,9 +33,6 @@
 (leaf yasnippet :ensure t
   :doc "Template system"
   :hook (after-init-hook . yas-global-mode)
-  :bind (("C-c y n" . yas-new-snippet)
-	 ("C-c y v" . yas-visit-snippet-file)
-	 ("C-c y i" . yas-insert-snippet))
   :config
   (yas-reload-all)
   (setq yas-indent-line 'fixed)
