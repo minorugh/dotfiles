@@ -62,11 +62,18 @@
   :bind (:prog-mode-map
 	 ("M-n" . flymake-goto-next-error)
 	 ("M-p" . flymake-goto-prev-error))
-  :hook after-init-hook prog-mode-hook)
+  :hook after-init-hook)
 
 (leaf tempbuf
+  :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((magit-mode-hook dired-mode-hook) . turn-on-tempbuf-mode))
+  :hook ((after-change-major-mode-hook . turn-on-tempbuf-mode)
+	 (tempbuf-kill-hook . my:tempbuf-inhibit-message))
+  :config
+  (defun my:tempbuf-inhibit-message ()
+    "Suppress messages when tempbuf kill executed."
+    (interactive)
+    (setq inhibit-message t)))
 
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
