@@ -68,13 +68,26 @@
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((after-change-major-mode-hook . turn-on-tempbuf-mode)
-	 (tempbuf-kill-hook . my:tempbuf-inhibit-message))
+  :hook ((special-mode-hook magit-mode-hook dired-mode-hook)
+	 . turn-on-tempbuf-mode)
   :config
-  (defun my:tempbuf-inhibit-message ()
-    "Suppress messages when tempbuf kill executed."
+  (setq tempbuf-kill-message nil))
+
+(leaf bs :tag "builtin"
+  :doc "Menu for selecting and displaying buffers"
+  :bind (("M-]" . bs-cycle-next)
+	 ("M-[" . bs-cycle-previous)))
+
+(leaf emacs-lock-mode :tag "builtin"
+  :doc "Set buffer that can not be killed"
+  :hook (after-init-hook . my:lock-mode)
+  :init
+  (defun my:lock-mode ()
     (interactive)
-    (setq inhibit-message t)))
+    (with-current-buffer "*scratch*"
+      (emacs-lock-mode 'kill))
+    (with-current-buffer "*Messages*"
+      (emacs-lock-mode 'kill))))
 
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
@@ -99,22 +112,6 @@
 	  (setq toggle-scratch-prev-buffer (buffer-name))
 	  (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
-
-(leaf emacs-lock-mode :tag "builtin"
-  :doc "Set buffer that can not be killed"
-  :hook (after-init-hook . my:lock-mode)
-  :init
-  (defun my:lock-mode ()
-    (interactive)
-    (with-current-buffer "*scratch*"
-      (emacs-lock-mode 'kill))
-    (with-current-buffer "*Messages*"
-      (emacs-lock-mode 'kill))))
-
-(leaf bs :tag "builtin"
-  :doc "Menu for selecting and displaying buffers"
-  :bind (("M-]" . bs-cycle-next)
-	 ("M-[" . bs-cycle-previous)))
 
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
