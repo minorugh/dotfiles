@@ -22,10 +22,10 @@
 
 (leaf undohist :ensure t
   :doc "Persistent undo history"
-  :hook (after-init-hook . undohist-initialize)
   :config
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
-  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))
+  :hook (after-init-hook . undohist-initialize))
 
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
@@ -48,8 +48,8 @@
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
   :init
-  (leaf ivy-prescient :ensure t :after prescient)
-  (leaf company-prescient :ensure t :after prescient))
+  (leaf ivy-prescient :ensure t :after ivy)
+  (leaf company-prescient :ensure t :after company))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"

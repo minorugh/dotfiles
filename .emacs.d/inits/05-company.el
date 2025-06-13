@@ -14,12 +14,14 @@
 	  ("<muhenkan>"  . company-abort)))
   :config
   (setq company-transformers          '(company-sort-by-backend-importance))
-  (setq company-idle-delay            0)
+  (setq company-idle-delay            0.5)
   (setq company-require-match         'never)
   (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t)
   (setq completion-ignore-case        t)
   (setq company-dabbrev-downcase      nil)
+  ;; Add yasnippet support for all company backends
+  ;; https://github.com/syl20bnr/spacemacs/pull/179
   (defvar company-mode/enable-yas t
     "Enable yasnippet for all backends.")
   (defun company-mode/backend-with-yas (backend)

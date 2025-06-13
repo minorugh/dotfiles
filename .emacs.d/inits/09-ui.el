@@ -13,7 +13,7 @@
   (leaf hl-line :tag "Builtin"
     :doc "Highlight the current line"
     :hook ((after-init-hook . global-hl-line-mode)
-	   ((dashboard-mode-hook eshell-mode-hook)
+	   (dashboard-mode-hook
 	    . (lambda () (setq-local global-hl-line-mode nil))))
     :custom-face
     (region  . '((t (:background "#6272a4" :extend t))))
@@ -21,13 +21,13 @@
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
-  :hook after-init-hook
   :config
   (setq doom-modeline-icon            t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
-  (column-number-mode 0))
+  (column-number-mode 0)
+  :hook after-init-hook)
 
 (with-eval-after-load 'doom-modeline
   (leaf nyan-mode :ensure t
@@ -39,7 +39,7 @@
 
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
-    :hook (imenu-list-major-mode-hook neotree-mode-hook))
+    :hook imenu-list-major-mode-hook neotree-mode-hook)
 
   (leaf nerd-icons :ensure t
     :if (display-graphic-p))
