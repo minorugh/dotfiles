@@ -101,4 +101,7 @@
 	   (message "Compile successful."))
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 20-hydra-work.el ends here

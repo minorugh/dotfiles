@@ -61,4 +61,7 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files)))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 01-dashboard.el ends here

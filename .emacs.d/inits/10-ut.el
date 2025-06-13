@@ -68,7 +68,7 @@
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((special-mode-hook magit-mode-hook dired-mode-hook)
+  :hook ((special-mode-hook magit-mode-hook dired-mode-hook compilation-mode-hook)
 	 . turn-on-tempbuf-mode)
   :config
   (setq tempbuf-kill-message nil))
@@ -116,6 +116,7 @@
 (leaf *user-gist-commands
   :doc "Gist upload from current buffer or region"
   :tag "Be configured to be able to use gist on the command line from the terminal"
+  :defun gist-filename gist-description dired-get-filename
   :init
   (defun gist-description ()
     "Add gist description."

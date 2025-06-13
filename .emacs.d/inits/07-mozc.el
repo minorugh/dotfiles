@@ -62,4 +62,7 @@
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 07-mozc.el ends here

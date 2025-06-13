@@ -59,4 +59,7 @@ If there are two or more windows, it will go to another window."
 	(split-window-horizontally))
       (other-window 1))))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 06-dimmer.el ends here

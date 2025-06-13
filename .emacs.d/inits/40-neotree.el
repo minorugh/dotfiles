@@ -6,7 +6,7 @@
 (leaf neotree :ensure t
   :doc "Tree plugin like NerdTree for Vim"
   :after projectile
-  :defun neotree-find neo-buffer--execute neo-global--select-mru-window
+  :defun neo-buffer--execute neo-global--select-mru-window
   :bind (("<f10>" . my:neotree-find)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)

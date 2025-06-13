@@ -43,7 +43,7 @@
   (setq-default cursor-in-non-selected-windows . nil)
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
-  (setq bookmark-file "~/.emacs.d/tmp/bookmarks")
+  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks")
 
   ;; Minimize the fringe
   (set-fringe-mode 1)
@@ -98,7 +98,7 @@
 	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
 	 ([muhenkan] . my:keyboard-quit))
   :init
-  (defun my:upcase-word (Arg)
+  (defun my:upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
     (interactive "p")
     (upcase-word (- arg)))
@@ -163,4 +163,7 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 00-base.el ends here

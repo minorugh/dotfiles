@@ -38,4 +38,7 @@
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 05-company.el ends here

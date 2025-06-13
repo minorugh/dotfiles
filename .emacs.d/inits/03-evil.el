@@ -125,4 +125,7 @@
     (interactive)
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 03-evil.el ends here

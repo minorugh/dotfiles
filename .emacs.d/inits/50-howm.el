@@ -43,4 +43,7 @@
     (delete-other-windows)
     (evil-insert-state)))
 
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; 50-howm.el ends here
