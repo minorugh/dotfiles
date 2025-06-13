@@ -25,7 +25,7 @@
   (setq magit-refs-show-commit-count 'all)
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
-  ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
   :preface
   (defun gitk-open ()

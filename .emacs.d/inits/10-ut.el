@@ -40,9 +40,8 @@
 	ediff-split-window-function 'split-window-horizontally
 	ediff-diff-options "-twB"))
 
-(leaf ps-mule
+(leaf ps-mule :tag "Builtin"
   :doc "provide multi-byte character facility to ps-print"
-  :tag "Builtin"
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
@@ -58,12 +57,12 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf flymake
+(leaf flymake :tag "Builtin"
   :doc "A universal on-the-fly syntax checker"
-  :bind (("M-f" . flymake-mode)
-	 (:prog-mode-map
-	  ("M-n" . flymake-goto-next-error)
-	  ("M-p" . flymake-goto-prev-error))))
+  :bind (:prog-mode-map
+	 ("M-n" . flymake-goto-next-error)
+	 ("M-p" . flymake-goto-prev-error))
+  :hook after-init-hook prog-mode-hook)
 
 (leaf super-save :ensure t
   :doc "Smart auto save buffers"
