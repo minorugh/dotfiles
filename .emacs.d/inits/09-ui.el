@@ -127,17 +127,6 @@
   (setq which-key-delay 0.0)
   :hook after-init-hook)
 
-(leaf pangu-spacing :ensure t
-  :doc "Put a space between Japanese and English"
-  :url "http://github.com/coldnew/pangu-spacing"
-  :hook markdown-mode-hook text-mode-hook
-  :config
-  (setq pangu-spacing-real-insert-separtor t)
-  (setq pangu-spacing-include-regexp ;; alphabet only
-	(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-			 (group-n 1 (or (category japanese))))))
-	    (group-n 2 (in "a-zA-Z")))))
-
 (leaf darkroom :ensure t
   :doc "Remove visual distractions and focus on writing"
   :bind (([f8] . my:darkroom-in)
