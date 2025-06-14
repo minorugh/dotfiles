@@ -61,17 +61,17 @@
   :doc "A universal on-the-fly syntax checker"
   :bind ("C-c f" . flymake-show-buffer-diagnostics)
   :hook ((prog-mode-hook . flymake-mode)
-	 (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
-  :init (setq flymake-no-changes-timeout nil
-	      flymake-fringe-indicator-position 'right-fringe))
+	 (lisp-interaction-mode-hook
+	  . (lambda () (interactive)(flymake-mode 0)))))
 
 (leaf tempbuf
-    :doc "https://www.emacswiki.org/emacs/TempbufMode"
-    :vc (:url "https://github.com/minorugh/tempbuf")
-    :hook ((special-mode-hook magit-mode-hook dired-mode-hook compilation-mode-hook)
-	   . turn-on-tempbuf-mode)
-    :config
-    (setq tempbuf-kill-message nil))
+  :doc "https://www.emacswiki.org/emacs/TempbufMode"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((special-mode-hook
+	  magit-mode-hook dired-mode-hook
+	  compilation-mode-hook) . turn-on-tempbuf-mode)
+  :config
+  (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
