@@ -67,8 +67,8 @@
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((special-mode-hook
-	  magit-mode-hook dired-mode-hook
+  :hook ((fundamental-mode-hook
+	  special-mode-hook magit-mode-hook dired-mode-hook
 	  compilation-mode-hook) . turn-on-tempbuf-mode)
   :config
   (setq tempbuf-kill-message nil))

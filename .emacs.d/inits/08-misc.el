@@ -47,9 +47,8 @@
   :config
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
-  :init
-  (leaf ivy-prescient :ensure t :after ivy)
-  (leaf company-prescient :ensure t :after company))
+  (leaf ivy-prescient :ensure t)
+  (leaf company-prescient :ensure t))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
