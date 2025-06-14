@@ -57,21 +57,21 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf flymake :tag "Builtin"
+(leaf flymake :tag "builtin"
   :doc "A universal on-the-fly syntax checker"
+  :bind ("C-c f" . flymake-show-buffer-diagnostics)
   :hook ((prog-mode-hook . flymake-mode)
 	 (lisp-interaction-mode-hook . (lambda () (interactive)(flymake-mode 0))))
-  :bind (:prog-mode-map
-	 ("M-n" . flymake-goto-next-error)
-	 ("M-p" . flymake-goto-prev-error)))
+  :init (setq flymake-no-changes-timeout nil
+	      flymake-fringe-indicator-position 'right-fringe))
 
 (leaf tempbuf
-  :doc "https://www.emacswiki.org/emacs/TempbufMode"
-  :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((special-mode-hook magit-mode-hook dired-mode-hook compilation-mode-hook)
-	 . turn-on-tempbuf-mode)
-  :config
-  (setq tempbuf-kill-message nil))
+    :doc "https://www.emacswiki.org/emacs/TempbufMode"
+    :vc (:url "https://github.com/minorugh/tempbuf")
+    :hook ((special-mode-hook magit-mode-hook dired-mode-hook compilation-mode-hook)
+	   . turn-on-tempbuf-mode)
+    :config
+    (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
