@@ -1,4 +1,4 @@
-;;; init.el --- Emacs first Configuration.  -*- lexical-binding: t -*-
+;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
