@@ -1,4 +1,4 @@
-;;; 10-gist.el --- Gist configulation. -*- lexical-binding: t -*-
+;;; 80-gist.el --- Gist configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,4 +36,4 @@ If region isn't selected, post from the buffer."
       (compile (concat "gist -od " (gist-description) " " file)))
     (delete-other-windows)))
 
-;;; 10-gist.el ends here
+;;; 80-gist.el ends here
