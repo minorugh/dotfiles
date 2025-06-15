@@ -65,8 +65,8 @@
  	  . (lambda () (interactive)(flycheck-mode 0))))
   :bind (("M-n" . flycheck-next-error)
 	 ("M-p" . flycheck-previous-error))
-  :custom ((flycheck-emacs-lisp-initialize-packages . t))
   :config
+  (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
   (eval-and-compile (require 'flycheck))
   (setq flycheck-emacs-lisp-package-initialize-form

@@ -41,7 +41,6 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
-(setq byte-compile-warnings '(cl-functions))
 
 ;; Suppress startup messages when the package is already installed.
 ;; When clean install packages, do not suppress startup messages.

@@ -6,6 +6,8 @@
 
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
+;;; Don't pop up a buffer whenever there's a small warning in some package, like "dockstring too wide"
+(setq warning-minimum-level :error)
 
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
