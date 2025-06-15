@@ -45,11 +45,12 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :custom `((custom-file . ,(locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
-  (init-loader-load))
+  (init-loader-load)
+  :init
+  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 (leaf *auto-byte-compile
   :hook (kill-emacs-hook . auto-compile-inits)

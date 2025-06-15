@@ -20,8 +20,7 @@
 	 ("i" . call-sxiv)
 	 ("@" . dired-do-gist))
   :config
-  (with-eval-after-load 'dired
-    (require 'dired-x))
+  (with-eval-after-load 'dired (require 'dired-x))
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
@@ -30,8 +29,7 @@
   (setq ls-lisp-use-insert-directory-program nil)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-  (leaf sudo-edit :ensure t)
-
+  :init
   (defun dired-open-in-accordance-with-situation ()
     "Files are opened in separate buffers, directories are opened in the same buffer."
     (interactive)

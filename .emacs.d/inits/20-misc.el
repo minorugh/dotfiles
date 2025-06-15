@@ -1,4 +1,4 @@
-;;; 08-misc.e,l --- Misc utilities configurations. -*- lexical-binding: t -*-
+;;; 20-misc.e,l --- Misc utilities configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -47,8 +47,9 @@
   :config
   (setq prescient-aggressive-file-save t)
   (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
-  (leaf ivy-prescient :ensure t)
-  (leaf company-prescient :ensure t))
+  (with-eval-after-load 'prescient
+    (leaf ivy-prescient :ensure t)
+    (leaf company-prescient :ensure t)))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
@@ -61,21 +62,16 @@
 (leaf atomic-chrome :ensure t
   :doc "Edit text areas of the browser in Emacs"
   :hook (after-init-hook . atomic-chrome-start-server)
-  :custom (atomic-chrome-buffer-open-style . 'full))
-
-(leaf google-this :ensure t
-  :doc "Google search at region or under point"
-  :config
-  (defun my:google-this ()
-    "Run without confirmation"
-    (interactive)
-    (google-this (current-word) t)))
+  :config (setq atomic-chrome-buffer-open-style 'full))
 
 (leaf iedit :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously"
   :bind ("<insert>" . iedit-mode))
 
+(leaf sudo-edit :ensure t
+  :doc "Edit currently visited file as another user.")
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 08-misc.el ends here
+;;; 20-misc.el ends here

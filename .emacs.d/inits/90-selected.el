@@ -51,7 +51,15 @@
       (prog1
 	  (buffer-substring-no-properties (region-beginning) (region-end))
 	(deactivate-mark)
-	(message "")))))
+	(message ""))))
+
+  (leaf google-this :ensure t
+    :doc "Google search at region or under point"
+    :config
+    (defun my:google-this ()
+      "Run without confirmation"
+      (interactive)
+      (google-this (current-word) t))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

@@ -1,10 +1,9 @@
-;;; 20-hydra-work.el --- Hydra quick work configurations. -*- lexical-binding: t -*-
+;;; 30-hydra-work.el --- Hydra quick work configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf *hydra-work
-  :doc "Selection menu for project work"
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -58,17 +57,14 @@
    ("<muhenkan>" nil))
   :init
   (defun filezilla-open ()
-    "Open filezilla."
     (interactive)
     (compile "filezilla -s"))
 
   (defun thunar-open ()
-    "Open thunar with current dir."
     (interactive)
     (compile (concat "thunar " default-directory)))
 
   (defun terminal-open ()
-    "Open termninal with current dir."
     (interactive)
     (let ((dir (directory-file-name default-directory)))
       (when (and (eq system-type 'gnu/linux)
@@ -77,32 +73,7 @@
       (compile (concat "gnome-terminal --working-directory " dir))))
 
   (defun ssh-xsrv ()
-    "Open terminal and ssh to xsrv."
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compilation and autoclose
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(leaf compile
-  :doc "run compiler as inferior of Emacs"
-  :tag "Builtin"
-  :config
-  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
-  (setq compilation-scroll-output t)
-  (setq compilation-always-kill t)
-  (setq compilation-finish-functions 'compile-autoclose)
-  :init
-  (defun compile-autoclose (buffer string)
-    "Automatically close the compilation."
-    (cond ((string-match "compilation" (buffer-name buffer))
-	   (string-match "finished" string)
-	   (delete-other-windows)
-	   (message "Compile successful."))
-	  (t (message "Compilation exited abnormally: %s" string)))))
-
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
-;;; 20-hydra-work.el ends here
+;;; 30-hydra-work.el ends here

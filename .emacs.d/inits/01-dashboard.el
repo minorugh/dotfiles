@@ -6,6 +6,7 @@
 (leaf dashboard :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
+  :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
   :hook (after-init-hook . dashboard-setup-startup-hook)
   :bind ([home] . dashboard-toggle)
   :init
@@ -59,7 +60,18 @@
     (delete-other-windows)
     (switch-to-buffer "*dashboard*")
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files)))
+    (dashboard-goto-recent-files))
+
+  (defun emacs-init-time ()
+    "Overwrite `emacs-init-time' defined in time.el."
+    (interactive)
+    (let ((str
+	   (format "%.3f seconds"
+		   (float-time
+		    (time-subtract after-init-time before-init-time)))))
+      (if (called-interactively-p 'interactive)
+	  (message "%s" str)
+	str))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

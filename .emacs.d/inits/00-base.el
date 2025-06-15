@@ -80,6 +80,7 @@
 
 
 (leaf *cus-user-configrations
+  :defun minibuffer-keyboard-quit
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:make my:evil
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
@@ -142,17 +143,6 @@ If the region is inactive, `backward-kill-word'."
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
-
-  (defun emacs-init-time ()
-    "Overwrite `emacs-init-time' defined in time.el."
-    (interactive)
-    (let ((str
-	   (format "%.3f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
-	  (message "%s" str)
-	str)))
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.

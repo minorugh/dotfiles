@@ -12,7 +12,6 @@
   :config
   (setq deepl-auth-key 'deepl-auth-key))
 
-
 (leaf google-translate :ensure t
   :doc
   :defun google-translate-translate
@@ -45,7 +44,6 @@
 	   string)))))
   (defun google-translate--get-b-d1 ()
     (list 427110 1469889687)))
-
 
 (leaf deepl-translate-web
   :doc "Use deepl-transrate on web"

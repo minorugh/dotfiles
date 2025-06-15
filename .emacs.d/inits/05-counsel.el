@@ -6,8 +6,7 @@
 (leaf counsel :ensure t
   :doc "Various completion functions using Ivy"
   :defun ivy--format-function-generic ivy--add-face thing-at-point-looking-at
-  ivy-thing-at-point ad:counsel-ag ivy-add-actions --map s-join s-matches-p
-  s-equals? --partition-by s-matches? s-split migemo-get-pattern
+  ivy-thing-at-point ad:counsel-ag ivy-add-actions
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 	 ("C-x C-b" . counsel-switch-buffer)
@@ -72,44 +71,6 @@
     :config
     (setq amx-save-file "~/.emacs.d/tmp/amx-items")
     (setq amx-history-length 20)))
-
-
-(leaf swiper :ensure t
-  :doc "Isearch with an overview"
-  :bind (("C-s" . swiper-region)
-	 ("s-s" . swiper-thing-at-point))
-  :config
-  (defun swiper-region ()
-    "If region is selected, `swiper-thing-at-point'.
-If the region isn't selected, `swiper'."
-    (interactive)
-    (if (not (use-region-p))
-	(swiper)
-      (swiper-thing-at-point)))
-
-  ;; For swiper-migemo
-  ;; see "https://www.yewton.net/2020/04/21/migemo-ivy/"
-  (defun my:ivy-migemo-re-builder (str)
-    "Own function for my:ivy-migemo."
-    (let* ((sep " \\|\\^\\|\\.\\|\\*")
-	   (splitted (--map (s-join "" it)
-			    (--partition-by (s-matches-p " \\|\\^\\|\\.\\|\\*" it)
-					    (s-split "" str t)))))
-      (s-join "" (--map (cond ((s-equals? it " ") ".*?")
-			      ((s-matches? sep it) it)
-			      (t (migemo-get-pattern it)))
-			splitted))))
-
-  (setq ivy-re-builders-alist '((t . ivy--regex-plus)
-				(swiper . my:ivy-migemo-re-builder)))
-  :init
-  (leaf migemo :ensure t
-    :doc "Japanese incremental search through dynamic pattern expansion"
-    :if (executable-find "cmigemo")
-    :hook (after-init-hook . migemo-init)
-    :config
-    (setq migemo-command    "cmigemo")
-    (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
