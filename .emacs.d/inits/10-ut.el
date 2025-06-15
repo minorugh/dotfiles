@@ -67,7 +67,7 @@
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((emacs-lock-mode-hook . turn-off-tempbuf-mode)
+  :hook ((emacs-lock-mode-hook . turn-off-tempbuf-mode) ;; Write this setup first.
 	 (after-change-major-mode-hook . turn-on-tempbuf-mode))
   :config (setq tempbuf-kill-message nil))
 
