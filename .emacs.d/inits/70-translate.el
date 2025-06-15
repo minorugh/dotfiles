@@ -3,35 +3,48 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf my:deepl-api
-  :doc "Load auth key from Dropbox/backup"
-  :config
-  (load "~/Dropbox/backup/deepl/deepl-api.el"))
-
-
 (leaf deepl-translate
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :doc "Translation in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/"
   :bind ("C-c d" . deepl-translate)
+  :init (load "~/Dropbox/backup/deepl/deepl-api.el")
   :config
   (setq deepl-auth-key 'deepl-auth-key))
 
 
-(leaf go-translate :ensure t
-  :doc "Translation framework on Emacs"
-  :url "https://github.com/lorniu/go-translate"
-  :defun gt-deepl-engine gt-taker gt-translator gt-buffer-render gt-google-engine
-  :bind ("C-t" . gt-do-translate)
+(leaf google-translate :ensure t
+  :doc
+  :hook after-init-hook
+  :bind ("C-c t" . google-translate-auto)
   :config
-  (setq gt-langs '(en ja))
-  (setq gt-default-translator
-	(gt-translator
-	 :taker   (gt-taker :text 'buffer :pick 'paragraph)
-	 :engines (list
-		   (gt-google-engine)
-		   (gt-deepl-engine :key deepl-auth-key :pro nil))
-	 :render  (gt-buffer-render))))
+  (defun google-translate-auto ()
+    "Automatically recognize and translate Japanese and English."
+    (interactive)
+    (if (use-region-p)
+	(let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
+	  (deactivate-mark)
+	  (if (string-match (format "\\`[%s]+\\'" "[:ascii:]")
+			    string)
+	      (google-translate-translate
+	       "en" "ja"
+	       string)
+	    (google-translate-translate
+	     "ja" "en"
+	     string)))
+      (let ((string (read-string "Google Translate: ")))
+	(if (string-match
+	     (format "\\`[%s]+\\'" "[:ascii:]")
+	     string)
+	    (google-translate-translate
+	     "en" "ja"
+	     string)
+	  (google-translate-translate
+	   "ja" "en"
+	   string)))))
+  :init
+  (defun google-translate--get-b-d1 ()
+    (list 427110 1469889687)))
 
 
 (leaf deepl-translate-web

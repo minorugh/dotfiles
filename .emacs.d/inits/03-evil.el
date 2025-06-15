@@ -20,7 +20,7 @@
 	  ("c"        . clipboard-kill-ring-save)
 	  ("g"        . my:google-this)
 	  ("d"        . deepl-translate)
-	  ("t"        . gt-do-translate)
+	  ("t"        . google-translate-auto)
 	  ([muhenkan] . my:return-to-normal-state))
 	 (:evil-motion-state-map
 	  ([muhenkan] . my:return-to-normal-state))

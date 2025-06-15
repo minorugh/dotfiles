@@ -14,7 +14,7 @@
 	  ("y" . clipboard-kill-ring-save)
  	  ("s" . swiper-thing-at-point)
 	  ("d" . deepl-translate)
- 	  ("t" . gt-do-translate)
+ 	  ("t" . google-translate-auto)
 	  ("w" . my:weblio)
 	  ("g" . my:google-this)))
   :config

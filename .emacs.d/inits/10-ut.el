@@ -64,12 +64,17 @@
 	 (lisp-interaction-mode-hook
 	  . (lambda () (interactive)(flymake-mode 0)))))
 
+
+;; The tempbuf-mode is a minor mode that automatically deletes buffers.
+;; after-change-major-mode-hook should be set last.
+;; because it's executed at the end of a properly written major-mode command.
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((emacs-lock-mode-hook . turn-off-tempbuf-mode) ;; Write this setup first.
+  :hook (((lisp-interaction-mode-hook emacs-lock-mode-hook) . turn-off-tempbuf-mode)
 	 (after-change-major-mode-hook . turn-on-tempbuf-mode))
-  :config (setq tempbuf-kill-message nil))
+  :config
+  (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
