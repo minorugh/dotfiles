@@ -67,11 +67,9 @@
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((fundamental-mode-hook
-	  special-mode-hook magit-mode-hook dired-mode-hook
-	  compilation-mode-hook) . turn-on-tempbuf-mode)
-  :config
-  (setq tempbuf-kill-message nil))
+  :hook ((emacs-lock-mode-hook . turn-off-tempbuf-mode)
+	 (after-change-major-mode-hook . turn-on-tempbuf-mode))
+  :config (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
