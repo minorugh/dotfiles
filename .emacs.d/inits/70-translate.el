@@ -15,7 +15,7 @@
 
 (leaf google-translate :ensure t
   :doc
-  :hook after-init-hook
+  :hook emacs-startup-hook
   :bind ("C-c t" . google-translate-auto)
   :config
   (defun google-translate-auto ()
@@ -42,7 +42,6 @@
 	  (google-translate-translate
 	   "ja" "en"
 	   string)))))
-  :init
   (defun google-translate--get-b-d1 ()
     (list 427110 1469889687)))
 
