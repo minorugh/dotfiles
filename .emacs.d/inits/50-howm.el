@@ -6,6 +6,7 @@
 (leaf howm :ensure t
   :doc "Wiki-like note-taking tool"
   :url "https://howm.osdn.jp"
+  :defun howm-create evil-insert-state
   :hook after-init-hook
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)

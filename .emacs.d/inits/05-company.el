@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf company :ensure t
+  :defun company-mode/backend-with-yas
   :doc "Modular in-buffer completion framework"
   :hook (after-init-hook . global-company-mode)
   :bind (("C-1"          . company-complete)

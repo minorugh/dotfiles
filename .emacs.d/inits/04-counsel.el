@@ -5,6 +5,9 @@
 
 (leaf counsel :ensure t
   :doc "Various completion functions using Ivy"
+  :defun ivy--format-function-generic ivy--add-face thing-at-point-looking-at
+  ivy-thing-at-point ad:counsel-ag ivy-add-actions --map s-join s-matches-p
+  s-equals? --partition-by s-matches? s-split migemo-get-pattern
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 	 ("C-x C-b" . counsel-switch-buffer)

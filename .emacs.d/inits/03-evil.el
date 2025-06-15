@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
+  :defun evil-ex-define-cmd evil-normal-state evil-emacs-state evil-swap-key ad:switch-to-buffer
   :hook after-init-hook
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
@@ -82,6 +83,7 @@
 
 (leaf evil-leader :ensure t
   :doc "Free keymap on evil-mode"
+  :defun evil-leader/set-leader
   :hook (after-init-hook . global-evil-leader-mode)
   :config
   (evil-leader/set-leader ",")
@@ -103,6 +105,7 @@
     "g" 'my:google-this
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
+    "f" 'flymake-show-buffer-diagnostics
     "," 'org-capture
     "." 'terminal-open
     "?" 'vim-cheat-sheet

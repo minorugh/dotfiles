@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf dimmer :ensure t
+  :defun my:dimmer-activate dimmer-process-all
   :doc "Visually highlight the selected buffer"
   :chord ("::" . my:toggle-dimmer)
   :hook ((emacs-startup-hook . dimmer-excludes)

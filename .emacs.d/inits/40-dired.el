@@ -4,6 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
+  :defun dired-get-filename dired-find-alternate-file dired-find-file
+  dired-current-directory dired-goto-subdir dired-goto-file
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 	 (dired-mode-hook . dired-omit-mode))
   :bind (:dired-mode-map

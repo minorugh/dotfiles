@@ -57,12 +57,24 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf flymake :tag "builtin"
-  :doc "A universal on-the-fly syntax checker"
-  :bind ("C-c f" . flymake-show-buffer-diagnostics)
-  :hook ((prog-mode-hook . flymake-mode)
+(leaf flycheck :ensure t
+  :doc "On-the-fly syntax checking"
+  :url "http://www.flycheck.org"
+  :hook ((prog-mode-hook . flycheck-mode)
 	 (lisp-interaction-mode-hook
-	  . (lambda () (interactive)(flymake-mode 0)))))
+ 	  . (lambda () (interactive)(flycheck-mode 0))))
+  :bind (("M-n" . flycheck-next-error)
+	 ("M-p" . flycheck-previous-error))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :config
+  ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
+  (eval-and-compile (require 'flycheck))
+  (setq flycheck-emacs-lisp-package-initialize-form
+	(flycheck-sexp-to-string
+	 '(progn
+	    (with-demoted-errors "Error during package initialization: %S"
+              (package-initialize))
+	    (leaf-keywords-init)))))
 
 (leaf tempbuf
   :doc "https://www.emacswiki.org/emacs/TempbufMode"

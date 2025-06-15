@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf mozc :ensure t
+  :defun evil-insert-state mozc-handle-event
   :hook emacs-startup-hook
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-m" . my:mozc-config)

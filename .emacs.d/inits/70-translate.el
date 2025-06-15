@@ -15,6 +15,7 @@
 
 (leaf google-translate :ensure t
   :doc
+  :defun google-translate-translate
   :hook emacs-startup-hook
   :bind ("C-c t" . google-translate-auto)
   :config

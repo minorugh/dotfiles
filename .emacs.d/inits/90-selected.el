@@ -6,6 +6,7 @@
 (leaf selected :ensure t
   :doc "Keymap for when region is active"
   :url "http://github.com/Kungsgeten/selected.el"
+  :defun my:ime-on my:ime-off selected--on region-or-read-string
   :hook (after-init-hook . selected-global-mode)
   :bind (("C-c g" . my:google-this)
 	 (:selected-keymap

@@ -128,6 +128,7 @@
   :hook after-init-hook)
 
 (leaf darkroom :ensure t
+  :defun evil-emacs-state evil-normal-state
   :doc "Remove visual distractions and focus on writing"
   :bind (([f8] . my:darkroom-in)
 	 (:darkroom-mode-map
