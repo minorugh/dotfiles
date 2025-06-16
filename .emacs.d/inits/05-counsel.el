@@ -57,7 +57,7 @@
     "Search again with new root directory."
     (let ((current-prefix-arg '(4)))
       (counsel-ag ivy-text nil "")))
-  :preface
+  :init
   (leaf avy :ensure t
     :doc "Jump to arbitrary positions quickly."
     :bind ("C-r" . avy-goto-word-1))
@@ -75,4 +75,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 04-counsel.el ends here
+;;; 05-counsel.el ends here

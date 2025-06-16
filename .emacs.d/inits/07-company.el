@@ -1,4 +1,4 @@
-;;; 05-company.el --- Company configurations. -*- lexical-binding: t -*-
+;;; 07-company.el --- Company configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -32,6 +32,7 @@
 	      '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
+
 (leaf yasnippet :ensure t
   :doc "Template system"
   :hook (after-init-hook . yas-global-mode)
@@ -42,4 +43,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 05-company.el ends here
+;;; 07-company.el ends here

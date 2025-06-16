@@ -5,7 +5,8 @@
 
 (leaf * quick-dired
   :doc "Slection menu for quick access"
-  :bind ("M-." . hydra-dired/body)
+  :bind (("M-."   . hydra-dired/body)
+	 ("C-x m" . neomutt))  ;; Overwrite compose-maile
   :hydra
   (hydra-dired
    (:hint nil :exit t)

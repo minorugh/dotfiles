@@ -9,14 +9,10 @@
   :require my:dired my:template my:make my:evil
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"   . neomutt)      ;; Overwrite compose-maile
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
 	 ("C-w"     . kill-word-or-region)
-	 ("C-y"     . clipboard-yank)
-	 ("M-c"     . my:capitalize-word)
-	 ("M-l"     . my:downcase-word)
-	 ("M-u"     . my:upcase-word)
+	 ("C-q"     . other-window-or-split)
 	 ("M-/"     . kill-current-buffer)
 	 ("C-M-/"   . delete-this-file)
 	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -62,6 +58,14 @@ If the region is inactive, `backward-kill-word'."
 	(clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
 
+  (defun other-window-or-split ()
+    "If there is one window, open split window.
+If there are two or more windows, it will go to another window."
+    (interactive)
+    (when (one-window-p)
+      (split-window-horizontally))
+    (other-window 1))
+
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.
   If it's the last frame, minimize it without deleting it."
@@ -71,7 +75,4 @@ If the region is inactive, `backward-kill-word'."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 ;;; 00-cus-user.el ends here
