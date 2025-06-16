@@ -39,14 +39,9 @@
   :doc "kill unused buffers in the background"
   :url "http://www.emacswiki.org/cgi-bin/wiki.pl?TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook (emacs-lock-mode-hook . turn-off-tempbuf-mode)
+  :hook ((dired-mode-hook magit-mode-hook compilation-mode-hook) . turn-on-tempbuf-mode)
   :config
-  (setq tempbuf-kill-message nil)
-  (add-hook
-   'emacs-startup-hook
-   (lambda ()
-     "Normal hook run at the very end of major mode functions."
-     (add-hook 'after-change-major-mode-hook 'turn-on-tempbuf-mode))))
+  (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
