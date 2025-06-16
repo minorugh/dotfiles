@@ -12,10 +12,11 @@
   :config
   (setq deepl-auth-key 'deepl-auth-key))
 
+
 (leaf google-translate :ensure t
   :doc
   :defun google-translate-translate
-  :hook emacs-startup-hook
+  :require t
   :bind ("C-c t" . google-translate-auto)
   :config
   (defun google-translate-auto ()
@@ -42,8 +43,10 @@
 	  (google-translate-translate
 	   "ja" "en"
 	   string)))))
+
   (defun google-translate--get-b-d1 ()
     (list 427110 1469889687)))
+
 
 (leaf deepl-translate-web
   :doc "Use deepl-transrate on web"
