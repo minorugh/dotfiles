@@ -1,4 +1,4 @@
-;;; 07-company.el --- Company configurations. -*- lexical-binding: t -*-
+;;; 05-company.el --- Company configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -32,6 +32,15 @@
 	      '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
+(leaf prescient :ensure t
+  :doc "Better sorting and filtering"
+  :hook (after-init-hook . prescient-persist-mode)
+  :config
+  (setq prescient-aggressive-file-save t)
+  (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
+  (with-eval-after-load 'prescient
+    (leaf ivy-prescient :ensure t)
+    (leaf company-prescient :ensure t)))
 
 (leaf yasnippet :ensure t
   :doc "Template system"
@@ -43,4 +52,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 07-company.el ends here
+;;; 05-company.el ends here

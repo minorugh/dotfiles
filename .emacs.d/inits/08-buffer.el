@@ -1,4 +1,4 @@
-;;; 10-buffer-ut.el --- Buffer utilities configulation. -*- lexical-binding: t -*-
+;;; 08-buffer.el --- Buffer utilities configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-buffer-ut.el ends here
+;;; 08-buffer.el ends here

@@ -1,7 +1,14 @@
-;;; 20-misc.e,l --- Misc utilities configurations. -*- lexical-binding: t -*-
+;;; 10-misc.e,l --- Misc utilities configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
+
+(leaf which-key :tag "builtin"
+  :doc "Display available keybindings in popup"
+  :config
+  (setq which-key-max-description-length 40)
+  (setq which-key-delay 0.0)
+  :hook after-init-hook)
 
 (leaf quickrun :ensure t
   :bind ([f5] . quickrun))
@@ -27,29 +34,11 @@
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))
   :hook (after-init-hook . undohist-initialize))
 
-(leaf web-mode :ensure t
-  :doc "Web template editing mode for emacs"
-  :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
-  :config
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset    2)
-  (setq web-mode-code-indent-offset   2))
-
 (leaf projectile :ensure t
   :doc "Manage and navigate projects in Emacs"
   :config
   (setq projectile-known-projects-file "~/.emacs.d/tmp/projectile.eld")
   :hook after-init-hook)
-
-(leaf prescient :ensure t
-  :doc "Better sorting and filtering"
-  :hook (after-init-hook . prescient-persist-mode)
-  :config
-  (setq prescient-aggressive-file-save t)
-  (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
-  (with-eval-after-load 'prescient
-    (leaf ivy-prescient :ensure t)
-    (leaf company-prescient :ensure t)))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
@@ -71,7 +60,15 @@
 (leaf sudo-edit :ensure t
   :doc "Edit currently visited file as another user.")
 
+(leaf ediff
+  :doc "Edit while viewing the difference"
+  :hook (ediff-mode-hook . dimmer-off)
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+	ediff-split-window-function 'split-window-horizontally
+	ediff-diff-options "-twB"))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 20-misc.el ends here
+;;; 10-misc.el ends here
