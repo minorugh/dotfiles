@@ -29,7 +29,6 @@
 
 (leaf emacs-lock-mode :tag "builtin"
   :doc "Set buffer that can not be killed"
-  :hook (emacs-lock-mode-hook . turn-off-tempbuf-mode)
   :config
   (with-current-buffer "*scratch*"
     (emacs-lock-mode 'kill))
@@ -38,10 +37,16 @@
 
 (leaf tempbuf
   :doc "kill unused buffers in the background"
+  :url "http://www.emacswiki.org/cgi-bin/wiki.pl?TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook (after-change-major-mode-hook . turn-on-tempbuf-mode)
+  :hook (emacs-lock-mode-hook . turn-off-tempbuf-mode)
   :config
-  (setq tempbuf-kill-message nil))
+  (setq tempbuf-kill-message nil)
+  (add-hook
+   'emacs-startup-hook
+   (lambda ()
+     "Normal hook run at the very end of major mode functions."
+     (add-hook 'after-change-major-mode-hook 'turn-on-tempbuf-mode))))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
