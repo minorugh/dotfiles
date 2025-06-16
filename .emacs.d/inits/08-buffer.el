@@ -13,7 +13,7 @@
   :hook after-init-hook)
 
 (leaf persistent-scratch :ensure t
-  :doc "Save *scratch* buffer state to file and restore from file"
+  :doc "Save scratch buffer state to file and restore from file"
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
   :config
@@ -35,19 +35,22 @@
     (emacs-lock-mode 'kill))
   (with-current-buffer "*Messages*"
     (emacs-lock-mode 'kill))
-  (defun emacs-lock--kill-buffer-query-functions ()
-    "Overwrite for suppress message."
-    (if (or (emacs-lock--can-auto-unlock 'kill)
-            (memq emacs-lock-mode '(nil exit)))
-	t
-      (run-hook-with-args 'emacs-lock-locked-buffer-functions (current-buffer))
-      nil)))
+  ;; (defun emacs-lock--kill-buffer-query-functions ()
+  ;;   "Overwrite for suppress message."
+  ;;   (if (or (emacs-lock--can-auto-unlock 'kill)
+  ;;           (memq emacs-lock-mode '(nil exit)))
+  ;; 	t
+  ;;     (run-hook-with-args 'emacs-lock-locked-buffer-functions (current-buffer))
+  ;;     nil))
+  )
 
 (leaf tempbuf
   :doc "kill unused buffers in the background"
   :url "http://www.emacswiki.org/cgi-bin/wiki.pl?TempbufMode"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook (after-change-major-mode-hook . turn-on-tempbuf-mode)
+  :hook ((magit-mode-hook
+	  dired-mode-hook compilation-mode-hook fundamental-mode-hook)
+	 . turn-on-tempbuf-mode)
   :config
   (setq tempbuf-kill-message nil))
 
