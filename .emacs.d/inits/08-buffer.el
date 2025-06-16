@@ -37,7 +37,7 @@
     (emacs-lock-mode 'kill)))
 
 (leaf tempbuf
-  :doc "https://www.emacswiki.org/emacs/TempbufMode"
+  :doc "kill unused buffers in the background"
   :vc (:url "https://github.com/minorugh/tempbuf")
   :hook (after-change-major-mode-hook . turn-on-tempbuf-mode)
   :config
