@@ -8,9 +8,8 @@
   :doc "Translation in mini-buffer & copy to clipboard"
   :url "https://gist.github.com/masatoi/"
   :bind ("C-c d" . deepl-translate)
-  :init (load "~/Dropbox/backup/deepl/deepl-api.el")
-  :config
-  (setq deepl-auth-key 'deepl-auth-key))
+  :init
+  (load "~/Dropbox/backup/deepl/deepl-api.el"))
 
 (add-hook
  'emacs-startup-hook
