@@ -17,6 +17,7 @@
     :bind (("M-c" . YaTeX-typeset-buffer)
 	   ("M-v" . YaTeX-lpr))))
 
+
 ;;-----------------------------
 ;; dvpd.sh for Linux
 ;;-----------------------------
