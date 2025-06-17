@@ -45,6 +45,8 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
+  :load-path "~/.emacs.d/elisp/"
+  :require my:dired my:template my:make my:evil
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))

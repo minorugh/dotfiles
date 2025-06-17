@@ -3,8 +3,10 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Basic configurations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *basic-configurations
-  :doc ""
   :config
   ;; Faster rendering by not corresponding to right-to-left language
   (setq bidi-display-reordering nil)
@@ -40,6 +42,7 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
   ;; Use the X11 clipboard
   (setq select-enable-clipboard  t)
+
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
   (setq request-storage-directory "~/.emacs.d/tmp/request")
@@ -48,14 +51,12 @@
 
   ;; Minimize the fringe
   (set-fringe-mode 1)
+
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
-
-  ;; Set language & font
-  (set-language-environment "UTF-8")
-  (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
@@ -77,12 +78,12 @@
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Customize onfigurations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf *cus-user-configrations
-  :doc ""
+  :doc "Customize configurations"
   :defun minibuffer-keyboard-quit
-  :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make my:evil
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("M-,"     . xref-find-definitions)
