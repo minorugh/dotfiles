@@ -12,9 +12,9 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  _z_illa  make._c__k__g_|_b__m__u_  _:_.Loca_l_  _n_eomutt
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _p_assx  howm._,__;__@_|md_v_^^^^  _D_ocuments^^  GUI:_a_pp
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  _p_assx  howm._,__;__@_|md_v_^^^^  _D_ocuments^^  _f_lylist
 "
-   ("a" counsel-linux-app)
+   ("f" flycheck-list-errors)
    ("l" my:github-local)
    (":" (browse-url "https://github.com/minorugh"))
    ("o" my:org-dir)

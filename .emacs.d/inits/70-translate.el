@@ -11,44 +11,39 @@
   :init
   (load "~/Dropbox/backup/deepl/deepl-api.el"))
 
-(add-hook
- 'emacs-startup-hook
- (lambda ()
-   (leaf google-translate :ensure t
-     :doc
-     :defun google-translate-translate
-     :commands google-translate-auto
-     :require t
-     :bind ("C-c t" . google-translate-auto)
-     :config
-     (defun google-translate-auto ()
-       "Automatically recognize and translate Japanese and English."
-       (interactive)
-       (if (use-region-p)
-	   (let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
-	     (deactivate-mark)
-	     (if (string-match (format "\\`[%s]+\\'" "[:ascii:]")
-			       string)
-		 (google-translate-translate
-		  "en" "ja"
-		  string)
-	       (google-translate-translate
-		"ja" "en"
-		string)))
-	 (let ((string (read-string "Google Translate: ")))
-	   (if (string-match
-		(format "\\`[%s]+\\'" "[:ascii:]")
-		string)
-	       (google-translate-translate
-		"en" "ja"
-		string)
-	     (google-translate-translate
-	      "ja" "en"
-	      string)))))
+(leaf google-translate :ensure t
+  :doc
+  :defun google-translate-translate
+  :hook (after-init-hook . (lambda () (require 'google-translate)))
+  :bind ("C-c t" . google-translate-auto)
+  :config
+  (defun google-translate-auto ()
+    "Automatically recognize and translate Japanese and English."
+    (interactive)
+    (if (use-region-p)
+	(let ((string (buffer-substring-no-properties (region-beginning) (region-end))))
+	  (deactivate-mark)
+	  (if (string-match (format "\\`[%s]+\\'" "[:ascii:]")
+			    string)
+	      (google-translate-translate
+	       "en" "ja"
+	       string)
+	    (google-translate-translate
+	     "ja" "en"
+	     string)))
+      (let ((string (read-string "Google Translate: ")))
+	(if (string-match
+	     (format "\\`[%s]+\\'" "[:ascii:]")
+	     string)
+	    (google-translate-translate
+	     "en" "ja"
+	     string)
+	  (google-translate-translate
+	   "ja" "en"
+	   string)))))
 
-     (defun google-translate--get-b-d1 ()
-       (list 427110 1469889687)))))
-
+  (defun google-translate--get-b-d1 ()
+    (list 427110 1469889687)))
 
 (leaf deepl-translate-web
   :doc "Use deepl-translate on web"

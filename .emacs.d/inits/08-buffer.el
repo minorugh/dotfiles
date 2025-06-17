@@ -52,12 +52,10 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
-  :url "http://www.flycheck.org"
   :hook ((prog-mode-hook . flycheck-mode)
 	 (lisp-interaction-mode-hook
  	  . (lambda () (interactive)(flycheck-mode 0))))
-  :bind (("M-n" . flycheck-next-error)
-	 ("M-p" . flycheck-previous-error))
+  :bind ("C-c f" . flycheck-list-errors)
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
