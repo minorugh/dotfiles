@@ -1,4 +1,4 @@
-;;; my:make.el --- User make command configurations. -*- lexical-binding: t -*-
+;;; my:compile.el --- User make command configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -52,7 +52,7 @@
     (let* ((default-directory (expand-file-name "~/Dropbox")))
       (compile "make git-commit"))))
 
-(provide 'my:make)
+(provide 'my:compile)
 
 ;; End:
-;;; my:make.el ends here
+;;; my:compile.el ends here

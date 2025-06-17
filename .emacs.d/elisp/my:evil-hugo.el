@@ -1,4 +1,4 @@
-;;; my:evil.el --- User custom Evil configurations. -*- lexical-binding: t -*-
+;;; my:evil-hugo.el --- User custom Evil configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;; This is a customized version of the easy-hugo-newpost function in easy-hugo.el.
@@ -78,9 +78,9 @@
 		   ))))
 	 (view-file buffer-file-name))))))
 
-(provide 'my:evil)
+(provide 'my:evil-hugo)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; my:evil.el ends here
+;;; my:evil-hugo.el ends here

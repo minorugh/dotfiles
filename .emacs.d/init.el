@@ -47,7 +47,7 @@
 (leaf init-loader :ensure t
   :doc "Launch init-loader after loading user settings."
   :load-path "~/.emacs.d/elisp/"
-  :require my:dired my:template my:make my:evil
+  :require my:dired my:template my:compile my:evil-hugo
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
