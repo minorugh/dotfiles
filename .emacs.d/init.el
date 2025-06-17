@@ -45,6 +45,7 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
+  :doc "Launch init-loader after loading user settings."
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:make my:evil
   :config
@@ -55,6 +56,7 @@
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 (leaf *auto-byte-compile
+  :doc "Byte compilation is performed when Emacs exits."
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
   (defun auto-compile-inits ()
