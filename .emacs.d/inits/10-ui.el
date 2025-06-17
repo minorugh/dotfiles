@@ -35,14 +35,11 @@
       :config
       (setq nyan-animate-nyancat t)
       (setq nyan-bar-length 24))
-
     (leaf hide-mode-line :ensure t
       :doc "Hides the mode-line in current buffer"
       :hook imenu-list-major-mode-hook neotree-mode-hook)
-
     (leaf nerd-icons :ensure t
       :if (display-graphic-p))
-
     (leaf nerd-icons-dired :ensure t
       :config (setq nerd-icons-scale-factor 0.8)
       :hook dired-mode-hook)))
@@ -52,15 +49,17 @@
   :hook ((prog-mode-hook text-mode-hook)
 	 (lisp-interaction-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0))))
   :bind  ([f9] . display-line-numbers-mode)
-  :config
-  (setq display-line-numbers-width-start t))
+  :config (setq display-line-numbers-width-start t))
+
+(leaf aggressive-indent :ensure t
+  :doc "Minor mode to aggressively keep your code always indented"
+  :hook emacs-lisp-mode-hook css-mode-hook)
 
 (leaf whitespace :tag "Builtin"
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
   :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
   :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :config
-  (setq show-trailing-whitespace nil)
+  :config (setq show-trailing-whitespace nil)
   :init
   (defun my:cleanup-for-spaces ()
     "Remove contiguous line breaks at end of line + end of file."
