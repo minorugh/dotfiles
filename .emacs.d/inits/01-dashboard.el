@@ -7,7 +7,8 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook (after-init-hook . dashboard-setup-startup-hook)
+  :hook ((after-init-hook . dashboard-setup-startup-hook)
+	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
@@ -17,11 +18,6 @@
   (leaf page-break-lines :ensure t
     :doc "Display ^L page breaks as tidy horizontal lines"
     :global-minor-mode t)
-  (add-hook 'dashboard-mode-hook
-            (lambda ()
-	      "Disable hl-line and set window margins."
-	      (setq-local global-hl-line-mode nil)
-	      (set-window-margins (selected-window) 1 1)))
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
