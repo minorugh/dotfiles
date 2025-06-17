@@ -18,7 +18,7 @@
 	    (setq gc-cons-threshold 800000)
 	    (setq inhibit-redisplay nil)
    	    (setq inhibit-message nil)
-   	    (redisplay)))
+	    (redisplay)))
 
 (eval-and-compile
   (customize-set-variable
