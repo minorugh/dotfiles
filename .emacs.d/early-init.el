@@ -46,13 +46,14 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
-;; Suppress startup messages when the package is already installed.
-;; When clean install packages, do not suppress startup messages.
+;; Suppress messages when the package is already installed.
+;; When clean install packages, do not suppress messages.
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
       (setq inhibit-redisplay t)
       (setq inhibit-message t)
       (custom-set-faces '(default ((t (:background "#282a36"))))))
+  ;; When clean install of packages
   (add-hook 'window-setup-hook
 	    (lambda ()
 	      "Restart Emacs after a clean install of packages."

@@ -17,8 +17,8 @@
 	    (setq file-name-handler-alist default-hadlers)
 	    (setq gc-cons-threshold 800000)
 	    (setq inhibit-redisplay nil)
-   	    (setq inhibit-message nil)
-	    (redisplay)))
+	    (setq inhibit-message nil)
+            (redisplay)))
 
 (eval-and-compile
   (customize-set-variable
