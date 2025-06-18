@@ -45,7 +45,7 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :doc "Launch init-loader after loading user settings."
+  :doc "Exec `init-loader' after loading user functions"
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:compile my:evil-hugo
   :init
@@ -60,7 +60,7 @@
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
   (defun auto-compile-inits ()
-    "Automatic byte-compilation of all initial configuration files."
+    "Byte-compilation of all initial configuration files."
     (interactive)
     (byte-compile-file "~/.emacs.d/early-init.el")
     (byte-compile-file "~/.emacs.d/init.el")
