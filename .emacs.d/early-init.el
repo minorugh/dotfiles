@@ -44,7 +44,6 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
-(setq inhibit-splash-screen t)
 
 ;; Suppress messages when the package is already installed.
 ;; When clean install packages, do not suppress messages.

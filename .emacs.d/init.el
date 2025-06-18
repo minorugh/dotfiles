@@ -48,12 +48,12 @@
   :doc "Launch init-loader after loading user settings."
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:compile my:evil-hugo
+  :init
+  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
-  (init-loader-load)
-  :init
-  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+  (init-loader-load))
 
 (leaf *auto-byte-compile
   :doc "Byte compilation is performed when Emacs exits."
