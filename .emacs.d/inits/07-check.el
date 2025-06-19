@@ -1,4 +1,4 @@
-;;; 10-check.e,l --- Syntax hecking configurations. -*- lexical-binding: t -*-
+;;; 07-check.e,l --- Syntax hecking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -39,4 +39,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-check.el ends here
+;;; 07-check.el ends here

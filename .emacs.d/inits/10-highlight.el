@@ -1,4 +1,4 @@
-;;; 07-highlight.el --- Display highlight configulation. -*- lexical-binding: t -*-
+;;; 10-highlight.el --- Display highlight configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,4 +71,4 @@
 ;;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 07-highlight.el ends here
+;;; 10-highlight.el ends here

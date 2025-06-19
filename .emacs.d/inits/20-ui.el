@@ -8,16 +8,16 @@
   :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
-  (doom-themes-org-config)
-  :preface
-  (leaf hl-line :tag "Builtin"
-    :doc "Highlight the current line"
-    :hook ((after-init-hook . global-hl-line-mode)
-	   (dashboard-mode-hook
-	    . (lambda () (setq-local global-hl-line-mode nil))))
-    :custom-face
-    (region  . '((t (:background "#6272a4" :extend t))))
-    (hl-line . '((t (:background "#3B4252" :extend t))))))
+  (doom-themes-org-config))
+
+(leaf hl-line :tag "Builtin"
+  :doc "Highlight the current line"
+  :hook ((after-init-hook . global-hl-line-mode)
+	 (dashboard-mode-hook
+	  . (lambda () (setq-local global-hl-line-mode nil))))
+  :custom-face
+  (region  . '((t (:background "#6272a4" :extend t))))
+  (hl-line . '((t (:background "#3B4252" :extend t)))))
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line"
@@ -27,22 +27,26 @@
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode 0)
-  (column-number-mode 0)
-  (with-eval-after-load 'doom-modeline
-    (leaf nyan-mode :ensure t
-      :doc "Shows position in current buffer in mode-line"
-      :global-minor-mode t
-      :config
-      (setq nyan-animate-nyancat t)
-      (setq nyan-bar-length 24))
-    (leaf hide-mode-line :ensure t
-      :doc "Hides the mode-line in current buffer"
-      :hook imenu-list-major-mode-hook neotree-mode-hook)
-    (leaf nerd-icons :ensure t
-      :if (display-graphic-p))
-    (leaf nerd-icons-dired :ensure t
-      :config (setq nerd-icons-scale-factor 0.8)
-      :hook dired-mode-hook)))
+  (column-number-mode 0))
+
+(with-eval-after-load 'doom-modeline
+  (leaf nyan-mode :ensure t
+    :doc "Shows position in current buffer in mode-line"
+    :global-minor-mode t
+    :config
+    (setq nyan-animate-nyancat t)
+    (setq nyan-bar-length 24))
+
+  (leaf hide-mode-line :ensure t
+    :doc "Hides the mode-line in current buffer"
+    :hook imenu-list-major-mode-hook neotree-mode-hook)
+
+  (leaf nerd-icons :ensure t
+    :if (display-graphic-p))
+
+  (leaf nerd-icons-dired :ensure t
+    :config (setq nerd-icons-scale-factor 0.8)
+    :hook dired-mode-hook))
 
 (leaf display-line-numbers :tag "builtin"
   :doc "interface for display-line-numbers"
