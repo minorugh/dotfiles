@@ -29,12 +29,13 @@
 
 (leaf emacs-lock-mode :tag "builtin"
   :doc "Set buffer that can not be killed"
-  :defun emacs-lock--can-auto-unlock
   :config
-  (with-current-buffer "*scratch*"
-    (emacs-lock-mode 'kill))
-  (with-current-buffer "*Messages*"
-    (emacs-lock-mode 'kill)))
+  (add-hook 'emacs-startup-hook
+	    (lambda ()
+	      (with-current-buffer "*scratch*"
+		(emacs-lock-mode 'kill))
+	      (with-current-buffer "*Messages*"
+		(emacs-lock-mode 'kill)))))
 
 (leaf tempbuf
   :doc "kill unused buffers in the background"
@@ -49,6 +50,23 @@
   :doc "Menu for selecting and displaying buffers"
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
+
+(leaf compile
+  :doc "run compiler as inferior of Emacs"
+  :tag "Builtin"
+  :config
+  (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
+  (setq compilation-scroll-output t)
+  (setq compilation-always-kill t)
+  (setq compilation-finish-functions 'compile-autoclose)
+  :init
+  (defun compile-autoclose (buffer string)
+    "Automatically close the compilation."
+    (cond ((string-match "compilation" (buffer-name buffer))
+	   (string-match "finished" string)
+	   (delete-other-windows)
+	   (message "Compile successful."))
+	  (t (message "Compilation exited abnormally: %s" string)))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
