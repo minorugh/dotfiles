@@ -23,7 +23,7 @@
 (leaf textlint
   :doc "checker for textlint"
   :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
-  :init
+  :config
   (flycheck-define-checker textlint
     "A linter for prose."
     :command ("textlint" "--format" "unix" source-inplace)
