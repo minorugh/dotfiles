@@ -6,8 +6,6 @@
 
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
-;;; Don't pop up a buffer whenever there's a small warning in some package, like "dockstring too wide"
-(setq warning-minimum-level :error)
 
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
@@ -48,12 +46,12 @@
   :doc "Exec `init-loader' after loading user functions"
   :load-path "~/.emacs.d/elisp/"
   :require my:dired my:template my:compile my:evil-hugo
-  :init
-  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el"))
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
-  (init-loader-load))
+  (init-loader-load)
+  :init
+  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
 (leaf *auto-byte-compile
   :doc "Byte compilation is performed when Emacs exits."
