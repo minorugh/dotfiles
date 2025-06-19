@@ -34,11 +34,6 @@
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
-
-;; Suppress warning
-(setq warning-minimum-level :error)
-(setq byte-compile-warnings '(cl-functions))
-
 ;; Set language & font
 (set-language-environment "UTF-8")
 (add-to-list 'default-frame-alist '(font . "Cica-18"))

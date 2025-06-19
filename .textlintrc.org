@@ -1,0 +1,21 @@
+ {
+  "plugins": {
+    "@textlint/markdown": true
+  },
+  "filters": {
+    "allowlist": {
+      "allow": [
+        "ignored-word",
+        "/\\d{4}-\\d{2}-\\d{2}/",
+        "/===IGNORE===[\\s\\S]*?===\/IGNORE===/m",
+	"自動販売機販売計画",
+	"阪神淡路大震災",
+	"東京特許許可局"
+      ]
+    }
+  },
+  "rules": {
+        "preset-ja-technical-writing": true
+  }
+}
+
