@@ -1,4 +1,4 @@
-;;; 20-hydra-work.el --- Hydra quick work configurations. -*- lexical-binding: t -*-
+;;; 30-hydra-work.el --- Hydra quick work configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -76,4 +76,4 @@
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
 
-;;; 20-hydra-work.el ends here
+;;; 30-hydra-work.el ends here

@@ -1,4 +1,4 @@
-;;; 20-hydra-dired.el --- Hydra quick dired configurations. -*- lexical-binding: t -*-
+;;; 30-hydra-dired.el --- Hydra quick dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -73,4 +73,4 @@
     (compile "filezilla -s")
     (delete-other-windows)))
 
-;;; 20-hydra-dired.el ends here
+;;; 30-hydra-dired.el ends here
