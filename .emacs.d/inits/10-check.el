@@ -18,21 +18,19 @@
 	 '(progn
 	    (with-demoted-errors "Error during package initialization: %S"
               (package-initialize))
-	    (leaf-keywords-init)))))
+	    (leaf-keywords-init))))
 
-(leaf textlint
-  :doc "checker for textlint"
-  :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
-  :config
+  ;; Checker for textlint"
+  ;; see "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
   (flycheck-define-checker textlint
     "A linter for prose."
     :command ("textlint" "--format" "unix" source-inplace)
     :error-patterns
     ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
+	      (id (one-or-more (not (any " "))))
+	      (message (one-or-more not-newline)
+		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+	      line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
 
 ;; Local Variables:
