@@ -25,12 +25,18 @@
 	(progn
 	  (setq toggle-scratch-prev-buffer (buffer-name))
 	  (switch-to-buffer "*scratch*"))
-      (switch-to-buffer toggle-scratch-prev-buffer)))
-  ;; Set buffer that can not be killed
-  (with-current-buffer "*scratch*"
-    (emacs-lock-mode 'kill))
-  (with-current-buffer "*Messages*"
-    (emacs-lock-mode 'kill)))
+      (switch-to-buffer toggle-scratch-prev-buffer))))
+
+(leaf emacs-lock-mode :tag "builtin"
+  :doc "Set buffer that can not be killed"
+  :commands emacs-lock-mode
+  :config
+  (add-hook 'emacs-startup-hook
+	    (lambda ()
+	      (with-current-buffer "*scratch*"
+		(emacs-lock-mode 'kill))
+	      (with-current-buffer "*Messages*"
+		(emacs-lock-mode 'kill)))))
 
 (leaf tempbuf
   :doc "kill unused buffers in the background"
