@@ -28,6 +28,19 @@
     (setq-local line-spacing 0)
     (evil-normal-state)))
 
+;; checker for textlint
+;; see "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
+(flycheck-define-checker textlint
+  "A linter for prose."
+  :command ("textlint" "--format" "unix" source-inplace)
+  :error-patterns
+  ((warning line-start (file-name) ":" line ":" column ": "
+            (id (one-or-more (not (any " "))))
+            (message (one-or-more not-newline)
+                     (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+            line-end))
+  :modes (text-mode markdown-mode gfm-mode org-mode web-mode))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
