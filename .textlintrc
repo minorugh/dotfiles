@@ -1,4 +1,4 @@
-{
+ {
   "plugins": {
     "@textlint/markdown": true
   },
@@ -15,34 +15,7 @@
     }
   },
   "rules": {
-        "@textlint-ja/textlint-rule-no-dropping-i": true,
-        "@textlint-ja/textlint-rule-no-filler": false,
-        "@textlint-ja/textlint-rule-no-insert-dropping-sa": false,
-        "@textlint-ja/textlint-rule-no-insert-re": false,
-        "@textlint-ja/no-synonyms": false,
-        "ja-joyo-or-jinmeiyo-kanji": false,
-        "ja-kyoiku-kanji": false,
-        "ja-no-abusage": true,
-        "ja-no-inappropriate-words": false,
-        "ja-no-mixed-period": false,
-        "ja-no-orthographic-variants": false,
-        "ja-no-redundant-expression": false,	
-        "ja-no-successive-word": false,
-        "ja-no-weak-phrase": false,
-        "ja-unnatural-alphabet": false,
-        "max-kanji-continuous-len": false,
-        "max-ten": false,
-        "no-double-negative-ja": false,
-        "no-doubled-conjunctive-particle-ga": false,
-        "no-doubled-joshi": true,
-        "no-dropping-the-ra": true,
-        "no-mix-dearu-desumasu": true,
-        "no-mixed-zenkaku-and-hankaku-alphabet": false,
-        "no-nfd": false,
-        "prefer-tari-tari": true,
-        "preset-ja-spacing": true,
-        "preset-ja-technical-writing": true,
-        "preset-japanese": true,
-        "preset-jtf-style": false
+        "preset-ja-technical-writing": true
   }
 }
+
