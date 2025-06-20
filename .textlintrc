@@ -11,7 +11,7 @@
       ]
     }
   },
-"rules": {
+  "rules": {
         "preset-ja-technical-writing": {
             "ja-no-mixed-period": false, // 「。」のつけ忘れのチェックを除外
 	    "no-exclamation-question-mark": false, // 「？」のチェックを除外
