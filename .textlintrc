@@ -1,5 +1,6 @@
  {
   "plugins": {
+   // 今の処なにもインストールしていない
   },
   "filters": {
     "allowlist": {
@@ -17,7 +18,7 @@
 	    "ja-no-weak-phrase": false, // 弱い日本語表現のチェックを除外
         },
        "preset-ja-spacing": {
-       "ja-space-between-half-and-full-width": false, // 半角文字と全角文字の間のスペースチェックを除外
+            "ja-space-between-half-and-full-width": false, // 半角文字と全角文字の間のスペースチェックを除外
        },
        "no-mixed-zenkaku-and-hankaku-alphabet": true,
        "@textlint-ja/textlint-rule-no-insert-dropping-sa": true,

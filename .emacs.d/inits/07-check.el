@@ -10,7 +10,7 @@
  	  . (lambda () (interactive)(flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
-  (setq flycheck-checker 'textlint)
+  ;; (setq flycheck-checker 'textlint)
   (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
   (eval-and-compile (require 'flycheck))

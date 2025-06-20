@@ -1,4 +1,4 @@
-;;; 80-writing.el --- Writing mode configulation. -*- lexical-binding: t -*-
+;;; 60-writing.el --- Writing mode configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -43,4 +43,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 80-writing.el ends here
+;;; 60-writing.el ends here
