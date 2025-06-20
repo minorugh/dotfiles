@@ -35,7 +35,8 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Set language & font
-(set-language-environment "UTF-8")
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Faster to disable these here (before they've been initialized)
