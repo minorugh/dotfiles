@@ -34,7 +34,7 @@
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
-;; Set language & font
+;; Set language & coding & font
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
