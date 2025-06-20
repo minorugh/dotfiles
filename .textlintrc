@@ -16,7 +16,7 @@
             "ja-no-mixed-period": false, // 「。」のつけ忘れのチェックを除外
 	    "no-exclamation-question-mark": false, // 「？」のチェックを除外
 	    "ja-no-weak-phrase": false, // 弱い日本語表現のチェックを除外
-        },
+       },
        "preset-ja-spacing": {
             "ja-space-between-half-and-full-width": false, // 半角文字と全角文字の間のスペースチェックを除外
        },
