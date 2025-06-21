@@ -53,7 +53,6 @@
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
-
   ;; Set language & font
   (set-language-environment "Japanese")
   (add-to-list 'default-frame-alist '(font . "Cica-18"))
@@ -77,6 +76,7 @@
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customize onfigurations
