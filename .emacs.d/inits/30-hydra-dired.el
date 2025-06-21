@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf * quick-dired
+(leaf * hydra-dired
   :doc "Slection menu for quick access"
   :bind ("M-." . hydra-dired/body)
   :hydra

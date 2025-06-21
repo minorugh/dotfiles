@@ -10,7 +10,7 @@
 ;; (setq debug-on-error t)
 
 (leaf evil-easy-hugo
-  :defun easy-hugo--org-headers easy-hugo-with-env
+  :defun easy-hugo--org-headers easy-hugo-with-env evil-emacs-state
   :config
   (with-eval-after-load 'easy-hugo
     (defun easy-hugo-newpost (post-file)
@@ -79,7 +79,6 @@
 	 (view-file buffer-file-name))))))
 
 (provide 'my:evil-hugo)
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
