@@ -12,11 +12,13 @@
   (setq dviprint-command-format  "dvpd.sh %s")
   (setq YaTeX-kanji-code         nil)
   (setq YaTeX-latex-message-code 'utf-8)
-  (setq YaTeX-default-pop-window-height 15)
-  (leaf yatexprc
-    :bind (("M-c" . YaTeX-typeset-buffer)
-	   ("M-v" . YaTeX-lpr))))
+  (setq YaTeX-default-pop-window-height 15))
 
+(leaf yatexprc
+  :doc "YaTeX process handler"
+  :after yatex
+  :bind (("M-c" . YaTeX-typeset-buffer)
+	 ("M-v" . YaTeX-lpr)))
 
 ;;-----------------------------
 ;; dvpd.sh for Linux
