@@ -36,4 +36,4 @@ If region isn't selected, post from the buffer."
       (compile (concat "gist -od " (gist-description) " " file)))
     (delete-other-windows)))
 
-;;; 80-gist.el ends here
+;;; 8099-gist.el ends here

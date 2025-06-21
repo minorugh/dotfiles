@@ -18,8 +18,7 @@
 	 ("[" . dired-hide-details-mode)
 	 ("a" . dired-omit-mode)
 	 ("i" . call-sxiv)
-	 ("@" . dired-do-gist)
-	 ("." . hydra-for-dired/body))
+	 ("@" . dired-do-gist))
   :config
   (with-eval-after-load 'dired (require 'dired-x))
   (setq dired-dwim-target t)

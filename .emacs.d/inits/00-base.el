@@ -42,21 +42,21 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
   ;; Use the X11 clipboard
   (setq select-enable-clipboard  t)
-
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
   (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks")
-
   ;; Minimize the fringe
   (set-fringe-mode 1)
-
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
+
+  ;; Set language & font
+  (set-language-environment "Japanese")
+  (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)

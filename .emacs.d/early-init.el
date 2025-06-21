@@ -24,7 +24,6 @@
 ;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
 ;; to skip the mtime checks on every *.elc file.
 ;; Always load newest byte code
-;; (setq load-prefer-newer t)
 (setq load-prefer-newer noninteractive)
 
 ;; Explicitly set the prefered coding systems to avoid annoying prompt
@@ -33,11 +32,6 @@
 
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
-
-;; Set language & coding & font
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
