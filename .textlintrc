@@ -18,7 +18,7 @@
         "preset-ja-technical-writing": {
             "ja-no-mixed-period": false, // 「。」のつけ忘れのチェックを除外
 	    "no-exclamation-question-mark": false, // 「？」のチェックを除外
-	    "ja-no-weak-phrase": false, // 弱い日本語表現のチェックを除外
+	    "ja-no-weak-phrase": false, // 「思う」などの弱い日本語表現のチェックを除外
 	    "no-unmatched-pair": false, // 対になっていない括弧のチェックを除外
        },
        "preset-ja-spacing": {
