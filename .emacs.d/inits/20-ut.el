@@ -40,6 +40,17 @@
 	ediff-split-window-function 'split-window-horizontally
 	ediff-diff-options "-twB"))
 
+(leaf cus-delete-frame
+  :doc "If it's the last frame, minimize it without deleting it"
+  :config
+  (defun handle-delete-frame (event)
+    "Overwrite `handle-delete-frame` defined in `frame.el`."
+    (interactive "e")
+    (let ((frame  (posn-window (event-start event)))
+	  (numfrs (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+	    ((iconify-frame))))))
+
 (leaf ps-mule :tag "Builtin"
   :doc "provide multi-byte character facility to ps-print"
   :if (executable-find "lpr")

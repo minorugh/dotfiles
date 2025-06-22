@@ -102,14 +102,12 @@
 
 
 (leaf *cus-user-configrations
-  :doc "Customize configurations"
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
 	 ("C-w"     . kill-word-or-region)
-	 ("C-q"     . other-window-or-split)
 	 ("M-/"     . kill-current-buffer)
 	 ("C-M-/"   . delete-this-file)
 	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -153,24 +151,7 @@ If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
 	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1)))
-
-  (defun other-window-or-split ()
-    "If there is one window, open split window.
-If there are two or more windows, it will go to another window."
-    (interactive)
-    (when (one-window-p)
-      (split-window-horizontally))
-    (other-window 1))
-
-  (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el`.
-If it's the last frame, minimize it without deleting it."
-    (interactive "e")
-    (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
-      (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
+      (backward-kill-word 1))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
