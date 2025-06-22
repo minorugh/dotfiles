@@ -1,4 +1,4 @@
-;;; 09-window.el --- Dimmer configurations. -*- lexical-binding: t -*-
+;;; 09-frame.el --- Frame controle configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -70,4 +70,4 @@ If it's the last frame, minimize it without deleting it."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 09-window.el ends here
+;;; 09-frame.el ends here
