@@ -1,4 +1,4 @@
-;;; 07-check.e,l --- Syntax hecking configurations. -*- lexical-binding: t -*-
+;;; 07-check.e,l --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,6 +36,15 @@
                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
               line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
+
+;; for hunspell
+(leaf ispell
+  :config
+  (setq ispell-program-name "hunspell")
+  (setq ispell-really-hunspell t)
+  (with-eval-after-load "ispell"
+  (setenv "DICTIONARY" "en_US")
+  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

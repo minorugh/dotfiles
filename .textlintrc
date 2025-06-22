@@ -5,25 +5,47 @@
   "filters": {
     "allowlist": {
       "allow": [
-        "ignored-word", // 文字列の場合のサンプル
+        // 文字列の場合のサンプル
+        "ignored-word",
         "/\\d{4}-\\d{2}-\\d{2}/", // 正規表現によるサンプル
-        "/===IGNORE===[\\s\\S]*?===\/IGNORE===/m", // ===IGNORE ===/IGNORE で囲まれた範囲の正規表現サンプル
-	"/\\+\\+\\+[\\s\\S]*?\\+\\+\\+/m", // Hugo記事のヘッダー（+++で囲まれた範囲）を無視する
-	"/\\<\\a[\\s\\S]*?\\/\\a\\>/m", // HTMLタグ（<a /a>で囲まれた範囲）を無視する
-      	"/\\<\\p[\\s\\S]*?\\/\\p\\>/m", // HTMLタグ（<p /p>で囲まれた範囲）を無視する
+	// ===IGNORE ===/IGNORE で囲まれた範囲の正規表現サンプル
+        "/===IGNORE===[\\s\\S]*?===\/IGNORE===/m",
+        // Hugo記事のヘッダー（+++で囲まれた範囲）を無視する
+        "/\\+\\+\\+[\\s\\S]*?\\+\\+\\+/m",
+        // HTMLタグ（<a /a>で囲まれた範囲）を無視する
+	"/\\<\\a[\\s\\S]*?\\/\\a\\>/m",
+        // HTMLタグ（<p /p>で囲まれた範囲）を無視する
+      	"/\\<\\p[\\s\\S]*?\\/\\p\\>/m",
      ]
     }
   },
   "rules": {
         "preset-ja-technical-writing": {
-            "ja-no-mixed-period": false, // 「。」のつけ忘れのチェックを除外
-	    "no-exclamation-question-mark": false, // 「？」のチェックを除外
-	    "ja-no-weak-phrase": false, // 「思う」などの弱い日本語表現のチェックを除外
-	    "no-unmatched-pair": false, // 対になっていない括弧のチェックを除外
+	    // 「。」のつけ忘れのチェックを除外
+            "ja-no-mixed-period": false,
+	    // 「？」のチェックを除外
+	    "no-exclamation-question-mark": false,
+	    // 「思う」などの弱い日本語表現のチェックを除外
+	    "ja-no-weak-phrase": false,
+	    // 対になっていない括弧のチェックを除外
+	    "no-unmatched-pair": false,
+	    // 漢字連続の警告を７文字まで許可 
+	    "max-kanji-continuous-len": {
+	      max: 7
+	      },
+	    "ja-no-successive-word": {
+              // 括弧の内外のスペースチェックを除外
+              "allowOnomatopee": false,
+              "allow": [
+              "　", "・"
+              ]
+	     },
        },
        "preset-ja-spacing": {
-            "ja-space-between-half-and-full-width": false, // 半角文字と全角文字の間のスペースチェックを除外
-	    "ja-no-space-around-parentheses": false, // 括弧の内外のスペースチェックを除外
+	    // 半角文字と全角文字の間のスペースチェックを除外
+            "ja-space-between-half-and-full-width": false,
+	    // 括弧の内外のスペースチェックを除外
+	    "ja-no-space-around-parentheses": false,
        },
        "no-mixed-zenkaku-and-hankaku-alphabet": true,
        "@textlint-ja/textlint-rule-no-insert-dropping-sa": true,
