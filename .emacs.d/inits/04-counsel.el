@@ -118,6 +118,7 @@ If the region isn't selected, `swiper'."
   (setq ivy-re-builders-alist '((t . ivy--regex-plus)
 				(swiper . my:ivy-migemo-re-builder))))
 
+(provide '04-counsel)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

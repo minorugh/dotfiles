@@ -1,4 +1,4 @@
-;;; 80-writing.el --- Writing mode configulation. -*- lexical-binding: t -*-
+;;; 70-writing.el --- Writing mode configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -40,7 +40,8 @@
 			 (group-n 1 (or (category japanese))))))
 	    (group-n 2 (in "a-zA-Z")))))
 
+(provide '70-writing)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 80-writing.el ends here
+;;; 70-writing.el ends here

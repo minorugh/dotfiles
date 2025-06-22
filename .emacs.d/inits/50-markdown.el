@@ -1,4 +1,4 @@
-;;; 60-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
+;;; 50-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -71,7 +71,8 @@
 	     (file-name-sans-extension filename)
 	     ".docx"))))
 
+(provide '50-markdown)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 60-markdown.el ends here
+;;; 50-markdown.el ends here

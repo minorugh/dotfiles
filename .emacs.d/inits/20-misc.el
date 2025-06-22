@@ -64,6 +64,7 @@
 	ediff-split-window-function 'split-window-horizontally
 	ediff-diff-options "-twB"))
 
+(provide '20-misc)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

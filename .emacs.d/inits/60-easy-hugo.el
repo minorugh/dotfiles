@@ -1,4 +1,4 @@
-;;; 80-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
+;;; 60-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -72,7 +72,8 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request")))
 
+(provide '60-easy-hugo)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 80-easy-hugo.el ends here
+;;; 60-easy-hugo.el ends here

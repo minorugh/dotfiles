@@ -75,6 +75,7 @@
 	(goto-char (point-max))
 	(delete-blank-lines)))))
 
+(provide '20-ui)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

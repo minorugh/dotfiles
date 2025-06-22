@@ -1,4 +1,4 @@
-;;; 30-hydra-menu.el --- Hydra quick-menu configurations. -*- lexical-binding: t -*-
+;;; 30-hydra-work.el --- Hydra quick-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -148,4 +148,5 @@
     (compile "filezilla -s")
     (delete-other-windows)))
 
-;;; 30-hydra-menu.el ends here
+(provide '30-hydra-work)
+;;; 30-hydra-work.el ends here

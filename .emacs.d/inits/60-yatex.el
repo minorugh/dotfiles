@@ -1,4 +1,4 @@
-;;; 50-yatex.el --- YaTex configurations. -*- lexical-binding: t -*-
+;;; 60-yatex.el --- YaTex configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -48,7 +48,8 @@
 ;; rm *.dv*
 ;; rm *.lo*
 
+(provide '60-yatex)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 50-yatex.el ends here
+;;; 60-yatex.el ends here

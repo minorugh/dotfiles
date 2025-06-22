@@ -66,6 +66,7 @@ If it's the last frame, minimize it without deleting it."
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
+(provide '20-ut)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

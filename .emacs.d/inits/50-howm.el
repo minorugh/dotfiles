@@ -44,6 +44,7 @@
     (delete-other-windows)
     (evil-insert-state)))
 
+(provide '50-howm)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

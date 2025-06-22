@@ -49,6 +49,7 @@
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 
+(provide '05-company)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

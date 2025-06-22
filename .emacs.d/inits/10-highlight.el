@@ -68,6 +68,7 @@
     (setq web-mode-enable-heredoc-fontification t)
     (setq web-mode-enable-current-column-highlight t)))
 
+(provide '10-highlight)
 ;;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

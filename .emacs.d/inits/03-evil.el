@@ -127,7 +127,7 @@
     (interactive)
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
-
+(provide '03-evil)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
