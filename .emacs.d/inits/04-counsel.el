@@ -70,15 +70,14 @@
     :doc "Alternative 'M-x' with extra features"
     :config
     (setq amx-save-file "~/.emacs.d/tmp/amx-items")
-    (setq amx-history-length 20))
+    (setq amx-history-length 20)))
 
-  (leaf counsel-tramp :ensure t
-    :config
-    (setq tramp-persistency-file-name "~/.emacs.d/tmp/tramp")
-    (setq tramp-default-method "scp")
-    (setq counsel-tramp-custom-connections
-	  '(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/))))
-
+(leaf counsel-tramp :ensure t
+  :config
+  (setq tramp-persistency-file-name "~/.emacs.d/tmp/tramp")
+  (setq tramp-default-method "scp")
+  (setq counsel-tramp-custom-connections
+	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
 (leaf swiper :ensure t
   :defun --map s-join s-matches-p s-equals? --partition-by s-matches? s-split migemo-get-pattern
