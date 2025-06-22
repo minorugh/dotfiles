@@ -37,7 +37,6 @@
               line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
 
-(provide '07-check)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

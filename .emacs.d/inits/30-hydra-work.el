@@ -148,5 +148,4 @@
     (compile "filezilla -s")
     (delete-other-windows)))
 
-(provide '30-hydra-work)
 ;;; 30-hydra-work.el ends here

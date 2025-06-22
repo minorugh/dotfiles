@@ -48,7 +48,6 @@
 ;; rm *.dv*
 ;; rm *.lo*
 
-(provide '60-yatex)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

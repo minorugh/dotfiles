@@ -71,7 +71,6 @@
 	     (file-name-sans-extension filename)
 	     ".docx"))))
 
-(provide '50-markdown)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

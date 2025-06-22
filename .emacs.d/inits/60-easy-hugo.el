@@ -72,7 +72,6 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request")))
 
-(provide '60-easy-hugo)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

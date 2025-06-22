@@ -63,7 +63,6 @@
                         (setf (nth 1 args) 'candidates))
                       (apply orig-fun args)))
 
-(provide '06-mozc)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

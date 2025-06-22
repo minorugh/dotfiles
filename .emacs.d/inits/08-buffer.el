@@ -58,7 +58,6 @@
 	   (message "Compile successful."))
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
-(provide '08-buffer)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

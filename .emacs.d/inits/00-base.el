@@ -153,7 +153,6 @@ If the region is inactive, `backward-kill-word'."
 	(clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1))))
 
-(provide '00-base)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

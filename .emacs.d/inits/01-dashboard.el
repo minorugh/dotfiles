@@ -69,7 +69,6 @@
 	  (message "%s" str)
 	str))))
 
-(provide '01-dashboard)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

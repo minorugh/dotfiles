@@ -56,7 +56,6 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (diff-hl-delete . '((t (:background "#ff8f88" :foreground "#333"))))
     (diff-hl-insert . '((t (:background "#bfc9ff" :foreground "#333"))))))
 
-(provide '02-git)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

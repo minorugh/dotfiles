@@ -67,7 +67,6 @@ If it's the last frame, minimize it without deleting it."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-(provide '09-frame)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

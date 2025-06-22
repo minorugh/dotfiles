@@ -60,7 +60,6 @@
     (interactive "P")
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
-(provide '40-neotree)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

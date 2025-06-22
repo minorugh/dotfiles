@@ -61,7 +61,6 @@
       (interactive)
       (google-this (current-word) t))))
 
-(provide '90-selected)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

@@ -71,7 +71,6 @@
       "https://www.deepl.com/translator#en/ja/"
       (url-hexify-string string)))))
 
-(provide '70-translate)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

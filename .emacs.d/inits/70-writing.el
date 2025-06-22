@@ -40,7 +40,6 @@
 			 (group-n 1 (or (category japanese))))))
 	    (group-n 2 (in "a-zA-Z")))))
 
-(provide '70-writing)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

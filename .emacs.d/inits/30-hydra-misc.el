@@ -104,7 +104,6 @@
    ("d" md2docx)
    ("<muhenkan>" nil)))
 
-(provide '30-hydra-misc)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
