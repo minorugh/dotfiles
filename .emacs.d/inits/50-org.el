@@ -32,13 +32,13 @@
     (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl" (current-time)))
 
   (setq org-capture-templates
-	'(("d" " 日記" plain (file my:howm-create-file)
+	'(("d" " 日記" plain (file my:howm-create-file)
 	   "# 日記: %?\n%U %i")
-	  ("w" " 創作" plain (file my:howm-create-file)
+	  ("w" " 創作" plain (file my:howm-create-file)
 	   "# 創作: %?\n%U %i")
-	  ("e" " 園芸" plain (file my:howm-create-file)
+	  ("e" " 園芸" plain (file my:howm-create-file)
 	   "# 園芸: %?\n%U %i")
-	  ("c" " 教会" plain (file my:howm-create-file)
+	  ("c" " 教会" plain (file my:howm-create-file)
 	   "# 教会: %?\n%U %i")
 	  ("m" " Memo" plain (file my:howm-create-file)
 	   "# memo: %?\n%U %i")

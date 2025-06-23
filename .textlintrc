@@ -34,7 +34,7 @@
 	      max: 7
 	      },
 	    "ja-no-successive-word": {
-              // 括弧の内外のスペースチェックを除外
+              // 同一単語の連続チェックを除外する単語の設定
               "allowOnomatopee": false,
               "allow": [
               "　", "・"

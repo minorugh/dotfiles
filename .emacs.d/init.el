@@ -66,7 +66,4 @@
     (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
 (provide 'init)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
 ;;; init.el ends here

@@ -28,17 +28,37 @@
     (setq-local line-spacing 0)
     (evil-normal-state)))
 
-(leaf pangu-spacing
-  :doc "Put a space between Japanese and English"
-  :url "http://github.com/coldnew/pangu-spacing"
-  :ensure t
-  :hook ((markdown-mode-hook text-mode-hook) . pangu-spacing-mode)
+
+(leaf yatex :ensure t
+  :doc "Yet Another tex-mode for emacs"
+  :url "https://github.com/emacsmirror/yatex"
+  :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :config
-  (setq pangu-spacing-real-insert-separtor t)
-  (setq pangu-spacing-include-regexp ;; alphabet only
-	(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-			 (group-n 1 (or (category japanese))))))
-	    (group-n 2 (in "a-zA-Z")))))
+  (setq tex-command              "platex")
+  (setq dviprint-command-format  "dvpd.sh %s")
+  (setq YaTeX-kanji-code         nil)
+  (setq YaTeX-latex-message-code 'utf-8)
+  (setq YaTeX-default-pop-window-height 15))
+
+(leaf yatexprc
+  :doc "YaTeX process handler"
+  :after yatex
+  :bind (("M-c" . YaTeX-typeset-buffer)
+	 ("M-v" . YaTeX-lpr)))
+
+;;-----------------------------
+;; dvpd.sh for Linux
+;;-----------------------------
+;; #!/bin/zsh
+;;
+;; # 生成されたPDFをevinceで開く
+;; name=$1
+;; dvipdfmx {name%.*} && evince ${name%.*}.pdf
+;;
+;; # 不要ファイルを削除
+;; rm *.au*
+;; rm *.dv*
+;; rm *.lo*
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
