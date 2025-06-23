@@ -22,9 +22,25 @@
   (setq howm-view-summary-persistent nil)
   (setq howm-normalizer 'howm-sort-items-by-reverse-date)
   (setq howm-user-font-lock-keywords
-	'(("memo:" . (0 'compilation-error))
+	'(("memo:" . (0 'font-lock-comment-face))
 	  ("note:" . (0 'compilation-info))
-	  ("tech:" . (0 'compilation-info))))
+	  ("tech:" . (0 'compilation-info))
+	  ("教会:" . (0 'font-lock-keyword-face))
+	  ("園芸:" . (0 'font-lock-warning-face))
+	  ("日記:" . (0 'font-lock-type-face))
+	  ("創作:" . (0 'font-lock-constant-face))))
+
+  ;; Type of font-lock
+  ;; font-lock-comment-face
+  ;; font-lock-string-face
+  ;; font-lock-keyword-face
+  ;; font-lock-builtin-face
+  ;; font-lock-function-name-face
+  ;; font-lock-variable-name-face
+  ;; font-lock-type-face
+  ;; font-lock-constant-face
+  ;; font-lock-warning-face
+
   (setq howm-template
 	'("# %title%cursor\n%date%file"
 	  "# memo: %cursor\n%date%file"

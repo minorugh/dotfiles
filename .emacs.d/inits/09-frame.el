@@ -13,7 +13,7 @@
 	 (imenu-list-major-mode-hook . dimmer-off))
   :config
   (setq dimmer-buffer-exclusion-regexps
-	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Google Translate*\\|\\*Flycheck errors*\\|\\*Ilist*\\|\\*gt-result*"))
+	'("^ \\*compilation*\\|\\*YaTeX-typesetting*\\|\\*Google Translate*\\|\\*Flycheck errors*\\|\\*Ilist*\\|\\*howmC*\\|\\*gt-result*"))
   (setq dimmer-fraction 0.5)
 
   (defun dimmer-excludes ()
