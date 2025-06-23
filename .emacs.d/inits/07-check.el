@@ -43,8 +43,8 @@
   (setq ispell-program-name "hunspell")
   (setq ispell-really-hunspell t)
   (with-eval-after-load "ispell"
-  (setenv "DICTIONARY" "en_US")
-  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+    (setenv "DICTIONARY" "en_US")
+    (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
