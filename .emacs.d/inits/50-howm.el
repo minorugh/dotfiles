@@ -27,7 +27,7 @@
 	  ("tech:" . (0 'compilation-info))
 	  ("教会:" . (0 'font-lock-keyword-face))
 	  ("園芸:" . (0 'font-lock-warning-face))
-	  ("日記:" . (0 'font-lock-type-face))
+	  ("日記:" . (0 'font-lock-builtin-face))
 	  ("創作:" . (0 'font-lock-constant-face))))
 
   ;; Type of font-lock
