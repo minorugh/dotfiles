@@ -3,15 +3,13 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf flycheck
-  :ensure t
+(leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
   :hook (((text-mode-hook gfm-mode-hook prog-mode-hook) . flycheck-mode)
 	 (lisp-interaction-mode-hook
  	  . (lambda () (interactive)(flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
-  ;; (setq flycheck-checker 'textlint)
   (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
   (eval-and-compile (require 'flycheck))

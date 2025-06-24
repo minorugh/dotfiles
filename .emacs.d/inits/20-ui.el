@@ -30,12 +30,12 @@
   (column-number-mode 0))
 
 (with-eval-after-load 'doom-modeline
-  ;; (leaf nyan-mode :ensure t
-  ;;   :doc "Shows position in current buffer in mode-line"
-  ;;   :global-minor-mode t
-  ;;   :config
-  ;;   (setq nyan-animate-nyancat t)
-  ;;   (setq nyan-bar-length 24))
+  (leaf nyan-mode :ensure t
+    :doc "Shows position in current buffer in mode-line"
+    :global-minor-mode t
+    :config
+    (setq nyan-animate-nyancat t)
+    (setq nyan-bar-length 24))
 
   (leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"

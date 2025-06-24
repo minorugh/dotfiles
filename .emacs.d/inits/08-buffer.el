@@ -27,14 +27,14 @@
 	  (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
-;; (leaf tempbuf
-;;   :doc "kill unused buffers in the background"
-;;   :url "http://www.emacswiki.org/cgi-bin/wiki.pl?TempbufMode"
-;;   :vc (:url "https://github.com/minorugh/tempbuf")
-;;   :hook ((magit-mode-hook dired-mode-hook compilation-mode-hook)
-;; 	 . turn-on-tempbuf-mode)
-;;   :config
-;;   (setq tempbuf-kill-message nil))
+(leaf tempbuf
+  :doc "kill unused buffers in the background"
+  :url "http://www.emacswiki.org/cgi-bin/wiki.pl?TempbufMode"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((magit-mode-hook dired-mode-hook compilation-mode-hook)
+	 . turn-on-tempbuf-mode)
+  :config
+  (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
