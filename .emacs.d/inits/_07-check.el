@@ -3,8 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf flycheck
-  :ensure t
+(leaf flycheck :ensure t
   :doc "On-the-fly syntax checking"
   :hook (((text-mode-hook gfm-mode-hook prog-mode-hook) . flycheck-mode)
 	 (lisp-interaction-mode-hook
@@ -28,15 +27,15 @@
   :after flycheck
   :config
   (flycheck-define-checker textlint
-    "A linter for prose."
-    :command ("textlint" "--format" "unix" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-              (id (one-or-more (not (any " "))))
-              (message (one-or-more not-newline)
-                       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-              line-end))
-    :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
+			   "A linter for prose."
+			   :command ("textlint" "--format" "unix" source-inplace)
+			   :error-patterns
+			   ((warning line-start (file-name) ":" line ":" column ": "
+				     (id (one-or-more (not (any " "))))
+				     (message (one-or-more not-newline)
+					      (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+				     line-end))
+			   :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
 
 ;; for hunspell
 (leaf ispell
