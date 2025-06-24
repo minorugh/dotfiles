@@ -40,7 +40,6 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 
-					; Suppress message if the package is already installed
 ;; If the package is a clean install, do not suppress message
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
