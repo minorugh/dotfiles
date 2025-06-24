@@ -1,3 +1,25 @@
+;;; init-mini.el --- Centaur Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
+
+;; Copyright (C) 2018-2025 Vincent Zhang
+
+;; Author: Vincent Zhang <seagle0128@gmail.com>
+;; URL: https://github.com/seagle0128/.emacs.d
+;; Version: 1.2.0
+;; Keywords: .emacs.d centaur
+
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
 ;;; init-mini.el --- minimal init -*- no-byte-compile: t; lexical-binding: t -*-
 ;;; Commentary:
 ;;
@@ -7,17 +29,18 @@
 ;; Use when test of package and my Emacs don't start.
 ;;; Code:
 
+;; UI
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (set-frame-parameter nil 'fullscreen 'maximized)
-
 (load-theme 'misterioso t)
 
-(setq native-comp-deferred-compilation nil) ;; obsolete since 29.1
-(setq native-comp-jit-compilation nil)
+;; Load path
+(push (expand-file-name "site-lisp" user-emacs-directory) load-path)
+(push (expand-file-name "lisp" user-emacs-directory) load-path)
 
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
@@ -25,105 +48,126 @@
       '(("gnu"   . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 
-(unless (bound-and-true-p package--initialized) ;; To avoid warnings in 27
-  (setq package-enable-at-startup nil)          ;; To prevent initializing twice
-  (package-initialize))
-
-;; Save the file specified code with basic utf-8 if it exists
-(set-language-environment "Japanese")
+;; Explicitly set the prefered coding systems to avoid annoying prompt
+;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
-;; font
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
+;; Better defaults
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets) ; Show path if names are same
+(setq adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*")
+(setq adaptive-fill-first-line-regexp "^* *$")
+(setq delete-by-moving-to-trash t)         ; Deleting files go to OS's trash folder
+(setq make-backup-files nil)               ; Forbide to make backup files
+(setq auto-save-default nil)               ; Disable auto save
+(setq set-mark-command-repeat-pop t)       ; Repeating C-SPC after popping mark pops it again
 
-;;; Faster rendering by not corresponding to right-to-left language
-(setq-default bidi-display-reordering nil)
+(setq-default major-mode 'text-mode)
 
-;; server start for emacs-client
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+(setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
+(setq sentence-end-double-space nil)
 
-;; Do not make a backup file like *.~
-(setq make-backup-files nil)
-;; Do not use auto save
-(setq auto-save-default nil)
-;; Do not create lock file
-(setq create-lockfiles nil)
+;; Tab and Space
+;; Permanently indent with spaces, never with TABs
+(setq-default c-basic-offset   4
+              tab-width        4
+              indent-tabs-mode nil)
 
-;; Dired with directory first
-(require 'ls-lisp)
-(setq ls-lisp-use-insert-directory-program nil ls-lisp-dirs-first t)
+;; (global-hl-line-mode 1)
 
-;; C-h is backspace
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+;; (if (fboundp 'display-line-numbers-mode)
+;;     (global-display-line-numbers-mode 1)
+;;   (global-linum-mode 1))
 
-;; Run M-/ same kill-buffer as C-x k
-(define-key global-map (kbd "M-/") 'kill-this-buffer)
-
-;; When the mouse cursor is close to the text cursor, the mouse hangs away
-(if (display-mouse-p) (mouse-avoidance-mode 'exile))
-
-;; Disable automatic save
-(setq auto-save-default nil)
-
-;; Do not distinguish uppercase and lowercase letters on completion
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
-
-;; Make it easy to see when it is the same name file
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-;; Display the character position of the cursor
-(column-number-mode t)
-
-;; Save history of minibuffer
-(savehist-mode 1)
-(setq savehist-file "~/.emacs.d/tmp/history")
-
-;; Make "yes or no" "y or n"
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Turn off warning sound screen flash
-(setq visible-bell nil)
-;; All warning sounds and flash are invalid (note that the warning sound does not sound completely)
-(setq ring-bell-function 'ignore)
-
-;; Use the X11 clipboard
-(setq select-enable-clipboard  t)
-(define-key global-map (kbd "M-w") 'clipboard-kill-ring-save)
-(define-key global-map (kbd "C-w") 'clipboard-kill-region)
-
-;; ivy
-(if (package-installed-p 'counsel)
-	(ivy-mode 1)
-  (define-key global-map (kbd "C-s") 'swiper-thing-at-point))
-
-;; Brace the corresponding parentheses
+;; Basic modes
 (show-paren-mode 1)
-(setq show-paren-delay 0)
-(setq show-paren-style 'parenthesis)
+(delete-selection-mode 1)
+(global-auto-revert-mode 1)
+(recentf-mode 1)
+(setq auto-save-default nil)
+(when (fboundp 'savehist-mode)
+  (savehist-mode 1))
+(if (fboundp 'save-place-mode)
+    (save-place-mode 1)
+  (require 'saveplace)
+  (setq-default save-place t))
+(setq savehist-file "~/.emacs.d/tmp/history")
+(setq save-place-file "~/.emacs.d/tmp/places")
+(setq recentf-save-file "~/.emacs.d/tmp/recentf")
 
-;; Continue hitting C-SPC and go back to past marks ...C-u C-SPC C-SPC
-(setq set-mark-command-repeat-pop t)
+(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+(electric-pair-mode 1)
 
-;; Assign ibuffer to C-x C-b
-(define-key global-map (kbd "C-x C-b") 'ibuffer)
+(add-hook 'prog-mode-hook #'subword-mode)
+(add-hook 'minibuffer-setup-hook #'subword-mode)
 
-;; Read elisp function source file
+;; Completion
+(when (fboundp 'global-completion-preview-mode)
+  (global-completion-preview-mode 1))
+
+(if (fboundp 'fido-mode)
+    (progn
+      (fido-mode 1)
+      (when (fboundp 'fido-vertical-mode)
+        (fido-vertical-mode 1))
+
+      (defun fido-recentf-open ()
+        "Use `completing-read' to find a recent file."
+        (interactive)
+        (if (find-file (completing-read "Find recent file: " recentf-list))
+            (message "Opening file...")
+          (message "Aborting")))
+      (define-key global-map (kbd "C-x C-r") 'fido-recentf-open))
+  (progn
+    (ido-mode 1)
+    (ido-everywhere 1)
+
+    (setq ido-use-virtual-buffers t
+	  ido-use-filename-at-point 'guess
+	  ido-create-new-buffer 'always
+	  ido-enable-flex-matching t)
+
+    (defun ido-recentf-open ()
+      "Use `ido-completing-read' to find a recent file."
+      (interactive)
+      (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+	  (message "Opening file...")
+	(message "Aborting")))
+    (define-key global-map (kbd "C-x C-r") 'ido-recentf-open)))
+
+;; Change to short command
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'exit 'save-buffers-kill-emacs)
+
+;; Key Modifiers
+(define-key global-map (kbd "s-a") #'mark-whole-buffer)
+(define-key global-map (kbd "s-v") #'yank)
+(define-key global-map (kbd "s-c") #'kill-ring-save)
+(define-key global-map (kbd "s-s") #'save-buffer)
+(define-key global-map (kbd "s-l") #'goto-line)
+(define-key global-map (kbd "s-w") #'delete-frame)
+(define-key global-map (kbd "C-_") #'undo)
+(define-key global-map (kbd "C-/") #'undo-redo)
+
+;; Keybindings
+(define-key global-map (kbd "<C-return>") #'rectangle-mark-mode)
 (define-key global-map (kbd "C-x F") 'find-function)
 (define-key global-map (kbd "C-x V") 'find-variable)
+(define-key global-map (kbd "M-/")   'kill-buffer)
 
-;; Highlight the space at the end of the line
-(setq-default show-trailing-whitespace t)
+(defun revert-current-buffer ()
+  "Revert the current buffer."
+  (interactive)
+  (message "Revert this buffer")
+  (text-scale-set 0)
+  (widen)
+  (revert-buffer t t))
+(define-key global-map (kbd "<f5>") #'revert-current-buffer)
 
-;; Do not change the position of the cursor on the screen as much as possible when scrolling pages
-(setq scroll-preserve-screen-position t)
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-x") #'ielm)
+            (local-set-key (kbd "C-c C-c") #'eval-defun)
+            (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
-;; contain many mode setting
-(require 'generic-x)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; init-mini.el ends here
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Init-mini.el ends here
