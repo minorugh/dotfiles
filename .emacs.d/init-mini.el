@@ -93,6 +93,7 @@
   (setq-default save-place t))
 (setq savehist-file "~/.emacs.d/tmp/history")
 (setq save-place-file "~/.emacs.d/tmp/places")
+(setq recentf-save-file "~/.emacs.d/tmp/recentf-mini")
 
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (electric-pair-mode 1)
@@ -148,21 +149,6 @@
 (define-key global-map (kbd "C-/")   #'undo-redo)
 (define-key global-map (kbd "C-x f") #'find-file)
 (define-key global-map (kbd "C-x j") #'dired-jump)
-
-(defun revert-current-buffer ()
-  "Revert the current buffer."
-  (interactive)
-  (message "Revert this buffer")
-  (text-scale-set 0)
-  (widen)
-  (revert-buffer t t))
-(define-key global-map (kbd "<f5>") #'revert-current-buffer)
-
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-x") #'ielm)
-            (local-set-key (kbd "C-c C-c") #'eval-defun)
-            (local-set-key (kbd "C-c C-b") #'eval-buffer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Init-mini.el ends here
