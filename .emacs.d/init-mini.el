@@ -41,6 +41,7 @@
 ;; Load path
 (push (expand-file-name "site-lisp" user-emacs-directory) load-path)
 (push (expand-file-name "lisp" user-emacs-directory) load-path)
+(setq default-directory "~/.emacs.d/")
 
 ;; Packages
 ;; Without this comment Emacs25 adds (package-initialize) here
@@ -143,15 +144,11 @@
 (define-key global-map (kbd "s-v") #'yank)
 (define-key global-map (kbd "s-c") #'kill-ring-save)
 (define-key global-map (kbd "s-s") #'save-buffer)
-(define-key global-map (kbd "s-l") #'goto-line)
-(define-key global-map (kbd "s-w") #'delete-frame)
 (define-key global-map (kbd "C-_") #'undo)
 (define-key global-map (kbd "C-/") #'undo-redo)
 
 ;; Keybindings
-(define-key global-map (kbd "<C-return>") #'rectangle-mark-mode)
-(define-key global-map (kbd "C-x F") 'find-function)
-(define-key global-map (kbd "C-x V") 'find-variable)
+(define-key global-map (kbd "C-x j") 'dired-jump)
 (define-key global-map (kbd "M-/")   'kill-buffer)
 
 (defun revert-current-buffer ()
