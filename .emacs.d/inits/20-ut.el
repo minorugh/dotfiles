@@ -64,13 +64,6 @@ If region isn't selected, post from the buffer."
       (if (not (use-region-p))
 	  (compile (concat "gist -od " (gist-description) " " file))
 	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-    (delete-other-windows))
-
-  (defun dired-do-gist ()
-    "Dired-get-filename do gist and open in browser."
-    (interactive)
-    (let ((file (dired-get-filename nil t)))
-      (compile (concat "gist -od " (gist-description) " " file)))
     (delete-other-windows)))
 
 ;; Local Variables:

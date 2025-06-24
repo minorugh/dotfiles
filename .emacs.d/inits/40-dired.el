@@ -17,8 +17,7 @@
 	 ("o" . dired-open-file)
 	 ("[" . dired-hide-details-mode)
 	 ("a" . dired-omit-mode)
-	 ("i" . call-sxiv)
-	 ("@" . dired-do-gist))
+	 ("i" . call-sxiv))
   :config
   (with-eval-after-load 'dired (require 'dired-x))
   (setq dired-dwim-target t)
