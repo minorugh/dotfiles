@@ -61,7 +61,7 @@
 (setq make-backup-files nil)               ;; Forbide to make backup files
 (setq auto-save-default nil)               ;; Disable auto save
 (setq set-mark-command-repeat-pop t)       ;; Repeating C-SPC after popping mark pops it again
-(setq dired-listing-switches "-lXGh --group-directories-first") ;; Diectry first
+(setq dired-listing-switches "-AFl --group-directories-first") ;; Diectry first
 
 (setq-default major-mode 'text-mode)
 
