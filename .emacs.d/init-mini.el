@@ -93,7 +93,7 @@
   (setq-default save-place t))
 (setq savehist-file "~/.emacs.d/tmp/history")
 (setq save-place-file "~/.emacs.d/tmp/places")
-(setq recentf-save-file "~/.emacs.d/tmp/recentf-mini")
+(setq recentf-save-file "~/.emacs.d/tmp/recentf-test")
 
 (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 (electric-pair-mode 1)
