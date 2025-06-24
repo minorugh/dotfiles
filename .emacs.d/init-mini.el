@@ -139,16 +139,15 @@
 (defalias 'exit 'save-buffers-kill-emacs)
 
 ;; Key Modifiers
-(define-key global-map (kbd "s-a") #'mark-whole-buffer)
-(define-key global-map (kbd "s-v") #'yank)
-(define-key global-map (kbd "s-c") #'kill-ring-save)
-(define-key global-map (kbd "s-s") #'save-buffer)
-(define-key global-map (kbd "C-_") #'undo)
-(define-key global-map (kbd "C-/") #'undo-redo)
-
-;; Keybindings
-(define-key global-map (kbd "C-x j") 'dired-jump)
-(define-key global-map (kbd "M-/")   'kill-buffer)
+(define-key global-map (kbd "s-a")   #'mark-whole-buffer)
+(define-key global-map (kbd "s-v")   #'yank)
+(define-key global-map (kbd "s-c")   #'kill-ring-save)
+(define-key global-map (kbd "s-s")   #'save-buffer)
+(define-key global-map (kbd "C-_")   #'undo)
+(define-key global-map (kbd "M-/")   #'kill-buffer)
+(define-key global-map (kbd "C-/")   #'undo-redo)
+(define-key global-map (kbd "C-x f") #'find-file)
+(define-key global-map (kbd "C-x j") #'dired-jump)
 
 (defun revert-current-buffer ()
   "Revert the current buffer."
