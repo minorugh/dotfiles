@@ -70,6 +70,10 @@
 (add-hook 'prog-mode-hook #'subword-mode)
 (add-hook 'minibuffer-setup-hook #'subword-mode)
 
+;; Change to short command
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'exit 'save-buffers-kill-emacs)
+
 ;; Completion
 (when (fboundp 'global-completion-preview-mode)
   (global-completion-preview-mode 1))
@@ -85,10 +89,6 @@
         (message "Opening file...")
       (message "Aborting"))))
 (define-key global-map (kbd "C-x r") 'fido-recentf-open)
-
-;; Change to short command
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'exit 'save-buffers-kill-emacs)
 
 (defun my:keyboard-quit ()
   "Hoge."
