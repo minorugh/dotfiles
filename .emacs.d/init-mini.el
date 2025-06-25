@@ -35,15 +35,13 @@
 ;; Do not distinguish uppercase and lowercase letters on completion
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
-;; Make it easy to see when it is the same name file
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; Display the character position of the cursor
 (column-number-mode t)
-;; Increase history count
-(setq history-length 10000)
+
 ;; Save history of minibuffer
 (savehist-mode 1)
+(setq history-length 10000)
+(setq savehist-file "~/.emacs.d/tmp/history-mini")
 ;; Make "yes or no" "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; Turn off warning sound screen flash
@@ -69,6 +67,7 @@
 (setq select-enable-clipboard  t)
 (define-key global-map (kbd "M-w") 'clipboard-kill-ring-save)
 (define-key global-map (kbd "C-w") 'clipboard-kill-region)
+
 ;; Key Modifiers
 (define-key global-map (kbd "M-/")   #'kill-buffer)
 (define-key global-map (kbd "C-_")   #'undo)
