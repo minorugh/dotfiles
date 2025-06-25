@@ -1,4 +1,4 @@
-;;; 06-mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
+;;; 07-mozc.el --- Japanese mozc configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,4 +66,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 06-mozc.el ends here
+;;; 07-mozc.el ends here

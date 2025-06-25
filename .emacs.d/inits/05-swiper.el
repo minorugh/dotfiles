@@ -1,4 +1,4 @@
-;;; 04-swiper.el --- Swiper configurations. -*- lexical-binding: t -*-
+;;; 05-swiper.el --- Swiper configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -17,16 +17,20 @@ If the region isn't selected, `swiper'."
 	(swiper)
       (swiper-thing-at-point))))
 
+
 (leaf migemo :ensure t
   :doc "Japanese incremental search through dynamic pattern expansion"
   :if (executable-find "cmigemo")
   :hook (after-init-hook . migemo-init)
   :config
   (setq migemo-command    "cmigemo")
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-  :init
-  ;; For swiper-migemo
-  ;; see "https://www.yewton.net/2020/04/21/migemo-ivy/"
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
+
+
+(leaf swiper-migemo
+  :doc "For swiper-migemo"
+  :url "https://www.yewton.net/2020/04/21/migemo-ivy/"
+  :config
   (defun my:ivy-migemo-re-builder (str)
     "Own function for my:ivy-migemo."
     (let* ((sep " \\|\\^\\|\\.\\|\\*")
@@ -44,4 +48,4 @@ If the region isn't selected, `swiper'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 04-swiper.el ends here
+;;; 05-swiper.el ends here
