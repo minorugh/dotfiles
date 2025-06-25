@@ -1,4 +1,4 @@
-;;; 05-company.el --- Company configurations. -*- lexical-binding: t -*-
+;;; 05-company.el --- Company configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -7,7 +7,7 @@
   :defun company-mode/backend-with-yas
   :doc "Modular in-buffer completion framework"
   :hook (after-init-hook . global-company-mode)
-  :bind (("C-1"          . company-complete)
+  :bind (("<backtab>"      . company-complete)
 	 ("C-<tab>"      . company-yasnippet)
 	 (:company-active-map
 	  ("<tab>"       . company-complete-common-or-cycle)

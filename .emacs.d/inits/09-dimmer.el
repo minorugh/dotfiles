@@ -1,4 +1,4 @@
-;;; 09-frame.el --- Frame controle configurations. -*- lexical-binding: t -*-
+;;; 09-dimmer.el --- Dimmer configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -47,27 +47,7 @@
       (dimmer-mode 1)
       (dimmer-process-all))))
 
-(leaf *cus-frame-funtions
-  :bind  ("C-q" . other-window-or-split)
-  :init
-  (defun other-window-or-split ()
-    "If there is one window, open split window.
-If there are two or more windows, it will go to another window."
-    (interactive)
-    (when (one-window-p)
-      (split-window-horizontally))
-    (other-window 1))
-
-  (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el`.
-If it's the last frame, minimize it without deleting it."
-    (interactive "e")
-    (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
-      (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 09-frame.el ends here
+;;; 09-dimmer.el ends here

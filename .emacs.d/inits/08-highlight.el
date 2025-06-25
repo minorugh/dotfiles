@@ -1,11 +1,7 @@
-;;; 10-highlight.el --- Display highlight configulation. -*- lexical-binding: t -*-
+;;; 08-highlight.el --- Display highlight configulation. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-
-(leaf beacon :ensure t
-  :doc "Indicate the cursor's position."
-  :hook after-init-hook)
 
 (leaf goggles :ensure t
   :doc "Highlights the modified region using pulse"
@@ -26,10 +22,6 @@
   (setq show-paren-style 'parenthesis)
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
-
-(leaf elec-pair :tag "builtin"
-  :doc "Automatic parenthesis pairing"
-  :hook (after-init-hook . electric-pair-mode))
 
 (leaf blink-cursor :tag "Builtin"
   :doc "Blinking cursor mode for GNU Emacs"
@@ -71,4 +63,4 @@
 ;;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-highlight.el ends here
+;;; 08-highlight.el ends here

@@ -1,4 +1,4 @@
-;;; 07-check.e,l --- Syntax checking configurations. -*- lexical-binding: t -*-
+;;; 20-check.e,l --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -20,6 +20,7 @@
               (package-initialize))
 	    (leaf-keywords-init)))))
 
+
 (leaf textlint
   :doc "checker for textlint"
   :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
@@ -36,8 +37,9 @@
               line-end))
     :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
 
-;; for hunspell
+
 (leaf ispell
+  :doc "For hunspell"
   :config
   (setq ispell-program-name "hunspell")
   (setq ispell-really-hunspell t)
@@ -48,4 +50,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 07-check.el ends here
+;;; 20-check.el ends here

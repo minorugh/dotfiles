@@ -1,4 +1,4 @@
-;;; 00-base.el --- Better default configurations. -*- lexical-binding: t -*-
+;;; 00-base.el --- Better default configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -40,8 +40,11 @@
   ;; Deleted files go to the trash
   (setq delete-by-moving-to-trash t)
 
-  ;; Tab width default
-  (setq tab-width 4)
+  ;; Permanently indent with spaces, never with TABs
+  (setq-default major-mode 'text-mode
+              fill-column 80
+              tab-width 4
+              indent-tabs-mode nil)
 
   ;; Limit the final word to a line break code (automatically correct)
   (setq require-final-newline t)
@@ -78,6 +81,12 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
 
+  ;; Set buffer that can not be killed
+  (with-current-buffer "*scratch*"
+    (emacs-lock-mode 'kill))
+  (with-current-buffer "*Messages*"
+    (emacs-lock-mode 'kill)))
+
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
@@ -93,65 +102,6 @@
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode)
-
-  ;; Set buffer that can not be killed
-  (with-current-buffer "*scratch*"
-    (emacs-lock-mode 'kill))
-  (with-current-buffer "*Messages*"
-    (emacs-lock-mode 'kill)))
-
-
-(leaf *cus-user-configrations
-  :defun minibuffer-keyboard-quit
-  :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("M-,"     . xref-find-definitions)
-	 ("M-w"     . clipboard-kill-ring-save)
-	 ("C-w"     . kill-word-or-region)
-	 ("M-/"     . kill-current-buffer)
-	 ("C-M-/"   . delete-this-file)
-	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	 ([muhenkan] . my:keyboard-quit))
-  :init
-  (defun my:upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
-
-  (defun my:downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
-
-  (defun my:capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg)))
-
-  (defun my:keyboard-quit ()
-    (interactive)
-    (if (not (use-region-p))
-	(minibuffer-keyboard-quit)
-      (keyboard-quit)))
-
-  (defun delete-this-file ()
-    "Delete the current file, and kill the buffer."
-    (interactive)
-    (unless (buffer-file-name)
-      (error "No file is currently being edited"))
-    (when (yes-or-no-p (format "Really delete '%s'?"
-			       (file-name-nondirectory buffer-file-name)))
-      (delete-file (buffer-file-name))
-      (kill-current-buffer)))
-
-  (defun kill-word-or-region ()
-    "If the region is active, `clipboard-kill-region'.
-If the region is inactive, `backward-kill-word'."
-    (interactive)
-    (if (use-region-p)
-	(clipboard-kill-region (region-beginning) (region-end))
-      (backward-kill-word 1))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

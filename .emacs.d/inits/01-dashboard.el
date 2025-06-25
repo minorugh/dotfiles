@@ -1,4 +1,4 @@
-;;; 01-dashboard.el --- Dashboard configurations. -*- lexical-binding: t -*-
+;;; 01-dashboard.el --- Dashboard configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)

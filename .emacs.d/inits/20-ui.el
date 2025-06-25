@@ -29,35 +29,23 @@
   (line-number-mode 0)
   (column-number-mode 0))
 
-(with-eval-after-load 'doom-modeline
-  (leaf nyan-mode :ensure t
-    :doc "Shows position in current buffer in mode-line"
-    :global-minor-mode t
-    :config
-    (setq nyan-animate-nyancat t)
-    (setq nyan-bar-length 24))
-
-  (leaf hide-mode-line :ensure t
+(leaf hide-mode-line :ensure t
     :doc "Hides the mode-line in current buffer"
     :hook imenu-list-major-mode-hook neotree-mode-hook)
 
-  (leaf nerd-icons :ensure t
+(leaf nerd-icons :ensure t
     :if (display-graphic-p))
 
-  (leaf nerd-icons-dired :ensure t
+(leaf nerd-icons-dired :ensure t
     :config (setq nerd-icons-scale-factor 0.8)
-    :hook dired-mode-hook))
+    :hook dired-mode-hook)
 
 (leaf display-line-numbers :tag "builtin"
   :doc "interface for display-line-numbers"
   :hook ((prog-mode-hook text-mode-hook)
-	 (lisp-interaction-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0))))
+	     (lisp-interaction-mode-hook . (lambda () (interactive) (display-line-numbers-mode 0))))
   :bind  ([f9] . display-line-numbers-mode)
   :config (setq display-line-numbers-width-start t))
-
-(leaf aggressive-indent :ensure t
-  :doc "Minor mode to aggressively keep your code always indented"
-  :hook emacs-lisp-mode-hook css-mode-hook)
 
 (leaf whitespace :tag "Builtin"
   :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE"
@@ -71,9 +59,9 @@
     (delete-trailing-whitespace)
     (save-excursion
       (save-restriction
-	(widen)
-	(goto-char (point-max))
-	(delete-blank-lines)))))
+	    (widen)
+	    (goto-char (point-max))
+	    (delete-blank-lines)))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
