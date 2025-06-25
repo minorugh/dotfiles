@@ -145,9 +145,10 @@
 (define-key global-map (kbd "s-v")   #'yank)
 (define-key global-map (kbd "s-c")   #'kill-ring-save)
 (define-key global-map (kbd "s-s")   #'save-buffer)
-(define-key global-map (kbd "C-_")   #'undo)
 (define-key global-map (kbd "M-/")   #'kill-buffer)
+(define-key global-map (kbd "C-_")   #'undo)
 (define-key global-map (kbd "C-/")   #'undo-redo)
+(define-key global-map (kbd "C-:")   #'switch-to-buffer)
 (define-key global-map (kbd "C-x f") #'find-file)
 (define-key global-map (kbd "C-x j") #'dired-jump)
 
