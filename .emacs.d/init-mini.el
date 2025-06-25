@@ -1,31 +1,10 @@
-;;; init-mini.el --- Centaur Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
-
-;; Copyright (C) 2018-2025 Vincent Zhang
-
-;; Author: Vincent Zhang <seagle0128@gmail.com>
-;; URL: https://github.com/seagle0128/.emacs.d
-;; Version: 1.2.0
-;; Keywords: .emacs.d centaur
-
-;; This file is not part of GNU Emacs.
+;;; init-mini.el --- Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
 ;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;;; init-mini.el --- minimal init -*- no-byte-compile: t; lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; This will start with typing `eq' at shell with minimal Emacs.
 ;; Write below at .zshrc or .bashrc.
-;; alias eq="emacs -q -l ~/.emacs.d/mini-init.el"
+;; alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
 ;; Use when test of package and my Emacs don't start.
 ;;; Code:
 
@@ -41,16 +20,14 @@
 ;; Load path
 (push (expand-file-name "site-lisp" user-emacs-directory) load-path)
 (push (expand-file-name "lisp" user-emacs-directory) load-path)
-(setq default-directory "~/.emacs.d/")
+(setq default-directory user-emacs-directory)
 
 ;; Packages
-;; Without this comment Emacs25 adds (package-initialize) here
 (setq package-archives
       '(("gnu"   . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 
-;; Explicitly set the prefered coding systems to avoid annoying prompt
-;; from emacs (especially on Microsoft Windows)
+;; Encoding
 (prefer-coding-system 'utf-8)
 
 ;; Better defaults
@@ -68,17 +45,8 @@
 (setq sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*")
 (setq sentence-end-double-space nil)
 
-;; Tab and Space
-;; Permanently indent with spaces, never with TABs
-(setq-default c-basic-offset   4
-              tab-width        4
-              indent-tabs-mode nil)
-
-;; (global-hl-line-mode 1)
-
-;; (if (fboundp 'display-line-numbers-mode)
-;;     (global-display-line-numbers-mode 1)
-;;   (global-linum-mode 1)
+(global-hl-line-mode 1)
+;; (global-display-line-numbers-mode 1)
 
 ;; Basic modes
 (show-paren-mode 1)
@@ -106,39 +74,28 @@
 (when (fboundp 'global-completion-preview-mode)
   (global-completion-preview-mode 1))
 
-(if (fboundp 'fido-mode)
-    (progn
-      (fido-mode 1)
-      (when (fboundp 'fido-vertical-mode)
-        (fido-vertical-mode 1))
-
-      (defun fido-recentf-open ()
-        "Use `completing-read' to find a recent file."
-        (interactive)
-        (if (find-file (completing-read "Find recent file: " recentf-list))
-            (message "Opening file...")
-          (message "Aborting")))
-      (define-key global-map (kbd "C-x C-r") 'fido-recentf-open))
-  (progn
-    (ido-mode 1)
-    (ido-everywhere 1)
-
-    (setq ido-use-virtual-buffers t
-	  ido-use-filename-at-point 'guess
-	  ido-create-new-buffer 'always
-	  ido-enable-flex-matching t)
-
-    (defun ido-recentf-open ()
-      "Use `ido-completing-read' to find a recent file."
-      (interactive)
-      (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-	  (message "Opening file...")
-	(message "Aborting")))
-    (define-key global-map (kbd "C-x C-r") 'ido-recentf-open)))
+;; fido-mode
+(when (fboundp 'fido-mode)
+  (fido-mode 1)
+  (fido-vertical-mode 1)
+  (defun fido-recentf-open ()
+    "Use `completing-read' to find a recent file."
+    (interactive)
+    (if (find-file (completing-read "Find recent file: " recentf-list))
+        (message "Opening file...")
+      (message "Aborting"))))
+(define-key global-map (kbd "C-x r") 'fido-recentf-open)
 
 ;; Change to short command
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'exit 'save-buffers-kill-emacs)
+
+(defun my:keyboard-quit ()
+  "Hoge."
+  (interactive)
+  (if (not (use-region-p))
+      (minibuffer-keyboard-quit)
+    (keyboard-quit)))
 
 ;; Key Modifiers
 (define-key global-map (kbd "s-a")   #'mark-whole-buffer)
@@ -151,6 +108,6 @@
 (define-key global-map (kbd "C-:")   #'switch-to-buffer)
 (define-key global-map (kbd "C-x f") #'find-file)
 (define-key global-map (kbd "C-x j") #'dired-jump)
+(define-key global-map (kbd "<muhenkan>") #'my:keyboard-quit)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Init-mini.el ends here
