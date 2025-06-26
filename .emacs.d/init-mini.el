@@ -24,7 +24,6 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
-(setq auto-save-default nil)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 (setq visible-bell nil)
@@ -46,8 +45,11 @@
 (global-auto-revert-mode 1)
 (savehist-mode 1)
 (setq savehist-file "~/.emacs.d/tmp/history-mini")
+
 (setq-default show-trailing-whitespace t)
 (setq scroll-preserve-screen-position t)
+(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+(electric-pair-mode 1)
 
 ;; Use fido-mode
 (fido-mode 1)
