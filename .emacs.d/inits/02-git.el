@@ -1,4 +1,4 @@
-;; 03-git.el  --- Git configurations. -*- lexical-binding: t -*-
+;; 02-git.el  --- Git configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-erro t)
@@ -59,4 +59,4 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 03-git.el ends here
+;;; 02-git.el ends here

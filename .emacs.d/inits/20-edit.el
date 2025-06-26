@@ -1,4 +1,4 @@
-;;; 10-edit.el --- Editing configurations.	-*- lexical-binding: t -*-
+;;; 20-edit.el --- Editing configurations.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -67,4 +67,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-edit.el ends here
+;;; 20-edit.el ends here
