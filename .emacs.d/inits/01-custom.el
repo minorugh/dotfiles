@@ -7,6 +7,7 @@
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
+	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
 	 ("C-w"     . kill-word-or-region)
