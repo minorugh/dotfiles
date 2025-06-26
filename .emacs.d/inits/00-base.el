@@ -58,7 +58,7 @@
   (with-current-buffer "*scratch*"
     (emacs-lock-mode 'kill))
   (with-current-buffer "*Messages*"
-    (emacs-lock-mode 'kill)))
+    (emacs-lock-mode 'kill))
   ;; Recovery
   (setq save-place-file "~/.emacs.d/tmp/places")
   (add-hook 'after-init-hook 'save-place-mode)
@@ -71,7 +71,7 @@
 	'("\\.howm-keys" "\\^/session" "task.org"
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode)
+  (add-hook 'after-init-hook 'recentf-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
