@@ -57,7 +57,7 @@
 (setq dired-listing-switches "-AFl --group-directories-first")
 (setq default-directory user-emacs-directory)
 
-;; Key Modifiers
+;; Key modifiers to my liking
 (setq select-enable-clipboard  t)
 (define-key global-map (kbd "M-w") #'clipboard-kill-ring-save)
 (define-key global-map (kbd "C-w") #'clipboard-kill-region)
