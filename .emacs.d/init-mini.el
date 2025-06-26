@@ -23,6 +23,7 @@
 (setq-default bidi-display-reordering nil)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq auto-save-list-file-prefix nil)
 (setq create-lockfiles nil)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)

@@ -7,6 +7,7 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
+  :require  my:evil-hugo  ;; Load user defines
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)

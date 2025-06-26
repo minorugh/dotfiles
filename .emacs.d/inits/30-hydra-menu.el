@@ -5,6 +5,7 @@
 
 (leaf *hydra-work
   :doc "Quick menu for workings"
+  :require my:template  ;; Load user define templates.
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -80,6 +81,7 @@
 
 (leaf * hydra-dired
   :doc "Quick access for dired"
+  :require my:dired  ;; Load user dired for quick accsess
   :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired
