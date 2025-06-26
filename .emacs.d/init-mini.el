@@ -64,7 +64,7 @@
 (define-key global-map (kbd "C-w") #'clipboard-kill-region)
 (define-key global-map (kbd "s-v") #'yank)
 (define-key global-map (kbd "s-c") #'clipboard-kill-ring-save)
-(define-key global-map (kbd "M-/") #'kill-buffer)
+(define-key global-map (kbd "M-/") #'kill-current-buffer)
 (define-key global-map (kbd "C-_") #'undo)
 (define-key global-map (kbd "C-/") #'undo-redo)
 (define-key global-map (kbd "C-:") #'switch-to-buffer)
