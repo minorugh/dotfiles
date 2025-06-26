@@ -24,33 +24,28 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
-(if (display-mouse-p) (mouse-avoidance-mode 'exile))
 (setq auto-save-default nil)
 (setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
-(column-number-mode t)
-(savehist-mode 1)
-(setq history-length 10000)
-(setq savehist-file "~/.emacs.d/tmp/history-mini")
-(fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; UI
 (load-theme 'misterioso t)
-
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (set-frame-parameter nil 'fullscreen 'maximized)
-
-;; (global-hl-line-mode 1)
+(global-hl-line-mode 1)
 ;; (global-display-line-numbers-mode 1)
 
 ;; Basic modes
 (show-paren-mode 1)
-(setq show-paren-delay 0)
-(setq show-paren-style 'parenthesis)
+(delete-selection-mode 1)
+(global-auto-revert-mode 1)
+(savehist-mode 1)
+(setq savehist-file "~/.emacs.d/tmp/history-mini")
 (setq-default show-trailing-whitespace t)
 (setq scroll-preserve-screen-position t)
 
@@ -62,12 +57,14 @@
 
 ;; Key Modifiers
 (setq select-enable-clipboard  t)
-(define-key global-map (kbd "M-w") 'clipboard-kill-ring-save)
-(define-key global-map (kbd "C-w") 'clipboard-kill-region)
-(define-key global-map (kbd "M-/")   #'kill-buffer)
-(define-key global-map (kbd "C-_")   #'undo)
-(define-key global-map (kbd "C-/")   #'undo-redo)
-(define-key global-map (kbd "C-:")   #'switch-to-buffer)
+(define-key global-map (kbd "M-w") #'clipboard-kill-ring-save)
+(define-key global-map (kbd "C-w") #'clipboard-kill-region)
+(define-key global-map (kbd "s-v") #'yank)
+(define-key global-map (kbd "s-c") #'clipboard-kill-ring-save)
+(define-key global-map (kbd "M-/") #'kill-buffer)
+(define-key global-map (kbd "C-_") #'undo)
+(define-key global-map (kbd "C-/") #'undo-redo)
+(define-key global-map (kbd "C-:") #'switch-to-buffer)
 (define-key global-map (kbd "C-x f") #'find-file)
 (define-key global-map (kbd "C-x j") #'dired-jump)
 
