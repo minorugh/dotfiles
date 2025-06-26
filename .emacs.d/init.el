@@ -4,6 +4,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(when (version< emacs-version "29.1")
+  (error "This requires Emacs 29.1 and above!"))
+
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
 
