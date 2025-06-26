@@ -46,7 +46,7 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :doc "Exec `init-loader' after loading user functions"
+  :doc "Loading inits configuration"
   :load-path "~/.emacs.d/elisp/"  ;; Set user-defined elisp path
   :config
   (custom-set-variables

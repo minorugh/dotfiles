@@ -1,4 +1,4 @@
-;;; 20-compile.e,l --- Define functions.	-*- lexical-binding: t -*-
+;;; 10-compile.e,l --- Define functions.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -37,4 +37,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 20-compile.el ends here
+;;; 10-compile.el ends here

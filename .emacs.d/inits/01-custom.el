@@ -1,4 +1,4 @@
-;;; 20-custom.el --- Define customizations.    -*- lexical-binding: t -*-
+;;; 00-custom.el --- Define customizations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -6,15 +6,15 @@
 (leaf *cus-user-configrations
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	     ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	     ("M-,"     . xref-find-definitions)
-	     ("M-w"     . clipboard-kill-ring-save)
-	     ("C-w"     . kill-word-or-region)
-	     ("M-/"     . kill-current-buffer)
-	     ("C-M-/"   . delete-this-file)
-	     ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	     ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	     ([muhenkan] . my:keyboard-quit))
+	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
+	 ("M-,"     . xref-find-definitions)
+	 ("M-w"     . clipboard-kill-ring-save)
+	 ("C-w"     . kill-word-or-region)
+	 ("M-/"     . kill-current-buffer)
+	 ("C-M-/"   . delete-this-file)
+	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun my:upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
@@ -58,4 +58,4 @@ If the region is inactive, `backward-kill-word'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 20-custom.el ends here
+;;; 00-custom.el ends here
