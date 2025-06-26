@@ -1,4 +1,4 @@
-;;; 00-custom.el --- Define customizations.    -*- lexical-binding: t -*-
+;;; 01-custom.el --- Define customizations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -58,4 +58,4 @@ If the region is inactive, `backward-kill-word'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 00-custom.el ends here
+;;; 01-custom.el ends here

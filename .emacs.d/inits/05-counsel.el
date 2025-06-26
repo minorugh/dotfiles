@@ -1,4 +1,4 @@
-;;; 04-counsel.el --- Counsel configurations. -*- lexical-binding: t -*-
+;;; 05-counsel.el --- Counsel configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -75,4 +75,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 04-counsel.el ends here
+;;; 05-counsel.el ends here

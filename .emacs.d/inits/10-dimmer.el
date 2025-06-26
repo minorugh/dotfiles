@@ -1,4 +1,4 @@
-;;; 09-dimmer.el --- Dimmer configurations.  -*- lexical-binding: t -*-
+;;; 10-dimmer.el --- Dimmer configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -50,4 +50,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 09-dimmer.el ends here
+;;; 10-dimmer.el ends here

@@ -1,4 +1,4 @@
-;;; 01-dashboard.el --- Dashboard configurations.    -*- lexical-binding: t -*-
+;;; 02-dashboard.el --- Dashboard configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;;(setq debug-on-error t)
@@ -72,4 +72,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 01-dashboard.el ends here
+;;; 02-dashboard.el ends here

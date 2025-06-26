@@ -6,6 +6,7 @@
 (leaf compile
   :doc "run compiler as inferior of Emacs"
   :tag "Builtin"
+  :require my:compile  ;; Lode user make configurations
   :config
   (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
   (setq compilation-scroll-output t)
