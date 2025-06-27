@@ -21,8 +21,8 @@
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
 ;; Better defaults
-(setq inhibit-splash-screen t)
 (setq-default bidi-display-reordering nil)
+(setq inhibit-splash-screen t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq auto-save-list-file-prefix nil)
@@ -31,6 +31,7 @@
 (setq read-file-name-completion-ignore-case t)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
+(setq select-enable-clipboard  t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; UI
@@ -39,7 +40,7 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (set-frame-parameter nil 'fullscreen 'maximized)
-(global-hl-line-mode 1)
+;; (global-hl-line-mode 1)
 ;; (global-display-line-numbers-mode 1)
 
 ;; Basic modes
@@ -61,7 +62,6 @@
 (setq default-directory user-emacs-directory)
 
 ;; Key modifiers to my liking
-(setq select-enable-clipboard  t)
 (define-key global-map (kbd "M-w") #'clipboard-kill-ring-save)
 (define-key global-map (kbd "C-w") #'clipboard-kill-region)
 (define-key global-map (kbd "s-v") #'yank)

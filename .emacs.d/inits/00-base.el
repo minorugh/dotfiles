@@ -87,7 +87,7 @@
 	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
-	 ("C-w"     . kill-word-or-region)
+	 ("C-w"     . my:clipboard-kill-region)
 	 ("M-/"     . kill-current-buffer)
 	 ("C-M-/"   . delete-this-file)
 	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
@@ -126,7 +126,7 @@
       (delete-file (buffer-file-name))
       (kill-current-buffer)))
 
-  (defun kill-word-or-region ()
+  (defun my:clipboard-kill-region ()
     "If the region is active, `clipboard-kill-region'.
 If the region is inactive, `backward-kill-word'."
     (interactive)
