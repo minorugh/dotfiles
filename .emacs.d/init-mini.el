@@ -35,7 +35,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; UI
-(load-theme 'misterioso t)
+(load-theme 'wombat t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
