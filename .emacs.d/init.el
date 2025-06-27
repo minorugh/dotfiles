@@ -1,4 +1,4 @@
-;;; init.el --- A Fancy and Fast Emacs Configuration. -*- lexical-binding: t no-byte-compile: t -*-
+;;; init.el --- A Fancy and Fast Emacs Configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; URL: https://github.com/minorugh/dotfiles
 ;;; Code:
@@ -63,6 +63,8 @@
   (defun auto-compile-inits ()
     "Byte-compilation of all initial configuration files."
     (interactive)
+    (byte-compile-file "~/.emacs.d/early-init.el")
+    (byte-compile-file "~/.emacs.d/init.el")
     (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
     (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
