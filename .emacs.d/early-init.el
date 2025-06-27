@@ -1,8 +1,8 @@
-;;; early-init.el --- Emacs early init configurations. -*- lexical-binding: t -*-
+;;; early-init.el --- Early initialization.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 
-;; Emacs 27 introduced early-init.el, which is run before init.el, before
-;; package and UI initialization happens.
+;; Emacs 27 introduced early-init.el, which is run before init.el,
+;; befor package and UI initialization happens.
 
 ;;; Code:
 ;; (setq debug-on-error t)

@@ -1,7 +1,8 @@
-;;; init.el --- Emacs first Configuration. -*- lexical-binding: t -*-
+;;; init.el --- A Fancy and Fast Emacs Configuration. -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
-;;
+;; URL: https://github.com/minorugh/dotfiles
 ;;; Code:
+;; Package-Requires: ((emacs "29.1"))
 ;; (setq debug-on-error t)
 
 (when (version< emacs-version "29.1")
@@ -62,8 +63,8 @@
   (defun auto-compile-inits ()
     "Byte-compilation of all initial configuration files."
     (interactive)
-    (byte-compile-file "~/.emacs.d/early-init.el")
-    (byte-compile-file "~/.emacs.d/init.el")
+    ;; (byte-compile-file "~/.emacs.d/early-init.el")
+    ;; (byte-compile-file "~/.emacs.d/init.el")
     (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
     (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 

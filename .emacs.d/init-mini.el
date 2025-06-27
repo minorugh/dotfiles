@@ -1,9 +1,11 @@
 ;;; init-mini.el --- Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
+
 ;; This will start with typing `eq' at shell with minimal Emacs.
 ;; Write below at .zshrc or .bashrc.
 ;; alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
 ;; Use when test of package and my Emacs don't start.
+
 ;;; Code:
 
 (when (version< emacs-version "28.1")
@@ -70,5 +72,6 @@
 (define-key global-map (kbd "C-:") #'switch-to-buffer)
 (define-key global-map (kbd "C-x f") #'find-file)
 (define-key global-map (kbd "C-x j") #'dired-jump)
+(define-key global-map (kbd "<henkan>") #'dired-jump)
 
 ;;; Init-mini.el ends here
