@@ -1,4 +1,4 @@
-;;; 60-translate.el --- Deepl translate configurations. -*- lexical-binding: t -*-
+;;; 70-translate.el --- Deepl translate configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 60-translate.el ends here
+;;; 70-translate.el ends here

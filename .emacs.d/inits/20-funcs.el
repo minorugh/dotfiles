@@ -21,26 +21,6 @@
 	   (message "Compile successful."))
 	  (t (message "Compilation exited abnormally: %s" string)))))
 
-(leaf *cus-frame-funtions
-  :bind  ("C-q" . other-window-or-split)
-  :init
-  (defun other-window-or-split ()
-    "If there is one window, open split window.
-If there are two or more windows, it will go to another window."
-    (interactive)
-    (when (one-window-p)
-      (split-window-horizontally))
-    (other-window 1))
-
-  (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el`.
-If it's the last frame, minimize it without deleting it."
-    (interactive "e")
-    (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
-      (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
-
 
 (leaf ps-mule :tag "Builtin"
   :doc "provide multi-byte character facility to ps-print"

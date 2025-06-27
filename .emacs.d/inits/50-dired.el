@@ -1,4 +1,4 @@
-;;; 40-dired.el --- Ddired configurations. -*- lexical-binding: t -*-
+;;; 50-dired.el --- Ddired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -76,4 +76,4 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 40-dired.el ends here
+;;; 50-dired.el ends here

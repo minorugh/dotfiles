@@ -60,7 +60,7 @@
     (setq web-mode-enable-heredoc-fontification t)
     (setq web-mode-enable-current-column-highlight t)))
 
-;;; Local Variables:
+;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 07-highlight.el ends here

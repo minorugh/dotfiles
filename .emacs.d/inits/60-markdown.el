@@ -1,4 +1,4 @@
-;;; 50-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
+;;; 60-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 50-markdown.el ends here
+;;; 60-markdown.el ends here
