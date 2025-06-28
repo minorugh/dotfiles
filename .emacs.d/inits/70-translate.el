@@ -1,4 +1,4 @@
-;;; 70-translate.el --- Deepl translate configurations. -*- lexical-binding: t -*-
+;;; 70-translate.el --- Deepl translate configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -9,6 +9,7 @@
   :url "https://gist.github.com/masatoi/"
   :bind ("C-c d" . deepl-translate)
   :init
+  ;; Load deeple-auth-key
   (load "~/Dropbox/backup/deepl/deepl-api.el"))
 
 (leaf google-translate :ensure t
