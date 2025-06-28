@@ -26,7 +26,7 @@
   (setq doom-modeline-icon              t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
-  (line-number-mode   0)
+  ;; (line-number-mode   0)
   (column-number-mode 0))
 
 (leaf hide-mode-line :ensure t
