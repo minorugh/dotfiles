@@ -1,4 +1,4 @@
-;;; 00-base.el --- Better default configurations.    -*- lexical-binding: t -*-
+;;; 00-base.el --- Better default configurations.-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -60,12 +60,6 @@
 
   ;; Minimize the fringe
   (set-fringe-mode 1)
-
-  ;; Permanently indent with spaces, never with TABs
-  (setq-default major-mode 'text-mode
-		fill-column 80
-		tab-width 4
-		indent-tabs-mode nil)
 
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
