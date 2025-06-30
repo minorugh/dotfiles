@@ -52,5 +52,6 @@
        "prefer-tari-tari": true,
        "ja-no-orthographic-variants": true,
        "ja-no-inappropriate-words": true,
+       "ja-overlooked-typo": true, // 見逃しそうなタイプミスを検出
    }
 }
