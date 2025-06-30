@@ -61,6 +61,12 @@
   ;; Minimize the fringe
   (set-fringe-mode 1)
 
+  ;; Permanently indent with spaces, never with TABs
+  (setq-default major-mode 'text-mode
+    	fill-column 80
+    	tab-width 4
+    	indent-tabs-mode nil)
+
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
@@ -167,7 +173,7 @@ If it's the last frame, minimize it without deleting it."
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
+	        ((iconify-frame))))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

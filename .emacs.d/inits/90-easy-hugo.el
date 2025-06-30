@@ -7,13 +7,16 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :require  my:evil-hugo  ;; Load user defines
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)
 	  ("SPC"   . easy-hugo-view)
 	  ("e"     . my:edit-easy-hugo)))
   :init
+  (with-eval-after-load 'easy-hugo
+    "Load user defines."
+    (require 'my:evil-hugo))
+
   ;; Customize for my help menu
   (setq easy-hugo-help-line 4)
   (setq easy-hugo-help
@@ -64,6 +67,10 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
+  ;; Load user defines
+  (with-eval-after-load 'easy-hugo
+    (require 'my:evil-hugo))
+
   (defun my:edit-easy-hugo ()
     "Edit setting file for `easy-hugo'."
     (interactive)
