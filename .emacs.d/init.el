@@ -19,8 +19,7 @@
 	    (setq file-name-handler-alist default-hadlers)
 	    (setq gc-cons-threshold 800000)
 	    (setq inhibit-redisplay nil)
-	    (setq inhibit-message nil)
-            (redisplay)))
+	    (setq inhibit-message nil)))
 
 (eval-and-compile
   (customize-set-variable
@@ -60,7 +59,7 @@
   :doc "Byte compilation is performed when Emacs exits."
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
-    (defun auto-compile-inits ()
+  (defun auto-compile-inits ()
     "Byte-compilation of all initial configuration files."
     (interactive)
     (byte-compile-file "~/.emacs.d/early-init.el")

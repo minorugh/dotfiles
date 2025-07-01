@@ -14,7 +14,7 @@
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
   :config
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log))
+	      ("l;" . init-loader-show-log))
   :hook after-init-hook)
 
 (leaf counsel-tramp :ensure t
@@ -27,6 +27,14 @@
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"
   :hook after-init-hook)
+
+(leaf tempbuf
+  :doc "Auto kill unused buffers in the background"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook	((find-file-hook dired-mode-hook magit-mode-hook)
+         . turn-on-tempbuf-mode)
+  :config
+  (setq tempbuf-kill-message nil))
 
 (leaf bs :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
