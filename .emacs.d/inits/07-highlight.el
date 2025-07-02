@@ -41,6 +41,11 @@
   :bind ("C-c r" . rainbow-mode)
   :hook after-init-hook)
 
+(leaf aggressive-indent :ensure t
+  :hook (after-init-hook . global-aggressive-indent-mode)
+  :config
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+
 (leaf web-mode :ensure t
   :doc "Web template editing mode for emacs"
   :mode ("\\.js?\\'" "\\.html?\\'" "\\.php?\\'")
