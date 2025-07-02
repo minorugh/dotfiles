@@ -5,6 +5,7 @@
 
 (leaf *hydra-work
   :doc "Quick menu for workings"
+  ;; :require my:template  ;; Load user define templates
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -57,10 +58,6 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
-  (with-eval-after-load 'find-file
-    "Load user define templates."
-    (require 'my:template))
-
   (defun filezilla-open ()
     (interactive)
     (compile "filezilla -s"))
@@ -84,6 +81,7 @@
 
 (leaf * hydra-dired
   :doc "Quick access for dired"
+  ;; :require my:dired  ;; Load user define for quick accsess
   :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired

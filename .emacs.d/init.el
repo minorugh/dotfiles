@@ -14,12 +14,11 @@
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    "Recover file name handlers and GC values after startup."
-	    (setq file-name-handler-alist default-hadlers)
-	    (setq gc-cons-threshold 800000)
-	    (setq inhibit-redisplay nil)
-	    (setq inhibit-message nil)))
+	      (lambda ()
+	        "Recover file name handlers and GC values after startup."
+	        (setq file-name-handler-alist default-hadlers)
+	        (setq gc-cons-threshold 800000)
+	        (setq inhibit-message nil)))
 
 (eval-and-compile
   (customize-set-variable
@@ -47,7 +46,8 @@
 
 (leaf init-loader :ensure t
   :doc "Loading inits configuration"
-  :load-path "~/.emacs.d/elisp/"  ;; Set user-defined elisp path
+  :load-path "~/.emacs.d/elisp"
+  :require my:dired my:compile my:evil-hugo
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
@@ -59,7 +59,7 @@
   :doc "Byte compilation is performed when Emacs exits."
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
-  (defun auto-compile-inits ()
+    (defun auto-compile-inits ()
     "Byte-compilation of all initial configuration files."
     (interactive)
     (byte-compile-file "~/.emacs.d/early-init.el")

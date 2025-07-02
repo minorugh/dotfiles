@@ -3,19 +3,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf compile
+(leaf *compile
   :doc "run compiler as inferior of Emacs"
   :tag "Builtin"
+  ;; :require my:compile  ;; Lode user make configurations
   :config
   (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
   (setq compilation-scroll-output t)
   (setq compilation-always-kill t)
   (setq compilation-finish-functions 'compile-autoclose)
   :init
-  (with-eval-after-load 'compile
-    "Lode user make configurations."
-    (require 'my:compile))
-
   (defun compile-autoclose (buffer string)
     "Automatically close the compilation."
     (cond ((string-match "compilation" (buffer-name buffer))

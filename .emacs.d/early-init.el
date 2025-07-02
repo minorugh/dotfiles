@@ -30,6 +30,10 @@
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
+;; Set language & font
+(set-language-environment "Japanese")
+(add-to-list 'default-frame-alist '(font . "Cica-18"))
+
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
@@ -43,14 +47,13 @@
 ;; If the package is a clean install, do not suppress message
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
-      (setq inhibit-redisplay t)
       (setq inhibit-message t)
-    (custom-set-faces '(default ((t (:background "#282a36"))))))
+      (custom-set-faces '(default ((t (:background "#282a36"))))))
   (add-hook 'window-setup-hook
-	    (lambda ()
-	      "Restart Emacs after a clean install of packages."
-	      (delete-file "~/.emacs.d/projects")
-	      (restart-emacs))))
+            (lambda ()
+	          "Restart Emacs after a clean install of packages."
+	          (delete-file "~/.emacs.d/projects")
+	          (restart-emacs))))
 
 (provide 'early-init)
 ;;; early-init.el ends here
