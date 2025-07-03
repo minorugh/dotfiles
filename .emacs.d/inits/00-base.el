@@ -63,15 +63,19 @@
 
   ;; Permanently indent with spaces, never with TABs
   (setq-default major-mode 'text-mode
-    	fill-column 80
-    	tab-width 4
-    	indent-tabs-mode nil)
+    	        fill-column 80
+    	        tab-width 4
+    	        indent-tabs-mode nil)
 
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
+
+  ;; Set language & font
+  (set-language-environment "Japanese")
+  (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
@@ -94,8 +98,8 @@
 
   ;; Recentf
   (setq recentf-exclude
-	'("\\.howm-keys" "\\^/session" "task.org"
-	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
+	    '("\\.howm-keys" "\\^/session" "task.org"
+	      "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 
@@ -103,17 +107,17 @@
 (leaf *define-customizations
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
-	 ("M-,"     . xref-find-definitions)
-	 ("M-w"     . clipboard-kill-ring-save)
-	 ("C-w"     . my:clipboard-kill-region)
-	 ("M-/"     . kill-current-buffer)
-	 ("C-x /"   . delete-this-file)
-	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	 ("C-q"     . other-window-or-split)
-	 ([muhenkan] . my:keyboard-quit))
+	     ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
+	     ("C-x m"   . neomutt)      ;; Overwrite compose mail
+	     ("M-,"     . xref-find-definitions)
+	     ("M-w"     . clipboard-kill-ring-save)
+	     ("C-w"     . my:clipboard-kill-region)
+	     ("M-/"     . kill-current-buffer)
+	     ("C-x /"   . delete-this-file)
+	     ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	     ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	     ("C-q"     . other-window-or-split)
+	     ([muhenkan] . my:keyboard-quit))
   :init
   (defun my:upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
@@ -154,7 +158,7 @@ If the region is inactive, `backward-kill-word'."
 	    (clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
 
-    (defun other-window-or-split ()
+  (defun other-window-or-split ()
     "If there is one window, open split window.
 If there are two or more windows, it will go to another window."
     (interactive)
@@ -167,7 +171,7 @@ If there are two or more windows, it will go to another window."
 If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
+	      (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
 	        ((iconify-frame))))))
 
