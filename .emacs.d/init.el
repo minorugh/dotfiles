@@ -23,7 +23,7 @@
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-		       ("melpa" . "https://melpa.org/packages/")))
+		               ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
   (use-package leaf :ensure t)
 

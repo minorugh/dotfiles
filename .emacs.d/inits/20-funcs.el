@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *compile
+(leaf compilation
   :doc "run compiler as inferior of Emacs"
   :tag "Builtin"
   :config
@@ -39,7 +39,7 @@
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
-(leaf *user-gist-commands
+(leaf gist-commands
   :doc "Gist upload from current buffer or region"
   :defun gist-filename gist-description dired-get-filename
   :init
@@ -60,8 +60,8 @@ If region isn't selected, post from the buffer."
     (interactive)
     (let ((file (buffer-file-name)))
       (if (not (use-region-p))
-	  (compile (concat "gist -od " (gist-description) " " file))
-	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+	      (compile (concat "gist -od " (gist-description) " " file))
+	    (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows)))
 
 ;; Local Variables:
