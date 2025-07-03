@@ -47,7 +47,7 @@
 (leaf init-loader :ensure t
   :doc "Loading inits configuration"
   :load-path "~/.emacs.d/elisp"
-  :require my:dired my:compile my:evil-hugo
+  :require my:dired my:template my:compile my:evil-hugo
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
@@ -59,7 +59,7 @@
   :doc "Byte compilation is performed when Emacs exits."
   :hook (kill-emacs-hook . auto-compile-inits)
   :init
-    (defun auto-compile-inits ()
+  (defun auto-compile-inits ()
     "Byte-compilation of all initial configuration files."
     (interactive)
     (byte-compile-file "~/.emacs.d/early-init.el")
