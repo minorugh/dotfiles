@@ -31,7 +31,7 @@
 (leaf tempbuf
   :doc "Auto kill unused buffers in the background"
   :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook	((find-file-hook dired-mode-hook magit-mode-hook)
+  :hook	((find-file-hook dired-mode-hook magit-mode-hook compilation-mode-hook)
          . turn-on-tempbuf-mode)
   :config
   (setq tempbuf-kill-message nil))
