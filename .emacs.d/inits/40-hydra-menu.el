@@ -5,7 +5,6 @@
 
 (leaf *hydra-work
   :doc "Quick menu for workings"
-  ;; :require my:template  ;; Load user define templates
   :bind ("<henkan>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -70,8 +69,8 @@
     (interactive)
     (let ((dir (directory-file-name default-directory)))
       (when (and (eq system-type 'gnu/linux)
-		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
-	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
+		         (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+	    (shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
       (compile (concat "gnome-terminal --working-directory " dir))))
 
   (defun ssh-xsrv ()
@@ -81,7 +80,6 @@
 
 (leaf * hydra-dired
   :doc "Quick access for dired"
-  ;; :require my:dired  ;; Load user define for quick accsess
   :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired
@@ -139,7 +137,7 @@
     "Display message if magit in dashboard."
     (interactive)
     (if (string= "*dashboard*" (buffer-name))
-	(message "Can't magit in Dashboard！")
+	    (message "Can't magit in Dashboard！")
       (magit-status-setup-buffer)))
 
   (defun neomutt ()
