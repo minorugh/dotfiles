@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf compilation
+(leaf compilation :ensure nil
   :doc "run compiler as inferior of Emacs"
   :tag "Builtin"
   :config
@@ -21,8 +21,9 @@
 	      (t (message "Compilation exited abnormally: %s" string)))))
 
 
-(leaf ps-mule :tag "Builtin"
+(leaf ps-mule :ensure nil
   :doc "provide multi-byte character facility to ps-print"
+  :tag "Builtin"
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :config
@@ -39,7 +40,7 @@
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
-(leaf gist-commands
+(leaf gist-commands :ensure nil
   :doc "Gist upload from current buffer or region"
   :defun gist-filename gist-description dired-get-filename
   :init

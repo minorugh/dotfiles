@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key :tag "builtin"
+(leaf which-key :ensure nil
+  :tag "builtin"
   :doc "Display available keybindings in popup"
   :config
   (setq which-key-max-description-length 40)
@@ -36,7 +37,8 @@
   :config
   (setq tempbuf-kill-message nil))
 
-(leaf bs :tag "builtin"
+(leaf bs :ensure nil
+  :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
   :bind (("M-]" . bs-cycle-next)
 	     ("M-[" . bs-cycle-previous)))

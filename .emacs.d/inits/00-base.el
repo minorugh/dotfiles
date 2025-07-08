@@ -62,10 +62,9 @@
   (set-fringe-mode 1)
 
   ;; Permanently indent with spaces, never with TABs
-  (setq-default major-mode 'text-mode
-    	        fill-column 80
-    	        tab-width 4
-    	        indent-tabs-mode nil)
+  (setq-default major-mode 'text-mode)
+  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
 
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
@@ -98,8 +97,8 @@
 
   ;; Recentf
   (setq recentf-exclude
-	    '("\\.howm-keys" "\\^/session" "task.org"
-	      "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
+	'("\\.howm-keys" "\\^/session" "task.org"
+	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
   (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (add-hook 'after-init-hook 'recentf-mode))
 

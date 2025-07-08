@@ -13,7 +13,8 @@
   (goggles-changed  . '((t (:background "#fae8bb"))))
   (goggles-removed  . '((t (:background "#fabfbb")))))
 
-(leaf paren :tag "builtin"
+(leaf paren :ensure nil
+  :tag "builtin"
   :doc "Highlight matching parens"
   :hook (after-init-hook . show-paren-mode)
   :custom-face
@@ -23,7 +24,8 @@
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
 
-(leaf blink-cursor :tag "Builtin"
+(leaf blink-cursor :ensure nil
+  :tag "Builtin"
   :doc "Blinking cursor mode for GNU Emacs"
   :config
   (setq blink-cursor-blinks   0)

@@ -31,15 +31,17 @@
   :hook (after-init-hook . atomic-chrome-start-server)
   :config (setq atomic-chrome-buffer-open-style 'full))
 
-(leaf ediff
+(leaf ediff :ensure nil
+  :tag "Builtin"
   :doc "Edit while viewing the difference"
   :hook (ediff-mode-hook . dimmer-off)
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
-	ediff-split-window-function 'split-window-horizontally
-	ediff-diff-options "-twB"))
+	    ediff-split-window-function 'split-window-horizontally
+	    ediff-diff-options "-twB"))
 
-(leaf elec-pair :tag "builtin"
+(leaf elec-pair :ensure nil
+  :tag "builtin"
   :doc "Automatic parenthesis pairing"
   :hook (after-init-hook . electric-pair-mode))
 

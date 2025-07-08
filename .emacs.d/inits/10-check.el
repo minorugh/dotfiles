@@ -38,7 +38,8 @@
     :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
 
 
-(leaf ispell
+(leaf ispell :ensure nil
+  :tag "Builtin"
   :doc "For hunspell"
   :config
   (setq ispell-program-name "hunspell")
