@@ -45,15 +45,18 @@
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
 (leaf init-loader :ensure t
-  :doc "Loading inits configuration"
-  :load-path "~/.emacs.d/elisp"
-  :require my:dired my:template my:compile my:evil-hugo
+  :doc "Load inits configuration"
   :config
   (custom-set-variables
    '(init-loader-show-log-after-init 'error-only))
   (init-loader-load)
   :init
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+
+(leaf *load-user-conf
+  :doc "Load user definitions"
+  :load-path "~/.emacs.d/elisp"
+  :require my:dired my:template my:compile my:evil-hugo)
 
 (leaf *auto-byte-compile
   :doc "Byte compilation is performed when Emacs exits."
