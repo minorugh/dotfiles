@@ -1,4 +1,4 @@
-;;; init.el --- A Fancy and Fast Emacs Configuration. -*- lexical-binding: t -*-
+;;; init.el --- My init.el  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; URL: https://github.com/minorugh/dotfiles
 ;;; Code:

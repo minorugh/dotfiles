@@ -1,4 +1,4 @@
-;;; init-mini.el --- Emacs minimal configurations.	-*- lexical-binding: t no-byte-compile: t -*-
+;;; init-mini.el --- Emacs minimal configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
 
 ;; This will start with typing `eq' at shell with minimal Emacs.
