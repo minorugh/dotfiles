@@ -8,7 +8,7 @@
   :if (display-graphic-p)
   :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
   :hook ((after-init-hook . dashboard-setup-startup-hook)
-	     (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
+	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
