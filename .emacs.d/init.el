@@ -44,11 +44,6 @@
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize))
 
-(leaf *load-user-def
-  :doc "Load user definitions"
-  :load-path "~/.emacs.d/elisp"
-  :require my:dired my:template my:compile my:evil-hugo)
-
 (leaf init-loader :ensure t
   :doc "Load inits configuration"
   :config
@@ -57,6 +52,11 @@
   (init-loader-load)
   :init
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+
+(leaf *load-user-def
+  :doc "Load user definitions"
+  :load-path "~/.emacs.d/elisp"
+  :require my:dired my:template my:compile my:evil-hugo)
 
 (leaf *auto-byte-compile
   :doc "Byte compilation is performed when Emacs exits."
