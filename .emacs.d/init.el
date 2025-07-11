@@ -1,4 +1,4 @@
-;;; init.el --- My init.el  -*- lexical-binding: t -*-
+;;; init.el --- User initialization.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; URL: https://github.com/minorugh/dotfiles
 ;;; Code:
@@ -23,7 +23,7 @@
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-		               ("melpa" . "https://melpa.org/packages/")))
+		       ("melpa" . "https://melpa.org/packages/")))
   (package-initialize)
   (use-package leaf :ensure t)
 
