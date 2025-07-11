@@ -106,17 +106,17 @@
 (leaf *cus-user-defined
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	     ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	     ("C-x m"   . neomutt)      ;; Overwrite compose mail
-	     ("M-,"     . xref-find-definitions)
-	     ("M-w"     . clipboard-kill-ring-save)
-	     ("C-w"     . my:clipboard-kill-region)
-	     ("M-/"     . kill-current-buffer)
-	     ("C-x /"   . delete-this-file)
-	     ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	     ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
-	     ("C-q"     . other-window-or-split)
-	     ([muhenkan] . my:keyboard-quit))
+	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
+	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
+	 ("M-,"     . xref-find-definitions)
+	 ("M-w"     . clipboard-kill-ring-save)
+	 ("C-w"     . my:clipboard-kill-region)
+	 ("M-/"     . kill-current-buffer)
+	 ("C-x /"   . delete-this-file)
+	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
+	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	 ("C-q"     . other-window-or-split)
+	 ([muhenkan] . my:keyboard-quit))
   :init
   (defun my:upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
@@ -136,7 +136,7 @@
   (defun my:keyboard-quit ()
     (interactive)
     (if (not (use-region-p))
-	    (minibuffer-keyboard-quit)
+	(minibuffer-keyboard-quit)
       (keyboard-quit)))
 
   (defun delete-this-file ()
@@ -145,7 +145,7 @@
     (unless (buffer-file-name)
       (error "No file is currently being edited"))
     (when (yes-or-no-p (format "Really delete '%s'?"
-			                   (file-name-nondirectory buffer-file-name)))
+			       (file-name-nondirectory buffer-file-name)))
       (delete-file (buffer-file-name))
       (kill-current-buffer)))
 
@@ -154,7 +154,7 @@
 If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
-	    (clipboard-kill-region (region-beginning) (region-end))
+	(clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
 
   (defun other-window-or-split ()
@@ -170,9 +170,9 @@ If there are two or more windows, it will go to another window."
 If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))
-	      (numfrs (length (visible-frame-list))))
+	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	        ((iconify-frame))))))
+	    ((iconify-frame))))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
