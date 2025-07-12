@@ -5,7 +5,7 @@
 
 (leaf dimmer :ensure t
   :defun my:dimmer-activate dimmer-process-all
-  :doc "Visually highlight the selected buffer"
+  :doc "Visually highlight the selected buffer."
   :chord ("::"  . my:toggle-dimmer)
   :hook ((emacs-startup-hook . dimmer-excludes)
 	 (minibuffer-setup-hook . dimmer-off)

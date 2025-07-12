@@ -5,7 +5,7 @@
 
 (leaf company :ensure t
   :defun company-mode/backend-with-yas
-  :doc "Modular in-buffer completion framework"
+  :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)
 	 ("C-<tab>"      . company-yasnippet)
@@ -33,7 +33,7 @@
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
 (leaf prescient :ensure t
-  :doc "Better sorting and filtering"
+  :doc "Better sorting and filtering."
   :hook (after-init-hook . prescient-persist-mode)
   :config
   (setq prescient-aggressive-file-save t)
@@ -43,7 +43,7 @@
     (leaf company-prescient :ensure t)))
 
 (leaf yasnippet :ensure t
-  :doc "Template system"
+  :doc "Template system."
   :hook (after-init-hook . yas-global-mode)
   :config
   (setq yas-indent-line 'fixed)

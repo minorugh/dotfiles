@@ -7,7 +7,7 @@
 ;; Counsel configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf counsel :ensure t
-  :doc "Various completion functions using Ivy"
+  :doc "Various completion functions using Ivy."
   :defun ivy--format-function-generic ivy--add-face thing-at-point-looking-at
   ivy-thing-at-point ad:counsel-ag ivy-add-actions
   :hook (after-init-hook . ivy-mode)
@@ -66,11 +66,11 @@
   :bind ("C-r" . avy-goto-word-1))
 
 (leaf ivy-rich :ensure t
-  :doc "More friendly display transformer for ivy"
+  :doc "More friendly display transformer for ivy."
   :hook after-init-hook)
 
 (leaf amx :ensure t
-  :doc "Alternative 'M-x' with extra features"
+  :doc "Alternative 'M-x' with extra features."
   :config
   (setq amx-save-file "~/.emacs.d/tmp/amx-items")
   (setq amx-history-length 20))
@@ -81,7 +81,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf swiper :ensure t
   :defun --map s-join s-matches-p s-equals? --partition-by s-matches? s-split migemo-get-pattern
-  :doc "Isearch with an overview"
+  :doc "Isearch with an overview."
   :bind (("C-s" . swiper-region)
 	 ("s-s" . swiper-thing-at-point))
   :config
@@ -95,7 +95,7 @@ If the region isn't selected, `swiper'."
 
 
 (leaf migemo :ensure t
-  :doc "Japanese incremental search through dynamic pattern expansion"
+  :doc "Japanese incremental search through dynamic pattern expansion."
   :if (executable-find "cmigemo")
   :hook (after-init-hook . migemo-init)
   :config
@@ -104,7 +104,7 @@ If the region isn't selected, `swiper'."
 
 
 (leaf swiper-migemo
-  :doc "For swiper-migemo"
+  :doc "For swiper-migemo."
   :url "https://www.yewton.net/2020/04/21/migemo-ivy/"
   :config
   (defun my:ivy-migemo-re-builder (str)

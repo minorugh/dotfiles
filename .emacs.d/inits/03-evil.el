@@ -81,7 +81,7 @@
 
 
 (leaf evil-leader :ensure t
-  :doc "Free keymap on evil-mode"
+  :doc "Free keymap on evil-mode."
   :defun evil-leader/set-leader evil-emacs-state ad:switch-to-buffer
   :hook (after-init-hook . global-evil-leader-mode)
   :config

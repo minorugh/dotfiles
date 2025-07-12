@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf super-save :ensure t
-  :doc "Smart auto save buffers"
+  :doc "Smart auto save buffers."
   :config
   (setq super-save-auto-save-when-idle t)
   (setq super-save-idle-duration       1)
@@ -13,7 +13,7 @@
   :hook after-init-hook)
 
 (leaf imenu-list :ensure t
-  :doc "Show imenu entries in a separate buffer"
+  :doc "Show imenu entries in a separate buffer."
   :bind (([f2]  . imenu-list-smart-toggle)
 	 (:imenu-list-major-mode-map
 	  ("j"   . next-line)
@@ -27,26 +27,26 @@
     :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 (leaf atomic-chrome :ensure t
-  :doc "Edit text areas of the browser in Emacs"
+  :doc "Edit text areas of the browser in Emacs."
   :hook (after-init-hook . atomic-chrome-start-server)
   :config (setq atomic-chrome-buffer-open-style 'full))
 
 (leaf ediff :ensure nil
   :tag "Builtin"
-  :doc "Edit while viewing the difference"
+  :doc "Edit while viewing the difference."
   :hook (ediff-mode-hook . dimmer-off)
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
-	    ediff-split-window-function 'split-window-horizontally
-	    ediff-diff-options "-twB"))
+	ediff-split-window-function 'split-window-horizontally
+	ediff-diff-options "-twB"))
 
 (leaf elec-pair :ensure nil
   :tag "builtin"
-  :doc "Automatic parenthesis pairing"
+  :doc "Automatic parenthesis pairing."
   :hook (after-init-hook . electric-pair-mode))
 
 (leaf iedit :ensure t
-  :doc "Edit multiple occurrences in the same way simultaneously"
+  :doc "Edit multiple occurrences in the same way simultaneously."
   :bind ("<insert>" . iedit-mode))
 
 (leaf expand-region :ensure t
@@ -57,7 +57,7 @@
 	 ("C-/" . undo-fu-only-redo)))
 
 (leaf undohist :ensure t
-  :doc "Persistent undo history"
+  :doc "Persistent undo history."
   :config
   (setq undohist-directory     "~/.emacs.d/tmp/undohist")
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))

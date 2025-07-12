@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf flycheck :ensure t
-  :doc "On-the-fly syntax checking"
+  :doc "On-the-fly syntax checking."
   :hook (((text-mode-hook prog-mode-hook) . flycheck-mode)
 	     (lisp-interaction-mode-hook
 	      . (lambda () (interactive)(flycheck-mode 0))))
@@ -22,7 +22,7 @@
 
 
 (leaf textlint
-  :doc "checker for textlint"
+  :doc "checker for textlint."
   :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
   :after flycheck
   :config
@@ -40,7 +40,7 @@
 
 (leaf ispell :ensure nil
   :tag "Builtin"
-  :doc "For hunspell"
+  :doc "For hunspell."
   :config
   (setq ispell-program-name "hunspell")
   (setq ispell-really-hunspell t)

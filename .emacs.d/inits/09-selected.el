@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf selected :ensure t
-  :doc "Keymap for when region is active"
+  :doc "Keymap for when region is active."
   :url "http://github.com/Kungsgeten/selected.el"
   :defun my:ime-on my:ime-off selected--on region-or-read-string
   :hook (after-init-hook . selected-global-mode)
@@ -54,7 +54,7 @@
 	(message ""))))
 
   (leaf google-this :ensure t
-    :doc "Google search at region or under point"
+    :doc "Google search at region or under point."
     :config
     (defun my:google-this ()
       "Run without confirmation"

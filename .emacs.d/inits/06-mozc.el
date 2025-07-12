@@ -44,7 +44,7 @@
 
 (leaf mozc-cursor-color
   :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-  :doc "Set cursor color corresponding to mozc's input state"
+  :doc "Set cursor color corresponding to mozc's input state."
   :after mozc
   :require t)
 
