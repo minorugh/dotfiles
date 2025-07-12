@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf compilation :ensure nil
-  :doc "run compiler as inferior of Emacs"
+  :doc "run compiler as inferior of Emacs."
   :tag "Builtin"
   :config
   (add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
@@ -22,7 +22,7 @@
 
 
 (leaf ps-mule :ensure nil
-  :doc "provide multi-byte character facility to ps-print"
+  :doc "provide multi-byte character facility to ps-print."
   :tag "Builtin"
   :if (executable-find "lpr")
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
@@ -41,7 +41,7 @@
 
 
 (leaf gist-commands :ensure nil
-  :doc "Gist upload from current buffer or region"
+  :doc "Gist upload from current buffer or region."
   :defun gist-filename gist-description dired-get-filename
   :init
   (defun gist-description ()
