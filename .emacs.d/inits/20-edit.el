@@ -21,11 +21,10 @@
   :config
   (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
-  (setq imenu-list-position 'left))
-
-(leaf counsel-css :ensure t
-  :after imenu-list
-  :hook (css-mode-hook . counsel-css-imenu-setup))
+  (setq imenu-list-position 'left)
+  :preface
+  (leaf counsel-css :ensure t
+    :hook (css-mode-hook . counsel-css-imenu-setup)))
 
 (leaf atomic-chrome :ensure t
   :doc "Edit text areas of the browser in Emacs."
