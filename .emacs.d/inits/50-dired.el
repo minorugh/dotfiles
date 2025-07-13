@@ -19,7 +19,8 @@
 	 ("a" . dired-omit-mode)
 	 ("i" . call-sxiv))
   :config
-  (with-eval-after-load 'dired (require 'dired-x))
+  (autoload 'dired-omit-mode "dired-x")
+  ;; (with-eval-after-load 'dired (require 'dired-x))
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
