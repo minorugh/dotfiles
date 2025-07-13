@@ -103,7 +103,7 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
-(leaf *cus-user-defined
+(leaf *user-defined
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
