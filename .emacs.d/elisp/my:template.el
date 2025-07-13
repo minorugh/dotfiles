@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *my:template
+  :defun my:minoru_sen
   :config
   (defun my:diary-new-post ()
     "Open diary file and insert template."
