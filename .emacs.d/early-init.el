@@ -46,10 +46,11 @@
       (setq inhibit-message t)
       (custom-set-faces '(default ((t (:background "#282a36"))))))
   (add-hook 'window-setup-hook
-	        (lambda ()
-	          "Restart Emacs after a clean install of packages."
-	          (delete-file "~/.emacs.d/projects")
-	          (restart-emacs))))
+	    (lambda ()
+	      "Restart Emacs after a clean install of packages."
+	      (delete-file "~/.emacs.d/projects")
+	      (restart-emacs))))
+
 
 (provide 'early-init)
 ;;; early-init.el ends here
