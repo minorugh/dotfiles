@@ -61,11 +61,6 @@
   ;; Minimize the fringe
   (set-fringe-mode 1)
 
-  ;; Permanently indent with spaces, never with TABs
-  (setq-default major-mode 'text-mode)
-  (setq tab-width 4)
-  (setq indent-tabs-mode nil)
-
   ;;Goto address
   (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
