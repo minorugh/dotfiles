@@ -38,29 +38,31 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows)))
+    (delete-other-windows))
+
+  ;; The specifications of mozc_helper_emacs and mozc.el have changed.
+  ;; If you use mozc_emacs_helper compiled before the specification change with the new mozc.el,
+  ;; there is a problem that the suggestion menu is not displayed when you type Japanese.
+  ;; Here is some advice for this measure.
+  ;; https://w.atwiki.jp/ntemacs/pages/48.html
+  ;; ---------------------------------------------------------------------
+  (advice-add 'mozc-protobuf-get
+	      :around (lambda (orig-fun &rest args)
+			(when (eq (nth 1 args) 'candidate-window)
+			  (setf (nth 1 args) 'candidates))
+			(apply orig-fun args))))
 
 
 (leaf mozc-cursor-color
   :vc (:url "https://github.com/minorugh/mozc-cursor-color")
   :doc "Set cursor color corresponding to mozc's input state."
-  :after mozc
-  :require t)
+  :hook (after-init-hook . (lambda () (require 'mozc-cursor-color))))
 
 (leaf mozc-popup :ensure t
   :doc "Mozc with popup."
-  :after mozc
-  :require t
+  :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
   :config  (setq mozc-candidate-style 'popup))
 
-;; mozc_helper_emacs and mozc.el measures against specification
-;; https://w.atwiki.jp/ntemacs/pages/48.html
-;; ---------------------------------------------------------------------
-(advice-add 'mozc-protobuf-get
-            :around (lambda (orig-fun &rest args)
-                      (when (eq (nth 1 args) 'candidate-window)
-                        (setf (nth 1 args) 'candidates))
-                      (apply orig-fun args)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

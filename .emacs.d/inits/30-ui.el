@@ -68,8 +68,7 @@
 
 (leaf display-fill-column-indicator-mode :tag "Builtin"
   :doc "Indicate maximum colum."
-  :bind ("C-c c" . display-fill-column-indicator-mode)
-  ;; :hook gfm-mode-hook text-mode-hook
+  :hook gfm-mode-hook text-mode-hook
   :config
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))
