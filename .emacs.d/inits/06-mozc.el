@@ -5,7 +5,7 @@
 
 (leaf mozc :ensure t
   :defun evil-insert-state mozc-handle-event
-  :hook after-init-hook
+  :require mozc-cursor-color
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-m" . my:mozc-config)
 	 ("s-d" . my:mozc-word-regist)
