@@ -67,10 +67,6 @@
   ;;Auto revert
   (add-hook 'after-init-hook 'global-auto-revert-mode)
 
-  ;; Set language & font
-  ;; (set-language-environment "Japanese")
-  ;; (add-to-list 'default-frame-alist '(font . "Cica-18"))
-
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
@@ -92,7 +88,7 @@
   (add-hook 'after-init-hook 'recentf-mode))
 
 
-(leaf *user-defined
+(leaf *user-configurations
   :defun minibuffer-keyboard-quit
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
