@@ -4,8 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :defun dired-get-filename dired-find-alternate-file dired-find-file
-  dired-current-directory dired-goto-subdir dired-goto-file
+  ;; :defun dired-get-filename dired-find-alternate-file dired-find-file
+  ;; dired-current-directory dired-goto-subdir dired-goto-file
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 	 (dired-mode-hook . dired-omit-mode))
   :bind (:dired-mode-map
@@ -19,7 +19,7 @@
 	 ("a" . dired-omit-mode)
 	 ("i" . call-sxiv))
   :config
-  (autoload 'dired-omit-mode "dired-x")
+  ;; (autoload 'dired-omit-mode "dired-x")
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
@@ -28,7 +28,7 @@
   (setq ls-lisp-use-insert-directory-program nil)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-  :init
+
   (defun dired-open-in-accordance-with-situation ()
     "Files are opened in separate buffers, directories are opened in the same buffer."
     (interactive)
@@ -72,6 +72,7 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
        (format "sxiv -f -t -n %s %s"
 	       (length image-files)
 	       (mapconcat 'identity image-files " "))))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
