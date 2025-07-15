@@ -30,6 +30,10 @@
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
+;; Set language & font
+(set-language-environment "Japanese")
+(add-to-list 'default-frame-alist '(font . "Cica-18"))
+
 ;; Do not resize the frame at this early stage.
 (setq frame-inhibit-implied-resize t)
 
