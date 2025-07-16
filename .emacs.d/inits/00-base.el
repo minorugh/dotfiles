@@ -54,9 +54,6 @@
 
   ;; Hide cursor in inactive window
   (setq-default cursor-in-non-selected-windows . nil)
-  (setq request-storage-directory "~/.emacs.d/tmp/request")
-  (setq url-configuration-directory "~/.emacs.d/tmp/url")
-  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks")
 
   ;; Minimize the fringe
   (set-fringe-mode 1)
@@ -81,11 +78,16 @@
   (add-hook 'after-init-hook 'savehist-mode)
 
   ;; Recentf
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
   (setq recentf-exclude
 	'("\\.howm-keys" "\\^/session" "task.org"
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
-  (add-hook 'after-init-hook 'recentf-mode))
+  (add-hook 'after-init-hook 'recentf-mode)
+
+  ;; All history files are stored in `~/.emacs.d/tmp'
+  (setq request-storage-diectory "~/.emacs.d/tmp/request")
+  (setq url-configuration-directory "~/.emacs.d/tmp/url")
+  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks"))
 
 
 (leaf *user-configurations
