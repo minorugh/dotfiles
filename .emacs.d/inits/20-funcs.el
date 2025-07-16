@@ -15,10 +15,10 @@
   (defun compile-autoclose (buffer string)
     "Automatically close the compilation."
     (cond ((string-match "compilation" (buffer-name buffer))
-	       (string-match "finished" string)
-	       (delete-other-windows)
-	       (message "Compile successful."))
-	      (t (message "Compilation exited abnormally: %s" string)))))
+	   (string-match "finished" string)
+	   (delete-other-windows)
+	   (message "Compile successful."))
+	  (t (message "Compilation exited abnormally: %s" string)))))
 
 
 (leaf ps-mule :ensure nil

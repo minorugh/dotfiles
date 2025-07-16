@@ -1,5 +1,8 @@
 ;;; my:dired.el --- User dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+
+;; Definitions for opening specific directories orfiles
+
 ;;; Code:
 ;; (setq debug-on-error t)
 

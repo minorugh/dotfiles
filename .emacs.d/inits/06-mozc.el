@@ -15,11 +15,12 @@
   (leaf mozc-cursor-color
     :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state."
-    :hook (after-init-hook . (lambda () (require 'mozc-cursor-color))))
+    :hook (after-init-hook . mozc-cursor-color-setup))
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
-    :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
+    :after mozc
+    :require t
     :config  (setq mozc-candidate-style 'popup))
 
   :config

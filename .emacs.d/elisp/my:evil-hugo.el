@@ -2,9 +2,7 @@
 ;;; Commentary:
 
 ;; This is a customized version of the easy-hugo-newpost function in easy-hugo.el.
-;; When easy-hugo-newpost is invoked in evil-mode,
-;; a new file is opened in evil-normal-state.
-;; so this is modified to open it in evil-insert-state.
+;; When easy-hugo-newpost is invoked in evil-mode, open new file in evil-insert-state.
 
 ;;; Code:
 ;; (setq debug-on-error t)
