@@ -44,7 +44,9 @@
 (push '(fullscreen . maximized) default-frame-alist)
 (setq inhibit-startup-message t)
 
-;; If the package is a clean install, do not suppress message
+;; If package is already installed, suppress message
+;; and set the background color to dark
+;; If package is clean install, do not suppress message
 (if (file-directory-p "~/.emacs.d/elpa/")
     (progn
       (setq inhibit-message t)
