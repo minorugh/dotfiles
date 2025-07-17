@@ -50,20 +50,19 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
-    (delete-other-windows))
+    (delete-other-windows)))
 
-  ;; The specifications of mozc_helper_emacs and mozc.el have changed.
-  ;; If you use mozc_emacs_helper compiled before the specification change with the new mozc.el,
-  ;; there is a problem that the suggestion menu is not displayed when you type Japanese.
-  ;; Here is some advice for this measure.
-  ;; https://w.atwiki.jp/ntemacs/pages/48.html
-  ;; ---------------------------------------------------------------------
-  (advice-add 'mozc-protobuf-get
-	      :around (lambda (orig-fun &rest args)
-			(when (eq (nth 1 args) 'candidate-window)
-			  (setf (nth 1 args) 'candidates))
-			(apply orig-fun args))))
+;; ---------------------------------------------------------------------
+;; The specifications of mozc_helper_emacs and mozc.el have changed.
+;; Advice for using mozc_emacs_helper compiled before the spec change with the new mozc.el
+;; https://w.atwiki.jp/ntemacs/pages/48.html
 
+(advice-add 'mozc-protobuf-get
+	    :around (lambda (orig-fun &rest args)
+		      (when (eq (nth 1 args) 'candidate-window)
+			(setf (nth 1 args) 'candidates))
+		      (apply orig-fun args)))
+;; ---------------------------------------------------------------------
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
