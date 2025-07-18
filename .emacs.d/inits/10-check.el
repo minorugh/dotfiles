@@ -1,7 +1,7 @@
 ;;; 10-check.e,l --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;; (setq debug-on-error t)
+;; (isetq debug-on-error t)
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."

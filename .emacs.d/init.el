@@ -58,17 +58,15 @@
   :load-path "~/.emacs.d/elisp"
   :require my:dired my:template my:compile my:evil-hugo)
 
-(leaf *auto-byte-compile
-  :doc "Byte compilation is performed when Emacs exits."
-  :hook (kill-emacs-hook . auto-compile-inits)
-  :init
-  (defun auto-compile-inits ()
-    "Byte-compilation of all initial configuration files."
-    (interactive)
-    (byte-compile-file "~/.emacs.d/early-init.el")
-    (byte-compile-file "~/.emacs.d/init.el")
-    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
+;; Auto byte-compilation of init files when exiting emacs
+(defun auto-compile-init ()
+  "Byte-compilation of all initial configuration files."
+  (interactive)
+  (byte-compile-file "~/.emacs.d/early-init.el")
+  (byte-compile-file "~/.emacs.d/init.el")
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
+(add-hook 'kill-emacs-hook 'auto-compile-init)
 
 (provide 'init)
 ;;; init.el ends here
