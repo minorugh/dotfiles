@@ -5,9 +5,9 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."
-  :hook (((text-mode-hook prog-mode-hook) . flycheck-mode)
-	     (lisp-interaction-mode-hook
-	      . (lambda () (interactive)(flycheck-mode 0))))
+  :hook ((prog-mode-hook . flycheck-mode)
+	 (lisp-interaction-mode-hook
+	  . (lambda () (interactive)(flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
@@ -35,7 +35,7 @@
               (message (one-or-more not-newline)
                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
               line-end))
-    :modes (text-mode markdown-mode gfm-mode org-mode web-mode)))
+    :modes (markdown-mode gfm-mode org-mode web-mode)))
 
 
 (leaf ispell :ensure nil

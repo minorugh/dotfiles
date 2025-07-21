@@ -8,6 +8,7 @@
   :bind* ("<hiragana-katakana>" . my:toggle-input-method)
   :bind (("s-m" . my:mozc-config)
 	 ("s-d" . my:mozc-word-regist)
+	 ("s-t" . my:mozc-dictionary-tool)
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
@@ -44,6 +45,12 @@
     "Open `mozc-word-regist'."
     (interactive)
     (compile "/usr/lib/mozc/mozc_tool --mode=config_dialog")
+    (delete-other-windows))
+
+  (defun my:mozc-dictionary-tool ()
+    "Run the mozc-tool in the background."
+    (interactive)
+    (compile "/usr/lib/mozc/mozc_tool --mode=dictionary_tool")
     (delete-other-windows))
 
   (defun my:mozc-word-regist ()
