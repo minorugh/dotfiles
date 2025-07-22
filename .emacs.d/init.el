@@ -11,14 +11,15 @@
 ;; Speed up startup
 (setq gc-cons-threshold most-positive-fixnum)
 
+;; Temporarily suppress file-handler processing to speed up startup
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook
-	      (lambda ()
-	        "Recover file name handlers and GC values after startup."
-	        (setq file-name-handler-alist default-hadlers)
-	        (setq gc-cons-threshold 800000)
-	        (setq inhibit-message nil)))
+	  (lambda ()
+	    "Recover file name handlers and GC values after startup."
+	    (setq file-name-handler-alist default-hadlers)
+	    ;; (setq gc-cons-threshold 800000)
+	    (setq inhibit-message nil)))
 
 (eval-and-compile
   (customize-set-variable
