@@ -5,9 +5,8 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."
-  :hook ((prog-mode-hook . flycheck-mode)
-	 (lisp-interaction-mode-hook
-	  . (lambda () (interactive)(flycheck-mode 0))))
+  :hook ((prog-mode-hook gfm-mode-hook)
+	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
