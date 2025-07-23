@@ -30,6 +30,9 @@
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
+;; Inhibit resizing frame
+(setq frame-inhibit-implied-resize t)
+
 ;; Set language & font
 (set-language-environment "Japanese")
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
@@ -38,24 +41,16 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+;; Default frame settings. This is actually maximized, not full screen.
+(push '(fullscreen . maximized) initial-frame-alist)
 
-;; Disable the startup screen.
+;; Inhibit startup screen.
 (setq inhibit-startup-message t)
 
 ;; Give the frame basic coloring while waiting for the theme to load. The main
 ;; purpose of this is to not blind me when it's dark by flashing a screen full
 ;; of white. These colors are from doom-dracura.
 (set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
-
-;; Default frame settings. This is actually maximized, not full screen.
-(push '(fullscreen . maximized) initial-frame-alist)
-(push '(ns-transparent-titlebar . t) default-frame-alist)
-
-;; Resizing the Emacs frame can be a terribly expensive part of changing the
-;; font. By inhibiting this, we easily halve startup times with fonts that are
-;; larger than the system default.
-(setq frame-inhibit-implied-resize t)
-(setq frame-resize-pixelwise t)
 
 ;; Ignore X resources; its settings would be redundant with the other settings
 ;; in this file and can conflict with later config (particularly where the
