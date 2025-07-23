@@ -47,17 +47,11 @@
 ;; Inhibit startup screen.
 (setq inhibit-startup-message t)
 
-;; Give the frame basic coloring while waiting for the theme to load. The main
-;; purpose of this is to not blind me when it's dark by flashing a screen full
-;; of white. These colors are from doom-dracura.
+;; Give the frame basic coloring while waiting for the theme to load.
+;; These colors are from doom-dracura-theme.
 (set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
 
-;; Ignore X resources; its settings would be redundant with the other settings
-;; in this file and can conflict with later config (particularly where the
-;; cursor color is concerned).
-(advice-add #'x-apply-session-resources :override #'ignore)
-
-;; If package is already installed, suppress message
+;; If package is already installed, suppress message. This reduces startup time.
 ;; If package is clean install, do not suppress message
 (if (file-directory-p "~/.emacs.d/elpa/")
     (setq inhibit-message t)

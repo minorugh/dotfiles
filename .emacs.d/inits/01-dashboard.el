@@ -7,7 +7,7 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook ((after-init-hook . dashboard-setup-startup-hook)
+  :hook ((after-init-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
