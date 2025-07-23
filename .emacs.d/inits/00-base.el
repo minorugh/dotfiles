@@ -75,6 +75,7 @@
   ;; Savehist
   (setq savehist-file "~/.emacs.d/tmp/history")
   (setq savehist-additional-variables '(kill-ring))
+  (setq history-delete-duplicates t)
   (add-hook 'after-init-hook 'savehist-mode)
 
   ;; Recentf

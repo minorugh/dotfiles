@@ -7,7 +7,7 @@
   :doc "Wiki-like note-taking tool"
   :url "https://howm.osdn.jp"
   :defun howm-create evil-insert-state
-  :hook after-init-hook
+  :hook emacs-startup-hook
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)
@@ -29,17 +29,6 @@
 	  ("園芸:" . (0 'font-lock-warning-face))
 	  ("日記:" . (0 'font-lock-builtin-face))
 	  ("創作:" . (0 'font-lock-constant-face))))
-
-  ;; Type of font-lock
-  ;; font-lock-comment-face
-  ;; font-lock-string-face
-  ;; font-lock-keyword-face
-  ;; font-lock-builtin-face
-  ;; font-lock-function-name-face
-  ;; font-lock-variable-name-face
-  ;; font-lock-type-face
-  ;; font-lock-constant-face
-  ;; font-lock-warning-face
 
   (setq howm-template
 	'("# %title%cursor\n%date%file"
