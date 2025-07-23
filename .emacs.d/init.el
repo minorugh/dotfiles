@@ -19,7 +19,6 @@
 	    "Recover file name handlers and GC values after startup."
 	    (setq file-name-handler-alist default-hadlers)
 	    (setq gc-cons-threshold 800000)
-	    (setq gc-cons-percentage 0.2)
 	    (setq inhibit-message nil)))
 
 (eval-and-compile
