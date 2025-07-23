@@ -26,12 +26,12 @@
 ;; Always load newest byte code
 (setq load-prefer-newer noninteractive)
 
+;; Inhibit resizing frame
+(setq frame-inhibit-implied-resize t)
+
 ;; Explicitly set the prefered coding systems to avoid annoying prompt
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
-
-;; Inhibit resizing frame
-(setq frame-inhibit-implied-resize t)
 
 ;; Set language & font
 (set-language-environment "Japanese")
@@ -41,6 +41,7 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+
 ;; Default frame settings. This is actually maximized, not full screen.
 (push '(fullscreen . maximized) initial-frame-alist)
 
