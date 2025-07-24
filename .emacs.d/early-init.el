@@ -33,10 +33,6 @@
 ;; from emacs (especially on Microsoft Windows)
 (prefer-coding-system 'utf-8)
 
-;; Set language & font
-(set-language-environment "Japanese")
-(add-to-list 'default-frame-alist '(font . "Cica-18"))
-
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
