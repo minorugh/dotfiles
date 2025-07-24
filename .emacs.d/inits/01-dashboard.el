@@ -7,7 +7,7 @@
   :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
-  :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
+  :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
   :hook ((emacs-startup-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
