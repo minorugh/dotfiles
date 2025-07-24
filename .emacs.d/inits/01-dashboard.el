@@ -3,12 +3,13 @@
 ;;; Code:
 ;;(setq debug-on-error t)
 
-(leaf dashboard :ensure t
+(leaf dashboard
+  :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :defun nerd-icons-octicon open-dashboard dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook ((after-init-hook . open-dashboard)
-	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
+  :hook ((emacs-startup-hook . open-dashboard)
+	 (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
@@ -68,6 +69,7 @@
       (if (called-interactively-p 'interactive)
 	  (message "%s" str)
 	str))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
