@@ -7,7 +7,7 @@
   :doc "Pack of modern color-themes."
   :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
-  ;; (setq doom-themes-enable-italic nil)
+  (setq doom-themes-enable-italic nil)
   (doom-themes-org-config))
 
 (leaf hl-line :ensure nil
