@@ -60,9 +60,9 @@
   (add-hook 'window-setup-hook
 	    (lambda ()
 	      "Restart Emacs after a clean install of packages."
+	      (setq inhibit-message nil)
 	      (delete-file "~/.emacs.d/projects")
 	      (restart-emacs))))
-
 
 (provide 'early-init)
 ;;; early-init.el ends here
