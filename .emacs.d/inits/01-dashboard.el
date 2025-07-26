@@ -20,6 +20,7 @@
     :after dashboard
     :global-minor-mode t)
   :config
+  (setq initial-buffer-choice nil)
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
