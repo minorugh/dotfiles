@@ -8,8 +8,8 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook ((emacs-startup-hook . open-dashboard)
-	 (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
+  :hook  ((emacs-startup-hook . open-dashboard)
+	  (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
@@ -20,7 +20,6 @@
     :after dashboard
     :global-minor-mode t)
   :config
-  (setq initial-buffer-choice nil)
   ;; Set the items
   (if (string-match "P1" (shell-command-to-string "uname -n"))
       (setq dashboard-items '((recents . 8)(agenda . 5)))
