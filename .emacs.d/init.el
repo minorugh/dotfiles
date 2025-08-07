@@ -54,20 +54,14 @@
   :init
   (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
 
-(leaf *load-user-def
-  :doc "Load user definitions."
-  :load-path "~/.emacs.d/elisp"
-  :require my:dired my:template my:compile my:evil-hugo)
-
-;; Auto byte-compilation of init files when exiting emacs
-(defun auto-compile-inits ()
-  "Byte-compilation of all initial configuration files."
-  (interactive)
-  (byte-compile-file "~/.emacs.d/early-init.el")
-  (byte-compile-file "~/.emacs.d/init.el")
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0))
-(add-hook 'kill-emacs-hook 'auto-compile-inits)
+;; Auto byte compilation for inits files
+(add-hook 'kill-emacs-hook
+	  (lambda ()
+	    "Byte-compilation of all initial configuration files."
+	    (byte-compile-file "~/.emacs.d/early-init.el")
+	    (byte-compile-file "~/.emacs.d/init.el")
+	    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
+	    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
 (provide 'init)
 ;;; init.el ends here

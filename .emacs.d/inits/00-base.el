@@ -93,6 +93,8 @@
 
 (leaf *user-configurations
   :defun minibuffer-keyboard-quit
+  :load-path "~/.emacs.d/elisp"     ;; Load user definitions
+  :require my:dired my:template my:compile my:evil-hugo
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
@@ -161,6 +163,7 @@ If it's the last frame, minimize it without deleting it."
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
