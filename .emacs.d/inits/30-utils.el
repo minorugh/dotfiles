@@ -15,7 +15,7 @@
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
   :config
   :chord (("df" . counsel-descbinds)
-	      ("l;" . init-loader-show-log))
+	  ("l;" . init-loader-show-log))
   :hook after-init-hook)
 
 (leaf counsel-tramp :ensure t

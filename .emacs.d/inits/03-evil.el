@@ -91,10 +91,10 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "n" 'make-frame
+    "m" 'make-frame
     "_" 'other-frame
     "/" 'delete-frame
-    "S" 'window-swap-states
+    "w" 'window-swap-states
     "o" 'other-window-or-split
     "[" 'previous-buffer
     "]" 'next-buffer
@@ -104,10 +104,11 @@
     "g" 'my:google-this
     "s" 'swiper-thing-at-point
     ":" 'counsel-switch-buffer
-    "f" 'flymake-show-buffer-diagnostics
-    "," 'org-capture
+    "f" 'flycheck-list-errors
     "." 'terminal-open
+    "," 'ssh-xsrv
     "?" 'vim-cheat-sheet
+    "n" 'neomutt
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
   :hydra
