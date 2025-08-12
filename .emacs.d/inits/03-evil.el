@@ -103,12 +103,12 @@
     "j" 'evil-join-whitespace
     "g" 'my:google-this
     "s" 'swiper-thing-at-point
-    ":" 'counsel-switch-buffer
+    ":" 'thunar-open
     "f" 'flycheck-list-errors
     "." 'terminal-open
-    "," 'ssh-xsrv
+    "x" 'xsrv-gh
     "?" 'vim-cheat-sheet
-    "n" 'neomutt
+    "," 'neomutt
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
   :hydra
