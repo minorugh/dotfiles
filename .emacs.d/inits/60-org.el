@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf org
-  :chord (",," . org-capture)
   :bind ((("C-c a"  . org-agenda)
 	  ("C-c c"  . org-capture)
 	  ("C-c k"  . org-capture-kill)
