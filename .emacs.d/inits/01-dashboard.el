@@ -34,8 +34,8 @@
   (setq dashboard-page-separator "\n\f\f\n")
   (setq show-week-agenda-p t)
   ;; Set the footer
-  ;; (setq dashboard-footer-messages
-  ;; 	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))
+  (setq dashboard-footer-messages
+	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))
   (setq dashboard-footer-icon (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
 
   (defun dashboard-goto-recent-files ()
