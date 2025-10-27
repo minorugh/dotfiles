@@ -12,7 +12,7 @@
    "
    Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _r_ainbow  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Rm_@_point^^  _:_thunar  _b_ackupall^^^^  _+_.scale-adj^^^^
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_thunar  _b_ackupall^^^^  _+_.scale-adj^^^^
 "
    ("+" text-scale-adjust)
    ("c" my:capitalize-word)
