@@ -54,14 +54,16 @@
 
 ;; Checks for the existence of elpa directory and splits the operation
 ;; If package is already installed, suppress message.
-;; When clean install package, do not suppress message.
-(if (file-directory-p "~/.emacs.d/elpa/")
-    (setq inhibit-message t)
-  (add-hook 'window-setup-hook
-	    (lambda ()
-	      "Restart Emacs after a clean install of packages."
-	      (delete-file "~/.emacs.d/projects")
-	      (restart-emacs))))
+;; If package is clean install, do not suppress message
+;; (if (file-directory-p "~/.emacs.d/elpa/")
+;;     (setq inhibit-message t))
+(add-hook 'window-setup-hook
+	  (lambda ()
+	    "Restart Emacs after a clean install of packages."
+	    (if (file-exists-p "~/.emacs.d/projects")
+		(progn
+		  (delete-file "~/.emacs.d/projects")
+		  (restart-emacs)))))
 
 (provide 'early-init)
 ;;; early-init.el ends here

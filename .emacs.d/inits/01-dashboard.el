@@ -8,8 +8,8 @@
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
-  :hook  ((emacs-startup-hook . open-dashboard)
-	  (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
+  :hook ((emacs-startup-hook . open-dashboard)
+	 (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
