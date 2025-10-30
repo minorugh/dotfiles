@@ -52,11 +52,7 @@
 ;; These colors are from doom-dracura-theme.
 (set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
 
-;; Checks for the existence of elpa directory and splits the operation
-;; If package is already installed, suppress message.
-;; If package is clean install, do not suppress message
-;; (if (file-directory-p "~/.emacs.d/elpa/")
-;;     (setq inhibit-message t))
+;; Remove `projects' file generated during package clean install.
 (add-hook 'window-setup-hook
 	  (lambda ()
 	    "Restart Emacs after a clean install of packages."
