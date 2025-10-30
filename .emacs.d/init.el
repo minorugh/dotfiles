@@ -72,5 +72,6 @@
 		  (delete-file "~/.emacs.d/projects")
 		  (restart-emacs)))))
 
+
 (provide 'init)
 ;;; init.el ends here

@@ -74,4 +74,5 @@
 (define-key global-map (kbd "C-x j") #'dired-jump)
 (define-key global-map (kbd "<henkan>") #'dired-jump)
 
+
 ;;; Init-mini.el ends here

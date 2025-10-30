@@ -52,5 +52,6 @@
 ;; These colors are from doom-dracura-theme.
 (set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
 
+
 (provide 'early-init)
 ;;; early-init.el ends here
