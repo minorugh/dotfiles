@@ -52,14 +52,5 @@
 ;; These colors are from doom-dracura-theme.
 (set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
 
-;; Remove `projects' file generated during package clean install.
-(add-hook 'window-setup-hook
-	  (lambda ()
-	    "Restart Emacs after a clean install of packages."
-	    (if (file-exists-p "~/.emacs.d/projects")
-		(progn
-		  (delete-file "~/.emacs.d/projects")
-		  (restart-emacs)))))
-
 (provide 'early-init)
 ;;; early-init.el ends here

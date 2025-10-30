@@ -63,5 +63,14 @@
 	    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 	    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
+;; Remove unnecessary files generated when package clean-install.
+(add-hook 'window-setup-hook
+	  (lambda ()
+	    "Restart Emacs after remove unnecessary files."
+	    (if (file-exists-p "~/.emacs.d/projects")
+		(progn
+		  (delete-file "~/.emacs.d/projects")
+		  (restart-emacs)))))
+
 (provide 'init)
 ;;; init.el ends here
