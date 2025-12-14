@@ -92,7 +92,7 @@
 
 
 (leaf *user-configurations
-  :defun minibuffer-keyboard-quit
+  :defun minibuffer-keyboard-quit my:handle-delete-frame
   :load-path "~/.emacs.d/elisp"     ;; Load user definitions
   :require my:dired my:template my:compile my:evil-hugo
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
@@ -157,7 +157,7 @@ If there are two or more windows, it will go to another window."
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame` defined in `frame.el`.
-If it's the last frame, minimize it without deleting it."
+  If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))

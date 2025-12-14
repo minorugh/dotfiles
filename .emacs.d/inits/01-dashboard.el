@@ -63,10 +63,7 @@
   (defun emacs-init-time ()
     "Overwrite `emacs-init-time' defined in time.el."
     (interactive)
-    (let ((str
-	   (format "%.3f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))))
+    (let ((str (format "%.3f seconds" (float-time (time-subtract after-init-time before-init-time)))))
       (if (called-interactively-p 'interactive)
 	  (message "%s" str)
 	str))))
