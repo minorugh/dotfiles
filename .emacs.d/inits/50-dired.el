@@ -17,7 +17,7 @@
 	 ("o" . dired-open-file)
 	 ("[" . dired-hide-details-mode)
 	 ("a" . dired-omit-mode)
-	 ("i" . call-sxiv))
+	 ("I" . call-sxiv))
   :config
   ;; (autoload 'dired-omit-mode "dired-x")
   (setq dired-dwim-target t)
@@ -69,7 +69,7 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 		  (directory-files default-directory)))))
       (start-process-shell-command
        "sxiv" nil
-       (format "sxiv -f -t -n %s %s"
+       (format "sxiv -p -f -t -n %s %s"
 	       (length image-files)
 	       (mapconcat 'identity image-files " "))))))
 
