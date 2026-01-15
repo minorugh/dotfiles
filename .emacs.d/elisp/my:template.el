@@ -103,7 +103,7 @@
      ";--------------------------------------------------------------------\n"
      (format-time-string "*[%Y%m%d] \n")
      ";--------------------------------------------------------------------\n"
-     (format-time-string "-*[%Y%m%d%H%M%S]臼井菜々\n")
+     (format-time-string "-*[%Y%m%d%H%M%S]阿波野青畝\n")
      "<div style=\"margin:1em\">\n()\n</div>\n-(\n;; <-hi>\n--\n<h3>合評</h3>\n"
      "<div class=\"border\">\n"
      (format-time-string "<iframe class=\"autoHeight\" src=\"apiframe.cgi?%Y%m%d\"></iframe>\n")
