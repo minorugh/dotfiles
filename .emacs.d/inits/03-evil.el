@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
-  :defun evil-ex-define-cmd evil-normal-state evil-emacs-state evil-swap-key
+  :defun evil-ex-define-cmd evil-normal-state evil-swap-key
   :hook after-init-hook
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
@@ -47,7 +47,10 @@
 		  imenu-list-major-mode easy-hugo-mode neotree-mode
 		  org-mode fundamental-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
-  (add-hook 'magit-blame-mode-hook 'evil-emacs-state) ;; for minor mode
+  ;; For minor mode
+  (add-hook 'counsel-find-file-hook 'evil-emacs-state)
+  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
+  (add-hook 'view-mode-hook 'evil-emacs-state)
 
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
@@ -56,13 +59,6 @@
     (if current-input-method (deactivate-input-method))
     (evil-normal-state)
     (message "-- NORMAL --"))
-
-  (defun evil-find-file ()
-    "New files open in insert-state."
-    (interactive)
-    (unless (file-exists-p buffer-file-name)
-      (evil-emacs-state)))
-  (add-hook 'find-file-hook 'evil-find-file)
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -106,7 +102,8 @@
     ":" 'thunar-open
     "f" 'flycheck-list-errors
     "." 'terminal-open
-    "x" 'xsrv-gh
+    "z" 'filezilla-open
+    "p" 'keepassxc
     "?" 'vim-cheat-sheet
     "," 'neomutt
     "q" 'keyboard-quit
@@ -126,7 +123,27 @@
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
     (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
+
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (compile "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+  (defun thunar-open ()
+    (interactive)
+    (compile (concat "thunar " default-directory)))
+
+  (defun filezilla-open ()
+    (interactive)
+    (compile "filezilla -s"))
+
+  (defun keepassxc ()
+    "Open keepassxc with auto passwd input."
+    (interactive)
+    (compile "keepass.sh")))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
