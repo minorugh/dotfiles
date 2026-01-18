@@ -281,6 +281,7 @@ alias dcps="docker-compose ps"
 # For neomutt to start at ~/Downloads
 alias mutt='/usr/local/bin/neomutt.sh'
 
+alias xmod='xmodmap /home/minoru/.Xmodmap'
 # For vim
 alias v='vim'
 alias sv='sudo vim'

@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *my:template
-  :defun my:minoru_sen
+  :defun my:minoru_sen evil-emacs-state
   :config
   (defun my:diary-new-post ()
     "Open diary file and insert template."
@@ -90,6 +90,8 @@
     "Open apsh file and insert template."
     (interactive)
     (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
+    (when evil-mode
+      (evil-emacs-state))
     (goto-char 0)
     ;; Insert a new date if the date has changed
     (setq string (buffer-substring-no-properties (pos-bol) (pos-eol)))
@@ -242,12 +244,16 @@
     "Open haiku note file."
     (interactive)
     (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+    (when evil-mode
+      (evil-emacs-state))
     (goto-char (point-min)))
 
   (defun my:haiku-note-post ()
     "Insert template."
     (interactive)
     (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
+    (when evil-mode
+      (evil-emacs-state))
     (goto-char (point-min))
     (forward-line -2)
     (insert

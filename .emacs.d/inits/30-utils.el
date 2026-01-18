@@ -29,7 +29,8 @@
   :ensure t
   :after view
   :hook (view-mode-hook  . viewer-change-modeline-color-setup)
-  :custom (viewer-modeline-color-view . "#852941"))
+  :config
+  (setq viewer-modeline-color-view '"#852941"))
 
 (leaf popwin :ensure t
   :doc "popup window manager for Emacs"

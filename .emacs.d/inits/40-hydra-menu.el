@@ -78,8 +78,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _._files  make._c__k__g_|_b__m__u_  _:_._l_ocal
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _<home>_  howm._,__;__@_|md_v_^^^^  _D_ocuments^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c__k__g_|_b__m__u_  _:_._l_ocal
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _z_illa  _<home>_  howm._,__;__@_|md_v_^^^^  _D_ocuments^^
 "
    ("f" flycheck-list-errors)
    ("l" my:github-local)
@@ -92,6 +92,7 @@
    ("D" my:documents)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
+   ("j" my:junk-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
    ("r" restart-emacs)
@@ -111,7 +112,7 @@
    ("[" hydra-magit/body)
    ("]" my:magit-status)
    ("s" my:scr-dir)
-   ("z" filezilla)
+   ("z" filezilla-open)
    ("n" neomutt)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))

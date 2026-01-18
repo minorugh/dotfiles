@@ -4,6 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf org
+  :hook (org-capture-mode-hook . my:org-capture-maximize)
   :bind ((("C-c a"  . org-agenda)
 	  ("C-c c"  . org-capture)
 	  ("C-c k"  . org-capture-kill)
@@ -18,6 +19,10 @@
   (setq org-startup-truncated nil)
   (setq org-agenda-span 'month)
   (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
+
+  (defun my:org-capture-maximize ()
+    "Maximize the org-capture screen."
+    (delete-other-windows))
 
   ;; Capture template
   (defun my:howm-create-file ()

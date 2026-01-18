@@ -101,11 +101,11 @@
     "s" 'swiper-thing-at-point
     ":" 'thunar-open
     "f" 'flycheck-list-errors
-    "." 'terminal-open
+    "." 'neomutt
     "z" 'filezilla-open
     "p" 'keepassxc
     "?" 'vim-cheat-sheet
-    "," 'neomutt
+    "," 'org-capture
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
   :hydra
