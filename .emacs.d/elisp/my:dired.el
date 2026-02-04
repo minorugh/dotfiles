@@ -124,6 +124,20 @@
     (find-file "~/Dropbox/GH/dia/diary.txt")
     (goto-char (point-min)))
 
+  (defun my:marquee-edit ()
+    "Open diary file."
+    (interactive)
+    (find-file "~/Dropbox/GH/marquee.txt")
+    (goto-char (point-min))
+    (evil-emacs-state))
+
+  (defun my:kendai-edit ()
+    "Open diary file."
+    (interactive)
+    (find-file "~/Dropbox/GH/w_kukai/info/kendai.txt")
+    (goto-char (point-min))
+    (evil-emacs-state))
+
   (defun my:d_kukai ()
     "Open d_select file."
     (interactive)
@@ -154,10 +168,10 @@
     (find-file "~/Dropbox/GH/mj_select/tex/mj.txt")
     (goto-char (point-min)))
 
-  (defun my:tpost ()
+  (defun my:w_select ()
     "Open tselect file."
     (interactive)
-    (find-file "~/Dropbox/GH/tselect/tex/minoru_sen.txt")
+    (find-file "~/Dropbox/GH/w_select/tex/minoru_sen.txt")
     (goto-char (point-min)))
 
   (defun my:tselext ()

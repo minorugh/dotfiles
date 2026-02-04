@@ -13,8 +13,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _r_ainbow  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_thunar  _b_ackupall^^^^  _+_.scale-adj^^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_mqedit  _b_ackup_j_ob  _+_.scale-adj^^^^
 "
    ("+" text-scale-adjust)
    ("c" my:capitalize-word)
@@ -31,11 +31,12 @@
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("b" make-backup)
-   (":" thunar-open)
+   ("." my:kendai-edit)
+   (":" my:marquee-edit)
    ("z" filezilla-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
-   ("r" rainbow-mode)
+   ("j" my:job)
    ("d" my:diary)
    ("D" my:diary-new-post)
    ("g" gist-region-or-buffer)
@@ -47,7 +48,7 @@
    ("K" my:kinnei)
    ("k" my:kinnei-draft)
    ("m" my:d_kukai)
-   ("w" my:tpost)
+   ("w" my:w_select)
    ("f" my:dselext)
    ("F" my:dselext-new-post)
    ("+" text-scale-adjust)
@@ -67,7 +68,11 @@
 
   (defun xsrv-gh ()
     (interactive)
-    (compile "gnome-terminal --maximize -- ssh xsrv-GH")))
+    (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
+
+  (defun my:job ()
+    (interactive)
+    (compile "sh /usr/local/bin/myjob.sh")))
 
 
 (leaf * hydra-dired
@@ -78,8 +83,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c__k__g_|_b__m__u_  _:_._l_ocal
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _z_illa  _<home>_  howm._,__;__@_|md_v_^^^^  _D_ocuments^^
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c__k__g_|_b__m__u_  _:_._l_ocal  _x_modmap
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _z_illa  _<home>_   howm._,__;__@_|md_v_^^^^  _D_ocuments^^  _f_lyerro
 "
    ("f" flycheck-list-errors)
    ("l" my:github-local)
@@ -96,7 +101,7 @@
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
    ("r" restart-emacs)
-   ("v" markdown-preview)
+   ("v" markdwn-preview)
    ("@" howm-list-all)
    ("," my:howm-create-memo)
    (";" my:howm-create-tech)
@@ -114,12 +119,18 @@
    ("s" my:scr-dir)
    ("z" filezilla-open)
    ("n" neomutt)
+   ("x" xmodmap)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init
   (with-eval-after-load 'dired
     "Load user dired for quick accsess."
     (require 'my:dired))
+
+  (defun xmodmap ()
+    "Execute xmodmap."
+    (interactive)
+    (shell-command "xmodmap /home/minoru/.Xmodmap"))
 
   (defun my:magit-status ()
     "Display message if magit in dashboard."

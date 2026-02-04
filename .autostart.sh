@@ -11,6 +11,6 @@ if [ ! $(hostname) == "P1" ]; then
 fi
 
 # run xmodmap at startup
-xmodmap /home/minoru/.Xmodmap
+/usr/bin/zsh -c "sleep 5; /usr/bin/xmodmap $HOME/.Xmodmap"
 
 exit

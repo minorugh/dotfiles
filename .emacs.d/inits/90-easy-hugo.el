@@ -7,6 +7,7 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
+  :require my:evil-easy-hugo
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)
@@ -63,7 +64,6 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
-  
   (defun my:edit-easy-hugo ()
     "Edit setting file for `easy-hugo'."
     (interactive)

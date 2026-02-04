@@ -89,7 +89,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: ssh install base init keymap grub autologin autostart keyring tlp emacs-mozc icons gist fonts
+allinstall: ssh install base init keymap grub autologin autostart myjob keyring tlp emacs-mozc icons gist fonts
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
@@ -148,6 +148,9 @@ autostart: ## Run mozc copy for submachine at GUI startup
 	chmod 600 ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
 
+myjob: ## Symbolic link for myjob.sh to be run automatically via cron
+	sudo ln -vsfn ${PWD}/cron/myjob.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/myjob.sh
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 

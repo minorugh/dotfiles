@@ -26,7 +26,8 @@
      (format-time-string "-*[%Y%m%d%H%M%S]\n")
      "-(\n\n-)\n\n")
     (forward-line -5)
-    (forward-char 18))
+    (forward-char 18)
+    (evil-emacs-state))
 
   (defun my:tpdia-new-post ()
     "Open diary file and insert template."
@@ -106,7 +107,7 @@
      (format-time-string "*[%Y%m%d] \n")
      ";--------------------------------------------------------------------\n"
      (format-time-string "-*[%Y%m%d%H%M%S]阿波野青畝\n")
-     "<div style=\"margin:1em\">\n()\n</div>\n-(\n;; <-hi>\n--\n<h3>合評</h3>\n"
+     "<div style=\"margin:1em\">\n()\n</div>\n-(\n<-hi>\n--\n=(\n<small>-- 自解(抄) --</small>\n--\n=)\n--\n<h3>合評</h3>\n"
      "<div class=\"border\">\n"
      (format-time-string "<iframe class=\"autoHeight\" src=\"apiframe.cgi?%Y%m%d\"></iframe>\n")
      "</div>\n-)\n\n")
