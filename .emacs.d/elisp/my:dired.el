@@ -61,6 +61,11 @@
     (interactive)
     (find-file "~/src/"))
 
+  (defun my:minorugh-dir ()
+    "Open minorugh.com dir."
+    (interactive)
+    (find-file "~/Dropbox/minorugh.com/"))
+
   (defun my:github-local ()
     "Open scr dir."
     (interactive)
@@ -168,7 +173,7 @@
     (find-file "~/Dropbox/GH/mj_select/tex/mj.txt")
     (goto-char (point-min)))
 
-  (defun my:w_select ()
+  (defun my:w_kukai ()
     "Open tselect file."
     (interactive)
     (find-file "~/Dropbox/GH/w_select/tex/minoru_sen.txt")

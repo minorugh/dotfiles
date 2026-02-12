@@ -13,7 +13,7 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _e_:hugo^^  _p_rint.r_e_  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _/_:月例^^  _p_rint.r_e_  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_mqedit  _b_ackup_j_ob  _+_.scale-adj^^^^
 "
    ("+" text-scale-adjust)
@@ -28,6 +28,7 @@
    ("y" my:year)
    ("Y" my:year-new-post)
    ("," my:year-draft)
+   ("/" my:m_kukai)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
    ("b" make-backup)
@@ -48,7 +49,7 @@
    ("K" my:kinnei)
    ("k" my:kinnei-draft)
    ("m" my:d_kukai)
-   ("w" my:w_select)
+   ("w" my:w_kukai)
    ("f" my:dselext)
    ("F" my:dselext-new-post)
    ("+" text-scale-adjust)
@@ -84,12 +85,12 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c__k__g_|_b__m__u_  _:_._l_ocal  _x_modmap
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  _o_rg  _z_illa  _<home>_   howm._,__;__@_|md_v_^^^^  _D_ocuments^^  _f_lyerro
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  o_r_g  _z_illa  _<home>_   howm._,__;__@_|md_v_^^^^  m..gh.c_o_m^^  _f_lyerro
 "
    ("f" flycheck-list-errors)
    ("l" my:github-local)
    (":" (browse-url "https://github.com/minorugh"))
-   ("o" my:org-dir)
+   ("r" my:org-dir)
    ("t" counsel-tramp)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
@@ -100,6 +101,7 @@
    ("j" my:junk-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
+   ("o" my:minorugh-dir)
    ("r" restart-emacs)
    ("v" markdwn-preview)
    ("@" howm-list-all)
@@ -118,7 +120,6 @@
    ("]" my:magit-status)
    ("s" my:scr-dir)
    ("z" filezilla-open)
-   ("n" neomutt)
    ("x" xmodmap)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))

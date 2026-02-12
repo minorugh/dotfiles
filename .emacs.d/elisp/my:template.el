@@ -63,6 +63,12 @@
     (find-file "~/Dropbox/GH/swan/tex/swan.txt")
     (my:minoru_sen))
 
+  (defun my:m_kukai-new-post ()
+    "Open swan file and insert template."
+    (interactive)
+    (find-file "~/Dropbox/GH/m_select/tex/mkukai.txt")
+    (my:minoru_sen))
+
   (defun my:minoru_sen ()
     "Insert template."
     (interactive)
