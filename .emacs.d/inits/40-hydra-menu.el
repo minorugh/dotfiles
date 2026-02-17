@@ -84,8 +84,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c__k__g_|_b__m__u_  _:_._l_ocal  _x_modmap
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  o_r_g  _z_illa  _<home>_   howm._,__;__@_|md_v_^^^^  m..gh.c_o_m^^  _f_lyerro
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c_._k_|_b__m__u_  _:__l_ocal  _x_modmap
+  _r_estart  magit_[__]_  _t_ramp  GH.._h_  o_r_g  _z_illa  _<home>_   howm._,__;__@_|md_v_^  minoru_g_h  _f_lyerro
 "
    ("f" flycheck-list-errors)
    ("l" my:github-local)
@@ -101,7 +101,7 @@
    ("j" my:junk-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
-   ("o" my:minorugh-dir)
+   ("g" my:minorugh-dir)
    ("r" restart-emacs)
    ("v" markdwn-preview)
    ("@" howm-list-all)
@@ -109,7 +109,6 @@
    (";" my:howm-create-tech)
    ("c" make-commit)
    ("k" my:make-k)
-   ("g" my:make-git)
    ("p" keepassxc)
    ("b" my:make-bklog)
    ("m" my:make-move)

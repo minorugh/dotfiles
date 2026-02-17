@@ -14,7 +14,8 @@
 (leaf key-chord
   :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
   :config
-  :chord (("df" . counsel-descbinds)
+  :chord (("mm" . open-mattermost)
+	  ("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log))
   :hook after-init-hook)
 

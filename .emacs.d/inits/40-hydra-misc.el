@@ -53,6 +53,11 @@
    ("<muhenkan>" nil)
    ("." nil))
   :config
+  (defun open-mattermost ()
+    "Open mattermost on doker."
+    (interactive)
+    (browse-url "http://localhost:8065/godbless/channels/topic"))
+
   (defun chromium-keep-new ()
     "Chromium keep new."
     (interactive)
