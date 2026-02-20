@@ -87,7 +87,10 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "m" 'make-frame
+    "5" 'make-frame
+    "n" 'neomutt
+    "t" 'thunderbird
+    "m" 'mattermost
     "_" 'other-frame
     "/" 'delete-frame
     "w" 'window-swap-states
@@ -98,14 +101,14 @@
     "h" 'hydra-diff/body
     "j" 'evil-join-whitespace
     "g" 'my:google-this
-    "s" 'swiper-thing-at-point
     ":" 'thunar-open
     "f" 'flycheck-list-errors
-    "." 'neomutt
+    "," 'filezilla-GH
+    "." 'filezilla-miGH
     "z" 'filezilla-open
     "p" 'keepassxc
     "?" 'vim-cheat-sheet
-    "," 'org-capture
+    "c" 'org-capture
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
   :hydra
@@ -125,15 +128,33 @@
     (interactive)
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
 
+  (defun thunderbird ()
+    "Open thunderbird mail-client for Gmail."
+    (interactive)
+    (compile "thunderbird"))
+
   (defun neomutt ()
     "Open terminal and ssh to xsrv."
     (interactive)
     (compile "neomutt.sh"))
   (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 
+  (defun mattermost ()
+    "Open mattermost-desktop."
+    (interactive)
+    (compile "snap run mattermost-desktop"))
+
   (defun thunar-open ()
     (interactive)
     (compile (concat "thunar " default-directory)))
+
+  (defun filezilla-GH ()
+    (interactive)
+    (compile "filezilla --site='0/gospel-haiku.com'"))
+
+  (defun filezilla-miGH ()
+    (interactive)
+    (compile "filezilla --site='0/minorugh.com'"))
 
   (defun filezilla-open ()
     (interactive)

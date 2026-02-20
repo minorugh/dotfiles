@@ -94,7 +94,7 @@
 (leaf *user-configurations
   :defun minibuffer-keyboard-quit my:handle-delete-frame
   :load-path "~/.emacs.d/elisp"     ;; Load user definitions
-  :require my:dired my:template my:compile
+  :require my:template my:compile
   :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
 	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
 	 ("C-x m"   . neomutt)      ;; Overwrite compose mail

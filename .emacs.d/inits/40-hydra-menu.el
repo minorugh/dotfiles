@@ -71,6 +71,12 @@
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
 
+  (defun make-backup ()
+    "Backup all."
+    (interactive)
+    (let* ((default-directory (expand-file-name "~/Dropbox")))
+      (compile "make -k")))
+
   (defun my:job ()
     (interactive)
     (compile "sh /usr/local/bin/myjob.sh")))
@@ -84,32 +90,32 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_  _s_rc  _j_unks  _._dotdir  make._c_._k_|_b__m__u_  _:__l_ocal  _x_modmap
-  _r_estart  magit_[__]_  _t_ramp  GH.._h_  o_r_g  _z_illa  _<home>_   howm._,__;__@_|md_v_^  minoru_g_h  _f_lyerro
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _J_unks  _._dotdir  make._c__g__k_|_b__m__u_  _:__l_ocal  _;_thbird
+  _r_estart  magit_[__]_  _x_mod.  GH._h__j_  _o_rg  _f_lyck  _<home>_   howm._,__@_|_v_iew^^^^^^  key_p_assx^^  _n_eomutt
 "
    ("f" flycheck-list-errors)
    ("l" my:github-local)
    (":" (browse-url "https://github.com/minorugh"))
-   ("r" my:org-dir)
-   ("t" counsel-tramp)
+   ("o" my:org-dir)
+   (";" thunderbird)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
    ("d" my:dropbox)
    ("D" my:documents)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
-   ("j" my:junk-dir)
+   ("J" my:junk-dir)
    ("e" my:emacs-dir)
    ("h" my:gh-dir)
-   ("g" my:minorugh-dir)
+   ("j" my:minorugh-dir)
    ("r" restart-emacs)
    ("v" markdwn-preview)
    ("@" howm-list-all)
    ("," my:howm-create-memo)
-   (";" my:howm-create-tech)
-   ("c" make-commit)
-   ("k" my:make-k)
    ("p" keepassxc)
+   ("c" my:make-clean)
+   ("g" my:make-git)
+   ("k" my:make-k)
    ("b" my:make-bklog)
    ("m" my:make-move)
    ("u" my:make-upsftp)
@@ -118,7 +124,7 @@
    ("[" hydra-magit/body)
    ("]" my:magit-status)
    ("s" my:scr-dir)
-   ("z" filezilla-open)
+   ("n" neomutt)
    ("x" xmodmap)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))

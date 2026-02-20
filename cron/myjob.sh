@@ -9,7 +9,7 @@ rsync -azu --delete xsrv:/home/minorugh/gospel-haiku.com/passwd/* ${HOME}/Dropbo
 
 ## If dmember is added, wmember is also updated.
 cd ${HOME}/Dropbox/GH/reg/passwd
-perl update.pl
+perl mergepasswd.pl
 
 ## Copy dmembar to smembar (to prevent conflicts)
 rsync -azu ${HOME}/Dropbox/GH/reg/passwd/dmember.cgi xsrv:/home/minorugh/gospel-haiku.com/passwd/smember.cgi

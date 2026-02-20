@@ -289,10 +289,19 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 # popup panel for passward input so input '<user passwd>' && use shell
 # use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
-sylpheed: ## Init sylpheed（Use App Password for authentication）
-	$(APT) $@ bogofilter kakasi
-	test -L ${HOME}/.sylpheed-2.0 || rm -rf ${HOME}/.sylpheed-2.0
-	ln -vsfn ${HOME}/Dropbox/sylpheed/.sylpheed-2.0 ${HOME}/.sylpheed-2.0
+thunderbird: ## Init thunderbird（for gmail Use App Password for authentication）
+	# $(APT) $@
+	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
+	ln -vsfn ${HOME}/Dropbox/thunderbird/.thunderbird ${HOME}/.thunderbird
+	sudo ln -vsfn ${HOME}/Dropbox/thunderbird/external-editor-revived /usr/local/bin
+	sudo chmod +x /usr/local/bin/external-editor-revived
+
+# External Editor Addon External Editor Revived
+# Main is here
+# https://github.com/Frederick888/external-editor-revived/releases/download/v1.2.0/external-editor-revived-v1.2.0.xpi
+# native messaging host v1.1.0 (an error will occur if it is v1.2)
+# https://github.com/Frederick888/external-editor-revived/releases/download/v1.1.0/ubuntu-latest-gnu-native-messaging-host-v1.1.0.zip
+
 
 google-earth: ## Install google-earth
 	cd ${HOME}/Downloads && \

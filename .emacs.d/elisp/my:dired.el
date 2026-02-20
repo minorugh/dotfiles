@@ -206,7 +206,7 @@
   (defun my:kinnei-draft ()
     "Open kinnei draft file."
     (interactive)
-    (find-file "~/Dropbox/GH/kinnei/draft.txt"))
+    (find-file "~/Dropbox/GH/kinnei/draft.dat"))
 
   (defun my:year ()
     "Open year file."
@@ -218,7 +218,7 @@
   (defun my:year-draft ()
     "Open year draft file."
     (interactive)
-    (find-file "~/Dropbox/GH/year/draft.txt")
+    (find-file "~/Dropbox/GH/year/draft.dat")
     (goto-char (point-min))
     (forward-line))
 
