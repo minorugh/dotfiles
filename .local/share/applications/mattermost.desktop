@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=mattermost
+Comment=Open mattermost-dsktop
+Exec=snap run mattermost-desktop
+Icon=/home/minoru/Pictures/icons/mattermost.png
+Categories=Development;
+Path=
+Terminal=false
+StartupNotify=false
