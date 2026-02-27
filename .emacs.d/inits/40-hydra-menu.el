@@ -90,18 +90,20 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _J_unks  _._dotdir  make._c__g__k_|_b__m__u_  _:__l_ocal  _;_thbird
-  _r_estart  magit_[__]_  _x_mod.  GH._h__j_  _o_rg  _f_lyck  _<home>_   howm._,__@_|_v_iew^^^^^^  key_p_assx^^  _n_eomutt
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
+  _r_estart  magit_[__]_  _x_modm  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
 "
    ("f" flycheck-list-errors)
+   ("0" fzilla-GH)
+   ("-" fzilla-minoruGH)
+   ("," org-capture)
+   ("p" keepassxc)
    ("l" my:github-local)
-   (":" (browse-url "https://github.com/minorugh"))
+   (":" mattermost)
    ("o" my:org-dir)
-   (";" thunderbird)
    ("q" my:tramp-quit)
    ("<home>" my:home-dir)
    ("d" my:dropbox)
-   ("D" my:documents)
    ("." my:dotfiles-dir)
    ("i" my:inits-dir)
    ("J" my:junk-dir)
@@ -111,8 +113,7 @@
    ("r" restart-emacs)
    ("v" markdwn-preview)
    ("@" howm-list-all)
-   ("," my:howm-create-memo)
-   ("p" keepassxc)
+   (";" my:howm-create-memo)
    ("c" my:make-clean)
    ("g" my:make-git)
    ("k" my:make-k)
@@ -129,9 +130,18 @@
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init
-  (with-eval-after-load 'dired
-    "Load user dired for quick accsess."
-    (require 'my:dired))
+  (defun fzilla-GH ()
+    (interactive)
+    (compile "filezilla --site='0/gospel-haiku.com'"))
+
+  (defun fzilla-minoruGH ()
+    (interactive)
+    (compile "filezilla --site='0/minorugh.com'"))
+
+  (defun keepassxc ()
+    "Open keepassxc with auto passwd input."
+    (interactive)
+    (compile "keepass.sh"))
 
   (defun xmodmap ()
     "Execute xmodmap."

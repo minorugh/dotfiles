@@ -87,10 +87,8 @@
     "1" 'delete-other-windows
     "2" 'split-window-below
     "3" 'split-window-right
-    "5" 'make-frame
+    "m" 'make-frame
     "n" 'neomutt
-    "t" 'thunderbird
-    "m" 'mattermost
     "_" 'other-frame
     "/" 'delete-frame
     "w" 'window-swap-states
@@ -103,10 +101,8 @@
     "g" 'my:google-this
     ":" 'thunar-open
     "f" 'flycheck-list-errors
-    "," 'filezilla-GH
-    "." 'filezilla-miGH
-    "z" 'filezilla-open
-    "p" 'keepassxc
+    "," 'org-capture
+    "." 'thunderbird
     "?" 'vim-cheat-sheet
     "c" 'org-capture
     "q" 'keyboard-quit
@@ -142,28 +138,13 @@
   (defun mattermost ()
     "Open mattermost-desktop."
     (interactive)
-    (compile "snap run mattermost-desktop"))
+    (compile "mattermost-desktop"))
 
   (defun thunar-open ()
     (interactive)
     (compile (concat "thunar " default-directory)))
 
-  (defun filezilla-GH ()
-    (interactive)
-    (compile "filezilla --site='0/gospel-haiku.com'"))
-
-  (defun filezilla-miGH ()
-    (interactive)
-    (compile "filezilla --site='0/minorugh.com'"))
-
-  (defun filezilla-open ()
-    (interactive)
-    (compile "filezilla -s"))
-
-  (defun keepassxc ()
-    "Open keepassxc with auto passwd input."
-    (interactive)
-    (compile "keepass.sh")))
+  )
 
 
 ;; Local Variables:

@@ -109,7 +109,7 @@ ssh: ## Init ssh
 init: ## Initial deploy dotfiles
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
+	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf {${PWD},${HOME}}/.config/hub
@@ -290,7 +290,7 @@ keepassxc: ## Install keeypassXC and auto start with master passwd.
 # use | $ secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
 thunderbird: ## Init thunderbird（for gmail Use App Password for authentication）
-	# $(APT) $@
+	$(APT) $@
 	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
 	ln -vsfn ${HOME}/Dropbox/thunderbird/.thunderbird ${HOME}/.thunderbird
 	sudo ln -vsfn ${HOME}/Dropbox/thunderbird/external-editor-revived /usr/local/bin

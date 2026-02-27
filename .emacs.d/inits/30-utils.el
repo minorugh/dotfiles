@@ -48,7 +48,7 @@
   :tag "builtin"
   :doc "Menu for selecting and displaying buffers"
   :bind (("M-]" . bs-cycle-next)
-	     ("M-[" . bs-cycle-previous)))
+	 ("M-[" . bs-cycle-previous)))
 
 (leaf persistent-scratch :ensure t
   :doc "Save scratch buffer state to file and restore from file"

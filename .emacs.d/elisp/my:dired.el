@@ -7,7 +7,7 @@
 ;; (setq debug-on-error t)
 
 (leaf my:dired
-  :defun dired-omit-mode
+  :defun dired-omit-mode evil-emacs-state
   :config
   (defun my:documents ()
     "Open dotfile dir."
@@ -132,7 +132,7 @@
   (defun my:marquee-edit ()
     "Open diary file."
     (interactive)
-    (find-file "~/Dropbox/GH/marquee.txt")
+    (find-file "~/Dropbox/GH/marquee.dat")
     (goto-char (point-min))
     (evil-emacs-state))
 

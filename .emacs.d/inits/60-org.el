@@ -22,7 +22,8 @@
 
   (defun my:org-capture-maximize ()
     "Maximize the org-capture screen."
-    (delete-other-windows))
+    (delete-other-windows)
+    (evil-emacs-state))
 
   ;; Capture template
   (defun my:howm-create-file ()
@@ -33,7 +34,7 @@
   (defun my:open-junk-file ()
     "Make create junk file on `org-capture'."
     (interactive)
-    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl" (current-time)))
+    (format-time-string "~/Dropbox/junk/%Y%m%d%H%M.pl" (current-time)))
 
   (setq org-capture-templates
 	'(("d" " 日記" plain (file my:howm-create-file)
@@ -51,7 +52,7 @@
 	  ("t" " Tech" plain (file my:howm-create-file)
 	   "# tech: %?\n%U %i")
 	  ("j" " Junk" plain (file my:open-junk-file)
-	   "#!/usr/bin/perl\n## %?\n %i")
+	   "#!/usr/bin/perl\n%?\n %i")
 	  ("," " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
 	   "** TODO %?\n SCHEDULED: %^t \n"))))
 
