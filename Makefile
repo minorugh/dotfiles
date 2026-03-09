@@ -172,7 +172,7 @@ keyring: ## Init gnome keyring (P1: Dropbox symlink / サブ機: 実ディレク
 # 	mkdir -p ${HOME}/.local/share/keyrings
 # 	cp ${HOME}/Dropbox/backup/keyrings/Default_keyring.keyring \
 # 	   ${HOME}/.local/share/keyrings/Default_keyring.keyring
-endif
+# endif
 # SSH鍵パスフレーズ登録は P1 で一度だけ実行済み（Dropbox経由でサブ機にも反映）
 # ※ secret-tool store は両マシンで同時実行しないこと（Dropbox競合の原因になる）
 
