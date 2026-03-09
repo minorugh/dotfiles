@@ -70,6 +70,14 @@
 	'("\\.howm-keys" "\\^/session" "task.org"
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
 
+  ;; Associate shell-related dotfiles with sh-mode
+  (dolist (pattern '("\\.z?shrc\\'" "\\.bash_profile\\'" "\\.profile\\'"
+                     "\\.zshenv\\'" "\\.xprofile\\'" "\\.bashrc\\'" "\\.Xmodmap\\'"))
+    (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+  ;; Associate config-style dotfiles with conf-mode
+  (dolist (pattern '("\\.tmux\\.conf\\'" "\\.muttrc\\'"))
+    (add-to-list 'auto-mode-alist (cons pattern 'conf-mode)))
+
   ;; All history files are stored in `~/.emacs.d/tmp'
   (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")

@@ -76,6 +76,8 @@
 		  (delete-file "~/.emacs.d/projects")
 		  (restart-emacs)))))
 
+(dolist (pattern '("\\.z?shrc\\'" "\\.bash_profile\\'" "\\.profile\\'" "\\.zshenv\\'"))
+  (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
 
 (provide 'init)
 ;;; init.el ends here

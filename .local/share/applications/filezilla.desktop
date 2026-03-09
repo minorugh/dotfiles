@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=FileZilla GH
+Name=FileZilla XSRV
 Comment=FileZilla start with gospel-haiku.com
-Exec=/home/minoru/.local/bin/fzilla-gh.sh
+Exec=/home/minoru/.local/bin/filezilla.sh
 Icon=filezilla
 Categories=Development;Network;
 Path=

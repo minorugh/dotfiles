@@ -12,6 +12,7 @@
 - `texlive-full` 内の `##` コメントを `#` に修正（make help に誤表示されるのを防止）
 - sudoers編集手順の `sudo nano /etc/sudoers` を `visudo` に変更（netinstall直後はsudoが未設定のため使用不可）
 - `cpenv` ターゲットを削除（dotfilesにbackupディレクトリが存在しない残骸）
+- `filezilla` ターゲットに `fzilla-gh.sh` と `fzilla-gh.desktop` のシンボリックリンク作成を追加
 
 ### .autostart.sh
 
@@ -26,3 +27,12 @@
 ### init.el
 
 - 単独で浮いていた `(exec-path-from-shell-copy-env "SSH_AUTH_SOCK")` を `exec-path-from-shell` の `:config` ブロックに統合しコメントを追加
+
+### bin/fzilla-gh.sh（新規）
+
+- FileZilla を gospel-haiku.com サイトプロファイルで起動するラッパースクリプトを新設
+- `.desktop` 経由の起動では `SSH_AUTH_SOCK` が引き継がれないため `source ~/.keychain/${HOSTNAME}-sh` を冒頭に追加
+
+### .local/share/applications/fzilla-gh.desktop（新規）
+
+- `fzilla-gh.sh` を呼び出す `.desktop` ファイルを新設（パネルランチャー用）
