@@ -1,18 +1,19 @@
-;;; 40-hydra-menu.el --- Hydra quick-menu configurations. -*- lexical-binding: t -*-
+;;; 41-hydra-menu.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf *hydra-work
-  :doc "Quick menu for workings"
+  :defun evil-emacs-state dired-omit-mode
   :bind (("<f3>" . terminal-open)
 	 ("<f4>" . xsrv-gh)
+	 ("<f6>" . thunar-open)
 	 ("<henkan>" . hydra-work/body))
   :hydra
   (hydra-work
    (:hint nil :exit t)
    "
-   Work.menu
+   Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _/_:月例^^  _p_rint.r_e_  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_mqedit  _b_ackup_j_ob  _+_.scale-adj^^^^
 "
@@ -31,129 +32,117 @@
    ("/" my:m_kukai)
    ("a" my:apvoice)
    ("A" my:apvoice-new-post)
-   ("b" make-backup)
-   ("." my:kendai-edit)
-   (":" my:marquee-edit)
+   ("b" (my:make "-k" "~/Dropbox"))
+   ("." my:open-kendai)
+   (":" my:open-marquee)
    ("z" filezilla-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
-   ("j" my:job)
-   ("d" my:diary)
+   ("j" my:run-myjob)
+   ("d" (my:open "~/Dropbox/GH/dia/diary.txt" 'top))
    ("D" my:diary-new-post)
    ("g" gist-region-or-buffer)
    ("B" (browse-url "https://gist.github.com/minorugh"))
-   ("t" my:teirei)
+   ("t" (my:open "~/Dropbox/GH/teirei/tex/teirei.txt" 'top))
    ("T" my:teirei-new-post)
-   ("s" my:swan)
+   ("s" (my:open "~/Dropbox/GH/s_select/tex/swan.txt" 'top))
    ("S" my:swan-new-post)
-   ("K" my:kinnei)
-   ("k" my:kinnei-draft)
-   ("m" my:d_kukai)
-   ("w" my:w_kukai)
-   ("f" my:dselext)
+   ("K" (my:open "~/Dropbox/GH/kinnei/kinnei.txt" 'top))
+   ("k" (my:open "~/Dropbox/GH/kinnei/draft.dat"))
+   ("m" (my:open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" 'top))
+   ("w" (my:open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" 'top))
+   ("f" (my:open "~/Dropbox/GH/d_selext/select.txt" 'top))
    ("F" my:dselext-new-post)
-   ("+" text-scale-adjust)
    ("]" my:haiku-note)
    ("[" my:haiku-note-post)
    ("q" iedit--quit)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
+  (defun my:open-kendai ()
+    (interactive)
+    (my:open "~/Dropbox/GH/w_kukai/info/kendai.txt" 'top)
+    (evil-emacs-state))
+
+  (defun my:open-marquee ()
+    (interactive)
+    (my:open "~/Dropbox/GH/marquee.dat" 'top)
+    (evil-emacs-state))
+
   (defun terminal-open ()
     (interactive)
     (let ((dir (directory-file-name default-directory)))
-      (when (and (eq system-type 'gnu/linux)
-		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
-	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
-      (compile (concat "gnome-terminal --working-directory " dir))))
+      (start-process-shell-command
+       "gnome-terminal" nil
+       (concat "gnome-terminal --working-directory " dir))
+      (run-with-timer
+       0.5 nil
+       (lambda ()
+	 (shell-command
+          "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
+
+  (defun thunar-open ()
+    (interactive)
+    (start-process-shell-command
+     "thunar" nil
+     (concat "thunar " default-directory))
+    (run-with-timer
+     0.5 nil
+     (lambda ()
+       (shell-command
+	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
+
+  ;; (defun terminal-open ()
+  ;;   (interactive)
+  ;;   (let ((dir (directory-file-name default-directory)))
+  ;;     (when (and (eq system-type 'gnu/linux)
+  ;; 		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
+  ;; 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
+  ;;     (compile (concat "gnome-terminal --working-directory " dir))))
+
+  ;; (defun thunar-open ()
+  ;;   (interactive)
+  ;;   (compile (concat "thunar " default-directory)))
 
   (defun xsrv-gh ()
     (interactive)
     (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
 
-  (defun make-backup ()
-    "Backup all."
+  (defun my:run-myjob ()
     (interactive)
-    (let* ((default-directory (expand-file-name "~/Dropbox")))
-      (compile "make -k")))
+    (async-shell-command "/usr/local/bin/myjob.sh" "*myjob*"))
 
-  (defun my:job ()
+  ;; (defun my:job ()
+  ;;   (interactive)
+  ;;   (compile "sh /usr/local/bin/myjob.sh"))
+
+  (defun my:year ()
+    "Open year file and move to near bottom."
     (interactive)
-    (compile "sh /usr/local/bin/myjob.sh")))
+    (find-file (format-time-string "~/Dropbox/GH/year/%Y.txt"))
+    (goto-char (point-max))
+    (forward-line -10))
 
-
-(leaf * hydra-dired
-  :doc "Quick access for dired"
-  :bind ("M-." . hydra-dired/body)
-  :hydra
-  (hydra-dired
-   (:hint nil :exit t)
-   "
-   Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
-  _r_estart  magit_[__]_  _x_modm  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
-"
-   ("f" flycheck-list-errors)
-   ("0" fzilla-GH)
-   ("-" fzilla-minoruGH)
-   ("," org-capture)
-   ("p" keepassxc)
-   ("l" my:github-local)
-   (":" mattermost)
-   ("o" my:org-dir)
-   ("q" my:tramp-quit)
-   ("<home>" my:home-dir)
-   ("d" my:dropbox)
-   ("." my:dotfiles-dir)
-   ("i" my:inits-dir)
-   ("J" my:junk-dir)
-   ("e" my:emacs-dir)
-   ("h" my:gh-dir)
-   ("j" my:minorugh-dir)
-   ("r" restart-emacs)
-   ("v" markdwn-preview)
-   ("@" howm-list-all)
-   (";" my:howm-create-memo)
-   ("c" my:make-clean)
-   ("g" my:make-git)
-   ("k" my:make-k)
-   ("b" my:make-bklog)
-   ("m" my:make-move)
-   ("u" my:make-upsftp)
-   ("/" my:root-dir)
-   ("_" delete-other-windows)
-   ("[" hydra-magit/body)
-   ("]" my:magit-status)
-   ("s" my:scr-dir)
-   ("n" neomutt)
-   ("x" xmodmap)
-   ("M-." hydra-work/body)
-   ("<muhenkan>" nil))
-  :init
-  (defun fzilla-GH ()
+  (defun my:year-draft ()
+    "Open year draft file."
     (interactive)
-    (compile "filezilla --site='0/gospel-haiku.com'"))
+    (find-file "~/Dropbox/GH/year/draft.dat")
+    (goto-char (point-min))
+    (forward-line))
 
-  (defun fzilla-minoruGH ()
+  (defun my:apvoice ()
+    "Open apvoice file."
     (interactive)
-    (compile "filezilla --site='0/minorugh.com'"))
+    (my:open "~/Dropbox/GH/apvoice/apvoice.txt" 'top))
 
-  (defun keepassxc ()
-    "Open keepassxc with auto passwd input."
+  (defun my:m_kukai ()
+    "Open m_select file."
     (interactive)
-    (compile "keepass.sh"))
-
-  (defun xmodmap ()
-    "Execute xmodmap."
-    (interactive)
-    (shell-command "xmodmap /home/minoru/.Xmodmap"))
-
-  (defun my:magit-status ()
-    "Display message if magit in dashboard."
-    (interactive)
-    (if (string= "*dashboard*" (buffer-name))
-	(message "Can't magit in Dashboard！")
-      (magit-status-setup-buffer))))
+    (my:open "~/Dropbox/GH/m_select/tex/mkukai.txt" 'top)))
 
 
-;;; 40-hydra-menu.el ends here
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
+;; End:
+;;; 41-hydra-menu.el ends here

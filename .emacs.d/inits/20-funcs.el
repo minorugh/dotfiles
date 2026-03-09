@@ -61,9 +61,10 @@ If region isn't selected, post from the buffer."
     (interactive)
     (let ((file (buffer-file-name)))
       (if (not (use-region-p))
-	      (compile (concat "gist -od " (gist-description) " " file))
-	    (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+	  (compile (concat "gist -od " (gist-description) " " file))
+	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows)))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

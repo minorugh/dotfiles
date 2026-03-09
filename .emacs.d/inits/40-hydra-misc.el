@@ -13,7 +13,7 @@
   ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
-  _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: mail
+  _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
   _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _M_: maps
   _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _4_: Centaur   _P_: photo
 "
@@ -51,27 +51,7 @@
    ("x" (browse-url "https://twitter.com/gospelhaiku"))
    ("s" (shell-command "slack"))
    ("<muhenkan>" nil)
-   ("." nil))
-  :config
-  (defun open-mattermost ()
-    "Open mattermost on doker."
-    (interactive)
-    (browse-url "http://localhost:8065/godbless/channels/topic"))
-
-  (defun chromium-keep-new ()
-    "Chromium keep new."
-    (interactive)
-    (browse-url "https://keep.new/"))
-
-  (defun chromium-dropbox ()
-    "Chromium gmail."
-    (interactive)
-    (browse-url "https://www.dropbox.com/h?role=personal/"))
-
-  (defun chromium-tegaki ()
-    "Chromium tegaki."
-    (interactive)
-    (browse-url "https://mojinavi.com/tegaki")))
+   ("." nil)))
 
 
 (leaf package-update
@@ -92,22 +72,22 @@
 
 
 (leaf *hydra-markdown
-  :doc ""
-  :hydra
-  (hydra-markdown
-   (:color red :hint nil)
-   "
+:doc ""
+:hydra
+(hydra-markdown
+ (:color red :hint nil)
+ "
     Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
-   ("i" markdown-insert-italic)
-   ("x" markdown-insert-strike-through)
-   ("t" markdown-insert-table)
-   ("n" markdown-insert-footnote)
-   ("m" markdown-toggle-markup-hiding)
-   ("v" markdown-preview)
-   ("e" markdown-export)
-   ("p" md2pdf)
-   ("d" md2docx)
-   ("<muhenkan>" nil)))
+ ("i" markdown-insert-italic)
+ ("x" markdown-insert-strike-through)
+ ("t" markdown-insert-table)
+ ("n" markdown-insert-footnote)
+ ("m" markdown-toggle-markup-hiding)
+ ("v" markdown-preview)
+ ("e" markdown-export)
+ ("p" md2pdf)
+ ("d" md2docx)
+ ("<muhenkan>" nil)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

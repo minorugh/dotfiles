@@ -7,7 +7,7 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode"
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :require my:evil-easy-hugo
+  :defun evil-emacs-state my:easy-hugo-newpost-after
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)
@@ -68,8 +68,16 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     "Edit setting file for `easy-hugo'."
     (interactive)
     (find-file "~/.emacs.d/inits/90-easy-hugo.el"))
+  ;; easy-hugo-newpost 後に evil-emacs-state に切り替える
+  (defun my:easy-hugo-newpost-after (&rest _)
+    "新規ポスト作成後、evil-mode なら evil-emacs-state に切り替える."
+    (when (bound-and-true-p evil-mode)
+      (evil-emacs-state)
+      (goto-char (point-max))
+      (save-buffer)))
+  (advice-add 'easy-hugo-newpost :after #'my:easy-hugo-newpost-after)
   :preface
-  (leaf request	:ensure t
+  (leaf request :ensure t
     :config
     (setq request-storage-directory "~/.emacs.d/tmp/request")))
 

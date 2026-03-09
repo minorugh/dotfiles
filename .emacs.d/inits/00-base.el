@@ -6,7 +6,8 @@
 (leaf *basic-configurations
   :config
   ;; Faster rendering by not corresponding to right-to-left language
-  (setq bidi-display-reordering nil)
+  (setq-default bidi-display-reordering nil)
+  (setq-default bidi-paragraph-direction 'left-to-right)
 
   ;; Do not make a backup file like *.~
   (setq make-backup-files nil)
@@ -30,8 +31,6 @@
 
   ;; All warning sounds and flash are invalid
   (setq ring-bell-function 'ignore)
-
-  ;; Turn off warning sound screen flash
   (setq visible-bell nil)
 
   ;; Copy text with mouse range selection
@@ -50,61 +49,59 @@
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
   ;; Use the X11 clipboard
-  (setq select-enable-clipboard  t)
+  (setq select-enable-clipboard t)
 
   ;; Hide cursor in inactive window
-  (setq-default cursor-in-non-selected-windows . nil)
+  (setq-default cursor-in-non-selected-windows nil)
 
   ;; Minimize the fringe
   (set-fringe-mode 1)
 
-  ;;Goto address
-  (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-
-  ;;Auto revert
-  (add-hook 'after-init-hook 'global-auto-revert-mode)
-
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs)
-
-  ;; Recovery
-  (setq save-place-file "~/.emacs.d/tmp/places")
-  (add-hook 'after-init-hook 'save-place-mode)
-
-  ;; Savehist
-  (setq savehist-file "~/.emacs.d/tmp/history")
+  ;;savehist
   (setq savehist-additional-variables '(kill-ring))
   (setq history-delete-duplicates t)
-  (add-hook 'after-init-hook 'savehist-mode)
-
   ;; Recentf
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf")
+  (setq recentf-max-saved-items 200)   ;; 多すぎると起動が重くなる
+  (setq recentf-auto-cleanup 'never)   ;; 起動時のクリーンアップを抑制
   (setq recentf-exclude
 	'("\\.howm-keys" "\\^/session" "task.org"
 	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
-  (add-hook 'after-init-hook 'recentf-mode)
 
   ;; All history files are stored in `~/.emacs.d/tmp'
-  (setq request-storage-diectory "~/.emacs.d/tmp/request")
+  (setq request-storage-directory "~/.emacs.d/tmp/request")
   (setq url-configuration-directory "~/.emacs.d/tmp/url")
-  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks"))
+  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks")
+  (setq save-place-file "~/.emacs.d/tmp/places")
+  (setq savehist-file "~/.emacs.d/tmp/history")
+  (setq recentf-save-file "~/.emacs.d/tmp/recentf"))
+
+
+(leaf *defer-modes
+  :hook
+  (after-init-hook . global-auto-revert-mode)
+  (after-init-hook . save-place-mode)
+  (after-init-hook . savehist-mode)
+  (after-init-hook . recentf-mode)
+  (prog-mode-hook  . goto-address-prog-mode))
 
 
 (leaf *user-configurations
   :defun minibuffer-keyboard-quit my:handle-delete-frame
-  :load-path "~/.emacs.d/elisp"     ;; Load user definitions
-  :require my:template my:compile my:dired
-  :bind (("C-x C-c" . server-edit)  ;; Server editing buffers exist. Replace "C-x #"
-	 ("C-x b"   . ibuffer)      ;; Overwrite switch-to-buffer
-	 ("C-x m"   . neomutt)      ;; Overwrite compose mail
+  :load-path "~/.emacs.d/elisp"
+  ;; :require my:template
+  :bind (("C-x C-c" . server-edit)
+	 ("C-x b"   . ibuffer)
+	 ("C-x m"   . neomutt)
 	 ("M-,"     . xref-find-definitions)
 	 ("M-w"     . clipboard-kill-ring-save)
 	 ("C-w"     . my:clipboard-kill-region)
 	 ("M-/"     . kill-current-buffer)
 	 ("C-x /"   . delete-this-file)
-	 ("s-c"     . clipboard-kill-ring-save) ;; Like macOS,eq Win 'C-c'
-	 ("s-v"     . clipboard-yank)           ;; Like macOS,eq Win 'C-v'
+	 ("s-c"     . clipboard-kill-ring-save)
+	 ("s-v"     . clipboard-yank)
 	 ("C-q"     . other-window-or-split)
 	 ([muhenkan] . my:keyboard-quit))
   :init
@@ -156,13 +153,28 @@ If there are two or more windows, it will go to another window."
     (other-window 1))
 
   (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el`.
-  If it's the last frame, minimize it without deleting it."
+    "Overwrite `handle-delete-frame` defined in `frame.el'.
+If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))
 	  (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
+
+;; Autoload my:template functions (lazy load)
+(autoload 'my:diary-new-post    "my:template" nil t)
+(autoload 'my:tpdia-new-post    "my:template" nil t)
+(autoload 'my:teirei-new-post   "my:template" nil t)
+(autoload 'my:swan-new-post     "my:template" nil t)
+(autoload 'my:m_kukai-new-post  "my:template" nil t)
+(autoload 'my:minoru_sen        "my:template" nil t)
+(autoload 'my:ap-new-post       "my:template" nil t)
+(autoload 'my:apvoice-new-post  "my:template" nil t)
+(autoload 'my:tselext-new-post  "my:template" nil t)
+(autoload 'my:dselext-new-post  "my:template" nil t)
+(autoload 'my:year-new-post     "my:template" nil t)
+(autoload 'my:haiku-note        "my:template" nil t)
+(autoload 'my:haiku-note-post   "my:template" nil t)
 
 
 ;; Local Variables:

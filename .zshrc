@@ -236,8 +236,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # fi
 
 # keychain config
-# /usr/bin/keychain $HOME/.ssh/id_rsa
-# source $HOME/.keychain/$HOST-sh
+/usr/bin/keychain --quiet --noask $HOME/.ssh/id_rsa
+source $HOME/.keychain/$HOST-sh
 
 
 # completion mosh
@@ -335,11 +335,14 @@ export PATH="$PATH:$GOPATH/bin:usr/sbin"
 export GHQPATH="$HOME/go"
 export PATH="$PATH:$GHQPATH/bin"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-export EDITOR='emacsclient'
+# export EDITOR='emacsclient'
+export EDITOR='vim'
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
 
+## whisper
+export PATH="$HOME/.local/bin:$PATH"
 
 # cdr
 autoload -Uz is-at-least

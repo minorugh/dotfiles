@@ -138,13 +138,7 @@
   (defun mattermost ()
     "Open mattermost-desktop."
     (interactive)
-    (compile "mattermost-desktop"))
-
-  (defun thunar-open ()
-    (interactive)
-    (compile (concat "thunar " default-directory)))
-
-  )
+    (compile "mattermost-desktop")))
 
 
 ;; Local Variables:

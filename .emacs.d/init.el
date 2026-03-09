@@ -43,7 +43,11 @@
 
 (leaf exec-path-from-shell :ensure t
   :when (memq window-system '(mac ns x))
-  :hook (emacs-startup-hook . exec-path-from-shell-initialize))
+  :hook (emacs-startup-hook . exec-path-from-shell-initialize)
+  :config
+  ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
+  ;; is available for git, FileZilla (shell), and other SSH operations.
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 (leaf init-loader :ensure t
   :doc "Load inits configuration."

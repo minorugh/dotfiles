@@ -197,6 +197,10 @@ filezilla:  ## Install filezilla and set "Filezilla -s" to start selected my:ser
 	test -L ${HOME}/.config/filezilla || rm -rf ${HOME}/.config/filezilla
 	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.config}/filezilla
 	chmod 700 ~/.config/filezilla
+	mkdir -p ${HOME}/.local/bin
+	ln -vsf {${PWD},${HOME}/.local}/bin/fzilla-gh.sh
+	chmod +x ${HOME}/.local/bin/fzilla-gh.sh
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/fzilla-gh.desktop
 
 neomutt: ## Init neomutt mail client with abook
 	$(APT) $@

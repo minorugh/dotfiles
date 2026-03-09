@@ -1,3 +1,13 @@
 if [ -f ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
+
+# keychainを起動してGUIアプリ（FileZillaなど）にSSH_AUTH_SOCKを渡す
+# .xprofileは.autostart.shより先に実行されるためここで起動する
+# keychainを起動してGUIアプリ（FileZillaなど）にSSH_AUTH_SOCKを渡す
+eval $(/usr/bin/keychain --eval --quiet ~/.ssh/id_rsa)
+if [ -f ~/.keychain/${HOSTNAME}-sh ]; then
+    . ~/.keychain/${HOSTNAME}-sh
+fi
+
+dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
