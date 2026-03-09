@@ -2,6 +2,7 @@
 # author Minoru Yamada. 2021.10.11
 # update 2022.09.22 for Debian10
 # update 2024.10.01 for Debian12
+# update 2025.03.09 cleanup packages / sxiv→nsxiv移行メモ追加
 
 ## =====================================================================
 ## Manual setting before executing make
@@ -13,7 +14,8 @@
 ## 2. Register username to sudoers
 # Log in as root
 # | gpasswd -a ${USER} sudo
-# | sudo nano /etc/sudoers
+# Edit sudoers as root directly (DO NOT use sudo here, not yet available)
+# | visudo
 # Add and edit correction as follows
 # ----------------------------------
 # # User privilege specification
@@ -59,25 +61,19 @@
 ## =======================================================================
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
-PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools ntp wmctrl hub
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
-PACKAGES	+= screen mosh compizconfig-settings-manager compiz-plugins
-PACKAGES	+= xscreensaver xscreensaver-gl-extra nodejs
+PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd vlc
 
-BASE_PKGS	:= automake autoconf texinfo openssl patch build-essential
+BASE_PKGS	:= automake autoconf openssl build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
-BASE_PKGS	+= libgtk2.0-dev libncurses-dev libgtk-3-dev libgnutls28-dev
-BASE_PKGS	+= libtool xorg-dev libncurses5-dev python3-pip libdbus-1-dev
-BASE_PKGS	+= libm17n-dev librsvg2-dev libotf-dev libxml2-dev libmagickwand-dev
-BASE_PKGS	+= libc6-dev libtiff5-dev flatpak zlib1g-dev libnet-sftp-foreign-perl
-BASE_PKGS	+= libice-dev libsm-dev libxext-dev libxmuu-dev libssl-dev zlib1g-dev
-BASE_PKGS	+= libxrandr-dev libxt-dev libxtst-dev libxv-dev libglib2.0-0
+BASE_PKGS	+= libgtk-3-dev libncurses-dev libgnutls28-dev libdbus-1-dev
+BASE_PKGS	+= libtool flatpak python3-pip libnet-sftp-foreign-perl
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
-BASE_PKGS	+= libgccjit0 python3.11 python3.11-venv
 
 APT		:= sudo apt install -y
 .DEFAULT_GOAL	:= help
@@ -89,15 +85,11 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: allinstall nextinstall
-allinstall: ssh install base init keymap grub autologin autostart myjob keyring tlp emacs-mozc icons gist fonts
+allinstall: ssh install base init keymap grub autostart myjob keyring tlp emacs-mozc icons gist fonts
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
-cpenv: ## Copy non-public data to a local folder
-	mkdir -p ${HOME}/backup
-	cp -r ${PWD}/backup/zsh ${HOME}/backup
-	cp -r ${PWD}/backup/deepl ${HOME}/backup
 
 ssh: ## Init ssh
 	mkdir -p ${HOME}/.$@
@@ -138,29 +130,28 @@ ghq: ## Install ghq see https://github.com/x-motemen/ghq
 # go version needs to be 1.23 or higher.
 # 'export PATH=$PATH:$HOME/go/bin'
 
-autologin: ## Run ssh-add with passphrase auto input at GUI startup
-	ln -vsf {${PWD},${HOME}}/.autologin.sh
-	chmod 600 ${HOME}/.autologin.sh
-	ln -vsf {${PWD},${HOME}}/.config/autostart/autologin.desktop
-
-autostart: ## Run mozc copy for submachine at GUI startup
+autostart: ## Run mozc copy for submachine & SSH key auto-input at GUI startup
 	ln -vsf {${PWD},${HOME}}/.autostart.sh
-	chmod 600 ${HOME}/.autostart.sh
+	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
 
 myjob: ## Symbolic link for myjob.sh to be run automatically via cron
 	sudo ln -vsfn ${PWD}/cron/myjob.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/myjob.sh
+
 install: ## Install debian packages
 	$(APT) $(PACKAGES)
 
 base: ## Install debian base packages
 	$(APT) $(BASE_PKGS)
 
-emacs-mozc:  ## Install emacs-mozc fcitx-mozc
+emacs-mozc:  ## Install emacs-mozc fcitx-mozc (emacs本体もここでインストールされる)
 	$(APT) $@ fcitx-mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsfn -rf ~/Dropbox/backup/mozc/.mozc ~/
+# Debian12: emacs 29.1 がインストールされる
+# 現在は emacs-stable/devel で自前ビルド(30.1)を使用中
+# Debian13以降では emacs 30.1 が標準になる見込みのため自前ビルド不要になるかも
 # Set fcitx: Input im-config in terminal and ret → ret → check to fcitx
 
 tlp: ## Setting for power saving and preventing battery deterioration
@@ -168,10 +159,13 @@ tlp: ## Setting for power saving and preventing battery deterioration
 	sudo ln -vsf ${PWD}/etc/default/tlp /etc/default/tlp
 	sudo tlp start
 
-keyring: ## Init gnome keyring
-	$(APT) seahorse
+keyring: ## Init gnome keyring (keyrings -> Dropbox symlink & secret-tool setup)
+	$(APT) seahorse libsecret-tools
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.local/share}/keyrings
+# keyrings は Dropbox/backup/keyrings へのシンボリックリンク（P1/X250共有）
+# SSH鍵パスフレーズ登録は P1 で一度だけ実行済み（Dropbox経由でX250にも反映）
+# ※ secret-tool store は両マシンで同時実行しないこと（Dropbox競合の原因になる）
 
 icons: ## Copy Collected icons & wallpaper to picture folder
 	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures
@@ -230,10 +224,38 @@ gitk: ## Init gitk for git-gui
 	mkdir -p ${HOME}/.config/git
 	sudo ln -vsfn {${PWD},${HOME}}/.config/git/gitk
 
-sxiv: ## Init sxiv
+sxiv: ## Init sxiv (current)
 	$(APT) $@
 	mkdir -p ${HOME}/.config/sxiv/exec
 	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
+# ファイル名に & などの特殊文字が含まれる場合は表示できないことがある
+# その場合はファイル名を修正すること
+
+nsxiv: ## Build and install nsxiv (sxiv successor) with Imlib2 from source
+# Debian12の公式Imlib2はv1.10.0止まりでnsxiv最新版(v34)に対応していない
+# Imlib2をソースビルドしてからnsxivをビルドする（時間がかかる）
+# Step1: Imlib2のビルド依存パッケージをインストール
+	$(APT) libx11-dev libxext-dev zlib1g-dev libjpeg-dev libpng-dev \
+		libfreetype6-dev libfontconfig1-dev libid3tag0-dev \
+		libexif-dev libtiff-dev libgif-dev
+# Step2: Imlib2をソースビルド
+	cd ${HOME}/src && \
+	wget https://downloads.sourceforge.net/project/enlightenment/imlib2-src/1.12.3/imlib2-1.12.3.tar.xz && \
+	tar xvf imlib2-1.12.3.tar.xz && \
+	cd imlib2-1.12.3 && \
+	./configure --prefix=/usr/local && \
+	make -j4 && sudo make install
+# Step3: nsxivをソースビルド
+	cd ${HOME}/src && \
+	git clone https://github.com/nsxiv/nsxiv.git && \
+	cd nsxiv && \
+	PKG_CONFIG_PATH=/usr/local/lib/pkgconfig make && \
+	sudo make install
+# Step4: 設定ディレクトリとimage-infoをセットアップ
+	mkdir -p ${HOME}/.config/nsxiv/exec
+	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/nsxiv/exec/image-info
+	chmod +x ${HOME}/.config/nsxiv/exec/image-info
+# Step5: .zshrcのaliasを iv='nsxiv' に変更すること
 
 lepton: ## Install lepton
 	sudo apt update
@@ -328,14 +350,27 @@ flatpak: ## Install Pinta from flatpak
 	flatpak install flathub com.github.PintaProject.Pinta
 ## uninstall for package 'flatpak uninstall --delete-data flathub com.spotify.Client'
 
-texlive: ## Install texlive full
+texlive: ## Install texlive (scheme-medium + Japanese)
+	cd ${HOME}/Downloads && \
+	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+	tar xvf install-tl-unx.tar.gz && \
+	rm -f install-tl-unx.tar.gz && \
+	cd install-tl* && \
+	sudo ./install-tl -no-gui \
+		-scheme medium \
+		-repository http://mirror.ctan.org/systems/texlive/tlnet/
+	sudo /usr/local/texlive/2024/bin/x86_64-linux/tlmgr path add
+	sudo tlmgr install collection-langjapanese
+	sudo tlmgr update --self --all
+
+texlive-full: ## Install texlive full (all packages ~7GB)
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz && \
 	rm -f install-tl-unx.tar.gz && \
 	cd install-tl* && \
 	sudo ./install-tl -no-gui -repository http://mirror.ctan.org/systems/texlive/tlnet/
-## Asked for Actions, so enter `I` to start the installation
+# Asked for Actions, so enter `I` to start the installation
 	sudo /usr/local/texlive/2024/bin/x86_64-linux/tlmgr path add
 	sudo tlmgr update --self --all
 
