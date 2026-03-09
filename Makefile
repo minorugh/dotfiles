@@ -161,18 +161,18 @@ tlp: ## Setting for power saving and preventing battery deterioration
 
 keyring: ## Init gnome keyring (P1: Dropbox symlink / サブ機: 実ディレクトリ+autostart でコピー)
 	$(APT) seahorse libsecret-tools
-# ifeq ($(shell uname -n),P1)
+ifeq ($(shell uname -n),P1)
 	# 親機: Dropbox/backup/keyrings へのシンボリックリンク（正本）
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.local/share}/keyrings
-# else
-# 	# サブ機: 実ディレクトリに変更（起動時に autostart.sh が親機から上書きコピー）
-# 	# → Dropbox 同時起動による競合コピー防止
-# 	rm -rf ${HOME}/.local/share/keyrings
-# 	mkdir -p ${HOME}/.local/share/keyrings
-# 	cp ${HOME}/Dropbox/backup/keyrings/Default_keyring.keyring \
+else
+	# サブ機: 実ディレクトリに変更（起動時に autostart.sh が親機から上書きコピー）
+	# → Dropbox 同時起動による競合コピー防止
+	rm -rf ${HOME}/.local/share/keyrings
+	mkdir -p ${HOME}/.local/share/keyrings
+	cp ${HOME}/Dropbox/backup/keyrings/Default_keyring.keyring \
 # 	   ${HOME}/.local/share/keyrings/Default_keyring.keyring
-# endif
+endif
 # SSH鍵パスフレーズ登録は P1 で一度だけ実行済み（Dropbox経由でサブ機にも反映）
 # ※ secret-tool store は両マシンで同時実行しないこと（Dropbox競合の原因になる）
 
