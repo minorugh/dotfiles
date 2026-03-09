@@ -6,6 +6,9 @@ if [ ! $(hostname) == "P1" ]; then
     rm -rf $HOME/.mozc
     cp -rf ~/Dropbox/backup/mozc/.mozc ~/
     cp -f ~/Dropbox/backup/shell/.zsh_history ./
+    # keyrings は親機のみシンボリックリンク、サブ機は起動時にコピー（競合防止）
+    cp ~/Dropbox/backup/keyrings/Default_keyring.keyring \
+       ~/.local/share/keyrings/Default_keyring.keyring
 fi
 
 # run xmodmap at startup
