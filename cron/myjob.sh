@@ -1,22 +1,47 @@
+#!/bin/bash
 ##################################################
-## Backup and update GH member password file
-## Created 2026.2.12
+## Sync, merge and backup GH member password files
+## Updated 2026.3.8
 ##################################################
 
-## Backup GH member files on server to remote location
-rsync -azu --delete xsrv:/home/minorugh/gospel-haiku.com/passwd/* ${HOME}/Dropbox/GH/reg/passwd/
-rsync -azu --delete xsrv:/home/minorugh/gospel-haiku.com/passwd/* ${HOME}/Dropbox/backup/passwd/ghuser
+HOME=/home/minoru
+source $HOME/.keychain/$HOSTNAME-sh
+PASSWD_DIR="${HOME}/Dropbox/GH/reg/passwd"
+BACKUP_DIR="${HOME}/Dropbox/GH/reg/backup"
+MERGE_SCRIPT="${PASSWD_DIR}/mergepasswd.pl"
+REMOTE="xsrv:/home/minorugh/gospel-haiku.com/passwd"
+LOG_PREFIX="[myjob]"
 
-## If dmember is added, wmember is also updated.
-cd ${HOME}/Dropbox/GH/reg/passwd
-perl mergepasswd.pl
+echo "${LOG_PREFIX} 開始: $(date '+%Y-%m-%d %H:%M:%S')"
 
-## Copy dmembar to smembar (to prevent conflicts)
-rsync -azu ${HOME}/Dropbox/GH/reg/passwd/dmember.cgi xsrv:/home/minorugh/gospel-haiku.com/passwd/smember.cgi
-rsync -azu ${HOME}/Dropbox/GH/reg/passwd/wmember.cgi xsrv:/home/minorugh/gospel-haiku.com/passwd/wmember.cgi
-rsync -azu ${HOME}/Dropbox/GH/reg/passwd/wmember.cgi xsrv:/home/minorugh/gospel-haiku.com/passwd/mmember.cgi
+## Step 1: サーバーから4ファイルをダウンロード
+echo "${LOG_PREFIX} Step1: サーバーからダウンロード"
+rsync -azu "${REMOTE}/dmember.cgi" "${PASSWD_DIR}/dmember.cgi"
+rsync -azu "${REMOTE}/wmember.cgi" "${PASSWD_DIR}/wmember.cgi"
+rsync -azu "${REMOTE}/smember.cgi" "${PASSWD_DIR}/smember.cgi"
+rsync -azu "${REMOTE}/mmember.cgi" "${PASSWD_DIR}/mmember.cgi"
 
-## Copy dmember to minorugh.com (to use in other content)
-rsync -azu ${HOME}/Dropbox/GH/reg/passwd/dmember.cgi xsrv:/home/minorugh/minorugh.com/passwd/dmember.cgi
+## Step 2: ローカルでマージ（wmemberを再生成）
+echo "${LOG_PREFIX} Step2: wmemberにdmemberをマージ"
+perl "${MERGE_SCRIPT}"
 
-## end here
+## Step 3: smember=dmember、mmember=wmember にコピー
+echo "${LOG_PREFIX} Step3: smember/mmemberを生成"
+cp "${PASSWD_DIR}/dmember.cgi" "${PASSWD_DIR}/smember.cgi"
+cp "${PASSWD_DIR}/wmember.cgi" "${PASSWD_DIR}/mmember.cgi"
+
+## Step 4: バックアップ zip作成（90日以上古いものは削除）
+echo "${LOG_PREFIX} Step4: バックアップ作成"
+mkdir -p "${BACKUP_DIR}"
+ZIPFILE="${BACKUP_DIR}/passwd_$(date '+%Y%m%d').zip"
+cd "${PASSWD_DIR}" && zip -q "${ZIPFILE}" dmember.cgi wmember.cgi smember.cgi mmember.cgi
+find "${BACKUP_DIR}" -name "passwd_*.zip" -mtime +90 -delete
+
+## Step 5: 全4ファイルをサーバーへ同期
+echo "${LOG_PREFIX} Step5: サーバーへアップロード"
+rsync -azu "${PASSWD_DIR}/dmember.cgi" "${REMOTE}/dmember.cgi"
+rsync -azu "${PASSWD_DIR}/smember.cgi" "${REMOTE}/smember.cgi"
+rsync -azu "${PASSWD_DIR}/wmember.cgi" "${REMOTE}/wmember.cgi"
+rsync -azu "${PASSWD_DIR}/mmember.cgi" "${REMOTE}/mmember.cgi"
+
+echo "${LOG_PREFIX} 完了: $(date '+%Y-%m-%d %H:%M:%S')"
