@@ -74,6 +74,7 @@
   (dolist (pattern '("\\.z?shrc\\'" "\\.bash_profile\\'" "\\.profile\\'"
                      "\\.zshenv\\'" "\\.xprofile\\'" "\\.bashrc\\'" "\\.Xmodmap\\'"))
     (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
+
   ;; Associate config-style dotfiles with conf-mode
   (dolist (pattern '("\\.tmux\\.conf\\'" "\\.muttrc\\'"))
     (add-to-list 'auto-mode-alist (cons pattern 'conf-mode)))

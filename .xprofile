@@ -11,3 +11,5 @@ if [ -f ~/.keychain/${HOSTNAME}-sh ]; then
 fi
 
 dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
+
+source ~/.keychain/$(hostname)-sh

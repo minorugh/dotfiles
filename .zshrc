@@ -236,8 +236,7 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # fi
 
 # keychain config
-/usr/bin/keychain --quiet --noask $HOME/.ssh/id_rsa
-source $HOME/.keychain/$HOST-sh
+[ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
 
 
 # completion mosh
