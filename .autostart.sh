@@ -6,7 +6,7 @@ if [ ! $(hostname) == "P1" ]; then
     rm -rf $HOME/.mozc
     cp -rf ~/Dropbox/backup/mozc/.mozc ~/
     # keyrings は親機のみシンボリックリンク、サブ機は起動時にコピー（競合防止）
-    cp -rf ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
+    cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 fi
 
 # run xmodmap at startup
