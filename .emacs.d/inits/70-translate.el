@@ -1,12 +1,14 @@
 ;;; 70-translate.el --- Deepl translate configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
+;; 2026-03-10 DeepL API 仕様変更に対応
+;; 認証方式を POST ボディ (auth_key) から Authorization ヘッダーに変更
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf deepl-translate
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :doc "Translation in mini-buffer & copy to clipboard"
-  :url "https://gist.github.com/masatoi/"
+  :url "https://gist.github.com/masatoi/" ; 原作者 gist（2026-03-10 DeepL仕様変更に伴い Authorization ヘッダー方式に修正済み)
   :bind ("C-c d" . deepl-translate)
   :init
   ;; Load deeple-auth-key
