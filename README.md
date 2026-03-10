@@ -1,96 +1,145 @@
-# My dotfiles on Makefile
+# dotfiles on Makefile
 
-## Screenshot
-![Debian11 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg) 
-![Emacs-29.1](https://live.staticflickr.com/65535/53032684552_3f0767459c_b.jpg)
+## スクリーンショット
+![Debian12 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg)
+![Emacs-30.1](https://live.staticflickr.com/65535/53032684552_3f0767459c_b.jpg)
 
-## Let's build environment with Makefile
+## 概要
 
-This dot file is for Debian Linux. I created it by referring to
-[masasam/dotfiles](https://github.com/masasam/dotfiles).
+Debian Linux 用の dotfiles です。
+[masasam/dotfiles](https://github.com/masasam/dotfiles) を参考に構築しました。
 
-Automation with Make is recommended as it is very easy to customize.
+Makefile による自動化を採用しており、環境の再構築・カスタマイズが簡単にできます。
+ThinkPad 2台（P1 親機 / X250 サブ機）での運用を想定した分岐処理も含んでいます。
 
-## First, do a clean install of debian from the install USB
-After a clean install, prepare manually before running make.
-The guidance is as follows:
+---
 
-```
-## =====================================================================
-## Manual setting before executing make
-## =====================================================================
-## 1. Boot from USB to install Debian latest
-# Create installation USB from netinst iso image. Use Rufs.exe on Windows
-# rufs https://rufus.ie/ja/
+## 環境構築の手順
 
-## 2. Register username to sudoers
-# Log in as root
-# | gpasswd -a ${USER} sudo
-# | sudo nano /etc/sudoers
-# Add and edit correction as follows
-# ----------------------------------
-# # User privilege specification
-# root    ALL=(ALL:ALL) ALL
-# minoru ALL=(ALL:ALL) NOPASSWD:ALL
-# # Allow members of group sudo to execute any command
-# %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
-# ----------------------------------
+### make 実行前の手動準備
 
-## 3. Set home sub directorys to English notation
-# Log in with ${USER}
-# | sudo apt install -y xdg-user-dirs-gtk ## Not needed for debian12 or later
-# | LANG=C xdg-user-dirs-gtk-update --force
-# | sudo apt update
-# | sudo apt install -y make git nautilus
+以下の手順は make 実行前に手動で行います。
 
-## 4. Install dropbox & setting
-# Before installing, configure the Synapyic repository & Check existence of package
-# | sudo apt install -y nautilus-dropbox
-# | Launch dropbox from Menu then install and initial settings
+#### 1. Debian クリーンインストール
+インストール USB を netinst iso から作成します（Windows の場合は [Rufus](https://rufus.ie/ja/) を使用）。
 
-## 5. Import GPG private_key
-# | mkdir -p ~/src/github.com/minorugh
-# | cd ~/src/github.com/minorugh
-# | git clone git@github.com:minorugh/gpgimport.git
-# | cd gpgimport
-# | make gpg
+#### 2. sudoers への登録
+root でログインして実行します。
 
-## 6. Clone dotfiles from GitHub
-# | mkdir -p ~/src/github.com/minorugh
-# | cd ~/src/github.com/minorugh
-# | git clone git@github.com:minorugh/dotfiles.git
-# | cd dotfiles
-# | git-crypt unlock
-# | make all
-
-## 7. Change shell to zsh
-# | chsh -s /usr/bin/zsh
-
-## =====================================================================
-## Run make from here
-## =====================================================================
-
-After this, refer to makefile
+```bash
+gpasswd -a ${USER} sudo
+visudo
 ```
 
-## Restore procedure with makefile
-How to restore with makefile,Please refer to 
-[masasam/dotfiles](https://github.com/masasam/dotfiles). 
+`/etc/sudoers` に以下を追加します。
 
-## My GNU Emacs configuration 
-Detailed explanation is written at the following URL.
+```
+# ユーザー権限の設定
+root   ALL=(ALL:ALL) ALL
+minoru ALL=(ALL:ALL) NOPASSWD:ALL
+%sudo  ALL=(ALL:ALL) NOPASSWD:ALL
+```
 
-* [https://minorugh.github.io/.emacs.d](https://minorugh.github.io/.emacs.d/) 
+#### 3. ホームディレクトリ配下を英語表記に変更
+一般ユーザーでログインして実行します。
 
-----
+```bash
+# Debian12 以降は xdg-user-dirs-gtk 不要
+LANG=C xdg-user-dirs-gtk-update --force
+sudo apt update
+sudo apt install -y make git nautilus
+```
 
-## update infomeition
-* 2021.11.01 Remote repository also on xserver (simultaneous Push)
-* 2021.10.11 Content organization
-* 2021.08.26 Update to Debian 11(bullseye)
-* 2021.08.26 Update to emacs 27.2
-* 2021.02.20 Update to emacs 27.1
-* 2021.01.29 Fixed mozc
-* 2021.01.28 Fixed so that it can be shared between two Thinkpads
-* 2020.11.10 Rebuilding
-* 2020.10.27 first commit
+#### 4. Dropbox のインストールと初期設定
+Synaptic でリポジトリを設定してからインストールします。
+
+```bash
+sudo apt install -y nautilus-dropbox
+# メニューから Dropbox を起動して初期設定を完了させる
+```
+
+#### 5. GPG 秘密鍵のインポート
+
+```bash
+mkdir -p ~/src/github.com/minorugh
+cd ~/src/github.com/minorugh
+git clone git@github.com:minorugh/gpgimport.git
+cd gpgimport
+make gpg
+```
+
+#### 6. dotfiles のクローンと展開
+
+```bash
+mkdir -p ~/src/github.com/minorugh
+cd ~/src/github.com/minorugh
+git clone git@github.com:minorugh/dotfiles.git
+cd dotfiles
+git-crypt unlock
+make all
+```
+
+#### 7. シェルを zsh に変更
+
+```bash
+chsh -s /usr/bin/zsh
+```
+
+---
+
+### make ターゲット一覧
+
+`make help` で利用可能なターゲットの一覧が表示されます。
+
+主なターゲットは以下の通りです。
+
+| ターゲット | 内容 |
+|---|---|
+| `make all` | `allinstall` + `nextinstall` を一括実行 |
+| `make allinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
+| `make nextinstall` | アプリケーション群のインストール |
+| `make emacs-mozc` | Emacs + Mozc のインストール |
+| `make keyring` | Gnome keyring の初期化（P1/サブ機で分岐） |
+| `make autostart` | 起動時の SSH キー自動入力設定 |
+
+詳細は Makefile 内のコメントを参照してください。
+
+---
+
+## SSH キー・keychain の仕組み
+
+GUI 起動時に `autostart.sh` が実行され、以下の流れで SSH 鍵のパスフレーズが自動入力されます。
+
+1. `secret-tool` で Gnome keyring からパスフレーズを取得
+2. `keychain` に渡して `ssh-agent` を起動
+3. `.xprofile` 経由で `SSH_AUTH_SOCK` をセッションに伝搬
+
+パスフレーズの登録は P1 で一度だけ行い、Dropbox 経由でサブ機にも反映されます。
+`secret-tool store` は両マシンで同時実行しないこと（Dropbox 競合の原因になります）。
+
+---
+
+## Emacs 設定
+
+詳細は以下を参照してください。
+
+- [https://minorugh.github.io/.emacs.d](https://minorugh.github.io/.emacs.d/)
+
+---
+
+## 更新履歴
+
+| 日付 | 内容 |
+|---|---|
+| 2026.03.10 | SSH/keychain 環境を X250 サブ機に対応、autostart.sh・keyring 周りを整理 |
+| 2025.03.09 | Debian12 対応クリーンアップ、sxiv→nsxiv 移行メモ追加 |
+| 2024.10.01 | Debian12 対応 |
+| 2022.09.22 | Debian11 対応 |
+| 2021.11.01 | xserver へのリモートリポジトリ追加（同時 Push 対応） |
+| 2021.10.11 | 内容整理 |
+| 2021.08.26 | Debian11 / Emacs 27.2 対応 |
+| 2021.02.20 | Emacs 27.1 対応 |
+| 2021.01.29 | mozc 修正 |
+| 2021.01.28 | ThinkPad 2台共有対応 |
+| 2020.11.10 | 再構築 |
+| 2020.10.27 | 初回コミット |
