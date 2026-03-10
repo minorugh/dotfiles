@@ -59,7 +59,8 @@ sudo apt install -y nautilus-dropbox
 ```
 
 #### 5. GPG 秘密鍵のインポート
-
+GPG 秘密鍵は Dropbox に AES256 暗号化済みで保存してあります。
+Dropbox の同期完了後に以下を実行してください。
 ```bash
 mkdir -p ~/src/github.com/minorugh
 cd ~/src/github.com/minorugh
@@ -67,6 +68,11 @@ git clone git@github.com:minorugh/gpgimport.git
 cd gpgimport
 make gpg
 ```
+
+パスフレーズは SSH 鍵（id_rsa）と同じです。
+詳細は [gpgimport](https://github.com/minorugh/gpgimport) を参照してください。
+
+
 
 #### 6. dotfiles のクローンと展開
 

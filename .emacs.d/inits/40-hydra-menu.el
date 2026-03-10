@@ -70,6 +70,7 @@
     (evil-emacs-state))
 
   (defun terminal-open ()
+    "Open gnome-terminal at current dir on adjacent display."
     (interactive)
     (let ((dir (directory-file-name default-directory)))
       (start-process-shell-command
@@ -82,6 +83,7 @@
           "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
 
   (defun thunar-open ()
+    "Open Thunar at current dir on adjacent display."
     (interactive)
     (start-process-shell-command
      "thunar" nil
