@@ -131,7 +131,12 @@ fonts: ## ユーザーフォントのシンボリックリンク作成
 
 gist: ## gist コマンドのインストールと設定
 	sudo gem install gist
-	ln -vsf ${HOME}/Dropbox/backup/gist ${HOME}/.gist
+	ln -vsf ${HOME}/Dropbox/backup/gist/gist ${HOME}/.gist
+
+gitk: ## gitk の設定
+	$(APT) $@
+	mkdir -p ${HOME}/.config/git
+	sudo ln -vsfn ${HOME}/Dropbox/backup/gist/gitk ${HOME}/.config/git/gitk
 
 printer: ## プリンタードライバーのインストール（Brother HL-L2375DW）
 	cd ${HOME}/Downloads && \
@@ -176,11 +181,6 @@ abook: ## abook アドレス帳のインストールと設定
 	$(APT) $@
 	mkdir -p ${HOME}/.abook
 	ln -vsf {${PWD},${HOME}}/.abook/addressbook
-
-gitk: ## gitk の設定
-	$(APT) $@
-	mkdir -p ${HOME}/.config/git
-	sudo ln -vsfn {${PWD},${HOME}}/.config/git/gitk
 
 sxiv: ## sxiv の設定
 	$(APT) $@

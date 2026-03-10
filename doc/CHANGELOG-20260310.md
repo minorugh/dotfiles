@@ -97,3 +97,52 @@ filezilla "$@" &
 - `autostart.desktop` の `Exec=` では環境変数 `$HOME` が展開されない
 - `cp -rf` ではコピー先のタイムスタンプがコピー実行時刻になる。バックアップ系のコピーには `-a` を使う
 - `ln` に `-rf` は不正なオプション（`cp`・`rm` 用）。シンボリックリンク作成には `-vsn` で十分
+
+---
+
+## 追加作業（午後）
+
+### deepl-translate.el — DeepL API 仕様変更対応
+
+DeepL が認証方式を変更したため動作しなくなっていた。
+POST ボディの `auth_key` を廃止し、`Authorization` ヘッダーに移行。
+
+```elisp
+;; 変更前
+:data `(("auth_key" . ,deepl-auth-key)
+        ("text" . ,text) ...)
+
+;; 変更後
+:headers `(("Authorization" . ,(format "DeepL-Auth-Key %s" deepl-auth-key)))
+:data `(("text" . ,text) ...)
+```
+
+- 原作者の gist は未対応のまま。自分の GitHub リポジトリ側で修正
+- `70-translate.el` の `:url` コメントに修正済みの旨を追記
+
+### gpgimport — USB 依存廃止・AES256 暗号化方式に移行
+
+**問題**：GPG 秘密鍵が USB メディアにしかなく、紛失・劣化リスクがあった。
+また Dropbox に保存していた `encrypt.zip` は zip 暗号化強度が低く心もとなかった。
+
+**対応**：
+- `secret-all.key` を GPG 対称暗号化（AES256）して Dropbox に保存
+- 旧 `encrypt.zip` と生の `secret-all.key` は `shred` で完全削除
+- Makefile の `gpg` ターゲットを USB → Dropbox の `.key.gpg` から復号する形に変更
+- `export` ターゲットも暗号化まで一本化
+- README.md を新規作成（リストア手順を Step 1〜5 で整理）
+
+```bash
+# 保存（P1 で一度だけ実施済み）
+gpg --symmetric --cipher-algo AES256 \
+    -o ~/Dropbox/backup/gnupg/secret-all.key.gpg secret-all.key
+
+# 復元時（make gpg が自動実行）
+gpg --decrypt ~/Dropbox/backup/gnupg/secret-all.key.gpg > secret-all.key
+```
+
+パスフレーズは SSH 鍵（id_rsa）と統一。
+
+**教訓**：
+- zip のパスワード暗号化は強度が低い。秘密情報には GPG 対称暗号化（AES256）を使う
+- 保存場所は README.md に明記しない（セキュリティ上）
