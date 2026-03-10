@@ -146,3 +146,58 @@ gpg --decrypt ~/Dropbox/backup/gnupg/secret-all.key.gpg > secret-all.key
 **教訓**：
 - zip のパスワード暗号化は強度が低い。秘密情報には GPG 対称暗号化（AES256）を使う
 - 保存場所は README.md に明記しない（セキュリティ上）
+
+---
+
+## 追加作業（夕方）
+
+### Dropbox/backup/ の棚卸し
+
+GitHub（dotfiles）と重複している不要なディレクトリを整理・削除した。
+
+**削除したもの**
+- `dotfiles/` — GitHub 管理で十分
+- `bin/` — dotfiles の bin/ で管理
+- `devils/` — dotfiles 管理
+- `etc/` — dotfiles 管理
+- `local/` — dotfiles 管理
+- `tex/` — dotfiles 管理
+- `abook/` — dotfiles 管理
+- `mutt/` — 不使用
+- `w3m/` — dotfiles 管理
+- `config/autostart/` — dotfiles 管理
+- `config/sxiv/` — dotfiles 管理
+- `config/git/` — gist/ に統合
+
+**残したもの（Dropbox が必須）**
+- `keyrings/` — keyring 正本
+- `mozc/` — mozc 設定正本
+- `filezilla/` — FileZilla 設定正本
+- `gist/` — gist 認証ファイル・gitk 設定（後述）
+- `icons/` — アイコン・壁紙
+- `gnupg/` — GPG 秘密鍵（AES256 暗号化済み）
+- `config/rclone/` `config/hub` — rclone・hub 設定正本
+- `config/git/gitk` → `gist/gitk` に移動（後述）
+- `GH/` — myjob.sh のパスワードファイル管理
+- `passwd/` — KeePassXC の kdbx ファイル
+- `deepl/` — DeepL API キー
+- `zsh/` — .zsh_history・cdr 履歴
+- `emacs/` — elpa 世代バックアップ・自作ロゴ
+- `ssh/` — 保留（気持ちの整理がついたら削除）
+
+### gist と gitk の整理
+
+`gist`（認証ファイル単体）と `config/git/gitk` を `gist/` ディレクトリにまとめた。
+
+```
+# 変更前
+~/Dropbox/backup/gist          # ファイル単体
+~/Dropbox/backup/config/git/gitk
+
+# 変更後
+~/Dropbox/backup/gist/gist
+~/Dropbox/backup/gist/gitk
+```
+
+Makefile の `gist` `gitk` ターゲットのパスを合わせて修正。
+`make gist gitk` で P1・X250 両機とも動作確認済み。
