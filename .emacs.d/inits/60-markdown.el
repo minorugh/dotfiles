@@ -9,7 +9,8 @@
   :config
   (setq markdown-command "pandoc -f markdown -t html5"
 	markdown-command-needs-filename t
-	markdown-fontify-code-blocks-natively t
+	;; markdown-fontify-code-blocks-natively t
+	markdown-fontify-code-blocks-natively nil
 	markdown-header-scaling t
 	markdown-indent-on-enter 'indent-and-new-item
 	markdown-preview-use-browser t
@@ -17,11 +18,17 @@
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
 	markdown-css-paths
-	(list (expand-file-name "~/.emacs.d/elisp/markdown.css"))
+	;; (list (expand-file-name "~/.emacs.d/elisp/markdown.css"))
+	(list (expand-file-name "~/.emacs.d/elisp/markdown-cream.css"))
+	;; (list (expand-file-name "~/.emacs.d/elisp/markdown-github.css"))
+	;; (list (expand-file-name "~/.emacs.d/elisp/markdown-minimal.css"))
 	markdown-xhtml-header-content
 	(concat
 	 "<link rel='stylesheet' href='"
 	 (expand-file-name "~/.emacs.d/elisp/highlight.min.css")
+	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.github.min.css")
+	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.atom-one-light.min.css")
+	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.default.min.css")
 	 "'>\n"
 	 "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
 	 "<script src='"
@@ -38,7 +45,6 @@
   :custom-face
   `((markdown-code-face . '((t (:inherit nil :background "gray10"))))
     (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))))
-
 
 (defun md2pdf ()
   "Use pandoc to generate PDF."

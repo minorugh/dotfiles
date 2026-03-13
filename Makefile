@@ -32,8 +32,8 @@ help:
 	| sort \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-all: allinstall nextinstall
-allinstall: ssh install base init keymap grub autostart myjob keyring tlp emacs-mozc icons gist fonts
+all: baseinstall nextinstall
+baseinstall: ssh install base init keymap grub autostart myjob keyring tlp emacs-mozc icons gist fonts
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
@@ -109,13 +109,13 @@ tlp: ## 省電力・バッテリー劣化防止設定（TLP）
 
 keyring: ## Gnome keyring の初期化（P1: Dropboxシンボリックリンク / サブ機: リンク削除のみ）
 	$(APT) seahorse libsecret-tools
+# 親機: Dropbox/backup/keyrings へのシンボリックリンク（正本）
 ifeq ($(shell uname -n),P1)
-	# 親機: Dropbox/backup/keyrings へのシンボリックリンク（正本）
 	test -L ${HOME}/.local/share/keyrings || rm -rf ${HOME}/.local/share/keyrings
 	ln -vsfn {${HOME}/Dropbox/backup,${HOME}/.local/share}/keyrings
+# サブ機: シンボリックリンクが残っていれば削除するだけ
+# コピーは起動時に autostart.sh が行う（Dropbox競合防止）
 else
-	# サブ機: シンボリックリンクが残っていれば削除するだけ
-	# コピーは起動時に autostart.sh が行う（Dropbox競合防止）
 	test -L ${HOME}/.local/share/keyrings && rm -f ${HOME}/.local/share/keyrings || true
 endif
 # SSH鍵パスフレーズ登録は P1 で一度だけ実行済み（Dropbox経由でサブ機にも反映）
@@ -188,32 +188,6 @@ sxiv: ## sxiv の設定
 	ln -vsf {${PWD},${HOME}}/.config/$@/exec/image-info && chmod +x $$_
 # ファイル名に & などの特殊文字が含まれる場合は表示できないことがある
 # その場合はファイル名を修正すること
-
-nsxiv: ## nsxiv をソースビルドしてインストール（Imlib2 も含む）
-# Debian12の公式Imlib2はv1.10.0止まりでnsxiv最新版(v34)に対応していない
-# Imlib2をソースビルドしてからnsxivをビルドする（時間がかかる）
-# Step1: Imlib2のビルド依存パッケージをインストール
-	$(APT) libx11-dev libxext-dev zlib1g-dev libjpeg-dev libpng-dev \
-		libfreetype6-dev libfontconfig1-dev libid3tag0-dev \
-		libexif-dev libtiff-dev libgif-dev
-# Step2: Imlib2をソースビルド
-	cd ${HOME}/src && \
-	wget https://downloads.sourceforge.net/project/enlightenment/imlib2-src/1.12.3/imlib2-1.12.3.tar.xz && \
-	tar xvf imlib2-1.12.3.tar.xz && \
-	cd imlib2-1.12.3 && \
-	./configure --prefix=/usr/local && \
-	make -j4 && sudo make install
-# Step3: nsxivをソースビルド
-	cd ${HOME}/src && \
-	git clone https://github.com/nsxiv/nsxiv.git && \
-	cd nsxiv && \
-	PKG_CONFIG_PATH=/usr/local/lib/pkgconfig make && \
-	sudo make install
-# Step4: 設定ディレクトリとimage-infoをセットアップ
-	mkdir -p ${HOME}/.config/nsxiv/exec
-	ln -vsf ${PWD}/.config/sxiv/exec/image-info ${HOME}/.config/nsxiv/exec/image-info
-	chmod +x ${HOME}/.config/nsxiv/exec/image-info
-# Step5: .zshrcのaliasを iv='nsxiv' に変更すること
 
 lepton: ## Lepton（Gist クライアント）のインストール
 	sudo apt update
