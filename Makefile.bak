@@ -270,17 +270,9 @@ keepassxc: ## KeePassXC のインストールと自動起動設定
 # | secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
 thunderbird: ## Thunderbird の設定（Gmail はアプリパスワードで認証）
-# サブ機など既存インストールがある場合は事前に手動で削除すること
-# | sudo apt remove --purge thunderbird && rm -rf ~/.thunderbird
 	$(APT) $@
-	mkdir -p ${HOME}/.thunderbird/r5oy09ua.default-default
-	$(eval TBIRD := ${HOME}/Dropbox/backup/thunderbird)
-	$(eval PROF  := ${HOME}/.thunderbird/r5oy09ua.default-default)
-	ln -vsf ${TBIRD}/profiles.ini ${HOME}/.thunderbird/profiles.ini
-	ln -vsf ${TBIRD}/installs.ini ${HOME}/.thunderbird/installs.ini
-	for item in prefs.js cert9.db key4.db logins.json; do \
-		ln -vsf ${TBIRD}/$$item ${PROF}/$$item; \
-	done
+	test -L ${HOME}/.thunderbird || rm -rf ${HOME}/.thunderbird
+	ln -vsfn ${HOME}/thunderbird/.thunderbird ${HOME}/.thunderbird
 	sudo ln -vsfn ${HOME}/thunderbird/external-editor-revived /usr/local/bin
 	sudo chmod +x /usr/local/bin/external-editor-revived
 

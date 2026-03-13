@@ -1,0 +1,6 @@
+# key: section
+# name: sec
+# --
+-section(
+$0
+-section)

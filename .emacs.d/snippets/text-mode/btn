@@ -1,5 +1,4 @@
-# -*- mode: snippet -*-
-# name:button 
 # key: btn
+# name: btn
 # --
 <a href="" class="btn btn-success btn-lg">$0</a>

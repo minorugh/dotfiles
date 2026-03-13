@@ -43,11 +43,6 @@
   :bind ("C-c r" . rainbow-mode)
   :hook after-init-hook)
 
-(leaf elec-pair :ensure nil
-  :tag "builtin"
-  :doc "Disable electric-pair-mode in text-mode (use yasnippet for makeweb blocks)."
-  :hook (text-mode-hook . (lambda () (electric-pair-local-mode -1))))
-
 (leaf aggressive-indent :ensure t
   :hook (after-init-hook . global-aggressive-indent-mode)
   :config

@@ -2,5 +2,5 @@
 # name: bible
 # --
 =bible<
-$1
+$0
 =bible>

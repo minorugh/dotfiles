@@ -24,9 +24,10 @@ set timeout = 300
 set imap_keepalive = 300
 set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
-set header_cache=~/.mutt/cache/headers
-set certificate_file=~/.mutt/certificates
-set signature =~/.mutt/signature
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file= "~/.mutt/certificates"
+set signature = "~/.mutt/signature"
 set move = no
 set include
 set sort = 'threads'
@@ -41,10 +42,10 @@ bind editor ^T complete
 bind editor <space> noop
 
 # mailcap
-set mailcap_path = ~/.mutt/mailcap
+set mailcap_path = "~/.mutt/mailcap"
 
 # Print Command
-set print_command="nkf -em | e2ps -size 11 -head muttmail | lpr"
+set print_command = "nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # notify-send ----------------------------------------------
 set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new messages, %u unread.' &"

@@ -329,8 +329,9 @@ vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
 # PATH
-export GOPATH="/usr/local/go"
-export PATH="$PATH:$GOPATH/bin:usr/sbin"
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOROOT/bin:$GOPATH/bin:usr/sbin"
 export GHQPATH="$HOME/go"
 export PATH="$PATH:$GHQPATH/bin"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"

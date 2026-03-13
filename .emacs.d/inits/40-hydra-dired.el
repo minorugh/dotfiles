@@ -11,7 +11,7 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
-  _r_estart  magit_[__]_  _x_modm  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
+  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
 "
    ("f" flycheck-list-errors)
    ("0" fzilla-GH)
