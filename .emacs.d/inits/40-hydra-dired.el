@@ -4,18 +4,20 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-dired
+  :defun my:make my:open dired-omit-mode
   :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
   _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
 "
    ("f" flycheck-list-errors)
    ("0" fzilla-GH)
    ("-" fzilla-minoruGH)
+   ("G" (browse-url "https://github.com/minorugh"))
    ("," org-capture)
    ("p" keepassxc)
    ("l" (my:open "~/src/github.com/minorugh"))
@@ -104,6 +106,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars docstrings)
 ;; End:
 ;;; 40-hydra-dired.el ends here

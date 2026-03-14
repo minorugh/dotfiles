@@ -1,4 +1,4 @@
-;;; 10-funcs.el --- Define functions.	-*- lexical-binding: t -*-
+;;; 09-funcs.el --- Define functions.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@ If region isn't selected, post from the buffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-funcs.el ends here
+;;; 09-funcs.el ends here

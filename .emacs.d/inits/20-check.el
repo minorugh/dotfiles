@@ -1,10 +1,11 @@
-;;; 10-check.el --- Syntax checking configurations. -*- lexical-binding: t -*-
+;;; 20-check.el --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."
+  :defun flycheck-sexp-to-string
   :hook ((prog-mode-hook . flycheck-mode)
 	 (gfm-mode-hook  . flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
@@ -51,4 +52,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 10-check.el ends here
+;;; 20-check.el ends here

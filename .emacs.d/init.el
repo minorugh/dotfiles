@@ -8,16 +8,20 @@
 (when (version< emacs-version "29.1")
   (error "This requires Emacs 29.1 and above!"))
 
-;; Temporarily suppress file-handler processing to speed up startup
-(defconst default-hadlers file-name-handler-alist)
+;;; Temporarily suppress file-handlers processing to speed up startup
+(defconst default-handlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
+
 (add-hook 'emacs-startup-hook
 	  (lambda ()
 	    "Recover file name handlers and GC values after startup."
-	    (setq file-name-handler-alist default-hadlers)
-	    (setq gc-cons-threshold 800000)
-	    (setq inhibit-message nil)))
+	    (setq file-name-handler-alist default-handlers)
+	    (setq gc-cons-threshold (* 16 1024 1024))
+	    (setq inhibit-message nil)
+	    (message "Emacs ready in %s with %d GCs."
+		     (emacs-init-time) gcs-done)))
 
+;;; package system
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
@@ -25,20 +29,23 @@
   (package-initialize)
   (use-package leaf :ensure t)
 
-  (leaf leaf-keywords :ensure t
+  (leaf leaf-keywords
+    :ensure t
     :init
     (leaf hydra :ensure t)
     :config
     (leaf-keywords-init)))
 
+;;; server
 (leaf server
   :commands server-running-p
   :hook (emacs-startup-hook
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
-
-(leaf exec-path-from-shell :ensure t
+;;; shell env
+(leaf exec-path-from-shell
+  :ensure t
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize)
   :config
@@ -46,20 +53,17 @@
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
-(leaf init-loader :ensure t
+;;; init loader
+(leaf init-loader
+  :ensure t
   :doc "Load inits configuration."
+  :init
+  (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
   :config
   (setq init-loader-show-log-after-init 'error-only)
-  (init-loader-load)
-  :init
-  ;; save custom-file to tmp/
-  (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
+  (setq init-loader-byte-compile t)
+  (init-loader-load))
 
-(add-hook 'kill-emacs-hook
-	  (lambda ()
-	    "Byte-compilation of all initial configuration files."
-	    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
-	    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
 (provide 'init)
 ;; Local Variables:
