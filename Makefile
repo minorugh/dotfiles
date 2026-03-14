@@ -370,7 +370,7 @@ github: ## GitHub リポジトリのクローン
 # 9. パネルのアクションボタン>> ログアウト時の「セッションを保存する」のチェックを外す
 
 ## 日次 auto-commit + push
-git:
+git-push:
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: `date +%Y-%m-%d`"
 	git push
