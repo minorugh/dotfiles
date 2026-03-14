@@ -368,3 +368,9 @@ github: ## GitHub リポジトリのクローン
 # 7. セッションと起動>> 自動起動アプリに devils_startup.sh を追加（最小化起動）
 # 8. セッションと起動>> 一般タブの「ログアウト時にセッションを自動保存」のチェックを外す
 # 9. パネルのアクションボタン>> ログアウト時の「セッションを保存する」のチェックを外す
+
+## 日次 auto-commit + push
+git:
+	git add -A
+	git diff --cached --quiet || git commit -m "auto: `date +%Y-%m-%d`"
+	git push

@@ -1,7 +1,7 @@
 ;;; 01-dashboard.el --- Dashboard configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;;(setq debug-on-error t)
+;; (setq debug-on-error t)
 
 (leaf dashboard
   :ensure t
@@ -9,30 +9,30 @@
   :if (display-graphic-p)
   :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
   :hook ((emacs-startup-hook . open-dashboard)
-	 (dashboard-mode-hook . (lambda () (interactive) (set-window-margins (selected-window) 1 1))))
+	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-icon-type 'nerd-icons)
+  :config
   (leaf page-break-lines :ensure t
     :doc "Display ^L page breaks as tidy horizontal lines"
-    :after dashboard
     :global-minor-mode t)
-  :config
-  ;; Set the items
-  (if (string-match "P1" (shell-command-to-string "uname -n"))
-      (setq dashboard-items '((recents . 8)(agenda . 5)))
+  ;; Set the items (P1 shows agenda, others show recents only)
+  (if (string-match "P1" (system-name))
+      (setq dashboard-items '((recents . 8) (agenda . 5)))
     (setq dashboard-items '((recents . 5))))
-  ;; Set the title
+  ;; Set the title (combine external commands into one call)
   (setq dashboard-banner-logo-title
-	(concat "GNU Emacs " emacs-version " kernel "
-		(car (split-string (shell-command-to-string "uname -r")))  " Debian "
-		(car (split-string (shell-command-to-string "cat /etc/debian_version"))) " 86_64 GNU/Linux"))
+	(let* ((uname (split-string (shell-command-to-string "uname -rn")))
+	       (debian (string-trim (shell-command-to-string "cat /etc/debian_version"))))
+	  (format "GNU Emacs %s kernel %s Debian %s x86_64 GNU/Linux"
+		  emacs-version (cadr uname) debian)))
   ;; Set the banner
-  (setq dashboard-startup-banner "~/.emacs.d/emacs.png")
+  (setq dashboard-startup-banner "~/.emacs.d/elisp/images/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
-  (setq show-week-agenda-p t)
+  (setq dashboard-week-agenda t)
   ;; Set the footer
   (setq dashboard-footer-messages
 	'("Rejoice always. Pray without ceasing. In everything give thanks. (1Thes.5.16-18)"))

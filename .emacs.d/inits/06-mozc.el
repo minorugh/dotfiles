@@ -22,17 +22,17 @@
     :doc "Mozc with popup."
     :after mozc
     :require t
-    :config  (setq mozc-candidate-style 'popup))
+    :config (setq mozc-candidate-style 'popup))
 
   :config
-  (setq default-input-method     "japanese-mozc")
-  (setq mozc-leim-title          "あ")
+  (setq default-input-method "japanese-mozc")
+  (setq mozc-leim-title       "あ")
 
   (defun my:toggle-input-method ()
-    "If `evil-mode' enabled, set to` evil-insert-state'."
+    "If `evil-mode' is enabled, set to `evil-insert-state'."
     (interactive)
-    (if (boundp 'evil-mode)
-	(evil-insert-state))
+    (when (and (boundp 'evil-mode) evil-mode)
+      (evil-insert-state))
     (toggle-input-method))
 
   (defun mozc-insert-str (str)
@@ -42,21 +42,21 @@
     (insert str))
 
   (defun my:mozc-config ()
-    "Open `mozc-word-regist'."
+    "Open mozc config dialog."
     (interactive)
-    (compile "/usr/lib/mozc/mozc_tool --mode=config_dialog")
+    (start-process "mozc-config" nil "/usr/lib/mozc/mozc_tool" "--mode=config_dialog")
     (delete-other-windows))
 
   (defun my:mozc-dictionary-tool ()
-    "Run the mozc-tool in the background."
+    "Open mozc dictionary tool."
     (interactive)
-    (compile "/usr/lib/mozc/mozc_tool --mode=dictionary_tool")
+    (start-process "mozc-dict" nil "/usr/lib/mozc/mozc_tool" "--mode=dictionary_tool")
     (delete-other-windows))
 
   (defun my:mozc-word-regist ()
-    "Open `mozc-word-regist'."
+    "Open mozc word register dialog."
     (interactive)
-    (compile "/usr/lib/mozc/mozc_tool --mode=word_register_dialog")
+    (start-process "mozc-word" nil "/usr/lib/mozc/mozc_tool" "--mode=word_register_dialog")
     (delete-other-windows)))
 
 ;; ---------------------------------------------------------------------

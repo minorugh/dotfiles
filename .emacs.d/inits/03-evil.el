@@ -5,13 +5,13 @@
 
 (leaf evil :ensure t
   :defun evil-ex-define-cmd evil-normal-state evil-swap-key
-  :hook after-init-hook
+  :hook (after-init-hook . evil-mode)
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)
- 	  ("C-e"      . seq-end)
-  	  ("C-w"      . evil-delete-backward-word)
- 	  ("SPC"      . set-mark-command)
+	  ("C-e"      . seq-end)
+	  ("C-w"      . evil-delete-backward-word)
+	  ("SPC"      . set-mark-command)
 	  ("_"        . evil-visual-line)
           ([muhenkan] . evil-insert)
 	  ([home]     . dashboard-toggle))
@@ -38,25 +38,25 @@
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
-  ;; Ovewrite `evil-quit` with kill-buffer
+  ;; Overwrite `evil-quit' with kill-buffer
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
-  ;; Force evil-emacs-state
+  ;; Force evil-emacs-state for specific modes
   (dolist (mode '(howm-view-summary-mode
 		  imenu-list-major-mode easy-hugo-mode neotree-mode
 		  org-mode fundamental-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
-  ;; For minor mode
-  (add-hook 'counsel-find-file-hook 'evil-emacs-state)
-  (add-hook 'magit-blame-mode-hook 'evil-emacs-state)
-  (add-hook 'view-mode-hook 'evil-emacs-state)
+  ;; For minor modes
+  (add-hook 'counsel-find-file-hook #'evil-emacs-state)
+  (add-hook 'magit-blame-mode-hook  #'evil-emacs-state)
+  (add-hook 'view-mode-hook         #'evil-emacs-state)
 
   (defun my:return-to-normal-state ()
     "Turn off input-method then return to normal-state."
     (interactive)
-    (if (use-region-p)(keyboard-escape-quit))
-    (if current-input-method (deactivate-input-method))
+    (when (use-region-p) (keyboard-escape-quit))
+    (when current-input-method (deactivate-input-method))
     (evil-normal-state)
     (message "-- NORMAL --"))
 
@@ -70,7 +70,7 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
   (defun ad:switch-to-buffer (&rest _arg)
-    "Set buffer for automatic `evil-insert-state'."
+    "Set buffer for automatic `evil-emacs-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-emacs-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
@@ -80,6 +80,27 @@
   :doc "Free keymap on evil-mode."
   :defun evil-leader/set-leader evil-emacs-state ad:switch-to-buffer
   :hook (after-init-hook . global-evil-leader-mode)
+  :init
+  (defun vim-cheat-sheet ()
+    "View vim cheat sheet online."
+    (interactive)
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
+
+  (defun thunderbird ()
+    "Open thunderbird mail-client for Gmail."
+    (interactive)
+    (start-process "thunderbird" nil "thunderbird"))
+
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (start-process-shell-command "neomutt" nil "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+  (defun mattermost ()
+    "Open mattermost-desktop."
+    (interactive)
+    (start-process "mattermost" nil "mattermost-desktop"))
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
@@ -111,34 +132,13 @@
   (hydra-diff
    (:color red :hint nil)
    "
-    diff-hl-hunk  prev.next:_[_._]_  _s_how"
+    diff-hl-hunk  prev.next:_[_._]_  _s_how"
    ("]" diff-hl-next-hunk)
    ("[" diff-hl-previous-hunk)
    ("g" diff-hl-diff-goto-hunk)
    ("r" diff-hl-revert-hunk)
    ("s" diff-hl-show-hunk)
-   ("<muhenkan>" nil))
-  :init
-  (defun vim-cheat-sheet ()
-    "View vim cheat sheet online."
-    (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
-
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail."
-    (interactive)
-    (compile "thunderbird"))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (compile "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-  (defun mattermost ()
-    "Open mattermost-desktop."
-    (interactive)
-    (compile "mattermost-desktop")))
+   ("<muhenkan>" nil)))
 
 
 ;; Local Variables:

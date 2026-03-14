@@ -1,2 +1,2 @@
 clean:
-	rm *.elc
+	rm -f *.elc

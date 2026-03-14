@@ -4,13 +4,14 @@
 ;; (setq debug-on-error t)
 
 (leaf org
+  :defun evil-emacs-state
   :hook (org-capture-mode-hook . my:org-capture-maximize)
-  :bind ((("C-c a"  . org-agenda)
-	  ("C-c c"  . org-capture)
-	  ("C-c k"  . org-capture-kill)
-	  ("C-c i"  . org-edit-src-exit)
-	  (:org-mode-map
-	   ("C-c i" . org-edit-special))))
+  :bind (("C-c a" . org-agenda)
+	 ("C-c c" . org-capture)
+	 ("C-c k" . org-capture-kill)
+	 ("C-c i" . org-edit-src-exit)
+	 (:org-mode-map
+	  ("C-c i" . org-edit-special)))
   :config
   (setq org-log-done 'time)
   (setq org-use-speed-commands t)
@@ -25,40 +26,38 @@
     (delete-other-windows)
     (evil-emacs-state))
 
-  ;; Capture template
+  ;; Capture template helper functions
   (defun my:howm-create-file ()
-    "Make howm create file on `org-capture'."
-    (interactive)
+    "Return timestamped howm file path for `org-capture'."
     (format-time-string "~/Dropbox/howm/%Y/%m/%Y%m%d%H%M.md" (current-time)))
 
   (defun my:open-junk-file ()
-    "Make create junk file on `org-capture'."
-    (interactive)
+    "Return timestamped junk file path for `org-capture'."
     (format-time-string "~/Dropbox/junk/%Y%m%d%H%M.pl" (current-time)))
 
   (setq org-capture-templates
-	'(("d" " 日記" plain (file my:howm-create-file)
+	'(("d" " 日記" plain (file my:howm-create-file)
 	   "# 日記: %?\n%U %i")
-	  ("w" " 創作" plain (file my:howm-create-file)
+	  ("w" " 創作" plain (file my:howm-create-file)
 	   "# 創作: %?\n%U %i")
-	  ("e" " 園芸" plain (file my:howm-create-file)
+	  ("e" " 園芸" plain (file my:howm-create-file)
 	   "# 園芸: %?\n%U %i")
-	  ("c" " 教会" plain (file my:howm-create-file)
+	  ("c" " 教会" plain (file my:howm-create-file)
 	   "# 教会: %?\n%U %i")
-	  ("m" " Memo" plain (file my:howm-create-file)
+	  ("m" " Memo" plain (file my:howm-create-file)
 	   "# memo: %?\n%U %i")
-	  ("i" " Idea" plain (file my:howm-create-file)
+	  ("i" " Idea" plain (file my:howm-create-file)
 	   "# idea: %?\n%U %i")
-	  ("t" " Tech" plain (file my:howm-create-file)
+	  ("t" " Tech" plain (file my:howm-create-file)
 	   "# tech: %?\n%U %i")
-	  ("j" " Junk" plain (file my:open-junk-file)
+	  ("j" " Junk" plain (file my:open-junk-file)
 	   "#!/usr/bin/perl\n%?\n %i")
-	  ("," " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
+	  ("," " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
 	   "** TODO %?\n SCHEDULED: %^t \n"))))
 
 (leaf calendar
   :defvar calendar-holidays japanese-holidays
-  :bind (("<f7>"  . calendar)
+  :bind (("<f7>" . calendar)
 	 (:calendar-mode-map
 	  ("<f7>" . calendar-exit)))
   :config
@@ -68,9 +67,9 @@
 (leaf japanese-holidays :ensure t
   :after calendar
   :require t
-  :hook '((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
-	  (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
-	  (calendar-today-visible-hook   . calendar-mark-today))
+  :hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
+	 (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
+	 (calendar-today-visible-hook   . calendar-mark-today))
   :config
   (setq calendar-holidays
 	(append japanese-holidays holiday-local-holidays holiday-other-holidays))

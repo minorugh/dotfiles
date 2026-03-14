@@ -1,4 +1,4 @@
-;;; 41-hydra-menu.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
+;;; 40-hydra-menu.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -14,8 +14,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _/_:月例^^  _p_rint.r_e_  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_mqedit  _b_ackup_j_ob  _+_.scale-adj^^^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _/_:月例^^  _p_rint._r_e  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._B_  Browse_@_p^^  _:_mqedit  _b_ackup_j_ob  _e_asy-hugo_+_.scale
 "
    ("+" text-scale-adjust)
    ("c" my:capitalize-word)
@@ -25,7 +25,7 @@
    ("v" yas-visit-snippet-file)
    ("i" yas-insert-snippet)
    ("p" ps-print-buffer)
-   ("e" ps-print-region)
+   ("r" ps-print-region)
    ("y" my:year)
    ("Y" my:year-new-post)
    ("," my:year-draft)
@@ -35,7 +35,6 @@
    ("b" (my:make "-k" "~/Dropbox"))
    ("." my:open-kendai)
    (":" my:open-marquee)
-   ("z" filezilla-open)
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("j" my:run-myjob)
@@ -94,29 +93,13 @@
        (shell-command
 	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
 
-  ;; (defun terminal-open ()
-  ;;   (interactive)
-  ;;   (let ((dir (directory-file-name default-directory)))
-  ;;     (when (and (eq system-type 'gnu/linux)
-  ;; 		 (string-match-p "Microsoft" (shell-command-to-string "uname -r")))
-  ;; 	(shell-command (concat "xfce4-terminal --maximize --working-directory " dir)))
-  ;;     (compile (concat "gnome-terminal --working-directory " dir))))
-
-  ;; (defun thunar-open ()
-  ;;   (interactive)
-  ;;   (compile (concat "thunar " default-directory)))
-
   (defun xsrv-gh ()
     (interactive)
-    (compile "gnome-terminal --maximize -- ssh xsrv-GH"))
+    (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH"))
 
   (defun my:run-myjob ()
     (interactive)
     (async-shell-command "/usr/local/bin/myjob.sh" "*myjob*"))
-
-  ;; (defun my:job ()
-  ;;   (interactive)
-  ;;   (compile "sh /usr/local/bin/myjob.sh"))
 
   (defun my:year ()
     "Open year file and move to near bottom."
@@ -145,6 +128,5 @@
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
-;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
 ;; End:
-;;; 41-hydra-menu.el ends here
+;;; 40-hydra-menu.el ends here

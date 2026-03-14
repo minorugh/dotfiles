@@ -1,4 +1,4 @@
-;;; 50-dired.el --- Ddired configurations. -*- lexical-binding: t -*-
+;;; 50-dired.el --- Dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -7,25 +7,27 @@
   :defun dired-get-filename dired-find-alternate-file dired-find-file
   dired-current-directory dired-goto-subdir dired-goto-file
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
-	 (dired-mode-hook . dired-omit-mode))
+	 (dired-mode-hook  . dired-omit-mode))
   :bind (:dired-mode-map
-	 ("<left>" . dired-up-alternate-directory)
+	 ("<left>"  . dired-up-alternate-directory)
 	 ("<right>" . dired-open-in-accordance-with-situation)
-	 ("RET" . dired-open-in-accordance-with-situation)
-	 ("w" . wdired-change-to-wdired-mode)
-	 ("s" . sudo-edit)
-	 ("o" . dired-open-file)
-	 ("[" . dired-hide-details-mode)
-	 ("a" . dired-omit-mode)
-	 ("i" . call-sxiv))
+	 ("RET"     . dired-open-in-accordance-with-situation)
+	 ("w"       . wdired-change-to-wdired-mode)
+	 ("s"       . sudo-edit)
+	 ("o"       . dired-open-file)
+	 ("["       . dired-hide-details-mode)
+	 ("a"       . dired-omit-mode)
+	 ("i"       . call-sxiv))
   :config
-  ;; (autoload 'dired-omit-mode "dired-x")
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
   (setq dired-recursive-deletes 'always)
-  (setq dired-listing-switches "-AFl --group-directories-first")
+  ;; ls-lisp を使う場合は --group-directories-first は使えないので除去
+  (setq dired-listing-switches "-AFl")
   (setq ls-lisp-use-insert-directory-program nil)
+  ;; ls-lisp でディレクトリを先頭に表示
+  (setq ls-lisp-dirs-first t)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
@@ -64,7 +66,7 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 	   (delq nil
 		 (mapcar
 		  (lambda (f)
-		    (when (string-match "\.\\(jpe?g\\|png\\|gif\\|bmp\\)$" f)
+		    (when (string-match "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$" f)
 		      f))
 		  (directory-files default-directory)))))
       (start-process-shell-command

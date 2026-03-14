@@ -5,12 +5,12 @@
 
 (leaf super-save :ensure t
   :doc "Smart auto save buffers."
+  :hook (after-init-hook . super-save-mode)
   :config
   (setq super-save-auto-save-when-idle t)
   (setq super-save-idle-duration       1)
   (setq super-save-remote-files        nil)
-  (setq super-save-exclude             '(".gpg"))
-  :hook after-init-hook)
+  (setq super-save-exclude             '(".gpg")))
 
 (leaf imenu-list :ensure t
   :doc "Show imenu entries in a separate buffer."
@@ -29,7 +29,7 @@
   :config (setq atomic-chrome-buffer-open-style 'full))
 
 (leaf ediff :ensure nil
-  :tag "Builtin"
+  :tag "builtin"
   :doc "Edit while viewing the difference."
   :hook (ediff-mode-hook . dimmer-off)
   :config
@@ -55,10 +55,10 @@
 
 (leaf undohist :ensure t
   :doc "Persistent undo history."
+  :hook (after-init-hook . undohist-initialize)
   :config
-  (setq undohist-directory     "~/.emacs.d/tmp/undohist")
-  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG"))
-  :hook (after-init-hook . undohist-initialize))
+  (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 (leaf sudo-edit :ensure t
   :doc "Edit currently visited file as another user.")

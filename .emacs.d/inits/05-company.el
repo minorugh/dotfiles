@@ -8,11 +8,11 @@
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)
-	 ("C-<tab>"      . company-yasnippet)
+	 ("C-<tab>"        . company-yasnippet)
 	 (:company-active-map
-	  ("<tab>"       . company-complete-common-or-cycle)
-	  ("<backtab>"   . company-select-previous)
-	  ("<muhenkan>"  . company-abort)))
+	  ("<tab>"         . company-complete-common-or-cycle)
+	  ("<backtab>"     . company-select-previous)
+	  ("<muhenkan>"    . company-abort)))
   :config
   (setq company-transformers          '(company-sort-by-backend-importance))
   (setq company-idle-delay            0.5)
@@ -37,10 +37,13 @@
   :hook (after-init-hook . prescient-persist-mode)
   :config
   (setq prescient-aggressive-file-save t)
-  (setq prescient-save-file "~/.emacs.d/tmp/prescient-save")
-  (with-eval-after-load 'prescient
-    (leaf ivy-prescient :ensure t)
-    (leaf company-prescient :ensure t)))
+  (setq prescient-save-file (locate-user-emacs-file "tmp/prescient-save")))
+
+(leaf ivy-prescient :ensure t
+  :after prescient ivy)
+
+(leaf company-prescient :ensure t
+  :after prescient company)
 
 (leaf yasnippet :ensure t
   :doc "Template system."

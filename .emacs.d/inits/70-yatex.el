@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf yatex :ensure t
-  :doc "Yet Another tex-mode for emacs"
+  :doc "Yet Another tex-mode for emacs."
   :url "https://github.com/emacsmirror/yatex"
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
   :config
@@ -14,7 +14,7 @@
   (setq YaTeX-latex-message-code 'utf-8)
   (setq YaTeX-default-pop-window-height 15))
 
-(leaf yatexprc
+(leaf yatexprc :ensure nil
   :doc "YaTeX process handler"
   :after yatex
   :bind (("M-c" . YaTeX-typeset-buffer)
@@ -27,7 +27,7 @@
 ;;
 ;; # 生成されたPDFをevinceで開く
 ;; name=$1
-;; dvipdfmx {name%.*} && evince ${name%.*}.pdf
+;; dvipdfmx ${name%.*} && evince ${name%.*}.pdf
 ;;
 ;; # 不要ファイルを削除
 ;; rm *.au*

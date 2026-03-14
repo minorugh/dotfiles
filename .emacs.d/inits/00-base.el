@@ -1,4 +1,4 @@
-;;; 00-base.el --- Better default configurations.-*- lexical-binding: t -*-
+;;; 00-base.el --- Better default configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -59,10 +59,12 @@
 
   ;; Change to short command
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (defalias 'exit 'save-buffers-kill-emacs)
-  ;;savehist
+  (defalias 'my:exit 'save-buffers-kill-emacs)
+
+  ;; Savehist
   (setq savehist-additional-variables '(kill-ring))
   (setq history-delete-duplicates t)
+
   ;; Recentf
   (setq recentf-max-saved-items 200)   ;; 多すぎると起動が重くなる
   (setq recentf-auto-cleanup 'never)   ;; 起動時のクリーンアップを抑制
@@ -79,13 +81,14 @@
   (dolist (pattern '("\\.tmux\\.conf\\'" "\\.muttrc\\'"))
     (add-to-list 'auto-mode-alist (cons pattern 'conf-mode)))
 
-  ;; All history files are stored in `~/.emacs.d/tmp'
-  (setq request-storage-directory "~/.emacs.d/tmp/request")
-  (setq url-configuration-directory "~/.emacs.d/tmp/url")
-  (setq bookmark-default-file "~/.emacs.d/tmp/bookmarks")
-  (setq save-place-file "~/.emacs.d/tmp/places")
-  (setq savehist-file "~/.emacs.d/tmp/history")
-  (setq recentf-save-file "~/.emacs.d/tmp/recentf"))
+  ;; All history/data files are stored in `~/.emacs.d/tmp'
+  (setq project-list-file           (locate-user-emacs-file "tmp/projects"))
+  (setq request-storage-directory   (locate-user-emacs-file "tmp/request"))
+  (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
+  (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
+  (setq save-place-file             (locate-user-emacs-file "tmp/places"))
+  (setq savehist-file               (locate-user-emacs-file "tmp/history"))
+  (setq recentf-save-file           (locate-user-emacs-file "tmp/recentf")))
 
 
 (leaf *defer-modes
@@ -100,7 +103,6 @@
 (leaf *user-configurations
   :defun minibuffer-keyboard-quit my:handle-delete-frame
   :load-path "~/.emacs.d/elisp"
-  ;; :require my:template
   :bind (("C-x C-c" . server-edit)
 	 ("C-x b"   . ibuffer)
 	 ("C-x m"   . neomutt)
@@ -162,7 +164,7 @@ If there are two or more windows, it will go to another window."
     (other-window 1))
 
   (defun handle-delete-frame (event)
-    "Overwrite `handle-delete-frame` defined in `frame.el'.
+    "Overwrite `handle-delete-frame' defined in `frame.el'.
 If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))

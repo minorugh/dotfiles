@@ -34,7 +34,7 @@
     (ivy--format-function-generic
      (lambda (str)
        (concat (if (display-graphic-p)
-		   "")
+		   "")
 	       (propertize " " 'display `(space :align-to 2))
 	       (ivy--add-face str 'ivy-current-match)))
      (lambda (str)
@@ -67,12 +67,12 @@
 
 (leaf ivy-rich :ensure t
   :doc "More friendly display transformer for ivy."
-  :hook after-init-hook)
+  :hook (after-init-hook . ivy-rich-mode))
 
 (leaf amx :ensure t
   :doc "Alternative 'M-x' with extra features."
   :config
-  (setq amx-save-file "~/.emacs.d/tmp/amx-items")
+  (setq amx-save-file (locate-user-emacs-file "tmp/amx-items"))
   (setq amx-history-length 20))
 
 
@@ -89,9 +89,9 @@
     "If region is selected, `swiper-thing-at-point'.
 If the region isn't selected, `swiper'."
     (interactive)
-    (if (not (use-region-p))
-	(swiper)
-      (swiper-thing-at-point))))
+    (if (use-region-p)
+	(swiper-thing-at-point)
+      (swiper))))
 
 
 (leaf migemo :ensure t
@@ -103,7 +103,8 @@ If the region isn't selected, `swiper'."
   (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
 
 
-(leaf swiper-migemo
+(leaf swiper-migemo  ; not a package; inline configuration for migemo + swiper
+  :ensure nil
   :doc "For swiper-migemo."
   :url "https://www.yewton.net/2020/04/21/migemo-ivy/"
   :config

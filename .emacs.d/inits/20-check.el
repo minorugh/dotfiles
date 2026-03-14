@@ -1,17 +1,18 @@
-;;; 10-check.e,l --- Syntax checking configurations. -*- lexical-binding: t -*-
+;;; 10-check.el --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;; (isetq debug-on-error t)
+;; (setq debug-on-error t)
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."
-  :hook ((prog-mode-hook gfm-mode-hook)
+  :hook ((prog-mode-hook . flycheck-mode)
+	 (gfm-mode-hook  . flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
   (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
-  (eval-and-compile (require 'flycheck))
+  (require 'flycheck)
   (setq flycheck-emacs-lisp-package-initialize-form
 	(flycheck-sexp-to-string
 	 '(progn
@@ -21,7 +22,8 @@
 
 
 (leaf textlint
-  :doc "checker for textlint."
+  :ensure nil
+  :doc "Checker for textlint."
   :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
   :after flycheck
   :config
@@ -38,14 +40,13 @@
 
 
 (leaf ispell :ensure nil
-  :tag "Builtin"
+  :tag "builtin"
   :doc "For hunspell."
   :config
   (setq ispell-program-name "hunspell")
   (setq ispell-really-hunspell t)
-  (with-eval-after-load "ispell"
-    (setenv "DICTIONARY" "en_US")
-    (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))))
+  (setenv "DICTIONARY" "en_US")
+  (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

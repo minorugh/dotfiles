@@ -11,20 +11,20 @@
   (doom-themes-org-config))
 
 (leaf hl-line :ensure nil
-  :tag "Builtin"
+  :tag "builtin"
   :doc "Highlight the current line."
   :hook ((after-init-hook . global-hl-line-mode)
 	 (dashboard-mode-hook
 	  . (lambda () (setq-local global-hl-line-mode nil))))
   :custom-face
-  (region  . '((t (:background "#6272a4" :extend t))))
-  (hl-line . '((t (:background "#3B4252" :extend t)))))
+  (region  ((t (:background "#6272a4" :extend t))))
+  (hl-line ((t (:background "#3B4252" :extend t)))))
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line."
-  :hook after-init-hook
+  :hook (after-init-hook . doom-modeline-mode)
   :config
-  (setq doom-modeline-icon              t)
+  (setq doom-modeline-icon            t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode   0)
@@ -32,29 +32,30 @@
 
 (leaf hide-mode-line :ensure t
   :doc "Hides the mode-line in current buffer."
-  :hook imenu-list-major-mode-hook neotree-mode-hook)
+  :hook ((imenu-list-major-mode-hook . hide-mode-line-mode)
+	 (neotree-mode-hook           . hide-mode-line-mode)))
 
 (leaf nerd-icons :ensure t
-    :if (display-graphic-p))
+  :if (display-graphic-p))
 
 (leaf nerd-icons-dired :ensure t
-    :config (setq nerd-icons-scale-factor 0.8)
-    :hook dired-mode-hook)
+  :hook (dired-mode-hook . nerd-icons-dired-mode)
+  :config (setq nerd-icons-scale-factor 0.8))
 
-(leaf display-line-numbers :tag "builtin"
-  :doc "interface for display-line-numbers."
-  :hook ((prog-mode-hook text-mode-hook)
+(leaf display-line-numbers :ensure nil
+  :tag "builtin"
+  :doc "Interface for display-line-numbers."
+  :hook ((prog-mode-hook . display-line-numbers-mode)
+	 (text-mode-hook . display-line-numbers-mode)
 	 (lisp-interaction-mode-hook
-	  . (lambda () (interactive) (display-line-numbers-mode 0))))
-  :bind  ([f9] . display-line-numbers-mode)
+	  . (lambda () (display-line-numbers-mode 0))))
+  :bind ([f9] . display-line-numbers-mode)
   :config (setq display-line-numbers-width-start t))
 
-(leaf whitespace :tag "Builtin"
-  :doc "minor mode to visualize TAB, (HARD) SPACE, NEWLINE."
-  :hook (prog-mode-hook . (lambda () (setq show-trailing-whitespace t)))
+(leaf whitespace :ensure nil
+  :tag "builtin"
+  :doc "Minor mode to visualize TAB, (HARD) SPACE, NEWLINE."
   :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :config
-  (setq show-trailing-whitespace nil)
   :init
   (defun my:cleanup-for-spaces ()
     "Remove contiguous line breaks at end of line + end of file."
@@ -64,11 +65,16 @@
       (save-restriction
 	(widen)
 	(goto-char (point-max))
-	(delete-blank-lines)))))
+	(delete-blank-lines))))
+  :config
+  (setq show-trailing-whitespace nil)
+  (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t))))
 
-(leaf display-fill-column-indicator-mode :tag "Builtin"
-  :doc "Indicate maximum colum."
-  :hook gfm-mode-hook text-mode-hook
+(leaf display-fill-column-indicator :ensure nil
+  :tag "builtin"
+  :doc "Indicate maximum column."
+  :hook ((gfm-mode-hook  . display-fill-column-indicator-mode)
+	 (text-mode-hook . display-fill-column-indicator-mode))
   :config
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))

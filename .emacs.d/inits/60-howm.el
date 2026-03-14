@@ -4,10 +4,10 @@
 ;; (setq debug-on-error t)
 
 (leaf howm :ensure t
-  :doc "Wiki-like note-taking tool"
+  :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
-  :defun howm-create evil-insert-state
-  :hook emacs-startup-hook
+  :defun howm-create my:howm-create-note evil-insert-state
+  :hook (emacs-startup-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)
@@ -35,19 +35,21 @@
 	  "# memo: %cursor\n%date%file"
 	  "# tech: %cursor\n%date%file"))
 
-  (defun my:howm-create-memo ()
-    "Create by inserting tags automatically."
-    (interactive)
-    (howm-create 2 nil)
+  (defun my:howm-create-note (index)
+    "Create howm note with template INDEX, delete other windows, enter insert state."
+    (howm-create index nil)
     (delete-other-windows)
     (evil-insert-state))
 
-  (defun my:howm-create-tech ()
-    "Create by inserting tags automatically."
+  (defun my:howm-create-memo ()
+    "Create memo note."
     (interactive)
-    (howm-create 3 nil)
-    (delete-other-windows)
-    (evil-insert-state)))
+    (my:howm-create-note 2))
+
+  (defun my:howm-create-tech ()
+    "Create tech note."
+    (interactive)
+    (my:howm-create-note 3)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

@@ -5,11 +5,10 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'" . gfm-mode)
-  :bind ("C-c RET"  . markdown-follow-link-at-point)
+  :bind ("C-c RET" . markdown-follow-link-at-point)
   :config
   (setq markdown-command "pandoc -f markdown -t html5"
 	markdown-command-needs-filename t
-	;; markdown-fontify-code-blocks-natively t
 	markdown-fontify-code-blocks-natively nil
 	markdown-header-scaling t
 	markdown-indent-on-enter 'indent-and-new-item
@@ -18,17 +17,11 @@
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
 	markdown-css-paths
-	;; (list (expand-file-name "~/.emacs.d/elisp/markdown.css"))
 	(list (expand-file-name "~/.emacs.d/elisp/markdown-cream.css"))
-	;; (list (expand-file-name "~/.emacs.d/elisp/markdown-github.css"))
-	;; (list (expand-file-name "~/.emacs.d/elisp/markdown-minimal.css"))
 	markdown-xhtml-header-content
 	(concat
 	 "<link rel='stylesheet' href='"
 	 (expand-file-name "~/.emacs.d/elisp/highlight.min.css")
-	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.github.min.css")
-	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.atom-one-light.min.css")
-	 ;; (expand-file-name "~/.emacs.d/elisp/highlight.default.min.css")
 	 "'>\n"
 	 "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
 	 "<script src='"
@@ -43,31 +36,33 @@
 	 "});\n"
 	 "</script>\n"))
   :custom-face
-  `((markdown-code-face . '((t (:inherit nil :background "gray10"))))
-    (markdown-pre-face  . '((t (:inherit font-lock-constant-face))))))
+  (markdown-code-face ((t (:inherit nil :background "gray10"))))
+  (markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
 (defun md2pdf ()
-  "Use pandoc to generate PDF."
+  "Generate PDF from currently open markdown via pandoc + lualatex."
   (interactive)
-  (let ((filename (buffer-file-name (current-buffer))))
-    (shell-command-to-string
-     (concat "pandoc " filename
-	     " -f markdown -t html5 -o "
-	     (file-name-sans-extension filename) ".pdf"))
-    (shell-command-to-string
-     (concat "evince " (file-name-sans-extension filename) ".pdf"))))
+  (let* ((filename (buffer-file-name (current-buffer)))
+	 (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
+    (call-process-shell-command
+     (concat "pandoc "
+	     filename
+	     " -o "
+	     pdffile
+	     " -V mainfont=IPAPGothic -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex"))
+    (start-process-shell-command "xdg-open-pdf" nil (concat "xdg-open " pdffile))))
 
 (defun md2docx ()
   "Generate docx from currently open markdown."
   (interactive)
-  (let ((filename (buffer-file-name (current-buffer))))
-    (shell-command-to-string
+  (let* ((filename (buffer-file-name (current-buffer)))
+	 (docxfile  (concat (file-name-sans-extension filename) ".docx")))
+    (call-process-shell-command
      (concat "pandoc " filename
 	     " -t docx -o "
-	     (file-name-sans-extension filename)
-	     ".docx -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
-    (shell-command-to-string
-     (concat "xdg-open " (file-name-sans-extension filename) ".docx"))))
+	     docxfile
+	     " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
+    (start-process-shell-command "xdg-open-docx" nil (concat "xdg-open " docxfile))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

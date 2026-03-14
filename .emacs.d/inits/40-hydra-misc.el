@@ -4,13 +4,13 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-browse
-  :doc "Selection menu for project work"
+  :doc "Selection menu for project work."
   :chord (".." . hydra-browse/body)
   :hydra
   (hydra-browse
    (:hint nil :exit t)
    "
-  ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
+  ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
   _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
@@ -24,7 +24,6 @@
    ("u" (browse-url "https://www.youtube.com/channel/UCnwoipb9aTyORVKHeTw159A/videos"))
    ("F" (browse-url "https://www.flickr.com/photos/minorugh/"))
    ("G" (browse-url "https://drive.google.com/drive/u/0/my-drive"))
-   ("0" (browse-url "https://gist.github.com/minorugh"))
    ("1" (browse-url "https://github.com/minorugh"))
    ("2" (browse-url "https://gist.github.com/minorugh"))
    ("3" (browse-url "https://github.com/masasam"))
@@ -49,19 +48,19 @@
    ("g" (browse-url "https://minorugh.github.io/"))
    ("p" (browse-url "https://getpocket.com/a/queue/"))
    ("x" (browse-url "https://twitter.com/gospelhaiku"))
-   ("s" (shell-command "slack"))
+   ("s" (start-process "slack" nil "slack"))
    ("<muhenkan>" nil)
    ("." nil)))
 
 
 (leaf package-update
-  :doc ""
+  :doc "Package management hydra."
   :chord ("@@" . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)
    "
-    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
+    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
   "
    ("i" package-install)
    ("u" package-upgrade)
@@ -72,22 +71,22 @@
 
 
 (leaf *hydra-markdown
-:doc ""
-:hydra
-(hydra-markdown
- (:color red :hint nil)
- "
-    Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
- ("i" markdown-insert-italic)
- ("x" markdown-insert-strike-through)
- ("t" markdown-insert-table)
- ("n" markdown-insert-footnote)
- ("m" markdown-toggle-markup-hiding)
- ("v" markdown-preview)
- ("e" markdown-export)
- ("p" md2pdf)
- ("d" md2docx)
- ("<muhenkan>" nil)))
+  :doc "Markdown editing hydra."
+  :hydra
+  (hydra-markdown
+   (:color red :hint nil)
+   "
+    Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
+   ("i" markdown-insert-italic)
+   ("x" markdown-insert-strike-through)
+   ("t" markdown-insert-table)
+   ("n" markdown-insert-footnote)
+   ("m" markdown-toggle-markup-hiding)
+   ("v" markdown-preview)
+   ("e" markdown-export)
+   ("p" md2pdf)
+   ("d" md2docx)
+   ("<muhenkan>" nil)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

@@ -10,7 +10,7 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
   _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
 "
    ("f" flycheck-list-errors)
@@ -79,21 +79,21 @@
 
   (defun fzilla-GH ()
     (interactive)
-    (compile "filezilla --site='0/gospel-haiku.com'"))
+    (start-process-shell-command "filezilla" nil "filezilla --site='0/gospel-haiku.com'"))
 
   (defun fzilla-minoruGH ()
     (interactive)
-    (compile "filezilla --site='0/minorugh.com'"))
+    (start-process-shell-command "filezilla" nil "filezilla --site='0/minorugh.com'"))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
     (interactive)
-    (compile "keepass.sh"))
+    (start-process-shell-command "keepass" nil "keepass.sh"))
 
   (defun xmodmap ()
     "Execute xmodmap."
     (interactive)
-    (shell-command "xmodmap /home/minoru/.Xmodmap"))
+    (start-process-shell-command "xmodmap" nil "xmodmap ~/.Xmodmap"))
 
   (defun my:magit-status ()
     "Open magit status buffer."
@@ -105,6 +105,5 @@
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
-;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
 ;; End:
 ;;; 40-hydra-dired.el ends here

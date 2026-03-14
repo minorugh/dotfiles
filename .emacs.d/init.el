@@ -8,9 +8,6 @@
 (when (version< emacs-version "29.1")
   (error "This requires Emacs 29.1 and above!"))
 
-;; Speed up startup
-(setq gc-cons-threshold most-positive-fixnum)
-
 ;; Temporarily suppress file-handler processing to speed up startup
 (defconst default-hadlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
@@ -52,30 +49,20 @@
 (leaf init-loader :ensure t
   :doc "Load inits configuration."
   :config
-  (custom-set-variables
-   '(init-loader-show-log-after-init 'error-only))
+  (setq init-loader-show-log-after-init 'error-only)
   (init-loader-load)
   :init
-  (setq custom-file (locate-user-emacs-file "~/.emacs.d/tmp/custom.el")))
+  ;; save custom-file to tmp/
+  (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
 
-;; Auto byte compilation for inits files
 (add-hook 'kill-emacs-hook
 	  (lambda ()
 	    "Byte-compilation of all initial configuration files."
-	    (byte-compile-file "~/.emacs.d/early-init.el")
-	    (byte-compile-file "~/.emacs.d/init.el")
 	    (byte-recompile-directory (expand-file-name "~/.emacs.d/elisp") 0)
 	    (byte-recompile-directory (expand-file-name "~/.emacs.d/inits") 0)))
 
-;; Remove unnecessary files generated when package clean-install.
-(add-hook 'window-setup-hook
-	  (lambda ()
-	    "Restart Emacs after remove unnecessary files."
-	    (if (file-exists-p "~/.emacs.d/projects")
-		(progn
-		  (delete-file "~/.emacs.d/projects")
-		  (restart-emacs)))))
-
-
 (provide 'init)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; init.el ends here
