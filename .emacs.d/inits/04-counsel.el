@@ -97,11 +97,15 @@ If the region isn't selected, `swiper'."
 (leaf migemo
   :ensure t
   :doc "Japanese incremental search through dynamic pattern expansion."
-  :if (executable-find "cmigemo")
+  :if (executable-find "/usr/bin/cmigemo")
   :hook (after-init-hook . migemo-init)
   :config
-  (setq migemo-command    "cmigemo")
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict"))
+  (setq migemo-command "/usr/bin/cmigemo")
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  (setq migemo-coding-system 'utf-8-unix))
 
 ;; (leaf swiper-migemo  ; not a package; inline configuration for migemo + swiper
 ;;   :vc (:url "https://github.com/tam17aki/swiper-migemo")

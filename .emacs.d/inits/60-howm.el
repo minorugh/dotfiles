@@ -14,10 +14,12 @@
 	  (","        . my:howm-create-memo)
 	  (";"        . my:howm-create-tech)))
   :init
+  (setq howm-migemo-command "cmigemo")
   (setq howm-view-title-header "#")
   (setq howm-directory "~/Dropbox/howm")
   (setq howm-file-name-format "%Y/%m/%Y%m%d%H%M.md")
   :config
+  (setq howm-view-use-grep t)
   (setq howm-view-split-horizontally t)
   (setq howm-view-summary-persistent nil)
   (setq howm-normalizer 'howm-sort-items-by-reverse-date)

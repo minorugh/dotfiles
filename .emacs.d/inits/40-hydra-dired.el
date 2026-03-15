@@ -11,10 +11,11 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c__g__k_._b__m__u_  ._l_ocal  Fzilla._0_|_-_  Capture_,_
-  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^^^  key_p_assx  ChangeLog_:_^^  _f_lyckeck
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  Fzilla._9_._0_._-_  _,_Capture
+  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  _g_itk.mtmost_:_^^  _f_lyckeck
 "
    ("f" flycheck-list-errors)
+   ("9" fzilla-s)
    ("0" fzilla-GH)
    ("-" fzilla-minoruGH)
    ("G" (browse-url "https://github.com/minorugh"))
@@ -37,7 +38,6 @@
    ("@" howm-list-all)
    (";" my:howm-create-memo)
    ("c" (my:make "clean"))
-   ("g" (my:make "git"))
    ("k" (my:make "-k"))
    ("b" (my:make "bk"))
    ("m" (my:make "mv"))
@@ -47,6 +47,7 @@
    ("[" hydra-magit/body)
    ("]" my:magit-status)
    ("s" (my:open "~/src/"))
+   ("g" gitk-open)
    ("n" neomutt)
    ("x" xmodmap)
    ("M-." hydra-work/body)
@@ -86,6 +87,10 @@
   (defun fzilla-minoruGH ()
     (interactive)
     (start-process-shell-command "filezilla" nil "filezilla --site='0/minorugh.com'"))
+
+  (defun fzilla-s ()
+    (interactive)
+    (start-process-shell-command "filezilla" nil "filezilla -s"))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."

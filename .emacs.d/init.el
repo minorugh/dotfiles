@@ -20,7 +20,6 @@
 	    (setq inhibit-message nil)
 	    (message "Emacs ready in %s with %d GCs."
 		     (emacs-init-time) gcs-done)))
-
 ;;; package system
 (eval-and-compile
   (customize-set-variable
@@ -43,6 +42,7 @@
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
+
 ;;; shell env
 (leaf exec-path-from-shell
   :ensure t
@@ -57,13 +57,12 @@
 (leaf init-loader
   :ensure t
   :doc "Load inits configuration."
-  :init
-  (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
-  (init-loader-load))
-
+  (init-loader-load)
+  :init
+  (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
 
 (provide 'init)
 ;; Local Variables:
