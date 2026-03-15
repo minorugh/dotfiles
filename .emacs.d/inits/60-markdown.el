@@ -17,15 +17,15 @@
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
 	markdown-css-paths
-	(list (expand-file-name "~/.emacs.d/elisp/markdown-cream.css"))
+	(list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css"))
 	markdown-xhtml-header-content
 	(concat
 	 "<link rel='stylesheet' href='"
-	 (expand-file-name "~/.emacs.d/elisp/highlight.min.css")
+	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.css")
 	 "'>\n"
 	 "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
 	 "<script src='"
-	 (expand-file-name "~/.emacs.d/elisp/highlight.min.js")
+	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.js")
 	 "'></script>\n"
 	 "<script>\n"
 	 "document.addEventListener('DOMContentLoaded', () => {\n"
