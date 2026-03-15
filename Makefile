@@ -87,6 +87,10 @@ myjob: ## myjob.sh のシンボリックリンク作成（cron自動実行用）
 	sudo ln -vsfn ${PWD}/cron/myjob.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/myjob.sh
 
+autobackup: ## autobackup.sh のシンボリックリンク作成（cron自動実行用）
+	sudo ln -vsfn ${PWD}/cron/autobackup.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/autobackup.sh
+
 install: ## Debian パッケージの一括インストール
 	$(APT) $(PACKAGES)
 
