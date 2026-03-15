@@ -126,8 +126,8 @@ chsh -s /usr/bin/zsh
 
 | ターゲット | 内容 |
 |---|---|
-| `make all` | `allinstall` + `nextinstall` を一括実行 |
-| `make allinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
+| `make all` | `baseinstall` + `nextinstall` を一括実行 |
+| `make baseinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
 | `make nextinstall` | アプリケーション群のインストール |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
 | `make keyring` | Gnome keyring の初期化（P1/サブ機で分岐） |

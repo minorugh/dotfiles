@@ -31,8 +31,8 @@ Emacs設定ファイル群。[leaf](https://github.com/conao3/leaf.el) + [init-l
 │   ├── 06-mozc.el         # 日本語入力（mozc）
 │   ├── 07-highlight.el    # 表示強調（goggles・paren・web-mode 等）
 │   ├── 08-dimmer.el       # 非アクティブウィンドウの減光
-│   ├── 09-selected.el     # リージョン選択時のキーマップ
-│   ├── 10-funcs.el        # compile・ps-print・gist などの関数定義
+│   ├── 09-funcs.el        # compile・ps-print・gist などの関数定義
+│   ├── 10-selected.el     # リージョン選択時のキーマップ
 │   ├── 20-check.el        # flycheck・textlint・ispell
 │   ├── 20-edit.el         # 編集補助（super-save・undo-fu・ediff 等）
 │   ├── 30-ui.el           # 外観（doom-themes・modeline・行番号 等）
@@ -50,8 +50,9 @@ Emacs設定ファイル群。[leaf](https://github.com/conao3/leaf.el) + [init-l
 │   ├── 80-darkroom.el     # darkroom（執筆集中モード）
 │   └── 90-easy-hugo.el    # easy-hugo（Hugo ブログ管理）
 ├── elisp/                 # 自作・非パッケージの elisp ファイル
-│   ├── my:template.el     # 俳句・ブログ投稿テンプレート（autoload）
-│   └── markdown-*.css     # markdown-mode プレビュー用 CSS
+│   ├── css/               # markdown-mode プレビュー用 CSS類
+│   ├── my:dired.el        # プロジェクトDirへのショートカット設定
+│   └── my:template.el     # 俳句・ブログ投稿テンプレート（
 └── tmp/                   # 履歴・キャッシュ類（Git 管理外）
     ├── custom.el
     ├── recentf
