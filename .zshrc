@@ -315,6 +315,11 @@ alias by='xset dpms force standby'
 ## Session logout
 alias logout='xfce4-session-logout'
 
+# gitlog
+alias dtlog="ssh xsrv 'git -C ~/git/dotfiles.git log --oneline -10'"
+alias ghlog="ssh xsrv 'git -C ~/git/GH.git log --oneline -10'"
+alias mglog="ssh xsrv 'git -C ~/git/minorugh.com.git log --oneline -10'"
+
 ## get api token from github
 function get-github-api () {
 curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
