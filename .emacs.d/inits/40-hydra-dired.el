@@ -49,10 +49,24 @@
    ("s" (my:open "~/src/"))
    ("g" gitk-open)
    ("n" neomutt)
-   ("x" xmodmap)
+   ("x" my:reload-keychain)
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init
+  (defun my:reload-keychain ()
+    "Reload keychain environment variables in Emacs session for SSH."
+    (interactive)
+    ;; keychain が書いた SSH_AUTH_SOCK と SSH_AGENT_PID を Emacs 内に設定
+    (let ((keychain-file (expand-file-name (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+	(with-temp-buffer
+          (insert-file-contents keychain-file)
+          ;; export 文を eval して Emacs 内に反映
+          (goto-char (point-min))
+          (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
+            (setenv (match-string 1) (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2))))))
+      (message "Keychain reloaded in Emacs!")))
+
   (defun my:make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
     (interactive "sTarget: ")
@@ -96,11 +110,6 @@
     "Open keepassxc with auto passwd input."
     (interactive)
     (start-process-shell-command "keepass" nil "keepass.sh"))
-
-  (defun xmodmap ()
-    "Execute xmodmap."
-    (interactive)
-    (start-process-shell-command "xmodmap" nil "xmodmap ~/.Xmodmap"))
 
   (defun my:magit-status ()
     "Open magit status buffer."

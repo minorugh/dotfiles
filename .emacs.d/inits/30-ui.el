@@ -55,18 +55,23 @@
 (leaf whitespace :ensure nil
   :tag "builtin"
   :doc "Minor mode to visualize TAB, (HARD) SPACE, NEWLINE."
-  :bind ("C-c C-c" . my:cleanup-for-spaces)
-  :init
-  (defun my:cleanup-for-spaces ()
-    "Remove contiguous line breaks at end of line + end of file."
+  :bind ("C-c C-c" . my:cleanup-for-spaces-safe)
+  :config
+  ;; 行末スペース／タブ／NBSP／ゼロ幅スペース＋末尾空行をまとめて削除
+  (defun my:cleanup-for-spaces-safe ()
+    "Remove trailing spaces, tabs, NBSP, zero-width spaces.
+Also remove blank lines at the end of buffer."
     (interactive)
-    (delete-trailing-whitespace)
     (save-excursion
       (save-restriction
 	(widen)
+	(goto-char (point-min))
+	(while (re-search-forward "[ \t\u00A0\u200B]+$" nil t)
+	  (replace-match ""))
 	(goto-char (point-max))
-	(delete-blank-lines))))
-  :config
+	(while (and (not (bobp))
+		    (looking-back "^[ \t]*\n" (line-beginning-position 2)))
+	  (delete-region (line-beginning-position) (point))))))
   (setq show-trailing-whitespace nil)
   (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t))))
 
@@ -78,6 +83,7 @@
   :config
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
