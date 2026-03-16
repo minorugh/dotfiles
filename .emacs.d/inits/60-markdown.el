@@ -5,17 +5,15 @@
 (leaf markdown-mode
   :ensure t
   :mode ("\\.md\\'" . gfm-mode)
+  :hook (kill-buffer-hook . my:delete-tmp-markdown-html)
   :bind ("C-c RET" . markdown-follow-link-at-point)
   :config
   (setq markdown-command "pandoc -f markdown -t html5"
 	markdown-command-needs-filename t
-	markdown-fontify-code-blocks-natively nil
-	markdown-header-scaling t
-	markdown-indent-on-enter 'indent-and-new-item
-	markdown-preview-use-browser t
 	browse-url-browser-function 'browse-url-generic
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
+	markdown-fontify-code-blocks-natively t
 	markdown-css-paths
 	(list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css"))
 	markdown-xhtml-header-content
@@ -35,9 +33,19 @@
 	 "  });\n"
 	 "});\n"
 	 "</script>\n"))
+  (defun my:delete-tmp-markdown-html ()
+    "Delete /tmp/burl*.html when killed markdown buffer."
+    (when (and (derived-mode-p 'markdown-mode)
+               (buffer-file-name))
+      (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
+	(dolist (file temp-files)
+          (when (file-exists-p file)
+            (delete-file file)
+            (message "Deleted temporary file: %s" file))))))
   :custom-face
   (markdown-code-face ((t (:inherit nil :background "gray10"))))
   (markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
+
 
 (defun md2pdf ()
   "Generate PDF from currently open markdown via pandoc + lualatex."
