@@ -1,56 +1,31 @@
+# ThinkPad / Emacs 執筆用 Xmodmap 作業テンプレート
+
+```xmodmap
 !==============================================================
-! ThinkPad / X11 用 キーマップ
-! ファイル名: .Xmodmap
-! 作業日: 2026-03-16
-! 作業者: [Minoru Yamada]
+! 日付: 2026-03-16
+! 作業者: [Your Name]
 ! 目的:
 !   - CapsLock を Control として使用
 !   - PrtSc キーを Right Alt として利用
 !   - Ctrl_R + PrtSc で PrintScreen を維持
 !   - WM ショートカットを壊さない
 !   - Emacs の既存 keybind は変更せず執筆環境向けに最適化
-!
-! 注意
-!    clear Control / clear Mod1 などは使わない。
-!    これをすると WM の Ctrl / Alt ショートカットが壊れる。
 !==============================================================
+
 !-------------------------------
 ! CapsLock modifier を解除
-!
-! CapsLock は通常 Lock modifier に登録されている。
-! Control に変更する前に Lock から外す必要がある。
 !-------------------------------
-clear Lock
+clear Lock        ! Lock modifier を解除（Caps → Ctrl 用）
 
 !-------------------------------
 ! CapsLock → Control_L
-!
-! Emacs利用を考え Caps を Ctrl に変更。
-! 左Ctrlとして登録する。
 !-------------------------------
-keycode 66 = Control_L
-add Control = Control_L
+keycode 66 = Control_L      ! CapsLock を左 Ctrl に置き換え
+add Control = Control_L     ! modifier として登録
 
 !-------------------------------
-! ThinkPad 特有：PrtSc キー
-!
-! ThinkPadでは
-!   keycode 107 = Print
-! になっている。
-!
-! このキーを Alt_R として使う。
-! ただし screenshot を使えるように
-!
-!   Ctrl_R + PrtSc → Print
-!
-! を残している。
-!
-! keycode の4段定義
-!
-!   level1  通常
-!   level2  Shift
-!   level3  Mode_switch
-!   level4  Mode_switch + Shift
+! ThinkPad 特有: PrtSc を Alt_R に
+! keycode 107 が PrtSc に対応
 !-------------------------------
 keycode 107 = Alt_R Meta_R Print Sys_Req
 !   - 通常: Alt_R
@@ -60,32 +35,18 @@ keycode 107 = Alt_R Meta_R Print Sys_Req
 
 !-------------------------------
 ! Alt modifier 安定化
-! Alt_R を追加した場合
-! Mod1 が壊れるケースがあるため
-! 一度削除して再登録する。
-!
-! ThinkPad + xmodmap でよく使われる安全策。
 !-------------------------------
 remove Mod1 = Alt_R
 add Mod1 = Alt_R
 
 !-------------------------------
 ! 日本語キーボード対応
-! keycode 97 は
-!
-!   ろ  (JPキーボード)
-!
-! Emacsやシェルで使いやすいよう
-!   _ と \ を割り当てている。
 !-------------------------------
 keycode 97 = underscore backslash underscore backslash
-
+! 「ろ」キーを _ / \ に割り当て
 
 !-------------------------------
 ! テンキーを常時数字化
-!
-! NumLock を使わず常に数字として入力。
-! 執筆用途ではこちらの方が安定。
 !-------------------------------
 keycode 87 = 1
 keycode 88 = 2
@@ -98,6 +59,7 @@ keycode 80 = 8
 keycode 81 = 9
 keycode 90 = 0
 keycode 91 = period
+! NumLock を使わず常に数字入力
 
 !==============================================================
 ! 実行結果 / テスト

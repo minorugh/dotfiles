@@ -10,7 +10,7 @@
 ##   Step4: バックアップ zip 作成（90日保持）
 ##   Step5: 全4ファイルをサーバーへアップロード
 ##
-## cron: 40 23 * * * /usr/local/bin/myjob.sh >> /tmp/myjob.log 2>&1
+## cron: 40 23 * * * /usr/local/bin/automage.sh >> /tmp/automage.log 2>&1
 ## 詳細: ~/src/github.com/minorugh/dotfiles/crontab/README.md
 ######################################################################
 
@@ -20,7 +20,7 @@ BACKUP_DIR="${HOME}/Dropbox/GH/reg/passwd/backup"
 PASSWD_DIR="${HOME}/Dropbox/GH/reg/passwd"
 MERGE_SCRIPT="${PASSWD_DIR}/mergepasswd.pl"
 REMOTE="xsrv:/home/minorugh/gospel-haiku.com/passwd"
-LOG_PREFIX="[myjob]"
+LOG_PREFIX="[automage]"
 
 echo "${LOG_PREFIX} 開始: $(date '+%Y-%m-%d %H:%M:%S')"
 

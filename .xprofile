@@ -1,5 +1,31 @@
-if [ -f ~/.Xmodmap ]; then
-    xmodmap ~/.Xmodmap
+#------------------------------------------------------------
+# X keyboard settings
+#------------------------------------------------------------
+# X セッション情報をログに残す（デバッグ用・動作には影響なし）
+echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
+
+# .Xmodmap が存在する場合は読み込む
+# IME や WM によってキーマップが書き換えられることがあるため
+# X セッションが生きている間は30秒ごとに再適用する
+# （xset q が失敗したら X が終了したと判断してループ終了）
+
+if [ -f "$HOME/.Xmodmap" ]; then
+    xmodmap "$HOME/.Xmodmap"
+
+    (
+	while xset q >/dev/null 2>&1
+	do
+            sleep 30
+            xmodmap "$HOME/.Xmodmap"
+	done
+    ) &
 fi
+
+#------------------------------------------------------------
+# SSH agent (keychain)
+#------------------------------------------------------------
+# systemd ユーザーセッションへ SSH agent 環境変数を伝える
 dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
-source ~/.keychain/$(hostname)-sh
+
+# keychain が保存した SSH agent 環境を読み込む
+source "$HOME/.keychain/$(hostname)-sh"

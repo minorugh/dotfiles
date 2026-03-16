@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  Fzilla._9_._0_._-_  _,_Capture
-  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  _g_itk.mtmost_:_^^  _f_lyckeck
+  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_rc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  fzilla._9_._0_._-_  capture_,_
+  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  _o_rg  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
 "
    ("f" flycheck-list-errors)
    ("9" fzilla-s)
