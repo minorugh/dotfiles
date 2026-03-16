@@ -4,22 +4,9 @@
 # X セッション情報をログに残す（デバッグ用・動作には影響なし）
 echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
 
-# IME や WM によってキーマップが書き換えられることがあるため
-# X セッションが生きている間は30秒ごとに再適用する
-# （xset q が失敗したら X が終了したと判断してループ終了）
-# ~/.Xmodmap があれば初回適用と定期再適用
-if [ -f "$HOME/.Xmodmap" ]; then
-    # 最初に一度だけ読み込む
-    xmodmap "$HOME/.Xmodmap"
-
-    # X サーバーが動いている限り 30 秒ごとに再適用
-    (
-        while xset q >/dev/null 2>&1
-        do
-            sleep 30
-            xmodmap "$HOME/.Xmodmap"
-        done
-    ) &
+# .Xmodmap が存在する場合は読み込む
+if [ -f ~/.Xmodmap ]; then
+    xmodmap ~/.Xmodmap
 fi
 
 #------------------------------------------------------------
