@@ -23,4 +23,4 @@
 # m h  dom mon dow   command
 40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
-# * * * * * DISPLAY=:0 /usr/bin/xmodmap /home/minoru/.Xmodmap >> /tmp/xmodmap.log 2>&1
+* * * * * DISPLAY=:0 /usr/bin/xmodmap /home/minoru/.Xmodmap >> /tmp/xmodmap.log 2>&1
