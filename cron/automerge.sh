@@ -1,18 +1,10 @@
 #!/bin/bash
-#######################################################################
+###########################################################################
 ## Sync, merge and backup GH member password files
 ## Updated 2026.3.8
 ##
-## 処理の流れ:
-##   Step1: サーバーから4ファイルをダウンロード
-##   Step2: mergepasswd.pl で wmember を再生成
-##   Step3: smember=dmember、mmember=wmember にコピー
-##   Step4: バックアップ zip 作成（90日保持）
-##   Step5: 全4ファイルをサーバーへアップロード
-##
 ## cron: 40 23 * * * /usr/local/bin/automage.sh >> /tmp/automage.log 2>&1
-## 詳細: ~/src/github.com/minorugh/dotfiles/crontab/README.md
-######################################################################
+###########################################################################
 
 HOME=/home/minoru
 source $HOME/.keychain/$HOSTNAME-sh

@@ -21,6 +21,6 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-40 23 * * * /usr/local/bin/automerge.sh >> /tmp/automaerge.log 2>&1
-50 23 * * * /usr/local/bin/autobackup.sh
+40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
+50 23 * * * /usr/local/bin/autobackup.sh >>  /tmp/cron.log 2>&1
 # * * * * * DISPLAY=:0 /usr/bin/xmodmap /home/minoru/.Xmodmap >> /tmp/xmodmap.log 2>&1
