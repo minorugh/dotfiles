@@ -35,10 +35,6 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (start-process "gitk" nil "gitk")
     (delete-other-windows)))
 
-(leaf transient :ensure t
-  :config
-  (setq transient-history-file (locate-user-emacs-file "tmp/transient/history.el")))
-
 (leaf git-timemachine :ensure t
   :doc "Walk through git revisions of a file")
 
