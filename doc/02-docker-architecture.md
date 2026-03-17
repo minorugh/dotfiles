@@ -3,7 +3,9 @@
 ## 全体構成
 
 <!-- <img width="100%" src="file:///home/minoru/src/github.com/minorugh/dotfiles/doc/images/docker-architecture.png"> -->
-<img width="100%" src="https://raw.githubusercontent.com/minorugh/dotfiles/main/doc/images/docker-architecture.png">
+<img width="100%" src="https://raw.githubusercontent.com/minorugh/dotfiles/main/doc/images/web-development.png">
+<b>Web Development and Deployment Architecture</b><br>
+<sub>2026-03-17</sub>
 
 ## 目次
 
