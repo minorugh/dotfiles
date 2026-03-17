@@ -1,32 +1,32 @@
-# Docker 開発・運用環境設計メモ
+<h1>Docker 開発・運用環境設計メモ</h1>
 
-## 全体構成
 
-<!-- <img width="100%" src="file:///home/minoru/src/github.com/minorugh/dotfiles/doc/images/docker-architecture.png"> -->
-<img width="100%" src="https://raw.githubusercontent.com/minorugh/dotfiles/main/doc/images/web-development.png">
-<b>Web Development and Deployment Architecture</b><br>
-<sub>2026-03-17</sub>
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+<h2>Table of Contents</h2>
 
-## 目次
+- [1. 目的](#1-)
+- [2. 全体構成（図）](#2-)
+- [3. 現在の運用構成](#3-)
+- [4. Docker導入の目的](#4-docker)
+- [5. 基本構成](#5-)
+- [6. 複数サイト構成](#6-)
+- [7. Apache CGI / SSI 設定](#7-apache-cgi--ssi-)
+- [8. ディレクトリ構成](#8-)
+- [9. docker-compose 構成](#9-docker-compose-)
+- [10. Makefile 管理](#10-makefile-)
+- [11. 全サービス起動](#11-)
+- [12. 常時起動方針](#12-)
+- [13. compose 分離方針](#13-compose-)
+- [14. ポート設計](#14-)
+- [15. 構築手順](#15-)
+- [16. 設計思想](#16-)
+- [17. 環境復元手順](#17-)
+  - [1 必要ソフト](#1-)
+  - [2 設定取得](#2-)
+  - [3 サービス起動](#3-)
+  - [4 動作確認](#4-)
 
-1. 目的
-2. 現在の運用構成
-3. Docker導入の目的
-4. 基本構成
-5. 複数サイト構成
-6. Apache / CGI / SSI 設定
-7. Dockerディレクトリ構成
-8. docker-compose 構成
-9. Makefile 管理
-10. 常時起動方針
-11. compose 分離方針
-12. ポート設計
-13. 構築手順
-14. ディレクトリ役割
-15. 設計思想
-16. 環境復元手順
-
----
+<!-- markdown-toc end -->
 
 # 1. 目的
 
@@ -40,7 +40,15 @@
 
 ---
 
-# 2. 現在の運用構成
+# 2. 全体構成（図）
+
+<img width="100%" src="https://raw.githubusercontent.com/minorugh/dotfiles/main/doc/images/web-development.png">
+<b>Web Development and Deployment Architecture</b><br>
+<sub>2026-03-17</sub>
+
+
+
+# 3. 現在の運用構成
 
 ```text
 Dropbox
@@ -64,7 +72,7 @@ UTF-8
 
 ---
 
-# 3. Docker導入の目的
+# 4. Docker導入の目的
 
 Docker を導入することで
 
@@ -86,7 +94,7 @@ Dropbox
 
 ---
 
-# 4. 基本構成
+# 5. 基本構成
 
 ```
 Dropbox = データ
@@ -97,7 +105,7 @@ Makefile = 管理
 
 ---
 
-# 5. 複数サイト構成
+# 6. 複数サイト構成
 
 ```
 Dropbox/
@@ -121,7 +129,7 @@ hosts
 
 ---
 
-# 6. Apache CGI / SSI 設定
+# 7. Apache CGI / SSI 設定
 
 ```
 Options +ExecCGI +Includes
@@ -141,7 +149,7 @@ AllowOverride All
 
 ---
 
-# 7. ディレクトリ構成
+# 8. ディレクトリ構成
 
 ```
 Dropbox/
@@ -161,7 +169,7 @@ dotfiles/
 
 ---
 
-# 8. docker-compose 構成
+# 9. docker-compose 構成
 
 例
 
@@ -178,7 +186,7 @@ services:
 
 ---
 
-# 9. Makefile 管理
+# 10. Makefile 管理
 
 ```
 gitea:
@@ -193,7 +201,7 @@ httpd:
 
 ---
 
-# 10. 全サービス起動
+# 11. 全サービス起動
 
 ```
 start: gitea mattermost httpd
@@ -205,7 +213,7 @@ make start
 
 ---
 
-# 11. 常時起動方針
+# 12. 常時起動方針
 
 コンテナは常時起動とする。
 
@@ -225,7 +233,7 @@ httpd
 
 ---
 
-# 12. compose 分離方針
+# 13. compose 分離方針
 
 各サービスは独立した compose とする。
 
@@ -244,7 +252,7 @@ docker/
 
 ---
 
-# 13. ポート設計
+# 14. ポート設計
 
 ```
 httpd       8080
@@ -254,7 +262,7 @@ Mattermost  8065
 
 ---
 
-# 14. 構築手順
+# 15. 構築手順
 
 順序
 
@@ -274,7 +282,7 @@ PC再起動後の復元
 
 ---
 
-# 15. 設計思想
+# 16. 設計思想
 
 ```
 設定   → Git (dotfiles)
@@ -291,11 +299,11 @@ PC再起動後の復元
 
 ---
 
-# 16. 環境復元手順
+# 17. 環境復元手順
 
 新PCでの復元
 
-### 1 必要ソフト
+## 1 必要ソフト
 
 ```
 git
@@ -306,7 +314,7 @@ Dropbox
 
 ---
 
-### 2 設定取得
+## 2 設定取得
 
 ```
 git clone <dotfiles>
@@ -315,7 +323,7 @@ cd dotfiles
 
 ---
 
-### 3 サービス起動
+## 3 サービス起動
 
 ```
 make start
@@ -323,7 +331,7 @@ make start
 
 ---
 
-### 4 動作確認
+## 4 動作確認
 
 ```
 http://localhost:3000   (Gitea)
