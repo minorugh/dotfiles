@@ -20,6 +20,7 @@
 	    (setq inhibit-message nil)
 	    (message "Emacs ready in %s with %d GCs."
 		     (emacs-init-time) gcs-done)))
+
 ;;; package system
 (eval-and-compile
   (customize-set-variable
@@ -62,6 +63,7 @@
   (setq init-loader-byte-compile t)
   (init-loader-load)
   :init
+  ;; (setq byte-compile-error-on-warn nil)
   (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
 
 (provide 'init)
