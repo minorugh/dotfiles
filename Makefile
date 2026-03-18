@@ -49,7 +49,7 @@ ssh: ## SSH設定の初期化
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
+	for item in xprofile gitconfig bashrc zshrc netrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf {${PWD},${HOME}}/.config/hub
