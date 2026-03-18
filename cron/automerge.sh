@@ -8,8 +8,10 @@
 
 HOME=/home/minoru
 source $HOME/.keychain/$HOSTNAME-sh
-BACKUP_DIR="${HOME}/Dropbox/GH/reg/passwd/backup"
-PASSWD_DIR="${HOME}/Dropbox/GH/reg/passwd"
+# BACKUP_DIR="${HOME}/Dropbox/GH/reg/passwd/backup"
+# PASSWD_DIR="${HOME}/Dropbox/GH/reg/passwd"
+BACKUP_DIR="${HOME}/Dropbox/passwd/backup"
+PASSWD_DIR="${HOME}/Dropbox/passwd"
 MERGE_SCRIPT="${PASSWD_DIR}/mergepasswd.pl"
 REMOTE="xsrv:/home/minorugh/gospel-haiku.com/passwd"
 LOG_PREFIX="[automerge]"
