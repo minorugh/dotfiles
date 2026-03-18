@@ -63,11 +63,10 @@
   (setq init-loader-byte-compile t)
   (init-loader-load)
   :init
-  ;; (setq byte-compile-error-on-warn nil)
   (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
 
 (provide 'init)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: t(not free-vars)
 ;; End:
 ;;; init.el ends here
