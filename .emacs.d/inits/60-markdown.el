@@ -5,21 +5,12 @@
 (leaf markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode))
+	 ("\\.md\\'"       . markdown-mode))
   :hook (kill-buffer-hook . my:delete-tmp-markdown-html)
   :bind (("C-c RET" . markdown-follow-link-at-point)
 	 ("C-c C-c" . markdown-do-command)
 	 ("M-RET"   . markdown-insert-list-item))
   :init
-  ;; (leaf markdown-toc
-  ;;   :ensure t
-  ;;   :after markdown-mode
-  ;;   :hook (markdown-mode . markdown-toc-mode)
-  ;;   :config
-  ;;   ;; 目次の挿入位置を自動追従
-  ;;   (setq markdown-toc-header-toc-title "Table of Contents"))
-  ;; 保存時に自動でTOCを更新したい場合
-  ;; (add-hook 'before-save-hook 'markdown-toc-refresh-toc))
   :config
   (setq markdown-command "pandoc -f markdown+header_attributes-raw_html -t html5"
 	markdown-fontify-code-blocks-natively t ;; コードブロックにハイライト
@@ -71,6 +62,16 @@
   (markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
 
+(defun gen-toc-term ()
+  "Run gen_toc.pl for current Markdown file in gnome-terminal."
+  (interactive)
+  (when (string-match-p "\\.md\\'" (buffer-file-name))
+    (save-buffer)
+    (start-process
+     "gentoc" nil "gnome-terminal" "--" "bash" "-c"
+     (format "perl ~/.emacs.d/elisp/gen_toc.pl %s; read"
+             (shell-quote-argument (buffer-file-name))))))
+
 (defun md2pdf ()
   "Generate PDF from currently open markdown via pandoc + lualatex."
   (interactive)
@@ -95,6 +96,7 @@
 	     docxfile
 	     " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
     (start-process-shell-command "xdg-open-docx" nil (concat "xdg-open " docxfile))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

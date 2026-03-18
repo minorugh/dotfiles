@@ -349,18 +349,6 @@ function chmod-web() {
     chmod-pl
 }
 
-# gentoc: Markdownファイルから目次（TOC）を生成する
-# 使い方: gentoc file.md or gentoc a.md b.md  ## 複数ファイルもOK（順に処理）
-function gentoc() {
-    if [[ $# -eq 0 ]]; then
-	echo "Usage: gentoc <markdown file>"
-	return 1
-    fi
-
-    "$HOME/Dropbox/howm/gen_toc.pl" "$@"
-}
-
-
 # PATH
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"

@@ -7,9 +7,9 @@ services:
       - POSTGRES_USER=mattermost
       - POSTGRES_PASSWORD=mattermost
       - POSTGRES_DB=mattermost
+      - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ~/Dropbox/docker-data/mattermost/db:/var/lib/postgresql/data
-
+      - ~/.local/share/mattermost/db:/var/lib/postgresql/data
   mattermost:
     image: mattermost/mattermost-team-edition:latest
     container_name: mattermost
@@ -19,6 +19,13 @@ services:
     environment:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
       - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:mattermost@postgres/mattermost?sslmode=disable
+      - MM_EMAILSETTINGS_SMTPSERVER=smtp.gmail.com
+      - MM_EMAILSETTINGS_SMTPPORT=587
+      - MM_EMAILSETTINGS_SMTPUSERNAME=minorugh@gmail.com
+      - MM_EMAILSETTINGS_SMTPPASSWORD=lgtmybepfxbjbvsh
+      - MM_EMAILSETTINGS_CONNECTIONSECURITY=STARTTLS
+      - MM_EMAILSETTINGS_SENDEMAILFROM=minorugh@gmail.com
+      - MM_EMAILSETTINGS_ENABLESMTPAUTH=true
     ports:
       - "8065:8065"
     volumes:

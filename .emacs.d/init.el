@@ -34,7 +34,17 @@
     :init
     (leaf hydra :ensure t)
     :config
-    (leaf-keywords-init)))
+    (leaf-keywords-init))
+
+  (leaf init-loader
+    :ensure t
+    :doc "Load inits configuration."
+    :config
+    (setq init-loader-show-log-after-init 'error-only)
+    (setq init-loader-byte-compile t)
+    (init-loader-load)
+    :init
+    (setq custom-file (locate-user-emacs-file "tmp/custom.el"))))
 
 ;;; server
 (leaf server
@@ -54,16 +64,6 @@
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
-;;; init loader
-(leaf init-loader
-  :ensure t
-  :doc "Load inits configuration."
-  :config
-  (setq init-loader-show-log-after-init 'error-only)
-  (setq init-loader-byte-compile t)
-  (init-loader-load)
-  :init
-  (setq custom-file (locate-user-emacs-file "tmp/custom.el")))
 
 (provide 'init)
 ;; Local Variables:
