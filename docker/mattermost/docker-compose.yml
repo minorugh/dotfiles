@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: mattermost-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=mattermost
+      - POSTGRES_PASSWORD=mattermost
+      - POSTGRES_DB=mattermost
+    volumes:
+      - ~/Dropbox/docker-data/mattermost/db:/var/lib/postgresql/data
+
+  mattermost:
+    image: mattermost/mattermost-team-edition:latest
+    container_name: mattermost
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:mattermost@postgres/mattermost?sslmode=disable
+    ports:
+      - "8065:8065"
+    volumes:
+      - ~/Dropbox/docker-data/mattermost/data:/mattermost/data
+      - ~/Dropbox/docker-data/mattermost/logs:/mattermost/logs
+      - ~/Dropbox/docker-data/mattermost/config:/mattermost/config
+      - ~/Dropbox/docker-data/mattermost/plugins:/mattermost/plugins

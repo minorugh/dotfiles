@@ -1,0 +1,14 @@
+services:
+  httpd:
+    build: .
+    container_name: httpd
+    ports:
+      - "8080:80"
+    volumes:
+      - ~/Dropbox/GH:/var/www/html/gospel-haiku.com/public_html
+      - ~/Dropbox/minorugh.com:/var/www/html/minorugh.com/public_html
+      - ~/Dropbox/passwd:/var/www/html/gospel-haiku.com/passwd
+      - ~/Dropbox/passwd:/var/www/html/minorugh.com/passwd
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+    restart: always
