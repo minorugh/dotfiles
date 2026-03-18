@@ -333,6 +333,34 @@ chmod 755 ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
+
+# chmod 
+# ディレクトリのみを755に設定
+function chmod-d(){
+    find . -type d -exec chmod 755 {} +
+}
+# .cgi と .pl ファイルのみを755に設定
+function chmod-pl(){
+    find . -type f \( -name "*.cgi" -o -name "*.pl" \) -exec chmod 755 {} +
+}
+# ディレクトリとcgiファイルの両方設定
+function chmod-web() {
+    chmod-d
+    chmod-pl
+}
+
+# gentoc: Markdownファイルから目次（TOC）を生成する
+# 使い方: gentoc file.md or gentoc a.md b.md  ## 複数ファイルもOK（順に処理）
+function gentoc() {
+    if [[ $# -eq 0 ]]; then
+	echo "Usage: gentoc <markdown file>"
+	return 1
+    fi
+
+    "$HOME/Dropbox/howm/gen_toc.pl" "$@"
+}
+
+
 # PATH
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
@@ -352,14 +380,14 @@ export PATH="$HOME/.local/bin:$PATH"
 # cdr
 autoload -Uz is-at-least
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-  add-zsh-hook chpwd chpwd_recent_dirs
-  zstyle ':completion:*:*:cdr:*:*' menu selection
-  zstyle ':completion:*' recent-dirs-insert both
-  zstyle ':chpwd:*' recent-dirs-max 5000
-  zstyle ':chpwd:*' recent-dirs-default true
-  zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/backup/zsh/chpwd-recent-dirs"
-  zstyle ':chpwd:*' recent-dirs-pushd true
+    autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+    add-zsh-hook chpwd chpwd_recent_dirs
+    zstyle ':completion:*:*:cdr:*:*' menu selection
+    zstyle ':completion:*' recent-dirs-insert both
+    zstyle ':chpwd:*' recent-dirs-max 5000
+    zstyle ':chpwd:*' recent-dirs-default true
+    zstyle ':chpwd:*' recent-dirs-file "$HOME/Dropbox/backup/zsh/chpwd-recent-dirs"
+    zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
 # cd after then ls
@@ -463,8 +491,8 @@ function blog-jpg() {
 
 # Resize all in directory
 function resize-all() {
-	mkdir resize
-	mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
+    mkdir resize
+    mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
 }
 
 function optimize-png() {
