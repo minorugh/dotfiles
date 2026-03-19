@@ -1,15 +1,13 @@
 #!/bin/bash
 ###########################################################################
 ## Sync, merge and backup GH member password files
-## Updated 2026.3.18
+## Updated 2026.3.19
 ##
-## cron: 40 23 * * * /usr/local/bin/automerge.sh >> /tmp/automerge.log 2>&1
+## cron: 40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 ###########################################################################
 
 HOME=/home/minoru
 source $HOME/.keychain/$HOSTNAME-sh
-# BACKUP_DIR="${HOME}/Dropbox/GH/reg/passwd/backup"
-# PASSWD_DIR="${HOME}/Dropbox/GH/reg/passwd"
 BACKUP_DIR="${HOME}/Dropbox/passwd/backup"
 PASSWD_DIR="${HOME}/Dropbox/passwd"
 MERGE_SCRIPT="${PASSWD_DIR}/lib/mergepasswd.pl"

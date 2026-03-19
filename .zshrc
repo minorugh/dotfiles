@@ -9,32 +9,27 @@ export LANG=ja_JP.UTF-8
 autoload -Uz colors
 colors
 
-# last line (\n) probrem countermeasure
+# last line (\n) problem countermeasure
 unsetopt promptcr
-# Suppres "Couldn't connect to accessibility bus:" gnome-terminal on Emacs
+# Suppress "Couldn't connect to accessibility bus:" gnome-terminal on Emacs
 export NO_AT_BRIDGE=1
 
-# Custom keyboard map
-setxkbmap -option ctrl:nocaps
-xmodmap ~/.Xmodmap
-
-# zsh_history
-if [ $(uname -n) = "P1" ]; then ## for main machine
+########################################
+# History
+########################################
+if [ $(uname -n) = "P1" ]; then
     HISTFILE=~/Dropbox/backup/zsh/.zsh_history
 else
-    HISTFILE=~/.zsh_history ## for sub machine
+    HISTFILE=~/.zsh_history
 fi
 
 HISTSIZE=1000000
 SAVEHIST=1000000
-# ask you if you have over 10000 history
 LISTMAX=10000
 
 zshaddhistory() {
     local line=${1%%$'\n'}
     local cmd=${line%% *}
-
-    # Only those that satisfy all of the following conditions are added to the history
     [[ ${#line} -ge 5
        && ${cmd} != ll
        && ${cmd} != ls
@@ -67,305 +62,112 @@ unsetopt extended_history
 setopt hist_find_no_dups
 setopt hist_reduce_blanks
 setopt hist_no_store
-# Add history
 setopt append_history
-# Add history incremental
 setopt inc_append_history
-# Share history other terminal
 setopt share_history
-# Duplicate command delete it older
 setopt hist_ignore_all_dups
-# Same command as before don't add to history
 setopt hist_ignore_dups
-# Commands beginning with a space delete from history list
 setopt hist_ignore_space
-# While calling history and executing stop editing once
 unsetopt hist_verify
-# Extra white space packed and recorded
-setopt hist_reduce_blanks
-# When writing to the history file, ignore the same as the old command.
 setopt hist_save_no_dups
-# Do not register the history command in the history
-setopt hist_no_store
-# Automatically expand history on completion
 setopt hist_expand
-# Complementary completion list displayed
+
+########################################
+# Completion
+########################################
 setopt list_packed
-unsetopt auto_remove_slash
-# Matching directory with expanding file name appending / to the end
-setopt mark_dirs
-# Identification of the type of file in complementary candidate list
 setopt list_types
-# When there are multiple completion candidates, list display
-unsetopt menu_complete
-# When there are multiple completion candidates, list display
 setopt auto_list
-# Automatically complement parentheses' correspondence etc
-setopt auto_param_keys
-# If you execute the same command name as the suspended process, resume
-setopt auto_resume
-# Move by directory only
-setopt auto_cd
-# Do not emit beep with command input error
-setopt no_beep
-# Enable brace expansion function
-setopt brace_ccl
-setopt bsd_echo
-setopt complete_in_word
-# = Expand COMMAND to the path name of COMMAND
-setopt equals
-# Enable extended globbing
-setopt extended_glob
-# (Within shell editor) Disable C-s and C-q
-unsetopt flow_control
-# Do not use flow control by C-s/C-q
-setopt no_flow_control
-# Hash the path when each command is executed
-setopt hash_cmds
-# Do not kill background jobs when logging out
-setopt no_hup
-# By default, jobs -L is set as the output of the internal command jobs
-setopt long_list_jobs
-setopt mail_warning
-# Interpret numbers as numbers and sort
-setopt numeric_glob_sort
-# Search for subdirectories in PATH when / is included in command name
-setopt path_dirs
-# Appropriate display of Japanese in completion candidate list
-setopt print_eight_bit
-# With command line arguments you can complement even after = = PREFIX = / USR etc
-setopt magic_equal_subst
-# When completing completion candidates, display as compacted as possible.
-setopt list_packed
-# Include alias as a candidate for completion.
-setopt complete_aliases
-# Do not delete the last / when the directory name is an argument
-setopt noautoremoveslash
-# TEE and CAT functions such as multiple redirects and pipes are used as necessary
-setopt multios
-# You will be able to use simplified grammar with FOR, REPEAT, SELECT, IF, FUNCTION
-setopt short_loops
-# Automatically add / at the end with directory name completion to prepare for the next completion
-setopt auto_param_slash
-# Completion key Completion candidate is complemented automatically in order by repeated hitting
 setopt auto_menu
+setopt auto_param_keys
+setopt auto_param_slash
+setopt complete_in_word
+setopt complete_aliases
+setopt magic_equal_subst
+unsetopt auto_remove_slash
+unsetopt menu_complete
 
-# Completion of sudo
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-
 zstyle ':completion:*' use-cache true
-# Select completion candidate with ← ↓ ↑ →
 zstyle ':completion:*:default' menu select=1
-# Since there may be uniquely determined files, first complement them
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
-# Candidate directories on cdpath only when there is no candidate in the current directory
 zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-# Process name completion of ps command
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-# Color a completion candidate
 eval `dircolors -b`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# prompt
-PROMPT="%{%(?.$fg_bold[cyan].$fg_bold[red])%}%m%{$fg_bold[white]%}%%%{$reset_color%} "
-PROMPT2="%{$fg[magenta]%}%_%{$reset_color%}%{$fg_bold[white]%}>>%{$reset_color%} "
-# Show your current location on the right prompt
-RPROMPT="%{$fg_bold[white]%}[%{$reset_color%}%{$fg[cyan]%}%~%{$reset_color%}%{$fg_bold[white]%}]%{$reset_color%}"
+# completion for mosh
+compdef mosh=ssh
 
-# emacs keybind
-bindkey -e
-
-# Present candidate for moved directory
+########################################
+# Options
+########################################
+setopt auto_resume
+setopt auto_cd
 setopt auto_pushd
-
-# Do not record duplicate directories with auto_pushd.
 setopt pushd_ignore_dups
-
-# It points out the misspelling of the command and presents the expected correct command.
+setopt no_beep
+setopt brace_ccl
+setopt bsd_echo
 setopt correct
+setopt equals
+setopt extended_glob
+unsetopt flow_control
+setopt no_flow_control
+setopt hash_cmds
+setopt no_hup
+setopt long_list_jobs
+setopt mail_warning
+setopt numeric_glob_sort
+setopt path_dirs
+setopt print_eight_bit
+setopt multios
+setopt short_loops
+setopt mark_dirs
+setopt prompt_subst
 
-# Permission when creating files
 umask 022
 
-# vcs_info
+########################################
+# Prompt
+########################################
+PROMPT="%{%(?.$fg_bold[cyan].$fg_bold[red])%}%m%{$fg_bold[white]%}%%%{$reset_color%} "
+PROMPT2="%{$fg[magenta]%}%_%{$reset_color%}%{$fg_bold[white]%}>>%{$reset_color%} "
 RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
+
 autoload -Uz vcs_info
-setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
 zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 
-# Tmux, pass the name of the command currently executed to screen
-case "${TERM}"
-in screen-256color)
-       preexec() {
-	   echo -ne "\ek#${1%% *}\e\\"
-       }
-       precmd() {
-	   echo -ne "\ek$(basename $(pwd))\e\\"
-	   vcs_info
-       };;
-   tmux-256color)
-       preexec() {
-	   echo -ne "\ek#${1%% *}\e\\"
-       }
-       precmd() {
-	   echo -ne "\ek$(basename $(pwd))\e\\"
-	   vcs_info
-       };;
-   xterm)
-       preexec() {
-	   echo -ne "\ek#${1%% *}\e\\"
-       }
-       precmd() {
-	   echo -ne "\ek$(basename $(pwd))\e\\"
-	   vcs_info
-       };;
+# Tmux: pass the name of the command currently executed to screen
+case "${TERM}" in
+    screen-256color|tmux-256color|xterm)
+        preexec() {
+            echo -ne "\ek#${1%% *}\e\\"
+        }
+        precmd() {
+            echo -ne "\ek$(basename $(pwd))\e\\"
+            vcs_info
+        }
+        ;;
+    *)
+        precmd() { vcs_info }
+        ;;
 esac
 
-# Delete by word with C-w
+########################################
+# Key bindings
+########################################
+bindkey -e
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# If command not found then find it when using arch linux(sudo pacman -S pkgfile)
-# if [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
-#     source /usr/share/doc/pkgfile/command-not-found.zsh
-# fi
-
-# keychain config
-[ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
-
-
-# completion mosh
-compdef mosh=ssh
-
-# aliases
-alias ls='ls -v -F --color=auto'
-alias ll='ls -al'
-alias la='ls -A'
-alias cl='clear'
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack #./hogefuga.tar.gz(pacman -S atool)
-alias cp='cp -ip'
-alias mv='mv -i'
-alias rm='rm -i'
-alias du='du -h'
-alias df='df -h'
-alias free='free -h'
-alias iv='sxiv'
-alias fz='filezilla -s'
-alias is='whois'
-alias myip="ip -4 a show wlp2s0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'"
-alias open='xdg-open'
-alias ex='exit'
-alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
-alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
-alias xsrv='ssh xsrv'
-alias lepton='/snap/bin/lepton'
-
-# Rclone
-alias syncdrive='time rclone sync ${HOME}/Dropbox/Documents onedrive:Documents'
-alias bsyncdrive='time rclone sync onedrive:Documents ${HOME}/Dropbox/Documents'
-alias syncbackup='time rclone sync ${HOME}/Dropbox/backup onedrive:backup'
-
-# For docker-compose
-alias dcbd="docker-compose up -d --build"
-alias dcup="docker-compose up -d"
-alias dcdn="docker-compose down -v"
-alias dcex="docker container exec -it webcgi bash"
-alias dcps="docker-compose ps"
-
-# For neomutt to start at ~/Downloads
-alias mutt='/usr/local/bin/neomutt.sh'
-
-alias xmod='xmodmap /home/minoru/.Xmodmap'
-# For vim
-alias v='vim'
-alias sv='sudo vim'
-
-# For emacs
-# alias emacs="emacsclient -nw --alternate-editor='' "
-alias ec='/usr/local/bin/emacsclient %F'
-alias e='emacs'
-# alias e="emacsclient -t -a ''"
-alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
-
-# Password generator
-alias pw12='pwgen 12 16'
-alias pw24='pwgen 24 8'
-alias pw40='pwgen 40 4'
-
-alias pinta='flatpak run com.github.PintaProject.Pinta'
-
-## apt install net-tools to use ifconfig on Debian and set $PATH
-alias ifconfig='/sbin/ifconfig'
-
-## apt update upgrade
-alias update='sudo apt update'
-alias upgrade='sudo apt -y upgrade'
-
-## sudo shutdown
-alias sd='sudo shutdown -h now'
-## sudo reboot
-alias boot='sudo reboot'
-## standby mode
-alias by='xset dpms force standby'
-## Session logout
-alias logout='xfce4-session-logout'
-
-# gitlog view command
-alias dflog="ssh xsrv 'git -C ~/git/dotfiles.git log --oneline -10'"
-alias ghlog="ssh xsrv 'git -C ~/git/GH.git log --oneline -10'"
-alias mglog="ssh xsrv 'git -C ~/git/minorugh.com.git log --oneline -10'"
-
-## get api token from github
-function get-github-api () {
-curl -u 'minorugh' -d '{"scopes":["repo"],"note":"Help example"}' https://api.github.com/authorizations
-}
-
-# create howm memo with vim
-function memo () {
-echo "# memo:
-[`date '+%Y-%m-%d %a %H:%M'`]" > ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
-chmod 755 ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
-vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
-}
-
-
-# chmod 
-# ディレクトリのみを755に設定
-function chmod-d(){
-    find . -type d -exec chmod 755 {} +
-}
-# .cgi と .pl ファイルのみを755に設定
-function chmod-pl(){
-    find . -type f \( -name "*.cgi" -o -name "*.pl" \) -exec chmod 755 {} +
-}
-# ディレクトリとcgiファイルの両方設定
-function chmod-web() {
-    chmod-d
-    chmod-pl
-}
-
-# PATH
-export GOROOT="/usr/local/go"
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin:usr/sbin"
-export GHQPATH="$HOME/go"
-export PATH="$PATH:$GHQPATH/bin"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-# export EDITOR='emacsclient'
-export EDITOR='vim'
-export XDG_CONFIG_HOME=$HOME/.config
-export PAGER=less
-export LESS='-g -i -M -R -S -W -z-4 -x4'
-
-## whisper
-export PATH="$HOME/.local/bin:$PATH"
-
+########################################
 # cdr
+########################################
 autoload -Uz is-at-least
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
     autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -378,12 +180,115 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':chpwd:*' recent-dirs-pushd true
 fi
 
-# cd after then ls
+########################################
+# PATH / Environment
+########################################
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/go"
+export GHQPATH="$HOME/go"
+export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:$GHQPATH/bin:/usr/sbin:$PATH"
+
+export EDITOR='vim'
+export XDG_CONFIG_HOME=$HOME/.config
+export PAGER=less
+export LESS='-g -i -M -R -S -W -z-4 -x4'
+
+########################################
+# keychain
+########################################
+[ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
+
+########################################
+# Aliases
+########################################
+alias ls='ls -v -F --color=auto'
+alias ll='ls -al'
+alias la='ls -A'
+alias cl='clear'
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
+alias cp='cp -ip'
+alias mv='mv -i'
+alias rm='rm -i'
+alias du='du -h'
+alias df='df -h'
+alias free='free -h'
+alias iv='sxiv'
+alias fz='filezilla -s'
+alias is='whois'
+alias myip="ip -4 a | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v 127"
+alias open='xdg-open'
+alias ex='exit'
+alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
+alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
+alias xsrv='ssh xsrv'
+alias lepton='/snap/bin/lepton'
+alias xmod='xmodmap /home/minoru/.Xmodmap'
+
+# Rclone
+alias syncdrive='time rclone sync ${HOME}/Dropbox/Documents onedrive:Documents'
+alias bsyncdrive='time rclone sync onedrive:Documents ${HOME}/Dropbox/Documents'
+alias syncbackup='time rclone sync ${HOME}/Dropbox/backup onedrive:backup'
+
+# neomutt
+alias mutt='/usr/local/bin/neomutt.sh'
+
+# vim
+alias v='vim'
+alias sv='sudo vim'
+
+# emacs
+alias e='emacs'
+alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
+
+# password generator
+alias pw12='pwgen 12 16'
+alias pw24='pwgen 24 8'
+alias pw40='pwgen 40 4'
+
+# apps
+alias pinta='flatpak run com.github.PintaProject.Pinta'
+alias ifconfig='/sbin/ifconfig'
+
+# apt
+alias update='sudo apt update'
+alias upgrade='sudo apt -y upgrade'
+
+# system
+alias sd='sudo shutdown -h now'
+alias boot='sudo reboot'
+alias by='xset dpms force standby'
+alias logout='xfce4-session-logout'
+
+# git log on xserver
+alias dflog="ssh xsrv 'git -C ~/git/dotfiles.git log --oneline -10'"
+alias ghlog="ssh xsrv 'git -C ~/git/GH.git log --oneline -10'"
+alias mglog="ssh xsrv 'git -C ~/git/minorugh.com.git log --oneline -10'"
+
+########################################
+# Functions
+########################################
+
+# cd してから ls
 function chpwd() {
     ls -v -F --color=auto
 }
 
-# Chdir to the ``default-directory'' of currently opened in Emacs buffer.
+# chmod helpers
+function chmod-d() {
+    echo "chmod 755 dirs: $(pwd)"
+    find . -type d -exec chmod 755 {} +
+}
+function chmod-pl() {
+    echo "chmod 755 cgi/pl: $(pwd)"
+    find . -type f \( -name "*.cgi" -o -name "*.pl" \) -exec chmod 755 {} +
+}
+function chmod-web() {
+    chmod-d
+    chmod-pl
+    echo "done."
+}
+
+# Emacs: カレントバッファのディレクトリに cd
 function cde() {
     EMACS_CWD=`emacsclient -e "
      (expand-file-name
@@ -402,82 +307,65 @@ function cde() {
     cd "$EMACS_CWD"
 }
 
-# Invoke the ``dired'' of current working directory in Emacs buffer.
+# Emacs: dired を開く
 function dired() {
     emacsclient -e "(dired \"${1:-$PWD}\")" & wmctrl -a emacs
 }
 
-function github-new() {
-    if [ $# = 1 ]; then
-	ghq root && cat ~/.config/hub | grep user \
-	    && cd $(ghq root)/github.com/$(cat ~/.config/hub \
-					       | grep user | awk '{print $3}') && mkdir $1
-	if [ $? = 0 ]; then
-	    cd $1
-	    git init .
-	    hub create
-	    touch README.md
-	    git add README.md
-	    git commit -m 'first commit'
-	    git push origin master
-	fi
-    else
-	echo 'usage: github-new reponame'
-    fi
+# howm メモ作成（vim）
+function memo() {
+    echo "# memo:
+[`date '+%Y-%m-%d %a %H:%M'`]" > ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
+    chmod 755 ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
+    vim -c 'startinsert' ${HOME}/Dropbox/howm/`date '+%Y/%m/%Y%m%d%H%M'`.md
 }
 
+# 画像変換
 function webm2gif() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	ffmpeg -i $1 -pix_fmt rgb24 $fname.gif
+        fname="${1%.*}"
+        ffmpeg -i $1 -pix_fmt rgb24 $fname.gif
     else
-	echo 'usage: webm2gif file.webm'
+        echo 'usage: webm2gif file.webm'
     fi
 }
 
 function md2pdf() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	pandoc $1 -o $fname.pdf -V mainfont=IPAPGothic -V fontsize=16pt --pdf-engine=lualatex
+        fname="${1%.*}"
+        pandoc $1 -o $fname.pdf -V mainfont=IPAPGothic -V fontsize=16pt --pdf-engine=lualatex
     else
-	echo 'usage: md2pdf file.md'
+        echo 'usage: md2pdf file.md'
     fi
 }
 
 function md2docx() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	pandoc $1 -t docx -o $fname.docx -V mainfont=Gothic -V fontsize=16pt --toc --highlight-style=zenburn
+        fname="${1%.*}"
+        pandoc $1 -t docx -o $fname.docx -V mainfont=Gothic -V fontsize=16pt --toc --highlight-style=zenburn
     else
-	echo 'usage: md2docx file.md'
+        echo 'usage: md2docx file.md'
     fi
 }
 
 function optimize-jpg() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	convert $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB ${fname}_converted.jpg
+        fname="${1%.*}"
+        convert $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB ${fname}_converted.jpg
     else
-	echo 'usage: optimize-jpg sample.jpg'
+        echo 'usage: optimize-jpg sample.jpg'
     fi
 }
 
 function blog-jpg() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	convert $1 -resize 800x re_${fname}.jpg
-	# rm -rf $1
+        fname="${1%.*}"
+        convert $1 -resize 800x re_${fname}.jpg
     else
-	echo 'usage: blog-jpg sample.jpg'
+        echo 'usage: blog-jpg sample.jpg'
     fi
 }
 
-# Resize all in directory
 function resize-all() {
     mkdir resize
     mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
@@ -485,16 +373,19 @@ function resize-all() {
 
 function optimize-png() {
     if [ $# = 1 ]; then
-	fname_ext=$1
-	fname="${fname_ext%.*}"
-	convert $1 -strip ${fname}_converted.png
+        fname="${1%.*}"
+        convert $1 -strip ${fname}_converted.png
     else
-	echo 'usage: optimize-png sample.png'
+        echo 'usage: optimize-png sample.png'
     fi
 }
 
-# zsh-syntax-highlighting : sudo apt install zsh-syntax-highlighting
+########################################
+# Plugins
+########################################
+# zsh-syntax-highlighting: sudo apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(gh completion -s zsh)"
+
 ### end

@@ -4,12 +4,33 @@ use warnings;
 use utf8;
 use Encode;
 
-# 標準入出力の文字コードをUTF-8に設定
 binmode(STDOUT, ":encoding(UTF-8)");
+binmode(STDIN,  ":encoding(UTF-8)");
 
-my $in_code_block = 0;
-my @toc;
+#----------------------------------------------------------------------
+# gen_toc.pl - Markdown ファイルから目次を生成する
+#
+# 使い方:
+#   perl gen_toc.pl file.md
+#   perl gen_toc.pl < file.md
+#
+# 出力:
+#   H1〜H6 の見出しを2階層まで目次化して標準出力に表示
+#   コードブロック（```）内の見出しは無視
+#   不要な行（タイトル行など）は手作業で削除すること
+#
+# アンカー生成ルール（pandoc HTMLプレビュー準拠）:
+#   - 小文字化
+#   - 行頭の番号除去（例: "1. はじめに" → "はじめに"）
+#   - () 内のスペースは "-" に変換
+#   - 全角括弧（）は削除
+#   - 英語同士・日英混在のスペースは "-" に変換
+#   - 日本語同士のスペースは削除
+#----------------------------------------------------------------------
 
+my $MAX_DEPTH = 2;  # 目次に含める最大階層数
+
+# 入力ソース: 引数ファイル or 標準入力
 my $fh;
 if (@ARGV) {
     open($fh, "<:encoding(UTF-8)", $ARGV[0]) or die "Cannot open $ARGV[0]: $!";
@@ -17,55 +38,49 @@ if (@ARGV) {
     $fh = *STDIN;
 }
 
+my $in_code_block = 0;
+my @toc;
+
 while (my $line = <$fh>) {
     chomp $line;
 
-    # コードブロック内の見出しは無視する
+    # コードブロックの開閉をトグル
     if ($line =~ /^```/) {
         $in_code_block = !$in_code_block;
+        next;
     }
     next if $in_code_block;
 
-    # 見出し（#）を解析
-    if ($line =~ /^(#{1,6})\s+(.+)$/) {
-        my $level = length($1) - 1; # H1を0にする（インデント用）
-        my $title = $2;
-        
-        # 不要なMarkdown装飾をリンク用タイトルから除去（ボールド、イタリックなど）
-        my $anchor_text = $title;
-        $anchor_text =~ s/`//g;
-        $anchor_text =~ s/(\*\*|__)(.*?)\1/$2/g;
-        $anchor_text =~ s/(\*|_)(.*?)\1/$2/g;
+    # 見出し行を解析
+    next unless $line =~ /^(#{1,6})\s+(.+)$/;
+    my $level = length($1);         # 1=H1, 2=H2, ...
+    my $title = $2;
 
-        # GitHub風のアンカー生成
-        my $anchor = lc($anchor_text);
+    # MAX_DEPTH を超える階層は無視
+    next if $level > $MAX_DEPTH;
 
-	# 1) 行頭の番号削除
-	$anchor =~ s/^[0-9]+\.?\s*//;
+    # アンカー用テキスト: Markdown 装飾（ボールド・イタリック・コード）を除去
+    my $anchor = $title;
+    $anchor =~ s/`//g;
+    $anchor =~ s/(\*\*|__)(.*?)\1/$2/g;
+    $anchor =~ s/(\*|_)(.*?)\1/$2/g;
 
-	# 2) () 内 → スペースを -
-	$anchor =~ s{\(([^)]*)\)}{$1 =~ s/\s+/-/gr}eg;
+    # pandoc 準拠のアンカー生成
+    $anchor = lc($anchor);
+    $anchor =~ s/^[0-9]+\.?\s*//;                                          # 行頭番号を削除
+    $anchor =~ s{\(([^)]*)\)}{$1 =~ s/\s+/-/gr}eg;                         # () 内スペース → -
+    $anchor =~ s/[（）]//g;                                                # 全角括弧を削除
+    $anchor =~ s/([A-Za-z])\s+([A-Za-z])/$1-$2/g;                          # 英語同士スペース → -
+    $anchor =~ s/([\p{Han}\p{Hiragana}\p{Katakana}])\s+([A-Za-z])/$1-$2/g; # 日本語+英語 → -
+    $anchor =~ s/([A-Za-z])\s+([\p{Han}\p{Hiragana}\p{Katakana}])/$1-$2/g; # 英語+日本語 → -
+    $anchor =~ s/\s+//g;                                                   # 残りのスペースを削除
 
-	# 3) 全角（）削除
-	$anchor =~ s/[（）]//g;
-
-	# 4) 英語同士のスペースを  -
-	$anchor =~ s/([A-Za-z])\s+([A-Za-z])/$1-$2/g;
-
-	# 5) 日本語＋英語 → -
-	$anchor =~ s/([\p{Han}\p{Hiragana}\p{Katakana}])\s+([A-Za-z])/$1-$2/g;
-	$anchor =~ s/([A-Za-z])\s+([\p{Han}\p{Hiragana}\p{Katakana}])/$1-$2/g;
-
-	# 6) 残り（日本語同士など）は削除
-	$anchor =~ s/\s+//g;
-	
-        # 目次用行を生成（インデント）
-        my $indent = "  " x $level;
-        push @toc, "$indent- [$title](#$anchor)";
-    }
+    # インデント: H1=なし、H2=2スペース
+    my $indent = "  " x ($level - 1);
+    push @toc, "$indent- [$title](#$anchor)";
 }
 
-# 結果を出力
+# 目次を出力
 print "## 目次\n";
 print "<div class=\"toc\">\n";
 print join("\n", @toc), "\n";

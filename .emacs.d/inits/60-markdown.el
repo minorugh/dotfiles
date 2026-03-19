@@ -41,12 +41,25 @@
 	 "});\n"
 	 "</script>\n"
 	 "<style>
-         .toc ul, .toc ol {
-           list-style: none; /* 記号(点や数字)を消す */
-           padding-left: 0;   /* 左の余白を詰める (必要に応じて調整) */
-           margin-left: 0;
+          /* 特定のdiv配下にある1階層目のul/liのドットを消す */
+          .toc > ul {
+            list-style: none; /* マーカーなし */
+            padding-left: 0;  /* 必要に応じてインデントを調整 */
+          }
+          /* 1階層目の直下liにマーカーを付けない */
+          .toc > ul > li {
+            list-style-type: none;
+          }
+          /* 2階層目のul/liにマーカーを表示 */
+          .toc > ul > li > ul {
+            list-style-type: disc; 
+            padding-left: 25px;       /* 2階層目のインデント */
+          }
+          /* （オプション）2階層目の文字色やスタイルを調整 */
+          .toc > ul > li > ul > li {
+            color: #555;
          }
-      </style>"
+        </style>"
 	 ))
   (defun my:delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when killed markdown buffer."
