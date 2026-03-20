@@ -60,13 +60,9 @@
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files))
 
-  (defun emacs-init-time ()
-    "Overwrite `emacs-init-time' defined in time.el."
-    (interactive)
-    (let ((str (format "%.3f seconds" (float-time (time-subtract after-init-time before-init-time)))))
-      (if (called-interactively-p 'interactive)
-	  (message "%s" str)
-	str))))
+  (advice-add 'emacs-init-time :filter-return
+	      (lambda (_) (format "%.3f seconds"
+				  (float-time (time-subtract after-init-time before-init-time))))))
 
 
 ;; Local Variables:

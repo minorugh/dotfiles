@@ -23,9 +23,9 @@ make -f "$HOME/Dropbox/makefile" >> "$TMPLOG" 2>&1
 STATUS=$?
 
 if [ $STATUS -eq 0 ]; then
-    echo "${LOG_PREFIX} OK: ${START} → $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOGFILE"
+    echo "${LOG_PREFIX} OK: ${START}" >> "$LOGFILE"
 else
-    echo "${LOG_PREFIX} ERROR: ${START} → $(date '+%Y-%m-%d %H:%M:%S') (exit=${STATUS})" >> "$LOGFILE"
+    echo "${LOG_PREFIX} ERROR: $(date '+%Y-%m-%d %H:%M:%S') (exit=${STATUS})" >> "$LOGFILE"
     cat "$TMPLOG" >> "$LOGFILE"
 fi
 

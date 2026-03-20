@@ -73,12 +73,12 @@ go: ## Go 言語のインストール（v1.23.2）
 	sudo rm -rf /usr/local/go
 	sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
 	rm go1.23.2.linux-amd64.tar.gz
-# PATH は .zshrc の GOROOT/GOPATH 設定で管理
+# export PATH=$PATH:/usr/local/go/bin を .zshrc に追加すること
 
 ghq: ## ghq のインストール（リポジトリ管理ツール）
 	go install github.com/x-motemen/ghq@latest
 # go 1.23 以上が必要
-# GOPATH は ~/src/go（.zshrc で設定済み）
+# export PATH=$PATH:$HOME/go/bin を .zshrc に追加すること
 
 hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 	cd ${HOME}/Downloads && \
@@ -216,13 +216,12 @@ sxiv: ## sxiv の設定
 # ファイル名に & などの特殊文字が含まれる場合は表示できないことがある
 # その場合はファイル名を修正すること
 
-lepton: ## Lepton (Gist クライアント) AppImage のインストール
-	mkdir -p ${HOME}/Apps
-	cd ${HOME}/Apps && \
-	wget https://github.com/hackjutsu/Lepton/releases/download/v1.10.0/Lepton-1.10.0.AppImage
-	chmod +x ${HOME}/Apps/Lepton-1.10.0.AppImage
-# バージョンアップ時は URL とファイル名の数字を変更すること
-# alias は .zshrc で設定済み（~/Apps/Lepton-1.10.0.AppImage）
+lepton: ## Lepton（Gist クライアント）のインストール
+	sudo apt update
+	sudo apt install snapd
+	sudo snap install snapd
+	sudo snap install lepton
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
 
 zoom: ## Zoom のインストール
 	cd ${HOME}/Downloads && \

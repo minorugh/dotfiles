@@ -35,11 +35,14 @@ run perl "${MERGE_SCRIPT}" || { echo "${LOG_PREFIX} ERROR Step2(merge): $(date '
 run cp "${PASSWD_DIR}/dmember.cgi" "${PASSWD_DIR}/smember.cgi" || { echo "${LOG_PREFIX} ERROR Step3(copy): $(date '+%Y-%m-%d %H:%M:%S')"; cat "$TMPLOG"; rm -f "$TMPLOG"; exit 1; }
 run cp "${PASSWD_DIR}/wmember.cgi" "${PASSWD_DIR}/mmember.cgi" || { echo "${LOG_PREFIX} ERROR Step3(copy): $(date '+%Y-%m-%d %H:%M:%S')"; cat "$TMPLOG"; rm -f "$TMPLOG"; exit 1; }
 
-## Step 4: バックアップ zip作成（30日以上古いものは削除）
+## Step 4: git commit + 直近7日分のzipバックアップ
+run git -C "${PASSWD_DIR}" add -A
+run git -C "${PASSWD_DIR}" commit -m "automerge: $(date '+%Y-%m-%d %H:%M:%S')" || true
+
 mkdir -p "${BACKUP_DIR}"
 ZIPFILE="${BACKUP_DIR}/passwd_$(date '+%Y%m%d').zip"
-run bash -c "cd '${PASSWD_DIR}' && zip -q '${ZIPFILE}' dmember.cgi wmember.cgi smember.cgi mmember.cgi" || { echo "${LOG_PREFIX} ERROR Step4(zip): $(date '+%Y-%m-%d %H:%M:%S')"; cat "$TMPLOG"; rm -f "$TMPLOG"; exit 1; }
-find "${BACKUP_DIR}" -name "passwd_*.zip" -mtime +30 -delete
+run bash -c "cd '${PASSWD_DIR}' && zip -q '${ZIPFILE}' dmember.cgi wmember.cgi smember.cgi mmember.cgi"
+find "${BACKUP_DIR}" -name "passwd_*.zip" -mtime +7 -delete
 
 ## Step 5: 全4ファイルをサーバーへ同期
 run rsync -azu "${PASSWD_DIR}/dmember.cgi" "${REMOTE}/dmember.cgi" || { echo "${LOG_PREFIX} ERROR Step5(dmember): $(date '+%Y-%m-%d %H:%M:%S')"; cat "$TMPLOG"; rm -f "$TMPLOG"; exit 1; }
@@ -48,4 +51,5 @@ run rsync -azu "${PASSWD_DIR}/wmember.cgi" "${REMOTE}/wmember.cgi" || { echo "${
 run rsync -azu "${PASSWD_DIR}/mmember.cgi" "${REMOTE}/mmember.cgi" || { echo "${LOG_PREFIX} ERROR Step5(mmember): $(date '+%Y-%m-%d %H:%M:%S')"; cat "$TMPLOG"; rm -f "$TMPLOG"; exit 1; }
 
 rm -f "$TMPLOG"
-echo "${LOG_PREFIX} OK: ${START} → $(date '+%Y-%m-%d %H:%M:%S')"
+echo "${LOG_PREFIX} OK: ${START}"
+echo "${LOG_PREFIX} OK: ${START}" >> /tmp/cron.log
