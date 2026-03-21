@@ -124,8 +124,8 @@ base: ## ビルド用ベースパッケージのインストール
 
 emacs-mozc: ## Emacs + Mozc のインストール（Emacs本体もここで導入）
 	$(APT) $@ fcitx-mozc
-	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
-	ln -vsn ~/Dropbox/backup/mozc/.mozc ~/
+# Restore mozc config from Dropbox backup (rsync with --delete for full sync)
+	rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 # Debian12: emacs 29.1 がインストールされる
 # 現在は emacs-stable/devel で自前ビルド(30.1)を使用中
 # Debian13以降では emacs 30.1 が標準になる見込みのため自前ビルド不要になるかも

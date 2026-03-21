@@ -3,8 +3,8 @@
 pkill ssh-agent
 
 if [ ! $(hostname) == "P1" ]; then
-    rm -rf $HOME/.mozc
-    cp -rf ~/Dropbox/backup/mozc/.mozc ~/
+    # Restore mozc config from Dropbox backup (rsync with --delete for full sync)
+    rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
     # keyrings は親機のみシンボリックリンク、サブ機は起動時にコピー（競合防止）
     cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 fi
