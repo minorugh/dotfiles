@@ -1,30 +1,38 @@
 #!/bin/bash
-# mattermost-backup.sh - Mattermost DBバックアップ（pg_dump → Dropbox）
-# cron: 0 3 * * * /usr/local/bin/mattermost-backup.sh >> /tmp/cron.log 2>&1
+# mattermost-backup.sh
+# Mattermost の config+data tar.gz + pg_dump を毎晩 Dropbox にバックアップ
+# 7世代保持、古いものは自動削除
+# cron: autobackup.sh 経由で実行
 
-BACKUP_DIR=~/Dropbox/docker-data/mattermost/backup
-DATE=$(date +%Y%m%d_%H%M%S)
-LOG="$BACKUP_DIR/backup.log"
+BACKUP_DIR="${HOME}/Dropbox/backup/mattermost"
+DATA_DIR="${HOME}/docker-data/mattermost"
+DATE=$(date +%Y%m%d)
+KEEP=7
 
-mkdir -p "$BACKUP_DIR"
+mkdir -p "${BACKUP_DIR}"
 
+# config + data アーカイブ（logs, plugins は除外）
+sudo tar czf "${BACKUP_DIR}/${DATE}.tar.gz" \
+     -C "${DATA_DIR}" config data
+echo "$(date '+%Y-%m-%d %H:%M:%S') tar backup done: ${DATE}.tar.gz"
+
+# pg_dump
 if ! docker ps --format '{{.Names}}' | grep -q '^mattermost-postgres$'; then
-    echo "[mattermost-backup] ERROR: $(date '+%Y-%m-%d %H:%M:%S') (container not running)"
-    echo "[$DATE] ERROR: mattermost-postgres is not running" >> "$LOG"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: mattermost-postgres is not running"
     exit 1
 fi
 
 docker exec mattermost-postgres pg_dump -U mattermost mattermost \
-    > "$BACKUP_DIR/mattermost_${DATE}.sql" 2>> "$LOG"
+       > "${BACKUP_DIR}/mattermost_${DATE}.sql"
 
 if [ $? -eq 0 ]; then
-    echo "[mattermost-backup] OK: $(date '+%Y-%m-%d %H:%M:%S')"
-    echo "[$DATE] OK: mattermost_${DATE}.sql" >> "$LOG"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') pg_dump done: mattermost_${DATE}.sql"
 else
-    echo "[mattermost-backup] ERROR: $(date '+%Y-%m-%d %H:%M:%S') (pg_dump failed)"
-    echo "[$DATE] ERROR: pg_dump failed" >> "$LOG"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: pg_dump failed"
     exit 1
 fi
 
-# 7日以上古いバックアップを削除
-find "$BACKUP_DIR" -name "*.sql" -mtime +7 -delete
+# 7世代より古いファイルを削除
+ls -t "${BACKUP_DIR}"/*.tar.gz 2>/dev/null | tail -n +$((KEEP + 1)) | xargs rm -f
+ls -t "${BACKUP_DIR}"/*.sql   2>/dev/null | tail -n +$((KEEP + 1)) | xargs rm -f
+

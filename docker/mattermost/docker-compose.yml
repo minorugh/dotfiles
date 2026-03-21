@@ -36,7 +36,7 @@ services:
     ports:
       - "8065:8065"
     volumes:
-      - ~/Dropbox/docker-data/mattermost/data:/mattermost/data
-      - ~/Dropbox/docker-data/mattermost/logs:/mattermost/logs
-      - ~/Dropbox/docker-data/mattermost/config:/mattermost/config
-      - ~/Dropbox/docker-data/mattermost/plugins:/mattermost/plugins
+      - ~/docker-data/mattermost/data:/mattermost/data
+      - ~/docker-data/mattermost/logs:/mattermost/logs
+      - ~/docker-data/mattermost/config:/mattermost/config
+      - ~/docker-data/mattermost/plugins:/mattermost/plugins

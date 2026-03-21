@@ -1,7 +1,5 @@
 #!/bin/bash
 devilspie &
-mattermost &
-sleep 5s
 emacs &
 sleep 5s
 killall -9 devilspie
