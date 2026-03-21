@@ -12,7 +12,7 @@
   :bind ("C-c d" . deepl-translate)
   :init
   ;; Load deepl-auth-key
-  (load "~/Dropbox/backup/deepl/deepl-api.el"))
+  (load "~/Dropbox/backup/tokens/deepl-api.el"))
 
 (leaf google-translate :ensure t
   :doc "Emacs interface to Google Translate."

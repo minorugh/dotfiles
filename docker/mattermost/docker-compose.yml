@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=mattermost
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ~/.local/share/mattermost/db:/var/lib/postgresql/data
+      - ~/Dropbox/backup/mattermost/db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "mattermost"]
       interval: 5s
@@ -36,7 +36,7 @@ services:
     ports:
       - "8065:8065"
     volumes:
-      - ~/docker-data/mattermost/data:/mattermost/data
-      - ~/docker-data/mattermost/logs:/mattermost/logs
-      - ~/docker-data/mattermost/config:/mattermost/config
-      - ~/docker-data/mattermost/plugins:/mattermost/plugins
+      - ~/Dropbox/backup/mattermost/data:/mattermost/data
+      - ~/Dropbox/backup/mattermost/logs:/mattermost/logs
+      - ~/Dropbox/backup/mattermost/config:/mattermost/config
+      - ~/Dropbox/backup/mattermost/plugins:/mattermost/plugins

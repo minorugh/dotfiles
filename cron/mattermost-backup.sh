@@ -5,15 +5,14 @@
 # cron: autobackup.sh 経由で実行
 
 BACKUP_DIR="${HOME}/Dropbox/backup/mattermost"
-DATA_DIR="${HOME}/docker-data/mattermost"
 DATE=$(date +%Y%m%d)
 KEEP=7
 
 mkdir -p "${BACKUP_DIR}"
 
-# config + data アーカイブ（logs, plugins は除外）
+# config + data アーカイブ（logs, plugins, db は除外）
 sudo tar czf "${BACKUP_DIR}/${DATE}.tar.gz" \
-     -C "${DATA_DIR}" config data
+     -C "${BACKUP_DIR}" config data
 echo "$(date '+%Y-%m-%d %H:%M:%S') tar backup done: ${DATE}.tar.gz"
 
 # pg_dump
@@ -35,4 +34,3 @@ fi
 # 7世代より古いファイルを削除
 ls -t "${BACKUP_DIR}"/*.tar.gz 2>/dev/null | tail -n +$((KEEP + 1)) | xargs rm -f
 ls -t "${BACKUP_DIR}"/*.sql   2>/dev/null | tail -n +$((KEEP + 1)) | xargs rm -f
-

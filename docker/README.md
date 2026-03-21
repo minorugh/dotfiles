@@ -22,19 +22,20 @@ make docker-setup     # データディレクトリ作成 + 権限設定
 
 ## 2. Dropbox 同期確認
 
-`~/Dropbox/` 以下が存在すること：
+`~/Dropbox/backup/` 以下が存在すること：
 
 ```
-docker-data/
-  mattermost/
-    config/
-    data/
-    logs/
-    plugins/
-    backup/
+mattermost/
+  config/
+  data/
+  logs/
+  plugins/
+  db/
+gitea/
+  git/
+  gitea/
+  ssh/
 ```
-
-> `backup/` は初回バックアップ時に自動生成される。
 
 ---
 
@@ -42,12 +43,13 @@ docker-data/
 
 | データ | 場所 | 備考 |
 |--------|------|------|
-| Mattermost DB | `~/.local/share/mattermost/db` | Dropbox外（同期相性が悪いため） |
-| Mattermost config | `~/Dropbox/docker-data/mattermost/config` | Dropbox管理 |
-| Mattermost data | `~/Dropbox/docker-data/mattermost/data` | Dropbox管理 |
-| Mattermost logs | `~/Dropbox/docker-data/mattermost/logs` | Dropbox管理 |
-| Mattermost plugins | `~/Dropbox/docker-data/mattermost/plugins` | Dropbox管理 |
-| DBバックアップ | `~/Dropbox/docker-data/mattermost/backup` | Dropbox管理・7日保持 |
+| Mattermost config | `~/Dropbox/backup/mattermost/config` | Dropbox管理 |
+| Mattermost data | `~/Dropbox/backup/mattermost/data` | Dropbox管理 |
+| Mattermost logs | `~/Dropbox/backup/mattermost/logs` | Dropbox管理 |
+| Mattermost plugins | `~/Dropbox/backup/mattermost/plugins` | Dropbox管理 |
+| Mattermost DB | `~/Dropbox/backup/mattermost/db` | Dropbox管理 |
+| DBバックアップ | `~/Dropbox/backup/mattermost/*.sql` `*.tar.gz` | Dropbox管理・7世代保持 |
+| Gitea データ | `~/Dropbox/backup/gitea` | Dropbox管理 |
 
 ---
 
@@ -89,8 +91,7 @@ make mattermost
 
 > `make mattermost` は起動前に以下の権限設定を自動実行する：
 > ```
-> sudo chown -R 2000:2000 ~/Dropbox/docker-data/mattermost
-> sudo chown -R 2000:2000 ~/.local/share/mattermost/db
+> sudo chown -R 2000:2000 ~/Dropbox/backup/mattermost
 > ```
 > この権限設定を省くとコンテナが `(unhealthy)` になるため必須。
 
@@ -131,10 +132,10 @@ CGI / SSI が動作すれば成功。
 バックアップスクリプト（cron 自動実行）：
 
 - スクリプト：`dotfiles/cron/mattermost-backup.sh` → `/usr/local/bin/` にシンボリックリンク
-- バックアップ先：`~/Dropbox/docker-data/mattermost/backup/`
-- 保持期間：7日間（古いものは自動削除）
-- 実行タイミング：毎日午前3時（`dotfiles/cron/crontab` で管理）
-- ログ：`~/Dropbox/docker-data/mattermost/backup/backup.log`
+- バックアップ先：`~/Dropbox/backup/mattermost/`
+- 保持期間：7世代（古いものは自動削除）
+- 実行タイミング：`autobackup.sh` 経由で毎日 23:50
+- バックアップ内容：`YYYYMMDD.tar.gz`（config+data）と `mattermost_YYYYMMDD.sql`（pg_dump）
 
 手動バックアップ（試運転・緊急時）：
 
@@ -142,12 +143,30 @@ CGI / SSI が動作すれば成功。
 make mattermost-backup
 ```
 
+実行後、最新バックアップファイルの一覧を自動表示する。
+
 ### リストア手順
 
+> ⚠️ Mattermost が起動した状態でリストアするとテーブルが重複してデータが復元されない。
+> 必ず以下の手順で postgres だけ起動した状態でリストアすること。
+
 ```bash
-# コンテナ起動中に実行
+# 1. Mattermost のみ停止（postgres は残す）
+cd ~/src/github.com/minorugh/dotfiles/docker/mattermost
+docker compose stop mattermost
+
+# 2. DB を完全削除して postgres を再起動（空のDBを作らせる）
+docker compose stop postgres
+sudo rm -rf ~/Dropbox/backup/mattermost/db
+docker compose up -d postgres
+sleep 10
+
+# 3. 空のDBにリストア
 docker exec -i mattermost-postgres psql -U mattermost mattermost \
-  < ~/Dropbox/docker-data/mattermost/backup/mattermost_YYYYMMDD_HHMMSS.sql
+  < ~/Dropbox/backup/mattermost/mattermost_YYYYMMDD.sql
+
+# 4. Mattermost 起動
+docker compose up -d mattermost
 ```
 
 ---

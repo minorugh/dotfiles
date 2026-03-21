@@ -12,4 +12,4 @@ services:
       - "3000:3000"
       - "2222:22"
     volumes:
-      - ~/Dropbox/docker-data/gitea:/data
+      - ~/Dropbox/backup/gitea:/data
