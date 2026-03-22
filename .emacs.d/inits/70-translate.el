@@ -6,12 +6,11 @@
 ;; (setq debug-on-error t)
 
 (leaf deepl-translate
-  :vc (:url "https://github.com/minorugh/deepl-translate")
-  :doc "Translation in mini-buffer & copy to clipboard."
-  :url "https://gist.github.com/masatoi/" ; 原作者 gist（2026-03-10 DeepL仕様変更に伴い Authorization ヘッダー方式に修正済み)
+  :doc "Translation in mini-buffer & copy to clipboard.
+        Placed in elisp/deepl-translate/. load-path is set in init.el."
+  :require t
   :bind ("C-c d" . deepl-translate)
   :init
-  ;; Load deepl-auth-key
   (load "~/Dropbox/backup/tokens/deepl-api.el"))
 
 (leaf google-translate :ensure t

@@ -270,6 +270,13 @@ alias mglog="ssh xsrv 'git -C ~/git/minorugh.com.git log --oneline -10'"
 # Functions
 ########################################
 
+# Mattermost restart
+function mm() {
+    local dir=~/src/github.com/minorugh/dotfiles/docker/mattermost
+    docker compose -f $dir/docker-compose.yml down
+    docker compose -f $dir/docker-compose.yml up -d
+}
+
 # cd してから ls
 function chpwd() {
     ls -v -F --color=auto

@@ -36,7 +36,7 @@ gitea-log: ## Gitea のログ表示
 ## ----------------------------------------
 .PHONY: mattermost mattermost-down mattermost-log mattermost-backup
 mattermost: ## Mattermost の起動
-	sudo chown -R 2000:2000 ~/Dropbox/backup/mattermost
+	sudo chown -R 2000:2000 /home/minoru/Docker/mattermost
 	cd $(DOCKER_DIR)/mattermost && docker compose up -d
 
 mattermost-down: ## Mattermost の停止
@@ -45,10 +45,8 @@ mattermost-down: ## Mattermost の停止
 mattermost-log: ## Mattermost のログ表示
 	cd $(DOCKER_DIR)/mattermost && docker compose logs -f
 
-mattermost-backup: ## Mattermost DB の手動バックアップ（試運転・緊急時）
+mattermost-backup: ## Mattermost の手動バックアップ
 	/usr/local/bin/mattermost-backup.sh
-	@echo "--- 最新バックアップ ---"
-	@ls -lt ~/Dropbox/backup/mattermost/*.sql ~/Dropbox/backup/mattermost/*.tar.gz 2>/dev/null | head -4
 
 ## ----------------------------------------
 ## Apache httpd（ポート 8080）

@@ -16,9 +16,10 @@
   :hook ((after-init-hook . global-hl-line-mode)
 	 (dashboard-mode-hook
 	  . (lambda () (setq-local global-hl-line-mode nil))))
-  :custom-face
-  (region  ((t (:background "#6272a4" :extend t))))
-  (hl-line ((t (:background "#3B4252" :extend t)))))
+  :config
+  (custom-set-faces
+   '(region  ((t (:background "#6272a4" :extend t))))
+   '(hl-line ((t (:background "#3B4252" :extend t))))))
 
 (leaf doom-modeline :ensure t
   :doc "A minimal and modern mode-line."

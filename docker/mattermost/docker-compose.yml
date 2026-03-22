@@ -2,30 +2,31 @@ services:
   postgres:
     image: postgres:alpine
     container_name: mattermost-postgres
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=mattermost
       - POSTGRES_PASSWORD=mattermost
       - POSTGRES_DB=mattermost
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ~/Dropbox/backup/mattermost/db:/var/lib/postgresql/data
+      - /home/minoru/Docker/mattermost/db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "mattermost"]
-      interval: 5s
+      test: ["CMD-SHELL", "pg_isready -U mattermost -d mattermost"]
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 30s
 
   mattermost:
     image: mattermost/mattermost-team-edition:latest
     container_name: mattermost
-    restart: always
+    restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
     environment:
       - MM_SQLSETTINGS_DRIVERNAME=postgres
-      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:mattermost@postgres/mattermost?sslmode=disable
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mattermost:mattermost@postgres/mattermost?sslmode=disable&connect_timeout=10
       - MM_EMAILSETTINGS_SMTPSERVER=smtp.gmail.com
       - MM_EMAILSETTINGS_SMTPPORT=587
       - MM_EMAILSETTINGS_SMTPUSERNAME=minorugh@gmail.com
@@ -36,7 +37,7 @@ services:
     ports:
       - "8065:8065"
     volumes:
-      - ~/Dropbox/backup/mattermost/data:/mattermost/data
-      - ~/Dropbox/backup/mattermost/logs:/mattermost/logs
-      - ~/Dropbox/backup/mattermost/config:/mattermost/config
-      - ~/Dropbox/backup/mattermost/plugins:/mattermost/plugins
+      - /home/minoru/Docker/mattermost/data:/mattermost/data
+      - /home/minoru/Docker/mattermost/logs:/mattermost/logs
+      - /home/minoru/Docker/mattermost/config:/mattermost/config
+      - /home/minoru/Docker/mattermost/plugins:/mattermost/plugins

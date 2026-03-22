@@ -47,10 +47,12 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
   :doc "Highlight uncommitted changes using VC"
   :hook ((after-init-hook . global-diff-hl-mode)
 	 (after-init-hook . diff-hl-margin-mode))
-  :custom-face
-  (diff-hl-change ((t (:background "#8adf80" :foreground "#333"))))
-  (diff-hl-delete ((t (:background "#ff8f88" :foreground "#333"))))
-  (diff-hl-insert ((t (:background "#bfc9ff" :foreground "#333")))))
+  :config
+  (custom-set-faces
+   '(diff-hl-change ((t (:background "#8adf80" :foreground "#333"))))
+   '(diff-hl-delete ((t (:background "#ff8f88" :foreground "#333"))))
+   '(diff-hl-insert ((t (:background "#bfc9ff" :foreground "#333"))))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

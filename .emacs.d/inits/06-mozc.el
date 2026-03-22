@@ -14,8 +14,9 @@
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :init
   (leaf mozc-cursor-color
-    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-    :doc "Set cursor color corresponding to mozc's input state."
+    ;; :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+    :doc "Set cursor color corresponding to mozc's input state.
+        Placed in elisp/mozc-cursor-color/. load-path is set in init.el."
     :hook (after-init-hook . mozc-cursor-color-setup))
 
   (leaf mozc-popup :ensure t

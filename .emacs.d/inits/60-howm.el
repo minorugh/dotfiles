@@ -6,7 +6,7 @@
 (leaf howm :ensure t
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
-  :defun howm-create my:howm-create-note evil-insert-state
+  :defun howm-create my:howm-create-note evil-insert-state my:howm-fix-after-super-save
   :hook (emacs-startup-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
@@ -14,11 +14,12 @@
 	  (","        . my:howm-create-memo)
 	  (";"        . my:howm-create-tech)))
   :init
-  (setq howm-migemo-command "cmigemo")
+  (setq howm-migemo-command "/usr/bin/cmigemo")
   (setq howm-view-title-header "#")
   (setq howm-directory "~/Dropbox/howm")
   (setq howm-file-name-format "%Y/%m/%Y%m%d%H%M.md")
   :config
+  (setq howm-view-title-regexp "^# [^#]")   ;; ## 以降を一覧表示から除外
   (setq howm-view-use-grep t)
   (setq howm-view-split-horizontally t)
   (setq howm-view-summary-persistent nil)
@@ -51,7 +52,19 @@
   (defun my:howm-create-tech ()
     "Create tech note."
     (interactive)
-    (my:howm-create-note 3)))
+    (my:howm-create-note 3))
+
+  (defun my:howm-fix-after-super-save (&rest _)
+    (when (and (eq major-mode 'howm-mode)
+               (buffer-file-name))
+      (message "howm-fix running: %s" (buffer-file-name))
+      (shell-command
+       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
+               (shell-quote-argument (buffer-file-name))))))
+
+  (advice-add 'super-save-command :after #'my:howm-fix-after-super-save)
+  
+  )
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

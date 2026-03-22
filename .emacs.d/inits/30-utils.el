@@ -12,7 +12,8 @@
   (setq which-key-delay 0.0))
 
 (leaf key-chord
-  :vc (:url "https://github.com/minorugh/key-chord-20240910.1441")
+  :doc "map pairs of simultaneously pressed keys to commands.
+        Placed in elisp/key-chord/. load-path is set in init.el."
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log)))
@@ -35,8 +36,8 @@
   :hook (after-init-hook . popwin-mode))
 
 (leaf tempbuf
-  :doc "Auto kill unused buffers in the background."
-  :vc (:url "https://github.com/minorugh/tempbuf")
+  :doc "Auto kill unused buffers in the background.
+        Placed in elisp/tempbuf/. load-path is set in init.el."
   :hook ((find-file-hook
 	  dired-mode-hook
 	  magit-mode-hook

@@ -6,21 +6,21 @@
 (leaf goggles :ensure t
   :doc "Highlights the modified region using pulse."
   :hook (prog-mode-hook . goggles-mode)
-        (text-mode-hook . goggles-mode)
+  (text-mode-hook . goggles-mode)
   :config
   (setq-default goggles-pulse t)
-  :custom-face
-  (goggles-added   ((t (:background "#c3fabb"))))
-  (goggles-changed ((t (:background "#fae8bb"))))
-  (goggles-removed ((t (:background "#fabfbb")))))
+  (custom-set-faces
+   '(goggles-added   ((t (:background "#c3fabb"))))
+   '(goggles-changed ((t (:background "#fae8bb"))))
+   '(goggles-removed ((t (:background "#fabfbb"))))))
 
 (leaf paren :ensure nil
   :tag "builtin"
   :doc "Highlight matching parens."
   :hook (after-init-hook . show-paren-mode)
-  :custom-face
-  (show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold))))
   :config
+  (custom-set-faces
+   '(show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
   (setq show-paren-style 'parenthesis)
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))

@@ -30,7 +30,7 @@
 	  (format "GNU Emacs %s kernel %s Debian %s x86_64 GNU/Linux"
 		  emacs-version (cadr uname) debian)))
   ;; Set the banner
-  (setq dashboard-startup-banner "~/.emacs.d/elisp/images/emacs.png")
+  (setq dashboard-startup-banner "~/.emacs.d/elisp/emacs-logo/emacs.png")
   (setq dashboard-page-separator "\n\f\f\n")
   (setq dashboard-week-agenda t)
   ;; Set the footer

@@ -8,6 +8,7 @@
 	 ("\\.md\\'"       . markdown-mode))
   :hook (kill-buffer-hook . my:delete-tmp-markdown-html)
   :bind (("C-c RET" . markdown-follow-link-at-point)
+	 ("C-c #"   . my:howm-fix-code-comments)
 	 ("C-c C-c" . markdown-do-command)
 	 ("M-RET"   . markdown-insert-list-item))
   :init
@@ -22,15 +23,15 @@
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
 	markdown-css-paths
-	(list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css"))
+	(list (expand-file-name "~/.emacs.d/elisp/markdown-css/markdown-cream.css"))
 	markdown-xhtml-header-content
 	(concat
 	 "<link rel='stylesheet' href='"
-	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.css")
+	 (expand-file-name "~/.emacs.d/elisp/markdown-css/highlight.min.css")
 	 "'>\n"
 	 "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
 	 "<script src='"
-	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.js")
+	 (expand-file-name "~/.emacs.d/elisp/markdown-css/highlight.min.js")
 	 "'></script>\n"
 	 "<script>\n"
 	 "document.addEventListener('DOMContentLoaded', () => {\n"
@@ -59,20 +60,33 @@
           .toc > ul > li > ul > li {
             color: #555;
          }
-        </style>"
+     </style>"
 	 ))
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit nil :background "gray10"))))
+   '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
+
+  (defun my:howm-fix-code-comments ()
+    "Convert '# ' to '## ' in code blocks before saving howm file."
+    (interactive)
+    (when (and buffer-file-name
+               (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
+                             buffer-file-name))
+      (call-process "perl" nil nil nil
+                    (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
+                    buffer-file-name)
+      (revert-buffer t t t)
+      (message "howm-fix-code-comments: done")))
+  
   (defun my:delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when killed markdown buffer."
     (when (and (derived-mode-p 'markdown-mode)
-               (buffer-file-name))
+	       (buffer-file-name))
       (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
 	(dolist (file temp-files)
-          (when (file-exists-p file)
-            (delete-file file)
-            (message "Deleted temporary file: %s" file))))))
-  :custom-face
-  (markdown-code-face ((t (:inherit nil :background "gray10"))))
-  (markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
+	  (when (file-exists-p file)
+	    (delete-file file)
+	    (message "Deleted temporary file: %s" file)))))))
 
 
 (defun gen-toc-term ()
