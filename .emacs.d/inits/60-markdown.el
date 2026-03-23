@@ -67,53 +67,33 @@
    '(markdown-code-face ((t (:inherit nil :background "gray10"))))
    '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
-  (defun my:howm-fix--in-code-block-p (pos)
-    "Return t if POS is inside a code block."
-    (save-excursion
-      (let ((count 0))
-	(goto-char (point-min))
-	(while (and (< (point) pos)
-                    (re-search-forward "^```" pos t))
-          (setq count (1+ count)))
-	(= (% count 2) 1))))
-
   (defun my:howm-fix-code-comments ()
-    "Toggle # comments in code blocks in howm file.
-If region is active and inside a code block, process region only.
+    "In code blocks, replace '# ' with '## '.
+If region is active, process region only (anywhere in buffer).
 Otherwise process whole file via Perl."
     (interactive)
-    (when (and buffer-file-name
-               (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
-                             buffer-file-name))
-      (if (use-region-p)
-          (let ((beg (region-beginning))
-		(end (copy-marker (region-end))))
-            (if (not (my:howm-fix--in-code-block-p beg))
-		(message "howm-fix-code-comments: not in code block")
-              (save-excursion
-		(goto-char beg)
-		(while (< (point) end)
-                  (let ((line (buffer-substring-no-properties
-                               (line-beginning-position) (line-end-position))))
-                    (cond
-                     ((string-match "^### " line)
-                      (delete-region (line-beginning-position) (line-end-position))
-                      (insert (replace-regexp-in-string "^### " "## " line)))
-                     ((string-match "^## " line)
-                      (delete-region (line-beginning-position) (line-end-position))
-                      (insert (replace-regexp-in-string "^## " "# " line)))
-                     ((string-match "^# " line)
-                      (delete-region (line-beginning-position) (line-end-position))
-                      (insert (replace-regexp-in-string "^# " "## " line)))))
-                  (forward-line 1)))
-              (set-marker end nil))
-            (message "howm-fix-code-comments: region done"))
+    (if (use-region-p)
+	(let ((beg (region-beginning))
+              (end (copy-marker (region-end))))
+          (save-excursion
+            (goto-char beg)
+            (while (< (point) end)
+              (let ((line (buffer-substring-no-properties
+                           (line-beginning-position) (line-end-position))))
+		(when (string-match "^# " line)
+                  (delete-region (line-beginning-position) (line-end-position))
+                  (insert (replace-regexp-in-string "^# " "## " line))))
+              (forward-line 1)))
+          (set-marker end nil)
+          (message "howm-fix-code-comments: region done"))
+      (when (and buffer-file-name
+		 (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
+                               buffer-file-name))
 	(call-process "perl" nil nil nil
                       (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
                       buffer-file-name)
 	(revert-buffer t t t)
 	(message "howm-fix-code-comments: done"))))
-
   
   (defun my:delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when killed markdown buffer."
@@ -123,43 +103,43 @@ Otherwise process whole file via Perl."
 	(dolist (file temp-files)
 	  (when (file-exists-p file)
 	    (delete-file file)
-	    (message "Deleted temporary file: %s" file)))))))
+	    (message "Deleted temporary file: %s" file))))))
 
+  (defun gen-toc-term ()
+    "Run gen_toc.pl for current Markdown file in gnome-terminal."
+    (interactive)
+    (when (string-match-p "\\.md\\'" (buffer-file-name))
+      (save-buffer)
+      (start-process
+       "gentoc" nil "gnome-terminal" "--" "bash" "-c"
+       (format "perl ~/.emacs.d/elisp/gen_toc.pl %s; read"
+               (shell-quote-argument (buffer-file-name))))))
 
-(defun gen-toc-term ()
-  "Run gen_toc.pl for current Markdown file in gnome-terminal."
-  (interactive)
-  (when (string-match-p "\\.md\\'" (buffer-file-name))
-    (save-buffer)
-    (start-process
-     "gentoc" nil "gnome-terminal" "--" "bash" "-c"
-     (format "perl ~/.emacs.d/elisp/gen_toc.pl %s; read"
-             (shell-quote-argument (buffer-file-name))))))
+  (defun md2pdf ()
+    "Generate PDF from currently open markdown via pandoc + lualatex."
+    (interactive)
+    (let* ((filename (buffer-file-name (current-buffer)))
+           (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
+      (if (zerop (call-process-shell-command
+                  (concat "pandoc " filename
+                          " -o " pdffile
+                          " -V mainfont=IPAPGothic -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex")))
+          (call-process "xdg-open" nil nil nil pdffile)
+	(message "md2pdf: pandoc failed"))))
 
-(defun md2pdf ()
-  "Generate PDF from currently open markdown via pandoc + lualatex."
-  (interactive)
-  (let* ((filename (buffer-file-name (current-buffer)))
-	 (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
-    (call-process-shell-command
-     (concat "pandoc "
-	     filename
-	     " -o "
-	     pdffile
-	     " -V mainfont=IPAPGothic -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex"))
-    (start-process-shell-command "xdg-open-pdf" nil (concat "xdg-open " pdffile))))
-
-(defun md2docx ()
-  "Generate docx from currently open markdown."
-  (interactive)
-  (let* ((filename (buffer-file-name (current-buffer)))
-	 (docxfile  (concat (file-name-sans-extension filename) ".docx")))
-    (call-process-shell-command
-     (concat "pandoc " filename
-	     " -t docx -o "
-	     docxfile
-	     " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn"))
-    (start-process-shell-command "xdg-open-docx" nil (concat "xdg-open " docxfile))))
+  (defun md2docx ()
+    "Generate docx from currently open markdown."
+    (interactive)
+    (let* ((filename (buffer-file-name (current-buffer)))
+           (docxfile  (concat (file-name-sans-extension filename) ".docx")))
+      (if (zerop (call-process-shell-command
+                  (concat "pandoc " filename
+                          " -t docx -o " docxfile
+                          " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn")))
+          (call-process "xdg-open" nil nil nil docxfile)
+	(message "md2docx: pandoc failed"))))
+  
+  )
 
 
 ;; Local Variables:

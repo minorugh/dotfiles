@@ -1,6 +1,9 @@
 #!/usr/bin/perl
 # howm-fix-code-comments.pl
-# コードブロック内の行頭 "# " を "## " に変換してhowm listから除外する
+# コードブロック内の行頭 "# " を変換してhowm listから除外する
+#   # foo   ->  ## foo   (追加)
+#   ## foo  ->  # foo    (削減)
+#   ### foo ->  ## foo   (削減)
 
 use strict;
 use warnings;
@@ -26,15 +29,13 @@ for my $line (@lines) {
         if ($line =~ /^# /) {
             $line =~ s/^# /## /;
             $modified = 1;
+        } elsif ($line =~ /^## /) {
+            $line =~ s/^## /# /;
+            $modified = 1;
+        } elsif ($line =~ /^### /) {
+            $line =~ s/^### /## /;
+            $modified = 1;
         }
-        # Toggle patterns (disabled):
-        # } elsif ($line =~ /^## /) {
-        #     $line =~ s/^## /# /;
-        #     $modified = 1;
-        # } elsif ($line =~ /^### /) {
-        #     $line =~ s/^### /## /;
-        #     $modified = 1;
-        # }
     }
 }
 
@@ -43,3 +44,4 @@ if ($modified) {
     print $out @lines;
     close $out;
 }
+
