@@ -174,22 +174,6 @@ If it's the last frame, minimize it without deleting it."
       (cond ((> numfrs 1) (delete-frame frame t))
 	    ((iconify-frame))))))
 
-;; Autoload my:template functions (lazy load)
-(autoload 'my:diary-new-post    "my:template" nil t)
-(autoload 'my:tpdia-new-post    "my:template" nil t)
-(autoload 'my:teirei-new-post   "my:template" nil t)
-(autoload 'my:swan-new-post     "my:template" nil t)
-(autoload 'my:m_kukai-new-post  "my:template" nil t)
-(autoload 'my:minoru_sen        "my:template" nil t)
-(autoload 'my:ap-new-post       "my:template" nil t)
-(autoload 'my:apvoice-new-post  "my:template" nil t)
-(autoload 'my:tselext-new-post  "my:template" nil t)
-(autoload 'my:dselext-new-post  "my:template" nil t)
-(autoload 'my:year-new-post     "my:template" nil t)
-(autoload 'my:haiku-note        "my:template" nil t)
-(autoload 'my:haiku-note-post   "my:template" nil t)
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

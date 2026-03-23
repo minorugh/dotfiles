@@ -137,9 +137,7 @@ Otherwise process whole file via Perl."
                           " -t docx -o " docxfile
                           " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn")))
           (call-process "xdg-open" nil nil nil docxfile)
-	(message "md2docx: pandoc failed"))))
-  
-  )
+	(message "md2docx: pandoc failed")))))
 
 
 ;; Local Variables:
