@@ -4,6 +4,7 @@
 
 (leaf markdown-mode
   :ensure t
+  :defun my:howm-fix--in-code-block-p
   :mode (("README\\.md\\'" . gfm-mode)
 	 ("\\.md\\'"       . markdown-mode))
   :hook (kill-buffer-hook . my:delete-tmp-markdown-html)
@@ -66,17 +67,53 @@
    '(markdown-code-face ((t (:inherit nil :background "gray10"))))
    '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
+  (defun my:howm-fix--in-code-block-p (pos)
+    "Return t if POS is inside a code block."
+    (save-excursion
+      (let ((count 0))
+	(goto-char (point-min))
+	(while (and (< (point) pos)
+                    (re-search-forward "^```" pos t))
+          (setq count (1+ count)))
+	(= (% count 2) 1))))
+
   (defun my:howm-fix-code-comments ()
-    "Convert '# ' to '## ' in code blocks before saving howm file."
+    "Toggle # comments in code blocks in howm file.
+If region is active and inside a code block, process region only.
+Otherwise process whole file via Perl."
     (interactive)
     (when (and buffer-file-name
                (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
                              buffer-file-name))
-      (call-process "perl" nil nil nil
-                    (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
-                    buffer-file-name)
-      (revert-buffer t t t)
-      (message "howm-fix-code-comments: done")))
+      (if (use-region-p)
+          (let ((beg (region-beginning))
+		(end (copy-marker (region-end))))
+            (if (not (my:howm-fix--in-code-block-p beg))
+		(message "howm-fix-code-comments: not in code block")
+              (save-excursion
+		(goto-char beg)
+		(while (< (point) end)
+                  (let ((line (buffer-substring-no-properties
+                               (line-beginning-position) (line-end-position))))
+                    (cond
+                     ((string-match "^### " line)
+                      (delete-region (line-beginning-position) (line-end-position))
+                      (insert (replace-regexp-in-string "^### " "## " line)))
+                     ((string-match "^## " line)
+                      (delete-region (line-beginning-position) (line-end-position))
+                      (insert (replace-regexp-in-string "^## " "# " line)))
+                     ((string-match "^# " line)
+                      (delete-region (line-beginning-position) (line-end-position))
+                      (insert (replace-regexp-in-string "^# " "## " line)))))
+                  (forward-line 1)))
+              (set-marker end nil))
+            (message "howm-fix-code-comments: region done"))
+	(call-process "perl" nil nil nil
+                      (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
+                      buffer-file-name)
+	(revert-buffer t t t)
+	(message "howm-fix-code-comments: done"))))
+
   
   (defun my:delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when killed markdown buffer."

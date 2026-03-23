@@ -46,24 +46,21 @@
     :init
     ;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
     ;; This eliminates the need to specify :load-path individually in each leaf block
-    ;; for packages installed under this directory.
-    ;; Note: normal-top-level-add-subdirs-to-load-path only adds subdirectories,
-    ;; so we explicitly add elisp/ itself with add-to-list first.
     (let ((default-directory "~/.emacs.d/elisp/"))
       (add-to-list 'load-path default-directory)
       (normal-top-level-add-subdirs-to-load-path))
     (setq custom-file (locate-user-emacs-file "tmp/custom.el"))))
 
-;;; server
 (leaf server
+  :doc "Start Emacs server if not already running."
   :commands server-running-p
   :hook (emacs-startup-hook
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
 
-;;; shell env
 (leaf exec-path-from-shell
+  :doc "Inherit shell environment variables including SSH_AUTH_SOCK."
   :ensure t
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize)
@@ -75,6 +72,6 @@
 
 (provide 'init)
 ;; Local Variables:
-;; byte-compile-warnings: t(not free-vars)
+;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; init.el ends here

@@ -94,19 +94,30 @@ If the region isn't selected, `swiper'."
 	(swiper-thing-at-point)
       (swiper))))
 
-(leaf migemo
-  :ensure t
-  :require t
-  :doc "Japanese incremental search through dynamic pattern expansion."
-  ;; :if (executable-find "/usr/bin/cmigemo")
-  :hook (emacs-startup-hook . migemo-init)
-  :config
-  (setq migemo-command "/usr/bin/cmigemo")
+(with-eval-after-load 'isearch
+  (require 'migemo)
+  (setq migemo-command "cmigemo")
   (setq migemo-options '("-q" "--emacs"))
+  ;; 辞書のパスを環境に合わせて指定
   (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
   (setq migemo-user-dictionary nil)
   (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix))
+  (setq migemo-coding-system 'utf-8-unix)
+  (migemo-init))
+
+;; (leaf migemo
+;;   :ensure t
+;;   :require t
+;;   :doc "Japanese incremental search through dynamic pattern expansion."
+;;   ;; :if (executable-find "/usr/bin/cmigemo")
+;;   :hook (emacs-startup-hook . migemo-init)
+;;   :config
+;;   (setq migemo-command "/usr/bin/cmigemo")
+;;   (setq migemo-options '("-q" "--emacs"))
+;;   (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
+;;   (setq migemo-user-dictionary nil)
+;;   (setq migemo-regex-dictionary nil)
+;;   (setq migemo-coding-system 'utf-8-unix))
 
 ;; (leaf swiper-migemo  ; not a package; inline configuration for migemo + swiper
 ;;   :vc (:url "https://github.com/tam17aki/swiper-migemo")
