@@ -14,7 +14,9 @@
 	  (","        . my:howm-create-memo)
 	  (";"        . my:howm-create-tech)))
   :init
-  (setq howm-migemo-command "/usr/bin/cmigemo")
+  (setq howm-use-migemo t)
+  (setq howm-migemo-client '((type . cmigemo) (command . "/usr/bin/cmigemo")))
+  (setq howm-migemo-client-option '("-q" "-d" "/usr/share/cmigemo/utf-8/migemo-dict"))
   (setq howm-view-title-header "#")
   (setq howm-directory "~/Dropbox/howm")
   (setq howm-file-name-format "%Y/%m/%Y%m%d%H%M.md")
@@ -63,7 +65,7 @@
                (shell-quote-argument (buffer-file-name))))))
 
   (advice-add 'super-save-command :after #'my:howm-fix-after-super-save)
-  
+
   )
 
 ;; Local Variables:
