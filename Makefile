@@ -375,10 +375,12 @@ github: ## GitHub リポジトリのクローン
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh
 	git clone git@github.com:minorugh/GH.git
-	git clone git@github.com:minorugh/upsftp.git
-	git clone git@github.com:minorugh/evil-easy-hugo.git
+	git clone git@github.com:minorugh/minorugh.com.git
 	git clone git@github.com:minorugh/minorugh.github.io.git
-# GH.git は .git のみ残して他のファイルは削除して使用する
+	git clone git@github.com:minorugh/upsftp.git
+	git clone git@github.com:minorugh/gpgimport.git
+	git clone git@github.com:minorugh/vim-cheat.git
+# GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
 ########################################################
 ## Docker 環境セットアップ＆リストア手順
