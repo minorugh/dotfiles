@@ -104,7 +104,7 @@
 
 
 (leaf *user-configurations
-  :defun minibuffer-keyboard-quit my:handle-delete-frame
+  :defun minibuffer-keyboard-quit my:iconify-last-frame
   :bind (("C-x C-c" . server-edit)
 	 ("C-x b"   . ibuffer)
 	 ("C-x m"   . neomutt)
@@ -170,9 +170,9 @@ If there are two or more windows, it will go to another window."
 If it's the last frame, minimize it without deleting it."
     (interactive "e")
     (let ((frame  (posn-window (event-start event)))
-	  (numfrs (length (visible-frame-list))))
+          (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
-	    ((iconify-frame))))))
+            ((iconify-frame))))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
