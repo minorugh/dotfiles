@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key :ensure nil
+(leaf which-key
+  :ensure nil
   :tag "builtin"
   :doc "Display available keybindings in popup."
   :hook (after-init-hook . which-key-mode)
@@ -18,20 +19,23 @@
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log)))
 
-(leaf counsel-tramp :ensure t
+(leaf counsel-tramp
+  :ensure t
   :config
   (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
   (setq tramp-default-method "scp")
   (setq counsel-tramp-custom-connections
 	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
-(leaf viewer :ensure t
+(leaf viewer
+  :ensure t
   :after view
   :hook (view-mode-hook . viewer-change-modeline-color-setup)
   :config
   (setq viewer-modeline-color-view "#852941"))
 
-(leaf popwin :ensure t
+(leaf popwin
+  :ensure t
   :doc "Popup window manager for Emacs."
   :hook (after-init-hook . popwin-mode))
 
@@ -45,13 +49,15 @@
   :config
   (setq tempbuf-kill-message nil))
 
-(leaf bs :ensure nil
+(leaf bs
+  :ensure nil
   :tag "builtin"
   :doc "Menu for selecting and displaying buffers."
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
 
-(leaf persistent-scratch :ensure t
+(leaf persistent-scratch
+  :ensure t
   :doc "Save scratch buffer state to file and restore from file."
   :hook (after-init-hook . persistent-scratch-autosave-mode)
   :bind ("S-<return>" . toggle-scratch)
@@ -69,18 +75,20 @@
 	  (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
-(leaf quickrun :ensure t
+(leaf quickrun
+  :ensure t
   :bind ([f5] . quickrun))
 
-(leaf projectile :ensure t
+(leaf projectile
+  :ensure t
   :doc "Manage and navigate projects in Emacs."
   :hook (after-init-hook . projectile-mode)
   :config
   (setq projectile-known-projects-file (locate-user-emacs-file "tmp/projectile.eld")))
 
 (leaf sequential-command
-  :vc (:url "https://github.com/HKey/sequential-command")
-  :doc "Move to first and last line of buffer."
+  :doc "Move to first and last line of buffer.
+        Placed in elisp/sequential-command/. load-path is set in init.el."
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))

@@ -21,6 +21,8 @@ Emacs設定ファイル群。[leaf](https://github.com/conao3/leaf.el) + [init-l
 .emacs.d/
 ├── early-init.el          # フレーム・GC・パッケージ初期化前の設定
 ├── init.el                # エントリポイント。leaf・init-loader を起動
+├── init-mini.el           # ミニマム起動用（トラブルシューティング等）
+├── makefile               # バイトコンパイル等のタスク
 ├── inits/                 # init-loader が番号順に読み込む設定ファイル群
 │   ├── 00-base.el         # 基本設定・キーバインド・ユーティリティ関数
 │   ├── 01-dashboard.el    # 起動画面（dashboard）
@@ -49,10 +51,8 @@ Emacs設定ファイル群。[leaf](https://github.com/conao3/leaf.el) + [init-l
 │   ├── 70-yatex.el        # YaTeX（LaTeX 編集）
 │   ├── 80-darkroom.el     # darkroom（執筆集中モード）
 │   └── 90-easy-hugo.el    # easy-hugo（Hugo ブログ管理）
-├── elisp/                 # 自作・非パッケージの elisp ファイル
-│   ├── css/               # markdown-mode プレビュー用 CSS類
-│   ├── my:dired.el        # プロジェクトDirへのショートカット設定
-│   └── my:template.el     # 俳句・ブログ投稿テンプレート（
+├── elisp/                 # 自作・非パッケージの elisp（README.md 参照）
+├── snippets/              # yasnippet 用スニペット
 └── tmp/                   # 履歴・キャッシュ類（Git 管理外）
     ├── custom.el
     ├── recentf

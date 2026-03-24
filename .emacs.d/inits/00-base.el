@@ -82,9 +82,9 @@
     (add-to-list 'auto-mode-alist (cons pattern 'conf-mode)))
 
   ;; All history/data files are stored in `~/.emacs.d/tmp'
-  ;; (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
-  ;; (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
-  ;; (setq transient-history-file      (locate-user-emacs-file "tmp/transient/history"))
+  (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
+  (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
+  (setq transient-history-file      (locate-user-emacs-file "tmp/transient/history"))
   (setq project-list-file           (locate-user-emacs-file "tmp/projects"))
   (setq request-storage-directory   (locate-user-emacs-file "tmp/request"))
   (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
