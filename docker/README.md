@@ -1,5 +1,9 @@
 # Docker 開発環境 構築手順
 
+
+![開発環境構成図](https://minorugh.github.io/img/docker-block-diagram.jpg) 
+
+
 ## 1. 必要ソフト
 
 ```
