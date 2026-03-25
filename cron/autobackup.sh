@@ -42,6 +42,7 @@ run_target "melpa"      melpa
 run_target "git-push (GH+minorugh.com)"   git-push
 run_target "mattermost" mattermost-backup
 run_target "mozc"       mozc-backup
+run_target "thunderbird"       thunderbird-backup
 
 rm -f "$TMPLOG"
 
