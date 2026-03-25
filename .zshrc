@@ -187,7 +187,7 @@ export GOROOT="/usr/local/go"
 export GOPATH="$HOME/src/go"
 export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
 
-export EDITOR='vim'
+export EDITOR='emacsclient'
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'

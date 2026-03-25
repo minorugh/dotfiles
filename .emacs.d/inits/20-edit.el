@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf super-save :ensure t
+(leaf super-save
+  :ensure t
   :doc "Smart auto save buffers."
   :hook (after-init-hook . super-save-mode)
   :config
@@ -12,7 +13,8 @@
   (setq super-save-remote-files        nil)
   (setq super-save-exclude             '(".gpg")))
 
-(leaf imenu-list :ensure t
+(leaf imenu-list
+  :ensure t
   :doc "Show imenu entries in a separate buffer."
   :bind (([f2] . imenu-list-smart-toggle)
 	 (:imenu-list-major-mode-map
@@ -23,12 +25,14 @@
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position 'left))
 
-(leaf atomic-chrome :ensure t
+(leaf atomic-chrome
+  :ensure t
   :doc "Edit text areas of the browser in Emacs."
   :hook (after-init-hook . atomic-chrome-start-server)
   :config (setq atomic-chrome-buffer-open-style 'full))
 
-(leaf ediff :ensure nil
+(leaf ediff
+  :ensure nil
   :tag "builtin"
   :doc "Edit while viewing the difference."
   :hook (ediff-mode-hook . dimmer-off)
@@ -37,23 +41,28 @@
 	ediff-split-window-function 'split-window-horizontally
 	ediff-diff-options "-twB"))
 
-(leaf elec-pair :ensure nil
+(leaf elec-pair
+  :ensure nil
   :tag "builtin"
   :doc "Automatic parenthesis pairing."
   :hook (after-init-hook . electric-pair-mode))
 
-(leaf iedit :ensure t
+(leaf iedit
+  :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously."
   :bind ("<insert>" . iedit-mode))
 
-(leaf expand-region :ensure t
+(leaf expand-region
+  :ensure t
   :bind ("C-@" . er/expand-region))
 
-(leaf undo-fu :ensure t
+(leaf undo-fu
+  :ensure t
   :bind (("C-_" . undo-fu-only-undo)
 	 ("C-/" . undo-fu-only-redo)))
 
-(leaf undohist :ensure t
+(leaf undohist
+  :ensure t
   :doc "Persistent undo history."
   :hook (after-init-hook . undohist-initialize)
   :config
@@ -62,6 +71,11 @@
 
 (leaf sudo-edit :ensure t
   :doc "Edit currently visited file as another user.")
+
+;; GitHub deploy
+;; Insert current changelog buffer into CHANGELOG.md and open it.
+(autoload 'github-deploy "my:github" "GitHub deploy function" t)
+(bind-key "C-c m" 'github-deploy)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
