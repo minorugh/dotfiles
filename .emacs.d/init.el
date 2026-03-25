@@ -44,12 +44,11 @@
     (setq init-loader-byte-compile t)
     (init-loader-load)
     :init
+    (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
     ;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
-    ;; This eliminates the need to specify :load-path individually in each leaf block
     (let ((default-directory "~/.emacs.d/elisp/"))
       (add-to-list 'load-path default-directory)
-      (normal-top-level-add-subdirs-to-load-path))
-    (setq custom-file (locate-user-emacs-file "tmp/custom.el"))))
+      (normal-top-level-add-subdirs-to-load-path))))
 
 (leaf server
   :doc "Start Emacs server if not already running."
