@@ -3,12 +3,10 @@ set -e
 
 # ===== 設定 =====
 BASE="$HOME/Dropbox/backup/thunderbird"
-SRC_PROFILE="$HOME/.thunderbird/"
-DST_PROFILE="$BASE/.thunderbird/"
-SRC_NATIVE="$HOME/.mozilla/native-messaging-hosts/"
-DST_NATIVE="$BASE/native-messaging-hosts/"
+SRC="$HOME/.thunderbird/"
+DST="$BASE/.thunderbird/"
 
-# 1. Thunderbirdを終了させる
+# Thunderbirdを終了させる
 # まずは通常の終了を試み、ダメなら強制終了(SIGKILL)
 if pgrep -x "thunderbird" > /dev/null; then
     echo "[Thunderbird] Stopping Thunderbird..."
@@ -32,18 +30,9 @@ fi
 echo "[Thunderbird] Start backup"
 
 # ===== Thunderbird本体 =====
-echo "[Thunderbird] rsync profile..."
 rsync -av --delete \
       --exclude='*.lock' \
       --exclude='lock' \
-      "$SRC_PROFILE" "$DST_PROFILE"
-
-# ===== native-messaging-hosts =====
-if [ -d "$SRC_NATIVE" ]; then
-    echo "[Thunderbird] rsync native-messaging-hosts..."
-    rsync -av --delete "$SRC_NATIVE" "$DST_NATIVE"
-else
-    echo "[Thunderbird] native-messaging-hosts not found (skip)"
-fi
+      "$SRC" "$DST"
 
 echo "[Thunderbird] DONE"

@@ -105,12 +105,13 @@ If the region isn't selected, `swiper'."
   (setq migemo-regex-dictionary nil)
   (setq migemo-coding-system 'utf-8-unix))
 
+
 (with-eval-after-load 'swiper
   (defun my:ivy-migemo-re-builder (str)
     "Build a regexp for swiper using migemo for Japanese incremental search.
-STR is split into segments by separators (space, ^, ., *).
-Each segment is converted via `migemo-get-pattern', separators are kept as-is.
-Space is treated as a wildcard '.*?' for flexible matching."
+  STR is split into segments by separators (space, ^, ., *).
+  Each segment is converted via `migemo-get-pattern', separators are kept as-is.
+  Space is treated as a wildcard '.*?' for flexible matching."
     (let* ((sep " \\|\\^\\|\\.\\|\\*")      ;; 区切り文字パターン（スペース・^・.・*）
            (chars (split-string str "" t))  ;; STR を1文字ずつに分割
            (splitted (let (result group)    ;; 区切り文字で分割し、連続する非区切り文字をグループ
@@ -133,7 +134,6 @@ Space is treated as a wildcard '.*?' for flexible matching."
   ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
   (setq ivy-re-builders-alist '((t . ivy--regex-plus)
                                 (swiper . my:ivy-migemo-re-builder))))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
