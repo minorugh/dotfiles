@@ -61,26 +61,6 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'my:exit 'save-buffers-kill-emacs)
 
-  ;; Savehist
-  (setq savehist-additional-variables '(kill-ring))
-  (setq history-delete-duplicates t)
-
-  ;; Recentf
-  (setq recentf-max-saved-items 200)   ;; 多すぎると起動が重くなる
-  (setq recentf-auto-cleanup 'never)   ;; 起動時のクリーンアップを抑制
-  (setq recentf-exclude
-	'("\\.howm-keys" "\\^/session" "task.org"
-	  "/.emacs.d/tmp/" "/Dropbox/backup/" "/.emacs.d/elpa/" "/scp:"))
-
-  ;; Associate shell-related dotfiles with sh-mode
-  (dolist (pattern '("\\.z?shrc\\'" "\\.bash_profile\\'" "\\.profile\\'"
-                     "\\.zshenv\\'" "\\.xprofile\\'" "\\.bashrc\\'" "\\.Xmodmap\\'"))
-    (add-to-list 'auto-mode-alist (cons pattern 'sh-mode)))
-
-  ;; Associate config-style dotfiles with conf-mode
-  (dolist (pattern '("\\.tmux\\.conf\\'" "\\.muttrc\\'"))
-    (add-to-list 'auto-mode-alist (cons pattern 'conf-mode)))
-
   ;; All history/data files are stored in `~/.emacs.d/tmp'
   (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
   (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
@@ -91,16 +71,29 @@
   (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
   (setq save-place-file             (locate-user-emacs-file "tmp/places"))
   (setq savehist-file               (locate-user-emacs-file "tmp/history"))
-  (setq recentf-save-file           (locate-user-emacs-file "tmp/recentf")))
+  (setq recentf-save-file           (locate-user-emacs-file "tmp/recentf"))
 
+  ;; Savehist
+  (setq savehist-additional-variables '(kill-ring))
+  (setq history-delete-duplicates t)
 
-(leaf *defer-modes
-  :hook
-  (after-init-hook . global-auto-revert-mode)
-  (after-init-hook . save-place-mode)
-  (after-init-hook . savehist-mode)
-  (after-init-hook . recentf-mode)
-  (prog-mode-hook  . goto-address-prog-mode))
+  ;; Recentf
+  (setq recentf-max-saved-items 100)
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude
+	(list (expand-file-name "elpa/" user-emacs-directory)
+              (expand-file-name "tmp/"  user-emacs-directory)
+	      '("\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:")))
+
+  (leaf *defer-modes
+    :mode (("\\.\\(?:z?shrc\\|bash_\\(?:profile\\|rc\\)\\|profile\\|zshenv\\|xprofile\\|Xmodmap\\)\\'" . sh-mode)
+           ("\\.\\(?:tmux\\.conf\\|muttrc\\)\\'" . conf-mode))
+    :hook
+    (after-init-hook . global-auto-revert-mode)
+    (after-init-hook . save-place-mode)
+    (after-init-hook . savehist-mode)
+    (after-init-hook . recentf-mode)
+    (prog-mode-hook  . goto-address-prog-mode)))
 
 
 (leaf *user-configurations

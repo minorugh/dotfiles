@@ -130,7 +130,7 @@ chsh -s /usr/bin/zsh
 | `make baseinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
 | `make nextinstall` | アプリケーション群のインストール |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
-| `make keyring` | Gnome keyring の初期化（P1/サブ機で分岐） |
+| `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
 | `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期設定 |
 | `make cron` | P1のみ: automerge/autobackup リンク作成 + crontab バックアップ＆反映 |
 | `make docker-install` | Docker Engine + Compose のインストール |
@@ -195,6 +195,7 @@ git add cron/crontab && git commit -m "update crontab"
 
 | 日付 | 内容 |
 |---|---|
+| 2026.03.26 | keyring ターゲットを全機共通コピー方式に統一、autostart.sh の条件分岐を削除 |
 | 2026.03.21 | cron ターゲット追加（automerge/autobackup/crontab 管理）、README 全体見直し |
 | 2026.03.19 | polkit ターゲット追加（Docker認証ダイアログ抑制、docker-setup に統合） |
 | 2026.03.11 | リストア手順を HTTPS clone 対応に修正、SSH 切り替え手順を追加 |

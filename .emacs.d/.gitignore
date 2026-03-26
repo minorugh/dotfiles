@@ -1,5 +1,4 @@
 *.elc
-makefile
 /elpa/
 /_elpa/
 /eln-cache/

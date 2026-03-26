@@ -40,9 +40,12 @@ log "START: ${START}"
 
 run_target "melpa"      melpa
 run_target "git-push (GH+minorugh.com)"   git-push
-run_target "mattermost" mattermost-backup
-run_target "mozc"       mozc-backup
-run_target "thunderbird"       thunderbird-backup
+run_target "mattermost"  mattermost-backup
+run_target "mozc"        mozc-backup
+run_target "keyring"     keyring-backup
+run_target "gitea"       gitea-backup
+run_target "filezilla"   filezilla-backup
+run_target "thunderbird" thunderbird-backup
 
 rm -f "$TMPLOG"
 

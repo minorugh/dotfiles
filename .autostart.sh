@@ -2,12 +2,9 @@
 # Reset ssh-agent to ensure clean socket
 pkill ssh-agent
 
-if [ ! $(hostname) == "P1" ]; then
-    # Restore mozc config from Dropbox backup (rsync with --delete for full sync)
-    rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
-    # keyrings は親機のみシンボリックリンク、サブ機は起動時にコピー（競合防止）
-    cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
-fi
+# Restore mozc config and keyrings from Dropbox backup (rsync with --delete for full sync)
+rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
+cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 
 # run xmodmap at startup
 /usr/bin/zsh -c "sleep 5; /usr/bin/xmodmap $HOME/.Xmodmap"
