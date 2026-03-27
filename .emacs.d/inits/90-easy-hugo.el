@@ -7,12 +7,12 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode."
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :defun evil-emacs-state my:easy-hugo-newpost-after
+  :defun evil-emacs-state my-easy-hugo-newpost-after
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)
 	  ("SPC"   . easy-hugo-view)
-	  ("e"     . my:edit-easy-hugo)))
+	  ("e"     . my-edit-easy-hugo)))
   :init
   ;; Customize for my help menu
   (setq easy-hugo-help-line 4)
@@ -64,18 +64,18 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 	   (easy-hugo-sshdomain . "xsrv")
 	   (easy-hugo-root . "/home/minorugh/minorugh.com/public_html/ryo/"))))
   :config
-  (defun my:edit-easy-hugo ()
+  (defun my-edit-easy-hugo ()
     "Edit setting file for `easy-hugo'."
     (interactive)
     (find-file "~/.emacs.d/inits/90-easy-hugo.el"))
 
-  (defun my:easy-hugo-newpost-after (&rest _)
+  (defun my-easy-hugo-newpost-after (&rest _)
     "新規ポスト作成後、evil-mode なら evil-emacs-state に切り替える."
     (when (bound-and-true-p evil-mode)
       (evil-emacs-state)
       (goto-char (point-max))
       (save-buffer)))
-  (advice-add 'easy-hugo-newpost :after #'my:easy-hugo-newpost-after))
+  (advice-add 'easy-hugo-newpost :after #'my-easy-hugo-newpost-after))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

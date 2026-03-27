@@ -5,7 +5,7 @@
 
 (leaf org
   :defun evil-emacs-state
-  :hook (org-capture-mode-hook . my:org-capture-maximize)
+  :hook (org-capture-mode-hook . my-org-capture-maximize)
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 ("C-c k" . org-capture-kill)
@@ -21,36 +21,36 @@
   (setq org-agenda-span 'month)
   (setq org-agenda-files '("~/Dropbox/howm/org/task.org"))
 
-  (defun my:org-capture-maximize ()
+  (defun my-org-capture-maximize ()
     "Maximize the org-capture screen."
     (delete-other-windows)
     (evil-emacs-state))
 
   ;; Capture template helper functions
-  (defun my:howm-create-file ()
+  (defun my-howm-create-file ()
     "Return timestamped howm file path for `org-capture'."
     (format-time-string "~/Dropbox/howm/%Y/%m/%Y%m%d%H%M.md" (current-time)))
 
-  (defun my:open-junk-file ()
+  (defun my-open-junk-file ()
     "Return timestamped junk file path for `org-capture'."
     (format-time-string "~/Dropbox/junk/%Y%m%d%H%M.pl" (current-time)))
 
   (setq org-capture-templates
-	'(("d" " 日記" plain (file my:howm-create-file)
+	'(("d" " 日記" plain (file my-howm-create-file)
 	   "# 日記: %?\n%U %i")
-	  ("w" " 創作" plain (file my:howm-create-file)
+	  ("w" " 創作" plain (file my-howm-create-file)
 	   "# 創作: %?\n%U %i")
-	  ("e" " 園芸" plain (file my:howm-create-file)
+	  ("e" " 園芸" plain (file my-howm-create-file)
 	   "# 園芸: %?\n%U %i")
-	  ("c" " 教会" plain (file my:howm-create-file)
+	  ("c" " 教会" plain (file my-howm-create-file)
 	   "# 教会: %?\n%U %i")
-	  ("m" " Memo" plain (file my:howm-create-file)
+	  ("m" " Memo" plain (file my-howm-create-file)
 	   "# memo: %?\n%U %i")
-	  ("i" " Idea" plain (file my:howm-create-file)
+	  ("i" " Idea" plain (file my-howm-create-file)
 	   "# idea: %?\n%U %i")
-	  ("t" " Tech" plain (file my:howm-create-file)
+	  ("t" " Tech" plain (file my-howm-create-file)
 	   "# tech: %?\n%U %i")
-	  ("j" " Junk" plain (file my:open-junk-file)
+	  ("j" " Junk" plain (file my-open-junk-file)
 	   "#!/usr/bin/perl\n%?\n %i")
 	  ("," " Task" entry (file+headline "~/Dropbox/howm/org/task.org" "TASK")
 	   "** TODO %?\n SCHEDULED: %^t \n"))))

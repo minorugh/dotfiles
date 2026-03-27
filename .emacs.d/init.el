@@ -48,7 +48,9 @@
     ;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
     (let ((default-directory "~/.emacs.d/elisp/"))
       (add-to-list 'load-path default-directory)
-      (normal-top-level-add-subdirs-to-load-path))))
+      (normal-top-level-add-subdirs-to-load-path))
+    ;; Load auto-generated autoloads for custom elisp packages.
+    (load "~/.emacs.d/elisp/my-loaddefs.el" t t)))
 
 (leaf server
   :doc "Start Emacs server if not already running."

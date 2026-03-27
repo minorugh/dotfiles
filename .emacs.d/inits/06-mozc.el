@@ -5,10 +5,10 @@
 
 (leaf mozc :ensure t
   :defun evil-insert-state mozc-handle-event
-  :bind* ("<hiragana-katakana>" . my:toggle-input-method)
-  :bind (("s-m" . my:mozc-config)
-	 ("s-d" . my:mozc-word-regist)
-	 ("s-t" . my:mozc-dictionary-tool)
+  :bind* ("<hiragana-katakana>" . my-toggle-input-method)
+  :bind (("s-m" . my-mozc-config)
+	 ("s-d" . my-mozc-word-regist)
+	 ("s-t" . my-mozc-dictionary-tool)
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
@@ -29,7 +29,7 @@
   (setq default-input-method "japanese-mozc")
   (setq mozc-leim-title       "あ")
 
-  (defun my:toggle-input-method ()
+  (defun my-toggle-input-method ()
     "If `evil-mode' is enabled, set to `evil-insert-state'."
     (interactive)
     (when (and (boundp 'evil-mode) evil-mode)
@@ -42,19 +42,19 @@
     (mozc-handle-event 'enter)
     (insert str))
 
-  (defun my:mozc-config ()
+  (defun my-mozc-config ()
     "Open mozc config dialog."
     (interactive)
     (start-process "mozc-config" nil "/usr/lib/mozc/mozc_tool" "--mode=config_dialog")
     (delete-other-windows))
 
-  (defun my:mozc-dictionary-tool ()
+  (defun my-mozc-dictionary-tool ()
     "Open mozc dictionary tool."
     (interactive)
     (start-process "mozc-dict" nil "/usr/lib/mozc/mozc_tool" "--mode=dictionary_tool")
     (delete-other-windows))
 
-  (defun my:mozc-word-regist ()
+  (defun my-mozc-word-regist ()
     "Open mozc word register dialog."
     (interactive)
     (start-process "mozc-word" nil "/usr/lib/mozc/mozc_tool" "--mode=word_register_dialog")

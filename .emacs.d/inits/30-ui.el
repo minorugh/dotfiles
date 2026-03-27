@@ -56,10 +56,10 @@
 (leaf whitespace :ensure nil
   :tag "builtin"
   :doc "Minor mode to visualize TAB, (HARD) SPACE, NEWLINE."
-  :bind ("C-c C-c" . my:cleanup-for-spaces-safe)
+  :bind ("C-c C-c" . my-cleanup-for-spaces-safe)
   :config
   ;; 行末スペース／タブ／NBSP／ゼロ幅スペース＋末尾空行をまとめて削除
-  (defun my:cleanup-for-spaces-safe ()
+  (defun my-cleanup-for-spaces-safe ()
     "Remove trailing spaces, tabs, NBSP, zero-width spaces.
 Also remove blank lines at the end of buffer."
     (interactive)

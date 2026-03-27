@@ -39,11 +39,11 @@
 (leaf deepl-translate-web
   :ensure nil
   :doc "Use deepl-translate on web."
-  :commands my:deepl-translate
-  :bind ("C-c w" . my:deepl-translate)
+  :commands my-deepl-translate
+  :bind ("C-c w" . my-deepl-translate)
   :preface
   (require 'url-util)
-  (defun my:deepl-translate (&optional string)
+  (defun my-deepl-translate (&optional string)
     (interactive)
     (setq string
           (cond ((stringp string) string)

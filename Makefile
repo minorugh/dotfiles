@@ -13,7 +13,7 @@
 # https://github.com/minorugh/dotfiles
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
-PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv

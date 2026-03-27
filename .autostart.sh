@@ -2,7 +2,7 @@
 # Reset ssh-agent to ensure clean socket
 pkill ssh-agent
 
-# Restore mozc config and keyrings from Dropbox backup (rsync with --delete for full sync)
+# Restore .mozc and keyrings from Dropbox backup (rsync with --delete for full sync)
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 

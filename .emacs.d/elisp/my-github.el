@@ -1,9 +1,10 @@
-;;; my:github.el ---  Homebrew functions related to GitHub -*- lexical-binding: t -*-
+;;; my-github.el ---  Homebrew functions related to GitHub -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;;; Code:
 
 ;; GitHub deploy
+;;;###autoload
 (defun github-deploy ()
   "Insert current changelog buffer into CHANGELOG.md and open it."
   (interactive)
@@ -32,5 +33,5 @@
         (find-file changelog)
         (message "CHANGELOG.md updated: %s" date)))))
 
-(provide 'my:github)
-;;; my:github.el ends here
+(provide 'my-github)
+;;; my-github.el ends here

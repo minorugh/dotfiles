@@ -6,13 +6,13 @@
 (leaf howm :ensure t
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
-  :defun howm-create my:howm-create-note evil-insert-state my:howm-fix-after-super-save
+  :defun howm-create my-howm-create-note evil-insert-state my-howm-fix-after-super-save
   :hook (emacs-startup-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)
-	  (","        . my:howm-create-memo)
-	  (";"        . my:howm-create-tech)))
+	  (","        . my-howm-create-memo)
+	  (";"        . my-howm-create-tech)))
   :init
   (setq howm-use-migemo t)
   (setq howm-migemo-client '((type . cmigemo) (command . "/usr/bin/cmigemo")))
@@ -40,23 +40,23 @@
 	  "# memo: %cursor\n%date%file"
 	  "# tech: %cursor\n%date%file"))
 
-  (defun my:howm-create-note (index)
+  (defun my-howm-create-note (index)
     "Create howm note with template INDEX, delete other windows, enter insert state."
     (howm-create index nil)
     (delete-other-windows)
     (evil-insert-state))
 
-  (defun my:howm-create-memo ()
+  (defun my-howm-create-memo ()
     "Create memo note."
     (interactive)
-    (my:howm-create-note 2))
+    (my-howm-create-note 2))
 
-  (defun my:howm-create-tech ()
+  (defun my-howm-create-tech ()
     "Create tech note."
     (interactive)
-    (my:howm-create-note 3))
+    (my-howm-create-note 3))
 
-  (defun my:howm-fix-after-super-save (&rest _)
+  (defun my-howm-fix-after-super-save (&rest _)
     (when (and (eq major-mode 'howm-mode)
                (buffer-file-name))
       (message "howm-fix running: %s" (buffer-file-name))
@@ -64,9 +64,7 @@
        (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
                (shell-quote-argument (buffer-file-name))))))
 
-  (advice-add 'super-save-command :after #'my:howm-fix-after-super-save)
-
-  )
+  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

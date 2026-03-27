@@ -74,7 +74,6 @@
 
 ;; GitHub deploy
 ;; Insert current changelog buffer into CHANGELOG.md and open it.
-(autoload 'github-deploy "my:github" "GitHub deploy function" t)
 (bind-key "C-c m" 'github-deploy)
 
 ;; Local Variables:

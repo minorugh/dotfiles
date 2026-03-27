@@ -6,9 +6,9 @@
 (leaf selected :ensure t
   :doc "Keymap for when region is active."
   :url "http://github.com/Kungsgeten/selected.el"
-  :defun my:activate-selected my:ime-on my:ime-off selected--on region-or-read-string
+  :defun my-activate-selected my-ime-on my-ime-off selected--on region-or-read-string
   :hook (after-init-hook . selected-global-mode)
-  :bind (("C-c g" . my:google-this)
+  :bind (("C-c g" . my-google-this)
 	 (:selected-keymap
 	  (";" . comment-dwim)
 	  ("c" . clipboard-kill-ring-save)
@@ -16,24 +16,24 @@
 	  ("s" . swiper-thing-at-point)
 	  ("d" . deepl-translate)
 	  ("t" . google-translate-auto)
-	  ("w" . my:weblio)
-	  ("g" . my:google-this)))
+	  ("w" . my-weblio)
+	  ("g" . my-google-this)))
   :init
-  (defun my:activate-selected ()
+  (defun my-activate-selected ()
     (selected-global-mode 1)
     (selected--on)
-    (remove-hook 'activate-mark-hook #'my:activate-selected))
+    (remove-hook 'activate-mark-hook #'my-activate-selected))
 
-  (defun my:ime-on ()
+  (defun my-ime-on ()
     (interactive)
     (when (null current-input-method)
       (toggle-input-method)))
 
-  (defun my:ime-off ()
+  (defun my-ime-off ()
     (interactive)
     (deactivate-input-method))
 
-  (defun my:weblio (str)
+  (defun my-weblio (str)
     "Search weblio."
     (interactive (list (region-or-read-string nil)))
     (browse-url (format "https://www.weblio.jp/content/%s"
@@ -51,16 +51,16 @@
   (leaf google-this :ensure t
     :doc "Google search at region or under point."
     :config
-    (defun my:google-this ()
+    (defun my-google-this ()
       "Run without confirmation."
       (interactive)
       (google-this (current-word) t)))
 
   :config
-  (defvar my:ime-flag nil)
-  (add-hook 'activate-mark-hook   #'my:activate-selected)
-  (add-hook 'activate-mark-hook   (lambda () (setq my:ime-flag current-input-method) (my:ime-off)))
-  (add-hook 'deactivate-mark-hook (lambda () (unless (null my:ime-flag) (my:ime-on)))))
+  (defvar my-ime-flag nil)
+  (add-hook 'activate-mark-hook   #'my-activate-selected)
+  (add-hook 'activate-mark-hook   (lambda () (setq my-ime-flag current-input-method) (my-ime-off)))
+  (add-hook 'deactivate-mark-hook (lambda () (unless (null my-ime-flag) (my-ime-on)))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

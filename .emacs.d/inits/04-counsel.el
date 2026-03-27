@@ -27,9 +27,9 @@
   (setq ivy-use-selectable-prompt    t)
   (setq enable-recursive-minibuffers t)
   (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
-  (setq ivy-format-functions-alist '((t . my:ivy-format-function-arrow)))
+  (setq ivy-format-functions-alist '((t . my-ivy-format-function-arrow)))
 
-  (defun my:ivy-format-function-arrow (cands)
+  (defun my-ivy-format-function-arrow (cands)
     "Transform into a string for minibuffer."
     (ivy--format-function-generic
      (lambda (str)
@@ -55,8 +55,8 @@
   (add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
   (ivy-add-actions
    'counsel-ag
-   '(("r" my:counsel-ag-in-dir "search in directory")))
-  (defun my:counsel-ag-in-dir (_arg)
+   '(("r" my-counsel-ag-in-dir "search in directory")))
+  (defun my-counsel-ag-in-dir (_arg)
     "Search again with new root directory."
     (let ((current-prefix-arg '(4)))
       (counsel-ag ivy-text nil ""))))
@@ -107,7 +107,7 @@ If the region isn't selected, `swiper'."
 
 
 (with-eval-after-load 'swiper
-  (defun my:ivy-migemo-re-builder (str)
+  (defun my-ivy-migemo-re-builder (str)
     "Build a regexp for swiper using migemo for Japanese incremental search.
   STR is split into segments by separators (space, ^, ., *).
   Each segment is converted via `migemo-get-pattern', separators are kept as-is.
@@ -133,7 +133,7 @@ If the region isn't selected, `swiper'."
                  splitted "")))
   ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
   (setq ivy-re-builders-alist '((t . ivy--regex-plus)
-                                (swiper . my:ivy-migemo-re-builder))))
+                                (swiper . my-ivy-migemo-re-builder))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

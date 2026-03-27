@@ -1,13 +1,14 @@
-;;; my:template.el --- User template configuration. -*- lexical-binding: t -*-
+;;; my-template.el --- User template configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 
 ;; Template functions for haiku writing files.
-;; Loaded via (require 'my:template) in 40-hydra-menu.el
+;; Loaded via (require 'my-template) in 40-hydra-menu.el
 
 ;;; Code:
 (declare-function evil-emacs-state "evil-states")
 
-(defun my:diary-new-post ()
+;;;###autoload
+(defun my-diary-new-post ()
   "Open diary file and insert template."
   (interactive)
   (find-file (expand-file-name "diary.txt" "~/Dropbox/GH/dia/"))
@@ -28,7 +29,8 @@
   (forward-char 18)
   (evil-emacs-state))
 
-(defun my:tpdia-new-post ()
+;;;###autoload
+(defun my-tpdia-new-post ()
   "Open tpdia file and insert template."
   (interactive)
   (find-file (expand-file-name "dia.txt" "~/Dropbox/GH/tpdia/"))
@@ -48,7 +50,8 @@
   (forward-line -5)
   (forward-char 18))
 
-(defun my:minoru_sen ()
+;;;###autoload
+(defun my-minoru_sen ()
   "Insert kukai header template."
   (interactive)
   (goto-char (point-min))
@@ -58,25 +61,29 @@
   (forward-line -1)
   (forward-char 15))
 
-(defun my:teirei-new-post ()
+;;;###autoload
+(defun my-teirei-new-post ()
   "Open teirei file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/teirei/tex/teirei.txt")
-  (my:minoru_sen))
+  (my-minoru_sen))
 
-(defun my:swan-new-post ()
+;;;###autoload
+(defun my-swan-new-post ()
   "Open swan file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/swan/tex/swan.txt")
-  (my:minoru_sen))
+  (my-minoru_sen))
 
-(defun my:m_kukai-new-post ()
+;;;###autoload
+(defun my-m_kukai-new-post ()
   "Open m_kukai file and insert template."
   (interactive)
   (find-file "~/Dropbox/GH/m_select/tex/mkukai.txt")
-  (my:minoru_sen))
+  (my-minoru_sen))
 
-(defun my:ap-new-post ()
+;;;###autoload
+(defun my-ap-new-post ()
   "Insert ap template at current position."
   (interactive)
   (goto-char (point-min))
@@ -90,7 +97,8 @@
   (forward-line -14)
   (forward-char 1))
 
-(defun my:apvoice-new-post ()
+;;;###autoload
+(defun my-apvoice-new-post ()
   "Open apvoice file and insert template."
   (interactive)
   (find-file (expand-file-name "apvoice.txt" "~/Dropbox/GH/apvoice/"))
@@ -116,7 +124,8 @@
   (forward-line 2)
   (forward-char 11))
 
-(defun my:tselext-new-post ()
+;;;###autoload
+(defun my-tselext-new-post ()
   "Open tselext file and insert template."
   (interactive)
   (find-file (expand-file-name "select.txt" "~/Dropbox/GH/tselext/"))
@@ -164,7 +173,8 @@
   (forward-line 2)
   (forward-char 11))
 
-(defun my:dselext-new-post ()
+;;;###autoload
+(defun my-dselext-new-post ()
   "Open d_selext file and insert template."
   (interactive)
   (find-file (expand-file-name "select.txt" "~/Dropbox/GH/d_selext/"))
@@ -210,7 +220,8 @@
   (forward-line 2)
   (forward-char 11))
 
-(defun my:year-new-post ()
+;;;###autoload
+(defun my-year-new-post ()
   "Insert year entry template at current position."
   (interactive)
   (insert
@@ -238,7 +249,8 @@
    "-))\n"
    "--\n"))
 
-(defun my:haiku-note ()
+;;;###autoload
+(defun my-haiku-note ()
   "Open haiku note file."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
@@ -246,7 +258,8 @@
     (evil-emacs-state))
   (goto-char (point-min)))
 
-(defun my:haiku-note-post ()
+;;;###autoload
+(defun my-haiku-note-post ()
   "Open haiku note file and insert template."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
@@ -261,8 +274,8 @@
   (forward-char 6))
 
 
-(provide 'my:template)
+(provide 'my-template)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; my:template.el ends here
+;;; my-template.el ends here

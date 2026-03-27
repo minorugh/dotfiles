@@ -4,9 +4,9 @@
 ;; (setq debug-on-error t)
 
 (leaf dimmer :ensure t
-  :defun my:dimmer-activate dimmer-process-all
+  :defun my-dimmer-activate dimmer-process-all
   :doc "Visually highlight the selected buffer."
-  :chord ("::" . my:toggle-dimmer)
+  :chord ("::" . my-toggle-dimmer)
   :hook ((emacs-startup-hook       . dimmer-excludes)
 	 (minibuffer-setup-hook     . dimmer-off)
 	 (minibuffer-exit-hook      . dimmer-on)
@@ -30,20 +30,20 @@
     (dimmer-configure-hydra)
     (dimmer-configure-org))
 
-  (defvar my:dimmer-enabled nil
+  (defvar my-dimmer-enabled nil
     "Non-nil when dimmer is active.")
 
-  (defun my:dimmer-activate ()
-    (setq my:dimmer-enabled t)
+  (defun my-dimmer-activate ()
+    (setq my-dimmer-enabled t)
     (dimmer-mode 1)
-    (remove-hook 'window-configuration-change-hook #'my:dimmer-activate))
-  (add-hook 'window-configuration-change-hook #'my:dimmer-activate)
+    (remove-hook 'window-configuration-change-hook #'my-dimmer-activate))
+  (add-hook 'window-configuration-change-hook #'my-dimmer-activate)
 
-  (defun my:toggle-dimmer ()
+  (defun my-toggle-dimmer ()
     "Toggle dimmer-mode on and off."
     (interactive)
     (unless (one-window-p)
-      (if (setq my:dimmer-enabled (not my:dimmer-enabled))
+      (if (setq my-dimmer-enabled (not my-dimmer-enabled))
 	  (dimmer-on)
 	(dimmer-off))))
 
@@ -52,7 +52,7 @@
     (dimmer-mode -1))
 
   (defun dimmer-on ()
-    (when my:dimmer-enabled
+    (when my-dimmer-enabled
       (dimmer-mode 1)
       (dimmer-process-all))))
 

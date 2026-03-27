@@ -18,17 +18,17 @@
 	 (:evil-visual-state-map
 	  (";"        . comment-dwim)
 	  ("c"        . clipboard-kill-ring-save)
-	  ("g"        . my:google-this)
+	  ("g"        . my-google-this)
 	  ("d"        . deepl-translate)
 	  ("t"        . google-translate-auto)
-	  ([muhenkan] . my:return-to-normal-state))
+	  ([muhenkan] . my-return-to-normal-state))
 	 (:evil-motion-state-map
-	  ([muhenkan] . my:return-to-normal-state))
+	  ([muhenkan] . my-return-to-normal-state))
 	 (:evil-replace-state-map
-	  ([muhenkan] . my:return-to-normal-state))
+	  ([muhenkan] . my-return-to-normal-state))
 	 (:evil-emacs-state-map
-	  ([muhenkan] . my:return-to-normal-state)
-	  ([escape]   . my:return-to-normal-state)))
+	  ([muhenkan] . my-return-to-normal-state)
+	  ([escape]   . my-return-to-normal-state)))
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
@@ -52,7 +52,7 @@
   (add-hook 'magit-blame-mode-hook  #'evil-emacs-state)
   (add-hook 'view-mode-hook         #'evil-emacs-state)
 
-  (defun my:return-to-normal-state ()
+  (defun my-return-to-normal-state ()
     "Turn off input-method then return to normal-state."
     (interactive)
     (when (use-region-p) (keyboard-escape-quit))
@@ -119,7 +119,7 @@
     "l" 'recenter-top-bottom
     "h" 'hydra-diff/body
     "j" 'evil-join-whitespace
-    "g" 'my:google-this
+    "g" 'my-google-this
     ":" 'thunar-open
     "f" 'flycheck-list-errors
     "," 'org-capture
