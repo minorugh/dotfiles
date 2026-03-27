@@ -21,13 +21,8 @@
               (package-initialize))
 	    (leaf-keywords-init)))))
 
-
-(leaf textlint
-  :ensure nil
-  :doc "Checker for textlint."
-  :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
-  :after flycheck
-  :config
+;; textlint checker (leafを使わず直接定義)
+(with-eval-after-load 'flycheck
   (flycheck-define-checker textlint
     "A linter for prose."
     :command ("textlint" "--format" "unix" source-inplace)
@@ -38,6 +33,24 @@
                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
               line-end))
     :modes (markdown-mode gfm-mode org-mode web-mode)))
+
+
+;; (leaf textlint
+;;   :ensure nil
+;;   :doc "Checker for textlint."
+;;   :url "https://qiita.com/mhatta/items/8f2aaa4e27c8f5a4c001?utm_source=pocket_shared"
+;;   :after flycheck
+;;   :config
+;;   (flycheck-define-checker textlint
+;;     "A linter for prose."
+;;     :command ("textlint" "--format" "unix" source-inplace)
+;;     :error-patterns
+;;     ((warning line-start (file-name) ":" line ":" column ": "
+;;               (id (one-or-more (not (any " "))))
+;;               (message (one-or-more not-newline)
+;;                        (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+;;               line-end))
+;;     :modes (markdown-mode gfm-mode org-mode web-mode)))
 
 
 (leaf ispell :ensure nil
