@@ -1,4 +1,8 @@
 !! ~/.Xresources
-
 !! Disable XIM when using Emacs
 Emacs*useXIM: false
+
+Xft.dpi: 120
+
+Emacs.background: #282c36
+Emacs.foreground: #f8f8f2

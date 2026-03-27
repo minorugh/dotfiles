@@ -49,7 +49,8 @@
 
 ;; Give the frame basic coloring while waiting for the theme to load.
 ;; These colors are from doom-dracura-theme.
-(set-face-attribute 'default nil :background "#282c36" :foreground "#f8f8f2")
+;; (push '(background-color . "#282c36") default-frame-alist)
+;; (push '(foreground-color . "#f8f8f2") default-frame-alist)
 
 (provide 'early-init)
 ;;; early-init.el ends here

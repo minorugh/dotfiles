@@ -71,7 +71,6 @@
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
-
 (provide 'init)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
