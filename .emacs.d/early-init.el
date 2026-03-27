@@ -47,10 +47,5 @@
 ;; Inhibit startup screen.
 (setq inhibit-startup-message t)
 
-;; Give the frame basic coloring while waiting for the theme to load.
-;; These colors are from doom-dracura-theme.
-;; (push '(background-color . "#282c36") default-frame-alist)
-;; (push '(foreground-color . "#f8f8f2") default-frame-alist)
-
 (provide 'early-init)
 ;;; early-init.el ends here

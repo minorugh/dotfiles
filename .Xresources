@@ -4,5 +4,6 @@ Emacs*useXIM: false
 
 Xft.dpi: 120
 
+!! doom-dracula theme 
 Emacs.background: #282c36
 Emacs.foreground: #f8f8f2
