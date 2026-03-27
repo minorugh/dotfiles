@@ -27,25 +27,15 @@
   (setq magit-revision-show-gravatars nil)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
-(defun my:magit-insert-timestamp ()
-  (when (and (boundp 'git-commit-mode) git-commit-mode)
-    (goto-char (point-min))
-    (when (looking-at "\\s-*$")
-      (insert (format-time-string "manual %Y-%m-%d %H:%M:%S"))
-      (run-with-timer 0.1 nil (lambda ()
-        (execute-kbd-macro (kbd "SPC DEL")))))))
-
-(add-hook 'git-commit-setup-hook #'my:magit-insert-timestamp)
-;; (defun my:magit-insert-timestamp ()
-;;    "Automatic insertion of timestamps into commit message buffers"
-;;   (when (and (boundp 'git-commit-mode) git-commit-mode)
-;;     (goto-char (point-min))
-;;     (when (looking-at "\\s-*$")  ; 最初の行が空のとき
-;;       (insert (format-time-string "manual %Y-%m-%d %H:%M:%S"))
-;;       (goto-char (point-min))
-;;       (end-of-line))))
-
-;; (add-hook 'git-commit-setup-hook #'my:magit-insert-timestamp)
+  (defun my:magit-insert-timestamp ()
+    "Automatic insertion of timestamps into commit message buffers."
+    (when (and (boundp 'git-commit-mode) git-commit-mode)
+      (goto-char (point-min))
+      (when (looking-at "\\s-*$")
+	(insert (format-time-string "manual %Y-%m-%d %H:%M:%S"))
+	(run-with-timer 0.1 nil (lambda ()
+				  (execute-kbd-macro (kbd "SPC DEL")))))))
+  (add-hook 'git-commit-setup-hook #'my:magit-insert-timestamp)
   :preface
   (defun gitk-open ()
     "Open gitk with current dir.
