@@ -5,7 +5,7 @@
 
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
-  :defun magit-display-buffer-fullframe-status-v1
+  :defun my:magit-insert-timestamp magit-display-buffer-fullframe-status-v1
   :bind (("C-x g" . magit-status)
 	 ("M-g"   . hydra-magit/body))
   :hydra
@@ -27,6 +27,15 @@
   (setq magit-revision-show-gravatars nil)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
+  (defun my:magit-insert-timestamp ()
+    "Automatic insertion of timestamps into commit message buffers"
+    (when (and (boundp 'git-commit-mode) git-commit-mode)
+      (goto-char (point-min))
+      (when (looking-at "\\s-*$")
+	(insert (format-time-string "manual %Y-%m-%d %H:%M:%S: "))  ; コロンとスペースで追記しやすく
+	(goto-char (point-min))
+	(end-of-line))))
+  (add-hook 'git-commit-setup-hook #'my:magit-insert-timestamp)
   :preface
   (defun gitk-open ()
     "Open gitk with current dir.
