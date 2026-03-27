@@ -9,20 +9,20 @@
 
 ;;;###autoload
 (defun my-git-show-file ()
-  "過去のコミットからファイルを取り出して ~/Dropbox/backup/tmp/ に保存する."
+  "Extract files from past commits and save in '~/Dropbox/backup/tmp/'."
   (interactive)
   (let* ((root (or (locate-dominating-file default-directory ".git")
-                   (error "git リポジトリが見つかりません")))
+                   (error "Git repository not found")))
          (files
           (split-string
            (shell-command-to-string
             (format "git -C %s ls-files" root)) "\n" t))
-         (file (ivy-read "ファイルを選択: " files))
+         (file (ivy-read "Select File: " files))
          (commits
           (split-string
            (shell-command-to-string
             (format "git -C %s log --oneline -- %s" root file)) "\n" t))
-         (commit (ivy-read "コミットを選択: " commits))
+         (commit (ivy-read "Select Commit: " commits))
          (hash (car (split-string commit " ")))
          (date (string-trim
                 (shell-command-to-string
@@ -36,7 +36,7 @@
     (shell-command
      (format "git -C %s show %s:%s > %s" root hash file dest))
     (dired dest-dir)
-    (message "保存しました: %s" dest)))
+    (message "Saved in: %s" dest)))
 
 (provide 'my-git-show-file)
 ;;; my-git-show-file.el ends here
