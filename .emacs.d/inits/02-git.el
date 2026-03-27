@@ -27,9 +27,8 @@
   (setq magit-revision-show-gravatars nil)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
-   "Automatic insertion of timestamps into commit message buffers"
 (defun my:magit-insert-timestamp ()
-  "コミットメッセージバッファにタイムスタンプを自動挿入"
+   "Automatic insertion of timestamps into commit message buffers"
   (when (and (boundp 'git-commit-mode) git-commit-mode)
     (goto-char (point-min))
     (when (looking-at "\\s-*$")  ; 最初の行が空のとき
