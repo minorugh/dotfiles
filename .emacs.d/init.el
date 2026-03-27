@@ -37,21 +37,23 @@
     (leaf-keywords-init)))
 
 
+;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
+(let ((default-directory "~/.emacs.d/elisp/"))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
+;; Load auto-generated autoloads for custom elisp packages.
+(load "~/.emacs.d/elisp/my-loaddefs.el" t t)
+(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
+
+
 (leaf init-loader
   :ensure t
   :doc "Load inits configuration."
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
-  (init-loader-load)
-  :init
-  (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-  ;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
-  (let ((default-directory "~/.emacs.d/elisp/"))
-    (add-to-list 'load-path default-directory)
-    (normal-top-level-add-subdirs-to-load-path))
-  ;; Load auto-generated autoloads for custom elisp packages.
-  (load "~/.emacs.d/elisp/my-loaddefs.el" t t))
+  (init-loader-load))
+
 
 (leaf server
   :doc "Start Emacs server if not already running."
@@ -60,6 +62,7 @@
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
+
 
 (leaf exec-path-from-shell
   :doc "Inherit shell environment variables including SSH_AUTH_SOCK."
@@ -70,6 +73,7 @@
   ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+
 
 (provide 'init)
 ;; Local Variables:
