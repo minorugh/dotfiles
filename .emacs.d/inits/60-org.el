@@ -5,7 +5,6 @@
 
 (leaf org
   :defun evil-emacs-state
-  :hook (org-capture-mode-hook . my-org-capture-maximize)
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 ("C-c k" . org-capture-kill)
@@ -25,6 +24,7 @@
     "Maximize the org-capture screen."
     (delete-other-windows)
     (evil-emacs-state))
+  (add-hook 'org-capture-mode-hook 'my-org-capture-maximize)
 
   ;; Capture template helper functions
   (defun my-howm-create-file ()

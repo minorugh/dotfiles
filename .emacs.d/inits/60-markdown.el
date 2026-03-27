@@ -10,7 +10,7 @@
 
 (leaf markdown-mode
   :ensure t
-  :defun my-howm-fix--in-code-block-p
+  :defun my-howm-fix--in-code-block-p my-howm-fix-after-super-save my-delete-tmp-markdown-html
   :mode (("README\\.md\\'" . gfm-mode)
 	 ("\\.md\\'"       . markdown-mode))
   :bind (("C-c RET" . markdown-follow-link-at-point)
@@ -19,7 +19,6 @@
 	 ("M-RET"   . markdown-insert-list-item))
   :init
   :config
-  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)  
   (setq markdown-command "pandoc -f markdown+header_attributes-raw_html -t html5"
 	markdown-fontify-code-blocks-natively t ;; コードブロックにハイライト
 	markdown-header-scaling t               ;; 見出しのサイズを段階的に
@@ -73,34 +72,15 @@
    '(markdown-code-face ((t (:inherit nil :background "gray10"))))
    '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
-  ;;   (defun my-howm-fix-code-comments ()
-  ;;     "In code blocks, replace '# ' with '## '.
-  ;; If region is active, process region only (anywhere in buffer).
-  ;; Otherwise process whole file via Perl."
-  ;;     (interactive)
-  ;;     (if (use-region-p)
-  ;; 	(let ((beg (region-beginning))
-  ;;               (end (copy-marker (region-end))))
-  ;;           (save-excursion
-  ;;             (goto-char beg)
-  ;;             (while (< (point) end)
-  ;;               (let ((line (buffer-substring-no-properties
-  ;;                            (line-beginning-position) (line-end-position))))
-  ;; 		(when (string-match "^# " line)
-  ;;                   (delete-region (line-beginning-position) (line-end-position))
-  ;;                   (insert (replace-regexp-in-string "^# " "## " line))))
-  ;;               (forward-line 1)))
-  ;;           (set-marker end nil)
-  ;;           (message "howm-fix-code-comments: region done"))
-  ;;       (when (and buffer-file-name
-  ;; 		 (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
-  ;;                                buffer-file-name))
-  ;; 	(call-process "perl" nil nil nil
-  ;;                       (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
-  ;;                       buffer-file-name)
-  ;; 	(revert-buffer t t t)
-  ;; 	(message "howm-fix-code-comments: done"))))
-  
+  (defun my-howm-fix-after-super-save (&rest _)
+    (when (and (eq major-mode 'howm-mode)
+               (buffer-file-name))
+      (message "howm-fix running: %s" (buffer-file-name))
+      (shell-command
+       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
+               (shell-quote-argument (buffer-file-name))))))
+  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
+
   (defun my-delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when killed markdown buffer."
     (when (and (derived-mode-p 'markdown-mode)
@@ -110,16 +90,7 @@
 	  (when (file-exists-p file)
 	    (delete-file file)
 	    (message "Deleted temporary file: %s" file))))))
-
-  ;;   (defun gen-toc-term ()
-  ;;     "Run gen_toc.pl for current Markdown file in gnome-terminal."
-  ;;     (interactive)
-  ;;     (when (string-match-p "\\.md\\'" (buffer-file-name))
-  ;;       (save-buffer)
-  ;;       (start-process
-  ;;        "gentoc" nil "gnome-terminal" "--" "bash" "-c"
-  ;;        (format "perl ~/.emacs.d/elisp/gen_toc.pl %s; read"
-  ;;                (shell-quote-argument (buffer-file-name))))))
+  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
   (defun md2pdf ()
     "Generate PDF from currently open markdown via pandoc + lualatex."

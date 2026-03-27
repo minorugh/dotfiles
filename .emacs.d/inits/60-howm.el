@@ -54,17 +54,8 @@
   (defun my-howm-create-tech ()
     "Create tech note."
     (interactive)
-    (my-howm-create-note 3))
+    (my-howm-create-note 3)))
 
-  (defun my-howm-fix-after-super-save (&rest _)
-    (when (and (eq major-mode 'howm-mode)
-               (buffer-file-name))
-      (message "howm-fix running: %s" (buffer-file-name))
-      (shell-command
-       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
-               (shell-quote-argument (buffer-file-name))))))
-
-  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

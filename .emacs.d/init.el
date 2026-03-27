@@ -36,6 +36,7 @@
     :config
     (leaf-keywords-init))
 
+  
   (leaf init-loader
     :ensure t
     :doc "Load inits configuration."
