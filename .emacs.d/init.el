@@ -45,11 +45,6 @@
 (load "~/.emacs.d/elisp/my-loaddefs.el" t t)
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
-;; my-loaddefs.el の末尾に追加
-(with-eval-after-load 'git-peek
-  (advice-add 'ivy-next-line     :after (lambda (&rest _) (git-peek--do-preview)))
-  (advice-add 'ivy-previous-line :after (lambda (&rest _) (git-peek--do-preview))))
-
 (leaf init-loader
   :ensure t
   :doc "Load inits configuration."

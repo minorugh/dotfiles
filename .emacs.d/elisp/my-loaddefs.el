@@ -476,9 +476,9 @@ See also function `tempbuf-mode'.")
 ;;; End of scraped data
 
 ;; my-loaddefs.el の末尾に追加
-(with-eval-after-load 'git-peek
-  (advice-add 'ivy-next-line     :after (lambda (&rest _) (git-peek--do-preview)))
-  (advice-add 'ivy-previous-line :after (lambda (&rest _) (git-peek--do-preview))))
+;; (with-eval-after-load 'git-peek
+;;   (advice-add 'ivy-next-line     :after (lambda (&rest _) (git-peek--do-preview)))
+;;   (advice-add 'ivy-previous-line :after (lambda (&rest _) (git-peek--do-preview))))
 
 
 (provide 'my-loaddefs)
