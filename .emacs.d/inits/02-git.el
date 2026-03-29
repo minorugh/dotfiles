@@ -26,7 +26,7 @@
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
   ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-  (remove-hook 'server-switch-hook 'magit-commit-diff)
+  ;; (remove-hook 'server-switch-hook 'magit-commit-diff)
   (defun my:magit-insert-timestamp ()
     "Automatic insertion of timestamps into commit message buffers."
     (when (and (boundp 'git-commit-mode) git-commit-mode)

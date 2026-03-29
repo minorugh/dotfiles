@@ -10,22 +10,6 @@
   (setq doom-themes-enable-italic nil)
   (doom-themes-org-config))
 
-(eval-after-load "diff-mode"
-  '(progn
-     ;; 追加された行の色（薄い緑）
-     (set-face-attribute 'diff-added nil
-                         :foreground "green4" :background "white")
-     ;; 削除された行の色（薄い赤）
-     (set-face-attribute 'diff-removed nil
-                         :foreground "red4" :background "white")
-     ;; ヘッダー部分の色
-     (set-face-attribute 'diff-header nil
-                         :foreground "blue" :background "lightgrey")
-     (set-face-attribute 'diff-file-header nil
-                         :foreground "blue" :background "lightgrey")))
-
-;; (setq diff-font-lock-keywords nil)
-
 (leaf hl-line :ensure nil
   :tag "builtin"
   :doc "Highlight the current line."
@@ -37,8 +21,8 @@
    '(region  ((t (:background "#6272a4" :extend t))))
    '(hl-line ((t (:background "#3B4252" :extend t))))
    ;; diff-mode の削除行を見やすく
-   ;; '(diff-removed ((t (:foreground "#ff8080" :background "#3d1f1f"))))
-   ;; '(diff-indicator-removed ((t (:foreground "#ff5555"))))
+   '(diff-removed ((t (:foreground "#ff8080" :background "#3d1f1f"))))
+   '(diff-indicator-removed ((t (:foreground "#ff5555"))))
    ))
 
    (leaf doom-modeline :ensure t
