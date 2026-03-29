@@ -54,7 +54,7 @@
    ("F" my-dselext-new-post)
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
-   ("q" iedit--quit)
+   ("q" top-level)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init

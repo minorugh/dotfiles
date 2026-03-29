@@ -74,12 +74,11 @@ go: ## Go 言語のインストール（v1.23.2）
 	sudo rm -rf /usr/local/go
 	sudo tar -C /usr/local -xzf go1.23.2.linux-amd64.tar.gz
 	rm go1.23.2.linux-amd64.tar.gz
-# export PATH=$PATH:/usr/local/go/bin を .zshrc に追加すること
+# PATH設定は .zshrc に記載済み（make init でシンボリックリンク展開後に有効）
 
 ghq: ## ghq のインストール（リポジトリ管理ツール）
 	go install github.com/x-motemen/ghq@latest
-# go 1.23 以上が必要
-# export PATH=$PATH:$HOME/go/bin を .zshrc に追加すること
+# go 1.23 以上が必要（make go を先に実行すること）
 
 hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 	cd ${HOME}/Downloads && \
@@ -382,6 +381,9 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/upsftp.git
 	git clone git@github.com:minorugh/gpgimport.git
 	git clone git@github.com:minorugh/vim-cheat.git
+	git clone git@github.com:minorugh/git-peek.git
+	ln -vsfn ${HOME}/src/github.com/minorugh/git-peek \
+	${HOME}/.emacs.d/elisp/git-peek
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
 ########################################################

@@ -17,6 +17,7 @@
 	 ("o"       . dired-open-file)
 	 ("["       . dired-hide-details-mode)
 	 ("a"       . dired-omit-mode)
+	 ("."       . gitk-open)
 	 ("i"       . call-sxiv))
   :config
   (setq dired-dwim-target t)

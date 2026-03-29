@@ -142,14 +142,8 @@ Open haiku note file and insert template." t)
 ;;; Generated autoloads from git-peek/git-peek.el
 
 (autoload 'git-peek "git-peek/git-peek" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
+Extract files from past commits and save in ~/Dropbox/backup/tmp/.
+Preview updates in real-time as cursor moves.  RET to save." t)
 
 (register-definition-prefixes "git-peek/git-peek" '("git-peek-"))
 
@@ -474,12 +468,6 @@ See also function `tempbuf-mode'.")
 ;;;***
 
 ;;; End of scraped data
-
-;; my-loaddefs.el の末尾に追加
-(with-eval-after-load 'git-peek
-  (advice-add 'ivy-next-line     :after (lambda (&rest _) (git-peek--do-preview)))
-  (advice-add 'ivy-previous-line :after (lambda (&rest _) (git-peek--do-preview))))
-
 
 (provide 'my-loaddefs)
 
