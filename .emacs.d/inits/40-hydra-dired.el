@@ -48,6 +48,7 @@
    ("]" my-magit-status)
    ("s" (my-open "~/src/"))
    ("g" git-peek)
+   ("G" git-peek-deleted)
    ("t" my-tig)
    ("n" neomutt)
    ("x" my-reload-keychain)
