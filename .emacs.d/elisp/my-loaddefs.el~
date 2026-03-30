@@ -154,200 +154,20 @@ Show diagnostic info about the current git-peek session in *Messages*." t)
 
 ;;;***
 
-;;;### (autoloads nil "git-peek/git-peek.6.8" "git-peek/git-peek.6.8.el"
+;;;### (autoloads nil "git-peek/git-peek.v1.0.0" "git-peek/git-peek.v1.0.0.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.6.8.el
+;;; Generated autoloads from git-peek/git-peek.v1.0.0.el
 
-(autoload 'git-peek "git-peek/git-peek.6.8" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.6.8" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.6.8" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.7.1" "git-peek/git-peek.7.1.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.7.1.el
-
-(autoload 'git-peek "git-peek/git-peek.7.1" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.7.1" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.7.1" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.debug" "git-peek/git-peek.debug.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.debug.el
-
-(autoload 'git-peek "git-peek/git-peek.debug" "\
+(autoload 'git-peek "git-peek/git-peek.v1.0.0" "\
 Browse past versions of files in the current git repository." t)
 
-(autoload 'git-peek-deleted "git-peek/git-peek.debug" "\
+(autoload 'git-peek-deleted "git-peek/git-peek.v1.0.0" "\
 Browse past versions of deleted files in the current git repository." t)
 
-(autoload 'git-peek-debug "git-peek/git-peek.debug" "\
+(autoload 'git-peek-debug "git-peek/git-peek.v1.0.0" "\
 Show diagnostic info about the current git-peek session in *Messages*." t)
 
-(register-definition-prefixes "git-peek/git-peek.debug" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v6.9" "git-peek/git-peek.v6.9.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v6.9.el
-
-(autoload 'git-peek "git-peek/git-peek.v6.9" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v6.9" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.v6.9" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v7.0" "git-peek/git-peek.v7.0.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v7.0.el
-
-(autoload 'git-peek "git-peek/git-peek.v7.0" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v7.0" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.v7.0" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v7.2" "git-peek/git-peek.v7.2.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v7.2.el
-
-(autoload 'git-peek "git-peek/git-peek.v7.2" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v7.2" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.v7.2" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v7.3" "git-peek/git-peek.v7.3.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v7.3.el
-
-(autoload 'git-peek "git-peek/git-peek.v7.3" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v7.3" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.v7.3" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v7.4" "git-peek/git-peek.v7.4.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v7.4.el
-
-(autoload 'git-peek "git-peek/git-peek.v7.4" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v7.4" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
-
-(register-definition-prefixes "git-peek/git-peek.v7.4" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v9.0" "git-peek/git-peek.v9.0.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v9.0.el
-
-(autoload 'git-peek "git-peek/git-peek.v9.0" "\
-Browse past versions of files in the current git repository." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v9.0" "\
-Browse past versions of deleted files in the current git repository." t)
-
-(register-definition-prefixes "git-peek/git-peek.v9.0" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v9.2" "git-peek/git-peek.v9.2.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v9.2.el
-
-(autoload 'git-peek "git-peek/git-peek.v9.2" "\
-Browse past versions of files in the current git repository." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v9.2" "\
-Browse past versions of deleted files in the current git repository." t)
-
-(register-definition-prefixes "git-peek/git-peek.v9.2" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-peek/git-peek.v9.3" "git-peek/git-peek.v9.3.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-peek/git-peek.v9.3.el
-
-(autoload 'git-peek "git-peek/git-peek.v9.3" "\
-Browse past versions of files in the current git repository." t)
-
-(autoload 'git-peek-deleted "git-peek/git-peek.v9.3" "\
-Browse past versions of deleted files in the current git repository." t)
-
-(register-definition-prefixes "git-peek/git-peek.v9.3" '("git-peek-"))
-
-;;;***
-
-;;;### (autoloads nil "git-show-file/my-git-show-file" "git-show-file/my-git-show-file.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-show-file/my-git-show-file.el
-
-(autoload 'my-git-show-file "git-show-file/my-git-show-file" "\
-Extract files from past commits and save in ~/Dropbox/backup/tmp/.
-Preview updates in real-time as cursor moves.  RET to save." t)
-
-(register-definition-prefixes "git-show-file/my-git-show-file" '("my-git-show-file-"))
+(register-definition-prefixes "git-peek/git-peek.v1.0.0" '("git-peek-"))
 
 ;;;***
 

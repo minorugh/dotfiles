@@ -12,7 +12,7 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_ourc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  fzilla._9_._0_._-_  capture_,_
-  _r_estart  magit_[__]_  _n_mutt  GH._h__j_  .i_o_  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
+  _r_estart  Git:_[_._]_  _n_mutt  GH._h__j_  .i_o_  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
 "
    ("f" flycheck-list-errors)
    ("9" fzilla-s)
@@ -44,8 +44,8 @@
    ("u" (my-make "up"))
    ("/" my-open-root)
    ("_" delete-other-windows)
-   ("[" my-git-show-file)
-   ("]" my-magit-status)
+   ("[" git-peek)
+   ("]" my-make-git)
    ("s" (my-open "~/src/"))
    ("g" git-peek)
    ("G" git-peek-deleted)
@@ -68,6 +68,16 @@
           (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
             (setenv (match-string 1) (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2))))))
       (message "Keychain reloaded in Emacs!")))
+
+  (defun my-make-git ()
+    "Run 'make git' in the repository root of the current buffer."
+    (interactive)
+    (let ((root (locate-dominating-file
+		 (or buffer-file-name default-directory) "Makefile")))
+      (if root
+          (let ((default-directory root))
+            (compile "make git"))
+	(message "Makefile not found"))))
 
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."

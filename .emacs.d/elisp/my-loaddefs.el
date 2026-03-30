@@ -154,18 +154,6 @@ Show diagnostic info about the current git-peek session in *Messages*." t)
 
 ;;;***
 
-;;;### (autoloads nil "git-show-file/my-git-show-file" "git-show-file/my-git-show-file.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from git-show-file/my-git-show-file.el
-
-(autoload 'my-git-show-file "git-show-file/my-git-show-file" "\
-Extract files from past commits and save in ~/Dropbox/backup/tmp/.
-Preview updates in real-time as cursor moves.  RET to save." t)
-
-(register-definition-prefixes "git-show-file/my-git-show-file" '("my-git-show-file-"))
-
-;;;***
-
 ;;;### (autoloads nil "key-chord/key-chord" "key-chord/key-chord.el"
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from key-chord/key-chord.el
