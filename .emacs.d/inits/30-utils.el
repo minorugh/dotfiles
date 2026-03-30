@@ -34,10 +34,10 @@
   :config
   (setq viewer-modeline-color-view "#852941"))
 
-(leaf popwin
-  :ensure t
-  :doc "Popup window manager for Emacs."
-  :hook (after-init-hook . popwin-mode))
+  (leaf popwin
+    :ensure t
+    :doc "Popup window manager for Emacs."
+    :hook (after-init-hook . popwin-mode))
 
 (leaf tempbuf
   :doc "Auto kill unused buffers in the background.

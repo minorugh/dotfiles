@@ -120,6 +120,7 @@
 	(message "Can't magit in Dashboard!")
       (magit-status-setup-buffer))))
 
+(setq git-peek-preview-height 1.0)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings)

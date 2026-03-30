@@ -142,14 +142,13 @@ Open haiku note file and insert template." t)
 ;;; Generated autoloads from git-peek/git-peek.el
 
 (autoload 'git-peek "git-peek/git-peek" "\
-Browse past versions of files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
+Browse past versions of files in the current git repository." t)
 
 (autoload 'git-peek-deleted "git-peek/git-peek" "\
-Browse past versions of deleted files in the current git repository.
-Cursor movement in commit list updates preview in real-time.
-RET to save the selected version." t)
+Browse past versions of deleted files in the current git repository." t)
+
+(autoload 'git-peek-debug "git-peek/git-peek" "\
+Show diagnostic info about the current git-peek session in *Messages*." t)
 
 (register-definition-prefixes "git-peek/git-peek" '("git-peek-"))
 
