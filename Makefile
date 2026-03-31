@@ -60,6 +60,19 @@ init: ## dotfiles のシンボリックリンク展開
 keymap: ## キーマップのカスタマイズ（Xmodmap）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
 
+keyd: ## keyd のインストールと設定（PrtSc→Alt_R / CapsLock→Ctrl）
+	$(APT) git build-essential
+	cd ${HOME}/src && \
+	git clone https://github.com/rvaiya/keyd && \
+	cd keyd && \
+	make && \
+	sudo make install
+	sudo ln -vsf ${PWD}/etc/keyd/default.conf /etc/keyd/default.conf
+	sudo systemctl enable keyd
+	sudo systemctl start keyd
+# xmodmap の cron 2行（毎分実行）は cron/crontab から削除すること
+# make keymap は不要になるが .Xmodmap は念のため残しておく
+
 ifeq ($(shell uname -n),P1)
 grub: ## grub・lightdm・logind の設定（P1のみ）
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
