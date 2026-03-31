@@ -35,3 +35,6 @@ compile: ## Regenerate my-loaddefs.el using update-directory-autoloads
 	          (file-expand-wildcards \"$(ELISP_DIR)/*/\"))))))" \
 	  --eval "(message \"Done: %s\" \"$(LOADDEFS)\")"
 	@echo "Done."
+
+git:
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/dotfiles git

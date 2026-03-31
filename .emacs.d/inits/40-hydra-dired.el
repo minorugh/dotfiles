@@ -47,7 +47,7 @@
    ("[" git-peek)
    ("]" my-make-git)
    ("s" (my-open "~/src/"))
-   ("g" git-peek)
+   ("g" (browse-url "http://localhost:3000/minoru"))
    ("G" git-peek-deleted)
    ("t" my-tig)
    ("n" neomutt)

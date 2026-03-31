@@ -28,3 +28,4 @@
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 # xmodmap 実行（毎分）
 * * * * * DISPLAY=:0 /usr/bin/xmodmap /home/minoru/.Xmodmap >> /tmp/xmodmap.log 2>&1
+* * * * * sleep 30; DISPLAY=:0 /usr/bin/xmodmap /home/minoru/.Xmodmap >> /tmp/xmodmap.log 2>&1
