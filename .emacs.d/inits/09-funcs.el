@@ -47,12 +47,16 @@ Otherwise: git-peek quit → minibuffer quit → deactivate mark
     (interactive)
     (cond
      ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-     ((minibuffer-window-active-p (selected-window)) (minibuffer-keyboard-quit))
-     ((evil-normal-state-p)             (evil-insert-state))
-     ((use-region-p)                    (deactivate-mark))
-     (current-input-method              (deactivate-input-method))
-     (t                                 (evil-normal-state)
-					(message "-- NORMAL --"))))
+     ((minibuffer-window-active-p (selected-window))
+      (minibuffer-keyboard-quit))
+     ((evil-normal-state-p)
+      (evil-insert-state))
+     ((use-region-p)
+      (deactivate-mark))
+     (current-input-method
+      (deactivate-input-method))
+     (t (evil-normal-state)
+	(message "-- NORMAL --"))))
   (bind-key "<muhenkan>" #'my-muhenkan))
 
 
