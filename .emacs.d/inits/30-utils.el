@@ -27,12 +27,12 @@
   (setq counsel-tramp-custom-connections
 	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
-;; (leaf viewer
-;;   :ensure t
-;;   :after view
-;;   :hook (view-mode-hook . viewer-change-modeline-color-setup)
-;;   :config
-;;   (setq viewer-modeline-color-view "#852941"))
+(leaf viewer
+  :ensure t
+  :after view
+  :hook (view-mode-hook . viewer-change-modeline-color-setup)
+  :config
+  (setq viewer-modeline-color-view "#852941"))
 
 (leaf popwin
   :ensure t

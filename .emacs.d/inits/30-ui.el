@@ -33,17 +33,18 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode   0)
   (column-number-mode 0)
-  :preface
-  ;; For view-mode
-  (defvar my-view-modeline-color-default nil)
-  (add-hook 'view-mode-hook
-            (lambda ()
-	      (if view-mode
-                  (progn
-                    (setq my-view-modeline-color-default (face-background 'mode-line))
-                    (set-face-background 'mode-line "#852941"))
-		(when my-view-modeline-color-default
-                  (set-face-background 'mode-line my-view-modeline-color-default))))))
+  ;; :preface
+  ;; ;; For view-mode
+  ;; (defvar my-view-modeline-color-default nil)
+  ;; (add-hook 'view-mode-hook
+  ;;           (lambda ()
+  ;; 	      (if view-mode
+  ;;                 (progn
+  ;;                   (setq my-view-modeline-color-default (face-background 'mode-line))
+  ;;                   (set-face-background 'mode-line "#852941"))
+  ;; 		(when my-view-modeline-color-default
+  ;;                 (set-face-background 'mode-line my-view-modeline-color-default)))))
+  )
 
 (leaf hide-mode-line :ensure t
   :doc "Hides the mode-line in current buffer."

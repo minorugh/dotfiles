@@ -19,45 +19,38 @@
 (setq compilation-finish-functions #'compile-autoclose)
 
 
-(leaf *my-muhenkan
-  :after evil
-  :config
-  (defun git-peek-emergency-quit ()
-    "Force quit git-peek session and restore the previous window configuration.
+(defun git-peek-emergency-quit ()
+  "Force quit git-peek session and restore the previous window configuration.
 Restores modeline color, re-enables dimmer-mode if it was active, and kills
 all git-peek buffers."
-    (interactive)
-    (when git-peek--preview-modeline-cookie
-      (set-face-background 'mode-line git-peek--modeline-color-default)
-      (setq git-peek--preview-modeline-cookie nil))
-    (when (and git-peek--dimmer-was-on (fboundp 'dimmer-mode))
-      (dimmer-mode 1))
-    (when git-peek--saved-wconf
-      (set-window-configuration git-peek--saved-wconf)
-      (setq git-peek--saved-wconf nil))
-    (dolist (bname '("*git-peek-commits*" "*git-peek-preview*"))
-      (when (get-buffer bname) (kill-buffer bname)))
-    (message "git-peek: emergency quit"))
+  (interactive)
+  (when git-peek--preview-modeline-cookie
+    (set-face-background 'mode-line git-peek--modeline-color-default)
+    (setq git-peek--preview-modeline-cookie nil))
+  (when (and git-peek--dimmer-was-on (fboundp 'dimmer-mode))
+    (dimmer-mode 1))
+  (when git-peek--saved-wconf
+    (set-window-configuration git-peek--saved-wconf)
+    (setq git-peek--saved-wconf nil))
+  (dolist (bname '("*git-peek-commits*" "*git-peek-preview*"))
+    (when (get-buffer bname) (kill-buffer bname)))
+  (message "git-peek: emergency quit"))
 
-  (defun my-muhenkan ()
-    "Muhenkan key handler: toggle evil state or rescue from any situation.
+
+(defun my-muhenkan ()
+  "Muhenkan key handler: toggle evil state or rescue from any situation.
 In evil normal state: switch to insert state.
 Otherwise: git-peek quit → minibuffer quit → deactivate mark
 → deactivate input method → return to evil normal state."
-    (interactive)
-    (cond
-     ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-     ((minibuffer-window-active-p (selected-window))
-      (minibuffer-keyboard-quit))
-     ((evil-normal-state-p)
-      (evil-insert-state))
-     ((use-region-p)
-      (deactivate-mark))
-     (current-input-method
-      (deactivate-input-method))
-     (t (evil-normal-state)
-	(message "-- NORMAL --"))))
-  (bind-key "<muhenkan>" #'my-muhenkan))
+  (interactive)
+  (cond
+   ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
+   ((minibuffer-window-active-p (selected-window)) (minibuffer-keyboard-quit))
+   ((evil-normal-state-p) (evil-insert-state))
+   ((use-region-p) (deactivate-mark))
+   (current-input-method (deactivate-input-method))
+   (t (evil-normal-state) (message "-- NORMAL --"))))
+(bind-key "<muhenkan>" #'my-muhenkan)
 
 
 ;;; ps-print / ps-mule (builtin)
