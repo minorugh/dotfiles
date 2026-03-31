@@ -221,7 +221,6 @@ alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/
 alias sftp='sftp -oPort=10022 minorugh@minorugh.xsrv.jp'
 alias xsrv='ssh xsrv'
 alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
-alias xmod='xmodmap /home/minoru/.Xmodmap'
 
 # Rclone
 alias syncdrive='time rclone sync ${HOME}/Dropbox/Documents onedrive:Documents'
@@ -233,7 +232,6 @@ alias mutt='/usr/local/bin/neomutt.sh'
 
 # vim
 alias v='vim'
-alias sv='sudo vim'
 
 # emacs
 alias e='emacs'
