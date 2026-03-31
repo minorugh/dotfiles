@@ -57,6 +57,16 @@ init: ## dotfiles のシンボリックリンク展開
 	done
 	ln -vsf {${PWD},${HOME}}/.config/hub
 
+HOSTNAME := $(shell hostname)
+
+init-sub:
+ifeq ($(HOSTNAME),x250)
+	git -C ~/src/github.com/minorugh/dotfiles remote set-url --push origin no-push
+	@echo "サブ機push封鎖完了"
+else
+	@echo "これはサブ機専用の処理です"
+endif
+
 keymap: ## キーマップのカスタマイズ（Xmodmap）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
 # keyd で解決できないものもあるので .Xmodmap は残しておく
