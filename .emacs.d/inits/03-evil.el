@@ -7,12 +7,12 @@
   :hook (after-init-hook . evil-mode)
   ;; [muhenkan] = my-muhenkan (defined in 09-funcs.el)
   ;; Toggles evil state or rescues from any situation:
-  ;;   git-peek running    → emergency quit
-  ;;   minibuffer active   → minibuffer-keyboard-quit
-  ;;   evil normal state   → switch to emacs/insert state
-  ;;   region active       → deactivate mark
-  ;;   input method active → deactivate input method
-  ;;   otherwise           → return to evil normal state
+  ;; git-peek running    → emergency quit
+  ;; minibuffer active   → minibuffer-keyboard-quit
+  ;; evil normal state   → switch to emacs/insert state
+  ;; region active       → deactivate mark
+  ;; input method active → deactivate input method
+  ;; otherwise           → return to evil normal state
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)

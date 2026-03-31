@@ -12,9 +12,9 @@ fi
 echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
 
 # .Xmodmap が存在する場合は読み込む
-if [ -f ~/.Xmodmap ]; then
-    xmodmap ~/.Xmodmap
-fi
+# if [ -f ~/.Xmodmap ]; then
+#     xmodmap ~/.Xmodmap
+# fi
 
 #------------------------------------------------------------
 # SSH agent (keychain)

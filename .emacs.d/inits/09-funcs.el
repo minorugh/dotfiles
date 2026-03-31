@@ -40,16 +40,20 @@ all git-peek buffers."
 (defun my-muhenkan ()
   "Muhenkan key handler: toggle evil state or rescue from any situation.
 In evil normal state: switch to insert state.
-Otherwise: git-peek quit → minibuffer quit → deactivate mark
-→ deactivate input method → return to evil normal state."
+Otherwise: git-peek quit → minibuffer quit (top-level fallback)
+→ deactivate mark → deactivate input method → return to evil normal state."
   (interactive)
   (cond
    ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-   ((minibuffer-window-active-p (selected-window)) (minibuffer-keyboard-quit))
+   ((minibuffer-window-active-p (selected-window))
+    (minibuffer-keyboard-quit)
+    (when (minibuffer-window-active-p (selected-window))
+      (top-level)))
    ((evil-normal-state-p) (evil-insert-state))
    ((use-region-p) (deactivate-mark))
    (current-input-method (deactivate-input-method))
    (t (evil-normal-state) (message "-- NORMAL --"))))
+
 (bind-key "<muhenkan>" #'my-muhenkan)
 
 
