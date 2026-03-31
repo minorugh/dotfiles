@@ -473,5 +473,5 @@ mattermost-restore-db: ## 【Step3】DBをDropboxのmattermost.sqlからリス�
 ## 日次 auto-commit + push
 git:
 	git add -A
-	git diff --cached --quiet || git commit -m "auto: `date +%Y-%m-%d %H:%M:%S`"
+	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 	git push
