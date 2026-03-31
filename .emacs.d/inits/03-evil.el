@@ -4,8 +4,15 @@
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
-  :defun evil-ex-define-cmd evil-normal-state evil-swap-key
   :hook (after-init-hook . evil-mode)
+  ;; [muhenkan] = my-muhenkan (defined in 09-funcs.el)
+  ;; Toggles evil state or rescues from any situation:
+  ;;   git-peek running    → emergency quit
+  ;;   minibuffer active   → minibuffer-keyboard-quit
+  ;;   evil normal state   → switch to emacs/insert state
+  ;;   region active       → deactivate mark
+  ;;   input method active → deactivate input method
+  ;;   otherwise           → return to evil normal state
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)
@@ -13,7 +20,7 @@
 	  ("C-w"      . evil-delete-backward-word)
 	  ("SPC"      . set-mark-command)
 	  ("_"        . evil-visual-line)
-          ([muhenkan] . evil-insert)
+          ([muhenkan] . my-muhenkan)
 	  ([home]     . dashboard-toggle))
 	 (:evil-visual-state-map
 	  (";"        . comment-dwim)
@@ -21,14 +28,14 @@
 	  ("g"        . my-google-this)
 	  ("d"        . deepl-translate)
 	  ("t"        . google-translate-auto)
-	  ([muhenkan] . my-return-to-normal-state))
+	  ([muhenkan] . my-muhenkan))
 	 (:evil-motion-state-map
-	  ([muhenkan] . my-return-to-normal-state))
+	  ([muhenkan] . my-muhenkan))
 	 (:evil-replace-state-map
-	  ([muhenkan] . my-return-to-normal-state))
+	  ([muhenkan] . my-muhenkan))
 	 (:evil-emacs-state-map
-	  ([muhenkan] . my-return-to-normal-state)
-	  ([escape]   . my-return-to-normal-state)))
+	  ([muhenkan] . my-muhenkan)
+	  ([escape]   . my-muhenkan)))
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
@@ -52,14 +59,6 @@
   (add-hook 'magit-blame-mode-hook  #'evil-emacs-state)
   (add-hook 'view-mode-hook         #'evil-emacs-state)
 
-  (defun my-return-to-normal-state ()
-    "Turn off input-method then return to normal-state."
-    (interactive)
-    (when (use-region-p) (keyboard-escape-quit))
-    (when current-input-method (deactivate-input-method))
-    (evil-normal-state)
-    (message "-- NORMAL --"))
-
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
     (let ((def1 (lookup-key map key1))
@@ -78,7 +77,6 @@
 
 (leaf evil-leader :ensure t
   :doc "Free keymap on evil-mode."
-  :defun evil-leader/set-leader evil-emacs-state ad:switch-to-buffer
   :hook (after-init-hook . global-evil-leader-mode)
   :init
   (defun vim-cheat-sheet ()
@@ -142,6 +140,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 03-evil.el ends here

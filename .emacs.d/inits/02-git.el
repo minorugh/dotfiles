@@ -5,7 +5,6 @@
 
 (leaf magit :ensure t
   :doc "A Git porcelain inside Emacs"
-  :defun my:magit-insert-timestamp magit-display-buffer-fullframe-status-v1
   :bind (("C-x g" . magit-status)
 	 ("M-g"   . gitk-open))
   :config
@@ -39,6 +38,6 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 02-git.el ends here

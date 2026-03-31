@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf mozc :ensure t
-  :defun evil-insert-state mozc-handle-event
   :bind* ("<hiragana-katakana>" . my-toggle-input-method)
   :bind (("s-m" . my-mozc-config)
 	 ("s-d" . my-mozc-word-regist)
@@ -73,6 +72,6 @@
 ;; ---------------------------------------------------------------------
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 06-mozc.el ends here

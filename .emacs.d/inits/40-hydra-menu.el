@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-work
-  :defun my-make my-open evil-emacs-state dired-omit-mode
   :bind (("<f3>" . terminal-open)
 	 ("<f4>" . xsrv-gh)
 	 ("<f6>" . thunar-open)
@@ -127,6 +126,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars docstrings)
+;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
 ;;; 40-hydra-menu.el ends here

@@ -4,8 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :defun dired-get-filename dired-find-alternate-file dired-find-file
-  dired-current-directory dired-goto-subdir dired-goto-file
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 	 (dired-mode-hook  . dired-omit-mode))
   :bind (:dired-mode-map
@@ -78,6 +76,6 @@ see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 50-dired.el ends here

@@ -7,7 +7,6 @@
   :ensure t
   :doc "Write blogs made with hugo in evil-mode."
   :url "https://github.com/masasam/emacs-easy-hugo"
-  :defun evil-emacs-state my-easy-hugo-newpost-after
   :bind ((:easy-hugo-mode-map
 	  ("<tab>" . easy-hugo-no-help)
 	  ("o"     . easy-hugo-open-basedir)
@@ -78,6 +77,6 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
   (advice-add 'easy-hugo-newpost :after #'my-easy-hugo-newpost-after))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 90-easy-hugo.el ends here

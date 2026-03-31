@@ -7,7 +7,6 @@
   :ensure t
   :doc "An extracted startup screen"
   :if (display-graphic-p)
-  :defun nerd-icons-octicon dashboard-refresh-buffer dashboard-goto-recent-files
   :hook ((emacs-startup-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
   :bind ([home] . dashboard-toggle)
@@ -64,8 +63,7 @@
 	      (lambda (_) (format "%.3f seconds"
 				  (float-time (time-subtract after-init-time before-init-time))))))
 
-
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 01-dashboard.el ends here

@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf org
-  :defun evil-emacs-state
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
 	 ("C-c k" . org-capture-kill)
@@ -76,6 +75,6 @@
   (setq calendar-mark-holidays-flag t))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 60-org.el ends here

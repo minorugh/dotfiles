@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf dimmer :ensure t
-  :defun my-dimmer-activate dimmer-process-all
   :doc "Visually highlight the selected buffer."
   :chord ("::" . my-toggle-dimmer)
   :hook ((emacs-startup-hook       . dimmer-excludes)
@@ -57,6 +56,6 @@
       (dimmer-process-all))))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 08-dimmer.el ends here

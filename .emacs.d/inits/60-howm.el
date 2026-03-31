@@ -6,7 +6,6 @@
 (leaf howm :ensure t
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
-  :defun howm-create my-howm-create-note evil-insert-state my-howm-fix-after-super-save
   :hook (emacs-startup-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
@@ -58,6 +57,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 60-howm.el ends here

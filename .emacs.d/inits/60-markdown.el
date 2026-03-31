@@ -10,7 +10,6 @@
 
 (leaf markdown-mode
   :ensure t
-  :defun my-howm-fix--in-code-block-p my-howm-fix-after-super-save my-delete-tmp-markdown-html
   :mode (("README\\.md\\'" . gfm-mode)
 	 ("\\.md\\'"       . markdown-mode))
   :bind (("C-c RET" . markdown-follow-link-at-point)
@@ -118,6 +117,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 60-markdown.el ends here

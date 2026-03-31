@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-dired
-  :defun my-make my-open dired-omit-mode
   :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired
@@ -23,7 +22,7 @@
    ("p" keepassxc)
    ("l" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/"))
-   ("q" top-level)
+   ("q" (top-level))
    ("<home>" my-open-user)
    ("." my-open-dotfiles)
    ("d" (my-open "~/Dropbox/"))
@@ -133,6 +132,6 @@
 (setq git-peek-preview-height 1.0)
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars docstrings)
+;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
 ;;; 40-hydra-dired.el ends here

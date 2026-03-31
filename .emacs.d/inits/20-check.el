@@ -5,7 +5,6 @@
 
 (leaf flycheck :ensure t
   :doc "On-the-fly syntax checking."
-  :defun flycheck-sexp-to-string
   :hook ((prog-mode-hook . flycheck-mode)
 	 (gfm-mode-hook  . flycheck-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
@@ -63,6 +62,6 @@
   (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 20-check.el ends here

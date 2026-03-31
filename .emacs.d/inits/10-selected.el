@@ -6,7 +6,6 @@
 (leaf selected :ensure t
   :doc "Keymap for when region is active."
   :url "http://github.com/Kungsgeten/selected.el"
-  :defun my-activate-selected my-ime-on my-ime-off selected--on region-or-read-string
   :hook (after-init-hook . selected-global-mode)
   :bind (("C-c g" . my-google-this)
 	 (:selected-keymap
@@ -63,6 +62,6 @@
   (add-hook 'deactivate-mark-hook (lambda () (unless (null my-ime-flag) (my-ime-on)))))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 10-selected.el ends here

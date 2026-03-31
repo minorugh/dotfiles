@@ -6,7 +6,6 @@
 (leaf neotree :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :after projectile
-  :defun neo-buffer--execute neo-global--select-mru-window dimmer-off dimmer-on neotree-text-scale
   :bind (("<f10>" . my-neotree-find)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
@@ -61,6 +60,6 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 50-neotree.el ends here

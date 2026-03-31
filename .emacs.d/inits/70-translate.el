@@ -15,7 +15,6 @@
 
 (leaf google-translate :ensure t
   :doc "Emacs interface to Google Translate."
-  :defun google-translate-translate
   :hook (after-init-hook . (lambda () (require 'google-translate)))
   :bind ("C-c t" . google-translate-auto)
   :config
@@ -64,6 +63,6 @@
       (url-hexify-string string)))))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 70-translate.el ends here

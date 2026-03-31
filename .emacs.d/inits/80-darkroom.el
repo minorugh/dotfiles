@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf darkroom :ensure t
-  :defun evil-emacs-state evil-normal-state
   :doc "Remove visual distractions and focus on writing."
   :bind (([f8] . my-darkroom-in)
 	 (:darkroom-mode-map
@@ -31,6 +30,6 @@
     (evil-normal-state)))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 80-darkroom.el ends here

@@ -8,8 +8,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf counsel :ensure t
   :doc "Various completion functions using Ivy."
-  :defun ivy--format-function-generic ivy--add-face thing-at-point-looking-at
-  ivy-thing-at-point ad:counsel-ag ivy-add-actions
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
 	 ("C-x C-b" . counsel-switch-buffer)
@@ -80,7 +78,6 @@
 ;; Swiper configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf swiper :ensure t
-  :defun --map s-join s-matches-p s-equals? --partition-by s-matches? s-split migemo-get-pattern
   :doc "Isearch with an overview."
   :bind (
 	 ("C-s" . swiper-region)
@@ -136,6 +133,6 @@ If the region isn't selected, `swiper'."
                                 (swiper . my-ivy-migemo-re-builder))))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 04-counsel.el ends here
