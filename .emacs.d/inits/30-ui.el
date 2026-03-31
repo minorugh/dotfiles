@@ -20,10 +20,9 @@
   (custom-set-faces
    '(region  ((t (:background "#6272a4" :extend t))))
    '(hl-line ((t (:background "#3B4252" :extend t))))
-   ;; diff-mode の削除行を見やすく
+   ;; diff-mode delete lines for better visibility
    '(diff-removed ((t (:foreground "#ff8080" :background "#3d1f1f"))))
-   '(diff-indicator-removed ((t (:foreground "#ff5555"))))
-   ))
+   '(diff-indicator-removed ((t (:foreground "#ff5555"))))))
 
    (leaf doom-modeline :ensure t
      :doc "A minimal and modern mode-line."
@@ -62,7 +61,7 @@
   :doc "Minor mode to visualize TAB, (HARD) SPACE, NEWLINE."
   :bind ("C-c C-c" . my-cleanup-for-spaces-safe)
   :config
-  ;; 行末スペース／タブ／NBSP／ゼロ幅スペース＋末尾空行をまとめて削除
+  ;; Remove end-of-line spaces/tabs/NBSP/zero width space + trailing blank line all together
   (defun my-cleanup-for-spaces-safe ()
     "Remove trailing spaces, tabs, NBSP, zero-width spaces.
 Also remove blank lines at the end of buffer."

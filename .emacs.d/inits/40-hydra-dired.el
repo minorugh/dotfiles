@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits  root_/_^^  _s_ourc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  fzilla._9_._0_._-_  capture_,_
-  _r_estart  Git:_[_._]_  _n_mutt  GH._h__j_  .i_o_  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  _s_ourc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  fzilla._9_._0_._-_  capture_,_
+  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  .i_o_  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
 "
    ("f" flycheck-list-errors)
    ("9" fzilla-s)
@@ -22,7 +22,6 @@
    ("," org-capture)
    ("p" keepassxc)
    ("l" (my-open "~/src/github.com/minorugh"))
-   (":" mattermost)
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/"))
    ("q" top-level)
    ("<home>" my-open-user)
@@ -45,6 +44,7 @@
    ("/" my-open-root)
    ("_" delete-other-windows)
    ("[" git-peek)
+   (":" git-peek-deleted)
    ("]" my-make-git)
    ("s" (my-open "~/src/"))
    ("g" (browse-url "http://localhost:3000/minoru"))

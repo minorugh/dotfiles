@@ -7,35 +7,13 @@
   :doc "A Git porcelain inside Emacs"
   :defun my:magit-insert-timestamp magit-display-buffer-fullframe-status-v1
   :bind (("C-x g" . magit-status)
-	 ("M-g"   . hydra-magit/body))
-  :hydra
-  (hydra-magit
-   (:hint nil :exit t)
-   "
-    _m_agit-status  _b_lame  _c_heckout  _l_og  _g_itk-open _t_imemachine
-  "
-   ("m" magit-status)
-   ("b" magit-blame)
-   ("c" magit-file-checkout)
-   ("l" magit-log-buffer-file)
-   ("g" gitk-open)
-   ("t" git-timemachine)
-   ("<muhenkan>" nil))
+	 ("M-g"   . gitk-open))
   :config
   (setq magit-refs-show-commit-count 'all)
   (setq magit-log-buffer-file-locked t)
   (setq magit-revision-show-gravatars nil)
   ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   (remove-hook 'server-switch-hook 'magit-commit-diff)
-  (defun my:magit-insert-timestamp ()
-    "Automatic insertion of timestamps into commit message buffers."
-    (when (and (boundp 'git-commit-mode) git-commit-mode)
-      (goto-char (point-min))
-      (when (looking-at "\\s-*$")
-	(insert (format-time-string "manual %Y-%m-%d %H:%M:%S"))
-	(run-with-timer 0.1 nil (lambda ()
-				  (execute-kbd-macro (kbd "SPC DEL")))))))
-  (add-hook 'git-commit-setup-hook #'my:magit-insert-timestamp)
   :preface
   (defun gitk-open ()
     "Open gitk with current dir.
@@ -43,9 +21,6 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
     (interactive)
     (start-process "gitk" nil "gitk")
     (delete-other-windows)))
-
-(leaf git-timemachine :ensure t
-  :doc "Walk through git revisions of a file")
 
 (leaf browse-at-remote :ensure t
   :doc "Open github page from Emacs"

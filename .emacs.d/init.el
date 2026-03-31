@@ -52,6 +52,7 @@
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
+  (setq byte-compile-warnings nil)
   (init-loader-load))
 
 
