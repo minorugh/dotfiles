@@ -38,7 +38,9 @@ compile: ## Regenerate my-loaddefs.el using update-directory-autoloads
 
 HOSTNAME := $(shell hostname)
 
-git:
+# Hostname-based git push control:
+# P1 (main): commit + push / others (sub): pull --rebase only
+git: ## Auto commit+push (main only, sub: pull only)
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 ifeq ($(HOSTNAME),P1)
