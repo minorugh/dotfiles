@@ -43,7 +43,6 @@
   (normal-top-level-add-subdirs-to-load-path))
 ;; Load auto-generated autoloads for custom elisp packages.
 (load "~/.emacs.d/elisp/my-loaddefs.el" t t)
-(setq byte-compile-warnings nil)
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
 (leaf init-loader
