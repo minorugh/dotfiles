@@ -101,7 +101,7 @@
 ;;; Code:
 
 (defvar sequential-command-version "$Id: sequential-command.el,v 1.3 2010/05/04 08:55:35 rubikitch Exp $")
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 
 (defvar seq-store-count 0)
 (defvar seq-skip-count 0)
