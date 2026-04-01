@@ -122,16 +122,7 @@
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
     (interactive)
-    (start-process-shell-command "keepass" nil "keepass.sh"))
-
-  (defun my-magit-status ()
-    "Open magit status buffer."
-    (interactive)
-    (if (string= "*dashboard*" (buffer-name))
-	(message "Can't magit in Dashboard!")
-      (magit-status-setup-buffer))))
-
-(setq git-peek-preview-height 1.0)
+    (start-process-shell-command "keepass" nil "keepass.sh")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

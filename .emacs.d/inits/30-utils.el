@@ -27,13 +27,6 @@
   (setq counsel-tramp-custom-connections
 	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
 
-;; (leaf viewer
-;;   :ensure t
-;;   :after view
-;;   :hook (view-mode-hook . viewer-change-modeline-color-setup)
-;;   :config
-;;   (setq viewer-modeline-color-view "#852941"))
-
 (leaf popwin
   :ensure t
   :doc "Popup window manager for Emacs."
@@ -44,7 +37,6 @@
         Placed in elisp/tempbuf/. load-path is set in init.el."
   :hook ((find-file-hook
 	  dired-mode-hook
-	  magit-mode-hook
 	  compilation-mode-hook) . turn-on-tempbuf-mode)
   :config
   (setq tempbuf-kill-message nil))
@@ -92,6 +84,11 @@
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
+
+(leaf browse-at-remote :ensure t
+  :doc "Open github page from Emacs"
+  :config
+  (setq browse-at-remote-prefer-symbolic nil))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

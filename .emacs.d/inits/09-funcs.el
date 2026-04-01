@@ -18,6 +18,8 @@
 (setq compilation-always-kill t)
 (setq compilation-finish-functions #'compile-autoclose)
 
+;; git-peek: preview window height ratio (1.0 = full height)
+(setq git-peek-preview-height 1.0)
 
 (defun git-peek-emergency-quit ()
   "Force quit git-peek session and restore the previous window configuration.

@@ -8,7 +8,6 @@
 (leaf deepl-translate
   :doc "Translation in mini-buffer & copy to clipboard.
         Placed in elisp/deepl-translate/. load-path is set in init.el."
-  :require t
   :bind ("C-c d" . deepl-translate)
   :init
   (load "~/Dropbox/backup/tokens/deepl-api.el"))

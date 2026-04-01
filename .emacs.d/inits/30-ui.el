@@ -35,16 +35,16 @@
   (column-number-mode 0))
 
 ;; For view-mode modeline color
-(defvar-local my-view-modeline-color-default nil)
-(add-hook 'view-mode-hook
-          (lambda ()
-            (if view-mode
-                (progn
-                  (setq my-view-modeline-color-default (face-background 'mode-line))
-                  (set-face-background 'mode-line "#852941"))
-	      (when my-view-modeline-color-default
-                (set-face-background 'mode-line my-view-modeline-color-default)
-                (setq my-view-modeline-color-default nil)))))
+;; (defvar-local my-view-modeline-color-default nil)
+;; (add-hook 'view-mode-hook
+;;           (lambda ()
+;;             (if view-mode
+;;                 (progn
+;;                   (setq my-view-modeline-color-default (face-background 'mode-line))
+;;                   (set-face-background 'mode-line "#852941"))
+;; 	      (when my-view-modeline-color-default
+;;                 (set-face-background 'mode-line my-view-modeline-color-default)
+;;                 (setq my-view-modeline-color-default nil)))))
 
 (leaf hide-mode-line :ensure t
   :doc "Hides the mode-line in current buffer."

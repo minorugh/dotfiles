@@ -56,7 +56,6 @@
     (add-to-list 'evil-emacs-state-modes mode))
   ;; For minor modes
   (add-hook 'counsel-find-file-hook #'evil-emacs-state)
-  (add-hook 'magit-blame-mode-hook  #'evil-emacs-state)
   (add-hook 'view-mode-hook         #'evil-emacs-state)
 
   (defun evil-swap-key (map key1 key2)
