@@ -38,7 +38,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: ssh install base init init-sub keymap grub autostart cron keyring tlp emacs-mozc icons gist fonts
+baseinstall: ssh install base init init-sub keymap keyd grub autostart cron keyring tlp emacs-mozc icons gist fonts
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
@@ -67,10 +67,9 @@ else
 	@echo "これはサブ機専用の処理です"
 endif
 
-keymap: ## キーマップのカスタマイズ（Xmodmap）
+keymap: ## キーマップのカスタマイズ（keyd + setxkbmap）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
-# keyd で解決できないものもあるので .Xmodmap は残しておく
-# keyd+xmodmap併用で失速しないようならxmodmap の cron 2行（毎分実行）は cron/crontab から削除すること
+# .Xmodmap は参照用のみ（xmodmap は廃止・keyd + setxkbmap で管理）
 
 keyd: ## keyd のインストールと設定（PrtSc→Alt_R / CapsLock→Ctrl）
 	$(APT) git build-essential
