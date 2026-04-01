@@ -37,7 +37,7 @@
 (if (string-match "P1" (system-name))
     ;; ~/.emacs.d/early-init.el に記述
     (push '(font . "Cica-18") default-frame-alist)
-  (push '(font . "Cica-10") default-frame-alist))
+  (push '(font . "Cica-14") default-frame-alist))
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
