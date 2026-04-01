@@ -35,8 +35,9 @@
 ;; Set language & font
 (set-language-environment "Japanese")
 (if (string-match "P1" (system-name))
-    (add-to-list 'default-frame-alist '(font . "Cica-18"))
-  (add-to-list 'default-frame-alist '(font . "Cica-14")))
+    ;; ~/.emacs.d/early-init.el に記述
+    (push '(font . "Cica-18") default-frame-alist)
+  (push '(font . "Cica-14") default-frame-alist))
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
