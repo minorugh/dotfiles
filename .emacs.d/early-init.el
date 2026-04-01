@@ -36,7 +36,7 @@
 (set-language-environment "Japanese")
 (if (string-match "P1" (system-name))
     (add-to-list 'default-frame-alist '(font . "Cica-18"))
-  (add-to-list 'default-frame-alist '(font . "Cica-15")))
+  (add-to-list 'default-frame-alist '(font . "Cica-14")))
 
 ;; Faster to disable these here (before they've been initialized)
 (push '(menu-bar-lines . 0) default-frame-alist)
