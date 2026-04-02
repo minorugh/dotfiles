@@ -16,15 +16,14 @@
     :vc (:url "https://github.com/minorugh/mozc-cursor-color")
     :doc "Set cursor color corresponding to mozc's input state."
     :hook (after-init-hook . (lambda () (require 'mozc-cursor-color))))
+  :config
+  (setq default-input-method     "japanese-mozc")
+  (setq mozc-leim-title          "あ")
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
     :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
     :config  (setq mozc-candidate-style 'popup))
-
-  :config
-  (setq default-input-method     "japanese-mozc")
-  (setq mozc-leim-title          "あ")
 
   (defun my-toggle-input-method ()
     "If `evil-mode' is enabled, set to `evil-insert-state'."
