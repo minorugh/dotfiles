@@ -36,35 +36,32 @@
     :config
     (leaf-keywords-init)))
 
-
-;; Local elisp packages and essential settings before init-loader starts.
-(add-to-list 'load-path "~/.emacs.d/elisp/")
+;; Personal settings file managed outside of version control.
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-(require 'my-github)
-(require 'my-markdown)
-(require 'my-template)
 
+;; Load local elisp packages from the elisp directory.
+(leaf *load-my-packages
+  :load-path "~/.emacs.d/elisp"
+  :require (my-github my-markdown my-template))
 
+;; Load all inits/*.el files and byte-compile them for faster startup
 (leaf init-loader
   :ensure t
-  :doc "Load inits configuration."
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
   (init-loader-load))
 
-
+;; Start Emacs server if not already running
 (leaf server
-  :doc "Start Emacs server if not already running."
   :commands server-running-p
   :hook (emacs-startup-hook
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
 
-
+;; Inherit shell environment variables including SSH_AUTH_Sock
 (leaf exec-path-from-shell
-  :doc "Inherit shell environment variables including SSH_AUTH_SOCK."
   :ensure t
   :when (memq window-system '(mac ns x))
   :hook (emacs-startup-hook . exec-path-from-shell-initialize)

@@ -77,27 +77,6 @@
 (leaf evil-leader :ensure t
   :doc "Free keymap on evil-mode."
   :hook (after-init-hook . global-evil-leader-mode)
-  :init
-  (defun vim-cheat-sheet ()
-    "View vim cheat sheet online."
-    (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
-
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail."
-    (interactive)
-    (start-process "thunderbird" nil "thunderbird"))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (start-process-shell-command "neomutt" nil "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-  (defun mattermost ()
-    "Open mattermost-desktop."
-    (interactive)
-    (start-process "mattermost" nil "mattermost-desktop"))
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
@@ -125,17 +104,27 @@
     "c" 'org-capture
     "q" 'keyboard-quit
     "SPC" 'avy-goto-word-1)
-  :hydra
-  (hydra-diff
-   (:color red :hint nil)
-   "
-    diff-hl-hunk  prev.next:_[_._]_  _s_how"
-   ("]" diff-hl-next-hunk)
-   ("[" diff-hl-previous-hunk)
-   ("g" diff-hl-diff-goto-hunk)
-   ("r" diff-hl-revert-hunk)
-   ("s" diff-hl-show-hunk)
-   ("<muhenkan>" nil)))
+  :init
+  (defun vim-cheat-sheet ()
+    "View vim cheat sheet online."
+    (interactive)
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
+
+  (defun thunderbird ()
+    "Open thunderbird mail-client for Gmail."
+    (interactive)
+    (start-process "thunderbird" nil "thunderbird"))
+
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (start-process-shell-command "neomutt" nil "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+  (defun mattermost ()
+    "Open mattermost-desktop."
+    (interactive)
+    (start-process "mattermost" nil "mattermost-desktop")))
 
 
 ;; Local Variables:
