@@ -8,7 +8,7 @@
 
 HOME=/home/minoru
 LOG_PREFIX="[autobackup]"
-MAKEFILE="$HOME/Dropbox/makefile"
+MAKEFILE="$HOME/Dropbox/Makefile"
 TMPLOG=$(mktemp)
 ERRORS=0
 

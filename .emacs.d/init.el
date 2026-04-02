@@ -36,11 +36,13 @@
     :config
     (leaf-keywords-init)))
 
+
 ;; Local elisp packages and essential settings before init-loader starts.
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 (require 'my-github)
 (require 'my-markdown)
+
 
 (leaf init-loader
   :ensure t
@@ -50,6 +52,7 @@
   (setq init-loader-byte-compile t)
   (init-loader-load))
 
+
 (leaf server
   :doc "Start Emacs server if not already running."
   :commands server-running-p
@@ -57,6 +60,7 @@
 	 . (lambda ()
 	     (unless (server-running-p)
 	       (server-start)))))
+
 
 (leaf exec-path-from-shell
   :doc "Inherit shell environment variables including SSH_AUTH_SOCK."
@@ -67,6 +71,7 @@
   ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+
 
 (provide 'init)
 ;; Local Variables:
