@@ -42,6 +42,7 @@
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 (require 'my-github)
 (require 'my-markdown)
+(require 'my-template)
 
 
 (leaf init-loader

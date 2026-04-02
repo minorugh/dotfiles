@@ -10,14 +10,14 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  _s_ourc  _._dotdir  make._c_._k_._b__m__u_  ._l_ocal  fzilla._9_._0_._-_  capture_,_
-  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  .i_o_  _<home>_   howm._;__@_._v_iew^^^^  key_p_assx  myjobs._x_._g_._:_  _f_lyerror
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._dotdir  make._c_._k_._b__m__u_  _g_hub.i_o_  fzilla._9_._0_._-_  capture_,_
+  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  _l_ocal  _<home>_   howm._;__@_._v_iew^^^^  key_p_ass^^  myjobs._x_._g_._:_  _f_lyerror
 "
    ("f" flycheck-list-errors)
    ("9" fzilla-s)
    ("0" fzilla-GH)
    ("-" fzilla-minoruGH)
-   ("G" (browse-url "https://github.com/minorugh"))
+   ("g" (browse-url "https://github.com/minorugh"))
    ("," org-capture)
    ("p" keepassxc)
    ("l" (my-open "~/src/github.com/minorugh"))
@@ -46,8 +46,6 @@
    (":" git-peek-deleted)
    ("]" my-make-git)
    ("s" (my-open "~/src/"))
-   ("g" (browse-url "http://localhost:3000/minoru"))
-   ("G" git-peek-deleted)
    ("t" my-tig)
    ("n" neomutt)
    ("x" my-reload-keychain)
