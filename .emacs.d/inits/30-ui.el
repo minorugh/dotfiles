@@ -93,21 +93,12 @@ Also remove blank lines at the end of buffer."
   "Highlight with mode line color when split, restore default when one window."
   (if (or (one-window-p)
           (bound-and-true-p hydra-curr-map)
-          (minibuffer-window-active-p (minibuffer-window)))
+          (minibuffer-window-active-p (minibuffer-window))
+	  (get-buffer-window "*compilation*"))
       (set-face-attribute 'mode-line nil :background 'unspecified)
     (set-face-attribute 'mode-line nil :background "#852941")))
 (add-hook 'window-configuration-change-hook #'my-update-modeline-color)
-;; (defun my-update-modeline-color ()
-;;   "Highlight with mode line color when split, restore default when one window."
-;;   (if (or (one-window-p)
-;; 	  (bound-and-true-p hydra-curr-map))
-;;       (set-face-attribute 'mode-line nil :background nil)
-;;     (set-face-attribute 'mode-line nil :background "#852941")))
 
-;; (add-hook 'window-configuration-change-hook #'my-update-modeline-color)
-
-;; (with-eval-after-load 'hydra
-;;   (advice-add 'hydra-disable :after #'my-update-modeline-color))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
