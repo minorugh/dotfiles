@@ -48,6 +48,13 @@ Otherwise: git-peek quit → minibuffer quit (top-level fallback)
 
 (bind-key "<muhenkan>" #'my-muhenkan)
 
+(defun gitk-open ()
+  "Open gitk with current dir.
+see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
+  (interactive)
+  (start-process "gitk" nil "gitk")
+  (delete-other-windows))
+
 (defun my-tig ()
   "Open tig in the current directory's git repository with gnome-terminal."
   (interactive)
