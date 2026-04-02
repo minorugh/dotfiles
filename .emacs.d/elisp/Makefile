@@ -1,14 +1,14 @@
 # Makefile for ~/.emacs.d/elisp/
-# Usage: make   → toggle *.elc (remove if exists, compile if not)
-#        make git → auto commit+push (main only, sub: pull only)
-ELISP_DIR  := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
-EMACS      := emacs
+# Usage: make         → toggle *.elc (remove if exists, compile if not)
+#        make clean   → remove *.elc only
+ELISP_DIR := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
+EMACS     := emacs
 
-.PHONY: all toggle-elc git
+.PHONY: all toggle-elc clean
 
 all: toggle-elc
 
-toggle-elc: ## Toggle *.elc: remove if exists, byte-compile if not
+toggle-elc:
 	if find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | grep -q .; then \
 	    find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
 	    echo "Removed *.elc"; \
@@ -18,16 +18,8 @@ toggle-elc: ## Toggle *.elc: remove if exists, byte-compile if not
 	    echo "Compiled *.elc"; \
 	fi
 
-HOSTNAME := $(shell hostname)
+clean:
+	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete
+	echo "Removed *.elc"
 
-# Hostname-based git push control:
-# P1 (main): commit + push / others (sub): pull --rebase only
-git: ## Auto commit+push (main only, sub: pull only)
-	git add -A
-	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-ifeq ($(HOSTNAME),P1)
-	git push
-else
-	@echo "$(HOSTNAME): サブ機からはpushしません"
-	git pull --rebase
-endif
+git: toggle-elc

@@ -10,6 +10,8 @@
 	 (lisp-interaction-mode-hook . (lambda () (flycheck-mode 0))))
   :bind ("C-c f" . flycheck-list-errors)
   :config
+  ;; add elisp directory to flycheck-emacs-lisp-load-path
+  (setq flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-emacs-lisp-initialize-packages t)
   ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
   (require 'flycheck)
