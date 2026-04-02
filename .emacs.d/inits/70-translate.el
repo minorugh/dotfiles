@@ -6,8 +6,8 @@
 ;; (setq debug-on-error t)
 
 (leaf deepl-translate
-  :doc "Translation in mini-buffer & copy to clipboard.
-        Placed in elisp/deepl-translate/. load-path is set in init.el."
+  :doc "Translation in mini-buffer & copy to clipboard."
+  :vc (:url "https://github.com/minorugh/deepl-translate")
   :bind ("C-c d" . deepl-translate)
   :init
   (load "~/Dropbox/backup/tokens/deepl-api.el"))

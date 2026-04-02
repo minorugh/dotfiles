@@ -3,30 +3,38 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf mozc :ensure t
+(leaf mozc
+  :ensure t
   :bind* ("<hiragana-katakana>" . my-toggle-input-method)
   :bind (("s-m" . my-mozc-config)
 	 ("s-d" . my-mozc-word-regist)
-	 ("s-t" . my-mozc-dictionary-tool)
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :init
   (leaf mozc-cursor-color
-    ;; :vc (:url "https://github.com/minorugh/mozc-cursor-color")
-    :doc "Set cursor color corresponding to mozc's input state.
-        Placed in elisp/mozc-cursor-color/. load-path is set in init.el."
-    :hook (after-init-hook . mozc-cursor-color-setup))
+    :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+    :doc "Set cursor color corresponding to mozc's input state."
+    :hook (after-init-hook . (lambda () (require 'mozc-cursor-color))))
 
   (leaf mozc-popup :ensure t
     :doc "Mozc with popup."
-    :after mozc
-    :require t
-    :config (setq mozc-candidate-style 'popup))
+    :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
+    :config  (setq mozc-candidate-style 'popup))
+  ;; (leaf mozc-cursor-color
+  ;;   :vc (:url "https://github.com/minorugh/mozc-cursor-color")
+  ;;   :doc "Set cursor color corresponding to mozc's input state."
+  ;;   :hook (after-init-hook . mozc-cursor-color-setup))
+
+  ;; (leaf mozc-popup :ensure t
+  ;;   :doc "Mozc with popup."
+  ;;   :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
+  ;;   :config
+  ;;   (setq mozc-candidate-style 'popup))
 
   :config
-  (setq default-input-method "japanese-mozc")
-  (setq mozc-leim-title       "あ")
+  (setq default-input-method     "japanese-mozc")
+  (setq mozc-leim-title          "あ")
 
   (defun my-toggle-input-method ()
     "If `evil-mode' is enabled, set to `evil-insert-state'."

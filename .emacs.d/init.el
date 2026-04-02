@@ -37,13 +37,10 @@
     (leaf-keywords-init)))
 
 
-;; Add ~/.emacs.d/elisp/ and all its subdirectories to load-path.
-(let ((default-directory "~/.emacs.d/elisp/"))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
-;; Load auto-generated autoloads for custom elisp packages.
-(load "~/.emacs.d/elisp/my-loaddefs.el" t t)
+;; Set load-path for my-functions
+(add-to-list 'load-path "~/.emacs.d/elisp/")
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
+
 
 (leaf init-loader
   :ensure t

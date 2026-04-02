@@ -28,15 +28,15 @@
 	browse-url-generic-program "google-chrome"
 	markdown-content-type "application/xhtml+xml"
 	markdown-css-paths
-	(list (expand-file-name "~/.emacs.d/elisp/markdown-css/markdown-cream.css"))
+	(list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css"))
 	markdown-xhtml-header-content
 	(concat
 	 "<link rel='stylesheet' href='"
-	 (expand-file-name "~/.emacs.d/elisp/markdown-css/highlight.min.css")
+	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.css")
 	 "'>\n"
 	 "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
 	 "<script src='"
-	 (expand-file-name "~/.emacs.d/elisp/markdown-css/highlight.min.js")
+	 (expand-file-name "~/.emacs.d/elisp/css/highlight.min.js")
 	 "'></script>\n"
 	 "<script>\n"
 	 "document.addEventListener('DOMContentLoaded', () => {\n"
@@ -80,16 +80,16 @@
                (shell-quote-argument (buffer-file-name))))))
   (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
-  (defun my-delete-tmp-markdown-html ()
-    "Delete /tmp/burl*.html when killed markdown buffer."
-    (when (and (derived-mode-p 'markdown-mode)
-	       (buffer-file-name))
-      (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
-	(dolist (file temp-files)
-	  (when (file-exists-p file)
-	    (delete-file file)
-	    (message "Deleted temporary file: %s" file))))))
-  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
+  ;; (defun my-delete-tmp-markdown-html ()
+  ;;   "Delete /tmp/burl*.html when killed markdown buffer."
+  ;;   (when (and (derived-mode-p 'markdown-mode)
+  ;; 	       (buffer-file-name))
+  ;;     (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
+  ;; 	(dolist (file temp-files)
+  ;; 	  (when (file-exists-p file)
+  ;; 	    (delete-file file)
+  ;; 	    (message "Deleted temporary file: %s" file))))))
+  ;; (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
   (defun md2pdf ()
     "Generate PDF from currently open markdown via pandoc + lualatex."

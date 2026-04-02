@@ -1,7 +1,5 @@
-
 ;;; my-dired.el --- User dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
-(auto-compile-mode--turn-on)
 
 ;; Definitions for opening specific directories or files.
 ;; Loaded via (require 'my-dired) in 40-hydra-dired.el

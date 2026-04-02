@@ -13,8 +13,8 @@
   (setq which-key-delay 0.0))
 
 (leaf key-chord
-  :doc "map pairs of simultaneously pressed keys to commands.
-        Placed in elisp/key-chord/. load-path is set in init.el."
+  :doc "map pairs of simultaneously pressed keys to commands."
+  :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log)))
@@ -32,14 +32,14 @@
   :doc "Popup window manager for Emacs."
   :hook (after-init-hook . popwin-mode))
 
-(leaf tempbuf
-  :doc "Auto kill unused buffers in the background.
-        Placed in elisp/tempbuf/. load-path is set in init.el."
-  :hook ((find-file-hook
-	  dired-mode-hook
-	  compilation-mode-hook) . turn-on-tempbuf-mode)
-  :config
-  (setq tempbuf-kill-message nil))
+;; (leaf tempbuf
+;;   :doc "Auto kill unused buffers in the background."
+;;   :vc (:url "https://github.com/minorugh/temobuf")
+;;   :hook ((find-file-hook
+;; 	  dired-mode-hook
+;; 	  compilation-mode-hook) . turn-on-tempbuf-mode)
+;;   :config
+;;   (setq tempbuf-kill-message nil))
 
 (leaf bs
   :ensure nil
@@ -79,8 +79,8 @@
   (setq projectile-known-projects-file (locate-user-emacs-file "tmp/projectile.eld")))
 
 (leaf sequential-command
-  :doc "Move to first and last line of buffer.
-        Placed in elisp/sequential-command/. load-path is set in init.el."
+  :doc "Move to first and last line of buffer."
+  :vc (:url "https://github.com/minorugh/sequential-command")
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))

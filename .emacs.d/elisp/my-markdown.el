@@ -43,7 +43,7 @@ Otherwise process whole file via Perl."
     (save-buffer)
     (start-process
      "gentoc" nil "gnome-terminal" "--" "bash" "-c"
-     (format "perl ~/.emacs.d/elisp/gen_toc.pl %s; read"
+     (format "perl ~/.emacs.d/bin/gen_toc.pl %s; read"
              (shell-quote-argument (buffer-file-name))))))
 
 (provide 'my-markdown)

@@ -22,7 +22,7 @@
 [push]
 	default = simple
 [credential]
-	helper = wincred
+	helper = store
 [github]
 	user = minorugh
 [filter "lfs"]
