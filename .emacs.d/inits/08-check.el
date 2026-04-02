@@ -1,4 +1,4 @@
-;;; 20-check.el --- Syntax checking configurations. -*- lexical-binding: t -*-
+;;; 08-check.el --- Syntax checking configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -66,4 +66,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 20-check.el ends here
+;;; 08-check.el ends here
