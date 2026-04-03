@@ -72,12 +72,11 @@
     "Run 'make git' in the repository root of the current buffer."
     (interactive)
     (let* ((dir (or buffer-file-name default-directory))
-           (root (or (locate-dominating-file dir "makefile")
-                     (locate-dominating-file dir "Makefile"))))
+           (root (locate-dominating-file dir "Makefile")))
       (if root
           (let ((default-directory root))
             (compile "make git"))
-	(message "Makefile (or makefile) not found"))))
+	(message "Makefile not found"))))
 
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
