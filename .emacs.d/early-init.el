@@ -2,7 +2,29 @@
 ;;; Commentary:
 
 ;; Emacs 27 introduced early-init.el, which is run before init.el,
-;; befor package and UI initialization happens.
+;; before package and UI initialization happens.
+
+;; Note: Some settings that affect Emacs at the X11/display level are
+;; intentionally configured in ~/.Xresources rather than here, because
+;; they must be applied before Emacs starts.  The relevant entries are:
+;;
+;;   Emacs*useXIM: false
+;;       Disables XIM (X Input Method) integration.  Avoids input lag
+;;       and conflicts when using input methods such as Fcitx or IBus.
+;;
+;;   Xft.dpi: 120
+;;       Sets the display DPI for font rendering via Xft.
+;;       Adjust this value to match your monitor's actual DPI.
+;;
+;;   Emacs.background: #282c36
+;;   Emacs.foreground: #f8f8f2
+;;       Base colors for the doom-dracula theme, applied at the X11
+;;       resource level so that the initial frame has the correct colors
+;;       before Emacs finishes loading the theme.  This prevents the
+;;       brief white-flash artifact on startup.
+;;
+;; To apply changes to ~/.Xresources, run:
+;;   xrdb -merge ~/.Xresource
 
 ;;; Code:
 ;; (setq debug-on-error t)
