@@ -44,6 +44,12 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
                    (format "cd %s && tig; exec bash" root))))
 
 
+(leaf browse-at-remote :ensure t
+  :doc "Open github page from Emacs"
+  :config
+  (setq browse-at-remote-prefer-symbolic nil))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

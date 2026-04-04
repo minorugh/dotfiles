@@ -85,11 +85,6 @@
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
 
-(leaf browse-at-remote :ensure t
-  :doc "Open github page from Emacs"
-  :config
-  (setq browse-at-remote-prefer-symbolic nil))
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
