@@ -1,18 +1,23 @@
-;;;03-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; 03-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+
+;; [muhenkan] キーについて:
+;;   どんな状況でも脱出・切替できる万能キー (my-muhenkan で定義)。
+;;   02-git.el で my-muhenkan を定義済み。
+;;
+;;   git-peek 起動中        → 強制終了
+;;   ミニバッファ使用中     → ミニバッファを閉じる (失敗時は top-level で強制脱出)
+;;   evil ノーマル状態      → Emacs / insert ステートへ切替
+;;   リージョン選択中       → 選択解除
+;;   入力メソッド有効時     → 入力メソッドを無効化
+;;   上記以外               → evil ノーマル状態へ戻る
+
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
   :hook (after-init-hook . evil-mode)
-  ;; [muhenkan] = my-muhenkan (defined in 09-funcs.el)
-  ;; Toggles evil state or rescues from any situation:
-  ;; git-peek running    → emergency quit
-  ;; minibuffer active   → minibuffer-keyboard-quit
-  ;; evil normal state   → switch to emacs/insert state
-  ;; region active       → deactivate mark
-  ;; input method active → deactivate input method
-  ;; otherwise           → return to evil normal state
+  ;; [muhenkan] の挙動はファイル冒頭を参照
   :bind ((:evil-normal-state-map
 	  ("M-."      . nil) ;; This bind is for use other
 	  ("C-a"      . seq-home)

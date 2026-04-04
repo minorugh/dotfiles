@@ -23,27 +23,27 @@ all git-peek buffers."
       (setq git-peek--saved-wconf nil))
     (dolist (bname '("*git-peek-commits*" "*git-peek-preview*"))
       (when (get-buffer bname) (kill-buffer bname)))
-    (message "git-peek: emergency quit")))
+    (message "git-peek: emergency quit"))
 
-
-(defun my-muhenkan ()
-  "Muhenkan key handler: toggle evil state or rescue from any situation.
+  (defun my-muhenkan ()
+    "Muhenkan key handler: toggle evil state or rescue from any situation.
 In evil normal state: switch to insert state.
 Otherwise: git-peek quit → minibuffer quit (top-level fallback)
 → deactivate mark → deactivate input method → return to evil normal state."
-  (interactive)
-  (cond
-   ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-   ((minibuffer-window-active-p (selected-window))
-    (minibuffer-keyboard-quit)
-    (when (minibuffer-window-active-p (selected-window))
-      (top-level)))
-   ((evil-normal-state-p) (evil-insert-state))
-   ((use-region-p) (deactivate-mark))
-   (current-input-method (deactivate-input-method))
-   (t (evil-normal-state) (message "-- NORMAL --"))))
+    (interactive)
+    (cond
+     ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
+     ((minibuffer-window-active-p (selected-window))
+      (minibuffer-keyboard-quit)
+      (when (minibuffer-window-active-p (selected-window))
+	(top-level)))
+     ((evil-normal-state-p) (evil-insert-state))
+     ((use-region-p) (deactivate-mark))
+     (current-input-method (deactivate-input-method))
+     (t (evil-normal-state) (message "-- NORMAL --"))))
 
-(bind-key "<muhenkan>" #'my-muhenkan)
+  (bind-key "<muhenkan>" #'my-muhenkan))
+
 
 (defun gitk-open ()
   "Open gitk with current dir.
@@ -52,6 +52,7 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
   (start-process "gitk" nil "gitk")
   (delete-other-windows))
 
+
 (defun my-tig ()
   "Open tig in the current directory's git repository with gnome-terminal."
   (interactive)
@@ -59,6 +60,7 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
                   (error "Git repository not found"))))
     (start-process "tig" nil "gnome-terminal" "--" "bash" "-c"
                    (format "cd %s && tig; exec bash" root))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
