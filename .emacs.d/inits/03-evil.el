@@ -3,7 +3,6 @@
 
 ;; [muhenkan] キーについて:
 ;;   どんな状況でも脱出・切替できる万能キー (my-muhenkan で定義)。
-;;   02-git.el で my-muhenkan を定義済み。
 ;;
 ;;   git-peek 起動中        → 強制終了
 ;;   ミニバッファ使用中     → ミニバッファを閉じる (失敗時は top-level で強制脱出)
@@ -76,7 +75,26 @@
     "Set buffer for automatic `evil-emacs-state'."
     (when (member (buffer-name) '("COMMIT_EDITMSG"))
       (evil-emacs-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer))
+  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
+
+  (defun my-muhenkan ()
+    "Muhenkan key handler: toggle evil state or rescue from any situation.
+In evil normal state: switch to insert state.
+Otherwise: git-peek quit → minibuffer quit (top-level fallback)
+→ deactivate mark → deactivate input method → return to evil normal state."
+    (interactive)
+    (cond
+     ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
+     ((minibuffer-window-active-p (selected-window))
+      (minibuffer-keyboard-quit)
+      (when (minibuffer-window-active-p (selected-window))
+	(top-level)))
+     ((evil-normal-state-p) (evil-insert-state))
+     ((use-region-p) (deactivate-mark))
+     (current-input-method (deactivate-input-method))
+     (t (evil-normal-state) (message "-- NORMAL --"))))
+
+  (bind-key "<muhenkan>" #'my-muhenkan))
 
 
 (leaf evil-leader :ensure t
