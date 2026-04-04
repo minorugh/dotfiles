@@ -42,7 +42,7 @@
 ;; Load local elisp packages from the elisp directory.
 (leaf *load-my-packages
   :load-path "~/.emacs.d/elisp"
-  :require (my-github my-markdown my-template))
+  :require (my-dired my-github my-markdown my-template))
 
 ;; Load all inits/*.el files and byte-compile them for faster startup
 (leaf init-loader

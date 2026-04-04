@@ -2,7 +2,7 @@
 ;;; Commentary:
 
 ;; Definitions for opening specific directories or files.
-;; Loaded via (require 'my-dired) in 40-hydra-dired.el
+
 
 ;;; Code:
 (declare-function dired-omit-mode "dired-x")

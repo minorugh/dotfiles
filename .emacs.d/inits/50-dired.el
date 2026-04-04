@@ -22,10 +22,8 @@
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies  'always)
   (setq dired-recursive-deletes 'always)
-  ;; ls-lisp を使う場合は --group-directories-first は使えないので除去
   (setq dired-listing-switches "-AFl")
   (setq ls-lisp-use-insert-directory-program nil)
-  ;; ls-lisp でディレクトリを先頭に表示
   (setq ls-lisp-dirs-first t)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
