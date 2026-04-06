@@ -72,28 +72,6 @@
 (leaf sudo-edit :ensure t
   :doc "Edit currently visited file as another user.")
 
-(defun my-auto-follow-mode ()
-  "Automatically enable `follow-mode' when the same buffer is split side-by-side."
-  (walk-windows
-   (lambda (win)
-     (with-current-buffer (window-buffer win)
-       (let* ((same (seq-filter
-                     (lambda (w) (eq (window-buffer w) (current-buffer)))
-                     (window-list)))
-              (side-by-side
-               (and (> (length same) 1)
-                    (seq-some
-                     (lambda (w)
-                       (and (not (eq w win))
-                            (= (window-top-line w) (window-top-line win))
-                            (/= (window-left-column w) (window-left-column win))))
-                     same))))
-         (if side-by-side
-             (unless (bound-and-true-p follow-mode) (follow-mode 1))
-           (when (bound-and-true-p follow-mode) (follow-mode -1))))))))
-
-(add-hook 'window-configuration-change-hook #'my-auto-follow-mode)
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

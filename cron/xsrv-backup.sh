@@ -39,7 +39,7 @@ fi
 
 cd "$XSRV_GH_DST" && \
     git add -A && \
-    git commit -m "auto-backup: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
+    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
 	    git push
 if [ $? -eq 0 ]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') git push done: gospel-haiku.com"
@@ -59,7 +59,7 @@ fi
 
 cd "$XSRV_MN_DST" && \
     git add -A && \
-    git commit -m "auto-backup: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
+    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
 	    git push
 if [ $? -eq 0 ]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') git push done: minorugh.com"

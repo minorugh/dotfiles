@@ -32,15 +32,6 @@
   :doc "Popup window manager for Emacs."
   :hook (after-init-hook . popwin-mode))
 
-;; (leaf tempbuf
-;;   :doc "Auto kill unused buffers in the background."
-;;   :vc (:url "https://github.com/minorugh/temobuf")
-;;   :hook ((find-file-hook
-;; 	  dired-mode-hook
-;; 	  compilation-mode-hook) . turn-on-tempbuf-mode)
-;;   :config
-;;   (setq tempbuf-kill-message nil))
-
 (leaf bs
   :ensure nil
   :tag "builtin"
