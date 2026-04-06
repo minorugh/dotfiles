@@ -6,7 +6,7 @@
 (leaf neotree :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :after projectile
-  :bind (("<f10>" . my-neotree-find)
+  :bind (("<f10>" . neotree-toggle)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
 	  ("j"       . next-line)
@@ -30,11 +30,11 @@
   (setq neo-mode-line-type nil)
   (setq neo-create-file-auto-open t)
 
-  (defun my-neotree-find ()
-    "Neotree-find with dimmer-off."
-    (interactive)
-    (dimmer-off)
-    (neotree-find))
+  ;; (defun my-neotree-find ()
+  ;;   "Neotree-find with dimmer-off."
+  ;;   (interactive)
+  ;;   (dimmer-off)
+  ;;   (neotree-find))
 
   (defun neotree-text-scale ()
     "Neotree text scale.

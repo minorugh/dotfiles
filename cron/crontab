@@ -1,4 +1,4 @@
-# 2026-03-21 update
+# 2026-04-06 update
 # Edit this file to introduce tasks to be run by cron.
 # 
 # Each task to run has to be defined through a single line
@@ -26,3 +26,8 @@
 40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 # GH+minorugh.com dotfils git auto push （毎日23：50） 
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
+# xserver rsync（07:00〜22:00、毎時）
+0 7-22 * * * /usr/local/bin/xsrv-backup.sh >> /tmp/xsrv-backup.log 2>&1
+# xserver git commit + push（07:05〜22:05、2時間ごと）
+5 7-22/2 * * * make -f /home/minoru/Dropbox/Makefile xsrv-backup >> /tmp/xsrv-backup.log 2>&1
+

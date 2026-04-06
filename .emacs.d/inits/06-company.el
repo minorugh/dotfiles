@@ -48,6 +48,7 @@
   :doc "Template system."
   :hook (after-init-hook . yas-global-mode)
   :config
+  (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
   (leaf yasnippet-snippets :ensure t))
 

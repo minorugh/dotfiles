@@ -134,6 +134,8 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/cron/gitea-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/gitea-backup.sh
+	sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/xsrv-backup.sh
 
 cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成 + crontab バックアップ＆反映
 	@if [ "$$(hostname)" = "P1" ]; then \
@@ -404,8 +406,8 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/gpgimport.git
 	git clone git@github.com:minorugh/vim-cheat.git
 	git clone git@github.com:minorugh/git-peek.git
-	ln -vsfn ${HOME}/src/github.com/minorugh/git-peek \
-	${HOME}/.emacs.d/elisp/git-peek
+	git clone git@github.com:minorugh/xsrv-GH.git
+	git clone git@github.com:minorugh/xsrv-minorugh.git
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
 ########################################################

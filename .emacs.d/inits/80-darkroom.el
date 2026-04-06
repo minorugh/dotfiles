@@ -12,7 +12,6 @@
   (defun my-darkroom-in ()
     "Enter to the `darkroom-mode'."
     (interactive)
-    (diff-hl-mode 0)
     (display-line-numbers-mode 0)
     (darkroom-tentative-mode 1)
     (toggle-frame-fullscreen)
@@ -24,7 +23,6 @@
     (interactive)
     (darkroom-tentative-mode 0)
     (display-line-numbers-mode 1)
-    (diff-hl-mode 1)
     (toggle-frame-fullscreen)
     (setq-local line-spacing 0)
     (evil-normal-state)))
