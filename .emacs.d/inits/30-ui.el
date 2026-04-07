@@ -47,6 +47,7 @@
   :tag "builtin"
   :doc "Interface for display-line-numbers."
   :hook ((prog-mode-hook . display-line-numbers-mode)
+	 (prog-mode-hook . goto-address-prog-mode)
 	 (text-mode-hook . display-line-numbers-mode)
 	 (lisp-interaction-mode-hook
 	  . (lambda () (display-line-numbers-mode 0))))

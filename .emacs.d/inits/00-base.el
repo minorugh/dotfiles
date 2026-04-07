@@ -77,6 +77,7 @@
 (setq history-delete-duplicates t)
 
 ;; Recentf
+(run-with-idle-timer 0.5 nil #'recentf-mode)
 (setq recentf-max-saved-items 100)
 (setq recentf-auto-cleanup 'never)
 (setq recentf-exclude
@@ -88,13 +89,10 @@
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\)\\'"                  . conf-mode)
 	 ("\\.cgi\\'" . perl-mode))
-  :hook
-  (after-init-hook . global-auto-revert-mode)
-  (after-init-hook . save-place-mode)
-  (after-init-hook . savehist-mode)
-  (after-init-hook . recentf-mode)
-  (prog-mode-hook  . goto-address-prog-mode))
-
+  :config
+  (global-auto-revert-mode 1)
+  (save-place-mode 1)
+  (savehist-mode 1))
 
 (leaf *user-configurations
   :defun minibuffer-keyboard-quit my-iconify-last-frame
