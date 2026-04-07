@@ -11,16 +11,10 @@ fi
 # X セッション情報をログに残す（デバッグ用・動作には影響なし）
 echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
 
-# xmodmap は keyd 導入に伴い廃止（2026-04-01）
-# PrtSc→Alt_R は keyd（/etc/keyd/default.conf）で管理
-# [ろ] キーの _ 出力は以下の setxkbmap 設定による（pc105+jp の組み合わせ）
-# if [ -f ~/.Xmodmap ]; then
-#     xmodmap ~/.Xmodmap
-# fi
+# XKB で pc105を設定することで「ろ」を "_" として使用している。
+# XKB で CapsLock を Ctrl に置き換え（ctrl:nocaps）
+# keydで PrtSc を Alt_R に置き換え （/etc/keyd/default.conf）
 
-# キーボードレイアウト設定
-# model: pc105（jp106 ではなく pc105 を使うことで [ろ] が _ になる・意図した動作）
-# option: ctrl:nocaps（CapsLock を Ctrl に置き換え）
 setxkbmap -model pc105 -layout jp -option ctrl:nocaps
 
 #------------------------------------------------------------

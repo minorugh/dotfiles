@@ -6,9 +6,6 @@ pkill ssh-agent
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 
-# run xmodmap at startup
-/usr/bin/zsh -c "sleep 5; /usr/bin/xmodmap $HOME/.Xmodmap"
-
 # SSH key auto-add via SSH_ASKPASS
 ASKPASS_SCRIPT=$(mktemp /tmp/askpass.XXXXXX.sh)
 echo '#!/bin/bash' > "$ASKPASS_SCRIPT"
