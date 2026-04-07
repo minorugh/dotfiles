@@ -3,6 +3,8 @@ Description=Xserver Backup Service
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/xsrv-backup.sh
-StandardOutput=append:/tmp/xsrv-backup.log
-StandardError=append:/tmp/xsrv-backup.log
+StandardOutput=truncate:/tmp/xsrv-backup.log
+StandardError=truncate:/tmp/xsrv-backup.log
+# StandardOutput=append:/tmp/xsrv-backup.log 
+# StandardError=append:/tmp/xsrv-backup.log
 
