@@ -9,20 +9,25 @@ crontab: ## crontab をバックアップして反映、ターミナルで確認
 	crontab crontab
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
 
-xsrv-stop: ## xsrv-backup 緊急停止
+## xsrv-backup make commds
+stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
 	@echo "xsrv-backup: stopped."
 
-xsrv-start: ## xsrv-backup 再開
+start: ## xsrv-backup 再開
 	systemctl --user start xsrv-backup.timer
 	@echo "xsrv-backup: started."
 
-xsrv-status: ## xsrv-backup 状態確認
+status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
 
-xsrv-log: ## xsrv-backup ログ表示
+log: ## xsrv-backup ログ表示
 	@cat /tmp/xsrv-backup.log
 
-xsrv-run: ## xsrv-backup 今すぐ手動実行
+reload: ## systemd 設定変更後のリロード
+	systemctl --user daemon-reload
+	@echo "xsrv-backup: daemon reloaded."
+
+run: ## xsrv-backup 今すぐ手動実行
 	systemctl --user start xsrv-backup.service
 	@echo "xsrv-backup: manual run triggered."

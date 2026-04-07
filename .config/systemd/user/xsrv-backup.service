@@ -2,7 +2,7 @@
 Description=Xserver Backup Service
 [Service]
 Type=simple
-ExecStart=/bin/bash -c "/usr/local/bin/xsrv-backup.sh > /tmp/xsrv-backup.log 2>&1"
+ExecStart=/usr/local/bin/xsrv-backup.sh
 StandardOutput=append:/tmp/xsrv-backup.log
-StandardError=inherit
+StandardError=append:/tmp/xsrv-backup.log
 

@@ -20,52 +20,64 @@ XSRV_GH_DST="$HOME/src/github.com/minorugh/xsrv-GH"
 XSRV_MN_SRC="$XSRV_HOST:/home/minorugh/minorugh.com/public_html/"
 XSRV_MN_DST="$HOME/src/github.com/minorugh/xsrv-minorugh"
 
+TMPLOG=$(mktemp)
+ERRORS=0
+
 # SSHエージェントの設定を読み込む
 if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
     source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
+log() {
+    echo "${LOG_PREFIX} $1"
+}
+
+run_rsync() {
+    local label="$1"
+    local src="$2"
+    local dst="$3"
+    rsync -avz --delete --exclude='.git' --exclude='.gitignore' -e "$XSRV_SSH" "$src" "$dst/" >> "$TMPLOG" 2>&1
+    if [ $? -eq 0 ]; then
+        log "rsync ${label}: OK"
+    else
+        log "rsync ${label}: ERROR"
+        cat "$TMPLOG"
+        ERRORS=$((ERRORS + 1))
+    fi
+    > "$TMPLOG"
+}
+
+run_git() {
+    local label="$1"
+    local dir="$2"
+    cd "$dir" && \
+        git add -A >> "$TMPLOG" 2>&1 && \
+        git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TMPLOG" 2>&1 || echo "No changes" >> "$TMPLOG" 2>&1
+    git push >> "$TMPLOG" 2>&1
+    if [ $? -eq 0 ]; then
+        log "git push ${label}: OK"
+    else
+        log "git push ${label}: ERROR"
+        cat "$TMPLOG"
+        ERRORS=$((ERRORS + 1))
+    fi
+    > "$TMPLOG"
+}
+
 START=$(date '+%Y-%m-%d %H:%M:%S')
-echo "${START} [xsrv-backup] START"
+log "START: ${START}"
 
-## --- gospel-haiku.com ---
-rsync -avz --delete --exclude='.git' --exclude='.gitignore' -e "$XSRV_SSH" "$XSRV_GH_SRC" "$XSRV_GH_DST/"
-if [ $? -eq 0 ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') rsync done: gospel-haiku.com"
+run_rsync "gospel-haiku.com"  "$XSRV_GH_SRC" "$XSRV_GH_DST"
+run_git   "gospel-haiku.com"  "$XSRV_GH_DST"
+
+run_rsync "minorugh.com"      "$XSRV_MN_SRC" "$XSRV_MN_DST"
+run_git   "minorugh.com"      "$XSRV_MN_DST"
+
+rm -f "$TMPLOG"
+
+END=$(date '+%Y-%m-%d %H:%M:%S')
+if [ $ERRORS -eq 0 ]; then
+    log "END: ${END} (OK)"
 else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: rsync failed: gospel-haiku.com"
-    exit 1
+    log "END: ${END} (ERRORS=${ERRORS})"
 fi
-
-cd "$XSRV_GH_DST" && \
-    git add -A && \
-    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
-	    git push
-if [ $? -eq 0 ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') git push done: gospel-haiku.com"
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: git push failed: gospel-haiku.com"
-    exit 1
-fi
-
-## --- minorugh.com ---
-rsync -avz --delete --exclude='.git' --exclude='.gitignore' -e "$XSRV_SSH" "$XSRV_MN_SRC" "$XSRV_MN_DST/"
-if [ $? -eq 0 ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') rsync done: minorugh.com"
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: rsync failed: minorugh.com"
-    exit 1
-fi
-
-cd "$XSRV_MN_DST" && \
-    git add -A && \
-    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes" && \
-	    git push
-if [ $? -eq 0 ]; then
-    echo "$(date '+%Y-%m-%d %H:%M:%S') git push done: minorugh.com"
-else
-    echo "$(date '+%Y-%m-%d %H:%M:%S') ERROR: git push failed: minorugh.com"
-    exit 1
-fi
-
-echo "$(date '+%Y-%m-%d %H:%M:%S') [xsrv-backup] END"
