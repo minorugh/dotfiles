@@ -273,6 +273,12 @@
   (forward-line -2)
   (forward-char 6))
 
+(add-hook 'perl-mode-hook
+          (lambda ()
+            (when (and buffer-file-name
+                       (string-match-p "[dswm]member\\.cgi\\'" buffer-file-name))
+              (conf-mode)
+              (display-line-numbers-mode 1))))
 
 (provide 'my-template)
 ;; Local Variables:
