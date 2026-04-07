@@ -9,66 +9,6 @@
 (declare-function evil-emacs-state "evil-states")
 
 ;;;###autoload
-(defun my-documents ()
-  "Open Documents dir."
-  (interactive)
-  (find-file "~/Dropbox/Documents/"))
-
-;;;###autoload
-(defun backup-makefile ()
-  "Open backup makefile."
-  (interactive)
-  (find-file "~/Dropbox/makefile"))
-
-;;;###autoload
-(defun my-abook ()
-  "Open addressbook."
-  (interactive)
-  (find-file "~/src/github.com/minorugh/dotfiles/.abook/addressbook"))
-
-;;;###autoload
-(defun my-mutt ()
-  "Open mutt dir."
-  (interactive)
-  (find-file "~/src/github.com/minorugh/dotfiles/.mutt/"))
-
-;;;###autoload
-(defun my-zshrc ()
-  "Open zshrc."
-  (interactive)
-  (find-file "~/.zshrc"))
-
-;;;###autoload
-(defun my-xsrv-dir ()
-  "Open xsrv dir."
-  (interactive)
-  (find-file "~/src/xsrv"))
-
-;;;###autoload
-(defun my-github-dir ()
-  "Open github dir."
-  (interactive)
-  (find-file "~/src/github.com/minorugh/"))
-
-;;;###autoload
-(defun my-scr-dir ()
-  "Open src dir."
-  (interactive)
-  (find-file "~/src/"))
-
-;;;###autoload
-(defun my-minorugh-dir ()
-  "Open minorugh.com dir."
-  (interactive)
-  (find-file "~/Dropbox/minorugh.com/"))
-
-;;;###autoload
-(defun my-github-local ()
-  "Open github local dir."
-  (interactive)
-  (find-file "~/src/github.com/minorugh"))
-
-;;;###autoload
 (defun my-junk-dir ()
   "Open junk file dir."
   (interactive)
