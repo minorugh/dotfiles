@@ -27,6 +27,9 @@
 # GH+minorugh.com dotfils git auto push （毎日23:50） 
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 # xserver rsync + git backup（0時 + 9:00~21:00 を3時間ごと）
-0 0,9,12,15,18,21 * * * /usr/local/bin/xsrv-backup.sh >> ~/log/xsrv-backup.log 2>&1
+# 0 0,9,12,15,18,21 * * * /usr/local/bin/xsrv-backup.sh >> ~/log/xsrv-backup.log 2>&1
+* * * * * /bin/bash -lc "/usr/local/bin/xsrv-backup.sh >> /tmp/xsrv-backup.log 2>&1"
+
+
 
 

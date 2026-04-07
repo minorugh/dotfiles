@@ -146,6 +146,22 @@ cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成
 		crontab ${PWD}/cron/crontab; \
 	fi
 
+xsrv-systemd: ## systemd-user で xsrv-backup を登録・有効化（P1のみ）
+	@if [ "$$(hostname)" = "P1" ]; then \
+		sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin/xsrv-backup.sh; \
+		sudo chmod +x /usr/local/bin/xsrv-backup.sh; \
+		mkdir -p ${HOME}/.config/systemd/user; \
+		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.service \
+		          ${HOME}/.config/systemd/user/xsrv-backup.service; \
+		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.timer \
+		          ${HOME}/.config/systemd/user/xsrv-backup.timer; \
+		systemctl --user daemon-reload; \
+		systemctl --user enable --now xsrv-backup.timer; \
+		echo "xsrv-backup timer enabled."; \
+	else \
+		echo "P1 以外では実行しません"; \
+	fi
+
 install: ## Debian パッケージの一括インストール
 	$(APT) $(PACKAGES)
 

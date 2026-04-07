@@ -33,3 +33,6 @@ dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
 if [ -f ~/.keychain/$(hostname)-sh ]; then
     source "$HOME/.keychain/$(hostname)-sh"
 fi
+
+
+

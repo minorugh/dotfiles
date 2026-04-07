@@ -21,9 +21,8 @@ XSRV_MN_SRC="$XSRV_HOST:/home/minorugh/minorugh.com/public_html/"
 XSRV_MN_DST="$HOME/src/github.com/minorugh/xsrv-minorugh"
 
 # SSHエージェントの設定を読み込む
-_hostname=$(hostname -s)
-if [ -f "$HOME/.keychain/$_hostname-sh" ]; then
-    source "$HOME/.keychain/$_hostname-sh"
+if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
+    source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
 START=$(date '+%Y-%m-%d %H:%M:%S')
