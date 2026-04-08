@@ -13,11 +13,28 @@
            (string-match "finished" string))
       (progn
         (message "Compile successful.")
-        (run-at-time 2 nil (lambda ()
-                             (when (buffer-live-p buffer)
-                               (delete-windows-on buffer)
-                               (kill-buffer buffer)))))
+        (if my-make-ivy-called
+            (run-at-time 2 nil (lambda ()
+                                 (setq my-make-ivy-called nil)
+                                 (when (buffer-live-p buffer)
+                                   (delete-windows-on buffer)
+                                   (kill-buffer buffer))))
+          (when (buffer-live-p buffer)
+            (delete-windows-on buffer)
+            (kill-buffer buffer))))
     (message "Compilation exited abnormally: %s" string)))
+
+;; (defun compile-autoclose (buffer string)
+;;   "Close compile window if BUFFER finished successfully, report STRING otherwise."
+;;   (if (and (string-match "compilation" (buffer-name buffer))
+;;            (string-match "finished" string))
+;;       (progn
+;;         (message "Compile successful.")
+;;         (run-at-time 2 nil (lambda ()
+;;                              (when (buffer-live-p buffer)
+;;                                (delete-windows-on buffer)
+;;                                (kill-buffer buffer)))))
+;;     (message "Compilation exited abnormally: %s" string)))
 
 (setq compilation-scroll-output t)
 (setq compilation-always-kill t)
