@@ -32,7 +32,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
    ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
-   ("c" (my-open "~/src/github.com/minorugh/dotfiles/cron/"))
+   ("c" my-open-cron-makefile)
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
    ("/" (my-open-a "/"))

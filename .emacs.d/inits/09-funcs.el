@@ -8,11 +8,18 @@
   :require (my-makefile)
   :hook
   (makefile-mode-hook . (lambda ()
-                          (setq-local ivy-sort-functions-alist '((t . nil)))
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   (dired-mode-hook    . (lambda ()
-                          (setq-local ivy-sort-functions-alist '((t . nil)))
-                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy))))
+                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
+  :init
+  (defun my-open-cron-makefile ()
+    "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
+    (interactive)
+    (let ((file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
+      (find-file file)
+      (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
+      (run-at-time 0.1 nil #'my-make-ivy))))
+
 
 (leaf compilation
   :doc "Auto-close compilation window on success; delay only for my-make-ivy."
@@ -41,6 +48,7 @@
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose))
 
+
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
@@ -57,6 +65,7 @@
   (setq ps-line-number       t)
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
+
 
 (leaf *gist
   :doc "Post region or buffer to gist via compile."
