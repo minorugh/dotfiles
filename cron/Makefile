@@ -6,14 +6,16 @@ all: xsrv-stop
 
 EMACS_MSG = emacsclient -n --eval '(my-make-message "$1")'
 
+cron-log: ## cron 実行ログ表示
+	emacsclient -n -e '(progn (find-file "/tmp/cron.log") (goto-char (point-max)))'
+
+xsrv-log: ## xsrv-backup ログ表示
+	emacsclient -n /tmp/xsrv-backup.log
+
 crontab: ## crontab をバックアップして反映、ターミナルで確認
 	crontab -l > crontab.backup.$$(date +%Y%m%d) 2>/dev/null || true
 	crontab crontab
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
-
-cron-log: ## cron 実行ログ表示
-	emacsclient -n -e '(progn (find-file "/tmp/cron.log") (goto-char (point-max)))'
-
 
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
@@ -25,9 +27,6 @@ xsrv-start: ## xsrv-backup 再開
 
 xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
-
-xsrv-log: ## xsrv-backup ログ表示
-	emacsclient -n /tmp/xsrv-backup.log
 
 xsrv-reload: ## systemd 設定変更後のリロード
 	systemctl --user daemon-reload
