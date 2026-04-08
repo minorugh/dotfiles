@@ -62,9 +62,12 @@ If region isn't selected, post from the buffer."
   :require (my-makefile)
   :hook
   (makefile-mode-hook . (lambda ()
+			  (setq-local ivy-sort-functions-alist '((t . nil)))
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   (dired-mode-hook    . (lambda ()
+			  (setq-local ivy-sort-functions-alist '((t . nil)))
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

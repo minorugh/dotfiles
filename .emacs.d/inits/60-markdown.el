@@ -80,16 +80,16 @@
                (shell-quote-argument (buffer-file-name))))))
   (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
-  ;; (defun my-delete-tmp-markdown-html ()
-  ;;   "Delete /tmp/burl*.html when killed markdown buffer."
-  ;;   (when (and (derived-mode-p 'markdown-mode)
-  ;; 	       (buffer-file-name))
-  ;;     (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
-  ;; 	(dolist (file temp-files)
-  ;; 	  (when (file-exists-p file)
-  ;; 	    (delete-file file)
-  ;; 	    (message "Deleted temporary file: %s" file))))))
-  ;; (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
+  (defun my-delete-tmp-markdown-html ()
+    "Delete /tmp/burl*.html when killed markdown buffer."
+    (when (and (derived-mode-p 'markdown-mode)
+	       (buffer-file-name))
+      (let ((temp-files (file-expand-wildcards "/tmp/burl*.html")))
+	(dolist (file temp-files)
+	  (when (file-exists-p file)
+	    (delete-file file)
+	    (message "Deleted temporary file: %s" file))))))
+  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
   (defun md2pdf ()
     "Generate PDF from currently open markdown via pandoc + lualatex."

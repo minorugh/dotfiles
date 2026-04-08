@@ -28,7 +28,7 @@
    ("y" my-year)
    ("Y" my-year-new-post)
    ("," my-year-draft)
-   ("/" my-m_kukai)
+   ("/" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" 'top))
    ("a" (my-open-e "~/Dropbox/GH/apvoice/apvoice.txt" 'top))
    ("A" my-apvoice-new-post)
    ("b" (my-make "-k" "~/Dropbox"))
