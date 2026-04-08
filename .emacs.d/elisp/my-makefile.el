@@ -34,7 +34,7 @@
   "Return alist of (target . description) from MAKEFILE."
   (let ((targets '())
         ;; 除外するターゲット名
-        (ignore-targets '("Makefile" "makefile" "all" ".PHONY")))
+        (ignore-targets '("Makefile" "makefile" "all" "a.out" ".PHONY")))
     (with-temp-buffer
       (let ((default-directory (file-name-directory makefile)))
         (call-process "make" nil t nil "-qp"))

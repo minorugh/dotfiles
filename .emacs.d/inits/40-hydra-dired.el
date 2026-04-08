@@ -10,8 +10,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._c_._k_._b__m__u_  _g_hub.i_o_  fzilla._9_._0_._-_  capture_,_
-  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  _l_ocal  _<home>_  howm._;__@_._v_iew^^^^  key_p_ass^^  myjobs._x_._t_._c_  _f_lyerror
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  _g_hub.i_o_  zilla._9_._0_._-_  capture_,_
+  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  _l_ocal  _<home>_  howm._;__@_._v_iew^^  key_p_ass^^  ke_y_chn._c_ron^^  _f_lyerror
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
@@ -49,7 +49,7 @@
    (":" git-peek-deleted)
    ("]" my-make-git)
    ("n" neomutt)
-   ("x" my-reload-keychain)
+   ("y" my-reload-keychain)
    ("M-." hydra-work/body)
    ("q" (top-level))
    ("<muhenkan>" nil))
