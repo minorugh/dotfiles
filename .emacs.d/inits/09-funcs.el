@@ -10,7 +10,7 @@
   (if (and (string-match "compilation" (buffer-name buffer))
 	   (string-match "finished" string))
       (progn
-	(delete-other-windows)
+	;; (delete-other-windows)
 	(message "Compile successful."))
     (message "Compilation exited abnormally: %s" string)))
 

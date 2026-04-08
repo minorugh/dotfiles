@@ -36,10 +36,8 @@
     :config
     (leaf-keywords-init)))
 
-
 ;; Personal settings file managed outside of version control.
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-
 
 ;; Load all inits/*.el files and byte-compile them for faster startup
 (leaf init-loader
@@ -49,7 +47,6 @@
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
   (init-loader-load))
-
 
 ;; Start Emacs server if not already running
 (leaf server
