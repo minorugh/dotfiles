@@ -73,6 +73,7 @@
                 candidates
 		:action (lambda (candidate)
 			  (let ((target (get-text-property 0 'my-target candidate)))
+			    (setq my-make-ivy-called t) 
 			    (compile (format "make -f %s %s" makefile target))
 			    (switch-to-buffer-other-window "*compilation*")))))))
 

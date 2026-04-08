@@ -5,6 +5,8 @@
 
 ;;; compilation (builtin)
 
+(defvar my-make-ivy-called nil "Flag to indicate my-make-ivy triggered compilation.")
+
 (defun compile-autoclose (buffer string)
   "Close compile window if BUFFER finished successfully, report STRING otherwise."
   (if (and (string-match "compilation" (buffer-name buffer))

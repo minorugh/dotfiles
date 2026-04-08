@@ -46,7 +46,8 @@
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
-  (init-loader-load))
+  (init-loader-load)
+  (switch-to-buffer (get-buffer-create "*dashboard*")))
 
 ;; Start Emacs server if not already running
 (leaf server

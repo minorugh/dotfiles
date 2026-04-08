@@ -55,7 +55,7 @@
     (interactive)
     (setq default-directory "~/")
     (delete-other-windows)
-    (switch-to-buffer "*dashboard*")
+    (switch-to-buffer (get-buffer-create "*dashboard*"))
     (dashboard-refresh-buffer)
     (dashboard-goto-recent-files))
 
