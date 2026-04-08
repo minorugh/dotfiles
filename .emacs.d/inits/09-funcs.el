@@ -8,10 +8,13 @@
 (defun compile-autoclose (buffer string)
   "Close compile window if BUFFER finished successfully, report STRING otherwise."
   (if (and (string-match "compilation" (buffer-name buffer))
-	   (string-match "finished" string))
+           (string-match "finished" string))
       (progn
-	;; (delete-other-windows)
-	(message "Compile successful."))
+        (message "Compile successful.")
+        (run-at-time 2 nil (lambda ()
+                             (when (buffer-live-p buffer)
+                               (delete-windows-on buffer)
+                               (kill-buffer buffer)))))
     (message "Compilation exited abnormally: %s" string)))
 
 (setq compilation-scroll-output t)

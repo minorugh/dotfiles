@@ -31,29 +31,20 @@
       (when (file-exists-p mk) mk))))
 
 (defun my-make--targets-with-desc (makefile)
-  "Return alist of (target . description) from MAKEFILE."
-  (let ((targets '())
-        ;; 除外するターゲット名
-        (ignore-targets '("Makefile" "makefile" "all" "a.out" ".PHONY")))
-    (with-temp-buffer
-      (let ((default-directory (file-name-directory makefile)))
-        (call-process "make" nil t nil "-qp"))
-      (goto-char (point-min))
-      (while (re-search-forward "^\\([^.#[:space:]%][^[:space:]]*\\):[^=]" nil t)
-        (let ((target (match-string 1)))
-          (unless (or (assoc target targets)
-                      (member target ignore-targets))
-            (push (cons target nil) targets)))))
+  "Return alist of (target . description) from MAKEFILE, in file order."
+  (let ((ignore-targets '("Makefile" "makefile" "all" "a.out" ".PHONY")))
     (with-temp-buffer
       (insert-file-contents makefile)
       (goto-char (point-min))
-      (while (re-search-forward
-              "^\\([^.#[:space:]%][^[:space:]]*\\):.*##[[:space:]]*\\(.*\\)$" nil t)
-        (let ((target (match-string 1))
-              (desc   (match-string 2)))
-          (when (assoc target targets)
-            (setcdr (assoc target targets) desc)))))
-    (nreverse targets)))
+      (let ((targets '()))
+        (while (re-search-forward
+                "^\\([^.#[:space:]%][^[:space:]]*\\):\\(?:.*##[[:space:]]*\\(.*\\)\\)?$" nil t)
+          (let ((target (match-string 1))
+                (desc   (match-string 2)))
+            (unless (or (assoc target targets)
+                        (member target ignore-targets))
+              (push (cons target (or desc "")) targets))))
+        (nreverse targets)))))
 
 (defun my-make--format-candidate (pair)
   "Format (target . desc) as ivy candidate string."
