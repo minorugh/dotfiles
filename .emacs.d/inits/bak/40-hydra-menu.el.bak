@@ -57,6 +57,16 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
+  (defun my-open-kendai ()
+    (interactive)
+    (my-open "~/Dropbox/GH/w_kukai/info/kendai.txt" 'top)
+    (evil-emacs-state))
+
+  (defun my-open-marquee ()
+    (interactive)
+    (my-open "~/Dropbox/GH/marquee.dat" 'top)
+    (evil-emacs-state))
+
   (defun terminal-open ()
     "Open gnome-terminal at current dir on adjacent display."
     (interactive)
@@ -114,8 +124,6 @@
     (interactive)
     (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" 'top)))
 
-
-(require 'my-template)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

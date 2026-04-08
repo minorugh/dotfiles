@@ -4,30 +4,33 @@
 
 all: xsrv-stop
 
+EMACS_MSG = emacsclient -n --eval '(my-make-message "$1")'
+
 crontab: ## crontab をバックアップして反映、ターミナルで確認
 	crontab -l > crontab.backup.$$(date +%Y%m%d) 2>/dev/null || true
 	crontab crontab
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
 
 ## xsrv-backup make commds
-stop: ## xsrv-backup 緊急停止
+xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
 	@echo "xsrv-backup: stopped."
 
-start: ## xsrv-backup 再開
+xsrv-start: ## xsrv-backup 再開
 	systemctl --user start xsrv-backup.timer
 	@echo "xsrv-backup: started."
 
-status: ## xsrv-backup 状態確認
+xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
 
-log: ## xsrv-backup ログ表示
-	@cat /tmp/xsrv-backup.log
+xsrv-log: ## xsrv-backup ログ表示
+	emacsclient -n /tmp/xsrv-backup.log
+# @cat /tmp/xsrv-backup.log
 
-reload: ## systemd 設定変更後のリロード
+xsrv-reload: ## systemd 設定変更後のリロード
 	systemctl --user daemon-reload
 	@echo "xsrv-backup: daemon reloaded."
 
-run: ## xsrv-backup 今すぐ手動実行
+xsrv-run: ## xsrv-backup 今すぐ手動実行
 	systemctl --user start xsrv-backup.service
 	@echo "xsrv-backup: manual run triggered."

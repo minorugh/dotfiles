@@ -14,11 +14,9 @@
 	(message "Compile successful."))
     (message "Compilation exited abnormally: %s" string)))
 
-(add-to-list 'auto-mode-alist '("\\.mak\\'" . makefile-mode))
 (setq compilation-scroll-output t)
 (setq compilation-always-kill t)
 (setq compilation-finish-functions #'compile-autoclose)
-
 
 ;;; ps-print / ps-mule (builtin)
 ;; https://tam5917.hatenablog.com/entry/20120914/1347600433
@@ -58,6 +56,15 @@ If region isn't selected, post from the buffer."
       (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
   (delete-other-windows))
 
+
+(leaf *my-makefile
+  :doc "ivy-based Makefile target selector with evil keybinding"
+  :require (my-makefile)
+  :hook
+  (makefile-mode-hook . (lambda ()
+                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
+  (dired-mode-hook    . (lambda ()
+                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

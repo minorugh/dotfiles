@@ -2,7 +2,7 @@
 ;;; Commentary:
 
 ;; Template functions for haiku writing files.
-;; Loaded via (require 'my-template) in 40-hydra-dired.el and 40-hydra-menu.el
+;; Loaded via (require 'my-template) in 40-hydra-menu.el
 
 ;;; Code:
 (declare-function evil-emacs-state "evil-states")
@@ -272,6 +272,13 @@
    (format-time-string "PLACE:\n\n"))
   (forward-line -2)
   (forward-char 6))
+
+(add-hook 'perl-mode-hook
+          (lambda ()
+            (when (and buffer-file-name
+                       (string-match-p "[dswm]member\\.cgi\\'" buffer-file-name))
+              (conf-mode)
+              (display-line-numbers-mode 1))))
 
 (provide 'my-template)
 ;; Local Variables:

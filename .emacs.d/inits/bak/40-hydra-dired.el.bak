@@ -30,8 +30,6 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
-   ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
    ("c" (my-open "~/src/github.com/minorugh/dotfiles/cron/"))
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
@@ -122,8 +120,6 @@
     "Open keepassxc with auto passwd input."
     (interactive)
     (start-process-shell-command "keepass" nil "keepass.sh")))
-
-(require 'my-template)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

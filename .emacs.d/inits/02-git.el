@@ -26,7 +26,6 @@ all git-peek buffers."
       (when (get-buffer bname) (kill-buffer bname)))
     (message "git-peek: emergency quit")))
 
-
 (defun gitk-open ()
   "Open gitk with current dir.
 see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
@@ -34,21 +33,38 @@ see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
   (start-process "gitk" nil "gitk")
   (delete-other-windows))
 
-
-(defun my-tig ()
-  "Open tig in the current directory's git repository with gnome-terminal."
-  (interactive)
-  (let ((root (or (locate-dominating-file default-directory ".git")
-                  (error "Git repository not found"))))
-    (start-process "tig" nil "gnome-terminal" "--" "bash" "-c"
-                   (format "cd %s && tig; exec bash" root))))
-
-
 (leaf browse-at-remote :ensure t
   :doc "Open github page from Emacs"
   :config
   (setq browse-at-remote-prefer-symbolic nil))
 
+(defun github-deploy ()
+  "Insert current changelog buffer into CHANGELOG.md and open it."
+  (interactive)
+  (let* ((src (buffer-file-name))
+         (basename (file-name-nondirectory src))
+         (date (and (string-match "changelog-\\([0-9]\\{8\\}\\)\\.md" basename)
+                    (match-string 1 basename)))
+         (changelog (expand-file-name "~/src/github.com/minorugh/minorugh.github.io/CHANGELOG.md")))
+    (if (not date)
+        (message "Not a changelog file: %s" basename)
+      (let* ((src-content (with-temp-buffer
+                            (insert-file-contents src)
+                            (buffer-string)))
+             (changelog-content (with-temp-buffer
+                                  (insert-file-contents changelog)
+                                  (buffer-string)))
+             (date-header (concat "## "
+                                  (substring date 0 4) "-"
+                                  (substring date 4 6) "-"
+                                  (substring date 6 8) "\n\n")))
+        (with-temp-file changelog
+          (insert date-header)
+          (insert src-content)
+          (insert "\n---\n\n")
+          (insert changelog-content))
+        (find-file changelog)
+        (message "CHANGELOG.md updated: %s" date)))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
