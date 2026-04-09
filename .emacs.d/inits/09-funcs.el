@@ -13,10 +13,12 @@
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
   (defun my-open-cron-makefile ()
-    "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile."
+    "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
     (interactive)
-    (find-file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
-    (delete-other-windows)))
+    (let ((file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
+      (find-file file)
+      (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
+      (run-at-time 0.1 nil #'my-make-ivy))))
 
 (leaf compilation
   :doc "Auto-close compilation window on success; delay only for my-make-ivy."
