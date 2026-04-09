@@ -38,17 +38,6 @@
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
-  ;; (defun my-compilation-finish-message (buf status)
-  ;;   "Show last line of compilation in minibuffer."
-  ;;   (when (buffer-live-p buf)
-  ;;     (with-current-buffer buf
-  ;; 	(save-excursion
-  ;;         (goto-char (point-max))
-  ;;         (forward-line -1)
-  ;;         (let ((msg (string-trim (thing-at-point 'line t))))
-  ;;           (message "%s" msg))))))
-  ;; (add-hook 'compilation-finish-functions #'my-compilation-finish-message)
-  
   (defun my-switch-to-compilation ()
     (interactive)
     (if-let ((buf (get-buffer "*compilation*")))
@@ -68,40 +57,12 @@
 			   (match-string 0)
 			 "Compile successful.")))))
 	  (message "%s" msg)
-	  (run-at-time 0 nil (lambda ()
-			       (when (buffer-live-p buffer)
-				 (delete-windows-on buffer)))))
+	  ;; (run-at-time 0 nil (lambda ()
+	  ;; 		       (when (buffer-live-p buffer)
+	  (delete-windows-on buffer))
       (message "Compilation exited abnormally: %s" string)))
 
   (setq compilation-finish-functions #'compile-autoclose))
-
-;; (defun compile-autoclose (buffer string)
-;;   "Hide compile window after 1 second if BUFFER finished successfully."
-;;   (if (and (string-match "compilation" (buffer-name buffer))
-;; 	     (string-match "finished" string))
-;; 	(progn
-;; 	  (message "%s" (with-current-buffer buffer
-;; 			  (save-excursion
-;; 			    (goto-char (point-max))
-;; 			    (if (re-search-backward "^\\(.+\\)\nCompilation finished" nil t)
-;; 				(match-string 1)
-;; 			      "Compile successful.")
-;; 			    (run-at-time 1 nil (lambda ()
-;; 						 (when (buffer-live-p buffer)
-;; 						   (delete-windows-on buffer)))))
-;; 			  (message "Compilation exited abnormally: %s" string)))))
-
-;; (defun compile-autoclose (buffer string)
-;;   "Hide compile window after 1 second if BUFFER finished successfully."
-;;   (if (and (string-match "compilation" (buffer-name buffer))
-;;            (string-match "finished" string))
-;;       (progn
-;;         (message "Compile successful.")
-;;         (run-at-time 1 nil (lambda ()
-;;                              (when (buffer-live-p buffer)
-;;                                (delete-windows-on buffer)))))
-;;     (message "Compilation exited abnormally: %s" string)))
-;; (setq compilation-finish-functions #'compile-autoclose)))
 
 
 (leaf ps-print
