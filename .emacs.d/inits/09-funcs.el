@@ -64,8 +64,8 @@
 	(let ((msg (with-current-buffer buffer
                      (save-excursion
                        (goto-char (point-max))
-		       (if (re-search-backward "^\\(.+\\)$" nil t 2)
-			   (match-string 1)
+		       (if (re-search-backward "^xsrv-[^:]+:.*$" nil t)
+			   (match-string 0)
 			 "Compile successful.")))))
 	  (message "%s" msg)
 	  (run-at-time 1 nil (lambda ()
