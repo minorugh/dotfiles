@@ -1,4 +1,12 @@
 #------------------------------------------------------------
+# ~/.xprofile
+# Created: 2025-xx-xx
+#------------------------------------------------------------
+
+# X セッション情報をログに残す（デバッグ用・動作には影響なし）
+echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "/tmp/xprofile.log"
+
+#------------------------------------------------------------
 # X resources
 #------------------------------------------------------------
 if [ -f ~/.Xresources ]; then
@@ -8,13 +16,9 @@ fi
 #------------------------------------------------------------
 # X keyboard settings
 #------------------------------------------------------------
-# X セッション情報をログに残す（デバッグ用・動作には影響なし）
-echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
-
-# XKB で pc105を設定することで「ろ」を "_" として使用している。
+# keyd で PrtSc を Alt_R に置き換え（/etc/keyd/default.conf）
+# XKB で pc105 を設定することで「ろ」を "_" として使用している。
 # XKB で CapsLock を Ctrl に置き換え（ctrl:nocaps）
-# keydで PrtSc を Alt_R に置き換え （/etc/keyd/default.conf）
-
 setxkbmap -model pc105 -layout jp -option ctrl:nocaps
 
 #------------------------------------------------------------
@@ -27,6 +31,3 @@ dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
 if [ -f ~/.keychain/$(hostname)-sh ]; then
     source "$HOME/.keychain/$(hostname)-sh"
 fi
-
-
-
