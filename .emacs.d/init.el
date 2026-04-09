@@ -48,7 +48,6 @@
   (setq init-loader-byte-compile t)
   (init-loader-load)
   ;; Suppress *scratch* flickering on startup
-  ;; therefore, *dashboard* buffer is loaded first.
   (switch-to-buffer (get-buffer-create "*dashboard*")))
 
 ;; Start Emacs server if not already running
