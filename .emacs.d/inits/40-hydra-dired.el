@@ -33,7 +33,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
    ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
-   ("c" my-open-cron-makefile)
+   ("c" switch-buffer "*compilatio*")
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
    ("/" (my-open-a "/"))
