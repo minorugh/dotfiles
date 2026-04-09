@@ -26,11 +26,11 @@ crontab: ## crontab をバックアップして反映、ターミナルで確認
 
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
-	@echo "xsrv-backup: stopped."
+	@echo "xsrv-backup: stopped." >&2
 
 xsrv-start: ## xsrv-backup 再開
 	systemctl --user start xsrv-backup.timer
-	@echo "xsrv-backup: started."
+	@echo "xsrv-backup: started." >&2
 
 xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
