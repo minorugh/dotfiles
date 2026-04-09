@@ -11,7 +11,7 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_:_
-  _r_estart  Git:_[__-__]_  _n_mutt  GH._h__j_  _f_lych  _<home>_  howm._;__@_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
+  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__@_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
@@ -25,6 +25,7 @@
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open-a "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
+   ("n" (my-open "~/Dropbox/notes/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
    ("J" (my-open "~/Dropbox/howm/junk/"))
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
@@ -49,7 +50,6 @@
    ("[" git-peek)
    ("-" git-peek-deleted)
    ("]" my-make-git)
-   ("n" neomutt)
    ("y" my-reload-keychain)
    ("M-." hydra-work/body)
    ("q" (top-level))
