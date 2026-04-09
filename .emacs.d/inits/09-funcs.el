@@ -54,7 +54,7 @@ Echo the last @echo output line to the minibuffer."
 	(let ((msg (with-current-buffer buffer
                      (save-excursion
                        (goto-char (point-max))
-		       (if (re-search-backward "^xsrv-[^:]+:.*$" nil t)
+		       (if (re-search-backward "^[A-Z][A-Za-z0-9_-]*:.*$" nil t)
 			   (match-string 0)
 			 "Compile successful.")))))
 	  (message "%s" msg)
