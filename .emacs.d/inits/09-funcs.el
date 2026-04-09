@@ -68,8 +68,8 @@
 			   (match-string 0)
 			 "Compile successful.")))))
 	  (message "%s" msg)
-	  (run-at-time 1 nil (lambda ()
-                               (when (buffer-live-p buffer)
+	  (run-at-time 0 nil (lambda ()
+			       (when (buffer-live-p buffer)
 				 (delete-windows-on buffer)))))
       (message "Compilation exited abnormally: %s" string)))
 
