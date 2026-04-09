@@ -34,6 +34,7 @@
 
 (leaf compilation
   :doc "Auto-close compilation window on success after 1 second."
+  :chord (("::" . my-switch-to-compilation))
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
@@ -47,7 +48,15 @@
                                (when (buffer-live-p buffer)
                                  (delete-windows-on buffer)))))
       (message "Compilation exited abnormally: %s" string)))
-  (setq compilation-finish-functions #'compile-autoclose))
+  (setq compilation-finish-functions #'compile-autoclose)
+
+  (defun my-switch-to-compilation ()
+    "Switch to *compilation* buffer if it exists, otherwise show a message."
+    (interactive)
+    (let ((buf (get-buffer "*compilation*")))
+      (if buf
+          (switch-to-buffer buf)
+	(message "*compilation* buffer does not exist.")))))
 
 ;; (leaf compilation
 ;;   :doc "Auto-close compilation window on success after 2 seconds."
