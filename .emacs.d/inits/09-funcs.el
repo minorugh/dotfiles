@@ -4,13 +4,12 @@
 ;; (setq debug-on-error t)
 
 (leaf *my-makefile
-  :doc "ivy-based Makefile target selector; my-makefile.el lives in ~/.emacs.d/elisp/."
+  :doc "ivy-based Makefile target selector."
   :require (my-makefile)
-  :hook
-  (makefile-mode-hook . (lambda ()
-                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
-  (dired-mode-hook    . (lambda ()
-                          (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
+  :hook ((makefile-mode-hook dired-mode-hook)
+	 . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
+  ;; (dired-mode-hook    . (lambda ()
+  ;;                         (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
   (defun my-open-cron-makefile ()
     "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
@@ -24,13 +23,15 @@
     "Open /tmp/cron.log fullscreen with cursor at bottom."
     (interactive)
     (find-file "/tmp/cron.log")
-    (goto-char (point-max))(recenter -30)(delete-other-windows))
+    (goto-char (point-max))(recenter -30)
+    (delete-other-windows))
 
   (defun my-open-xsrv-log ()
     "Open /tmp/xsrv-backup.log fullscreen with cursor at bottom."
     (interactive)
     (find-file "/tmp/xsrv-backup.log")
-    (goto-char (point-max))(delete-other-windows)))
+    (goto-char (point-max))
+    (delete-other-windows)))
 
 (leaf compilation
   :doc "Auto-close compilation window on success; delay only for my-make-ivy."
