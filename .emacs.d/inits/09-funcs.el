@@ -54,8 +54,8 @@ Echo the last @echo output line to the minibuffer."
 	(let ((msg (with-current-buffer buffer
                      (save-excursion
                        (goto-char (point-max))
-		       (if (re-search-backward "^[A-Z][A-Za-z0-9_-]*:.*$" nil t)
-			   (match-string 0)
+		       (if (re-search-backward "^##> \\(.*\\)$" nil t)
+			   (match-string 1)
 			 "Compile successful.")))))
 	  (message "%s" msg)
 	  (delete-windows-on buffer))
