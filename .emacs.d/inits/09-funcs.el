@@ -18,7 +18,19 @@
     (let ((file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
       (find-file file)
       (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
-      (run-at-time 0.1 nil #'my-make-ivy))))
+      (run-at-time 0.1 nil #'my-make-ivy)))
+
+  (defun my-open-cron-log ()
+    "Open /tmp/cron.log fullscreen with cursor at bottom."
+    (interactive)
+    (find-file "/tmp/cron.log")
+    (goto-char (point-max))(recenter -30)(delete-other-windows))
+
+  (defun my-open-xsrv-log ()
+    "Open /tmp/xsrv-backup.log fullscreen with cursor at bottom."
+    (interactive)
+    (find-file "/tmp/xsrv-backup.log")
+    (goto-char (point-max))(delete-other-windows)))
 
 (leaf compilation
   :doc "Auto-close compilation window on success; delay only for my-make-ivy."
