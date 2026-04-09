@@ -69,9 +69,6 @@
 ;; Inhibit startup screen.
 (setq inhibit-startup-message t)
 
-;; Clear scratch message only for startup (scratch itself remains available)
-;; (setq initial-scratch-message nil)
-
 
 (provide 'early-init)
 ;;; early-init.el ends here

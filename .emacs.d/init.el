@@ -47,8 +47,8 @@
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
   (init-loader-load)
-  ;; 起動時に *scratch* がちらっと表示されるのを抑制するため
-  ;; *dashboard* バッファーを先読みしておいて即座に切り替える
+  ;; Suppress *scratch* flickering on startup
+  ;; therefore, *dashboard* buffer is loaded first.
   (switch-to-buffer (get-buffer-create "*dashboard*")))
 
 ;; Start Emacs server if not already running
