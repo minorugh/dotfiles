@@ -50,13 +50,21 @@
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose)
 
-  (defun my-switch-to-compilation ()
-    "Switch to *compilation* buffer if it exists, otherwise show a message."
+  (defun my-pop-to-compilation ()
+    "Pop to *compilation* buffer and bind q to quit."
     (interactive)
-    (let ((buf (get-buffer "*compilation*")))
-      (if buf
-          (switch-to-buffer buf)
-	(message "*compilation* buffer does not exist.")))))
+    (if-let ((buf (get-buffer "*compilation*")))
+	(progn
+          (pop-to-buffer buf)
+          (local-set-key (kbd "q") #'quit-window))
+      (message "*compilation* buffer does not exist.")))
+  ;; (defun my-switch-to-compilation ()
+  ;;   "Switch to *compilation* buffer if it exists, otherwise show a message."
+  ;;   (interactive)
+  ;;   (let ((buf (get-buffer "*compilation*")))
+  ;;     (if buf
+  ;;         (switch-to-buffer buf)
+  ;; 	(message "*compilation* buffer does not exist.")))))
 
 ;; (leaf compilation
 ;;   :doc "Auto-close compilation window on success after 2 seconds."
