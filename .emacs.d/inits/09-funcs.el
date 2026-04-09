@@ -32,22 +32,39 @@
     (delete-other-windows)))
 
 (leaf compilation
-  :doc "Auto-close compilation window on success after 2 seconds."
+  :doc "Auto-close compilation window on success after 1 second."
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
   (defun compile-autoclose (buffer string)
-    "Close compile window after 1 seconds if BUFFER finished successfully."
+    "Hide compile window after 1 second if BUFFER finished successfully."
     (if (and (string-match "compilation" (buffer-name buffer))
              (string-match "finished" string))
         (progn
           (message "Compile successful.")
           (run-at-time 1 nil (lambda ()
-			       (when (buffer-live-p buffer)
-                                 (delete-windows-on buffer)
-                                 (kill-buffer buffer)))))
+                               (when (buffer-live-p buffer)
+                                 (delete-windows-on buffer)))))
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose))
+
+;; (leaf compilation
+;;   :doc "Auto-close compilation window on success after 2 seconds."
+;;   :config
+;;   (setq compilation-scroll-output t)
+;;   (setq compilation-always-kill   t)
+;;   (defun compile-autoclose (buffer string)
+;;     "Close compile window after 1 seconds if BUFFER finished successfully."
+;;     (if (and (string-match "compilation" (buffer-name buffer))
+;;              (string-match "finished" string))
+;;         (progn
+;;           (message "Compile successful.")
+;;           (run-at-time 1 nil (lambda ()
+;; 			       (when (buffer-live-p buffer)
+;;                                  (delete-windows-on buffer)
+;;                                  (kill-buffer buffer)))))
+;;       (message "Compilation exited abnormally: %s" string)))
+;;   (setq compilation-finish-functions #'compile-autoclose))
 
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
