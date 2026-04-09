@@ -47,7 +47,8 @@
       (message "*compilation* buffer does not exist.")))
 
   (defun compile-autoclose (buffer string)
-    "Hide compile window after 1 second if BUFFER finished successfully."
+    "Auto-close compile window if BUFFER finished successfully.
+Echo the last @echo output line to the minibuffer."
     (if (and (string-match "compilation" (buffer-name buffer))
              (string-match "finished" string))
 	(let ((msg (with-current-buffer buffer
@@ -57,8 +58,6 @@
 			   (match-string 0)
 			 "Compile successful.")))))
 	  (message "%s" msg)
-	  ;; (run-at-time 0 nil (lambda ()
-	  ;; 		       (when (buffer-live-p buffer)
 	  (delete-windows-on buffer))
       (message "Compilation exited abnormally: %s" string)))
 
