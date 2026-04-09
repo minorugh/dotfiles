@@ -33,7 +33,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
    ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
-   ("c" switch-buffer "*compilatio*")
+   ("c" switch-to-buffer "*compilatio*")
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
    ("/" (my-open-a "/"))
