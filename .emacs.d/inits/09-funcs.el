@@ -8,8 +8,6 @@
   :require (my-makefile)
   :hook ((makefile-mode-hook dired-mode-hook)
 	 . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
-  ;; (dired-mode-hook    . (lambda ()
-  ;;                         (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
   (defun my-open-cron-makefile ()
     "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
