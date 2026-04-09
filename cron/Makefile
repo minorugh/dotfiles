@@ -7,7 +7,7 @@ all: xsrv-stop
 EMACS_MSG = emacsclient -n --eval '(my-make-message "$1")'
 
 cron-log: ## cron 実行ログ表示
-	emacsclient -n -e '(progn (find-file "/tmp/cron.log") (goto-char (point-max)) (recenter -33) (delete-other-windows))'
+	emacsclient -n -e '(progn (find-file "/tmp/cron.log") (goto-char (point-max)) (recenter -30) (delete-other-windows))'
 
 xsrv-log: ## xsrv-backup ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup.log") (goto-char (point-max)) (delete-other-windows))'
