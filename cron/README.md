@@ -202,6 +202,14 @@ xsrv-start:              # xsrv-backup 再開
 xsrv-status:             # xsrv-backup 状態確認
 xsrv-log:                # xsrv-backup ログ表示
 xsrv-run:                # xsrv-backup 今すぐ手動実行
+xsrv-commit-lean:        # バックアップの git commitログを初期化（半年に1回程度）
+
+bat-status:              # バッテリー状態・しきい値を確認
+bat-set-60:              # 充電上限を60%に変更（長期AC接続時推奨）
+bat-set-80:              # 充電上限を80%に変更（外出前・標準運用）
+
+temp:                    # CPU/GPU/SSD温度を確認
+smart:                   # SSD健康状態を確認（nvme0n1 / nvme1n1）
 ```
 
 ---
@@ -255,3 +263,69 @@ make xsrv-systemd # P1のみ: systemd-user に xsrv-backup を登録・有効化
 - `make cron` 実行後、`cron/crontab.backup.YYYYMMDD` が生成される
 - crontab の内容は `dotfiles/cron/crontab` のものに上書きされる
 - `make xsrv-systemd` で service/timer のシンボリックリンク展開 + `systemctl --user enable --now` が走る
+
+---
+
+## 8. ハードウェアメンテ（ThinkPad P1 + Debian12）
+
+Docker 常時稼働・蓋閉め運用のため、定期的にバッテリーと温度・SSD 状態を確認する。
+操作はすべて `dotfiles/cron/` の Makefile から `@` で呼び出せる。
+
+### 8.1 バッテリー管理（TLP）
+
+常時 AC 接続のため充電量を抑えてバッテリー劣化を防ぐ。
+`/etc/tlp.conf` に設定済み（再起動後も永続）。
+
+| ターゲット | 内容 |
+|---|---|
+| `make bat-status` | 現在の充電状態・しきい値を確認 |
+| `make bat-set-60` | 充電上限を 60% に変更（長期 AC 接続・外出なし） |
+| `make bat-set-80` | 充電上限を 80% に変更（外出前・持ち出し時） |
+
+**現在の設定**: START=40 / STOP=60（常時 AC 接続運用）
+
+確認ポイント:
+- `charge_control_end_threshold` が設定値と一致しているか
+- `status = Not charging` になっているか
+- `Capacity` が極端に下がっていないか（80% 以下で要注意）
+
+### 8.2 温度確認（lm-sensors）
+
+```bash
+make temp   # 月1回程度、Docker 高負荷時は随時
+```
+
+要注意ライン:
+
+| センサー | 要注意 |
+|---|---|
+| CPU (coretemp) | 80°C 以上 |
+| GPU (nouveau) | 85°C 以上 |
+| NVMe | 70°C 以上 |
+
+### 8.3 SSD 健康診断（smartmontools）
+
+```bash
+make smart  # 3〜6ヶ月に1回程度
+```
+
+| デバイス | 型番 | 容量 |
+|---|---|---|
+| nvme0n1 | Samsung MZVLB512 | 512GB（システム） |
+| nvme1n1 | Crucial CT1000T500 | 1TB（追加） |
+
+確認ポイント:
+- `SMART overall-health: PASSED` であること
+- `Media and Data Integrity Errors: 0` であること
+- `Percentage Used` が 90% 以下であること
+- `Available Spare` が閾値以上であること
+
+### 8.4 定期メンテスケジュール目安
+
+| 頻度 | 作業 |
+|---|---|
+| 月1回 | `make temp` で温度確認 |
+| 3〜6ヶ月 | `make smart` で SSD 健康診断 |
+| 半年に1回 | `make xsrv-commit-lean` で git commitログ初期化 |
+| 外出前 | `make bat-set-80` で充電上限を 80% に変更 |
+| 帰宅後 | `make bat-set-60` で充電上限を 60% に戻す |
