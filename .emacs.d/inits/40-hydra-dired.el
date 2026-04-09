@@ -10,15 +10,15 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  _g_hub.i_o_  zilla._9_._0_._-_  capture_,_
-  _r_estart  Git:_[__:__]_  _n_mutt  GH._h__j_  _l_ocal  _<home>_  howm._;__@_._v_iew^^  key_p_ass^^  ke_y_chn._c_ron^^  _f_lyerror
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_:_
+  _r_estart  Git:_[__-__]_  _n_mutt  GH._h__j_  _f_lych  _<home>_  howm._;__@_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
    ("9" fzilla-GH)
    ("0" fzilla-minoruGH)
    ("g" (browse-url "https://github.com/minorugh"))
-   ("," org-capture)
+   (":" my-open-cron-makefile)
    ("p" keepassxc)
    ("<home>" (my-open-a "~/"))
    ("l" (my-open "~/src/github.com/minorugh"))
@@ -43,10 +43,11 @@
    ("r" restart-emacs)
    ("v" markdown-preview)
    ("@" howm-list-all)
+   ("," org-capture)
    (";" my-howm-create-memo)
    ("_" delete-other-windows)
    ("[" git-peek)
-   (":" git-peek-deleted)
+   ("-" git-peek-deleted)
    ("]" my-make-git)
    ("n" neomutt)
    ("y" my-reload-keychain)

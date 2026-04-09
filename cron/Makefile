@@ -66,7 +66,7 @@ xsrv-commit-lean: ## バックアップの git commitログを初期化
 ## バッテリーメンテ（TLP / ThinkPad P1 + Debian12）
 ## -------------------------------------------------------------------------
 ## 常時AC接続運用のため、充電量を抑えてバッテリー劣化を防ぐ。
-## /etc/tlp.conf に START=40 / STOP=80 を設定済み（再起動後も永続）。
+## /etc/tlp.conf に START=40 / STOP=60 を設定済み（再起動後も永続）。
 ##
 ## 通常確認:   make bat-status
 ## 節約モード: make bat-set-60  （長期AC接続・外出なし）
