@@ -12,39 +12,6 @@
   (dired-mode-hook    . (lambda ()
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
-  (defun my-open-cron-log ()
-    "Open fullscreen, kill-buffer returns to cron Makefile with my-make-ivy."
-    (interactive)
-    (let ((log-file "/tmp/cron.log")
-          (makefile (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
-      (find-file log-file)
-      (goto-char (point-max))
-      (recenter -10)
-      (delete-other-windows)
-      (add-hook 'kill-buffer-hook
-		(lambda ()
-                  (run-at-time 0.1 nil
-                               (lambda ()
-				 (find-file makefile)
-				 (my-make-ivy))))
-		nil t)))
-
-  (defun my-open-xsrv-log ()
-    "Open fullscreen, kill-buffer returns to cron Makefile with my-make-ivy."
-    (interactive)
-    (let ((log-file "/tmp/xsrv-backup.log")
-          (makefile (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
-      (find-file log-file)
-      (goto-char (point-max))
-      (delete-other-windows)
-      (add-hook 'kill-buffer-hook
-		(lambda ()
-                  (run-at-time 0.1 nil
-                               (lambda ()
-				 (find-file makefile)
-				 (my-make-ivy))))
-		nil t)))
-
   (defun my-open-cron-makefile ()
     "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
     (interactive)
@@ -52,7 +19,6 @@
       (find-file file)
       (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
       (run-at-time 0.1 nil #'my-make-ivy))))
-
 
 (leaf compilation
   :doc "Auto-close compilation window on success; delay only for my-make-ivy."
@@ -81,7 +47,6 @@
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose))
 
-
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
@@ -98,7 +63,6 @@
   (setq ps-line-number       t)
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
-
 
 (leaf *gist
   :doc "Post region or buffer to gist via compile."
@@ -123,7 +87,6 @@ If region isn't selected, post from the buffer."
           (compile (concat "gist -od " (gist-description) " " file))
         (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows)))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
