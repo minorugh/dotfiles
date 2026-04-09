@@ -32,29 +32,20 @@
     (delete-other-windows)))
 
 (leaf compilation
-  :doc "Auto-close compilation window on success; delay only for my-make-ivy."
-  :init
-  ;; my-make-ivy-called: when t, wait 2 seconds before closing so the result
-  ;; can be confirmed; otherwise close immediately.
-  (defvar my-make-ivy-called nil "Flag to indicate my-make-ivy triggered compilation.")
+  :doc "Auto-close compilation window on success after 2 seconds."
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
   (defun compile-autoclose (buffer string)
-    "Close compile window if BUFFER finished successfully, report STRING otherwise."
+    "Close compile window after 2 seconds if BUFFER finished successfully."
     (if (and (string-match "compilation" (buffer-name buffer))
              (string-match "finished" string))
         (progn
           (message "Compile successful.")
-          (if my-make-ivy-called
-              (run-at-time 2 nil (lambda ()
-                                   (setq my-make-ivy-called nil)
-                                   (when (buffer-live-p buffer)
-                                     (delete-windows-on buffer)
-                                     (kill-buffer buffer))))
-            (when (buffer-live-p buffer)
-              (delete-windows-on buffer)
-              (kill-buffer buffer))))
+          (run-at-time 2 nil (lambda ()
+                               (when (buffer-live-p buffer)
+                                 (delete-windows-on buffer)
+                                 (kill-buffer buffer)))))
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose))
 
