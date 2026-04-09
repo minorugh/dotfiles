@@ -38,6 +38,14 @@
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
+  (defun my-switch-to-compilation ()
+    (interactive)
+    (if-let ((buf (get-buffer "*compilation*")))
+	(progn
+          (switch-to-buffer buf)
+          (local-set-key (kbd "q") #'quit-window))
+      (message "*compilation* buffer does not exist.")))
+
   (defun compile-autoclose (buffer string)
     "Hide compile window after 1 second if BUFFER finished successfully."
     (if (and (string-match "compilation" (buffer-name buffer))
@@ -48,49 +56,8 @@
                                (when (buffer-live-p buffer)
                                  (delete-windows-on buffer)))))
       (message "Compilation exited abnormally: %s" string)))
-  (setq compilation-finish-functions #'compile-autoclose)
+  (setq compilation-finish-functions #'compile-autoclose))
 
-  (defun my-pop-to-compilation ()
-    "Pop to *compilation* buffer and bind q to quit."
-    (interactive)
-    (if-let ((buf (get-buffer "*compilation*")))
-	(progn
-          (pop-to-buffer buf)
-          (local-set-key (kbd "q") #'quit-window))
-      (message "*compilation* buffer does not exist.")))
-
-  (defun my-switch-to-compilation ()
-    (interactive)
-    (if-let ((buf (get-buffer "*compilation*")))
-	(progn
-          (switch-to-buffer buf)
-          (local-set-key (kbd "q") #'quit-window))
-      (message "*compilation* buffer does not exist."))))
-;; (defun my-switch-to-compilation ()
-;;   "Switch to *compilation* buffer if it exists, otherwise show a message."
-;;   (interactive)
-;;   (let ((buf (get-buffer "*compilation*")))
-;;     (if buf
-;;         (switch-to-buffer buf)
-;; 	(message "*compilation* buffer does not exist.")))))
-
-;; (leaf compilation
-;;   :doc "Auto-close compilation window on success after 2 seconds."
-;;   :config
-;;   (setq compilation-scroll-output t)
-;;   (setq compilation-always-kill   t)
-;;   (defun compile-autoclose (buffer string)
-;;     "Close compile window after 1 seconds if BUFFER finished successfully."
-;;     (if (and (string-match "compilation" (buffer-name buffer))
-;;              (string-match "finished" string))
-;;         (progn
-;;           (message "Compile successful.")
-;;           (run-at-time 1 nil (lambda ()
-;; 			       (when (buffer-live-p buffer)
-;;                                  (delete-windows-on buffer)
-;;                                  (kill-buffer buffer)))))
-;;       (message "Compilation exited abnormally: %s" string)))
-;;   (setq compilation-finish-functions #'compile-autoclose))
 
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
