@@ -12,6 +12,39 @@
   (dired-mode-hook    . (lambda ()
                           (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
+  (defun my-open-cron-log ()
+    "Open fullscreen, kill-buffer returns to cron Makefile with my-make-ivy."
+    (interactive)
+    (let ((log-file "/tmp/cron.log")
+          (makefile (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
+      (find-file log-file)
+      (goto-char (point-max))
+      (recenter -10)
+      (delete-other-windows)
+      (add-hook 'kill-buffer-hook
+		(lambda ()
+                  (run-at-time 0.1 nil
+                               (lambda ()
+				 (find-file makefile)
+				 (my-make-ivy))))
+		nil t)))
+
+  (defun my-open-xsrv-log ()
+    "Open fullscreen, kill-buffer returns to cron Makefile with my-make-ivy."
+    (interactive)
+    (let ((log-file "/tmp/xsrv-backup.log")
+          (makefile (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
+      (find-file log-file)
+      (goto-char (point-max))
+      (delete-other-windows)
+      (add-hook 'kill-buffer-hook
+		(lambda ()
+                  (run-at-time 0.1 nil
+                               (lambda ()
+				 (find-file makefile)
+				 (my-make-ivy))))
+		nil t)))
+
   (defun my-open-cron-makefile ()
     "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
     (interactive)
