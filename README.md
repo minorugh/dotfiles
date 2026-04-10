@@ -144,6 +144,7 @@ chsh -s /usr/bin/zsh
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
 | `make emacs-stable` | Emacs 安定版のソースビルド |
 | `make emacs-devel` | Emacs 開発版のソースビルド（現在 30.1） |
+| `make emacs-restore` | emacs-restore スクリプトのシンボリックリンク作成 
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -210,6 +211,7 @@ make   # xsrv-backup 緊急停止
 
 | 日付 | 内容 |
 |---|---|
+| 2026.04.10 | emacs-restore ターゲット追加（HOMEキーによるEmacs最小化復元） |
 | 2026.04.07 | xsrv-backup を systemd-user timer に移行、xsrv-systemd ターゲット追加、cron/Makefile 緊急操作パネル整備 |
 | 2026.03.26 | keyring ターゲットを全機共通コピー方式に統一、autostart.sh の条件分岐を削除 |
 | 2026.03.21 | cron ターゲット追加（automerge/autobackup/crontab 管理）、README 全体見直し |
