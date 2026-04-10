@@ -45,7 +45,6 @@ Echo the last @echo output line to the minibuffer."
                        (if (re-search-backward "^##>\\(.*\\)$" nil t)
                            (match-string 1)
 			 "Compile successful.")))))
-	  (message "[debug] msg='%s' len=%d" msg (length msg))
           (message "%s" msg)
           (if (string-equal msg "")
               (run-at-time 0.1 nil (lambda ()

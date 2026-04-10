@@ -8,7 +8,7 @@
 
 HOME=/home/minoru
 LOG_PREFIX="[autobackup]"
-MAKEFILE="$HOME/Dropbox/Makefile"
+MAKEFILE="$HOME/src/github.com/minorugh/dotfiles/cron/backup/Makefile"
 TMPLOG=$(mktemp)
 ERRORS=0
 
