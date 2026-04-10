@@ -34,10 +34,11 @@
 
 (leaf compilation
   :doc "Auto-close compilation window on success after 1 second."
-  ;; :bind ("M-:" . my-switch-to-compilation)
+  :chord (("::" . my-switch-to-compilation))
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
+  :init
   (defun my-switch-to-compilation ()
     (interactive)
     (if-let ((buf (get-buffer "*compilation*")))
