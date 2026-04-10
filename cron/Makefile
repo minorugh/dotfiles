@@ -121,6 +121,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	sudo smartctl -a /dev/nvme0n1
 	sudo smartctl -a /dev/nvme1n1
 
+
 # Hostname-based git push control:
 # P1 (main): commit + push / others (sub): pull --rebase only
 git: ## Auto commit+push (main only, sub: pull only)
@@ -129,6 +130,6 @@ git: ## Auto commit+push (main only, sub: pull only)
 ifeq ($(HOSTNAME),P1)
 	git push
 else
-	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
+	@echo "$(HOSTNAME): サブ機からはpushしません"
 	git pull --rebase
 endif
