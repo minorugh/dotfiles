@@ -9,7 +9,7 @@
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
 	 (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 1 1))))
-  :bind ("<f12>" . dashboard-toggle)
+  :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
