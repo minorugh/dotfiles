@@ -15,6 +15,7 @@
 
 XSRV_GH_DST  = $(HOME)/src/github.com/minorugh/xsrv-GH
 XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
+
 .PHONY: crontab
 
 all: xsrv-stop

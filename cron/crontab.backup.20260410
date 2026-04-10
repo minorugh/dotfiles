@@ -26,7 +26,7 @@
 40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 # GH+minorugh.com dotfils git auto push （毎日23:50） 
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
-
+## test
 
 
 
