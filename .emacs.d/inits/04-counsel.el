@@ -29,7 +29,8 @@
     (ivy--format-function-generic
      (lambda (str)
        (concat (if (display-graphic-p)
-		   "")
+		   (nerd-icons-octicon "nf-oct-chevron_right")
+		 "")
 	       (propertize " " 'display `(space :align-to 2))
 	       (ivy--add-face str 'ivy-current-match)))
      (lambda (str)
