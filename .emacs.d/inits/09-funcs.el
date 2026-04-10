@@ -6,7 +6,7 @@
 (leaf *my-makefile
   :doc "ivy-based Makefile target selector."
   :require (my-makefile)
-  :chord ("jk" . my-open-cron-makefile)
+  :bind ("C-:" . my-open-cron-makefile)
   :hook ((makefile-mode-hook dired-mode-hook)
 	 . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
