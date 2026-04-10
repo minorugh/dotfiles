@@ -77,9 +77,9 @@ If region isn't selected, post from the buffer."
         (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows)))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 
 ;;; 09-funcs.el ends here
-

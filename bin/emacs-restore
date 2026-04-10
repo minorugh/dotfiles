@@ -1,18 +1,12 @@
 #!/bin/bash
-
-active=$(xdotool getactivewindow 2>/dev/null)
-active_class=$(xprop -id "$active" WM_CLASS 2>/dev/null | grep -i emacs)
-
-if [ -n "$active_class" ]; then
-    xdotool keydown --window "$active" Home
-    xdotool keyup --window "$active" Home
-    exit 0
+wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
+if [ -z "$wid" ]; then
+    emacsclient -c -n
+    exit
 fi
-
-for wid in $(xdotool search --class emacs 2>/dev/null); do
-    if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
-        xdotool windowmap --sync "$wid"
-        xdotool windowactivate "$wid"
-        break
-    fi
-done
+state=$(xprop -id "$wid" _NET_WM_STATE)
+if echo "$state" | grep -q "_NET_WM_STATE_HIDDEN"; then
+    xdotool windowmap "$wid" windowactivate "$wid"
+else
+    exit 1
+fi
