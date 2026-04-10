@@ -212,6 +212,12 @@ temp:                    # CPU/GPU/SSD温度を確認
 smart:                   # SSD健康状態を確認（nvme0n1 / nvme1n1）
 ```
 
+### @echo ルール（Emacs compilation バッファー連携）
+
+- 実行系ターゲット: `@echo "##> メッセージ" >&2` → ミニバッファーに通知して自動クローズ
+- 確認系ターゲット: `@echo "##>" >&2` → compilation バッファーを全画面表示
+- `##>` なし → `"Compile successful."` を表示して自動クローズ
+
 ---
 
 ## 5. cron/ ディレクトリ構成

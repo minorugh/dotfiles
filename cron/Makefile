@@ -2,6 +2,11 @@
 ## cron/systemd-user 手動操作パネル
 ## 作成: 2026-04-09
 ##
+## @echo ルール:
+##   ミニバッファー通知が必要なターゲットは @echo "##> メッセージ" >&2 で記述する
+##   結果をバッファーで確認するターゲットは @echo "##>" >&2 のみ記述する
+##   マーカー ##> がない場合は "Compile successful." が表示される
+##
 ## 緊急停止:    make（または make -k）
 ## crontab反映: make crontab
 ## commitリセット: make xsrv-commit-lean（半年に1回程度）
@@ -15,17 +20,14 @@ all: xsrv-stop
 
 cron-log: ## cron 実行ログ表示
 	emacsclient -n -e '(my-open-cron-log)'
-	@echo "##> cron-log: check compilation buffer." >&2
 
 xsrv-log: ## xsrv-backup ログ表示
 	emacsclient -n -e '(my-open-xsrv-log)'
-	@echo "##> xsrv-log: check compilation buffer." >&2
 
 crontab: ## crontab をバックアップして反映、ターミナルで確認
 	crontab -l > crontab.backup.$$(date +%Y%m%d) 2>/dev/null || true
 	crontab crontab
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
-	@echo "##> crontab: updated and applied." >&2
 
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
@@ -37,7 +39,7 @@ xsrv-start: ## xsrv-backup 再開
 
 xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
-	@echo "##> xsrv-status: check compilation buffer." >&2
+	@echo "##>" >&2
 
 xsrv-reload: ## systemd 設定変更後のリロード
 	systemctl --user daemon-reload
@@ -80,7 +82,7 @@ xsrv-commit-lean: ## バックアップの git commitログを初期化
 
 bat-status: ## バッテリー状態・しきい値を確認
 	sudo tlp-stat -b
-	@echo "##> bat-status: check compilation buffer." >&2
+	@echo "##>" >&2
 
 bat-set-60: ## 充電上限を60%に変更（長期AC接続時推奨）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=60/' /etc/tlp.conf
@@ -110,9 +112,9 @@ bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 
 temp: ## CPU/GPU/SSD温度を確認（lm-sensors）
 	sensors
-	@echo "##> temp: check compilation buffer." >&2
+	@echo "##>" >&2
 
 smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	sudo smartctl -a /dev/nvme0n1
 	sudo smartctl -a /dev/nvme1n1
-	@echo "##> smart: check compilation buffer." >&2
+	@echo "##>" >&2

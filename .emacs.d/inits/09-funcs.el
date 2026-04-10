@@ -54,11 +54,16 @@ Echo the last @echo output line to the minibuffer."
 	(let ((msg (with-current-buffer buffer
                      (save-excursion
                        (goto-char (point-max))
-		       (if (re-search-backward "^##> \\(.*\\)$" nil t)
-			   (match-string 1)
+                       (if (re-search-backward "^##>\\(.*\\)$" nil t)
+                           (match-string 1)
 			 "Compile successful.")))))
-	  (message "%s" msg)
-	  (delete-windows-on buffer))
+	  (message "[debug] msg='%s' len=%d" msg (length msg))
+          (message "%s" msg)
+          (if (string-equal msg "")
+              (run-at-time 0.1 nil (lambda ()
+                                     (switch-to-buffer buffer)
+                                     (delete-other-windows)))
+            (delete-windows-on buffer)))
       (message "Compilation exited abnormally: %s" string)))
 
   (setq compilation-finish-functions #'compile-autoclose))
