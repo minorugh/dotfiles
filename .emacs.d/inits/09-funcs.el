@@ -80,4 +80,6 @@ If region isn't selected, post from the buffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
+
 ;;; 09-funcs.el ends here
+
