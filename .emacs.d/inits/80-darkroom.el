@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf darkroom :ensure t
+(leaf darkroom
+  :ensure t
   :doc "Remove visual distractions and focus on writing."
   :bind (([f8] . my-darkroom-in)
 	 (:darkroom-mode-map

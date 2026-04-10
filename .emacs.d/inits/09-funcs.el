@@ -18,7 +18,6 @@
       (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
       (run-at-time 0.1 nil #'my-make-ivy))))
 
-
 (leaf compilation
   :doc "Auto-close compilation window on success after 1 second."
   :chord (("::" . my-switch-to-compilation))
@@ -52,26 +51,7 @@ Echo the last @echo output line to the minibuffer."
                                      (delete-other-windows)))
             (delete-windows-on buffer)))
       (message "Compilation exited abnormally: %s" string)))
-
   (setq compilation-finish-functions #'compile-autoclose))
-
-
-(leaf ps-print
-  :doc "PostScript printing with Japanese support."
-  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
-  :if (executable-find "lpr")
-  :config
-  (setq ps-multibyte-buffer 'non-latin-printer)
-  (setq ps-paper-type       'a4)
-  (setq ps-printer-name      nil)
-  (setq ps-print-header      nil)
-  (setq ps-print-footer      nil)
-  (setq ps-font-size         9)
-  (setq ps-font-family      'Courier)
-  (setq ps-line-number-font 'Courier)
-  (setq ps-line-number       t)
-  (setq ps-show-n-of-n       t)
-  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 (leaf *gist
   :doc "Post region or buffer to gist via compile."

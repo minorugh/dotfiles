@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf yatex :ensure t
+(leaf yatex
+  :ensure t
   :doc "Yet Another tex-mode for emacs."
   :url "https://github.com/emacsmirror/yatex"
   :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
@@ -14,7 +15,8 @@
   (setq YaTeX-latex-message-code 'utf-8)
   (setq YaTeX-default-pop-window-height 15))
 
-(leaf yatexprc :ensure nil
+(leaf yatexprc
+  :ensure nil
   :doc "YaTeX process handler"
   :after yatex
   :bind (("M-c" . YaTeX-typeset-buffer)

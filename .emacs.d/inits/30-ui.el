@@ -70,8 +70,7 @@
       (delete-trailing-whitespace)))
   (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t))))
 
-
-  (leaf display-fill-column-indicator :ensure nil
+(leaf display-fill-column-indicator :ensure nil
   :tag "builtin"
   :doc "Indicate maximum column."
   :hook ((gfm-mode-hook  . display-fill-column-indicator-mode)
@@ -79,18 +78,6 @@
   :config
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))
-
-;; Color highlighting the active window's mode line
-(defun my-update-modeline-color ()
-  "Highlight with mode line color when split, restore default when one window."
-  (if (or (one-window-p)
-          (bound-and-true-p hydra-curr-map)
-          (minibuffer-window-active-p (minibuffer-window))
-	  (get-buffer-window "*compilation*"))
-      (set-face-attribute 'mode-line nil :background 'unspecified)
-    (set-face-attribute 'mode-line nil :background "#852941")))
-(add-hook 'window-configuration-change-hook #'my-update-modeline-color)
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

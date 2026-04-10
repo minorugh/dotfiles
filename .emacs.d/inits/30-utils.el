@@ -19,14 +19,6 @@
   :chord (("df" . counsel-descbinds)
 	  ("l;" . init-loader-show-log)))
 
-(leaf counsel-tramp
-  :ensure t
-  :config
-  (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
-  (setq tramp-default-method "scp")
-  (setq counsel-tramp-custom-connections
-	'(/scp:xsrv:/home/minorugh/gospel-haiku.com/public_html/)))
-
 (leaf popwin
   :ensure t
   :doc "Popup window manager for Emacs."
@@ -75,6 +67,23 @@
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
+
+(leaf ps-print
+  :doc "PostScript printing with Japanese support."
+  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+  :if (executable-find "lpr")
+  :config
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-paper-type       'a4)
+  (setq ps-printer-name      nil)
+  (setq ps-print-header      nil)
+  (setq ps-print-footer      nil)
+  (setq ps-font-size         9)
+  (setq ps-font-family      'Courier)
+  (setq ps-line-number-font 'Courier)
+  (setq ps-line-number       t)
+  (setq ps-show-n-of-n       t)
+  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

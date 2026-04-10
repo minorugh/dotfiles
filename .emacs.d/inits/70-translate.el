@@ -11,7 +11,8 @@
   :bind ("C-c d" . deepl-translate)
   :config (load (locate-user-emacs-file "elisp/deepl-api.el.gpg")))
 
-(leaf google-translate :ensure t
+(leaf google-translate
+  :ensure t
   :doc "Emacs interface to Google Translate."
   :hook (after-init-hook . (lambda () (require 'google-translate)))
   :bind ("C-c t" . google-translate-auto)

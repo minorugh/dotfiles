@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf flycheck :ensure t
+(leaf flycheck
+  :ensure t
   :doc "On-the-fly syntax checking."
   :hook ((prog-mode-hook . flycheck-mode)
 	 (gfm-mode-hook  . flycheck-mode)
@@ -35,7 +36,6 @@
               line-end))
     :modes (markdown-mode gfm-mode org-mode web-mode)))
 
-
 ;; (leaf textlint
 ;;   :ensure nil
 ;;   :doc "Checker for textlint."
@@ -53,8 +53,8 @@
 ;;               line-end))
 ;;     :modes (markdown-mode gfm-mode org-mode web-mode)))
 
-
-(leaf ispell :ensure nil
+(leaf ispell
+  :ensure nil
   :tag "builtin"
   :doc "For hunspell."
   :config

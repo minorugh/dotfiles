@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf goggles :ensure t
+(leaf goggles
+  :ensure t
   :doc "Highlights the modified region using pulse."
   :hook (prog-mode-hook . goggles-mode)
   (text-mode-hook . goggles-mode)
@@ -14,7 +15,8 @@
    '(goggles-changed ((t (:background "#fae8bb"))))
    '(goggles-removed ((t (:background "#fabfbb"))))))
 
-(leaf paren :ensure nil
+(leaf paren
+  :ensure nil
   :tag "builtin"
   :doc "Highlight matching parens."
   :hook (after-init-hook . show-paren-mode)
@@ -25,7 +27,8 @@
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
 
-(leaf blink-cursor :ensure nil
+(leaf blink-cursor
+  :ensure nil
   :tag "builtin"
   :doc "Blinking cursor mode for GNU Emacs."
   :config
@@ -33,27 +36,32 @@
   (setq blink-cursor-interval 0.3)
   (setq blink-cursor-delay    10))
 
-(leaf rainbow-delimiters :ensure t
+(leaf rainbow-delimiters
+  :ensure t
   :doc "Display brackets in rainbow."
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(leaf rainbow-mode :ensure t
+(leaf rainbow-mode
+  :ensure t
   :doc "Color letter that indicate the color."
   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
   :bind ("C-c r" . rainbow-mode))
 
-(leaf elec-pair :ensure nil
+(leaf elec-pair
+  :ensure nil
   :tag "builtin"
   :doc "Disable electric-pair-mode in text-mode (use yasnippet for makeweb blocks)."
   :hook (text-mode-hook . (lambda () (electric-pair-local-mode -1))))
 
-(leaf aggressive-indent :ensure t
+(leaf aggressive-indent
+  :ensure t
   :hook (after-init-hook . global-aggressive-indent-mode)
   :config
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
 
-(leaf web-mode :ensure t
+(leaf web-mode
+  :ensure t
   :doc "Web template editing mode for emacs."
   :mode ("\\.js\\'" "\\.jsx\\'" "\\.html?\\'" "\\.php\\'")
   :config
@@ -61,6 +69,17 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
+
+;; Color highlighting the active window's mode line
+(defun my-update-modeline-color ()
+  "Highlight with mode line color when split, restore default when one window."
+  (if (or (one-window-p)
+          (bound-and-true-p hydra-curr-map)
+          (minibuffer-window-active-p (minibuffer-window))
+	  (get-buffer-window "*compilation*"))
+      (set-face-attribute 'mode-line nil :background 'unspecified)
+    (set-face-attribute 'mode-line nil :background "#852941")))
+(add-hook 'window-configuration-change-hook #'my-update-modeline-color)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
