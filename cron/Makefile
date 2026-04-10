@@ -122,6 +122,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	sudo smartctl -a /dev/nvme1n1
 
 
+HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
 # P1 (main): commit + push / others (sub): pull --rebase only
 git: ## Auto commit+push (main only, sub: pull only)

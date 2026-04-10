@@ -2,7 +2,6 @@ a.out:git
 
 
 HOSTNAME := $(shell hostname)
-
 # Hostname-based git push control:
 # P1 (main): commit + push / others (sub): pull --rebase only
 git: ## Auto commit+push (main only, sub: pull only)

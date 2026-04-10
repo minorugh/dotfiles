@@ -73,6 +73,7 @@ docker-ps: ## 起動中コンテナ一覧
 	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 
+HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
 # P1 (main): commit + push / others (sub): pull --rebase only
 git: ## Auto commit+push (main only, sub: pull only)
