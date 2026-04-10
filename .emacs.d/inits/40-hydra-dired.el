@@ -13,8 +13,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_@_
-  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_@__c_
+  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chin
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
@@ -36,7 +36,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
    ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
-   ("c" (my-open "~/Dropbox/backup/changelog/"))
+   ("c" (my-open "~/src/github.com/minorugh/dotfiles/cron/"))
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
    ("/" (my-open-a "/"))
@@ -156,7 +156,6 @@
     (interactive)
     (start-process-shell-command "keepass" nil "keepass.sh")))
 
-(require 'my-template)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

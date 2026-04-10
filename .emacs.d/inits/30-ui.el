@@ -59,6 +59,7 @@
   :doc "Minor mode to visualize whitespace characters."
   :bind ("C-x c" . my-cleanup-for-spaces-safe)
   :config
+  (setq show-trailing-whitespace nil)
   (defun my-cleanup-for-spaces-safe ()
     "Clean up trailing whitespace and blank lines at end of buffer."
     (interactive)
@@ -67,8 +68,6 @@
       (while (re-search-forward "[ \t\u00A0\u200B]+$" nil t)
 	(replace-match ""))
       (delete-trailing-whitespace)))
-
-  (setq show-trailing-whitespace nil)
   (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t))))
 
 
