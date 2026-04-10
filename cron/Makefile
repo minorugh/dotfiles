@@ -80,6 +80,9 @@ xsrv-commit-lean: ## バックアップの git commitログを初期化
 ## 通常確認:   make bat-status
 ## 節約モード: make bat-set-60  （長期AC接続・外出なし）
 ## 標準モード: make bat-set-80  （外出予定あり・持ち出し前など）
+## 強制放電:   make bat-discharge     （膨張バッテリ等で充電量を下げたい時）
+## 放電停止:   make bat-discharge-stop（autoに戻す・60%以下になったら）
+## 残量確認:   make bat-capacity      （%だけサクッと確認）
 ## -------------------------------------------------------------------------
 
 bat-status: ## バッテリー状態・しきい値を確認
@@ -90,6 +93,18 @@ bat-set-60: ## 充電上限を60%に変更（長期AC接続時推奨）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=60/' /etc/tlp.conf
 	sudo tlp start
 	@echo "##> BAT0 charge threshold: START=40 STOP=60" >&2
+
+bat-discharge: ## 強制放電開始（ACつなぎのまま放電・60%以下になったら停止）
+	echo force-discharge | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
+	@echo "##> BAT0: force-discharge started. Run 'make bat-discharge-stop' when below 60%." >&2
+
+bat-discharge-stop: ## 強制放電停止（autoに戻す）
+	echo auto | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
+	@echo "##> BAT0: charge_behaviour restored to auto." >&2
+
+bat-capacity: ## 現在の充電残量を確認（%のみ）
+	cat /sys/class/power_supply/BAT0/capacity
+	@echo "##>" >&2
 
 bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=80/' /etc/tlp.conf
