@@ -10,7 +10,6 @@
 	 ("C-x C-b" . counsel-switch-buffer)
 	 ("M-x"     . counsel-M-x)
 	 ("M-y"     . counsel-yank-pop)
-	 ("M-:"     . counsel-buffer-or-recentf)
 	 ("C-,"     . counsel-mark-ring)
 	 ("s-a"     . counsel-ag)
 	 ("C-x a"   . counsel-linux-app)
