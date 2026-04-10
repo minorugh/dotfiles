@@ -17,7 +17,7 @@ XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
 all: xsrv-stop
 
 cron-log: ## cron 実行ログ表示
-	emacsclient -n -e '(my-open-cron-log)'
+	emacsclient -n -e '(progn (find-file "/tmp/cron.log")(goto-char (point-max)) (delete-other-windows))'
 
 cron-edit: ## crontab を編集（dotfiles/cron/crontab を直接編集）
 	gnome-terminal -- bash -c "nano ${PWD}/crontab; exec bash"
@@ -34,7 +34,7 @@ autobackup: ## autobackup.sh を今すぐ手動実行
 	/usr/local/bin/autobackup.sh
 
 xsrv-log: ## xsrv-backup ログ表示
-	emacsclient -n -e '(my-open-xsrv-log)'
+	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup.log")(goto-char (point-max)) (delete-other-windows))'
 
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer

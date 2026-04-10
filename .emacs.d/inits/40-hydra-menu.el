@@ -4,10 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-work
-  :bind (("<f3>" . terminal-open)
-	 ("<f4>" . xsrv-gh)
-	 ("<f6>" . thunar-open)
-	 ("<henkan>" . hydra-work/body))
+:bind (("<henkan>" . hydra-work/body))
   :hydra
   (hydra-work
    (:hint nil :exit t)
@@ -57,35 +54,6 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :init
-  (defun terminal-open ()
-    "Open gnome-terminal at current dir on adjacent display."
-    (interactive)
-    (let ((dir (directory-file-name default-directory)))
-      (start-process-shell-command
-       "gnome-terminal" nil
-       (concat "gnome-terminal --working-directory " dir))
-      (run-with-timer
-       0.5 nil
-       (lambda ()
-	 (shell-command
-          "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
-
-  (defun thunar-open ()
-    "Open Thunar at current dir on adjacent display."
-    (interactive)
-    (start-process-shell-command
-     "thunar" nil
-     (concat "thunar " default-directory))
-    (run-with-timer
-     0.5 nil
-     (lambda ()
-       (shell-command
-	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
-
-  (defun xsrv-gh ()
-    (interactive)
-    (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH"))
-
   (defun my-year ()
     "Open year file and move to near bottom."
     (interactive)

@@ -4,21 +4,24 @@
 ;; (setq debug-on-error t)
 
 (leaf *hydra-dired
-  :bind ("M-." . hydra-dired/body)
+  :bind (("<f3>" . terminal-open)
+	 ("<f4>" . xsrv-gh)
+	 ("<f6>" . thunar-open)
+	 ("M-." . hydra-dired/body))
   :hydra
   (hydra-dired
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_:_
-  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__@_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_@_
+  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chn
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
    ("9" fzilla-GH)
    ("0" fzilla-minoruGH)
    ("g" (browse-url "https://github.com/minorugh"))
-   (":" my-open-cron-makefile)
+   ("@" my-open-cron-makefile)
    ("p" keepassxc)
    ("<home>" (my-open-a "~/"))
    ("l" (my-open "~/src/github.com/minorugh"))
@@ -43,7 +46,7 @@
    ("u" (my-make "up"))
    ("r" restart-emacs)
    ("v" markdown-preview)
-   ("@" howm-list-all)
+   (":" howm-list-all)
    ("," org-capture)
    (";" my-howm-create-memo)
    ("_" delete-other-windows)
@@ -51,10 +54,39 @@
    ("-" git-peek-deleted)
    ("]" my-make-git)
    ("y" my-reload-keychain)
+   ("q" top-level)
    ("M-." hydra-work/body)
-   ("q" (top-level))
    ("<muhenkan>" nil))
   :init
+  (defun terminal-open ()
+    "Open gnome-terminal at current dir on adjacent display."
+    (interactive)
+    (let ((dir (directory-file-name default-directory)))
+      (start-process-shell-command
+       "gnome-terminal" nil
+       (concat "gnome-terminal --working-directory " dir))
+      (run-with-timer
+       0.5 nil
+       (lambda ()
+	 (shell-command
+          "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
+
+  (defun thunar-open ()
+    "Open Thunar at current dir on adjacent display."
+    (interactive)
+    (start-process-shell-command
+     "thunar" nil
+     (concat "thunar " default-directory))
+    (run-with-timer
+     0.5 nil
+     (lambda ()
+       (shell-command
+	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
+
+  (defun xsrv-gh ()
+    (interactive)
+    (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH"))
+
   (defun my-reload-keychain ()
     "Reload keychain environment variables in Emacs session for SSH."
     (interactive)
