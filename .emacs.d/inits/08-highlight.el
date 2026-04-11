@@ -70,16 +70,9 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 
-;; Color highlighting the active window's mode line
-(defun my-update-modeline-color ()
-  "Highlight with mode line color when split, restore default when one window."
-  (if (or (one-window-p)
-          (bound-and-true-p hydra-curr-map)
-          (minibuffer-window-active-p (minibuffer-window))
-	  (get-buffer-window "*compilation*"))
-      (set-face-attribute 'mode-line nil :background 'unspecified)
-    (set-face-attribute 'mode-line nil :background "#852941")))
-(add-hook 'window-configuration-change-hook #'my-update-modeline-color)
+;; Highlight the mode line of the active window
+(set-face-attribute 'mode-line nil :background "unspecified" :foreground "gray")
+(set-face-attribute 'mode-line-inactive nil :background "#852941" :foreground "white")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
