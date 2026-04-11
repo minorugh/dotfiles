@@ -98,6 +98,18 @@ bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 	sudo tlp start
 	@echo "BAT0 charge threshold: START=40 STOP=80"
 
+bat-discharge: ## 強制放電開始（膨張バッテリ対応・ACつなぎで放電）
+	echo force-discharge | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
+	@echo "##> BAT0: force-discharge started. Run 'make bat-discharge-stop' when below 60%." >&2
+
+bat-discharge-stop: ## 強制放電停止（autoに戻す）
+	echo auto | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
+	@echo "##> BAT0: charge_behaviour restored to auto." >&2
+
+bat-capacity: ## 現在の充電残量を確認
+	cat /sys/class/power_supply/BAT0/capacity
+	@echo "##>" >&2
+
 ## -------------------------------------------------------------------------
 ## ハードウェア健康診断（常時稼働サーバー用途向け）
 ## -------------------------------------------------------------------------
