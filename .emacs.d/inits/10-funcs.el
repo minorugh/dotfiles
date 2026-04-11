@@ -67,6 +67,22 @@
 
   (add-hook 'after-init-hook #'my-reload-keychain)
 
+  (defun thunderbird ()
+    "Open thunderbird mail-client for Gmail."
+    (interactive)
+    (start-process "thunderbird" nil "thunderbird"))
+
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (start-process-shell-command "neomutt" nil "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
+
+  (defun mattermost ()
+    "Open mattermost-desktop."
+    (interactive)
+    (start-process "mattermost" nil "mattermost-desktop"))
+
   (defun fzilla-GH ()
     "Open Filezilla with `gospel-haiku.com'."
     (interactive)
@@ -86,6 +102,7 @@
     "Open keepassxc with auto passwd input."
     (interactive)
     (start-process-shell-command "keepass" nil "keepass.sh")))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

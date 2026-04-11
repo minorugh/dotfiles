@@ -1,19 +1,19 @@
-;;; 09-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
+;;; 08-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; (leaf goggles
-;;   :ensure t
-;;   :doc "Highlights the modified region using pulse."
-;;   :hook (prog-mode-hook . goggles-mode)
-;;   (text-mode-hook . goggles-mode)
-;;   :config
-;;   (setq-default goggles-pulse t)
-;;   (custom-set-faces
-;;    '(goggles-added   ((t (:background "#c3fabb"))))
-;;    '(goggles-changed ((t (:background "#fae8bb"))))
-;;    '(goggles-removed ((t (:background "#fabfbb"))))))
+(leaf goggles
+  :ensure t
+  :doc "Highlights the modified region using pulse."
+  :hook (prog-mode-hook . goggles-mode)
+  (text-mode-hook . goggles-mode)
+  :config
+  (setq-default goggles-pulse t)
+  (custom-set-faces
+   '(goggles-added   ((t (:background "#c3fabb"))))
+   '(goggles-changed ((t (:background "#fae8bb"))))
+   '(goggles-removed ((t (:background "#fabfbb"))))))
 
 (leaf paren
   :ensure nil
@@ -73,4 +73,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 09-highlight.el ends here
+;;; 08-highlight.el ends here

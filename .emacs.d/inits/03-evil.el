@@ -24,6 +24,7 @@
 	  ("C-w"      . evil-delete-backward-word)
 	  ("SPC"      . set-mark-command)
 	  ("_"        . evil-visual-line)
+	  ("?"        . vim-cheat-sheet)
           ([muhenkan] . my-muhenkan)
 	  ([home]     . dashboard-toggle))
 	 (:evil-visual-state-map
@@ -94,61 +95,12 @@ Otherwise: git-peek quit → minibuffer quit (top-level fallback)
      (current-input-method (deactivate-input-method))
      (t (evil-normal-state) (message "-- NORMAL --"))))
 
-  (bind-key "<muhenkan>" #'my-muhenkan))
+  (bind-key "<muhenkan>" #'my-muhenkan)
 
-
-(leaf evil-leader :ensure t
-  :doc "Free keymap on evil-mode."
-  :hook (after-init-hook . global-evil-leader-mode)
-  :config
-  (evil-leader/set-leader ",")
-  (evil-leader/set-key
-    "0" 'delete-window
-    "1" 'delete-other-windows
-    "2" 'split-window-below
-    "3" 'split-window-right
-    "m" 'make-frame
-    "n" 'neomutt
-    "_" 'other-frame
-    "/" 'delete-frame
-    "w" 'window-swap-states
-    "o" 'other-window-or-split
-    "[" 'previous-buffer
-    "]" 'next-buffer
-    "l" 'recenter-top-bottom
-    "h" 'hydra-diff/body
-    "j" 'evil-join-whitespace
-    "g" 'my-google-this
-    ":" 'thunar-open
-    "f" 'flycheck-list-errors
-    "," 'org-capture
-    "." 'thunderbird
-    "?" 'vim-cheat-sheet
-    "c" 'org-capture
-    "q" 'keyboard-quit
-    "SPC" 'avy-goto-word-1)
-  :init
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
     (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
-
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail."
-    (interactive)
-    (start-process "thunderbird" nil "thunderbird"))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (start-process-shell-command "neomutt" nil "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-  (defun mattermost ()
-    "Open mattermost-desktop."
-    (interactive)
-    (start-process "mattermost" nil "mattermost-desktop")))
-
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

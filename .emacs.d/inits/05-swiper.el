@@ -1,4 +1,4 @@
-;;; 06-swiper.el --- Swiper configurations. -*- lexical-binding: t -*-
+;;; 05-swiper.el --- Swiper configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@ If the region isn't selected, `swiper'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 06-swiper.el ends here
+;;; 05-swiper.el ends here
