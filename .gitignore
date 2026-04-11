@@ -2,3 +2,4 @@
 cache
 .vim/plugged/
 doc/
+.emacs.d/session*
