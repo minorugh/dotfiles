@@ -152,7 +152,10 @@ chsh -s /usr/bin/zsh
 
 ## SSH キー・keychain の仕組み
 
-GUI 起動時に `autostart.sh` が実行され、以下の流れで SSH 鍵のパスフレーズが自動入力されます。
+GUI 起動時に `.autostart.sh` が実行され、SSH 鍵の自動入力に加えて Emacs・Thunderbird の自動起動と最小化も行います。
+
+SSH 鍵の自動入力フロー：
+
 
 1. `secret-tool` で Gnome keyring からパスフレーズを取得
 2. `keychain` に渡して `ssh-agent` を起動
