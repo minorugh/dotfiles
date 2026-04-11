@@ -110,7 +110,6 @@ hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 # バージョンアップ時はURLの数字を変更すること
 # 確認: hugo version
 
-
 autostart: ## GUI起動時の自動処理設定（SSH鍵自動入力・mozc同期）
 	ln -vsf {${PWD},${HOME}}/.autostart.sh
 	chmod +x ${HOME}/.autostart.sh

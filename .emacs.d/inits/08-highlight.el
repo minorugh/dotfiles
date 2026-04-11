@@ -42,11 +42,11 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-;; (leaf rainbow-mode
-;;   :ensure t
-;;   :doc "Color letter that indicate the color."
-;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-;;   :bind ("C-c r" . rainbow-mode))
+(leaf rainbow-mode
+  :ensure t
+  :doc "Color letter that indicate the color."
+  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+  :bind ("C-c r" . rainbow-mode))
 
 (leaf elec-pair
   :ensure nil
