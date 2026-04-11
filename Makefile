@@ -292,15 +292,6 @@ rdp: ## Windows へのリモートデスクトップ接続設定
 	sudo chmod 600 /usr/local/bin/freerdp.sh
 	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
 
-devilspie: ## devilspie の設定（起動時ウィンドウ最小化）
-	mkdir -p ${HOME}/.devilspie
-	$(APT) $@
-	sudo ln -vsfn ${PWD}/devils/emacs.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/sylpheed.ds  ${HOME}/.devilspie
-	sudo ln -vsfn ${PWD}/devils/devils_startup.sh  /usr/local/bin
-	sudo chmod +x /usr/local/bin/devils_startup.sh
-	ln -vsf {${PWD},${HOME}}/.config/autostart/devils_startup.desktop
-
 dracula-theme: ## gnome-terminal 用 Dracula テーマのインストール
 	cd ${HOME}/Downloads
 	git clone https://github.com/dracula/gnome-terminal
