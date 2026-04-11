@@ -3,17 +3,17 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf goggles
-  :ensure t
-  :doc "Highlights the modified region using pulse."
-  :hook (prog-mode-hook . goggles-mode)
-  (text-mode-hook . goggles-mode)
-  :config
-  (setq-default goggles-pulse t)
-  (custom-set-faces
-   '(goggles-added   ((t (:background "#c3fabb"))))
-   '(goggles-changed ((t (:background "#fae8bb"))))
-   '(goggles-removed ((t (:background "#fabfbb"))))))
+;; (leaf goggles
+;;   :ensure t
+;;   :doc "Highlights the modified region using pulse."
+;;   :hook (prog-mode-hook . goggles-mode)
+;;   (text-mode-hook . goggles-mode)
+;;   :config
+;;   (setq-default goggles-pulse t)
+;;   (custom-set-faces
+;;    '(goggles-added   ((t (:background "#c3fabb"))))
+;;    '(goggles-changed ((t (:background "#fae8bb"))))
+;;    '(goggles-removed ((t (:background "#fabfbb"))))))
 
 (leaf paren
   :ensure nil
@@ -42,11 +42,11 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(leaf rainbow-mode
-  :ensure t
-  :doc "Color letter that indicate the color."
-  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :bind ("C-c r" . rainbow-mode))
+;; (leaf rainbow-mode
+;;   :ensure t
+;;   :doc "Color letter that indicate the color."
+;;   :url "https://elpa.gnu.org/packages/rainbow-mode.html"
+;;   :bind ("C-c r" . rainbow-mode))
 
 (leaf elec-pair
   :ensure nil

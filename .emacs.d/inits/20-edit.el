@@ -25,11 +25,11 @@
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position 'left))
 
-(leaf atomic-chrome
-  :ensure t
-  :doc "Edit text areas of the browser in Emacs."
-  :hook (after-init-hook . atomic-chrome-start-server)
-  :config (setq atomic-chrome-buffer-open-style 'full))
+;; (leaf atomic-chrome
+;;   :ensure t
+;;   :doc "Edit text areas of the browser in Emacs."
+;;   :hook (after-init-hook . atomic-chrome-start-server)
+;;   :config (setq atomic-chrome-buffer-open-style 'full))
 
 (leaf ediff
   :ensure nil
