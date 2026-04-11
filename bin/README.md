@@ -8,7 +8,15 @@ Emacs やデスクトップメニューから呼び出されます。
 
 ## スクリプト一覧
 
-### filezilla.sh
+### emacs-toggle
+F12キーでEmacsの最小化・復元をトグルするスクリプト。
+
+最小化中のEmacsウィンドウを検出して復元し、表示中なら最小化する。
+Xfce4のグローバルショートカット（F12）に登録して使用する。
+
+```bash
+/usr/local/bin/emacs-toggle → bin/emacs-toggle
+```
 FileZilla を SSH エージェント付きで起動するラッパー。
 
 keychain の `SSH_AUTH_SOCK` を引き継いでから FileZilla を起動することで、
@@ -55,6 +63,7 @@ IP アドレスは変わる場合があるので `cmd → ipconfig` で確認し
 
 | スクリプト | Makefile ターゲット |
 |---|---|
+| emacs-toggle | `make emacs-toggle` |
 | filezilla.sh | `make filezilla` |
 | neomutt.sh | `make neomutt` |
 | keepass.sh | `make keepassxc` |

@@ -131,7 +131,7 @@ chsh -s /usr/bin/zsh
 | `make nextinstall` | アプリケーション群のインストール |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
 | `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
-| `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期設定 |
+| `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期・Emacs/Thunderbird 自動起動＆最小化 |
 | `make cron` | P1のみ: automerge/autobackup リンク作成 + crontab バックアップ＆反映 |
 | `make xsrv-systemd` | P1のみ: xsrv-backup を systemd-user timer に登録・有効化 |
 | `make docker-install` | Docker Engine + Compose のインストール |
@@ -144,7 +144,7 @@ chsh -s /usr/bin/zsh
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
 | `make emacs-stable` | Emacs 安定版のソースビルド |
 | `make emacs-devel` | Emacs 開発版のソースビルド（現在 30.1） |
-| `make emacs-restore` | emacs-restore スクリプトのシンボリックリンク作成 
+| `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -211,7 +211,8 @@ make   # xsrv-backup 緊急停止
 
 | 日付 | 内容 |
 |---|---|
-| 2026.04.10 | emacs-restore ターゲット追加（HOMEキーによるEmacs最小化復元） |
+| 2026.04.11 | devilspie 廃止・Emacs/Thunderbird 自動起動を .autostart.sh に統合、xdotool で最小化 |
+| 2026.04.10 | emacs-restore を emacs-toggle に変更（F12キーによるEmacs最小化・復元トグル） |
 | 2026.04.07 | xsrv-backup を systemd-user timer に移行、xsrv-systemd ターゲット追加、cron/Makefile 緊急操作パネル整備 |
 | 2026.03.26 | keyring ターゲットを全機共通コピー方式に統一、autostart.sh の条件分岐を削除 |
 | 2026.03.21 | cron ターゲット追加（automerge/autobackup/crontab 管理）、README 全体見直し |
