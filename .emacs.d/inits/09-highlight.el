@@ -1,4 +1,4 @@
-;;; 08-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
+;;; 09-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -70,11 +70,7 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2))
 
-;; Highlight the mode line of the active window
-(set-face-attribute 'mode-line nil :background "unspecified" :foreground "gray")
-(set-face-attribute 'mode-line-inactive nil :background "#852941" :foreground "white")
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 08-highlight.el ends here
+;;; 09-highlight.el ends here

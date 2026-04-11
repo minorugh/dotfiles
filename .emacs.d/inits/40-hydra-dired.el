@@ -3,11 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *hydra-dired
-  :bind (("<f3>" . terminal-open)
-	 ("<f4>" . xsrv-gh)
-	 ("<f6>" . thunar-open)
-	 ("M-." . hydra-dired/body))
+(leaf hydra-dired
+  :bind (
+	 ("M-."  . hydra-dired/body))
   :hydra
   (hydra-dired
    (:hint nil :exit t)
@@ -23,10 +21,10 @@
    ("g" (browse-url "https://github.com/minorugh"))
    ("@" my-open-cron-makefile)
    ("p" keepassxc)
-   ("<home>" (my-open-a "~/"))
+   ("<home>" (my-open "~/" :omit))
    ("l" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
-   ("." (my-open-a "~/src/github.com/minorugh/dotfiles/"))
+   ("." (my-open "~/src/github.com/minorugh/dotfiles/" :omit))
    ("d" (my-open "~/Dropbox/"))
    ("n" (my-open "~/Dropbox/notes/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
@@ -34,12 +32,12 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("T" (my-open "~/Dropbox/GH/tselext/select.txt" 'top))
-   ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" 'top))
+   ("T" (my-open "~/Dropbox/GH/tselext/select.txt" :pos 'top))
+   ("P" (my-open "~/Dropbox/GH/tpdia/dia.txt" :pos 'top))
    ("c" (my-open "~/src/github.com/minorugh/dotfiles/cron/"))
    ("s" (my-open "~/src/"))
    ("t" (my-open "/tmp"))
-   ("/" (my-open-a "/"))
+   ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
@@ -58,104 +56,26 @@
    ("M-." hydra-work/body)
    ("<muhenkan>" nil))
   :init
-  (defun terminal-open ()
-    "Open gnome-terminal at current dir on adjacent display."
-    (interactive)
-    (let ((dir (directory-file-name default-directory)))
-      (start-process-shell-command
-       "gnome-terminal" nil
-       (concat "gnome-terminal --working-directory " dir))
-      (run-with-timer
-       0.5 nil
-       (lambda ()
-	 (shell-command
-          "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
-
-  (defun thunar-open ()
-    "Open Thunar at current dir on adjacent display."
-    (interactive)
-    (start-process-shell-command
-     "thunar" nil
-     (concat "thunar " default-directory))
-    (run-with-timer
-     0.5 nil
-     (lambda ()
-       (shell-command
-	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
-
-  (defun xsrv-gh ()
-    (interactive)
-    (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH"))
-
-  (defun my-reload-keychain ()
-    "Reload keychain environment variables in Emacs session for SSH."
-    (interactive)
-    ;; keychain が書いた SSH_AUTH_SOCK と SSH_AGENT_PID を Emacs 内に設定
-    (let ((keychain-file (expand-file-name (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-	(with-temp-buffer
-          (insert-file-contents keychain-file)
-          ;; export 文を eval して Emacs 内に反映
-          (goto-char (point-min))
-          (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
-            (setenv (match-string 1) (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2))))))
-      (message "Keychain reloaded in Emacs!")))
-
-  (add-hook 'after-init-hook #'my-reload-keychain)
-  
-  (defun my-make-git ()
-    "Run 'make git' in the repository root of the current buffer."
-    (interactive)
-    (let* ((dir (or buffer-file-name default-directory))
-           (root (locate-dominating-file dir "Makefile")))
-      (if root
-          (let ((default-directory root))
-            (compile "make git"))
-	(message "Makefile not found"))))
-
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
     (interactive "sTarget: ")
     (let ((default-directory (expand-file-name (or dir default-directory))))
       (compile (concat "make " target))))
 
-  (defun my-open (path &optional pos)
-    "Open PATH.  POS options: top, bottom, or nil."
-    (find-file (expand-file-name path))
-    (cond ((eq pos 'top)    (goto-char (point-min)))
-          ((eq pos 'bottom) (goto-char (point-max)))))
-
-  (defun my-open-a (path &optional pos)
-    "Open PATH.  POS options: top, bottom, or nil."
-    (find-file (expand-file-name path))
-    (cond ((eq pos 'top)    (goto-char (point-min)))
-          ((eq pos 'bottom) (goto-char (point-max))))
-    (dired-omit-mode 0))
-
-  (defun my-open-e (path &optional pos)
-    "Open PATH.  POS options: top, bottom, or nil."
-    (find-file (expand-file-name path))
-    (cond ((eq pos 'top)    (goto-char (point-min)))
-          ((eq pos 'bottom) (goto-char (point-max))))
-    (evil-emacs-state))
-
-  (defun fzilla-GH ()
-    (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla --site='0/gospel-haiku.com'"))
-
-  (defun fzilla-minoruGH ()
-    (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla --site='0/minorugh.com'"))
-
-  (defun fzilla-s ()
-    (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla -s"))
-
-  (defun keepassxc ()
-    "Open keepassxc with auto passwd input."
-    (interactive)
-    (start-process-shell-command "keepass" nil "keepass.sh")))
-
+  (defun my-open (path &rest opts)
+    "Open PATH.  OPTS: :pos 'top|'bottom|integer, :omit, :emacs.
+e.g. :pos -10 => bottom-10  :pos 1 => top+1"
+    (find-file (expand-file-name
+		(format-time-string path)))
+    (pcase (plist-get opts :pos)
+      ('top    (goto-char (point-min)))
+      ('bottom (goto-char (point-max)))
+      ((pred integerp)
+       (let ((n (plist-get opts :pos)))
+	 (goto-char (if (< n 0) (point-max) (point-min)))
+	 (forward-line n))))
+    (when (memq :omit opts)  (dired-omit-mode 0))
+    (when (memq :emacs opts) (evil-emacs-state))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

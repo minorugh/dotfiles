@@ -1,14 +1,14 @@
-;;; 09-funcs.el --- Define functions.	-*- lexical-binding: t -*-
+;;; 10-compile.el --- Compilation functions.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *my-makefile
+(leaf my-makefile
   :doc "ivy-based Makefile target selector."
-  :require (my-makefile)
+  :require t
   :bind ("M-:" . my-open-cron-makefile)
   :hook ((makefile-mode-hook dired-mode-hook)
-	 . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
+         . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
   (defun my-open-cron-makefile ()
     "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
@@ -53,33 +53,18 @@ Echo the last @echo output line to the minibuffer."
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose))
 
-(leaf *gist
-  :doc "Post region or buffer to gist via compile."
-  :config
-  (defun gist-description ()
-    "Add gist description."
-    (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
-
-  (defun gist-filename ()
-    "The character string entered in minibuffer is used as file-name.
-If enter is pressed without file-name, that's will be buffer file name."
-    (interactive)
-    (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-      (read-from-minibuffer (format "File name (%s): " file) file)))
-
-  (defun gist-region-or-buffer ()
-    "If region is selected, post from the region.
-If region isn't selected, post from the buffer."
-    (interactive)
-    (let ((file (buffer-file-name)))
-      (if (not (use-region-p))
-          (compile (concat "gist -od " (gist-description) " " file))
-        (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-    (delete-other-windows)))
+(defun my-make-git ()
+  "Run `make git' in the repository root of the current buffer."
+  (interactive)
+  (let* ((dir (or buffer-file-name default-directory))
+         (root (locate-dominating-file dir "Makefile")))
+    (if root
+        (let ((default-directory root))
+          (compile "make git"))
+      (message "Makefile not found"))))
 
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-
-;;; 09-funcs.el ends here
+;;; 10-compile.el ends here

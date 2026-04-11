@@ -3,7 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *hydra-browse
+(leaf hydra-browse
   :doc "Selection menu for project work."
   :chord (".." . hydra-browse/body)
   :hydra

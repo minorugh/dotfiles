@@ -22,14 +22,20 @@
    '(hl-line ((t (:background "#3B4252" :extend t))))))
 
 (leaf doom-modeline :ensure t
-  :doc "A minimal and modern mode-line."
+  :doc "A minimal and modern mode-line for active/inactive window highlight."
   :hook (after-init-hook . doom-modeline-mode)
   :config
   (setq doom-modeline-icon            t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode   0)
-  (column-number-mode 0))
+  (column-number-mode 0)
+  ;; Highlight the mode line of the active/inactive window
+  (add-hook
+   'doom-modeline-mode-hook
+   (lambda ()
+     (set-face-attribute 'mode-line          nil :background "unspecified" :foreground "gray")
+     (set-face-attribute 'mode-line-inactive nil :background "#852941"     :foreground "white"))))
 
 (leaf hide-mode-line :ensure t
   :doc "Hides the mode-line in current buffer."

@@ -94,7 +94,7 @@
   (save-place-mode 1)
   (savehist-mode 1))
 
-(leaf *user-configurations
+(leaf user-configurations
   :defun minibuffer-keyboard-quit my-iconify-last-frame
   :bind (("C-x C-c" . server-edit)
 	 ("C-x b"   . ibuffer)

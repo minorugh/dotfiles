@@ -3,8 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf *hydra-work
-:bind (("<henkan>" . hydra-work/body))
+(leaf hydra-work
+  :bind (("<henkan>" . hydra-work/body))
+  :require (my-template)
   :hydra
   (hydra-work
    (:hint nil :exit t)
@@ -22,64 +23,38 @@
    ("i" yas-insert-snippet)
    ("p" ps-print-buffer)
    ("r" ps-print-region)
-   ("y" my-year)
+   ("y" (my-open "~/Dropbox/GH/year/%Y.txt" :pos -10))
+   ("," (my-open "~/Dropbox/GH/year/draft.dat" :pos 1))
    ("Y" my-year-new-post)
-   ("," my-year-draft)
-   ("/" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" 'top))
-   ("a" (my-open-e "~/Dropbox/GH/apvoice/apvoice.txt" 'top))
+   ("/" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" :pos 'top))
+   ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
    ("A" my-apvoice-new-post)
    ("b" (my-make "-k" "~/Dropbox"))
-   ("." (my-open-e "~/Dropbox/GH/w_kukai/info/kendai.csv" 'top))
-   (":" (my-open-e "~/Dropbox/GH/marquee.dat" 'top))
+   ("." (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
+   (":" (my-open "~/Dropbox/GH/marquee.dat" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("j" (my-open "~/Dropbox/GH/junk"))
-   ("d" (my-open "~/Dropbox/GH/dia/diary.txt" 'top))
+   ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
    ("g" gist-region-or-buffer)
    ("l" (browse-url "https://gist.github.com/minorugh"))
-   ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" 'top))
+   ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
-   ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" 'top))
+   ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
    ("S" my-swan-new-post)
-   ("K" (my-open "~/Dropbox/GH/kinnei/kinnei.txt" 'top))
+   ("K" (my-open "~/Dropbox/GH/kinnei/kinnei.txt" :pos 'top))
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
-   ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" 'top))
-   ("w" (my-open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" 'top))
-   ("f" (my-open "~/Dropbox/GH/d_selext/select.txt" 'top))
+   ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
+   ("w" (my-open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" :pos 'top))
+   ("f" (my-open "~/Dropbox/GH/d_selext/select.txt" :pos 'top))
    ("F" my-dselext-new-post)
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
    ("<henkan>" hydra-dired/body)
-   ("<muhenkan>" nil))
-  :init
-  (defun my-year ()
-    "Open year file and move to near bottom."
-    (interactive)
-    (find-file (format-time-string "~/Dropbox/GH/year/%Y.txt"))
-    (goto-char (point-max))
-    (forward-line -10))
+   ("<muhenkan>" nil)))
 
-  (defun my-year-draft ()
-    "Open year draft file."
-    (interactive)
-    (find-file "~/Dropbox/GH/year/draft.dat")
-    (goto-char (point-min))
-    (forward-line))
-
-  (defun my-apvoice ()
-    "Open apvoice file."
-    (interactive)
-    (my-open "~/Dropbox/GH/apvoice/apvoice.txt" 'top))
-
-  (defun my-m_kukai ()
-    "Open m_select file."
-    (interactive)
-    (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" 'top)))
-
-
-(require 'my-template)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
