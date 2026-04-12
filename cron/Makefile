@@ -2,6 +2,12 @@
 ## cron/systemd-user 手動操作パネル
 ## 作成: 2026-04-09
 ##
+## --- compilation バッファー表示ルール ----------------------------
+## @echo "##>" >&2          → 全画面表示（q で閉じる）※出力を確認したいターゲット
+## @echo "##> メッセージ" >&2 → ウィンドウを閉じてminibufferにメッセージ表示
+## echoなし                 → Compile successful. がminibufferに表示されるだけ
+## ----------------------------------------------------------------
+
 ## 緊急停止:      make（または make -k）
 ## crontab編集:   make cron-edit
 ## crontab反映:   make cron-update
@@ -38,22 +44,22 @@ xsrv-log: ## xsrv-backup ログ表示
 
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
-	@echo "xsrv-backup: stopped."
+	@echo "##> xsrv-backup: stopped." >&2
 
 xsrv-start: ## xsrv-backup 再開
 	systemctl --user start xsrv-backup.timer
-	@echo "xsrv-backup: started."
+	@echo "##> xsrv-backup: started." >&2
 
 xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
 
 xsrv-reload: ## systemd 設定変更後のリロード
 	systemctl --user daemon-reload
-	@echo "xsrv-backup: daemon reloaded."
+	@echo "##> xsrv-backup: daemon reloaded." >&2
 
 xsrv-run: ## xsrv-backup 今すぐ手動実行
 	systemctl --user start xsrv-backup.service
-	@echo "xsrv-backup: manual run triggered."
+	@echo "##> xsrv-backup: manual run triggered." >&2
 
 ## バックアップのcommitログが肥大するので適宜初期化する（半年に1回程度手動で）
 ## 実行すると両リポジトリの履歴が1件にリセットされ、GitHub に force push される
@@ -87,15 +93,16 @@ xsrv-commit-lean: ## バックアップの git commitログを初期化
 
 bat-status: ## バッテリー状態・しきい値を確認
 	sudo tlp-stat -b
+	@echo "##>" >&2
 
 bat-set-60: ## 充電上限を60%に変更（長期AC接続時推奨）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=60/' /etc/tlp.conf
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=60/' /etc/tlp.conf
 	sudo tlp start
 ifeq ($(HOSTNAME),P1)
-	@echo "BAT0 charge threshold: START=40 STOP=60"
+	@echo "##> BAT0 charge threshold: START=40 STOP=60" >&2
 else
-	@echo "BAT0/BAT1 charge threshold: START=40 STOP=60"
+	@echo "##> BAT0/BAT1 charge threshold: START=40 STOP=60" >&2
 endif
 
 bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
@@ -103,9 +110,9 @@ bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=80/' /etc/tlp.conf
 	sudo tlp start
 ifeq ($(HOSTNAME),P1)
-	@echo "BAT0 charge threshold: START=40 STOP=80"
+	@echo "##> BAT0 charge threshold: START=40 STOP=80" >&2
 else
-	@echo "BAT0/BAT1 charge threshold: START=40 STOP=80"
+	@echo "##> BAT0/BAT1 charge threshold: START=40 STOP=80" >&2
 endif
 
 bat-discharge: ## 強制放電開始（P1=BAT0:force-discharge / x250=BAT0:inhibit+BAT1:force）
@@ -130,11 +137,12 @@ endif
 
 bat-capacity: ## 現在の充電残量を確認
 ifeq ($(HOSTNAME),P1)
-	@echo "BAT0: $$(cat /sys/class/power_supply/BAT0/capacity)%"
+	@cat /sys/class/power_supply/BAT0/capacity
 else
-	@echo "BAT0: $$(cat /sys/class/power_supply/BAT0/capacity)%"
-	@echo "BAT1: $$(cat /sys/class/power_supply/BAT1/capacity)%"
+	@cat /sys/class/power_supply/BAT0/capacity
+	@cat /sys/class/power_supply/BAT1/capacity
 endif
+	@echo "##>" >&2
 
 ## -------------------------------------------------------------------------
 ## ハードウェア健康診断（常時稼働サーバー用途向け）
@@ -154,10 +162,12 @@ endif
 
 temp: ## CPU/GPU/SSD温度を確認（lm-sensors）
 	sensors
+	@echo "##>" >&2
 
 smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	sudo smartctl -a /dev/nvme0n1
 	sudo smartctl -a /dev/nvme1n1
+	@echo "##>" >&2
 
 
 HOSTNAME := $(shell hostname)
@@ -169,6 +179,6 @@ git: ## Auto commit+push (main only, sub: pull only)
 ifeq ($(HOSTNAME),P1)
 	git push
 else
-	@echo "$(HOSTNAME): サブ機からはpushしません"
+	@echo "##> $(HOSTNAME): サブ機からはpushしません" >&2
 	git pull --rebase
 endif

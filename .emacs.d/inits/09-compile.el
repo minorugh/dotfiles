@@ -33,6 +33,10 @@
 	  (local-set-key (kbd "q") #'quit-window))
       (message "*compilation* buffer does not exist.")))
 
+  ;; Makefile の @echo ルール:
+  ;;   @echo "##>" >&2          → 全画面表示（q で閉じる）
+  ;;   @echo "##> メッセージ" >&2 → ウィンドウを閉じてminibufferにメッセージ表示
+  ;;   echo なし                → "Compile successful." をminibufferに表示して閉じる
   (defun compile-autoclose (buffer string)
     "Auto-close compile window if BUFFER finished successfully.
 Echo the last @echo output line to the minibuffer."
