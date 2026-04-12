@@ -25,11 +25,24 @@
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position 'left))
 
-;; (leaf atomic-chrome
-;;   :ensure t
-;;   :doc "Edit text areas of the browser in Emacs."
-;;   :hook (after-init-hook . atomic-chrome-start-server)
-;;   :config (setq atomic-chrome-buffer-open-style 'full))
+(leaf persistent-scratch
+  :ensure t
+  :doc "Save scratch buffer state to file and restore from file."
+  :hook (after-init-hook . persistent-scratch-autosave-mode)
+  :bind ("S-<return>" . toggle-scratch)
+  :init
+  (defvar toggle-scratch-prev-buffer nil
+    "Buffer name before switching to *scratch*.")
+  :config
+  (setq persistent-scratch-save-file (locate-user-emacs-file "tmp/scratch"))
+  (defun toggle-scratch ()
+    "Toggle current buffer and *scratch* buffer."
+    (interactive)
+    (if (not (string= "*scratch*" (buffer-name)))
+	(progn
+	  (setq toggle-scratch-prev-buffer (buffer-name))
+	  (switch-to-buffer "*scratch*"))
+      (switch-to-buffer toggle-scratch-prev-buffer))))
 
 (leaf ediff
   :ensure nil

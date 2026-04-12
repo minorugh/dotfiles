@@ -14,7 +14,7 @@
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
   _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
-  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _M_: maps
+  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _t_: thinderbird
   _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _4_: Centaur   _P_: photo
 "
    ("a" (browse-url "https://www.amazon.co.jp/"))
@@ -30,6 +30,7 @@
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
    ("m" neomutt)
+   ("t" thunderbird)
    ("M" (browse-url "https://www.google.co.jp/maps"))
    ("B" (browse-url "http://blog.gospel-haiku.com/"))
    ("E" (browse-url "https://es.gospel-haiku.com/post/"))
@@ -50,43 +51,24 @@
    ("x" (browse-url "https://twitter.com/gospelhaiku"))
    ("s" (start-process "slack" nil "slack"))
    ("<muhenkan>" nil)
-   ("." nil)))
+   ("." nil))
+  :init
+  (defun thunderbird ()
+    "Open thunderbird mail-client for Gmail."
+    (interactive)
+    (start-process "thunderbird" nil "thunderbird"))
 
+  (defun neomutt ()
+    "Open terminal and ssh to xsrv."
+    (interactive)
+    (start-process-shell-command "neomutt" nil "neomutt.sh"))
+  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
 
-(leaf package-update
-  :doc "Package management hydra."
-  :chord ("@@" . hydra-package/body)
-  :hydra
-  (hydra-package
-   (:color red :hint nil)
-   "
-    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
-  "
-   ("i" package-install)
-   ("u" package-upgrade)
-   ("d" package-delete)
-   ("a" package-upgrade-all)
-   ("v" package-vc-upgrade-all)
-   ("<muhenkan>" nil)))
+  (defun mattermost ()
+    "Open mattermost-desktop."
+    (interactive)
+    (start-process "mattermost" nil "mattermost-desktop")))
 
-
-(leaf *hydra-markdown
-  :doc "Markdown editing hydra."
-  :hydra
-  (hydra-markdown
-   (:color red :hint nil)
-   "
-    Markdown: _i_talic  消線:_x_  ft_n_ote  _t_able  _m_arkup  _v_iew._e_xp._p_df._d_ocx"
-   ("i" markdown-insert-italic)
-   ("x" markdown-insert-strike-through)
-   ("t" markdown-insert-table)
-   ("n" markdown-insert-footnote)
-   ("m" markdown-toggle-markup-hiding)
-   ("v" markdown-preview)
-   ("e" markdown-export)
-   ("p" md2pdf)
-   ("d" md2docx)
-   ("<muhenkan>" nil)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

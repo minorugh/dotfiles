@@ -1,17 +1,5 @@
 ;;; 10-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
-
 ;;; Commentary:
-
-;; ファンクションキーおよびコマンドから外部ツールを起動するユーザー関数を定義する。
-;;
-;; 主な機能:
-;;   - F3: gnome-terminal を現在の作業ディレクトリで開く
-;;   - F4: SSH で gospel-haiku.com サーバーに接続する
-;;   - F6: Thunar ファイルマネージャーを現在のディレクトリで開く
-;;   - Keychain の SSH 環境変数を Emacs セッションに読み込む (起動時自動実行)
-;;   - FileZilla で各リモートサイトへ接続する
-;;   - KeePassXC をスクリプト経由で起動する
-
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -64,24 +52,7 @@
           (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
             (setenv (match-string 1) (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2))))))
       (message "Keychain reloaded in Emacs!")))
-
   (add-hook 'after-init-hook #'my-reload-keychain)
-
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail."
-    (interactive)
-    (start-process "thunderbird" nil "thunderbird"))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (start-process-shell-command "neomutt" nil "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-  (defun mattermost ()
-    "Open mattermost-desktop."
-    (interactive)
-    (start-process "mattermost" nil "mattermost-desktop"))
 
   (defun fzilla-GH ()
     "Open Filezilla with `gospel-haiku.com'."

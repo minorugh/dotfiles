@@ -30,12 +30,22 @@
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode   0)
   (column-number-mode 0)
-  ;; Highlight the mode line of the active/inactive window
+  ;; Face initialization
   (add-hook
    'doom-modeline-mode-hook
    (lambda ()
      (set-face-attribute 'mode-line          nil :background "unspecified" :foreground "gray")
-     (set-face-attribute 'mode-line-inactive nil :background "#852941"     :foreground "white"))))
+     (set-face-attribute 'mode-line-inactive nil :background "#852941"     :foreground "white")))
+  ;; Reset function when window returns to one
+  (defun my-reset-modeline-faces (&rest _)
+    (when (= 1 (length (window-list)))
+      (set-face-attribute 'mode-line-inactive nil
+                          :background "unspecified"
+                          :foreground "gray")))
+  ;; Triggers reset in two ways
+  (add-hook 'window-configuration-change-hook #'my-reset-modeline-faces)
+  (advice-add 'delete-window        :after #'my-reset-modeline-faces)
+  (advice-add 'delete-other-windows :after #'my-reset-modeline-faces))
 
 (leaf hide-mode-line :ensure t
   :doc "Hides the mode-line in current buffer."
@@ -86,6 +96,6 @@
   (setq-default display-fill-column-indicator-character ?│))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 30-ui.el ends here

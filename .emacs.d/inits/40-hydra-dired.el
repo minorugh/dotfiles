@@ -11,18 +11,17 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ._g_._o_._l_  sftp._9__0__-_  meint_@__c_
-  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_assX^^^^  capture_,_^^^^  ke_y_chin
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint_@__c_
+  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_ass  _g_ithub.i_o_^^  capture_,_  
 "
    ("f" flycheck-list-errors)
    ("-" fzilla-s)
    ("9" fzilla-GH)
    ("0" fzilla-minoruGH)
-   ("g" (browse-url "https://github.com/minorugh"))
    ("@" my-open-cron-makefile)
    ("p" keepassxc)
    ("<home>" (my-open "~/" :omit))
-   ("l" (my-open "~/src/github.com/minorugh"))
+   ("g" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/" :omit))
    ("d" (my-open "~/Dropbox/"))

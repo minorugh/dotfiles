@@ -31,25 +31,6 @@
   :bind (("M-]" . bs-cycle-next)
 	 ("M-[" . bs-cycle-previous)))
 
-(leaf persistent-scratch
-  :ensure t
-  :doc "Save scratch buffer state to file and restore from file."
-  :hook (after-init-hook . persistent-scratch-autosave-mode)
-  :bind ("S-<return>" . toggle-scratch)
-  :init
-  (defvar toggle-scratch-prev-buffer nil
-    "Buffer name before switching to *scratch*.")
-  :config
-  (setq persistent-scratch-save-file (locate-user-emacs-file "tmp/scratch"))
-  (defun toggle-scratch ()
-    "Toggle current buffer and *scratch* buffer."
-    (interactive)
-    (if (not (string= "*scratch*" (buffer-name)))
-	(progn
-	  (setq toggle-scratch-prev-buffer (buffer-name))
-	  (switch-to-buffer "*scratch*"))
-      (switch-to-buffer toggle-scratch-prev-buffer))))
-
 (leaf quickrun
   :ensure t
   :bind ([f5] . quickrun))
@@ -84,6 +65,23 @@
   (setq ps-line-number       t)
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
+
+(leaf package-update
+  :doc "Package management hydra."
+  :chord ("@@" . hydra-package/body)
+  :hydra
+  (hydra-package
+   (:color red :hint nil)
+   "
+    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
+  "
+   ("i" package-install)
+   ("u" package-upgrade)
+   ("d" package-delete)
+   ("a" package-upgrade-all)
+   ("v" package-vc-upgrade-all)
+   ("<muhenkan>" nil)))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
