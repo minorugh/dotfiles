@@ -19,6 +19,7 @@
 
 XSRV_GH_DST  = $(HOME)/src/github.com/minorugh/xsrv-GH
 XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
+HOSTNAME     := $(shell hostname)
 
 all: xsrv-stop
 
@@ -170,7 +171,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	@echo "##>" >&2
 
 
-HOSTNAME := $(shell hostname)
+# HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
 # P1 (main): commit + push / others (sub): pull --rebase only
 git: ## Auto commit+push (main only, sub: pull only)
@@ -182,3 +183,7 @@ else
 	@echo "##> $(HOSTNAME): サブ機からはpushしません" >&2
 	git pull --rebase
 endif
+
+debug:
+	@echo "HOSTNAME=[$(HOSTNAME)]"
+	@echo "shell=[$(shell hostname)]"
