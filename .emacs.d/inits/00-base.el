@@ -83,16 +83,12 @@
 (setq recentf-exclude
       (list (expand-file-name "elpa/" user-emacs-directory)
             (expand-file-name "tmp/"  user-emacs-directory)
-	    '("\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:")))
+            '("\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:")))
 
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\)\\'"                  . conf-mode)
-	 ("\\.cgi\\'" . perl-mode))
-  ;; :config
-  ;; (global-auto-revert-mode 1)
-  ;; (save-place-mode 1)
-  ;; (savehist-mode 1))
+         ("\\.cgi\\'" . perl-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
@@ -101,17 +97,17 @@
 (leaf user-configurations
   :defun minibuffer-keyboard-quit my-iconify-last-frame
   :bind (("C-x C-c" . server-edit)
-	 ("C-x b"   . ibuffer)
-	 ("C-x m"   . neomutt)
-	 ("M-,"     . xref-find-definitions)
-	 ("M-w"     . clipboard-kill-ring-save)
-	 ("C-w"     . my-clipboard-kill-region)
-	 ("M-/"     . kill-current-buffer)
-	 ("C-x /"   . delete-this-file)
-	 ("s-c"     . clipboard-kill-ring-save)
-	 ("s-v"     . clipboard-yank)
-	 ("C-q"     . other-window-or-split)
-	 ([muhenkan] . my-keyboard-quit))
+         ("C-x b"   . ibuffer)
+         ("C-x m"   . neomutt)
+         ("M-,"     . xref-find-definitions)
+         ("M-w"     . clipboard-kill-ring-save)
+         ("C-w"     . my-clipboard-kill-region)
+         ("M-/"     . kill-current-buffer)
+         ("C-x /"   . delete-this-file)
+         ("s-c"     . clipboard-kill-ring-save)
+         ("s-v"     . clipboard-yank)
+         ("C-q"     . other-window-or-split)
+         ([muhenkan] . my-keyboard-quit))
   :init
   (defun my-upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
@@ -132,7 +128,7 @@
     "Hoge."
     (interactive)
     (if (not (use-region-p))
-	(minibuffer-keyboard-quit)
+        (minibuffer-keyboard-quit)
       (keyboard-quit)))
 
   (defun delete-this-file ()
@@ -141,7 +137,7 @@
     (unless (buffer-file-name)
       (error "No file is currently being edited"))
     (when (yes-or-no-p (format "Really delete '%s'?"
-			       (file-name-nondirectory buffer-file-name)))
+                               (file-name-nondirectory buffer-file-name)))
       (delete-file (buffer-file-name))
       (kill-current-buffer)))
 
@@ -150,7 +146,7 @@
 If the region is inactive, `backward-kill-word'."
     (interactive)
     (if (use-region-p)
-	(clipboard-kill-region (region-beginning) (region-end))
+        (clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
 
   (defun other-window-or-split ()
