@@ -69,8 +69,10 @@
 
 ;; Inhibit startup screen.
 (setq inhibit-startup-message t)
+
+;; Disable saving Emacs state via the Session Manager
 (setq emacs-save-session-functions nil)
+
 
 (provide 'early-init)
 ;;; early-init.el ends here
-
