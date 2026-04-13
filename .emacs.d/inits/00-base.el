@@ -89,6 +89,10 @@
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\)\\'"                  . conf-mode)
 	 ("\\.cgi\\'" . perl-mode))
+  ;; :config
+  ;; (global-auto-revert-mode 1)
+  ;; (save-place-mode 1)
+  ;; (savehist-mode 1))
   :hook
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
