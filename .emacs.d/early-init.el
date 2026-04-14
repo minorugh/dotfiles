@@ -62,7 +62,7 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(push '(undecorated . t) default-frame-alist)
+;; (push '(undecorated . t) default-frame-alist)
 
 ;; Default frame settings. This is actually maximized, not full screen.
 (push '(fullscreen . maximized) initial-frame-alist)
@@ -71,7 +71,7 @@
 (setq inhibit-startup-message t)
 
 ;; Disable saving Emacs state via the Session Manager
-;; (setq emacs-save-session-functions nil)
+(setq emacs-save-session-functions nil)
 
 (provide 'early-init)
 ;;; early-init.el ends here
