@@ -17,7 +17,7 @@
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
-	  ("l;" . init-loader-show-log)))
+          ("l;" . init-loader-show-log)))
 
 (leaf popwin
   :ensure t
@@ -29,7 +29,7 @@
   :tag "builtin"
   :doc "Menu for selecting and displaying buffers."
   :bind (("M-]" . bs-cycle-next)
-	 ("M-[" . bs-cycle-previous)))
+         ("M-[" . bs-cycle-previous)))
 
 (leaf quickrun
   :ensure t
@@ -68,7 +68,7 @@
 
 (leaf package-update
   :doc "Package management hydra."
-  :chord ("@@" . hydra-package/body)
+  :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)

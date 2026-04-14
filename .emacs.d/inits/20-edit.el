@@ -1,4 +1,4 @@
-;;; 20-edit.el --- Editing configurations.	-*- lexical-binding: t -*-
+;;; 20-edit.el --- Editing configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -17,9 +17,9 @@
   :ensure t
   :doc "Show imenu entries in a separate buffer."
   :bind (([f2] . imenu-list-smart-toggle)
-	 (:imenu-list-major-mode-map
-	  ("j" . next-line)
-	  ("k" . previous-line)))
+         (:imenu-list-major-mode-map
+          ("j" . next-line)
+          ("k" . previous-line)))
   :config
   (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
@@ -39,9 +39,9 @@
     "Toggle current buffer and *scratch* buffer."
     (interactive)
     (if (not (string= "*scratch*" (buffer-name)))
-	(progn
-	  (setq toggle-scratch-prev-buffer (buffer-name))
-	  (switch-to-buffer "*scratch*"))
+        (progn
+          (setq toggle-scratch-prev-buffer (buffer-name))
+          (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
 
 (leaf ediff
@@ -51,8 +51,8 @@
   :hook (ediff-mode-hook . dimmer-off)
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
-	ediff-split-window-function 'split-window-horizontally
-	ediff-diff-options "-twB"))
+        ediff-split-window-function 'split-window-horizontally
+        ediff-diff-options "-twB"))
 
 (leaf elec-pair
   :ensure nil
@@ -72,7 +72,7 @@
 (leaf undo-fu
   :ensure t
   :bind (("C-_" . undo-fu-only-undo)
-	 ("C-/" . undo-fu-only-redo)))
+         ("C-/" . undo-fu-only-redo)))
 
 (leaf undohist
   :ensure t

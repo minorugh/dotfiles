@@ -66,7 +66,21 @@ Echo the last @echo output line to the minibuffer."
         (put-text-property (line-beginning-position)
                            (line-end-position)
                            'invisible t))))
-  (add-hook 'compilation-filter-hook #'my-dim-compilation-marker))
+  (add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
+
+  ;; ヘッダー・フッター行を不可視化
+  ;; （-*- mode: compilation -*- 行と Compilation started/finished 行）
+  (defun my-dim-compilation-header ()
+    "Make compilation header/footer lines invisible."
+    (save-excursion
+      (goto-char compilation-filter-start)
+      (while (re-search-forward
+              "^\\(-\\*-.*-\\*-\\|Compilation \\(started\\|finished\\).*\\)$"
+              nil t)
+        (put-text-property (line-beginning-position)
+                           (line-end-position)
+                           'invisible t))))
+  (add-hook 'compilation-filter-hook #'my-dim-compilation-header))
 
 (defun my-make-git ()
   "Run `make git' in the repository root of the current buffer."

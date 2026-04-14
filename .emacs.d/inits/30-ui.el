@@ -3,14 +3,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf doom-themes :ensure t
+(leaf doom-themes
+  :ensure t
   :doc "Pack of modern color-themes."
   :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
   (doom-themes-org-config))
 
-(leaf hl-line :ensure nil
+(leaf hl-line
+  :ensure nil
   :tag "builtin"
   :doc "Highlight the current line."
   :hook ((after-init-hook . global-hl-line-mode)
@@ -21,7 +23,8 @@
    '(region  ((t (:background "#6272a4" :extend t))))
    '(hl-line ((t (:background "#3B4252" :extend t))))))
 
-(leaf doom-modeline :ensure t
+(leaf doom-modeline
+  :ensure t
   :doc "A minimal and modern mode-line."
   :hook (after-init-hook . doom-modeline-mode)
   :config
@@ -31,46 +34,52 @@
   (line-number-mode   0)
   (column-number-mode 0))
 
-(leaf hide-mode-line :ensure t
+(leaf hide-mode-line
+  :ensure t
   :doc "Hides the mode-line in current buffer."
   :hook ((imenu-list-major-mode-hook . hide-mode-line-mode)
          (neotree-mode-hook           . hide-mode-line-mode)))
 
-(leaf nerd-icons :ensure t
+(leaf nerd-icons
+  :ensure t
   :if (display-graphic-p))
 
-(leaf nerd-icons-dired :ensure t
+(leaf nerd-icons-dired
+  :ensure t
   :hook (dired-mode-hook . nerd-icons-dired-mode)
   :config (setq nerd-icons-scale-factor 0.8))
 
-(leaf display-line-numbers :ensure nil
+(leaf display-line-numbers
+  :ensure nil
   :tag "builtin"
   :doc "Interface for display-line-numbers."
+  :bind ([f9] . display-line-numbers-mode)
   :hook ((prog-mode-hook . display-line-numbers-mode)
          (prog-mode-hook . goto-address-prog-mode)
          (text-mode-hook . display-line-numbers-mode)
          (lisp-interaction-mode-hook
           . (lambda () (display-line-numbers-mode 0))))
-  :bind ([f9] . display-line-numbers-mode)
   :config (setq display-line-numbers-width-start t))
 
-(leaf whitespace :ensure nil
+(leaf whitespace
+  :ensure nil
   :tag "builtin"
   :doc "Minor mode to visualize whitespace characters."
+  :hook (after-init-hook . global-whitespace-mode)
   :config
-  (setq show-trailing-whitespace nil)
+  (setq whitespace-style '(face trailing)) ;; 行末スペースを赤くハイライト
   (defun my-cleanup-for-spaces-safe ()
     "Perform safe whitespace processing on buffer contents.
 This is intended for use in the before-save-hook (before-save-hook),
 indentation (auto-formatting) is not performed."
     (interactive)
-    (untabify (point-min) (point-max))          ;; タブをスペースに変換
-    (delete-trailing-whitespace)                ;; 行末の空白を削除
-    (set-buffer-file-coding-system 'utf-8)))    ;; 文字コードをUTF-8に設定
+    (delete-trailing-whitespace)           ;; 行末の空白を削除
+    (set-buffer-file-coding-system 'utf-8))) ;; 文字コードをUTF-8に設定
 
 (add-hook 'before-save-hook 'my-cleanup-for-spaces-safe)
 
-(leaf display-fill-column-indicator :ensure nil
+(leaf display-fill-column-indicator
+  :ensure nil
   :tag "builtin"
   :doc "Indicate maximum column."
   :hook ((gfm-mode-hook  . display-fill-column-indicator-mode)

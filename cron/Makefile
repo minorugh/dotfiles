@@ -187,3 +187,4 @@ endif
 debug:
 	@echo "HOSTNAME=[$(HOSTNAME)]"
 	@echo "shell=[$(shell hostname)]"
+	@echo "##>" >&2
