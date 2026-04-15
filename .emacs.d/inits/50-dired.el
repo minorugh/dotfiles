@@ -55,6 +55,13 @@
     (let* ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
 
+  (defun my-sudo-reopen ()
+    "Reopen current file with sudo privileges via TRAMP."
+    (interactive)
+    (let ((pos (point)))
+      (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
+      (goto-char pos)))
+
   (defun call-sxiv ()
     "Show all images in the directory with sxiv.
 see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"

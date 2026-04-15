@@ -11,32 +11,29 @@
   :bind ("C-c d" . deepl-translate)
   :config (load (locate-user-emacs-file "elisp/deepl-api.el.gpg")))
 
+
 (leaf deepl-translate-web
-  :ensure nil
-  :doc "Use deepl-translate on web."
-  :commands my-deepl-translate
+  :doc "Use DeepL Translator on a web browser."
   :bind ("C-c w" . my-deepl-translate)
   :preface
   (require 'url-util)
   (defun my-deepl-translate (&optional string)
+    "Translate at DeepL. Regions, or for sentences in the current location."
     (interactive)
-    (setq string
-          (cond ((stringp string) string)
-                ((use-region-p)
-                 (buffer-substring (region-beginning) (region-end)))
-                (t
-                 (save-excursion
-                   (let (s)
-                     (forward-char 1)
-                     (backward-sentence)
-                     (setq s (point))
-                     (forward-sentence)
-                     (buffer-substring s (point)))))))
-    (run-at-time 0.1 nil #'deactivate-mark)
-    (browse-url
-     (concat
-      "https://www.deepl.com/translator#en/ja/"
-      (url-hexify-string string)))))
+    (let* ((text (or string
+                     (if (use-region-p)
+                         (buffer-substring-no-properties (region-beginning) (region-end))
+                       (thing-at-point 'sentence t))))
+           (is-ja (string-match-p "[ぁ-んァ-ン一-龯]" text))
+           (src   (if is-ja "ja" "en"))
+           (tgt   (if is-ja "en" "ja"))
+	   ;; If you include the language path, such as "://deepl.com"
+           ;; The interface of the free version is more likely to be preferred.
+           (url   (format "https://://deepl.com#%s/%s/%s"
+                          src tgt (url-hexify-string (string-trim text)))))
+      (when (use-region-p) (deactivate-mark))
+      (browse-url url))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -67,6 +67,22 @@
   ;; is available for git, FileZilla (shell), and other SSH operations.
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
+(defun my-reload-keychain ()
+  "Reload keychain environment variables in Emacs session for SSH."
+  (interactive)
+  ;; keychain が書いた SSH_AUTH_SOCK と SSH_AGENT_PID を Emacs 内に設定
+  (let ((keychain-file (expand-file-name (concat "~/.keychain/" (system-name) "-sh"))))
+    (when (file-exists-p keychain-file)
+      (with-temp-buffer
+        (insert-file-contents keychain-file)
+        ;; export 文を eval して Emacs 内に反映
+        (goto-char (point-min))
+        (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
+          (setenv (match-string 1) (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2))))))
+    (message "Keychain reloaded in Emacs!")))
+
+(add-hook 'after-init-hook #'my-reload-keychain)
+
 
 (provide 'init)
 ;; Local Variables:
