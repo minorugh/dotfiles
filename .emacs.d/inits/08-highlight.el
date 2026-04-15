@@ -54,12 +54,6 @@
   :doc "Disable electric-pair-mode in text-mode (use yasnippet for makeweb blocks)."
   :hook (text-mode-hook . (lambda () (electric-pair-local-mode -1))))
 
-;; (leaf aggressive-indent
-;;   :ensure t
-;;   :hook (after-init-hook . global-aggressive-indent-mode)
-;;   :config
-;;   (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
-
 (leaf electric-indent
   :ensure nil
   :tag "builtin"
@@ -67,7 +61,7 @@
   :hook (after-init-hook . electric-indent-mode))
 
 (leaf indent-helper
-  :bind (("C-x c-i" . indent-region-or-buffer))
+  :bind (("C-i" . indent-region-or-buffer))
   :preface
   (defun indent-region-or-buffer ()
     "If there is a selection, indent there; if not, indent the entire buffer."

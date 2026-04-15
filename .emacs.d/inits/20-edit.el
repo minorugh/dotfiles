@@ -83,7 +83,7 @@
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 (defun my-sudo-reopen ()
-  "Reopen the current file with sudo privileges (using the standard TRAMP function)."
+  "Reopen current file with sudo privileges via TRAMP."
   (interactive)
   (let ((pos (point)))
     (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))

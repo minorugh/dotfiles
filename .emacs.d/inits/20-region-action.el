@@ -7,6 +7,12 @@
   "Keymap valid only during region selection.")
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
+;; --- 選択中専用のマイナーモードを自作（これが一番確実） ---
+(define-minor-mode my-selected-mode
+  "リージョン選択中のみ自動で有効になるモード"
+  :lighter " [SEL]"
+  :keymap my-selected-mode-map)
+
 
 (leaf my-region-actions
   :doc "リージョン選択中のみ有効なキーバインド（標準機能のみ）"
@@ -27,19 +33,13 @@
     ;; content/%s を追加することで直接その単語のページに飛びます
     (browse-url (format "https://www.weblio.jp/content/%s" (url-hexify-string str))))
 
-  ;; --- 選択中専用のマイナーモードを自作（これが一番確実） ---
-  (define-minor-mode my-selected-mode
-    "リージョン選択中のみ自動で有効になるモード"
-    :lighter " [SEL]"
-    :keymap my-selected-mode-map)
-
   ;; キー割り当て
-  (define-key my-selected-mode-map (kbd ";") 'comment-dwim)
-  (define-key my-selected-mode-map (kbd "c") 'kill-ring-save)
-  (define-key my-selected-mode-map (kbd "g") 'my-google-search)
-  (define-key my-selected-mode-map (kbd "w") 'my-weblio-search)
-  (define-key my-selected-mode-map (kbd "d") 'deepl-translate)
-  ;; DeepLの自作関数があればここに追加
+  (bind-key ";" 'comment-dwim my-selected-mode-map)
+  (bind-key "c" 'kill-ring-save my-selected-mode-map)
+  (bind-key "g" 'my-google-search my-selected-mode-map)
+  (bind-key "w" 'my-weblio-search my-selected-mode-map)
+  (bind-key "d" 'deepl-translate my-selected-mode-map)
+
   (defun my-selected-mode-update ()
     "リージョンの状態に合わせてモードをオンオフする"
     (if (use-region-p)

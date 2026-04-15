@@ -39,46 +39,37 @@
 ;; Personal settings file managed outside of version control.
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
-;; Filter out specific annoying byte-compile warnings
-(advice-add 'byte-compile-warn :around
-            (lambda (orig-fun format-string &rest args)
-              (unless (or (string-match-p "not called at toplevel" format-string)
-                          (string-match-p "docstring wider than" format-string))
-                (apply orig-fun format-string args))))
-
-;; Load all inits/*.el files and byte-compile them for faster startup
 (leaf init-loader
   :ensure t
   :load-path "~/.emacs.d/elisp" ;; local elisp packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
+  (init-loader-load)
   ;; Suppress *scratch* flickering on startup
-  (switch-to-buffer (get-buffer-create "*dashboard*"))
-  (let ((inhibit-message t))
-    (init-loader-load)))
+  (switch-to-buffer (get-buffer-create "*dashboard*")))
 
-;; Start Emacs server if not already running
-(leaf server
-  :commands server-running-p
-  :hook (emacs-startup-hook
-	 . (lambda ()
-	     (unless (server-running-p)
-	       (server-start)))))
+  ;; Start Emacs server if not already running
+  (leaf server
+    :commands server-running-p
+    :hook (emacs-startup-hook
+	   . (lambda ()
+	       (unless (server-running-p)
+		 (server-start)))))
 
-;; Inherit shell environment variables including SSH_AUTH_Sock
-(leaf exec-path-from-shell
-  :ensure t
-  :when (memq window-system '(mac ns x))
-  :hook (emacs-startup-hook . exec-path-from-shell-initialize)
-  :config
-  ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
-  ;; is available for git, FileZilla (shell), and other SSH operations.
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+  ;; Inherit shell environment variables including SSH_AUTH_Sock
+  (leaf exec-path-from-shell
+    :ensure t
+    :when (memq window-system '(mac ns x))
+    :hook (emacs-startup-hook . exec-path-from-shell-initialize)
+    :config
+    ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
+    ;; is available for git, FileZilla (shell), and other SSH operations.
+    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 
-(provide 'init)
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
+  (provide 'init)
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars)
+  ;; End:
 ;;; init.el ends here
