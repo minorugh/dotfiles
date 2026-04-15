@@ -5,7 +5,6 @@
 
 (leaf evil :ensure t
   :hook (after-init-hook . evil-mode)
-  ;; [muhenkan] の挙動はファイル冒頭を参照
   :bind ((:evil-normal-state-map
           ("M-."      . nil) ;; This bind is for use other
           ("C-a"      . seq-home)
@@ -66,6 +65,7 @@
       (evil-emacs-state)))
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Universal key definition to escape and switch in any situation (my-muhenkan)
   ;;
   ;; git-peek running     → force exit
@@ -74,6 +74,7 @@
   ;; region selected      → deselect
   ;; input method enabled → disable input method
   ;; other than above     → return to evil normal state
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun my-muhenkan ()
     "[muhenkan] key defined universally."
     (interactive)

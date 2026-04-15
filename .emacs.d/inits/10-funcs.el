@@ -9,6 +9,13 @@
 	 ("<f4>" . xsrv-gh)
 	 ("<f6>" . thunar-open))
   :init
+  (defun my-sudo-reopen ()
+    "Reopen current file with sudo privileges via TRAMP."
+    (interactive)
+    (let ((pos (point)))
+      (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
+      (goto-char pos)))
+
   (defun terminal-open ()
     "Open gnome-terminal at current dir on adjacent display."
     (interactive)

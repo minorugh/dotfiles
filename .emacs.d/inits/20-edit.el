@@ -25,16 +25,36 @@
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position 'left))
 
-(leaf persistent-scratch
-  :ensure t
-  :doc "Save scratch buffer state to file and restore from file."
-  :hook (after-init-hook . persistent-scratch-autosave-mode)
+;; scratchの内容をシャットダウン時に保存、起動時に復元
+(leaf toggle-scratch
+  :hook((kill-emacs-hook . save-scratch-buffer)
+	(after-init-hook . restore-scratch-buffer))
   :bind ("S-<return>" . toggle-scratch)
   :init
-  (defvar toggle-scratch-prev-buffer nil
-    "Buffer name before switching to *scratch*.")
-  :config
-  (setq persistent-scratch-save-file (locate-user-emacs-file "tmp/scratch"))
+  (defun save-scratch-buffer ()
+    (with-current-buffer "*scratch*"
+      (write-region (point-min) (point-max)
+                    (locate-user-emacs-file "tmp/scratch"))))
+
+  (defun restore-scratch-buffer ()
+    (let ((f (locate-user-emacs-file "tmp/scratch")))
+      (when (file-exists-p f)
+	(with-current-buffer "*scratch*"
+          (erase-buffer)
+          (insert-file-contents f)))))
+
+  ;; (add-hook 'kill-emacs-hook #'save-scratch-buffer)
+  ;; (add-hook 'after-init-hook #'restore-scratch-buffer)
+  ;; (leaf persistent-scratch
+  ;;   :ensure t
+  ;;   :doc "Save scratch buffer state to file and restore from file."
+  ;;   :hook (after-init-hook . persistent-scratch-autosave-mode)
+  ;;   :bind ("S-<return>" . toggle-scratch)
+  ;;   :init
+  ;;   (defvar toggle-scratch-prev-buffer nil
+  ;;     "Buffer name before switching to *scratch*.")
+  ;;   :config
+  ;;   (setq persistent-scratch-save-file (locate-user-emacs-file "tmp/scratch"))
   (defun toggle-scratch ()
     "Toggle current buffer and *scratch* buffer."
     (interactive)
@@ -43,6 +63,16 @@
           (setq toggle-scratch-prev-buffer (buffer-name))
           (switch-to-buffer "*scratch*"))
       (switch-to-buffer toggle-scratch-prev-buffer))))
+
+(leaf flymake
+  :doc "On-the-fly syntax checking."
+  :tag "builtin"
+  :hook ((prog-mode-hook . flymake-mode)
+         (markdown-mode-hook . flymake-mode)
+	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
+  :bind (("C-c f" . flymake-show-buffer-diagnostics)) ;; これだけで一覧が見れる
+  :config
+  (setq flymake-suppress-zero-messages t))
 
 (leaf ediff
   :ensure nil
@@ -81,16 +111,6 @@
   :config
   (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
-
-(defun my-sudo-reopen ()
-  "Reopen current file with sudo privileges via TRAMP."
-  (interactive)
-  (let ((pos (point)))
-    (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
-    (goto-char pos)))
-
-;; (leaf sudo-edit :ensure t
-;;   :doc "Edit currently visited file as another user.")
 
 
 ;; Local Variables:

@@ -68,12 +68,18 @@
 (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
 (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
 (setq save-place-file             (locate-user-emacs-file "tmp/places"))
-(setq savehist-file               (locate-user-emacs-file "tmp/history"))
 (setq recentf-save-file           (locate-user-emacs-file "tmp/recentf"))
 
 ;; Savehist
-(setq savehist-additional-variables '(kill-ring))
-(setq history-delete-duplicates t)
+(leaf savehist
+  :doc "Save minibuffer entry history"
+  :tag "builtin"
+  :hook (after-init-hook . savehist-mode)
+  :config
+  (setq savehist-file               (locate-user-emacs-file "tmp/savehist"))
+  (setq savehist-additional-variables '(kill-ring))
+  (setq history-length              1000)
+  (setq history-delete-duplicates   t))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
