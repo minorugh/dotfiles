@@ -5,10 +5,8 @@
 
 (defvar my-selected-mode-map (make-sparse-keymap)
   "Keymap valid only during region selection.")
-
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
-
 (define-minor-mode my-selected-mode
   "Mode automatically enabled only during region selection."
   :lighter " [SEL]"
@@ -43,14 +41,13 @@
         (unless my-selected-mode (my-selected-mode 1))
       (when my-selected-mode (my-selected-mode -1))))
 
-  ;; リージョンの変化（選択開始・解除）を監視してモードを切り替える
+  ;; Monitor region changes (selection start/stop) and switch modes
   (add-hook 'post-command-hook    #'my-selected-mode-update)
-  (add-hook 'activate-mark-hook   (lambda ()
-                                    (setq my-ime-flag current-input-method)
-                                    (deactivate-input-method)))
-  (add-hook 'deactivate-mark-hook (lambda ()
-                                    (unless (null my-ime-flag)
-                                      (toggle-input-method)))))
+  (add-hook 'activate-mark-hook
+	    (lambda () (setq my-ime-flag current-input-method)(deactivate-input-method)))
+  (add-hook 'deactivate-mark-hook
+	    (lambda () (unless (null my-ime-flag)(toggle-input-method)))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
