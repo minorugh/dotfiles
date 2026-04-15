@@ -69,7 +69,7 @@
     (save-excursion
       (if (use-region-p)
           (indent-region (region-beginning) (region-end))
-        (indent-region (point-min) (point-max)))
+	(indent-region (point-min) (point-max)))
       (message "Indented selected region or buffer."))))
 
 (leaf web-mode
@@ -83,6 +83,6 @@
   (setq web-mode-code-indent-offset 2))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 08-highlight.el ends here
