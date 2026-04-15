@@ -7,6 +7,7 @@
   "Keymap valid only during region selection.")
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
+
 (define-minor-mode my-selected-mode
   "Mode automatically enabled only during region selection."
   :keymap my-selected-mode-map)
