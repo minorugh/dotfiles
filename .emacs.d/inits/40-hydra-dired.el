@@ -10,7 +10,7 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint_@__c_
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint_@_._c_
   _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_ass  _g_ithub.i_o_^^  capture_,_
 "
    ("f" flymake-show-buffer-diagnostics)
