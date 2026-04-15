@@ -68,7 +68,6 @@
 (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
 (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
 (setq save-place-file             (locate-user-emacs-file "tmp/places"))
-(setq recentf-save-file           (locate-user-emacs-file "tmp/recentf"))
 
 ;; Savehist
 (leaf savehist
@@ -76,15 +75,16 @@
   :tag "builtin"
   :hook (after-init-hook . savehist-mode)
   :config
-  (setq savehist-file               (locate-user-emacs-file "tmp/savehist"))
+  (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
   (setq savehist-additional-variables '(kill-ring))
-  (setq history-length              1000)
-  (setq history-delete-duplicates   t))
+  (setq history-length         1000)
+  (setq history-delete-duplicates t))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
 (setq recentf-max-saved-items 100)
 (setq recentf-auto-cleanup 'never)
+(setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
 (setq recentf-exclude
       (list (expand-file-name "elpa/" user-emacs-directory)
             (expand-file-name "tmp/"  user-emacs-directory)
@@ -112,6 +112,7 @@
          ("s-c"     . clipboard-kill-ring-save)
          ("s-v"     . clipboard-yank)
          ("C-q"     . other-window-or-split)
+	 ("S-RET"   . (lambda () (interactive) (end-of-line) (newline)))
          ([muhenkan] . my-keyboard-quit))
   :init
   (defun my-upcase-word (arg)

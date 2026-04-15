@@ -81,6 +81,32 @@
     (interactive)
     (start-process-shell-command "keepass" nil "keepass.sh")))
 
+(eval-and-compile
+  (leaf my-gist-configurations
+    :doc "Post region or buffer to gist via compile."
+    :config
+    ;; your code
+    (defun gist-description ()
+      "Add gist description."
+      (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
+
+    (defun gist-filename ()
+      "The character string entered in minibuffer is used as file-name.
+If enter is pressed without file-name, that's will be buffer file name."
+      (interactive)
+      (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
+	(read-from-minibuffer (format "File name (%s): " file) file)))
+
+    (defun gist-region-or-buffer ()
+      "If region is selected, post from the region.
+If region isn't selected, post from the buffer."
+      (interactive)
+      (let ((file (buffer-file-name)))
+	(if (not (use-region-p))
+            (compile (concat "gist -od " (gist-description) " " file))
+          (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+      (delete-other-windows))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

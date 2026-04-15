@@ -49,27 +49,27 @@
   ;; Suppress *scratch* flickering on startup
   (switch-to-buffer (get-buffer-create "*dashboard*")))
 
-  ;; Start Emacs server if not already running
-  (leaf server
-    :commands server-running-p
-    :hook (emacs-startup-hook
-	   . (lambda ()
-	       (unless (server-running-p)
-		 (server-start)))))
+;; Start Emacs server if not already running
+(leaf server
+  :commands server-running-p
+  :hook (emacs-startup-hook
+	 . (lambda ()
+	     (unless (server-running-p)
+	       (server-start)))))
 
-  ;; Inherit shell environment variables including SSH_AUTH_Sock
-  (leaf exec-path-from-shell
-    :ensure t
-    :when (memq window-system '(mac ns x))
-    :hook (emacs-startup-hook . exec-path-from-shell-initialize)
-    :config
-    ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
-    ;; is available for git, FileZilla (shell), and other SSH operations.
-    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+;; Inherit shell environment variables including SSH_AUTH_Sock
+(leaf exec-path-from-shell
+  :ensure t
+  :when (memq window-system '(mac ns x))
+  :hook (emacs-startup-hook . exec-path-from-shell-initialize)
+  :config
+  ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
+  ;; is available for git, FileZilla (shell), and other SSH operations.
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 
-  (provide 'init)
-  ;; Local Variables:
-  ;; byte-compile-warnings: (not free-vars)
-  ;; End:
+(provide 'init)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; init.el ends here

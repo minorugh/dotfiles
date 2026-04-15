@@ -8,14 +8,12 @@
   :doc "Various completion functions using Ivy."
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
-         ("C-x C-b" . counsel-switch-buffer)
-         ("C-x C-f" . counsel-find-file)        ;; プロジェクト内のファイルを検索
+         ("C-x C-f" . counsel-find-file)   ;; プロジェクト内のファイルを検索
          ("M-x"     . counsel-M-x)
          ("M-y"     . counsel-yank-pop)
          ("C-,"     . counsel-mark-ring)
-         ("s-a"     . counsel-git-grep)   ;; プロジェクト内を全文検索 (agの代わり)
-         ("C-x g"   . counsel-git)        ;; プロジェクト内のファイルを検索
-         ("C-M-f"   . counsel-find-file)) ;; Git外や新規作成時のみこれを使う
+         ("s-a"     . counsel-git-grep)    ;; プロジェクト内を全文検索 (agの代わり)
+         ("C-x g"   . counsel-git))        ;; プロジェクト内のファイルを検索
   :config
   (setq search-default-mode          nil)
   (setq ivy-use-virtual-buffers      t)

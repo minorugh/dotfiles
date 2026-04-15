@@ -25,11 +25,10 @@
   (setq imenu-list-auto-resize t)
   (setq imenu-list-position 'left))
 
-;; scratchの内容をシャットダウン時に保存、起動時に復元
-(leaf toggle-scratch
+(leaf save-scratch
+  :doc "Save contents of scratch at shutdown, restore at startup."
   :hook((kill-emacs-hook . save-scratch-buffer)
 	(after-init-hook . restore-scratch-buffer))
-  :bind ("S-<return>" . toggle-scratch)
   :init
   (defun save-scratch-buffer ()
     (with-current-buffer "*scratch*"
@@ -41,38 +40,7 @@
       (when (file-exists-p f)
 	(with-current-buffer "*scratch*"
           (erase-buffer)
-          (insert-file-contents f)))))
-
-  ;; (add-hook 'kill-emacs-hook #'save-scratch-buffer)
-  ;; (add-hook 'after-init-hook #'restore-scratch-buffer)
-  ;; (leaf persistent-scratch
-  ;;   :ensure t
-  ;;   :doc "Save scratch buffer state to file and restore from file."
-  ;;   :hook (after-init-hook . persistent-scratch-autosave-mode)
-  ;;   :bind ("S-<return>" . toggle-scratch)
-  ;;   :init
-  ;;   (defvar toggle-scratch-prev-buffer nil
-  ;;     "Buffer name before switching to *scratch*.")
-  ;;   :config
-  ;;   (setq persistent-scratch-save-file (locate-user-emacs-file "tmp/scratch"))
-  (defun toggle-scratch ()
-    "Toggle current buffer and *scratch* buffer."
-    (interactive)
-    (if (not (string= "*scratch*" (buffer-name)))
-        (progn
-          (setq toggle-scratch-prev-buffer (buffer-name))
-          (switch-to-buffer "*scratch*"))
-      (switch-to-buffer toggle-scratch-prev-buffer))))
-
-(leaf flymake
-  :doc "On-the-fly syntax checking."
-  :tag "builtin"
-  :hook ((prog-mode-hook . flymake-mode)
-         (markdown-mode-hook . flymake-mode)
-	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
-  :bind (("C-c f" . flymake-show-buffer-diagnostics)) ;; これだけで一覧が見れる
-  :config
-  (setq flymake-suppress-zero-messages t))
+          (insert-file-contents f))))))
 
 (leaf ediff
   :ensure nil
