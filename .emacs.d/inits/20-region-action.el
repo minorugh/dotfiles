@@ -9,7 +9,6 @@
   "Non-nil means IME was active before region activation.")
 (define-minor-mode my-selected-mode
   "Mode automatically enabled only during region selection."
-  :lighter " [SEL]"
   :keymap my-selected-mode-map)
 
 (defun my-region-actions-initialize ()
