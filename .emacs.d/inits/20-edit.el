@@ -13,18 +13,6 @@
   (setq super-save-remote-files        nil)
   (setq super-save-exclude             '(".gpg")))
 
-(leaf imenu-list
-  :ensure t
-  :doc "Show imenu entries in a separate buffer."
-  :bind (([f2] . imenu-list-smart-toggle)
-         (:imenu-list-major-mode-map
-          ("j" . next-line)
-          ("k" . previous-line)))
-  :config
-  (setq imenu-list-focus-after-activation t)
-  (setq imenu-list-auto-resize t)
-  (setq imenu-list-position 'left))
-
 (leaf save-scratch
   :doc "Save contents of scratch at shutdown, restore at startup."
   :hook((kill-emacs-hook . save-scratch-buffer)
@@ -55,8 +43,27 @@
 (leaf elec-pair
   :ensure nil
   :tag "builtin"
-  :doc "Automatic parenthesis pairing."
-  :hook (after-init-hook . electric-pair-mode))
+  :doc "Automatic parenthesis pairing. Disabled in text-mode (use yasnippet instead)."
+  :hook ((after-init-hook  . electric-pair-mode)
+         (text-mode-hook   . (lambda () (electric-pair-local-mode -1)))))
+
+(leaf electric-indent
+  :ensure nil
+  :tag "builtin"
+  :doc "Standard indentation at line breaks. Already ON but written for administrative purposes."
+  :hook (after-init-hook . electric-indent-mode))
+
+(leaf indent-helper
+  :bind (("C-i" . indent-region-or-buffer))
+  :preface
+  (defun indent-region-or-buffer ()
+    "If there is a selection, indent there; if not, indent the entire buffer."
+    (interactive)
+    (save-excursion
+      (if (use-region-p)
+          (indent-region (region-beginning) (region-end))
+	(indent-region (point-min) (point-max)))
+      (message "Indented selected region or buffer."))))
 
 (leaf iedit
   :ensure t

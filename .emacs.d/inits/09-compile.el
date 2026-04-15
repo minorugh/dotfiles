@@ -90,7 +90,6 @@ Echo the last @echo output line to the minibuffer."
             (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
             (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
 
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

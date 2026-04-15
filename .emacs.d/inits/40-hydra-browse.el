@@ -1,4 +1,4 @@
-;;; 40-hydra-misc.el --- hydra misc configurations. -*- lexical-binding: t -*-
+;;; 40-hydra-broese.el --- hydra browse configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -73,4 +73,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 40-hydra-misc.el ends here
+;;; 40-hydra-browse.el ends here

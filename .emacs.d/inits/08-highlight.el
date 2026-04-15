@@ -15,44 +15,11 @@
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
 
-(leaf blink-cursor
-  :ensure nil
-  :tag "builtin"
-  :doc "Blinking cursor mode for GNU Emacs."
-  :config
-  (setq blink-cursor-blinks   0)
-  (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    10))
-
 (leaf rainbow-delimiters
   :ensure t
   :doc "Display brackets in rainbow."
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
-
-(leaf elec-pair
-  :ensure nil
-  :tag "builtin"
-  :doc "Disable electric-pair-mode in text-mode (use yasnippet for makeweb blocks)."
-  :hook (text-mode-hook . (lambda () (electric-pair-local-mode -1))))
-
-(leaf electric-indent
-  :ensure nil
-  :tag "builtin"
-  :doc "Standard indentation at line breaks. Already ON but written for administrative purposes."
-  :hook (after-init-hook . electric-indent-mode))
-
-(leaf indent-helper
-  :bind (("C-i" . indent-region-or-buffer))
-  :preface
-  (defun indent-region-or-buffer ()
-    "If there is a selection, indent there; if not, indent the entire buffer."
-    (interactive)
-    (save-excursion
-      (if (use-region-p)
-          (indent-region (region-beginning) (region-end))
-	(indent-region (point-min) (point-max)))
-      (message "Indented selected region or buffer."))))
 
 (leaf whitespace
   :ensure nil
@@ -69,16 +36,6 @@ indentation (auto-formatting) is not performed."
     (interactive)
     (delete-trailing-whitespace)           ;; 行末の空白を削除
     (set-buffer-file-coding-system 'utf-8))) ;; 文字コードをUTF-8に設定
-
-(leaf web-mode
-  :ensure t
-  :doc "Web template editing mode for emacs."
-  :mode ("\\.js\\'" "\\.jsx\\'" "\\.html?\\'" "\\.php\\'")
-  :config
-  (setq web-mode-enable-auto-indentation nil)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

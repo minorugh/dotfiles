@@ -23,6 +23,15 @@
    '(region  ((t (:background "#6272a4" :extend t))))
    '(hl-line ((t (:background "#3B4252" :extend t))))))
 
+(leaf blink-cursor
+  :ensure nil
+  :tag "builtin"
+  :doc "Blinking cursor mode for GNU Emacs."
+  :config
+  (setq blink-cursor-blinks   0)
+  (setq blink-cursor-interval 0.3)
+  (setq blink-cursor-delay    10))
+
 (leaf doom-modeline
   :ensure t
   :doc "A minimal and modern mode-line."
@@ -39,6 +48,18 @@
   :doc "Hides the mode-line in current buffer."
   :hook ((imenu-list-major-mode-hook . hide-mode-line-mode)
          (neotree-mode-hook           . hide-mode-line-mode)))
+
+(leaf imenu-list
+  :ensure t
+  :doc "Show imenu entries in a separate buffer."
+  :bind (([f2] . imenu-list-smart-toggle)
+         (:imenu-list-major-mode-map
+          ("j" . next-line)
+          ("k" . previous-line)))
+  :config
+  (setq imenu-list-focus-after-activation t)
+  (setq imenu-list-auto-resize t)
+  (setq imenu-list-position 'left))
 
 (leaf nerd-icons
   :ensure t
