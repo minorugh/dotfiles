@@ -59,10 +59,11 @@
 (push '(font . "Cica-18") default-frame-alist)
 
 ;; Faster to disable these here (before they've been initialized)
+(setq-default mode-line-format nil)
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-;; (push '(undecorated . t) default-frame-alist)
+(push '(undecorated . t) default-frame-alist)
 
 ;; Default frame settings. This is actually maximized, not full screen.
 (push '(fullscreen . maximized) initial-frame-alist)

@@ -31,26 +31,49 @@
 	      '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
-(leaf prescient :ensure t
-  :doc "Better sorting and filtering."
-  :hook (after-init-hook . prescient-persist-mode)
+;; 1. prescient (3つ) の代わりに標準機能で履歴を保存
+(leaf savehist
+  :doc "ミニバッファの入力履歴を保存。prescientの代わり"
+  :tag "builtin"
+  :hook (after-init-hook . savehist-mode)
   :config
-  (setq prescient-aggressive-file-save t)
-  (setq prescient-save-file (locate-user-emacs-file "tmp/prescient-save")))
+  (setq history-length 1000)
+  (setq savehist-file (locate-user-emacs-file "tmp/savehist")))
 
-(leaf ivy-prescient :ensure t
-  :after prescient ivy)
-
-(leaf company-prescient :ensure t
-  :after prescient company)
-
-(leaf yasnippet :ensure t
-  :doc "Template system."
+;; 2. yasnippet (snippetsパッケージは削除)
+(leaf yasnippet
+  :ensure t
+  :doc "Template system. 巨大な既製品集は捨て、自作のみで運用"
   :hook (after-init-hook . yas-global-mode)
   :config
   (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
-  (leaf yasnippet-snippets :ensure t))
+  ;; snippets は elpa から削除し、~/.emacs.d/snippets/ フォルダのみを参照
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
+
+;; ※ google-translate は 20-region-actions.el 内の自作関数
+;; (my-google-search など) に役割を譲ったため、このまま削除してOKです。
+
+;; (leaf prescient :ensure t
+;;   :doc "Better sorting and filtering."
+;;   :hook (after-init-hook . prescient-persist-mode)
+;;   :config
+;;   (setq prescient-aggressive-file-save t)
+;;   (setq prescient-save-file (locate-user-emacs-file "tmp/prescient-save")))
+
+;; (leaf ivy-prescient :ensure t
+;;   :after prescient ivy)
+
+;; (leaf company-prescient :ensure t
+;;   :after prescient company)
+
+;; (leaf yasnippet :ensure t
+;;   :doc "Template system."
+;;   :hook (after-init-hook . yas-global-mode)
+;;   :config
+;;   (setq yas-verbosity 0)
+;;   (setq yas-indent-line 'fixed)
+;;   (leaf yasnippet-snippets :ensure t))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

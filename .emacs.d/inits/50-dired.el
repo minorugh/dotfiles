@@ -11,7 +11,7 @@
 	 ("<right>" . dired-open-in-accordance-with-situation)
 	 ("RET"     . dired-open-in-accordance-with-situation)
 	 ("w"       . wdired-change-to-wdired-mode)
-	 ("s"       . sudo-edit)
+	 ("s"       . my-sudo-reopen)
 	 ("o"       . dired-open-file)
 	 ("["       . dired-hide-details-mode)
 	 ("a"       . dired-omit-mode)

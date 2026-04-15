@@ -39,6 +39,13 @@
 ;; Personal settings file managed outside of version control.
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
+;; Filter out specific annoying byte-compile warnings
+(advice-add 'byte-compile-warn :around
+            (lambda (orig-fun format-string &rest args)
+              (unless (or (string-match-p "not called at toplevel" format-string)
+                          (string-match-p "docstring wider than" format-string))
+                (apply orig-fun format-string args))))
+
 ;; Load all inits/*.el files and byte-compile them for faster startup
 (leaf init-loader
   :ensure t
@@ -46,9 +53,10 @@
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
-  (init-loader-load)
   ;; Suppress *scratch* flickering on startup
-  (switch-to-buffer (get-buffer-create "*dashboard*")))
+  (switch-to-buffer (get-buffer-create "*dashboard*"))
+  (let ((inhibit-message t))
+    (init-loader-load)))
 
 ;; Start Emacs server if not already running
 (leaf server

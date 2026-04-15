@@ -69,7 +69,7 @@ endif
 
 keymap: ## キーマップのカスタマイズ（keyd + setxkbmap）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
-	# .Xmodmap は参照用のみ（xmodmap は廃止・keyd + setxkbmap で管理）
+# .Xmodmap は参照用のみ（xmodmap は廃止・keyd + setxkbmap で管理）
 
 keyd: ## keyd のインストールと設定（PrtSc→Alt_R / CapsLock→Ctrl）
 	$(APT) git build-essential

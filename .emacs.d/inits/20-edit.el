@@ -82,8 +82,15 @@
   (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
-(leaf sudo-edit :ensure t
-  :doc "Edit currently visited file as another user.")
+(defun my-sudo-reopen ()
+  "Reopen the current file with sudo privileges (using the standard TRAMP function)."
+  (interactive)
+  (let ((pos (point)))
+    (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
+    (goto-char pos)))
+
+;; (leaf sudo-edit :ensure t
+;;   :doc "Edit currently visited file as another user.")
 
 
 ;; Local Variables:

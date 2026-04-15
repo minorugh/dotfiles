@@ -3,18 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf counsel :ensure t
+(leaf counsel
+  :ensure t
   :doc "Various completion functions using Ivy."
   :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
-	 ("C-x C-b" . counsel-switch-buffer)
-	 ("M-x"     . counsel-M-x)
-	 ("M-y"     . counsel-yank-pop)
-	 ("C-,"     . counsel-mark-ring)
-	 ("s-a"     . counsel-ag)
-	 ("C-x a"   . counsel-linux-app)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-x C-r" . counsel-recentf))
+         ("C-x C-b" . counsel-switch-buffer)
+         ("M-x"     . counsel-M-x)
+         ("M-y"     . counsel-yank-pop)
+         ("C-,"     . counsel-mark-ring)
+         ("s-a"     . counsel-git-grep)   ;; プロジェクト内を全文検索 (agの代わり)
+         ("C-x C-f" . counsel-git)        ;; プロジェクト内のファイルを検索
+         ("C-M-f"   . counsel-find-file)) ;; Git外や新規作成時のみこれを使う
   :config
   (setq search-default-mode          nil)
   (setq ivy-use-virtual-buffers      t)
@@ -35,30 +35,30 @@
      (lambda (str)
        (concat (propertize " " 'display `(space :align-to 2)) str))
      cands
-     "\n"))
+     "\n")))
 
-  (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
-    "Fast full-text search. see https://takaxp.github.io/init.html#org29c7b6b7"
-    (apply f (or initial-input
-		 (and (not (thing-at-point-looking-at "^\\*+"))
-		      (ivy-thing-at-point)))
-	   (unless current-prefix-arg
-	     (or initial-directory default-directory))
-	   extra-ag-args ag-prompt caller))
-  (advice-add 'counsel-ag :around #'ad:counsel-ag)
-  ;; Make search trigger even with 2 characters
-  (add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
-  (ivy-add-actions
-   'counsel-ag
-   '(("r" my-counsel-ag-in-dir "search in directory")))
-  (defun my-counsel-ag-in-dir (_arg)
-    "Search again with new root directory."
-    (let ((current-prefix-arg '(4)))
-      (counsel-ag ivy-text nil ""))))
+  ;; (defun ad:counsel-ag (f &optional initial-input initial-directory extra-ag-args ag-prompt caller)
+  ;;   "Fast full-text search. see https://takaxp.github.io/init.html#org29c7b6b7"
+  ;;   (apply f (or initial-input
+  ;; 		 (and (not (thing-at-point-looking-at "^\\*+"))
+  ;; 		      (ivy-thing-at-point)))
+  ;; 	   (unless current-prefix-arg
+  ;; 	     (or initial-directory default-directory))
+  ;; 	   extra-ag-args ag-prompt caller))
+  ;; (advice-add 'counsel-ag :around #'ad:counsel-ag)
+  ;; ;; Make search trigger even with 2 characters
+  ;; (add-to-list 'ivy-more-chars-alist '(counsel-ag . 2))
+  ;; (ivy-add-actions
+  ;;  'counsel-ag
+  ;;  '(("r" my-counsel-ag-in-dir "search in directory")))
+  ;; (defun my-counsel-ag-in-dir (_arg)
+  ;;   "Search again with new root directory."
+  ;;   (let ((current-prefix-arg '(4)))
+  ;;     (counsel-ag ivy-text nil ""))))
 
-(leaf avy :ensure t
-  :doc "Jump to arbitrary positions quickly."
-  :bind ("C-r" . avy-goto-word-1))
+;; (leaf avy :ensure t
+;;   :doc "Jump to arbitrary positions quickly."
+;;   :bind ("C-r" . avy-goto-word-1))
 
 (leaf ivy-rich :ensure t
   :doc "More friendly display transformer for ivy."

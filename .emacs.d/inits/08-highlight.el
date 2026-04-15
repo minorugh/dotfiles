@@ -6,8 +6,8 @@
 (leaf goggles
   :ensure t
   :doc "Highlights the modified region using pulse."
-  :hook (prog-mode-hook . goggles-mode)
-  (text-mode-hook . goggles-mode)
+  :hook ((prog-mode-hook . goggles-mode)
+	 (text-mode-hook . goggles-mode))
   :config
   (setq-default goggles-pulse t)
   (custom-set-faces
@@ -54,11 +54,29 @@
   :doc "Disable electric-pair-mode in text-mode (use yasnippet for makeweb blocks)."
   :hook (text-mode-hook . (lambda () (electric-pair-local-mode -1))))
 
-(leaf aggressive-indent
-  :ensure t
-  :hook (after-init-hook . global-aggressive-indent-mode)
-  :config
-  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+;; (leaf aggressive-indent
+;;   :ensure t
+;;   :hook (after-init-hook . global-aggressive-indent-mode)
+;;   :config
+;;   (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+
+(leaf electric-indent
+  :ensure nil
+  :tag "builtin"
+  :doc "Standard indentation at line breaks. Already ON but written for administrative purposes."
+  :hook (after-init-hook . electric-indent-mode))
+
+(leaf indent-helper
+  :bind (("C-x c-i" . indent-region-or-buffer))
+  :preface
+  (defun indent-region-or-buffer ()
+    "If there is a selection, indent there; if not, indent the entire buffer."
+    (interactive)
+    (save-excursion
+      (if (use-region-p)
+          (indent-region (region-beginning) (region-end))
+        (indent-region (point-min) (point-max)))
+      (message "Indented selected region or buffer."))))
 
 (leaf web-mode
   :ensure t

@@ -19,9 +19,8 @@
          (:evil-visual-state-map
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
-          ("g"        . my-google-this)
+          ("g"        . my-google-search)
           ("d"        . deepl-translate)
-          ("t"        . google-translate-auto)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
           ([muhenkan] . my-muhenkan))

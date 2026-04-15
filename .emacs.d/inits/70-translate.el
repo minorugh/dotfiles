@@ -11,28 +11,28 @@
   :bind ("C-c d" . deepl-translate)
   :config (load (locate-user-emacs-file "elisp/deepl-api.el.gpg")))
 
-(leaf google-translate
-  :ensure t
-  :doc "Emacs interface to Google Translate."
-  :hook (after-init-hook . (lambda () (require 'google-translate)))
-  :bind ("C-c t" . google-translate-auto)
-  :config
-  (defun google-translate-auto ()
-    "Automatically recognize and translate Japanese and English."
-    (interactive)
-    (let ((string (if (use-region-p)
-		      (prog1
-			  (buffer-substring-no-properties (region-beginning) (region-end))
-			(deactivate-mark))
-		    (read-string "Google Translate: "))))
-      (if (string-match (format "\\`[%s]+\\'" "[:ascii:]") string)
-	  (google-translate-translate "en" "ja" string)
-	(google-translate-translate "ja" "en" string))))
+;; (leaf google-translate
+;;   :ensure t
+;;   :doc "Emacs interface to Google Translate."
+;;   :hook (after-init-hook . (lambda () (require 'google-translate)))
+;;   :bind ("C-c t" . google-translate-auto)
+;;   :config
+;;   (defun google-translate-auto ()
+;;     "Automatically recognize and translate Japanese and English."
+;;     (interactive)
+;;     (let ((string (if (use-region-p)
+;; 		      (prog1
+;; 			  (buffer-substring-no-properties (region-beginning) (region-end))
+;; 			(deactivate-mark))
+;; 		    (read-string "Google Translate: "))))
+;;       (if (string-match (format "\\`[%s]+\\'" "[:ascii:]") string)
+;; 	  (google-translate-translate "en" "ja" string)
+;; 	(google-translate-translate "ja" "en" string))))
 
-  ;; Workaround for "Failed to search TKK" error
-  ;; see https://github.com/atykhonov/google-translate/issues/137
-  (defun google-translate--get-b-d1 ()
-    (list 427110 1469889687)))
+;;   ;; Workaround for "Failed to search TKK" error
+;;   ;; see https://github.com/atykhonov/google-translate/issues/137
+;;   (defun google-translate--get-b-d1 ()
+;;     (list 427110 1469889687)))
 
 (leaf deepl-translate-web
   :ensure nil

@@ -69,7 +69,7 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     (find-file "~/.emacs.d/inits/90-easy-hugo.el"))
 
   (defun my-easy-hugo-newpost-after (&rest _)
-    "新規ポスト作成後、evil-mode なら evil-emacs-state に切り替える."
+    "After creating a new post, switch to evil-emacs-state if in evil-mode."
     (when (bound-and-true-p evil-mode)
       (evil-emacs-state)
       (goto-char (point-max))
@@ -77,6 +77,6 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
   (advice-add 'easy-hugo-newpost :after #'my-easy-hugo-newpost-after))
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
+;; byte-compile-warnings: (not free-vars unresolved callargs)
 ;; End:
 ;;; 90-easy-hugo.el ends here

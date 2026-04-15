@@ -35,12 +35,20 @@
   :ensure t
   :bind ([f5] . quickrun))
 
-(leaf projectile
-  :ensure t
-  :doc "Manage and navigate projects in Emacs."
-  :hook (after-init-hook . projectile-mode)
-  :config
-  (setq projectile-known-projects-file (locate-user-emacs-file "tmp/projectile.eld")))
+;; (leaf project
+;;   :tag "builtin"
+;;   :doc "If there is a Makefile, that is considered the root."
+;;   :bind (("C-x p f" . project-find-file)
+;; 	 ("C-x p p" . project-switch-project)
+;; 	 ("C-x p g" . project-find-regexp)
+;; 	 ("C-x p b" . project-switch-to-buffer)))
+
+;; (leaf projectile
+;;   :ensure t
+;;   :doc "Manage and navigate projects in Emacs."
+;;   :hook (after-init-hook . projectile-mode)
+;;   :config
+;;   (setq projectile-known-projects-file (locate-user-emacs-file "tmp/projectile.eld")))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
