@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 ;; Select and run Makefile targets via ivy completion.
-;; Supports Makefile buffers and dired directories containing a Makefile.
+;; Supports Makefile buffers and `dired' directories containing a Makefile.
 ;;
 ;; Targets are parsed from `make -qp` output.
 ;; Inline descriptions are extracted from ## comments on target lines:
@@ -16,7 +16,7 @@
 ;;; compilation (builtin)
 
 (defun my-make--find-makefile ()
-  "Return Makefile path if available in current dired or buffer context."
+  "Return Makefile path if available in current `dired' or buffer context."
   (let ((dir (cond
               ;; diredバッファーのカレントディレクトリ
               ((derived-mode-p 'dired-mode)
@@ -47,7 +47,7 @@
         (nreverse targets)))))
 
 (defun my-make--format-candidate (pair)
-  "Format (target . desc) as ivy candidate string."
+  "Format (target . desc) as ivy candidate PAIR string."
   (let ((target (car pair))
         (desc   (or (cdr pair) "")))
     (if (string= desc "")
@@ -75,10 +75,9 @@
 			  (let ((target (get-text-property 0 'my-target candidate)))
 			    (compile (format "make -f %s %s" makefile target))
 			    (switch-to-buffer-other-window "*compilation*")))))))
-		
+
 (provide 'my-makefile)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
-;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
 ;;; my-makefile.el ends here

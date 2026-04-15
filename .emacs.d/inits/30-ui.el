@@ -61,23 +61,6 @@
           . (lambda () (display-line-numbers-mode 0))))
   :config (setq display-line-numbers-width-start t))
 
-(leaf whitespace
-  :ensure nil
-  :tag "builtin"
-  :doc "Minor mode to visualize whitespace characters."
-  :hook (after-init-hook . global-whitespace-mode)
-  :config
-  (setq whitespace-style '(face trailing)) ;; 行末スペースを赤くハイライト
-  (defun my-cleanup-for-spaces-safe ()
-    "Perform safe whitespace processing on buffer contents.
-This is intended for use in the before-save-hook (before-save-hook),
-indentation (auto-formatting) is not performed."
-    (interactive)
-    (delete-trailing-whitespace)           ;; 行末の空白を削除
-    (set-buffer-file-coding-system 'utf-8))) ;; 文字コードをUTF-8に設定
-
-(add-hook 'before-save-hook 'my-cleanup-for-spaces-safe)
-
 (leaf display-fill-column-indicator
   :ensure nil
   :tag "builtin"

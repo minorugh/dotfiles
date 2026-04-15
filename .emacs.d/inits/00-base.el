@@ -62,8 +62,6 @@
 
 ;; All history/data files are stored in `~/.emacs.d/tmp'
 (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
-(setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
-(setq transient-history-file      (locate-user-emacs-file "tmp/transient/history"))
 (setq request-storage-directory   (locate-user-emacs-file "tmp/request"))
 (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
 (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))

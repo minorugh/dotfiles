@@ -3,18 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf goggles
-  :ensure t
-  :doc "Highlights the modified region using pulse."
-  :hook ((prog-mode-hook . goggles-mode)
-	 (text-mode-hook . goggles-mode))
-  :config
-  (setq-default goggles-pulse t)
-  (custom-set-faces
-   '(goggles-added   ((t (:background "#c3fabb"))))
-   '(goggles-changed ((t (:background "#fae8bb"))))
-   '(goggles-removed ((t (:background "#fabfbb"))))))
-
 (leaf paren
   :ensure nil
   :tag "builtin"
@@ -42,12 +30,6 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(leaf rainbow-mode
-  :ensure t
-  :doc "Color letter that indicate the color."
-  :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-  :bind ("C-c r" . rainbow-mode))
-
 (leaf elec-pair
   :ensure nil
   :tag "builtin"
@@ -71,6 +53,22 @@
           (indent-region (region-beginning) (region-end))
 	(indent-region (point-min) (point-max)))
       (message "Indented selected region or buffer."))))
+
+(leaf whitespace
+  :ensure nil
+  :tag "builtin"
+  :doc "Minor mode to visualize whitespace characters."
+  :hook (after-init-hook . global-whitespace-mode)
+  :bind ("C-c s" . my-cleanup-for-spaces-safe)
+  :config
+  (setq whitespace-style '(face trailing)) ;; 行末スペースを赤くハイライト
+  (defun my-cleanup-for-spaces-safe ()
+    "Perform safe whitespace processing on buffer contents.
+This is intended for use in the before-save-hook (before-save-hook),
+indentation (auto-formatting) is not performed."
+    (interactive)
+    (delete-trailing-whitespace)           ;; 行末の空白を削除
+    (set-buffer-file-coding-system 'utf-8))) ;; 文字コードをUTF-8に設定
 
 (leaf web-mode
   :ensure t
