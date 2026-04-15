@@ -62,6 +62,7 @@
 
 ;; All history/data files are stored in `~/.emacs.d/tmp'
 (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
+(setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
 (setq request-storage-directory   (locate-user-emacs-file "tmp/request"))
 (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
 (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
@@ -110,7 +111,7 @@
          ("s-c"     . clipboard-kill-ring-save)
          ("s-v"     . clipboard-yank)
          ("C-q"     . other-window-or-split)
-	 ("S-RET"   . (lambda () (interactive) (end-of-line) (newline)))
+	 ("S-<return>"   . (lambda () (interactive) (end-of-line) (newline)))
          ([muhenkan] . my-keyboard-quit))
   :init
   (defun my-upcase-word (arg)
