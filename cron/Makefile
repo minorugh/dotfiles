@@ -19,7 +19,7 @@
 
 XSRV_GH_DST  = $(HOME)/src/github.com/minorugh/xsrv-GH
 XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
-HOSTNAME https://github.com/emacsorphanage/key-chord    := $(shell hostname)
+HOSTNAME := $(shell hostname)
 
 all: xsrv-stop
 
