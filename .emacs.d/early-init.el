@@ -73,5 +73,8 @@
 ;; Disable saving Emacs state via the Session Manager
 (setq emacs-save-session-functions nil)
 
+;; Suppress "File digest doesn't match" undo history warning
+(setq warning-suppress-types '((undo discard-info)))
+
 (provide 'early-init)
 ;;; early-init.el ends here
