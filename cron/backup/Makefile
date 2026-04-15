@@ -56,3 +56,7 @@ keyring-backup: ## Gnome keyring を Dropbox にバックアップ
 	rsync -av --delete ${HOME}/.local/share/keyrings/ ${HOME}/Dropbox/backup/keyrings/
 
 ## endfile
+
+# Local Variables:
+# buffer-read-only: t
+# End:

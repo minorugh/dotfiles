@@ -78,6 +78,18 @@ Echo the last @echo output line to the minibuffer."
           (compile "make git"))
       (message "Makefile not found"))))
 
+(defun my-makefile-toggle-readonly ()
+  "Hoge."
+  (interactive)
+  (read-only-mode 'toggle)
+  (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
+
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            (font-lock-mode 1)
+            (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
+            (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

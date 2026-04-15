@@ -507,3 +507,7 @@ else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	git pull --rebase
 endif
+
+# Local Variables:
+# buffer-read-only: t
+# End:

@@ -188,3 +188,7 @@ debug:
 	@echo "HOSTNAME=[$(HOSTNAME)]"
 	@echo "shell=[$(shell hostname)]"
 	@echo "##>" >&2
+
+# Local Variables:
+# buffer-read-only: t
+# End:

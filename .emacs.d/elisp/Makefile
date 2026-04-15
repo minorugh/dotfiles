@@ -23,3 +23,7 @@ clean:
 	echo "Removed *.elc"
 
 git: toggle-elc
+
+# Local Variables:
+# buffer-read-only: t
+# End:

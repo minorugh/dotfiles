@@ -14,3 +14,7 @@ else
 	git pull --rebase
 endif
 
+
+# Local Variables:
+# buffer-read-only: t
+# End:
