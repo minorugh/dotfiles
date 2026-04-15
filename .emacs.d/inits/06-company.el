@@ -33,14 +33,12 @@
 
 (leaf yasnippet
   :ensure t
-  :doc "Template system. 巨大な既製品集は捨て、自作のみで運用"
+  :doc "Template system: Operate only by your own work."
   :hook (after-init-hook . yas-global-mode)
   :config
   (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
-  ;; snippets は elpa から削除し、~/.emacs.d/snippets/ フォルダのみを参照
   (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
