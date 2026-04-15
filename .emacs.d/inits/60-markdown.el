@@ -58,7 +58,7 @@
           }
           /* 2階層目のul/liにマーカーを表示 */
           .toc > ul > li > ul {
-            list-style-type: disc; 
+            list-style-type: disc;
             padding-left: 25px;       /* 2階層目のインデント */
           }
           /* （オプション）2階層目の文字色やスタイルを調整 */

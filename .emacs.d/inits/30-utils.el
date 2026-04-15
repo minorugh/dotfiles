@@ -24,31 +24,9 @@
   :doc "Popup window manager for Emacs."
   :hook (after-init-hook . popwin-mode))
 
-(leaf bs
-  :ensure nil
-  :tag "builtin"
-  :doc "Menu for selecting and displaying buffers."
-  :bind (("M-]" . bs-cycle-next)
-         ("M-[" . bs-cycle-previous)))
-
 (leaf quickrun
   :ensure t
   :bind ([f5] . quickrun))
-
-;; (leaf project
-;;   :tag "builtin"
-;;   :doc "If there is a Makefile, that is considered the root."
-;;   :bind (("C-x p f" . project-find-file)
-;; 	 ("C-x p p" . project-switch-project)
-;; 	 ("C-x p g" . project-find-regexp)
-;; 	 ("C-x p b" . project-switch-to-buffer)))
-
-;; (leaf projectile
-;;   :ensure t
-;;   :doc "Manage and navigate projects in Emacs."
-;;   :hook (after-init-hook . projectile-mode)
-;;   :config
-;;   (setq projectile-known-projects-file (locate-user-emacs-file "tmp/projectile.eld")))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
@@ -81,7 +59,7 @@
   (hydra-package
    (:color red :hint nil)
    "
-    Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
+Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
   "
    ("i" package-install)
    ("u" package-upgrade)
