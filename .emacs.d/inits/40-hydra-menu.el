@@ -38,7 +38,7 @@
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
    ("g" gist-region-or-buffer)
-   ("l" (browse-url "https://gist.github.com/minorugh"))
+   ("l" open-lepton)
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
