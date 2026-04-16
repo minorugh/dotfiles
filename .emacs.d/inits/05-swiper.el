@@ -28,7 +28,6 @@ If the region isn't selected, `swiper'."
   (setq migemo-regex-dictionary nil)
   (setq migemo-coding-system 'utf-8-unix))
 
-
 (with-eval-after-load 'swiper
   (defun my-ivy-migemo-re-builder (str)
     "Build a regexp for swiper using migemo for Japanese incremental search.

@@ -47,7 +47,7 @@
   :ensure t
   :doc "Hides the mode-line in current buffer."
   :hook ((imenu-list-major-mode-hook . hide-mode-line-mode)
-         (neotree-mode-hook           . hide-mode-line-mode)))
+         (neotree-mode-hook          . hide-mode-line-mode)))
 
 (leaf imenu-list
   :ensure t

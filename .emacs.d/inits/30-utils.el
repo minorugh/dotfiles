@@ -3,9 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key
-  :ensure nil
-  :tag "builtin"
+(leaf which-key :ensure nil :tag "builtin"
   :doc "Display available keybindings in popup."
   :hook (after-init-hook . which-key-mode)
   :config
@@ -19,13 +17,7 @@
   :chord (("df" . counsel-descbinds)
           ("l;" . init-loader-show-log)))
 
-(leaf popwin
-  :ensure t
-  :doc "Popup window manager for Emacs."
-  :hook (after-init-hook . popwin-mode))
-
-(leaf quickrun
-  :ensure t
+(leaf quickrun :ensure t
   :bind ([f5] . quickrun))
 
 (leaf sequential-command
@@ -52,6 +44,21 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
+(leaf tempbuf
+  :doc "Auto kill unused buffers in the background"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((find-file-hook  . my:find-file-tempbuf-hook)
+         (dired-mode-hook . turn-on-tempbuf-mode))
+  :init
+  (defvar my:tempbuf-ignore-files '("~/Dropbox/howm/org/task.org"))
+  (defun my:find-file-tempbuf-hook ()
+    (when-let ((file (buffer-file-name)))
+      (let ((ignore-file-names (mapcar 'expand-file-name my:tempbuf-ignore-files)))
+        (unless (member (expand-file-name file) ignore-file-names)
+          (turn-on-tempbuf-mode)))))
+  :config
+  (setq tempbuf-kill-message nil))
+
 (leaf package-update
   :doc "Package management hydra."
   :chord ("p@" . hydra-package/body)
@@ -67,7 +74,6 @@ Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
    ("a" package-upgrade-all)
    ("v" package-vc-upgrade-all)
    ("<muhenkan>" nil)))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

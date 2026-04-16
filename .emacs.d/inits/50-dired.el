@@ -62,6 +62,14 @@
       (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
       (goto-char pos)))
 
+  (defun sudo-edit (&optional arg)
+  "現在開いているファイルをsudo権限で再開する"
+  (interactive "P")
+  (let ((fname (if (or arg (not buffer-file-name))
+                   (read-file-name "File: ")
+                 buffer-file-name)))
+    (find-alternate-file (concat "/sudo::" fname))))
+
   (defun call-sxiv ()
     "Show all images in the directory with sxiv.
 see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
