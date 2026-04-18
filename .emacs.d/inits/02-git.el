@@ -28,37 +28,6 @@ all git-peek buffers."
     (message "git-peek: emergency quit")))
 
 
-  (defun open-tig ()
-  "Diredや現在のファイル/ディレクトリでgnome-terminalを最大化してtig起動"
-  (interactive)
-  (let* ((path (cond
-                ((derived-mode-p 'dired-mode)
-                 (dired-get-file-for-visit))
-                ((buffer-file-name)
-                 (buffer-file-name))
-                (t default-directory)))
-         (dir (if (file-directory-p path)
-                  path
-                (file-name-directory path))))
-    (if (locate-dominating-file dir ".git")
-        (start-process
-         "tig-terminal" nil
-         "gnome-terminal"
-         "--maximize"
-         "--working-directory" dir
-         "--"
-         "bash" "-c"
-         (format "tig %s"
-                 (shell-quote-argument path)))
-      (message "Not inside a Git repository"))))
-
-;; (defun gitk-open ()
-;;   "Open gitk with current dir.
-;; see https://riptutorial.com/git/example/18336/gitk-and-git-gui"
-;;   (interactive)
-;;   (start-process "gitk" nil "gitk")
-;;   (delete-other-windows))
-
 (leaf browse-at-remote :ensure t
   :doc "Open github page from Emacs"
   :config

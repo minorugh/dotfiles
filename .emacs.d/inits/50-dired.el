@@ -7,16 +7,15 @@
   :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
 	 (dired-mode-hook  . dired-omit-mode))
   :bind (:dired-mode-map
-	 ("<left>"  . dired-up-alternate-directory)
-	 ("<right>" . dired-open-in-accordance-with-situation)
-	 ("RET"     . dired-open-in-accordance-with-situation)
+	 ("^"  . my-dired-up)
+	 ("RET"     . my-dired-open)
 	 ("w"       . wdired-change-to-wdired-mode)
 	 ("s"       . my-sudo-reopen)
 	 ("o"       . dired-open-file)
 	 ("["       . dired-hide-details-mode)
 	 ("a"       . dired-omit-mode)
-	 ("."       . open-tig)
-	 ("i"       . call-sxiv))
+	 ("."       . my-open-tig)
+	 ("i"       . my-sxiv))
   :config
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
@@ -28,26 +27,18 @@
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
-  (defun dired-open-in-accordance-with-situation ()
-    "Files are opened in separate buffers, directories are opened in the same buffer."
+  (defun my-dired-open ()
+    "Open file or directory at point."
     (interactive)
     (let ((file (dired-get-filename)))
       (if (file-directory-p file)
-	  (dired-find-alternate-file)
-	(dired-find-file))))
+          (find-alternate-file file)
+	(find-file file))))
 
-  (defun dired-up-alternate-directory ()
-    "Move to higher directory without make new buffer."
+  (defun my-dired-up ()
+    "Go to parent directory in the same buffer."
     (interactive)
-    (let* ((dir (dired-current-directory))
-	   (up (file-name-directory (directory-file-name dir))))
-      (or (dired-goto-file (directory-file-name dir))
-	  ;; Only try dired-goto-subdir if buffer has more than one dir.
-	  (and (cdr dired-subdir-alist)
-	       (dired-goto-subdir up))
-	  (progn
-	    (find-alternate-file up)
-	    (dired-goto-file dir)))))
+    (find-alternate-file ".."))
 
   (defun dired-open-file ()
     "In dired, open the file in associated application."
@@ -62,30 +53,36 @@
       (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
       (goto-char pos)))
 
-  (defun sudo-edit (&optional arg)
-    "Resume the currently open file with sudo privileges."
-    (interactive "P")
-    (let ((fname (if (or arg (not buffer-file-name))
-                     (read-file-name "File: ")
-                   buffer-file-name)))
-      (find-alternate-file (concat "/sudo::" fname))))
-
-  (defun call-sxiv ()
-    "Show all images in the directory with sxiv.
-see https://gist.github.com/kobapan/28908b564b610bd3e6f3fae78637ac8b"
+  (defun my-open-tig ()
+    "Run tig for current context in gnome-terminal."
     (interactive)
-    (let ((image-files
-	   (delq nil
-		 (mapcar
-		  (lambda (f)
-		    (when (string-match "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$" f)
-		      f))
-		  (directory-files default-directory)))))
-      (start-process-shell-command
-       "nsxiv" nil
-       (format "sxiv -p -f -t -n %s %s"
-	       (length image-files)
-	       (mapconcat 'identity image-files " "))))))
+    (let* ((path (or (and (derived-mode-p 'dired-mode)
+                          (dired-get-filename nil t))
+                     (buffer-file-name)
+                     default-directory))
+           (dir  (if (file-directory-p path)
+                     path
+                   (file-name-directory path)))
+           (root (locate-dominating-file dir ".git")))
+      (if root
+          (start-process
+           "tig" nil
+           "gnome-terminal"
+           "--maximize"
+           "--working-directory" dir
+           "--"
+           "bash" "-c"
+           (format "tig %s" (shell-quote-argument path)))
+	(message "Not in a Git repo"))))
+
+  (defun my-sxiv ()
+    "Open images in current directory with sxiv (fullscreen)."
+    (interactive)
+    (let* ((files (directory-files default-directory nil
+                                   "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))
+           (cmd (format "sxiv -t -f %s"
+			(mapconcat #'shell-quote-argument files " "))))
+      (start-process-shell-command "sxiv" nil cmd))))
 
 
 ;; Local Variables:

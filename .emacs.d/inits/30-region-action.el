@@ -22,6 +22,7 @@
   :config
   (bind-key ";" 'comment-dwim     my-selected-mode-map)
   (bind-key "c" 'kill-ring-save   my-selected-mode-map)
+  (bind-key "s" 'swiper-region    my-selected-mode-map)
   (bind-key "g" 'my-google-search my-selected-mode-map)
   (bind-key "w" 'my-weblio-search my-selected-mode-map)
   (bind-key "d" 'deepl-translate  my-selected-mode-map)
