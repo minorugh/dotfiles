@@ -1,0 +1,8 @@
+# 日付も作者も消して、コミットメッセージ(commit-title)だけに絞る
+set main-view = commit-title
+
+# 起動時から垂直分割（Vertical）にする
+set vertical-split = yes
+
+# 右側(diff)を広く保つための幅設定
+set split-view-width = 80%

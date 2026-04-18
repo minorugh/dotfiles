@@ -67,6 +67,10 @@ else
 	@echo "これはサブ機専用の処理です"
 endif
 
+tig: ## tig の設定展開
+	mkdir -p ${HOME}/.config/tig
+	ln -vsf ${PWD}/.config/tig/config ${HOME}/.config/tig/config
+
 keymap: ## キーマップのカスタマイズ（keyd + setxkbmap）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
 # .Xmodmap は参照用のみ（xmodmap は廃止・keyd + setxkbmap で管理）

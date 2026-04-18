@@ -15,7 +15,7 @@
 	 ("o"       . dired-open-file)
 	 ("["       . dired-hide-details-mode)
 	 ("a"       . dired-omit-mode)
-	 ("."       . gitk-open)
+	 ("."       . open-tig)
 	 ("i"       . call-sxiv))
   :config
   (setq dired-dwim-target t)
@@ -63,12 +63,12 @@
       (goto-char pos)))
 
   (defun sudo-edit (&optional arg)
-  "現在開いているファイルをsudo権限で再開する"
-  (interactive "P")
-  (let ((fname (if (or arg (not buffer-file-name))
-                   (read-file-name "File: ")
-                 buffer-file-name)))
-    (find-alternate-file (concat "/sudo::" fname))))
+    "Resume the currently open file with sudo privileges."
+    (interactive "P")
+    (let ((fname (if (or arg (not buffer-file-name))
+                     (read-file-name "File: ")
+                   buffer-file-name)))
+      (find-alternate-file (concat "/sudo::" fname))))
 
   (defun call-sxiv ()
     "Show all images in the directory with sxiv.

@@ -5,6 +5,8 @@ services:
     ports:
       - "8080:80"
       - "8081:8081"
+    environment:
+      - TZ=Asia/Tokyo
     volumes:
       - ~/Dropbox/GH:/var/www/html/gospel-haiku.com/public_html
       - ~/Dropbox/minorugh.com:/var/www/html/minorugh.com/public_html
