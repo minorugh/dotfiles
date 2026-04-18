@@ -4,18 +4,17 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :hook ((after-init-hook . (lambda () (require 'ls-lisp)))
-	 (dired-mode-hook  . dired-omit-mode))
+  :hook (dired-mode-hook  . dired-omit-mode)
   :bind (:dired-mode-map
-	 ("^"  . my-dired-up)
-	 ("RET"     . my-dired-open)
-	 ("w"       . wdired-change-to-wdired-mode)
-	 ("s"       . my-sudo-reopen)
-	 ("o"       . dired-open-file)
-	 ("["       . dired-hide-details-mode)
-	 ("a"       . dired-omit-mode)
-	 ("."       . my-open-tig)
-	 ("i"       . my-sxiv))
+	 ("^"   . my-dired-up)
+	 ("RET" . my-dired-open)
+	 ("w"   . wdired-change-to-wdired-mode)
+	 ("s"   . my-sudo-reopen)
+	 ("o"   . dired-open-file)
+	 ("["   . dired-hide-details-mode)
+	 ("a"   . dired-omit-mode)
+	 ("."   . my-open-tig)
+	 ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
@@ -83,7 +82,6 @@
            (cmd (format "sxiv -t -f %s"
 			(mapconcat #'shell-quote-argument files " "))))
       (start-process-shell-command "sxiv" nil cmd))))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
