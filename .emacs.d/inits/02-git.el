@@ -27,6 +27,7 @@ all git-peek buffers."
       (when (get-buffer bname) (kill-buffer bname)))
     (message "git-peek: emergency quit")))
 
+
   (defun open-tig ()
   "Diredや現在のファイル/ディレクトリでgnome-terminalを最大化してtig起動"
   (interactive)
@@ -47,7 +48,7 @@ all git-peek buffers."
          "--working-directory" dir
          "--"
          "bash" "-c"
-         (format "tig %s; exec bash"
+         (format "tig %s"
                  (shell-quote-argument path)))
       (message "Not inside a Git repository"))))
 

@@ -6,3 +6,15 @@ set vertical-split = yes
 
 # 右側(diff)を広く保つための幅設定
 set split-view-width = 80%
+
+# 【これで確定】タイトルとフッターの視認性向上設定
+
+# 1. 一番上のバー（タイトル）：背景を青、文字を白（太字）にしてはっきりさせます
+color title-focus   255  blue    bold
+color title-blur    255  234
+
+# 2. 下のバー（フッター）：背景を濃いグレー（234）にし、文字を白抜きにします
+color status        255  234
+
+# 3. 選択行（カーソル）：どこを選んでいるか分かりやすくします
+color cursor        255  24     bold
