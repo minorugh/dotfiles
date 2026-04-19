@@ -22,7 +22,7 @@
    ("<home>" (my-open "~/" :omit))
    ("g" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
-   ("." (my-open "~/src/github.com/minorugh/dotfiles/" :omit))
+   ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("n" (my-open "~/Dropbox/notes/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))

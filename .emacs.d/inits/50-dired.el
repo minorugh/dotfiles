@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :hook (dired-mode-hook  . dired-omit-mode)
+  :hook (dired-mode-hook  . my-dired-omit-mode)
   :bind (:dired-mode-map
 	 ("^"   . my-dired-up)
 	 ("RET" . my-dired-open)
@@ -25,6 +25,13 @@
   (setq ls-lisp-dirs-first t)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
+  (defun my-dired-omit-mode ()
+    "Disable omit mode only in `dotfiles' directory."
+    (dired-omit-mode
+     (if (equal (expand-file-name "~/src/github.com/minorugh/dotfiles/")
+		(expand-file-name default-directory))
+	 -1
+       1)))
 
   (defun my-dired-open ()
     "Open file or directory at point."

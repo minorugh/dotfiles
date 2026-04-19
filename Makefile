@@ -284,12 +284,6 @@ zoom: ## Zoom のインストール
 ########################################################
 ## 以降はシェルと対話しながら個別に実行するターゲット
 ########################################################
-rclone: ## rclone の設定
-	sudo -v ; curl https://rclone.org/install.sh | sudo bash
-	test -L ${HOME}/.config/rclone || rm -rf ${HOME}/.config/rclone
-	ln -vsfn ${HOME}/Dropbox/backup/config/rclone ${HOME}/.config/rclone
-	chmod 600 ${HOME}/.config/rclone/rclone.conf
-
 rdp: ## Windows へのリモートデスクトップ接続設定
 	$(APT) freerdp2-x11
 	sudo ln -vsf {${PWD},/usr/local}/bin/freerdp.sh
