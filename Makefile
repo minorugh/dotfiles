@@ -284,12 +284,6 @@ zoom: ## Zoom のインストール
 ########################################################
 ## 以降はシェルと対話しながら個別に実行するターゲット
 ########################################################
-rdp: ## Windows へのリモートデスクトップ接続設定
-	$(APT) freerdp2-x11
-	sudo ln -vsf {${PWD},/usr/local}/bin/freerdp.sh
-	sudo chmod 600 /usr/local/bin/freerdp.sh
-	ln -vsf {${PWD},${HOME}}/.local/share/applications/freerdp.desktop
-
 dracula-theme: ## gnome-terminal 用 Dracula テーマのインストール
 	cd ${HOME}/Downloads
 	git clone https://github.com/dracula/gnome-terminal
@@ -336,8 +330,8 @@ google-earth: ## Google Earth のインストール
 slack: ## Slack デスクトップのインストール
 	cd ${HOME}/Downloads && \
 	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
-	sudo gdebi slack-desktop-4.39.95-amd64.deb # ファイル名はダウンロード時に確認すること
-	rm -f slack-desktop-4.39.95-amd64.deb
+	sudo gdebi slack-desktop-4.47.69-amd64.deb # ファイル名はダウンロード時に確認すること
+	rm -f slack-desktop-4.47.69-amd64.deb
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 
 spotify: ## Spotify クライアントのインストール
