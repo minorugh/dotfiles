@@ -7,7 +7,7 @@
 
 (leaf web-mode
   :ensure t
-   :mode ("\\.html?\\'" "\\.css\\'")
+  :mode ("\\.html?\\'" "\\.css\\'")
   :bind (("s-w"    . my-toggle-web-mode)
 	 (:web-mode-map
           ("C-c i" . indent-region)            ;; 選択範囲だけ整形
@@ -19,13 +19,12 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   :init
-:init
-(defun my-toggle-web-mode ()
-  "Simple switch between `web-mode' and original mode."
-  (interactive)
-  (if (derived-mode-p 'web-mode)
-      (set-auto-mode)
-    (web-mode))))
+  (defun my-toggle-web-mode ()
+    "Simple switch between `web-mode' and original mode."
+    (interactive)
+    (if (derived-mode-p 'web-mode)
+	(set-auto-mode)
+      (web-mode))))
 
 
 ;; Local Variables:

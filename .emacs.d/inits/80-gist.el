@@ -1,18 +1,15 @@
 ;;; 80-gist.el --- Gist configulations.  -*- lexical-binding: t -*-
 ;;; Commentary:
-
-;; Submit code to Gist with the gist command
+;; Submit code to Gist using the `gist` command.
 ;;
-;; install
-;;   $ sudo apt-get install ruby
-;;   $ sudo apt-get install gem
+;; Installation:
+;;   $ sudo apt install ruby gem
 ;;   $ sudo gem install gist
-;; help
-;;   $ gist -h
-;;   $ gist --help
-;; login
+;;
+;; Setup:
 ;;   $ gist --login
-
+;;   $ gist --help
+;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
