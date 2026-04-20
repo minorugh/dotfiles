@@ -1,4 +1,4 @@
-;;; 80-darkroom.el --- Darkroom configurations.	-*- lexical-binding: t -*-
+;;; 90-darkroom.el --- Darkroom configurations.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -31,4 +31,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 80-darkroom.el ends here
+;;; 90-darkroom.el ends here

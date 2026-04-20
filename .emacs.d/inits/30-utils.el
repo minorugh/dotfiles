@@ -17,9 +17,6 @@
   :chord (("df" . counsel-descbinds)
           ("l;" . init-loader-show-log)))
 
-(leaf quickrun :ensure t
-  :bind ([f5] . quickrun))
-
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
   :vc (:url "https://github.com/minorugh/sequential-command")

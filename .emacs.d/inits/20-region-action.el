@@ -1,4 +1,4 @@
-;;; 30-region-action.el --- Region action configurations. -*- lexical-binding: t -*-
+;;; 20-region-action.el --- Region action configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -60,4 +60,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 30-region-action.el ends here
+;;; 20-region-action.el ends here

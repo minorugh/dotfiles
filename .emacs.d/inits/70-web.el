@@ -1,4 +1,4 @@
-;;; 60-web.el --- Web mode configurations. -*- lexical-binding: t -*-
+;;; 70-web.el --- Web mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Simple web-mode setup for color checking and manual formatting.
 ;;; Toggle between web-mode and default mode with s-w.
@@ -30,4 +30,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 60-web.el ends here
+;;; 70-web.el ends here

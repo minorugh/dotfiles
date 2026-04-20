@@ -1,4 +1,4 @@
-;;; 10-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 80-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -61,4 +61,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-funcs.el ends here
+;;; 80-funcs.el ends here

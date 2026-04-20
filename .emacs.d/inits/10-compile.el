@@ -1,4 +1,4 @@
-;;; 09-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
+;;; 10-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -90,7 +90,10 @@ Echo the last @echo output line to the minibuffer."
             (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
             (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
 
+(leaf quickrun :ensure t
+  :bind ([f5] . quickrun))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-compile.el ends here
+;;; 10-compile.el ends here
