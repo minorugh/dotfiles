@@ -216,11 +216,10 @@ gitk: ## gitkのインストールと設定ファイル
 	mkdir -p ${HOME}/.config/git
 	sudo ln -vsfn ${PWD}/.config/git/gitk ${HOME}/.config/git/gitk
 
-printer: ## プリンタードライバーのインストール（Brother HL-L2375DW）
-	cd ${HOME}/Downloads && \
-	wget https://download.brother.com/welcome/dlf103535/hll2375dwpdrv-4.0.0-1.i386.deb
-	sudo dpkg -i --force-all hll2375dwpdrv-4.0.0-1.i386.deb
-	rm -f ./hll2375dwpdrv-4.0.0-1.i386.deb
+printer: ## CUPS導入（driverless印刷を前提）
+	sudo apt install -y cups
+# Brother HL-L2375DW はドライバ不要（driverless対応）
+# CUPSの自動検出 or http://localhost:631 から追加
 
 ## アプリケーションのインストール
 google-chrome: ## Google Chrome のインストール
