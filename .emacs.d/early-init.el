@@ -1,79 +1,48 @@
-;;; early-init.el --- Early initialization.  -*- lexical-binding: t -*-
+;;; early-init.el --- Early initialization. -*- lexical-binding: t -*-
 ;;; Commentary:
-
-;; Emacs 27 introduced early-init.el, which is run before init.el,
-;; before package and UI initialization happens.
-
-;; Note: Some settings that affect Emacs at the X11/display level are
-;; intentionally configured in ~/.Xresources rather than here, because
-;; they must be applied before Emacs starts.  The relevant entries are:
-;;
-;;   Emacs*useXIM: false
-;;       Disables XIM (X Input Method) integration.  Avoids input lag
-;;       and conflicts when using input methods such as Fcitx or IBus.
-;;
-;;   Xft.dpi: 120
-;;       Sets the display DPI for font rendering via Xft.
-;;       Adjust this value to match your monitor's actual DPI.
-;;
-;;   Emacs.background: #282c36
-;;   Emacs.foreground: #f8f8f2
-;;       Base colors for the doom-dracula theme, applied at the X11
-;;       resource level so that the initial frame has the correct colors
-;;       before Emacs finishes loading the theme.  This prevents the
-;;       brief white-flash artifact on startup.
-;;
-;; To apply changes to ~/.Xresources, run:
-;;   xrdb -merge ~/.Xresource
-
+;; Configures early-stage initialization (pre-init.el/packages).
+;; X11/Display settings are offloaded to ~/.Xresources to ensure:
+;; - No XIM lag (Emacs*useXIM: false)
+;; - Proper font scaling (Xft.dpi: 120)
+;; - Instant dark frame (Emacs.background/foreground) to prevent "white flash" artifact.
+;; Apply changes with: xrdb -merge ~/.Xresources
 ;;; Code:
 ;; (setq debug-on-error t)
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
-;; packages are compiled ahead-of-time when they are installed and site files
-;; are compiled when gccemacs is installed.
+;; Disable JIT compilation to prevent background CPU spikes at startup
 (setq native-comp-jit-compilation nil)
 
-;; Package initialize occurs automatically, before `user-init-file' is
-;; loaded, but after `early-init-file'. We handle package
-;; initialization, so we must prevent Emacs from doing it early!
+;; Prevent automatic package initialization to handle it manually in init.el
 (setq package-enable-at-startup nil)
 
-;; In noninteractive sessions, prioritize non-byte-compiled source files to
-;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
-;; to skip the mtime checks on every *.elc file.
+;; Prioritize newer source files and skip mtime checks to save IO time
 (setq load-prefer-newer noninteractive)
 
-;; Inhibit resizing frame
+;; Improve UI snappiness by inhibiting frame resizing
 (setq frame-inhibit-implied-resize t)
 
-;; Explicitly set the prefered coding systems to avoid annoying prompt
-;; from emacs (especially on Microsoft Windows)
+;; Force UTF-8 encoding to avoid OS-specific prompts
 (prefer-coding-system 'utf-8)
 
-;; Set language & font
+;; Language and font configuration
 (set-language-environment "Japanese")
 (push '(font . "Cica-18") default-frame-alist)
 
-;; Faster to disable these here (before they've been initialized)
+;; Disable UI elements early to prevent flickering and speed up rendering
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(undecorated . t) default-frame-alist)
 
-;; Default frame settings. This is actually maximized, not full screen.
+;; Start with a maximized frame and hide the splash screen
 (push '(fullscreen . maximized) initial-frame-alist)
-
-;; Inhibit startup screen.
 (setq inhibit-startup-message t)
 
-;; Disable saving Emacs state via the Session Manager
+;; Disable session management and suppress specific undo warnings
 (setq emacs-save-session-functions nil)
-
-;; Suppress "File digest doesn't match" undo history warning
 (setq warning-suppress-types '((undo discard-info)))
 
 (provide 'early-init)

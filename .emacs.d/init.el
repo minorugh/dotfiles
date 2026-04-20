@@ -1,8 +1,8 @@
 ;;; init.el --- User initialization.  -*- lexical-binding: t -*-
 ;;; Commentary:
-;; URL: https://github.com/minorugh/dotfiles
+;; Author: minorugh <https://github.com/minorugh/dotfiles>
+;; Package-Requires: ((Emacs "29.1"))
 ;;; Code:
-;; Package-Requires: ((emacs "29.1"))
 ;; (setq debug-on-error t)
 
 (when (version< emacs-version "29.1")

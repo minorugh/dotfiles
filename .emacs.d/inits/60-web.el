@@ -1,17 +1,32 @@
 ;;; 60-web.el --- Web mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+;;; Simple web-mode setup for color checking and manual formatting.
+;;; Toggle between web-mode and default mode with s-w.
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf web-mode
   :ensure t
-  :doc "Web template editing mode for emacs."
-  :mode ("\\.js\\'" "\\.jsx\\'" "\\.html?\\'" "\\.php\\'")
+   :mode ("\\.html?\\'" "\\.css\\'")
+  :bind (("s-w"    . my-toggle-web-mode)
+	 (:web-mode-map
+          ("C-c i" . indent-region)            ;; 選択範囲だけ整形
+	  ("C-c I" . web-mode-buffer-indent))) ;; バッファ全体を整形
   :config
-  (setq web-mode-enable-auto-indentation nil)
+  (setq web-mode-enable-auto-indentation nil)  ;; 勝手な整形を防止
+  (setq web-mode-enable-css-colorization t)    ;; 色を表示
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
+  (setq web-mode-code-indent-offset 2)
+  :init
+:init
+(defun my-toggle-web-mode ()
+  "Simple switch between `web-mode' and original mode."
+  (interactive)
+  (if (derived-mode-p 'web-mode)
+      (set-auto-mode)
+    (web-mode))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
