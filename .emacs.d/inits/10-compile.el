@@ -26,15 +26,13 @@
   :tag "builtin"
   :doc "Makefile editing: TAB inserts tab, qq/C-c C-e toggle read-only."
   :hook (makefile-mode-hook . my-makefile-setup)
-  :bind (:makefile-mode-map
-         ("TAB"    . self-insert-command)
-	 ("C-c C-e" . my-makefile-toggle-readonly))
-  :chord (:makefile-mode-map
-          ("qq" . my-makefile-toggle-readonly))
   :init
   (defun my-makefile-setup ()
     "Setup for Makefile editing."
-    (setq-local indent-tabs-mode t)))
+    (setq-local indent-tabs-mode t)
+    (local-set-key (kbd "TAB")     'self-insert-command)
+    (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
+    (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
 
 (leaf my-makefile
   :doc "ivy-based Makefile target selector."
