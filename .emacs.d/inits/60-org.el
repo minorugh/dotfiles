@@ -74,6 +74,7 @@
 	(append japanese-holidays holiday-local-holidays holiday-other-holidays))
   (setq calendar-mark-holidays-flag t))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

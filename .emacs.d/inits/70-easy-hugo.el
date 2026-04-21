@@ -76,6 +76,7 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
       (save-buffer)))
   (advice-add 'easy-hugo-newpost :after #'my-easy-hugo-newpost-after))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved callargs)
 ;; End:

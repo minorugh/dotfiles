@@ -59,6 +59,7 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
     (interactive "P")
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

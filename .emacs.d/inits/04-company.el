@@ -41,6 +41,7 @@
   (setq yas-indent-line 'fixed)
   (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

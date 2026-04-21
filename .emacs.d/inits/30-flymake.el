@@ -20,6 +20,7 @@
   :config
   (setq flymake-suppress-zero-messages t))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:

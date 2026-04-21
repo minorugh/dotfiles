@@ -28,6 +28,7 @@
     (setq-local line-spacing 0)
     (evil-normal-state)))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

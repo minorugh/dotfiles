@@ -89,6 +89,7 @@
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

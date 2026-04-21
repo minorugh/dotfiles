@@ -72,6 +72,7 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (when (memq :omit opts)  (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state))))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:

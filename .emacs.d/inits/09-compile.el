@@ -102,6 +102,7 @@ Echo the last @echo output line to the minibuffer."
                            'invisible t))))
   (add-hook 'compilation-filter-hook #'my-dim-compilation-marker))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

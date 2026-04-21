@@ -48,6 +48,7 @@
   (setq amx-save-file (locate-user-emacs-file "tmp/amx-items"))
   (setq amx-history-length 20))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

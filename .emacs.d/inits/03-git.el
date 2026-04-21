@@ -62,6 +62,7 @@ all git-peek buffers."
         (find-file changelog)
         (message "CHANGELOG.md updated: %s" date)))))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolvedc)
 ;; End:

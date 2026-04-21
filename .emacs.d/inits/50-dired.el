@@ -90,6 +90,7 @@
 			(mapconcat #'shell-quote-argument files " "))))
       (start-process-shell-command "sxiv" nil cmd))))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

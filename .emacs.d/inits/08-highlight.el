@@ -35,6 +35,7 @@ indentation (auto-formatting) is not performed."
     (delete-trailing-whitespace)           ;; 行末の空白を削除
     (set-buffer-file-coding-system 'utf-8))) ;; 文字コードをUTF-8に設定
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
