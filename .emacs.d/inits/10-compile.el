@@ -67,11 +67,11 @@
                          "Compile successful.")))))
           (message "%s" msg)
           (if (string-equal msg "")
-              ;; ##> 単体 → 全画面表示
+              ;; ##> 単体のとき → 全画面表示
               (run-at-time 0.1 nil (lambda ()
                                      (switch-to-buffer buffer)
                                      (delete-other-windows)))
-            ;; ##> メッセージ or echo なし → ウィンドウを閉じる
+            ;; ##> + コメント or echo のないとき → close window
             (delete-windows-on buffer)))
       ;; 失敗時
       (message "Compilation exited abnormally: %s" string)))
