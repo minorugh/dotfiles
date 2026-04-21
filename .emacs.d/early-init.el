@@ -42,9 +42,6 @@
 (push '(fullscreen . maximized) initial-frame-alist)
 (setq inhibit-startup-message t)
 
-;; Disable session management and suppress specific undo warnings
-(setq emacs-save-session-functions nil)
-(setq warning-suppress-types '((undo discard-info)))
 
 (provide 'early-init)
 ;;; early-init.el ends here
