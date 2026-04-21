@@ -82,7 +82,7 @@ Echo the last @echo output line to the minibuffer."
                                      (delete-other-windows)))
             (delete-windows-on buffer)))
       (message "Compilation exited abnormally: %s" string)))
-  (setq compilation-finish-functions #'compile-autoclose)
+  (add-hook 'compilation-finish-functions #'compile-autoclose)
 
   ;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
   (defun my-dim-compilation-marker ()
