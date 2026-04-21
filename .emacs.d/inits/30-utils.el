@@ -11,6 +11,7 @@
   (setq which-key-max-description-length 40)
   (setq which-key-delay 0.0))
 
+
 (leaf key-chord
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
@@ -19,12 +20,14 @@
           ("l;" . init-loader-show-log)
           ("::" . toggle-scratch-buffer)))  ;; see 80-funcs.el
 
+
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
   :vc (:url "https://github.com/minorugh/sequential-command")
   :config
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
+
 
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
@@ -43,20 +46,6 @@
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
-(leaf tempbuf
-  :doc "Auto kill unused buffers in the background"
-  :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((find-file-hook  . my:find-file-tempbuf-hook)
-         (dired-mode-hook . turn-on-tempbuf-mode))
-  :init
-  (defvar my:tempbuf-ignore-files '("~/Dropbox/howm/org/task.org"))
-  (defun my:find-file-tempbuf-hook ()
-    (when-let ((file (buffer-file-name)))
-      (let ((ignore-file-names (mapcar 'expand-file-name my:tempbuf-ignore-files)))
-        (unless (member (expand-file-name file) ignore-file-names)
-          (turn-on-tempbuf-mode)))))
-  :config
-  (setq tempbuf-kill-message nil))
 
 (leaf package-update
   :doc "Package management hydra."

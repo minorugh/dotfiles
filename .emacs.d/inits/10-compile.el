@@ -45,15 +45,15 @@
 ;; Compilation
 (leaf compilation
   :doc "Auto-close compilation window on success."
-  :chord (("::" . my-switch-to-compilation))
+  ;; :chord (("::" . my-switch-to-compilation))
   :init
-  (defun my-switch-to-compilation ()
-    (interactive)
-    (if-let ((buf (get-buffer "*compilation*")))
-        (progn
-          (switch-to-buffer buf)
-          (local-set-key (kbd "q") #'quit-window))
-      (message "*compilation* buffer does not exist.")))
+  ;; (defun my-switch-to-compilation ()
+  ;;   (interactive)
+  ;;   (if-let ((buf (get-buffer "*compilation*")))
+  ;;       (progn
+  ;;         (switch-to-buffer buf)
+  ;;         (local-set-key (kbd "q") #'quit-window))
+  ;;     (message "*compilation* buffer does not exist.")))
 
   (defun compile-autoclose (buffer string)
     "Auto-close compile window if BUFFER finished successfully."
