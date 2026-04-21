@@ -1,4 +1,4 @@
-;;; 04-company.el --- Company configurations.    -*- lexical-binding: t -*-
+;;; 05-company.el --- Company configurations.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -45,4 +45,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 04-company.el ends here
+;;; 05-company.el ends here
