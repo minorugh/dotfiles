@@ -3,37 +3,7 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; ================================
-;; Makefile
-;; ================================
-(defun my-makefile-toggle-readonly ()
-  "Toggle read-only mode in Makefile buffer."
-  (interactive)
-  (read-only-mode 'toggle)
-  (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
-
-(defun my-make-git ()
-  "Run `make git' in the repository root of the current buffer."
-  (interactive)
-  (let* ((dir (or buffer-file-name default-directory))
-         (root (locate-dominating-file dir "Makefile")))
-    (if root
-        (let ((default-directory root))
-          (compile "make git"))
-      (message "Makefile not found"))))
-
-(leaf makefile-mode
-  :tag "builtin"
-  :doc "Makefile editing: TAB inserts tab, qq/C-c C-e toggle read-only."
-  :hook (makefile-mode-hook . my-makefile-setup)
-  :init
-  (defun my-makefile-setup ()
-    "Setup for Makefile editing."
-    (setq-local indent-tabs-mode t)
-    (local-set-key (kbd "TAB")     'self-insert-command)
-    (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
-    (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
-
+;; Makefile commads
 (leaf my-makefile
   :doc "ivy-based Makefile target selector."
   :require t
@@ -47,26 +17,46 @@
     (let ((file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
       (find-file file)
       (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
-      (run-at-time 0.1 nil #'my-make-ivy))))
+      (run-at-time 0.1 nil #'my-make-ivy)))
 
-;; ================================
+  (defun my-make-git ()
+    "Run `make git' in the repository root of the current buffer."
+    (interactive)
+    (let* ((dir (or buffer-file-name default-directory))
+           (root (locate-dominating-file dir "Makefile")))
+      (if root
+          (let ((default-directory root))
+            (compile "make git"))
+	(message "Makefile not found"))))
+
+  (defun my-makefile-toggle-readonly ()
+    "Toggle read-only mode in Makefile buffer."
+    (interactive)
+    (read-only-mode 'toggle)
+    (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
+
+  (add-hook 'makefile-mode-hook
+            (lambda ()
+              (font-lock-mode 1)
+              (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
+              (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly))))
+
+
 ;; Compilation
-;; ================================
 (leaf compilation
   :doc "Auto-close compilation window on success."
-  :bind (:compilation-mode-map
-	 ("q" .  quit-window))
-  :config
-  (setq compilation-scroll-output t)
-  (setq compilation-always-kill   t)
+  :chord (("::" . my-switch-to-compilation))
   :init
-  ;; Makefile の @echo ルール:
-  ;;   @echo "##>" >&2           → 全画面表示（q で閉じる）
-  ;;   @echo "##> メッセージ" >&2 → ウィンドウを閉じてminibufferにメッセージ表示
-  ;;   echo なし                 → "Compile successful." をminibufferに表示して閉じる
+  (defun my-switch-to-compilation ()
+    (interactive)
+    (if-let ((buf (get-buffer "*compilation*")))
+        (progn
+          (switch-to-buffer buf)
+          (local-set-key (kbd "q") #'quit-window))
+      (message "*compilation* buffer does not exist.")))
+
   (defun compile-autoclose (buffer string)
-    "Auto-close compile window if BUFFER finished successfully.
-Echo the last @echo output line to the minibuffer."
+    "Auto-close compile window if BUFFER finished successfully."
     (if (and (string-match "compilation" (buffer-name buffer))
              (string-match "finished" string))
         (let ((msg (with-current-buffer buffer
@@ -77,10 +67,13 @@ Echo the last @echo output line to the minibuffer."
                          "Compile successful.")))))
           (message "%s" msg)
           (if (string-equal msg "")
+              ;; ##> 単体 → 全画面表示
               (run-at-time 0.1 nil (lambda ()
                                      (switch-to-buffer buffer)
                                      (delete-other-windows)))
+            ;; ##> メッセージ or echo なし → ウィンドウを閉じる
             (delete-windows-on buffer)))
+      ;; 失敗時
       (message "Compilation exited abnormally: %s" string)))
   (setq compilation-finish-functions #'compile-autoclose)
 
@@ -93,8 +86,14 @@ Echo the last @echo output line to the minibuffer."
         (put-text-property (line-beginning-position)
                            (line-end-position)
                            'invisible t))))
-  (add-hook 'compilation-filter-hook #'my-dim-compilation-marker))
+  (add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
 
+  (setq compilation-scroll-output t)
+  (setq compilation-always-kill   t))
+
+;; Other
+(leaf quickrun :ensure t
+  :bind ([f5] . quickrun))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

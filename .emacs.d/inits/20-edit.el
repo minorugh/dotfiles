@@ -51,8 +51,8 @@
   :hook (after-init-hook . electric-indent-mode))
 
 (leaf indent-helper
-  :bind (("C-c i" . indent-region-or-buffer))
-  :preface
+  :bind* ("C-c i" . indent-region-or-buffer)
+  :init
   (defun indent-region-or-buffer ()
     "If there is a selection, indent there; if not, indent the entire buffer."
     (interactive)
