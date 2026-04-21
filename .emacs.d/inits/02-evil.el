@@ -1,4 +1,4 @@
-;;; 03-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; 02-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -99,4 +99,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 03-evil.el ends here
+;;; 02-evil.el ends here

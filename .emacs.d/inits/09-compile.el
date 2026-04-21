@@ -1,4 +1,4 @@
-;;; 10-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
+;;; 09-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -105,4 +105,4 @@ Echo the last @echo output line to the minibuffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-compile.el ends here
+;;; 09-compile.el ends here

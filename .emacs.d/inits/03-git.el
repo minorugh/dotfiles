@@ -1,4 +1,4 @@
-;;; 09-git.el --- Git configulations.	-*- lexical-binding: t -*-
+;;; 03-git.el --- Git configulations.	-*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -65,4 +65,4 @@ all git-peek buffers."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolvedc)
 ;; End:
-;;; 09-git.el ends here
+;;; 03-git.el ends here

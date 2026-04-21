@@ -1,4 +1,4 @@
-;;; 01-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
+;;; 30-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -92,4 +92,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 01-ui.el ends here
+;;; 30-ui.el ends here
