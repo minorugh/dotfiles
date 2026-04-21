@@ -41,59 +41,49 @@
               (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
               (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly))))
 
-
 ;; Compilation
-(leaf compilation
-  :doc "Auto-close compilation window on success."
-  ;; :chord (("::" . my-switch-to-compilation))
-  :init
-  ;; (defun my-switch-to-compilation ()
-  ;;   (interactive)
-  ;;   (if-let ((buf (get-buffer "*compilation*")))
-  ;;       (progn
-  ;;         (switch-to-buffer buf)
-  ;;         (local-set-key (kbd "q") #'quit-window))
-  ;;     (message "*compilation* buffer does not exist.")))
+(defun compile-autoclose (buffer string)
+   "Auto-close compile window if BUFFER finished successfully.
+STRING is the exit status message from the compilation process."
+  (if (and (string-match "compilation" (buffer-name buffer))
+           (string-match "finished" string))
+      (let ((msg (with-current-buffer buffer
+                   (save-excursion
+                     (goto-char (point-max))
+                     (if (re-search-backward "^##>\\(.*\\)$" nil t)
+                         (match-string 1)
+                       "Compile successful.")))))
+        (message "%s" msg)
+        (if (string-equal msg "")
+            ;; ##> 単体のとき → 全画面表示
+            (run-at-time 0.1 nil (lambda ()
+                                   (switch-to-buffer buffer)
+                                   (delete-other-windows)))
+          ;; ##> + コメント or echo のないとき → close window
+          (delete-windows-on buffer)))
+    ;; 失敗時
+    (message "Compilation exited abnormally: %s" string)))
+(setq compilation-finish-functions #'compile-autoclose)
 
-  (defun compile-autoclose (buffer string)
-    "Auto-close compile window if BUFFER finished successfully."
-    (if (and (string-match "compilation" (buffer-name buffer))
-             (string-match "finished" string))
-        (let ((msg (with-current-buffer buffer
-                     (save-excursion
-                       (goto-char (point-max))
-                       (if (re-search-backward "^##>\\(.*\\)$" nil t)
-                           (match-string 1)
-                         "Compile successful.")))))
-          (message "%s" msg)
-          (if (string-equal msg "")
-              ;; ##> 単体のとき → 全画面表示
-              (run-at-time 0.1 nil (lambda ()
-                                     (switch-to-buffer buffer)
-                                     (delete-other-windows)))
-            ;; ##> + コメント or echo のないとき → close window
-            (delete-windows-on buffer)))
-      ;; 失敗時
-      (message "Compilation exited abnormally: %s" string)))
-  (setq compilation-finish-functions #'compile-autoclose)
+;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
+(defun my-dim-compilation-marker ()
+  "Make bare ##> lines invisible in compilation buffer."
+  (save-excursion
+    (goto-char compilation-filter-start)
+    (while (re-search-forward "^##>[ \t]*$" nil t)
+      (put-text-property (line-beginning-position)
+                         (line-end-position)
+                         'invisible t))))
+(add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
 
-  ;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
-  (defun my-dim-compilation-marker ()
-    "Make bare ##> lines invisible in compilation buffer."
-    (save-excursion
-      (goto-char compilation-filter-start)
-      (while (re-search-forward "^##>[ \t]*$" nil t)
-        (put-text-property (line-beginning-position)
-                           (line-end-position)
-                           'invisible t))))
-  (add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
+(setq compilation-scroll-output t)
+(setq compilation-always-kill   t)
 
-  (setq compilation-scroll-output t)
-  (setq compilation-always-kill   t))
 
-;; Other
+;; Other tool
 (leaf quickrun :ensure t
   :bind ([f5] . quickrun))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
