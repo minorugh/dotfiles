@@ -57,6 +57,13 @@
   (interactive)
   (start-process-shell-command "keepass" nil "keepass.sh"))
 
+(defun toggle-scratch-buffer ()
+  "Toggle *scratch* buffer."
+  (interactive)
+  (if (string= (buffer-name) "*scratch*")
+      (switch-to-buffer (other-buffer))
+    (switch-to-buffer "*scratch*")))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

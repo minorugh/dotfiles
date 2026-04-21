@@ -16,7 +16,8 @@
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
   :chord (("df" . counsel-descbinds)
-          ("l;" . init-loader-show-log)))
+          ("l;" . init-loader-show-log)
+          ("::" . toggle-scratch-buffer)))  ;; see 80-funcs.el
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."

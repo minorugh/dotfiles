@@ -54,18 +54,11 @@
 ;; ================================
 (leaf compilation
   :doc "Auto-close compilation window on success."
-  :chord (("::" . my-switch-to-compilation))
+  :bind (:compilation-mode-map
+	 ("q" .  quit-window))
   :config
   (setq compilation-scroll-output t)
   (setq compilation-always-kill   t)
-  :init
-  (defun my-switch-to-compilation ()
-    (interactive)
-    (if-let ((buf (get-buffer "*compilation*")))
-        (progn
-          (switch-to-buffer buf)
-          (local-set-key (kbd "q") #'quit-window))
-      (message "*compilation* buffer does not exist.")))
 
   ;; Makefile の @echo ルール:
   ;;   @echo "##>" >&2           → 全画面表示（q で閉じる）

@@ -19,7 +19,8 @@
 	    (setq gc-cons-threshold (* 16 1024 1024))
 	    (setq inhibit-message nil)
 	    (message "Emacs ready in %s with %d GCs."
-		     (emacs-init-time) gcs-done)))
+		     (emacs-init-time) gcs-done)
+	    (mapc #'delete-file (file-expand-wildcards "~/.emacs.d/session.*"))))
 
 ;;; package system
 (eval-and-compile
