@@ -55,6 +55,7 @@
 
 ;; Minimize the fringe
 (set-fringe-mode 1)
+(global-set-key (kbd "TAB") 'self-insert-command)
 
 ;; Change to short command
 (defalias 'yes-or-no-p 'y-or-n-p)

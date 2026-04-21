@@ -6,8 +6,7 @@
 (leaf dired
   :hook (dired-mode-hook  . my-dired-omit-mode)
   :bind (:dired-mode-map
-	 ("<left>"  . my-dired-up)
-	 ("<right>" . my-dired-open)
+	 ("^"   . my-dired-up)
 	 ("RET" . my-dired-open)
 	 ("w"   . wdired-change-to-wdired-mode)
 	 ("s"   . my-sudo-reopen)

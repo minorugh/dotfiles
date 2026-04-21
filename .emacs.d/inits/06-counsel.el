@@ -36,11 +36,13 @@
      cands
      "\n")))
 
-(leaf ivy-rich :ensure t
+(leaf ivy-rich
+  :ensure t
   :doc "More friendly display transformer for ivy."
   :hook (after-init-hook . ivy-rich-mode))
 
-(leaf amx :ensure t
+(leaf amx
+  :ensure t
   :doc "Alternative 'M-x' with extra features."
   :config
   (setq amx-save-file (locate-user-emacs-file "tmp/amx-items"))

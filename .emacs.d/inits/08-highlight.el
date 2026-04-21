@@ -4,7 +4,6 @@
 ;; (setq debug-on-error t)
 
 (leaf paren
-  :ensure nil
   :tag "builtin"
   :doc "Highlight matching parens."
   :hook (after-init-hook . show-paren-mode)
@@ -22,7 +21,6 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (leaf whitespace
-  :ensure nil
   :tag "builtin"
   :doc "Minor mode to visualize whitespace characters."
   :hook (after-init-hook . global-whitespace-mode)

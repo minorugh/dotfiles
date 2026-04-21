@@ -12,7 +12,6 @@
   (doom-themes-org-config))
 
 (leaf hl-line
-  :ensure nil
   :tag "builtin"
   :doc "Highlight the current line."
   :hook ((after-init-hook . global-hl-line-mode)
@@ -24,7 +23,6 @@
    '(hl-line ((t (:background "#3B4252" :extend t))))))
 
 (leaf blink-cursor
-  :ensure nil
   :tag "builtin"
   :doc "Blinking cursor mode for GNU Emacs."
   :config
@@ -83,7 +81,6 @@
   :config (setq display-line-numbers-width-start t))
 
 (leaf display-fill-column-indicator
-  :ensure nil
   :tag "builtin"
   :doc "Indicate maximum column."
   :hook ((gfm-mode-hook  . display-fill-column-indicator-mode)

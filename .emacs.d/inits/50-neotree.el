@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf neotree :ensure t
+(leaf neotree
+  :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :bind (("<f10>" . neotree-toggle)
 	 (:neotree-mode-map

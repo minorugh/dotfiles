@@ -29,6 +29,7 @@
 
 ;; Language and font configuration
 (set-language-environment "Japanese")
+(setq-default indent-line-function 'indent-for-current-mode)
 (push '(font . "Cica-18") default-frame-alist)
 
 ;; Disable UI elements early to prevent flickering and speed up rendering

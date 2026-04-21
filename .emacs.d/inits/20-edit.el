@@ -31,7 +31,6 @@
           (insert-file-contents f))))))
 
 (leaf ediff
-  :ensure nil
   :tag "builtin"
   :doc "Edit while viewing the difference."
   :hook (ediff-mode-hook . dimmer-off)
@@ -41,20 +40,18 @@
         ediff-diff-options "-twB"))
 
 (leaf elec-pair
-  :ensure nil
   :tag "builtin"
   :doc "Automatic parenthesis pairing. Disabled in text-mode (use yasnippet instead)."
   :hook ((after-init-hook  . electric-pair-mode)
          (text-mode-hook   . (lambda () (electric-pair-local-mode -1)))))
 
 (leaf electric-indent
-  :ensure nil
   :tag "builtin"
   :doc "Standard indentation at line breaks. Already ON but written for administrative purposes."
   :hook (after-init-hook . electric-indent-mode))
 
 (leaf indent-helper
-  :bind (("C-i" . indent-region-or-buffer))
+  :bind (("C-c i" . indent-region-or-buffer))
   :preface
   (defun indent-region-or-buffer ()
     "If there is a selection, indent there; if not, indent the entire buffer."

@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf company :ensure t
+(leaf company
+  :ensure t
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)

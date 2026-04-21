@@ -8,10 +8,7 @@
 (leaf web-mode
   :ensure t
   :mode ("\\.html?\\'" "\\.css\\'")
-  :bind (("s-w"    . my-toggle-web-mode)
-	 (:web-mode-map
-          ("C-c i" . indent-region)            ;; 選択範囲だけ整形
-	  ("C-c I" . web-mode-buffer-indent))) ;; バッファ全体を整形
+  :bind (("s-w"    . my-toggle-web-mode))
   :config
   (setq web-mode-enable-auto-indentation nil)  ;; 勝手な整形を防止
   (setq web-mode-enable-css-colorization t)    ;; 色を表示

@@ -3,6 +3,39 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; ================================
+;; Makefile
+;; ================================
+(defun my-makefile-toggle-readonly ()
+  "Toggle read-only mode in Makefile buffer."
+  (interactive)
+  (read-only-mode 'toggle)
+  (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
+
+(defun my-make-git ()
+  "Run `make git' in the repository root of the current buffer."
+  (interactive)
+  (let* ((dir (or buffer-file-name default-directory))
+         (root (locate-dominating-file dir "Makefile")))
+    (if root
+        (let ((default-directory root))
+          (compile "make git"))
+      (message "Makefile not found"))))
+
+(leaf makefile-mode
+  :tag "builtin"
+  :doc "Makefile editing: TAB inserts tab, qq/C-c C-e toggle read-only."
+  :hook (makefile-mode-hook . my-makefile-setup)
+  :bind (:makefile-mode-map
+         ("TAB"    . self-insert-command)
+	 ("C-c C-e" . my-makefile-toggle-readonly))
+  :chord (:makefile-mode-map
+          ("qq" . my-makefile-toggle-readonly))
+  :init
+  (defun my-makefile-setup ()
+    "Setup for Makefile editing."
+    (setq-local indent-tabs-mode t)))
+
 (leaf my-makefile
   :doc "ivy-based Makefile target selector."
   :require t
@@ -18,8 +51,11 @@
       (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
       (run-at-time 0.1 nil #'my-make-ivy))))
 
+;; ================================
+;; Compilation
+;; ================================
 (leaf compilation
-  :doc "Auto-close compilation window on success after 1 second."
+  :doc "Auto-close compilation window on success."
   :chord (("::" . my-switch-to-compilation))
   :config
   (setq compilation-scroll-output t)
@@ -34,9 +70,9 @@
       (message "*compilation* buffer does not exist.")))
 
   ;; Makefile の @echo ルール:
-  ;;   @echo "##>" >&2          → 全画面表示（q で閉じる）
+  ;;   @echo "##>" >&2           → 全画面表示（q で閉じる）
   ;;   @echo "##> メッセージ" >&2 → ウィンドウを閉じてminibufferにメッセージ表示
-  ;;   echo なし                → "Compile successful." をminibufferに表示して閉じる
+  ;;   echo なし                 → "Compile successful." をminibufferに表示して閉じる
   (defun compile-autoclose (buffer string)
     "Auto-close compile window if BUFFER finished successfully.
 Echo the last @echo output line to the minibuffer."
@@ -67,31 +103,6 @@ Echo the last @echo output line to the minibuffer."
                            (line-end-position)
                            'invisible t))))
   (add-hook 'compilation-filter-hook #'my-dim-compilation-marker))
-
-(defun my-make-git ()
-  "Run `make git' in the repository root of the current buffer."
-  (interactive)
-  (let* ((dir (or buffer-file-name default-directory))
-         (root (locate-dominating-file dir "Makefile")))
-    (if root
-        (let ((default-directory root))
-          (compile "make git"))
-      (message "Makefile not found"))))
-
-(defun my-makefile-toggle-readonly ()
-  "Hoge."
-  (interactive)
-  (read-only-mode 'toggle)
-  (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
-
-(add-hook 'makefile-mode-hook
-          (lambda ()
-            (font-lock-mode 1)
-            (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
-            (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)))
-
-(leaf quickrun :ensure t
-  :bind ([f5] . quickrun))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

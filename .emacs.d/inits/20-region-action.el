@@ -17,8 +17,8 @@
   (remove-hook 'activate-mark-hook #'my-region-actions-initialize))
 
 (leaf my-region-actions
-  :doc "Key bindings valid only during region selection"
   :tag "builtin"
+  :doc "Key bindings valid only during region selection"
   :config
   (bind-key ";" 'comment-dwim     my-selected-mode-map)
   (bind-key "c" 'kill-ring-save   my-selected-mode-map)

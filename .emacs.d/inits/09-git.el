@@ -28,7 +28,8 @@ all git-peek buffers."
     (message "git-peek: emergency quit")))
 
 
-(leaf browse-at-remote :ensure t
+(leaf browse-at-remote
+  :ensure t
   :doc "Open github page from Emacs"
   :config
   (setq browse-at-remote-prefer-symbolic nil))

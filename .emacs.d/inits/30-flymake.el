@@ -4,8 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf flymake
-  :doc "On-the-fly syntax checking."
   :tag "builtin"
+  :doc "On-the-fly syntax checking."
   :hook ((prog-mode-hook . flymake-mode)
          (markdown-mode-hook . flymake-mode)
          (lisp-interaction-mode-hook . (lambda () (flymake-mode 0)))

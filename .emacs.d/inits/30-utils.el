@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf which-key :ensure nil :tag "builtin"
+(leaf which-key
+  :tag "builtin"
   :doc "Display available keybindings in popup."
   :hook (after-init-hook . which-key-mode)
   :config

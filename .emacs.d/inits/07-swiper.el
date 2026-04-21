@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf swiper :ensure t
+(leaf swiper
+  :ensure t
   :doc "Isearch with an overview."
   :bind (
 	 ("C-s" . swiper-region)
@@ -17,7 +18,8 @@ If the region isn't selected, `swiper'."
 	(swiper-thing-at-point)
       (swiper))))
 
-(leaf migemo :ensure t
+(leaf migemo
+  :ensure t
   :doc "Japanese incremental search through dynamic pattern expansion."
   :hook (after-init-hook . migemo-init)
   :config

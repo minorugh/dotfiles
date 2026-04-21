@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf howm :ensure t
+(leaf howm
+  :ensure t
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
   :hook (emacs-startup-hook . howm-mode)

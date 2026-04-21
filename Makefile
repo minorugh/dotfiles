@@ -239,7 +239,29 @@ filezilla: ## FileZilla のインストールと設定
 	chmod +x ${HOME}/.local/bin/filezilla.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/filezilla.desktop
 
-neomutt: ## neomutt メールクライアントの設定
+thunderbird: ## Thunderbird の設定
+# Gmail はOAuth2認証なので2段階認証設定必須
+	@echo "[Thunderbird] Installing and restoring profile..."
+	$(APT) $@
+	mv ${HOME}/.thunderbird ${HOME}/.thunderbird.bak.$(date +%s) 2>/dev/null || true
+	cp -a ${HOME}/Dropbox/backup/thunderbird/profile ${HOME}/.thunderbird
+	sudo cp ${HOME}/Dropbox/backup/thunderbird/addons/external-editor-revived /usr/local/bin
+	sudo chmod +x /usr/local/bin/external-editor-revived
+	mkdir -p ${HOME}/.mozilla/native-messaging-hosts
+	cp -a ${HOME}/Dropbox/backup/thunderbird/native-messaging-hosts/* \
+	      ${HOME}/.mozilla/native-messaging-hosts/
+	@echo "[Thunderbird] Done."
+
+# External Editor アドオン（External Editor Revived）
+# Debian 12 の GLIBC 2.36 では v1.2.0 バイナリが動かない（GLIBC 2.39 必要）
+# バイナリは v1.1.0 のまま（~/Dropbox/backup/thunderbird/addons/external-editor-revived）
+# xpi（拡張機能）は v1.2.0 のまま
+# アドオン設定の Bypass version check にチェックを入れて Apply
+# Debian 13（GLIBC 2.40）に上げれば v1.2.0 バイナリも動くようになる
+
+neomutt: ## NeoMutt（IMAP read-only・検索／障害時の保険用）
+# Thunderbirdが使えない場合でもIMAPから直接メール参照するために残す
+# ※送信・削除しないread-only運用
 	$(APT) $@
 	mkdir -p ${HOME}/.mutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
@@ -250,12 +272,12 @@ neomutt: ## neomutt メールクライアントの設定
 	sudo chmod +x /usr/local/bin/neomutt.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
 
-w3m: ## w3m のインストールと設定
+w3m: ## NeoMutt補助（URL閲覧・簡易HTML表示）
 	$(APT) $@
 	mkdir -p ${HOME}/.w3m
 	ln -vsfn {${PWD},${HOME}}/.w3m/keymap
 
-abook: ## abook アドレス帳のインストールと設定
+abook: ## NeoMutt補助（簡易アドレス帳・検索用）
 	$(APT) $@
 	mkdir -p ${HOME}/.abook
 	ln -vsf {${PWD},${HOME}}/.abook/addressbook
@@ -299,26 +321,6 @@ keepassxc: ## KeePassXC のインストールと自動起動設定
 # パスワード入力を求められるのでユーザーパスワードを入力する
 # 以降は以下のコマンドでパスワードなしで起動できる
 # | secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
-
-thunderbird: ## Thunderbird の設定
-# Gmail はOAuth2認証なので2段階認証設定必須
-	@echo "[Thunderbird] Installing and restoring profile..."
-	$(APT) $@
-	rm -rf ${HOME}/.thunderbird
-	cp -a ${HOME}/Dropbox/backup/thunderbird/profile ${HOME}/.thunderbird
-	sudo cp ${HOME}/Dropbox/backup/thunderbird/addons/external-editor-revived /usr/local/bin
-	sudo chmod +x /usr/local/bin/external-editor-revived
-	mkdir -p ${HOME}/.mozilla/native-messaging-hosts
-	cp -a ${HOME}/Dropbox/backup/thunderbird/native-messaging-hosts/* \
-	      ${HOME}/.mozilla/native-messaging-hosts/
-	@echo "[Thunderbird] Done."
-
-# External Editor アドオン（External Editor Revived）
-# Debian 12 の GLIBC 2.36 では v1.2.0 バイナリが動かない（GLIBC 2.39 必要）
-# バイナリは v1.1.0 のまま（~/Dropbox/backup/thunderbird/addons/external-editor-revived）
-# xpi（拡張機能）は v1.2.0 のまま
-# アドオン設定の Bypass version check にチェックを入れて Apply
-# Debian 13（GLIBC 2.40）に上げれば v1.2.0 バイナリも動くようになる
 
 google-earth: ## Google Earth のインストール
 	cd ${HOME}/Downloads && \
@@ -502,6 +504,8 @@ endif
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
 # Toggle editable: C-c C-e  or  qq
+# タブ崩れなどの構文エラー確認（missing separator対策）
+#   make -n >/dev/null
 # ------------------------------------------------------------
 # Local Variables:
 # buffer-read-only: t
