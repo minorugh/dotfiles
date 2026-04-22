@@ -45,7 +45,7 @@
   :load-path "~/.emacs.d/elisp" ;; local elisp packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
-  (setq init-loader-byte-compile t)
+  ;; (setq init-loader-byte-compile t)
   (init-loader-load)
   ;; Suppress *scratch* flickering on startup
   (switch-to-buffer (get-buffer-create "*dashboard*")))

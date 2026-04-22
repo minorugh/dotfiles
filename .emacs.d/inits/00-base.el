@@ -77,7 +77,9 @@
   (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
   (setq history-length         200)
   (setq history-delete-duplicates t)
-  (setq savehist-additional-variables '(kill-ring extended-command-history)))
+  (setq savehist-additional-variables '(kill-ring
+					extended-command-history
+					ivy-describe-history)))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)

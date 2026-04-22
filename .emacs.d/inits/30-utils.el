@@ -3,10 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; ivy — 自作パッケージ(git-peek/my-makefile)が ivy-read を使うため残す
-;; counsel/swiper は不要なので ivy 本体だけ ensure する
-(leaf ivy :ensure t)
-
 (leaf which-key
   :tag "builtin"
   :doc "Display available keybindings in popup."
@@ -20,8 +16,7 @@
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
-  :chord (("df" . describe-bindings)
-          ("l;" . init-loader-show-log)
+  :chord (("l;" . init-loader-show-log)
           ("::" . toggle-scratch-buffer)))  ;; see 80-funcs.el
 
 

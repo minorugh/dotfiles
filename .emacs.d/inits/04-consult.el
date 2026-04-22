@@ -87,6 +87,68 @@
        (buffer-substring-no-properties (region-beginning) (region-end))))))
 
 
+(defvar my-describe-history nil "my-describe-commandの履歴を保存する変数")
+
+(defun my-describe-command ()
+  "Ivyの学習機能を有効にした決定版。"
+  (interactive)
+  (let ((cands nil))
+    (mapatoms
+     (lambda (s)
+       (when (commandp s)
+         (let* ((name (symbol-name s))
+                (key (where-is-internal s nil t))
+                (key-desc (if key (key-description key) "")))
+           (push (format "%-40s %s" name key-desc) cands)))))
+    (ivy-read "Command: " cands  ; sortを外してIvyのアルゴリズムに任せる
+              :action (lambda (x)
+                        (describe-function (intern (car (split-string x)))))
+              :require-match t
+              :history 'my-describe-history
+              :caller 'my-describe-command)))
+
+(defun my-describe-variable ()
+  "ivy版のdescribe-variable。変数の絞り込みもこれで完結。"
+  (interactive)
+  (let ((cands nil))
+    (mapatoms
+     (lambda (s)
+       (when (boundp s)
+         (push (symbol-name s) cands))))
+    (ivy-read "Variable: " (sort cands #'string<)
+              :action (lambda (x) (describe-variable (intern x)))
+              :require-match t)))
+
+
+;; (global-set-key (kbd "C-h f") #'my/ivy-describe-command)
+
+;; (defun my-consult-keybindings ()
+;;   "Browse active keybindings with vertico completion."
+;;   (interactive)
+;;   (let ((bindings '())
+;;         (seen '()))
+;;     (cl-labels
+;;         ((collect (keymap prefix)
+;;            (unless (memq keymap seen)
+;;              (push keymap seen)
+;;              (map-keymap
+;;               (lambda (key cmd)
+;;                 (let ((key-str (concat prefix (key-description (vector key)))))
+;;                   (cond
+;;                    ((keymapp cmd)
+;;                     (unless (eq cmd (current-global-map))
+;;                       (collect cmd (concat key-str " "))))
+;;                    ((and cmd (symbolp cmd))
+;;                     (unless (string-match-p "kp-\\|mouse-\\|wheel-\\|drag-\\|down-\\|remap" key-str)
+;;                       (push (format "%-20s  %s" key-str (symbol-name cmd))
+;;                             bindings))))))
+;;               keymap))))
+;;       (collect (current-global-map) "")
+;;       (when (current-local-map)
+;;         (collect (current-local-map) "")))
+;;     (completing-read "Keybindings: " (delete-dups (nreverse bindings)))))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
