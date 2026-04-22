@@ -1,4 +1,4 @@
-;;; 80-describe.el --- My Ivy-based describe tools -*- lexical-binding: t -*-
+;;; 80-ivy-describe.el --- My Ivy-based describe tools -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Replicate the usability of Counsel-describe-function using only Ivy
@@ -45,4 +45,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 80-describe.el ends here
+;;; 80-ivy-describe.el ends here
