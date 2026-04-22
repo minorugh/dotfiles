@@ -25,8 +25,9 @@
                 (key (where-is-internal s nil t))
                 (key-desc (if key (key-description key) "")))
            (push (cons (format "%-18s %s" key-desc name) s) cands)))))
-    (ivy-read "Key -> Command: " cands
+    (ivy-read "Find: " cands
               :action (lambda (x) (describe-function (cdr x)))
+	      :initial-input "^"
               :require-match t
               :history 'my-describe-history
               :caller 'my-describe-command)))
