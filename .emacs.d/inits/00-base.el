@@ -75,9 +75,9 @@
   :hook (after-init-hook . savehist-mode)
   :config
   (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
-  (setq savehist-additional-variables '(kill-ring))
-  (setq history-length         1000)
-  (setq history-delete-duplicates t))
+  (setq history-length         200)
+  (setq history-delete-duplicates t)
+  (setq savehist-additional-variables '(kill-ring extended-command-history)))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
@@ -99,7 +99,7 @@
   (after-init-hook . savehist-mode))
 
 (leaf user-configurations
-  :defun minibuffer-keyboard-quit my-iconify-last-frame
+  :defun my-iconify-last-frame
   :bind (("C-x C-c" . server-edit)
          ("C-x b"   . ibuffer)
          ("C-x m"   . neomutt)
@@ -133,7 +133,7 @@
     "Hoge."
     (interactive)
     (if (not (use-region-p))
-        (minibuffer-keyboard-quit)
+        (abort-minibuffers)
       (keyboard-quit)))
 
   (defun delete-this-file ()

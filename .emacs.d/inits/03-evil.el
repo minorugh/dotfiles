@@ -47,7 +47,7 @@
                   org-mode fundamental-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
   ;; For minor modes
-  (add-hook 'counsel-find-file-hook #'evil-emacs-state)
+  (add-hook 'find-file-hook #'evil-emacs-state)
   (add-hook 'view-mode-hook         #'evil-emacs-state)
 
   (defun evil-swap-key (map key1 key2)
@@ -76,7 +76,7 @@ Deactivates input method first if active."
 (defun my-muhenkan ()
   "Universal escape key."
   ;; git-peek running           → force quit
-  ;; minibuffer active          → close it (minibuffer-keyboard-quit)
+  ;; minibuffer active          → close it (abort-minibuffers)
   ;; minibuffer open, elsewhere → focus & abort
   ;;   (pressing twice: 1st moves focus to minibuffer, 2nd closes it)
   ;; evil Normal/Emacs state    → toggle (deactivate input method if active)
@@ -86,7 +86,7 @@ Deactivates input method first if active."
   (cond
    ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
    ((minibuffer-window-active-p (selected-window))
-    (minibuffer-keyboard-quit))
+    (abort-minibuffers))                  ; minibuffer-keyboard-quit → abort-minibuffers
    ((active-minibuffer-window)
     (select-window (active-minibuffer-window))
     (abort-recursive-edit))

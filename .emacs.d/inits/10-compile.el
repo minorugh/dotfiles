@@ -7,18 +7,10 @@
 (leaf my-makefile
   :doc "ivy-based Makefile target selector."
   :require t
-  :chord ("@@" . my-open-cron-makefile)
+
   :hook ((makefile-mode-hook dired-mode-hook)
          . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
-  (defun my-open-cron-makefile ()
-    "Open ~/src/github.com/minorugh/dotfiles/cron/Makefile and invoke my-make-ivy."
-    (interactive)
-    (let ((file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile")))
-      (find-file file)
-      (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
-      (run-at-time 0.1 nil #'my-make-ivy)))
-
   (defun my-make-git ()
     "Run `make git' in the repository root of the current buffer."
     (interactive)
@@ -35,15 +27,30 @@
     (read-only-mode 'toggle)
     (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
 
+  (defun my-makefile-imenu-create-index ()
+  (let (index)
+    (goto-char (point-min))
+    (while (re-search-forward
+            "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$"
+            nil t)
+      (let ((target (match-string 1))
+            (desc   (match-string 2)))
+        (push (cons (format "%-20s %s" target desc)
+                    (match-beginning 1))
+              index)))
+    (nreverse index)))
+
   (add-hook 'makefile-mode-hook
             (lambda ()
-              (font-lock-mode 1)
               (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
-              (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly))))
+              (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)
+	      (setq imenu-create-index-function
+		    #'my-makefile-imenu-create-index))))
+
 
 ;; Compilation
 (defun compile-autoclose (buffer string)
-   "Auto-close compile window if BUFFER finished successfully.
+  "Auto-close compile window if BUFFER finished successfully.
 STRING is the exit status message from the compilation process."
   (if (and (string-match "compilation" (buffer-name buffer))
            (string-match "finished" string))

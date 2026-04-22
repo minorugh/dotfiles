@@ -9,7 +9,9 @@
   :hook (after-init-hook . (lambda () (load-theme 'doom-dracula t)))
   :config
   (setq doom-themes-enable-italic nil)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  (with-eval-after-load 'doom-dracula
+    (doom-themes-vertico-config)))
 
 (leaf hl-line
   :tag "builtin"

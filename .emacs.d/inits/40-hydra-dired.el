@@ -10,14 +10,14 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint_@_._c_
-  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  howm._;__:_._v_iew^^  key_p_ass  _g_ithub.i_o_^^  capture_,_
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint._:__;_
+  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  h_@_wm.md._v_iew^^^^  key_p_ass  _g_ithub.i_o_^^  capture_,_
 "
+   ("a" consult-ripgrep)
    ("f" flymake-show-buffer-diagnostics)
    ("-" fzilla-s)
    ("9" fzilla-GH)
    ("0" fzilla-minoruGH)
-   ("@" my-open-cron-makefile)
    ("t" my-open-tig)
    ("p" keepassxc)
    ("<home>" (my-open "~/" :omit))
@@ -30,7 +30,8 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("c" (my-open "~/src/github.com/minorugh/dotfiles/cron/"))
+   (":" (my-open "~/src/github.com/minorugh/dotfiles/Makefile"))
+   (";" (my-open "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
@@ -39,9 +40,8 @@
    ("u" (my-make "up"))
    ("r" restart-emacs)
    ("v" markdown-preview)
-   (":" howm-list-all)
+   ("@" howm-list-all)
    ("," org-capture)
-   (";" my-howm-create-memo)
    ("_" delete-other-windows)
    ("[" git-peek)
    ("-" git-peek-deleted)
