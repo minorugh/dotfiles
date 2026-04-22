@@ -3,7 +3,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(leaf evil :ensure t
+(leaf evil
+  :ensure t
   :hook ((after-init-hook . evil-mode)
 	 (evil-normal-state-entry-hook . deactivate-input-method))
   :bind ((:evil-normal-state-map
@@ -32,13 +33,11 @@
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
-
   ;; Use undo-fu for evil undo
   (setq evil-undo-system 'undo-fu)
   :config
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
-
   ;; Overwrite `evil-quit' with kill-buffer
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
@@ -46,7 +45,7 @@
   ;; Force evil-emacs-state for specific modes
   (dolist (mode '(howm-view-summary-mode
                   imenu-list-major-mode easy-hugo-mode neotree-mode
-                  org-mode fundamental-mode git-timemachine-mode))
+                  org-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Emacs state only when creating new files
