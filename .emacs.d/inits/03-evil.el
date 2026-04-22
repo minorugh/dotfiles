@@ -4,7 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf evil :ensure t
-  :hook (after-init-hook . evil-mode)
+  :hook ((after-init-hook . evil-mode)
+	 (evil-normal-state-entry-hook . deactivate-input-method))
   :bind ((:evil-normal-state-map
           ("M-."      . nil) ;; This bind is for use other
           ("C-a"      . seq-home)
@@ -31,6 +32,7 @@
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
+
   ;; Use undo-fu for evil undo
   (setq evil-undo-system 'undo-fu)
   :config
@@ -46,9 +48,12 @@
                   imenu-list-major-mode easy-hugo-mode neotree-mode
                   org-mode fundamental-mode git-timemachine-mode))
     (add-to-list 'evil-emacs-state-modes mode))
-  ;; For minor modes
-  (add-hook 'find-file-hook #'evil-emacs-state)
-  (add-hook 'view-mode-hook         #'evil-emacs-state)
+
+  ;; Emacs state only when creating new files
+  (add-hook 'find-file-hook
+            (lambda ()
+              (unless (file-exists-p (buffer-file-name))
+                (evil-emacs-state))))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -59,43 +64,32 @@
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
 
-  (defun ad:switch-to-buffer (&rest _arg)
-    "Set buffer for automatic `evil-emacs-state'."
-    (when (member (buffer-name) '("COMMIT_EDITMSG"))
-      (evil-emacs-state)))
-  (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
-
-
-  (defun my-toggle-evil-normal-emacs ()
-    "Toggle between evil Normal and Emacs state.
-Deactivates input method first if active."
-    (interactive)
-    (when current-input-method (deactivate-input-method))
-    (if (evil-normal-state-p) (evil-emacs-state) (evil-normal-state)))
-
   (defun my-muhenkan ()
     "Universal escape key."
-    ;; git-peek running           → force quit
-    ;; minibuffer active          → close it (abort-minibuffers)
-    ;; minibuffer open, elsewhere → focus & abort
-    ;;   (pressing twice: 1st moves focus to minibuffer, 2nd closes it)
-    ;; evil Normal/Emacs state    → toggle (deactivate input method if active)
-    ;; region selected            → deactivate mark
-    ;; otherwise                  → evil Normal state
     (interactive)
     (cond
+     ;; git-peek実行中なら強制終了
      ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
+
+     ;; Helpバッファが開いていれば閉じる
      ((get-buffer-window "*Help*")
       (delete-window (get-buffer-window "*Help*"))
       (kill-buffer "*Help*"))
+
+     ;; ミニバッファ操作中なら中断
      ((minibuffer-window-active-p (selected-window))
-      (abort-minibuffers))                  ; minibuffer-keyboard-quit → abort-minibuffers
+      (abort-minibuffers))
+
+     ;; 別のウィンドウでミニバッファが開いていれば、フォーカスして中断
      ((active-minibuffer-window)
       (select-window (active-minibuffer-window))
       (abort-recursive-edit))
-     ((or (evil-normal-state-p) (evil-emacs-state-p))
-      (my-toggle-evil-normal-emacs))
+
+     ;; 選択範囲（リージョン）があれば解除
      ((use-region-p) (deactivate-mark))
+
+     ;; すでにNormalならEmacsへ、それ以外（Emacs/Insert等）ならNormalへ
+     ((evil-normal-state-p) (evil-emacs-state))
      (t (evil-normal-state))))
 
   (defun vim-cheat-sheet ()
