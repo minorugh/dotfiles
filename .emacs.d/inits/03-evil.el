@@ -26,7 +26,7 @@
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
-         ([muhenkan]  . my-muhenkan)
+          ([muhenkan]  . my-muhenkan)
           ([escape]   . my-muhenkan)))
   :init
   ;; At the end of a line, move to the previous/next line
@@ -66,34 +66,37 @@
   (advice-add 'switch-to-buffer :after #'ad:switch-to-buffer)
 
 
-(defun my-toggle-evil-normal-emacs ()
-  "Toggle between evil Normal and Emacs state.
+  (defun my-toggle-evil-normal-emacs ()
+    "Toggle between evil Normal and Emacs state.
 Deactivates input method first if active."
-  (interactive)
-  (when current-input-method (deactivate-input-method))
-  (if (evil-normal-state-p) (evil-emacs-state) (evil-normal-state)))
+    (interactive)
+    (when current-input-method (deactivate-input-method))
+    (if (evil-normal-state-p) (evil-emacs-state) (evil-normal-state)))
 
-(defun my-muhenkan ()
-  "Universal escape key."
-  ;; git-peek running           → force quit
-  ;; minibuffer active          → close it (abort-minibuffers)
-  ;; minibuffer open, elsewhere → focus & abort
-  ;;   (pressing twice: 1st moves focus to minibuffer, 2nd closes it)
-  ;; evil Normal/Emacs state    → toggle (deactivate input method if active)
-  ;; region selected            → deactivate mark
-  ;; otherwise                  → evil Normal state
-  (interactive)
-  (cond
-   ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-   ((minibuffer-window-active-p (selected-window))
-    (abort-minibuffers))                  ; minibuffer-keyboard-quit → abort-minibuffers
-   ((active-minibuffer-window)
-    (select-window (active-minibuffer-window))
-    (abort-recursive-edit))
-   ((or (evil-normal-state-p) (evil-emacs-state-p))
-    (my-toggle-evil-normal-emacs))
-   ((use-region-p) (deactivate-mark))
-   (t (evil-normal-state))))
+  (defun my-muhenkan ()
+    "Universal escape key."
+    ;; git-peek running           → force quit
+    ;; minibuffer active          → close it (abort-minibuffers)
+    ;; minibuffer open, elsewhere → focus & abort
+    ;;   (pressing twice: 1st moves focus to minibuffer, 2nd closes it)
+    ;; evil Normal/Emacs state    → toggle (deactivate input method if active)
+    ;; region selected            → deactivate mark
+    ;; otherwise                  → evil Normal state
+    (interactive)
+    (cond
+     ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
+     ((get-buffer-window "*Help*")
+      (delete-window (get-buffer-window "*Help*"))
+      (kill-buffer "*Help*"))
+     ((minibuffer-window-active-p (selected-window))
+      (abort-minibuffers))                  ; minibuffer-keyboard-quit → abort-minibuffers
+     ((active-minibuffer-window)
+      (select-window (active-minibuffer-window))
+      (abort-recursive-edit))
+     ((or (evil-normal-state-p) (evil-emacs-state-p))
+      (my-toggle-evil-normal-emacs))
+     ((use-region-p) (deactivate-mark))
+     (t (evil-normal-state))))
 
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."

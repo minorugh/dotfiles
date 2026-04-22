@@ -79,7 +79,7 @@
   (setq history-delete-duplicates t)
   (setq savehist-additional-variables '(kill-ring
 					extended-command-history
-					ivy-describe-history)))
+					my-describe-history)))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
