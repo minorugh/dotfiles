@@ -1,37 +1,6 @@
 ;;; 10-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-;; (setq debug-on-error t)
-
-;; Makefile commads
-(leaf my-makefile
-  :doc "ivy-based Makefile target selector."
-  :require t
-  :init
-  (defun my-makefile-toggle-readonly ()
-    "Toggle the read-only mode of the Makefile buffer."
-    (interactive)
-    (read-only-mode 'toggle)
-    (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
-
-  (defun my-make-git ()
-    "Run \='make git\=' in the repository root."
-    (interactive)
-    (let* ((dir (or buffer-file-name default-directory))
-           (root (locate-dominating-file dir "Makefile")))
-      (if root
-          (let ((default-directory root))
-            (compile "make git"))
-        (message "Makefile not found"))))
-  :config
-  (add-hook 'makefile-mode-hook
-            (lambda ()
-              (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
-              (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
-	      (when (fboundp 'key-chord-define)
-		(key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly))
-	      ;; imenu設定
-	      (setq imenu-create-index-function #'my-makefile-imenu-create-index))))
 
 ;; Compilation
 (defun compile-autoclose (buffer string)
@@ -71,11 +40,9 @@ STRING is the exit status message from the compilation process."
 (setq compilation-scroll-output t)
 (setq compilation-always-kill   t)
 
-
 ;; Other tool
 (leaf quickrun :ensure t
   :bind ([f5] . quickrun))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
