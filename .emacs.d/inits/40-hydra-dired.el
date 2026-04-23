@@ -41,7 +41,7 @@
    ("r" restart-emacs)
    ("v" markdown-preview)
    ("@" howm-list-all)
-   ("," org-capture)
+   ("," my-howm-create-with-category)
    ("_" delete-other-windows)
    ("[" git-peek)
    ("-" git-peek-deleted)

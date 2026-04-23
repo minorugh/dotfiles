@@ -34,7 +34,8 @@
    (":" (my-open "~/Dropbox/GH/marquee.dat" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
-   ("j" (my-open "~/Dropbox/GH/junk"))
+   ("J" (my-open "~/Dropbox/junk/"))
+   ("j" my-junk-new)
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
    ("g" gist-region-or-buffer)
@@ -53,7 +54,17 @@
    ("[" my-haiku-note-post)
    ("q" top-level)
    ("<henkan>" hydra-dired/body)
-   ("<muhenkan>" nil)))
+   ("<muhenkan>" nil))
+  :preface
+  (defun my-junk-new ()
+    "タイムスタンプ付きPerlスクラッチファイルを開く。"
+    (interactive)
+    (let* ((file    (format-time-string "~/Dropbox/junk/%Y%m%d%H%M.pl"))
+           (is-new  (not (file-exists-p file))))
+      (find-file file)
+      (when is-new
+	(insert "#!/usr/bin/perl\nuse strict;\nuse warnings;\n\n")
+	(when evil-mode (evil-insert-state))))))
 
 
 ;; Local Variables:

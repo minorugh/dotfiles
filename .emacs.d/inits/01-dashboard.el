@@ -20,7 +20,7 @@
     :global-minor-mode t)
   ;; Set the items (P1 shows agenda, others show recents only)
   (if (string-match "P1" (system-name))
-      (setq dashboard-items '((recents . 8) (agenda . 5)))
+      (setq dashboard-items '((recents . 10)))
     (setq dashboard-items '((recents . 5))))
   ;; Set the title (combine external commands into one call)
   (setq dashboard-banner-logo-title

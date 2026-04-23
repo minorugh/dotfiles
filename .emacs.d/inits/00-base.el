@@ -37,6 +37,7 @@
 
 ;; Deleted files go to the trash
 (setq delete-by-moving-to-trash t)
+(setq trash-directory (locate-user-emacs-file "tmp/trash"))
 
 ;; Limit the final word to a line break code (automatically correct)
 (setq require-final-newline t)
@@ -145,7 +146,7 @@
       (error "No file is currently being edited"))
     (when (yes-or-no-p (format "Really delete '%s'?"
                                (file-name-nondirectory buffer-file-name)))
-      (delete-file (buffer-file-name))
+      (move-file-to-trash (buffer-file-name))
       (kill-current-buffer)))
 
   (defun my-clipboard-kill-region ()
@@ -173,7 +174,7 @@ If it's the last frame, minimize it without deleting it."
       (cond ((> numfrs 1) (delete-frame frame t))
             ((iconify-frame))))))
 
-(setq byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
