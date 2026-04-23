@@ -49,6 +49,10 @@
   :hook ((imenu-list-major-mode-hook . hide-mode-line-mode)
          (neotree-mode-hook          . hide-mode-line-mode)))
 
+
+;; imenu-list: left panel showing imenu entries.
+;; Each major-mode sets its own imenu-create-index-function.
+;; e.g. Makefile -> my-makefile-imenu-create-index (10-makefile.el)
 (leaf imenu-list
   :ensure t
   :doc "Show imenu entries in a separate buffer."
@@ -80,6 +84,7 @@
   ;; go to confirm
   (defun my-imenu-list-confirm ()
     (interactive) (imenu-list-goto-entry) (imenu-list-smart-toggle)))
+
 
 (leaf nerd-icons
   :ensure t

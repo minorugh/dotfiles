@@ -17,6 +17,7 @@
 ;;; ----------------------------------------------------------------
 ;;; Core: Makefileの検索
 ;;; ----------------------------------------------------------------
+
 (defun my-make--find-makefile ()
   "Return Makefile path for current context.
 Supports `dired', buffer file, or `default-directory'."
@@ -30,8 +31,9 @@ Supports `dired', buffer file, or `default-directory'."
       (when (file-exists-p mk) mk))))
 
 ;;; ----------------------------------------------------------------
-;;; Imenu: Makefileターゲットをインデックス化
+;;; Imenu: ## コメント付きターゲットをインデックス化
 ;;; ----------------------------------------------------------------
+
 (defun my-makefile-imenu-create-index ()
   "Build imenu index from Makefile targets."
   (let (index)
@@ -66,14 +68,14 @@ Works in `makefile-mode' and `dired'."
 
       ;; C-c C-c で make 実行
       (define-key map (kbd "C-c C-c")
-        (lambda ()
-          (interactive)
-          (ivy-exit-with-action
-           (lambda (x)
-             (let ((target (cdr x)))
-               (compile (format "make -C %s %s"
-                                (file-name-directory makefile)
-                                target)))))))
+		  (lambda ()
+		    (interactive)
+		    (ivy-exit-with-action
+		     (lambda (x)
+		       (let ((target (cdr x)))
+			 (compile (format "make -C %s %s"
+					  (file-name-directory makefile)
+					  target)))))))
 
       ;; 候補を Makefile バッファからパース
       (with-current-buffer (find-file-noselect makefile)
@@ -110,6 +112,7 @@ Works in `makefile-mode' and `dired'."
 ;;; ----------------------------------------------------------------
 ;;; Utilities
 ;;; ----------------------------------------------------------------
+
 (defun my-makefile-toggle-readonly ()
   "Toggle read-only mode of the current Makefile buffer."
   (interactive)
@@ -129,17 +132,17 @@ Works in `makefile-mode' and `dired'."
 ;;; ----------------------------------------------------------------
 ;;; Hooks
 ;;; ----------------------------------------------------------------
+
 (add-hook 'makefile-mode-hook
           (lambda ()
-            (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)
-            (local-set-key (kbd "C-c C-e") #'my-makefile-toggle-readonly)
-            (when (fboundp 'key-chord-define)
-              (key-chord-define (current-local-map) "qq" #'my-makefile-toggle-readonly))
-            (setq imenu-create-index-function #'my-makefile-imenu-create-index)))
+	    (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)
+	    (local-set-key (kbd "C-c C-e") #'my-makefile-toggle-readonly)
+	    (when (fboundp 'key-chord-define)
+	      (key-chord-define (current-local-map) "qq" #'my-makefile-toggle-readonly))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)))
+	    (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
