@@ -1,22 +1,11 @@
-;;; 10-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
+;;; 09-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Makefile操作をまとめた個人設定。
-;;
-;; ## ターゲット記法
-;;   mytarget: ## ここに書いた説明がivyに表示される
-;;
-;; ## キーバインド (makefile-mode / `dired')
-;;   @        : ivy でターゲット選択 (Enter=ジャンプ, ↑↓=プレビュー, C-c C-c=make実行)
-;;   C-c C-e  : read-only トグル (makefile-mode のみ)
-;;   qq       : 同上 (key-chord)
-;;   f2       : imenu-list トグル (30-ui.el で設定済み)
+;; personal settings that summarize Makefile operations.
 ;;
 ;;; Code:
 
-;;; ----------------------------------------------------------------
-;;; Core: Makefileの検索
-;;; ----------------------------------------------------------------
+;;; Core: Makefile Search
 (defun my-make--find-makefile ()
   "Return Makefile path for current context.
 Supports `dired', buffer file, or `default-directory'."
@@ -29,9 +18,8 @@ Supports `dired', buffer file, or `default-directory'."
     (let ((mk (expand-file-name "Makefile" dir)))
       (when (file-exists-p mk) mk))))
 
-;;; ----------------------------------------------------------------
-;;; Imenu: Makefileターゲットをインデックス化
-;;; ----------------------------------------------------------------
+
+;;; Imenu: Index Makefile targets
 (defun my-makefile-imenu-create-index ()
   "Build imenu index from Makefile targets."
   (let (index)
@@ -43,11 +31,9 @@ Supports `dired', buffer file, or `default-directory'."
           (push (cons target pos) index))))
     (nreverse index)))
 
+
+;;; Ivy: target selection (both makefile-mode / dired)
 ;;; ----------------------------------------------------------------
-;;; Ivy: ターゲット選択 (makefile-mode / dired 両対応)
-;;; ----------------------------------------------------------------
-;; Makefileターゲットをivyで選択・実行。diredおよびmakefile-mode対応。
-;; Enter=ジャンプ / ↑↓=プレビュー / C-c C-c=make実行
 (defun my-make-ivy-integrated ()
   "Select and run Makefile targets via `ivy'.
 Works in `makefile-mode' and `dired'."
@@ -59,12 +45,10 @@ Works in `makefile-mode' and `dired'."
           (orig-buf   (current-buffer))
           (orig-point (point))
           (map        (copy-keymap ivy-minibuffer-map)))
-
-      ;; リアルタイムプレビュー
+      ;; Real-time preview
       (define-key map (kbd "<down>") 'ivy-next-line-and-call)
       (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
-
-      ;; C-c C-c で make 実行
+      ;; C-c C-c to run make
       (define-key map (kbd "C-c C-c")
         (lambda ()
           (interactive)
@@ -74,8 +58,7 @@ Works in `makefile-mode' and `dired'."
                (compile (format "make -C %s %s"
                                 (file-name-directory makefile)
                                 target)))))))
-
-      ;; 候補を Makefile バッファからパース
+      ;; Parses candidates from Makefile buffer
       (with-current-buffer (find-file-noselect makefile)
         (save-excursion
           (goto-char (point-min))
@@ -91,7 +74,7 @@ Works in `makefile-mode' and `dired'."
 
       (if (not candidates)
           (message "ターゲットが見つかりませんでした。")
-        (ivy-read "Makefile Targets: "
+        (ivy-read "Targets: "
                   (nreverse candidates)
                   :keymap map
                   :action (lambda (x)
@@ -107,9 +90,8 @@ Works in `makefile-mode' and `dired'."
                               (recenter)))
                   :caller 'my-make-ivy-integrated)))))
 
-;;; ----------------------------------------------------------------
+
 ;;; Utilities
-;;; ----------------------------------------------------------------
 (defun my-makefile-toggle-readonly ()
   "Toggle read-only mode of the current Makefile buffer."
   (interactive)
@@ -126,9 +108,8 @@ Works in `makefile-mode' and `dired'."
           (compile "make git"))
       (message "Makefile not found"))))
 
-;;; ----------------------------------------------------------------
+
 ;;; Hooks
-;;; ----------------------------------------------------------------
 (add-hook 'makefile-mode-hook
           (lambda ()
             (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)
@@ -141,7 +122,8 @@ Works in `makefile-mode' and `dired'."
           (lambda ()
             (evil-local-set-key 'normal (kbd "@") #'my-make-ivy-integrated)))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-makefile.el ends here
+;;; 09-makefile.el ends here
