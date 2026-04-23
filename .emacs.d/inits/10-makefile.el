@@ -1,4 +1,4 @@
-;;; 15-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
+;;; 10-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Makefile操作をまとめた個人設定。
@@ -6,7 +6,7 @@
 ;; ## ターゲット記法
 ;;   mytarget: ## ここに書いた説明がivyに表示される
 ;;
-;; ## キーバインド (makefile-mode / dired)
+;; ## キーバインド (makefile-mode / `dired')
 ;;   @        : ivy でターゲット選択 (Enter=ジャンプ, ↑↓=プレビュー, C-c C-c=make実行)
 ;;   C-c C-e  : read-only トグル (makefile-mode のみ)
 ;;   qq       : 同上 (key-chord)
@@ -19,7 +19,8 @@
 ;;; ----------------------------------------------------------------
 
 (defun my-make--find-makefile ()
-  "Return the Makefile path from the current context (Dired or buffer file or default-directory)."
+"Return Makefile path for current context.
+Supports `dired', buffer file, or `default-directory'."
   (let ((dir (cond
               ((derived-mode-p 'dired-mode) (dired-current-directory))
               ((and buffer-file-name
@@ -47,14 +48,11 @@
 ;;; ----------------------------------------------------------------
 ;;; Ivy: ターゲット選択 (makefile-mode / dired 両対応)
 ;;; ----------------------------------------------------------------
-
+;; Makefileターゲットをivyで選択・実行。diredおよびmakefile-mode対応。
+;; Enter=ジャンプ / ↑↓=プレビュー / C-c C-c=make実行
 (defun my-make-ivy-integrated ()
-  "Makefileターゲットをivyで選択・実行。
-diredバッファおよびmakefile-modeバッファから呼び出し可能。
-
-Enter   : その場所へジャンプして終了
-↑↓     : リアルタイムプレビュー
-C-c C-c : make 実行 (ivyは閉じる)"
+  "Select and run Makefile targets via `ivy'.
+Works in `makefile-mode' and `dired'."
   (interactive)
   (require 'ivy)
   (let ((makefile (my-make--find-makefile)))
@@ -150,4 +148,4 @@ C-c C-c : make 実行 (ivyは閉じる)"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 15-makefile.el ends here
+;;; 10-makefile.el ends here

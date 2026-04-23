@@ -6,10 +6,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; (leaf ivy
-;;   :ensure t
-;;   :hook (after-init-hook . ivy-mode))
-
 (leaf my-ivy-commands
   :doc "Description tool using Ivy."
   :chord (("df" . my-describe-command)
@@ -42,7 +38,7 @@
       (mapatoms (lambda (s) (when (boundp s) (push (symbol-name s) cands))))
       (ivy-read "Variable: " (sort cands #'string<)
                 :action (lambda (x) (describe-variable (intern x)))
-                :require-match t)))
+                :require-match t))))
 
 
 ;; Local Variables:

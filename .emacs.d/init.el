@@ -84,10 +84,6 @@
 
 (add-hook 'after-init-hook #'my-reload-keychain)
 
-;; もし後で気が向いたら、これだけ評価(C-x C-e)してみてください
-(custom-set-faces
- '(consult-group-title ((t (:weight bold :foreground "#bd93f9")))) ; 文字をDraculaの紫で太字に
- '(vertico-current ((t (:background "#44475a")))))               ; 選択行をDraculaの選択色に
 
 (provide 'init)
 ;; Local Variables:
