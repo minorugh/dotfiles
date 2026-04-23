@@ -15,8 +15,6 @@
 
 ;;; compilation (builtin)
 
-;; (require 'ivy)
-
 (defun my-make--find-makefile ()
   "Return the Makefile path from the current context (Dired or buffer)."
   (let ((dir (cond
