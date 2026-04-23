@@ -7,7 +7,8 @@
 
 (leaf web-mode
   :ensure t
-  :mode ("\\.html?\\'" "\\.css\\'")
+  ;; :mode ("\\.html?\\'" "\\.css\\'")
+  :mode ("\\.html?\\'")
   :bind (("s-w"    . my-toggle-web-mode))
   :config
   (setq web-mode-enable-auto-indentation nil)  ;; 勝手な整形を防止

@@ -15,66 +15,94 @@
 
 ;;; compilation (builtin)
 
+(require 'ivy)
+
 (defun my-make--find-makefile ()
-  "Return Makefile path if available in current `dired' or buffer context."
+  "現在のコンテキスト（Diredまたはバッファ）からMakefileのパスを返す。"
   (let ((dir (cond
-              ;; diredバッファーのカレントディレクトリ
-              ((derived-mode-p 'dired-mode)
-               (dired-current-directory))
-              ;; Makefileを直接開いている
+              ((derived-mode-p 'dired-mode) (dired-current-directory))
               ((and buffer-file-name
                     (string= (file-name-nondirectory buffer-file-name) "Makefile"))
                (file-name-directory buffer-file-name))
-              ;; その他：バッファーのデフォルトディレクトリ
               (t default-directory))))
     (let ((mk (expand-file-name "Makefile" dir)))
       (when (file-exists-p mk) mk))))
 
-(defun my-make--targets-with-desc (makefile)
-  "Return alist of (target . description) from MAKEFILE, in file order."
-  (let ((ignore-targets '("Makefile" "makefile" "all" "a.out" ".PHONY")))
-    (with-temp-buffer
-      (insert-file-contents makefile)
+(defun my-makefile-imenu-create-index ()
+  "Makefile専用のインデックス作成。"
+  (let (index)
+    (save-excursion
       (goto-char (point-min))
-      (let ((targets '()))
-        (while (re-search-forward
-                "^\\([^.#[:space:]%][^[:space:]]*\\):\\(?:.*##[[:space:]]*\\(.*\\)\\)?$" nil t)
-          (let ((target (match-string 1))
-                (desc   (match-string 2)))
-            (unless (or (assoc target targets)
-                        (member target ignore-targets))
-              (push (cons target (or desc "")) targets))))
-        (nreverse targets)))))
-
-(defun my-make--format-candidate (pair)
-  "Format (target . desc) as ivy candidate PAIR string."
-  (let ((target (car pair))
-        (desc   (or (cdr pair) "")))
-    (if (string= desc "")
-        (propertize target 'face 'font-lock-function-name-face)
-      (format "%-24s %s"
-              (propertize target 'face 'font-lock-function-name-face)
-              (propertize desc   'face 'font-lock-comment-face)))))
+      (while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
+        (let ((target (match-string 1))
+              (pos    (match-beginning 1)))
+          (push (cons target pos) index))))
+    (nreverse index)))
 
 ;;;###autoload
+;; Enter : jump to that location
+;; C-c C-c : execute make
+;; C-g : return to the original position"
 (defun my-make-ivy ()
-  "Select make target with ivy and run make via compile."
+  "Select Makefile target with preview."
   (interactive)
-  (let ((makefile (my-make--find-makefile)))
-    (unless makefile
-      (user-error "Makefile not found"))
-    (let* ((pairs      (my-make--targets-with-desc makefile))
-           (candidates (mapcar (lambda (p)
-                                 (propertize (my-make--format-candidate p)
-                                             'my-target (car p)))
-                               pairs))
-           (default-directory (file-name-directory makefile)))
-      (ivy-read "Make target: "
-                candidates
-		:action (lambda (candidate)
-			  (let ((target (get-text-property 0 'my-target candidate)))
-			    (compile (format "make -f %s %s" makefile target))
-			    (switch-to-buffer-other-window "*compilation*")))))))
+  (let ((makefile (my-make--find-makefile))
+        (orig-point (point))
+        (orig-buf (current-buffer))
+        (candidates nil))
+    (unless makefile (user-error "Makefileが見つかりません"))
+
+    ;; 候補の抽出
+    (with-current-buffer (find-file-noselect makefile)
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
+          (let* ((target (match-string 1))
+                 (desc   (match-string 2))
+                 (pos    (match-beginning 1))
+                 (ignore '("Makefile" "makefile" "all" "a.out" ".PHONY"))
+                 (target-fmt (propertize (format "%-24s" target) 'face 'font-lock-function-name-face))
+                 (desc-fmt (propertize (or desc "") 'face 'font-lock-comment-face)))
+            (unless (member target ignore)
+              (push (cons (concat target-fmt " " desc-fmt)
+                          (propertize target 'pos pos 'makefile makefile))
+                    candidates))))))
+
+    (if (not candidates)
+        (message "ターゲットが見つかりませんでした。")
+      (let ((map (copy-keymap ivy-minibuffer-map))
+            (cands (nreverse candidates)))
+
+        ;; 矢印キーでリアルタイムプレビュー
+        (define-key map (kbd "<down>") 'ivy-next-line-and-call)
+        (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
+
+        ;; C-c C-c で make 実行
+        (define-key map (kbd "C-c C-c")
+                    (lambda ()
+                      (interactive)
+                      (ivy-exit-with-action
+                       (lambda (x)
+                         (let ((target (cdr x))
+                               (mk (get-text-property 0 'makefile (cdr x))))
+                           (compile (format "make -C %s %s"
+                                            (file-name-directory mk) target)))))))
+
+        (ivy-read "Make target: "
+                  cands
+                  :keymap map
+                  :action (lambda (x)
+                            (let ((pos (get-text-property 0 'pos (cdr x)))
+                                  (mk (get-text-property 0 'makefile (cdr x))))
+                              (find-file mk)
+                              (goto-char pos)
+                              (recenter)))
+                  :unwind (lambda ()
+                            (unless (eq ivy-exit 'done)
+                              (switch-to-buffer orig-buf)
+                              (goto-char orig-point)
+                              (recenter)))
+                  :caller 'my-make-ivy)))))
 
 (provide 'my-makefile)
 ;; Local Variables:

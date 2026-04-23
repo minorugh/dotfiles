@@ -32,6 +32,14 @@
    `(vertico-current ((t (:background ,(doom-color 'base4)
 				      :foreground ,(doom-color 'fg)
 				      :weight bold))))))
+;; 1. 履歴を保存するモードを有効化
+;; (savehist-mode 1)
+
+;; ;; 2. 保存する変数を明示的に指定（M-xの履歴は extended-command-history）
+;; (setq savehist-additional-variables '(extended-command-history))
+
+;; ;; 3. Vertico側で履歴順のソートを有効にする（通常はデフォルトで有効）
+;; (setq vertico-sort-function #'vertico-sort-history)
 
 ;;; ============================================================
 ;;; 2. orderless — スペース区切りで複数パターンを AND 検索

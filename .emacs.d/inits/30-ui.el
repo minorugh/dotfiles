@@ -54,12 +54,23 @@
   :doc "Show imenu entries in a separate buffer."
   :bind (([f2] . imenu-list-smart-toggle)
          (:imenu-list-major-mode-map
-          ("j" . next-line)
-          ("k" . previous-line)))
+          ("SPC" . my-imenu-list-next)
+          ("b"   . my-imenu-list-prev)
+          ("<return>" . my-imenu-list-confirm)))
   :config
   (setq imenu-list-focus-after-activation t)
   (setq imenu-list-auto-resize t)
-  (setq imenu-list-position 'left))
+  (setq imenu-list-position 'left)
+  ;; move next-line
+  (defun my-imenu-list-next ()
+    (interactive) (next-line) (imenu-list-display-entry))
+  ;; move prev-line
+  (defun my-imenu-list-prev ()
+    (interactive) (previous-line) (imenu-list-display-entry))
+  ;; go to confirm
+  (defun my-imenu-list-confirm ()
+    (interactive) (imenu-list-goto-entry) (imenu-list-smart-toggle)))
+
 
 (leaf nerd-icons
   :ensure t

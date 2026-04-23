@@ -7,46 +7,31 @@
 (leaf my-makefile
   :doc "ivy-based Makefile target selector."
   :require t
-
-  :hook ((makefile-mode-hook dired-mode-hook)
-         . (lambda () (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)))
   :init
+  (defun my-makefile-toggle-readonly ()
+    "Toggle the read-only mode of the Makefile buffer."
+    (interactive)
+    (read-only-mode 'toggle)
+    (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
+
   (defun my-make-git ()
-    "Run `make git' in the repository root of the current buffer."
+    "Run 'make git' in the repository root."
     (interactive)
     (let* ((dir (or buffer-file-name default-directory))
            (root (locate-dominating-file dir "Makefile")))
       (if root
           (let ((default-directory root))
             (compile "make git"))
-	(message "Makefile not found"))))
-
-  (defun my-makefile-toggle-readonly ()
-    "Toggle read-only mode in Makefile buffer."
-    (interactive)
-    (read-only-mode 'toggle)
-    (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
-
-  (defun my-makefile-imenu-create-index ()
-  (let (index)
-    (goto-char (point-min))
-    (while (re-search-forward
-            "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$"
-            nil t)
-      (let ((target (match-string 1))
-            (desc   (match-string 2)))
-        (push (cons (format "%-20s %s" target desc)
-                    (match-beginning 1))
-              index)))
-    (nreverse index)))
-
+        (message "Makefile not found"))))
+  :config
   (add-hook 'makefile-mode-hook
             (lambda ()
+              (evil-local-set-key 'normal (kbd "@") #'my-make-ivy)
               (local-set-key (kbd "C-c C-e") 'my-makefile-toggle-readonly)
-              (key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly)
-	      (setq imenu-create-index-function
-		    #'my-makefile-imenu-create-index))))
-
+	      (when (fboundp 'key-chord-define)
+		(key-chord-define (current-local-map) "qq" 'my-makefile-toggle-readonly))
+	      ;; imenu設定
+	      (setq imenu-create-index-function #'my-makefile-imenu-create-index))))
 
 ;; Compilation
 (defun compile-autoclose (buffer string)
