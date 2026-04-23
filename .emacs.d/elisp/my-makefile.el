@@ -18,7 +18,7 @@
 (require 'ivy)
 
 (defun my-make--find-makefile ()
-  "現在のコンテキスト（Diredまたはバッファ）からMakefileのパスを返す。"
+  "Return the Makefile path from the current context (Dired or buffer)."
   (let ((dir (cond
               ((derived-mode-p 'dired-mode) (dired-current-directory))
               ((and buffer-file-name
@@ -29,7 +29,7 @@
       (when (file-exists-p mk) mk))))
 
 (defun my-makefile-imenu-create-index ()
-  "Makefile専用のインデックス作成。"
+  "Indexing for Makefile only."
   (let (index)
     (save-excursion
       (goto-char (point-min))
@@ -106,6 +106,6 @@
 
 (provide 'my-makefile)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
+;; byte-compile-warnings: (not free-vars unresolved unused-vars)
 ;; End:
 ;;; my-makefile.el ends here

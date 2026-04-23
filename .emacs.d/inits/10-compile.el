@@ -15,7 +15,7 @@
     (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
 
   (defun my-make-git ()
-    "Run 'make git' in the repository root."
+    "Run \='make git\=' in the repository root."
     (interactive)
     (let* ((dir (or buffer-file-name default-directory))
            (root (locate-dominating-file dir "Makefile")))

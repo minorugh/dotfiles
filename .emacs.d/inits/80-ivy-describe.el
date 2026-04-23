@@ -44,81 +44,80 @@
                 :action (lambda (x) (describe-variable (intern x)))
                 :require-match t)))
 
-  (defun my-make-integrated ()
-  "Makefileターゲット選択。
+  (defun my-make-ivy-integrated ()
+    "Makefileターゲット選択。
 Enter    : その場所へジャンプして終了
 ↑↓      : リアルタイムプレビュー
 C-c C-c  : その場で make 実行 (Ivyは閉じる)"
-  (interactive)
-  (require 'ivy)
-  (let ((candidates nil)
-        (orig-point (point))
-        (map (copy-keymap ivy-minibuffer-map)))
+    (interactive)
+    (require 'ivy)
+    (let ((candidates nil)
+          (orig-point (point))
+          (map (copy-keymap ivy-minibuffer-map)))
 
-    ;; リアルタイムプレビュー用
-    (define-key map (kbd "<down>") 'ivy-next-line-and-call)
-    (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
+      ;; リアルタイムプレビュー用
+      (define-key map (kbd "<down>") 'ivy-next-line-and-call)
+      (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
 
-    ;; 実行用のショートカット (C-c C-c)
-    (define-key map (kbd "C-c C-c")
-                (lambda ()
-                  (interactive)
-                  (let ((current (ivy-state-current ivy-last)))
-                    (ivy-exit-with-action
-                     (lambda (x)
-                       (compile (concat "make " (cdr x))))))))
+      ;; 実行用のショートカット (C-c C-c)
+      (define-key map (kbd "C-c C-c")
+		  (lambda ()
+		    (interactive)
+		    (ivy-exit-with-action
+		     (lambda (x)
+		       (compile (concat "make " (cdr x)))))))
 
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
-        (let* ((target (match-string 1))
-               (desc   (match-string 2))
-               (pos    (match-beginning 1))
-               (target-fmt (propertize (format "%-20s" target) 'face 'font-lock-function-name-face))
-               (desc-fmt (propertize desc 'face 'font-lock-comment-face)))
-          ;; cdr にターゲット名、プロパティに位置を保持
-          (push (cons (concat target-fmt " " desc-fmt)
-                      (propertize target 'pos pos))
-                candidates))))
+      (save-excursion
+	(goto-char (point-min))
+	(while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
+          (let* ((target (match-string 1))
+		 (desc   (match-string 2))
+		 (pos    (match-beginning 1))
+		 (target-fmt (propertize (format "%-20s" target) 'face 'font-lock-function-name-face))
+		 (desc-fmt (propertize desc 'face 'font-lock-comment-face)))
+            ;; cdr にターゲット名、プロパティに位置を保持
+            (push (cons (concat target-fmt " " desc-fmt)
+			(propertize target 'pos pos))
+                  candidates))))
 
-    (if (not candidates)
-        (message "ターゲットが見つかりませんでした。")
-      (ivy-read "Makefile Targets: "
-                (nreverse candidates)
-                :keymap map
-                :action (lambda (x)
-                          (let ((pos (get-text-property 0 'pos (cdr x))))
-                            (goto-char pos)
-                            (recenter)))
-                :unwind (lambda () (unless (eq ivy-exit 'done) (goto-char orig-point) (recenter)))
-                :caller 'my-make-ivy-integrated)))))
+      (if (not candidates)
+          (message "ターゲットが見つかりませんでした。")
+	(ivy-read "Makefile Targets: "
+                  (nreverse candidates)
+                  :keymap map
+                  :action (lambda (x)
+                            (let ((pos (get-text-property 0 'pos (cdr x))))
+                              (goto-char pos)
+                              (recenter)))
+                  :unwind (lambda () (unless (eq ivy-exit 'done) (goto-char orig-point) (recenter)))
+                  :caller 'my-make-ivy-integrated)))))
 
-  ;; (defun my-targets-preview ()
-  ;;   "Makefile内のターゲットを色分けし、↑↓キーの移動でリアルタイムにバッファも動かす。"
-  ;;   (interactive)
-  ;;   (require 'ivy)
-  ;;   (let ((candidates nil)
-  ;;         (orig-point (point))
-  ;;         (map (copy-keymap ivy-minibuffer-map)))
-  ;;     (define-key map (kbd "<down>") 'ivy-next-line-and-call)
-  ;;     (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
-  ;;     (save-excursion
-  ;; 	(goto-char (point-min))
-  ;; 	(while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
-  ;;         (let* ((target (match-string 1))
-  ;; 		 (desc   (match-string 2))
-  ;; 		 (pos    (match-beginning 1))
-  ;; 		 (target-fmt (propertize (format "%-20s" target) 'face 'font-lock-function-name-face))
-  ;; 		 (desc-fmt (propertize desc 'face 'font-lock-comment-face)))
-  ;;           (push (cons (concat target-fmt " " desc-fmt) pos) candidates))))
-  ;;     (if (not candidates)
-  ;;         (message "ターゲットが見つかりませんでした。")
-  ;; 	(ivy-read "Targets: "
-  ;;                 (nreverse candidates)
-  ;;                 :keymap map
-  ;;                 :action (lambda (x) (goto-char (cdr x)) (recenter))
-  ;;                 :unwind (lambda () (unless (eq ivy-exit 'done) (goto-char orig-point) (recenter)))
-  ;;                 :caller 'my-makefile-ivy-targets-preview)))))
+;; (defun my-targets-preview ()
+;;   "Makefile内のターゲットを色分けし、↑↓キーの移動でリアルタイムにバッファも動かす。"
+;;   (interactive)
+;;   (require 'ivy)
+;;   (let ((candidates nil)
+;;         (orig-point (point))
+;;         (map (copy-keymap ivy-minibuffer-map)))
+;;     (define-key map (kbd "<down>") 'ivy-next-line-and-call)
+;;     (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
+;;     (save-excursion
+;; 	(goto-char (point-min))
+;; 	(while (re-search-forward "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
+;;         (let* ((target (match-string 1))
+;; 		 (desc   (match-string 2))
+;; 		 (pos    (match-beginning 1))
+;; 		 (target-fmt (propertize (format "%-20s" target) 'face 'font-lock-function-name-face))
+;; 		 (desc-fmt (propertize desc 'face 'font-lock-comment-face)))
+;;           (push (cons (concat target-fmt " " desc-fmt) pos) candidates))))
+;;     (if (not candidates)
+;;         (message "ターゲットが見つかりませんでした。")
+;; 	(ivy-read "Targets: "
+;;                 (nreverse candidates)
+;;                 :keymap map
+;;                 :action (lambda (x) (goto-char (cdr x)) (recenter))
+;;                 :unwind (lambda () (unless (eq ivy-exit 'done) (goto-char orig-point) (recenter)))
+;;                 :caller 'my-makefile-ivy-targets-preview)))))
 
 
 ;; Local Variables:

@@ -3,6 +3,7 @@
 #        make clean   → remove *.elc only
 ELISP_DIR := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
 EMACS     := emacs
+IVY_DIR   := $(shell ls -d $(HOME)/.emacs.d/elpa/ivy-*/ 2>/dev/null | head -1)
 
 .PHONY: all toggle-elc clean
 
@@ -14,6 +15,7 @@ toggle-elc:
 	    echo "Removed *.elc"; \
 	else \
 	    $(EMACS) --batch -Q \
+	      --eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
 	      --eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)"; \
 	    echo "Compiled *.elc"; \
 	fi

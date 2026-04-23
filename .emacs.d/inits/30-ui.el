@@ -63,10 +63,10 @@
   (setq imenu-list-position 'left)
   ;; move next-line
   (defun my-imenu-list-next ()
-    (interactive) (next-line) (imenu-list-display-entry))
+    (interactive) (forward-line 1) (imenu-list-display-entry))
   ;; move prev-line
   (defun my-imenu-list-prev ()
-    (interactive) (previous-line) (imenu-list-display-entry))
+    (interactive) (forward-line -1) (imenu-list-display-entry))
   ;; go to confirm
   (defun my-imenu-list-confirm ()
     (interactive) (imenu-list-goto-entry) (imenu-list-smart-toggle)))
