@@ -8,6 +8,7 @@
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
   :hook (emacs-startup-hook . howm-mode)
+  :chord (",," . my-howm-create-with-category)
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)
@@ -32,14 +33,14 @@
   ;;   (キー 表示名 挿入文字列 フェイス)
   ;; ──────────────────────────────────────────────────────────────
   (defvar my-howm-categories
-    '((?m "memo"  "memo: " my-howm-face-memo)
-      (?i "idea"  "idea: " my-howm-face-idea)
-      (?t "tech"  "tech: " my-howm-face-tech)
-      (?n "note"  "note: " my-howm-face-note)
-      (?d "日記"  "日記: " my-howm-face-diary)
-      (?w "創作"  "創作: " my-howm-face-creative)
-      (?c "教会"  "教会: " my-howm-face-church)
-      (?e "園芸"  "園芸: " my-howm-face-garden))
+    '((?m " memo"  "memo: " my-howm-face-memo)
+      (?i " idea"  "idea: " my-howm-face-idea)
+      (?t " tech"  "tech: " my-howm-face-tech)
+      (?n " note"  "note: " my-howm-face-note)
+      (?d " 日記"  "日記: " my-howm-face-diary)
+      (?w " 創作"  "創作: " my-howm-face-creative)
+      ;; (?c "  教会"  "教会: " my-howm-face-church)
+      (?e " 園芸"  "園芸: " my-howm-face-garden))
     "howmカテゴリ定義。各要素: (キー文字 表示名 挿入文字列 フェイス名)")
 
   ;; ── フェイス定義 ─────────────────────────────────────────────
@@ -79,11 +80,11 @@
     "創作: — pink"
     :group 'howm)
 
-  (defface my-howm-face-church
-    '((((background light)) :foreground "#993C1D" :weight bold)
-      (((background dark))  :foreground "#F0997B" :weight bold))
-    "教会: — coral"
-    :group 'howm)
+  ;; (defface my-howm-face-church
+  ;;   '((((background light)) :foreground "#993C1D" :weight bold)
+  ;;     (((background dark))  :foreground "#F0997B" :weight bold))
+  ;;   "教会: — coral"
+  ;;   :group 'howm)
 
   (defface my-howm-face-garden
     '((((background light)) :foreground "#A32D2D" :weight bold)
@@ -125,30 +126,6 @@
   ;; ── テンプレート ────────────────────────────────────────────
   (setq howm-template "= %cursor\n%date%file")
 
-  ;; ── プロンプト用フェイス ─────────────────────────────────────
-  (defface my-howm-prompt-key
-    '((((background light)) :foreground "#222222" :weight bold)
-      (((background dark))  :foreground "#FFFFFF" :weight bold))
-    "プロンプトのカテゴリ名 — white/black plain"
-    :group 'howm)
-
-  (defun my-howm--propertize-key (key-char face-sym label)
-    "[KEY] LABEL をfaceつき文字列で返す。"
-    (concat
-     (propertize (format "[%c]" key-char) 'face face-sym)
-     (propertize (format " %s" label)     'face 'my-howm-prompt-key)))
-
-  ;; ── hydra風カテゴリ選択（新規作成）──────────────────────────
-  (defun my-howm--category-prompt (prefix)
-    "PREFIX付きカテゴリ一覧を色付き1行プロンプトとして返す。"
-    (concat
-     (propertize prefix 'face 'my-howm-prompt-key)
-     (mapconcat (lambda (cat)
-		  (my-howm--propertize-key (nth 0 cat) (nth 3 cat) (nth 1 cat)))
-		my-howm-categories
-		"  ")
-     (propertize "  [q] quit : " 'face 'my-howm-prompt-key)))
-
   (defun my-howm--insert-category (category-str)
     "新規howmファイルを作成し CATEGORY-STR をタイトル行に挿入する。"
     (howm-create 0 nil)
@@ -158,18 +135,28 @@
     (insert category-str)
     (evil-insert-state))
 
+  ;; ── ivy縦表示カテゴリ選択（新規作成）────────────────────────
   (defun my-howm-create-with-category ()
-    "hydra風プロンプトでカテゴリを1キー選択してhowmメモを新規作成する。
-q で中断してリスト画面に戻る。"
+    "ivyでカテゴリを縦表示選択してhowmメモを新規作成する。
+カテゴリ名の頭文字でも絞り込み・選択できる。"
     (interactive)
-    (let* ((prompt (my-howm--category-prompt "New "))
-	   (keys   (cons ?q (mapcar #'car my-howm-categories)))
-	   (key    (read-char-choice prompt keys)))
-      (if (eq key ?q)
-	  (howm-list-all)
-	(when-let* ((cat (assq key my-howm-categories))
-		    (str (nth 2 cat)))
-	  (my-howm--insert-category str)))))
+    (ivy-read "New memo: "
+	      (mapcar (lambda (cat)
+			;; "memo  [m]" 形式で表示、カテゴリ色+キーをカテゴリ色で
+			(concat
+			 (propertize (nth 1 cat) 'face (nth 3 cat))
+			 (propertize (format "  [%c]" (nth 0 cat))
+				     'face (nth 3 cat))))
+		      my-howm-categories)
+	      :require-match t
+	      :action (lambda (selected)
+		        (let* ((raw  (substring-no-properties selected))
+			       ;; "📝 memo  [m]" → 表示名全体でマッチ
+			       (cat  (cl-find raw my-howm-categories
+					      :test (lambda (s c)
+						      (string-prefix-p (cadr c) s))))
+			       (str  (nth 2 cat)))
+			  (my-howm--insert-category str)))))
 
   ;; ── カテゴリ検索（ivy一覧から選択してgrep）──────────────────
   (defun my-howm-search-by-category ()
@@ -182,9 +169,10 @@ q で中断してリスト画面に戻る。"
 	      :require-match t
 	      :action (lambda (selected)
 		        ;; face propertiesを除いた純粋な表示名を取得
-		        (let* ((name (substring-no-properties selected))
-			       (cat  (cl-find name my-howm-categories
-					      :key #'cadr :test #'string=))
+		        (let* ((raw  (substring-no-properties selected))
+			       (cat  (cl-find raw my-howm-categories
+					      :test (lambda (s c)
+						      (string-prefix-p (cadr c) s))))
 			       (str  (nth 2 cat)))
 			  (howm-search (concat "= " str) nil)))))
 
@@ -203,7 +191,7 @@ q で中断してリスト画面に戻る。"
 	   (line  (line-number-at-pos)))
       (if (not file)
 	  (message "対象ファイルが見つかりません")
-	(when (yes-or-no-p (format "「%s」to the Trash? " fname))
+	(when (yes-or-no-p (format "「%s」をゴミ箱へ移動しますか？ " fname))
 	  (make-directory (expand-file-name my-howm-trash-dir) t)
 	  (let* ((src   (expand-file-name file))
 		 (base  (file-name-sans-extension fname))
@@ -223,7 +211,26 @@ q で中断してリスト画面に戻る。"
   (define-key howm-view-summary-mode-map (kbd "d") #'my-howm-move-to-trash)
   (define-key howm-view-summary-mode-map (kbd "/") #'my-howm-search-by-category)
   (define-key howm-mode-map (kbd "C-c ,") #'my-howm-create-with-category)
-  (define-key howm-mode-map (kbd "C-c /") #'my-howm-search-by-category))
+  (define-key howm-mode-map (kbd "C-c /") #'my-howm-search-by-category)
+
+  :preface
+  ;; NOTE: This hook must be placed OUTSIDE the (leaf howm ...) block.
+  ;; Inside :config, add-hook is byte-compiled before howm loads,
+  ;; so font-lock-add-keywords has no effect on howm-mode buffers.
+  (add-hook 'howm-mode-hook
+            (lambda ()
+              (font-lock-add-keywords
+               nil
+               '(("^\\(= \\)\\(.*\\)$"
+                  (1 'shadow t)          ;; "= " 部分 → 目立たないグレー
+                  (2 (let* ((line (buffer-substring (line-beginning-position) (line-end-position)))
+                            (cat  (cl-find-if (lambda (c) (string-match (regexp-quote (nth 2 c)) line))
+                                              my-howm-categories))
+                            (face (when cat (nth 3 cat))))
+                       (or face 'default))
+                     t)))               ;; カテゴリ以降 → カテゴリ色
+               t)
+              (font-lock-flush))))
 
 
 (leaf migemo
