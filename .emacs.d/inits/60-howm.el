@@ -179,7 +179,7 @@
   ;; ── ゴミ箱へ移動 ────────────────────────────────────────────
 (defvar my-howm-trash-dir
   (locate-user-emacs-file "tmp/trash")
-  "howmメモの移動先ゴミ箱ディレクトリ。")
+  "The destination trash directory for the howm memo.")
 
   (defun my-howm-move-to-trash ()
     "サマリーバッファのカーソル行メモをゴミ箱へ移動する。
@@ -191,7 +191,7 @@
 	   (line  (line-number-at-pos)))
       (if (not file)
 	  (message "対象ファイルが見つかりません")
-	(when (yes-or-no-p (format "「%s」をゴミ箱へ移動しますか？ " fname))
+	(when (yes-or-no-p (format "「%s」to the trash? " fname))
 	  (make-directory (expand-file-name my-howm-trash-dir) t)
 	  (let* ((src   (expand-file-name file))
 		 (base  (file-name-sans-extension fname))
@@ -231,19 +231,6 @@
                      t)))               ;; カテゴリ以降 → カテゴリ色
                t)
               (font-lock-flush))))
-
-
-(leaf migemo
-  :ensure t
-  :doc "Japanese incremental search through dynamic pattern expansion."
-  :hook (after-init-hook . migemo-init)
-  :config
-  (setq migemo-command "/usr/bin/cmigemo")
-  (setq migemo-options '("-q" "--emacs"))
-  (setq migemo-dictionary "/usr/share/cmigemo/utf-8/migemo-dict")
-  (setq migemo-user-dictionary nil)
-  (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system 'utf-8-unix))
 
 
 ;; Local Variables:
