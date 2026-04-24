@@ -15,7 +15,7 @@
 HOSTNAME := $(shell hostname)
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
 PACKAGES += zsh-syntax-highlighting silversearcher-ag fd-find ripgrep expect arc-theme
-PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv
@@ -147,6 +147,8 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/gitea-backup.sh
 	sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
+	sudo ln -vsfn ${PWD}/cron/emacs-trash-archiver.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/emacs-trash-archiver.sh
 
 cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成 + crontab バックアップ＆反映
 	@if [ "$$(hostname)" = "P1" ]; then \

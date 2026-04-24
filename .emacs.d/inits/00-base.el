@@ -38,6 +38,12 @@
 ;; Deleted files go to the trash
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
+;; If the folder does not exist when the deletion is executed,
+;; it will be automatically created.
+(advice-add 'move-file-to-trash :before
+            (lambda (&rest _)
+              (unless (file-exists-p trash-directory)
+                (make-directory trash-directory t))))
 
 ;; Limit the final word to a line break code (automatically correct)
 (setq require-final-newline t)

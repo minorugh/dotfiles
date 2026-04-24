@@ -10,7 +10,7 @@
 	 ("<right>"  . my-dired-open)
 	 ("RET" . my-dired-open)
 	 ("w"   . wdired-change-to-wdired-mode)
-	 ("s"   . my-sudo-reopen)
+	 ("s"   . my-dired-sudo-rm)
 	 ("o"   . dired-open-file)
 	 ("["   . dired-hide-details-mode)
 	 ("a"   . dired-omit-mode)
@@ -53,12 +53,14 @@
     (let* ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
 
-  (defun my-sudo-reopen ()
-    "Reopen current file with sudo privileges via TRAMP."
+  (defun my-dired-sudo-rm ()
+    "Delete files marked with Dired with sudo."
     (interactive)
-    (let ((pos (point)))
-      (find-alternate-file (concat "/sudo:localhost:" (buffer-file-name)))
-      (goto-char pos)))
+    (let ((files (dired-get-marked-files)))
+      (when (y-or-n-p "Delete marked files with sudo?")
+	(dolist (file files)
+          (call-process "sudo" nil nil nil "rm" "-rf" file))
+	(revert-buffer))))
 
   (defun my-open-tig ()
     "Run tig for current context in gnome-terminal."

@@ -1,5 +1,4 @@
-;;; 06
--flymake.el --- Syntax checking configurations.      -*- lexical-binding: t -*-
+;;; 06-flymake.el --- Syntax checking configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
