@@ -57,8 +57,8 @@
 	     consult-mark consult-yank-pop)
   :bind (("C-:"     . consult-buffer)
          ("C-x C-f" . find-file)
-         ("C-x b"   . consult-project-buffer)  ;; プロジェクト内バッファ切替
-         ("s-a"     . consult-git-grep)        ;; プロジェクト内全文検索
+         ("C-x g"   . consult-grep)
+         ("s-a"     . consult-git-grep)
          ("M-y"     . consult-yank-pop)
          ("C-,"     . consult-mark)
          ("C-s"     . consult-line-region)
@@ -72,17 +72,18 @@
 
   ;; swiper-region 相当
   (defun consult-line-region ()
-    "Call `consult-line' with the selected region as initial input, or plain consult-line."
+    "Call `consult-line' with the selected region as initial input,
+or plain consult-line."
     (interactive)
     (consult-line
      (when (use-region-p)
        (buffer-substring-no-properties (region-beginning) (region-end))))))
 
 
-(defvar my-describe-history nil "my-describe-commandの履歴を保存する変数")
+(defvar my-describe-history nil "Variable to store history of `describe-command'.")
 
 (defun my-describe-command ()
-  "Ivyの学習機能を有効にした決定版。"
+  "A definitive version of Ivy with learning features enabled."
   (interactive)
   (let ((cands nil))
     (mapatoms
@@ -100,7 +101,7 @@
               :caller 'my-describe-command)))
 
 (defun my-describe-variable ()
-  "ivy版のdescribe-variable。変数の絞り込みもこれで完結。"
+  "Describe-variable complete with variable refinement."
   (interactive)
   (let ((cands nil))
     (mapatoms

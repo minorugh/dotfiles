@@ -13,7 +13,7 @@
   _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint._:__;_
   _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lych  _<home>_  h_@_wm_,_._v_._n_ote  key_p_ass  _g_ithub.i_o_^^  capture_,_
 "
-   ("a" consult-ripgrep)
+   ("a" consult-git-grep)
    ("f" flymake-show-buffer-diagnostics)
    ("-" fzilla-s)
    ("9" fzilla-GH)
