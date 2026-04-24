@@ -57,7 +57,7 @@
 	     consult-mark consult-yank-pop)
   :bind (("C-:"     . consult-buffer)
          ("C-x C-f" . find-file)
-         ("C-x C-b" . consult-project-buffer)  ;; プロジェクト内バッファ切替
+         ("C-x b"   . consult-project-buffer)  ;; プロジェクト内バッファ切替
          ("s-a"     . consult-git-grep)        ;; プロジェクト内全文検索
          ("M-y"     . consult-yank-pop)
          ("C-,"     . consult-mark)
