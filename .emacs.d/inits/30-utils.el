@@ -17,15 +17,9 @@
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
   :chord (("l;" . init-loader-show-log)
+	  ("gg" . beginning-of-buffer)
+	  ("GG" . end-of-buffer)
           ("::" . toggle-scratch-buffer)))  ;; see 80-funcs.el
-
-
-(leaf sequential-command
-  :doc "Move to first and last line of buffer."
-  :vc (:url "https://github.com/minorugh/sequential-command")
-  :config
-  (leaf sequential-command-config
-    :hook (after-init-hook . sequential-command-setup-keys)))
 
 
 (leaf ps-print

@@ -8,7 +8,6 @@
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)
-	 ("C-<tab>"        . company-yasnippet)
 	 (:company-active-map
 	  ("<tab>"         . company-complete-common-or-cycle)
 	  ("<backtab>"     . company-select-previous)

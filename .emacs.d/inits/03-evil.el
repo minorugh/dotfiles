@@ -9,8 +9,7 @@
 	 (evil-normal-state-entry-hook . deactivate-input-method))
   :bind ((:evil-normal-state-map
           ("M-."      . nil) ;; This bind is for use other
-          ("C-a"      . seq-home)
-          ("C-e"      . seq-end)
+          ("C-e"      . move-end-of-line)
           ("C-w"      . evil-delete-backward-word)
           ("SPC"      . set-mark-command)
           ("_"        . evil-visual-line)

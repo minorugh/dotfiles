@@ -119,7 +119,7 @@
          ("C-x /"   . delete-this-file)
          ("s-c"     . clipboard-kill-ring-save)
          ("s-v"     . clipboard-yank)
-         ("C-q"     . other-window-or-split)
+         ("C-<tab>"     . other-window-or-split)
 	 ("S-<return>"   . (lambda () (interactive) (end-of-line) (newline)))
          ([muhenkan] . my-keyboard-quit))
   :init
@@ -185,3 +185,4 @@ If it's the last frame, minimize it without deleting it."
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
 ;;; 00-base.el ends here
+
