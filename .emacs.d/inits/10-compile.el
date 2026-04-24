@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Compilation
+;;; Compilation
 (defun compile-autoclose (buffer string)
   "Auto-close compile window if BUFFER finished successfully.
 STRING is the exit status message from the compilation process."
@@ -26,7 +26,7 @@ STRING is the exit status message from the compilation process."
     (message "Compilation exited abnormally: %s" string)))
 (setq compilation-finish-functions #'compile-autoclose)
 
-;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
+;;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
 (defun my-dim-compilation-marker ()
   "Make bare ##> lines invisible in compilation buffer."
   (save-excursion
@@ -40,7 +40,7 @@ STRING is the exit status message from the compilation process."
 (setq compilation-scroll-output t)
 (setq compilation-always-kill   t)
 
-;; Other tool
+;;; Other tool
 (leaf quickrun :ensure t
   :bind (([f5] . quickrun))
   :config

@@ -55,13 +55,18 @@
   :doc "Consulting completing-read (replaces counsel)."
   :commands (consult-buffer consult-line consult-git-grep
 	     consult-mark consult-yank-pop)
-  :bind (("C-:"     . consult-buffer)
-         ("C-x C-f" . find-file)
-         ("C-x g"   . consult-grep)
-         ("s-a"     . consult-git-grep)
+  :bind (("C-x C-f" . find-file)
+	 ("C-x b"   . consult-project-buffer)
+         ("C-x f"   . project-find-file)
+	 ("C-x m"   . consult-mark)
+	 ("M-g f"   . consult-flymake)
+	 ("M-g g"   . consult-goto-line)
+	 ("M-g o"   . consult-outline)
+	 ("M-g i"   . consult-imenu)
          ("M-y"     . consult-yank-pop)
-         ("C-,"     . consult-mark)
+         ("C-:"     . consult-buffer)
          ("C-s"     . consult-line-region)
+         ("s-a"     . consult-git-grep)
          ("s-s"     . consult-line-thing-at-point))
   :config
   ;; swiper-thing-at-point 相当

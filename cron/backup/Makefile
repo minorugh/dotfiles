@@ -27,7 +27,7 @@ melpa: ## MELPAパッケージを ~/Dropbox/backup/elpa へ バックアップ
 	git push
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
-git-push: ## dropbox/GH dropbox/minorugh.com を auto commit 
+git-push: ## dropbox/GH dropbox/minorugh.com を auto commit
 	$(MAKE) -C ${HOME}/Dropbox/GH git
 	$(MAKE) -C ${HOME}/Dropbox/minorugh.com git
 

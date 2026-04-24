@@ -33,7 +33,6 @@ Supports `dired', buffer file, or `default-directory'."
 
 
 ;;; Ivy: target selection (both makefile-mode / dired)
-;;; ----------------------------------------------------------------
 (defun my-make-ivy-integrated ()
   "Select and run Makefile targets via `ivy'.
 Works in `makefile-mode' and `dired'."
