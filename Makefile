@@ -14,7 +14,7 @@
 
 HOSTNAME := $(shell hostname)
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
-PACKAGES += zsh-syntax-highlighting silversearcher-ag fd-find ripgrep expect arc-theme
+PACKAGES += zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
@@ -58,8 +58,6 @@ init: ## dotfiles のシンボリックリンク展開
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf {${PWD},${HOME}}/.config/hub
-	mkdir -p ${HOME}/.local/bin
-	ln -vsf /usr/bin/fdfind ${HOME}/.local/bin/fd
 
 init-sub: ## サブ機のgit push封鎖（x250のみ実行）
 ifeq ($(HOSTNAME),x250)

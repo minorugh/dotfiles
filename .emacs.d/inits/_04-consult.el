@@ -7,6 +7,13 @@
 ;; Note: ivy package itself is retained for git-peek.el and my-makefile.el,
 ;; which call ivy-read directly.  ivy-mode is intentionally NOT enabled.
 ;;
+;; External dependencies:
+;;   fd  (Debian: apt install fd-find)
+;;   rg  (Debian: apt install ripgrep)
+;;
+;; After installing fd-find, create a symlink so `fd' is available:
+;;   ln -vsf /usr/bin/fdfind ~/.local/bin/fd
+;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -23,8 +30,16 @@
   (setq enable-recursive-minibuffers t)
   (custom-set-faces
    `(vertico-current ((t (:background ,(doom-color 'base4)
-			      :foreground ,(doom-color 'fg)
-			      :weight bold))))))
+				      :foreground ,(doom-color 'fg)
+				      :weight bold))))))
+;; 1. 履歴を保存するモードを有効化
+;; (savehist-mode 1)
+
+;; ;; 2. 保存する変数を明示的に指定（M-xの履歴は extended-command-history）
+;; (setq savehist-additional-variables '(extended-command-history))
+
+;; ;; 3. Vertico側で履歴順のソートを有効にする（通常はデフォルトで有効）
+;; (setq vertico-sort-function #'vertico-sort-history)
 
 ;;; ============================================================
 ;;; 2. orderless — スペース区切りで複数パターンを AND 検索
@@ -36,6 +51,7 @@
   (setq completion-styles '(orderless basic))
   (setq completion-category-overrides
         '((file (styles basic partial-completion))))
+  ;; Initialize orderless used to display annotations in M-x, etc.
   (setq orderless-matching-styles
         '(orderless-literal orderless-regexp)))
 
@@ -53,15 +69,15 @@
 (leaf consult
   :ensure t
   :doc "Consulting completing-read (replaces counsel)."
-  :commands (consult-buffer consult-line consult-git-grep
-	     consult-mark consult-yank-pop)
+  :commands (consult-buffer consult-line
+			    consult-ripgrep consult-fd consult-mark consult-yank-pop)
   :bind (("C-:"     . consult-buffer)
          ("C-x C-f" . find-file)
-         ("C-x C-b" . consult-project-buffer)  ;; プロジェクト内バッファ切替
-         ("s-a"     . consult-git-grep)        ;; プロジェクト内全文検索
+         ("C-x g"   . consult-fd)
+         ("s-a"     . consult-ripgrep)
          ("M-y"     . consult-yank-pop)
          ("C-,"     . consult-mark)
-         ("C-s"     . consult-line-region)
+         ("C-s"     . consult-line)
          ("s-s"     . consult-line-thing-at-point))
   :config
   ;; swiper-thing-at-point 相当
@@ -72,7 +88,7 @@
 
   ;; swiper-region 相当
   (defun consult-line-region ()
-    "Call `consult-line' with the selected region as initial input, or plain consult-line."
+    "Call `consult-line' with the selected region as initial input."
     (interactive)
     (consult-line
      (when (use-region-p)
@@ -92,7 +108,7 @@
                 (key (where-is-internal s nil t))
                 (key-desc (if key (key-description key) "")))
            (push (format "%-40s %s" name key-desc) cands)))))
-    (ivy-read "Command: " cands
+    (ivy-read "Command: " cands  ; sortを外してIvyのアルゴリズムに任せる
               :action (lambda (x)
                         (describe-function (intern (car (split-string x)))))
               :require-match t
@@ -110,6 +126,35 @@
     (ivy-read "Variable: " (sort cands #'string<)
               :action (lambda (x) (describe-variable (intern x)))
               :require-match t)))
+
+
+;; (global-set-key (kbd "C-h f") #'my/ivy-describe-command)
+
+;; (defun my-consult-keybindings ()
+;;   "Browse active keybindings with vertico completion."
+;;   (interactive)
+;;   (let ((bindings '())
+;;         (seen '()))
+;;     (cl-labels
+;;         ((collect (keymap prefix)
+;;            (unless (memq keymap seen)
+;;              (push keymap seen)
+;;              (map-keymap
+;;               (lambda (key cmd)
+;;                 (let ((key-str (concat prefix (key-description (vector key)))))
+;;                   (cond
+;;                    ((keymapp cmd)
+;;                     (unless (eq cmd (current-global-map))
+;;                       (collect cmd (concat key-str " "))))
+;;                    ((and cmd (symbolp cmd))
+;;                     (unless (string-match-p "kp-\\|mouse-\\|wheel-\\|drag-\\|down-\\|remap" key-str)
+;;                       (push (format "%-20s  %s" key-str (symbol-name cmd))
+;;                             bindings))))))
+;;               keymap))))
+;;       (collect (current-global-map) "")
+;;       (when (current-local-map)
+;;         (collect (current-local-map) "")))
+;;     (completing-read "Keybindings: " (delete-dups (nreverse bindings)))))
 
 
 ;; Local Variables:
