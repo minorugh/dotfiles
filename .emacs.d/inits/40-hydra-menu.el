@@ -34,7 +34,7 @@
    (":" (my-open "~/Dropbox/GH/marquee.dat" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
-   ("J" (my-open "~/Dropbox/junk/"))
+   ("J" (my-open "~/Dropbox/howm/junk/"))
    ("j" my-junk-new)
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
@@ -59,7 +59,7 @@
   (defun my-junk-new ()
     "タイムスタンプ付きPerlスクラッチファイルを開く。"
     (interactive)
-    (let* ((file    (format-time-string "~/Dropbox/junk/%Y%m%d%H%M.pl"))
+    (let* ((file    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
            (is-new  (not (file-exists-p file))))
       (find-file file)
       (when is-new

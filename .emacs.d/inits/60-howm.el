@@ -203,7 +203,7 @@ q で中断してリスト画面に戻る。"
 	   (line  (line-number-at-pos)))
       (if (not file)
 	  (message "対象ファイルが見つかりません")
-	(when (yes-or-no-p (format "「%s」をゴミ箱へ移動しますか？ " fname))
+	(when (yes-or-no-p (format "「%s」to the Trash? " fname))
 	  (make-directory (expand-file-name my-howm-trash-dir) t)
 	  (let* ((src   (expand-file-name file))
 		 (base  (file-name-sans-extension fname))
