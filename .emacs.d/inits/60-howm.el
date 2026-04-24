@@ -177,9 +177,9 @@
 			  (howm-search (concat "= " str) nil)))))
 
   ;; ── ゴミ箱へ移動 ────────────────────────────────────────────
-(defvar my-howm-trash-dir
-  (locate-user-emacs-file "tmp/trash")
-  "The destination trash directory for the howm memo.")
+  (defvar my-howm-trash-dir
+    (locate-user-emacs-file "tmp/trash")
+    "The destination trash directory for the howm memo.")
 
   (defun my-howm-move-to-trash ()
     "サマリーバッファのカーソル行メモをゴミ箱へ移動する。
