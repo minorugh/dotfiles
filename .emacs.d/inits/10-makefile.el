@@ -1,4 +1,4 @@
-;;; 09-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
+;;; 10-makefile.el --- Makefile support: targets, imenu, ivy, compile  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; personal settings that summarize Makefile operations.
@@ -126,4 +126,4 @@ Works in `makefile-mode' and `dired'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-makefile.el ends here
+;;; 10-makefile.el ends here

@@ -34,13 +34,13 @@
   ;; ──────────────────────────────────────────────────────────────
   (defvar my-howm-categories
     '((?m " memo"  "memo: " my-howm-face-memo)
-      (?i " idea"  "idea: " my-howm-face-idea)
-      (?t " tech"  "tech: " my-howm-face-tech)
+      (?i " idea"  "idea: " my-howm-face-idea)
+      (?t "  tech"  "tech: " my-howm-face-tech)
       (?n " note"  "note: " my-howm-face-note)
       (?d " 日記"  "日記: " my-howm-face-diary)
       (?w " 創作"  "創作: " my-howm-face-creative)
-      ;; (?c "  教会"  "教会: " my-howm-face-church)
-      (?e " 園芸"  "園芸: " my-howm-face-garden))
+      (?c " code"  "code: " my-howm-face-church)
+      (?g " 園芸"  "園芸: " my-howm-face-garden))
     "howmカテゴリ定義。各要素: (キー文字 表示名 挿入文字列 フェイス名)")
 
   ;; ── フェイス定義 ─────────────────────────────────────────────
@@ -80,11 +80,11 @@
     "創作: — pink"
     :group 'howm)
 
-  ;; (defface my-howm-face-church
-  ;;   '((((background light)) :foreground "#993C1D" :weight bold)
-  ;;     (((background dark))  :foreground "#F0997B" :weight bold))
-  ;;   "教会: — coral"
-  ;;   :group 'howm)
+  (defface my-howm-face-church
+    '((((background light)) :foreground "#993C1D" :weight bold)
+      (((background dark))  :foreground "#F0997B" :weight bold))
+    "code: — code"
+    :group 'howm)
 
   (defface my-howm-face-garden
     '((((background light)) :foreground "#A32D2D" :weight bold)
