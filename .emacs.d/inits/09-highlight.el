@@ -28,7 +28,7 @@
   :config
   (setq whitespace-style '(face trailing)) ;; 行末スペースを赤くハイライト
   (defun my-cleanup-for-spaces-safe ()
-    "Perform safe whitespace processing on buffer contents.
+    "Perform safe whitespace processing on buffer contents,d.
 This is intended for use in the before-save-hook (before-save-hook),
 indentation (auto-formatting) is not performed."
     (interactive)

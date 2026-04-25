@@ -135,29 +135,28 @@
     (insert category-str)
     (evil-insert-state))
 
-  ;; ── カテゴリ選択（縦リスト表示＋1キー確定）────────────────
+  ;; ── ivy縦表示カテゴリ選択（新規作成）────────────────────────
   (defun my-howm-create-with-category ()
-    "カテゴリを縦リストで表示し1キーで選択してhowmメモを新規作成する。"
+    "ivyでカテゴリを縦表示選択してhowmメモを新規作成する。
+カテゴリ名の頭文字でも絞り込み・選択できる。"
     (interactive)
-    (let* ((keys (mapcar #'car my-howm-categories))
-	   (prompt
-	    (concat
-	     "New memo:
-"
-	     (mapconcat
-	      (lambda (cat)
-		(concat "  "
-			(propertize (format "[%c]" (nth 0 cat)) 'face (nth 3 cat))
-			" "
-			(propertize (nth 1 cat) 'face (nth 3 cat))))
-	      my-howm-categories "
-")
-	     "
-> "))
-	   (key (read-char-choice prompt keys)))
-      (when-let* ((cat (assq key my-howm-categories))
-		  (str (nth 2 cat)))
-	(my-howm--insert-category str))))
+    (ivy-read "New memo: "
+	      (mapcar (lambda (cat)
+			;; "memo  [m]" 形式で表示、カテゴリ色+キーをカテゴリ色で
+			(concat
+			 (propertize (nth 1 cat) 'face (nth 3 cat))
+			 (propertize (format "  [%c]" (nth 0 cat))
+				     'face (nth 3 cat))))
+		      my-howm-categories)
+	      :require-match t
+	      :action (lambda (selected)
+		        (let* ((raw  (substring-no-properties selected))
+			       ;; "📝 memo  [m]" → 表示名全体でマッチ
+			       (cat  (cl-find raw my-howm-categories
+					      :test (lambda (s c)
+						      (string-prefix-p (cadr c) s))))
+			       (str  (nth 2 cat)))
+			  (my-howm--insert-category str)))))
 
   ;; ── カテゴリ検索（ivy一覧から選択してgrep）──────────────────
   (defun my-howm-search-by-category ()

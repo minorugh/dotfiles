@@ -40,6 +40,9 @@ automerge: ## automerge.sh を今すぐ手動実行
 autobackup: ## autobackup.sh を今すぐ手動実行
 	/usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 
+emacs-trash: ## emacs-trash-sweep.sh を今すぐ手動実行
+	/usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
+
 xsrv-log: ## xsrv-backup ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup.log")(goto-char (point-max)) (delete-other-windows))'
 

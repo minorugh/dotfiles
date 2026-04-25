@@ -23,21 +23,34 @@
   (setq enable-recursive-minibuffers t)
   (custom-set-faces
    `(vertico-current ((t (:background ,(doom-color 'base4)
-			      :foreground ,(doom-color 'fg)
-			      :weight bold))))))
+				      :foreground ,(doom-color 'fg)
+				      :weight bold))))))
 
 ;;; ============================================================
 ;;; 2. orderless — スペース区切りで複数パターンを AND 検索
 ;;; ============================================================
 (leaf orderless
   :ensure t
-  :doc "Completion style for space-separated patterns."
+  :after migemo
   :config
+  ;; Orderless用のMigemo変換関数
+  (defun orderless-migemo (component)
+    (when (featurep 'migemo)
+      (migemo-get-pattern component)))
+  ;; 入力が 2文字以上のローマ字なら Migemo とみなす設定
+  (defun my-orderless-dispatch (pattern _index _total)
+    (cond
+     ;; 入力が "," で終わる場合は Migemo (例: "nihongo,")
+     ((string-suffix-p "," pattern)
+      `(orderless-migemo . ,(substring pattern 0 -1)))
+     ;; 2文字以上のアルファベットなら Migemo を試す
+     ((string-match-p "^[[:ascii:]]\\{2,\\}$" pattern)
+      'orderless-migemo)))
+
   (setq completion-styles '(orderless basic))
-  (setq completion-category-overrides
-        '((file (styles basic partial-completion))))
-  (setq orderless-matching-styles
-        '(orderless-literal orderless-regexp)))
+  (setq orderless-matching-styles '(orderless-literal orderless-regexp))
+  ;; ディスパッチャを登録
+  (setq orderless-style-dispatchers '(my-orderless-dispatch)))
 
 ;;; ============================================================
 ;;; 3. marginalia — 候補の横にアノテーション表示 (ivy-rich の代替)
@@ -54,7 +67,7 @@
   :ensure t
   :doc "Consulting completing-read (replaces counsel)."
   :commands (consult-buffer consult-line consult-git-grep
-	     consult-mark consult-yank-pop)
+			    consult-mark consult-yank-pop)
   :bind (("C-x C-f" . find-file)
 	 ("C-x b"   . consult-project-buffer)
          ("C-x f"   . project-find-file)
@@ -66,9 +79,18 @@
          ("M-y"     . consult-yank-pop)
          ("C-:"     . consult-buffer)
          ("C-s"     . consult-line-region)
-         ("s-a"     . consult-git-grep)
+         ("s-a"     . my-consult-grep-dwim)
+	 ("s-g"     . my-consult-grep)
          ("s-s"     . consult-line-thing-at-point))
   :config
+  ;; consult-grep に migemo を適用
+  (setq consult-async-split-style 'semicolon)
+  (with-eval-after-load 'migemo
+    (defun consult--migemo-regexp-compiler (input type ignore-case)
+      (let ((pattern (migemo-get-pattern input)))
+	(consult--default-regexp-compiler pattern type ignore-case)))
+    (setq consult--regexp-compiler #'consult--migemo-regexp-compiler))
+
   ;; swiper-thing-at-point 相当
   (defun consult-line-thing-at-point ()
     "Call `consult-line' with the symbol at point as initial input."
@@ -82,40 +104,31 @@ or plain consult-line."
     (interactive)
     (consult-line
      (when (use-region-p)
-       (buffer-substring-no-properties (region-beginning) (region-end))))))
+       (buffer-substring-no-properties (region-beginning) (region-end)))))
+  :preface
+  ;; Run grep from project root if in git, otherwise from default-directory
+  (defun my-consult-grep ()
+    "Run `consult-grep' from project root if in git, otherwise `default-directory'."
+    (interactive)
+    (let ((default-directory
+           (or (locate-dominating-file default-directory ".git")
+               default-directory)))
+      (consult-grep)))
 
-
-(defvar my-describe-history nil "Variable to store history of `describe-command'.")
-
-(defun my-describe-command ()
-  "A definitive version of Ivy with learning features enabled."
-  (interactive)
-  (let ((cands nil))
-    (mapatoms
-     (lambda (s)
-       (when (commandp s)
-         (let* ((name (symbol-name s))
-                (key (where-is-internal s nil t))
-                (key-desc (if key (key-description key) "")))
-           (push (format "%-40s %s" name key-desc) cands)))))
-    (ivy-read "Command: " cands
-              :action (lambda (x)
-                        (describe-function (intern (car (split-string x)))))
-              :require-match t
-              :history 'my-describe-history
-              :caller 'my-describe-command)))
-
-(defun my-describe-variable ()
-  "Describe-variable complete with variable refinement."
-  (interactive)
-  (let ((cands nil))
-    (mapatoms
-     (lambda (s)
-       (when (boundp s)
-         (push (symbol-name s) cands))))
-    (ivy-read "Variable: " (sort cands #'string<)
-              :action (lambda (x) (describe-variable (intern x)))
-              :require-match t)))
+  ;; git管理下なら consult-git-grep、そうでなければ consult-grep を自動判別して実行.
+  ;; ~/Dropbox/GH と ~/Dropbox/minorugh.com は .git が外部にあるため専用関数で処理する.
+  (defun my-consult-grep-dwim ()
+    "Auto-dispatch grep command based on current directory context."
+    (interactive)
+    (cond
+     ((string-prefix-p "/home/minoru/Dropbox/GH" default-directory)
+      (my-consult-git-grep-GH))
+     ((string-prefix-p "/home/minoru/Dropbox/minorugh.com" default-directory)
+      (my-consult-git-grep-minorugh))
+     ((locate-dominating-file default-directory ".git")
+      (consult-git-grep))
+     (t
+      (consult-grep)))))
 
 
 ;; Local Variables:

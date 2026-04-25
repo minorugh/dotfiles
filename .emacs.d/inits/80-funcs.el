@@ -64,27 +64,6 @@
       (switch-to-buffer (other-buffer))
     (switch-to-buffer "*scratch*")))
 
-(leaf calendar
-  :defvar calendar-holidays japanese-holidays
-  :bind (("<f7>" . calendar)
-	 (:calendar-mode-map
-	  ("<f7>" . calendar-exit)))
-  :config
-  (with-eval-after-load 'japanese-holidays
-    (setq calendar-holidays (append japanese-holidays holiday-local-holidays))))
-
-(leaf japanese-holidays
-  :ensure t
-  :after calendar
-  :require t
-  :hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
-	 (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
-	 (calendar-today-visible-hook   . calendar-mark-today))
-  :config
-  (setq calendar-holidays
-	(append japanese-holidays holiday-local-holidays holiday-other-holidays))
-  (setq calendar-mark-holidays-flag t))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

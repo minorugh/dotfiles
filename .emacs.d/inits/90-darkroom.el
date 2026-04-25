@@ -1,35 +1,99 @@
-;;; 90-darkroom.el --- Darkroom configurations.	-*- lexical-binding: t -*-
+;;; 90-darkroom.el --- Distraction-free writing mode. -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; A lightweight distraction-free writing mode without the darkroom package.
+;; Toggle with [f8] to enter, [f8] again to leave.
+;;
+;; Customizable variables:
+;;   my-darkroom-margin       -- side margin ratio (default 0.15)
+;;   my-darkroom-text-scale   -- text zoom level  (default 2)
+;;   my-darkroom-line-spacing -- line height       (default 0.2)
+;;
 ;;; Code:
-;; (setq debug-on-error t)
 
-(leaf darkroom
-  :ensure t
-  :doc "Remove visual distractions and focus on writing."
-  :bind (([f8] . my-darkroom-in)
-	 (:darkroom-mode-map
-	  ([f8] . my-darkroom-out)))
-  :config
+(leaf my-darkroom
+  :doc "Distraction-free writing mode (darkroom package alternative)."
+  :bind ([f8] . my-darkroom-in)
+  :init
+  (defvar-local my-darkroom--saved nil
+    "Saved state before entering distraction-free mode.")
+
+  (defcustom my-darkroom-margin 0.15
+    "Side margin ratio for distraction-free mode.
+A float between 0.0 and 0.5 representing the fraction of window width.
+Example: 0.15 = 15% margin on each side."
+    :type 'float
+    :group 'convenience)
+
+  (defcustom my-darkroom-text-scale 2
+    "Text scale level for distraction-free mode.
+Passed to `text-scale-increase'. Default 2 = approx 20% larger."
+    :type 'integer
+    :group 'convenience)
+
+  (defcustom my-darkroom-line-spacing 0.2
+    "Line spacing for distraction-free mode.
+Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
+    :type 'float
+    :group 'convenience)
+
+  (defun my-darkroom--margin-cols ()
+    "Calculate margin width in columns from `my-darkroom-margin'."
+    (round (* (window-total-width) my-darkroom-margin)))
+
+  (defun my-darkroom--set-margins ()
+    "Apply margins to the current window."
+    (let ((m (my-darkroom--margin-cols)))
+      (set-window-margins (selected-window) m m)))
+
+  (defun my-darkroom--reset-margins ()
+    "Reset window margins to zero."
+    (set-window-margins (selected-window) 0 0))
+
+  (define-minor-mode my-darkroom-mode
+    "Minor mode for distraction-free writing."
+    :lighter " Dark"
+    :keymap (let ((map (make-sparse-keymap)))
+              (define-key map [f8] #'my-darkroom-out)
+              map)
+    (if my-darkroom-mode
+        (progn
+          (setq my-darkroom--saved
+                (list (cons 'mode-line-format   mode-line-format)
+                      (cons 'header-line-format header-line-format)))
+          (setq-local mode-line-format nil header-line-format nil)
+          (text-scale-increase my-darkroom-text-scale)
+          (my-darkroom--set-margins)
+          (add-hook 'window-configuration-change-hook
+                    #'my-darkroom--set-margins nil t))
+      (dolist (pair my-darkroom--saved)
+        (set (make-local-variable (car pair)) (cdr pair)))
+      (setq my-darkroom--saved nil)
+      (text-scale-mode -1)
+      (my-darkroom--reset-margins)
+      (remove-hook 'window-configuration-change-hook
+                   #'my-darkroom--set-margins t)))
+
   (defun my-darkroom-in ()
-    "Enter to the `darkroom-mode'."
+    "Enter distraction-free writing mode."
     (interactive)
     (display-line-numbers-mode 0)
-    (darkroom-tentative-mode 1)
+    (my-darkroom-mode 1)
     (toggle-frame-fullscreen)
-    (setq-local line-spacing .2)
-    (evil-emacs-state))
+    (setq-local line-spacing my-darkroom-line-spacing)
+    (when (fboundp 'evil-emacs-state) (evil-emacs-state)))
 
   (defun my-darkroom-out ()
-    "Returns from `darkroom-mode' to the previous state."
+    "Leave distraction-free writing mode."
     (interactive)
-    (darkroom-tentative-mode 0)
+    (my-darkroom-mode 0)
     (display-line-numbers-mode 1)
     (toggle-frame-fullscreen)
     (setq-local line-spacing 0)
-    (evil-normal-state)))
+    (when (fboundp 'evil-normal-state) (evil-normal-state))))
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
+;; byte-compile-warnings: (not free-vars unresolved make-local)
 ;; End:
 ;;; 90-darkroom.el ends here
