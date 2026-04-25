@@ -36,7 +36,7 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
-(push '(undecorated . t) default-frame-alist)
+;; (push '(undecorated . t) default-frame-alist)
 
 ;; Start with a maximized frame and hide the splash screen
 (push '(fullscreen . maximized) initial-frame-alist)
