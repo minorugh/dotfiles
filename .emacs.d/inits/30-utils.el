@@ -18,8 +18,7 @@
   :hook (after-init-hook . key-chord-mode)
   :chord (("l;" . init-loader-show-log)
 	  ("gg" . beginning-of-buffer)
-	  ("GG" . end-of-buffer)
-          ("::" . toggle-scratch-buffer)))  ;; see 80-funcs.el
+	  ("GG" . end-of-buffer))
 
 
 (leaf ps-print

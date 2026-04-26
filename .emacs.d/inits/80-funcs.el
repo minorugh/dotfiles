@@ -3,9 +3,10 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(bind-key "<f3>" 'terminal-open)
-(bind-key "<f4>" 'xsrv-gh)
-(bind-key "<f6>" 'thunar-open)
+(bind-key "<f3>"  'terminal-open)
+(bind-key "<f4>"  'xsrv-gh)
+(bind-key "<f6>"  'thunar-open)
+(bind-key "<f10>" 'toggle-scratch-buffer)
 
 (defun terminal-open ()
   "Open gnome-terminal at current dir on adjacent display."
@@ -51,23 +52,6 @@ Optionally edit passwd files via TRAMP."
       (setq-local super-save-mode nil))
      (t
       (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH")))))
-;; (defun xsrv-gh ()
-;;   "Open xserver gospel-haiku.com.
-;; Optionally edit passwd files via TRAMP."
-;;   (interactive)
-;;   (let* ((candidates '("" "w: wmember.cgi" "d: dmember.cgi"))
-;;          (choice (completing-read
-;;                   "xsrv-GH [Enter=terminal, Select:passwd file]: "
-;;                   candidates)))
-;;     (cond
-;;      ((string-prefix-p "d" choice)
-;;       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
-;;       (setq-local super-save-mode nil))
-;;      ((string-prefix-p "w" choice)
-;;       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi")
-;;       (setq-local super-save-mode nil))
-;;      (t
-;;       (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH")))))
 
 (defun fzilla-GH ()
   "Open Filezilla with `gospel-haiku.com'."

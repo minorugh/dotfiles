@@ -6,7 +6,7 @@
 (leaf neotree
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
-  :bind (("<f10>" . my-neotree-toggle)
+  :bind (("<f2>" . my-neotree-toggle)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
 	  ("j"       . next-line)
@@ -14,7 +14,7 @@
 	  ("a"       . neotree-hidden-file-toggle)
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
-	  ("<f10>"   . my-neotree-toggle)))
+	  ("<f2>"   . my-neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
   ;; concise にするとキーバインドをシンプルにできる
