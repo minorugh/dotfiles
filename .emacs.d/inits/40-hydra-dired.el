@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-dired
-  :bind (("M-."  . hydra-dired/body))
+  :bind ("M-." . hydra-dired/body)
   :hydra
   (hydra-dired
    (:hint nil :exit t)

@@ -8,7 +8,8 @@
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
   :hook (emacs-startup-hook . howm-mode)
-  :chord (",," . my-howm-create-with-category)
+  :chord ((",," . my-howm-create-with-category)
+	  ("@@" . howm-list-all))
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)

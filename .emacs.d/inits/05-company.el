@@ -34,7 +34,8 @@
 (leaf yasnippet
   :ensure t
   :doc "Template system: Operate only by your own work."
-  :hook (after-init-hook . yas-global-mode)
+  :hook ((after-init-hook . yas-global-mode)
+	 (prog-mode-hook  . yas-minor-mode))
   :config
   (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)

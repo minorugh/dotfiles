@@ -13,7 +13,7 @@
 
 (leaf my-darkroom
   :doc "Distraction-free writing mode (darkroom package alternative)."
-  :bind ([f8] . my-darkroom-in)
+  :bind ([f10] . my-darkroom-in)
   :init
   (defvar-local my-darkroom--saved nil
     "Saved state before entering distraction-free mode.")
@@ -54,7 +54,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     "Minor mode for distraction-free writing."
     :lighter " Dark"
     :keymap (let ((map (make-sparse-keymap)))
-              (define-key map [f8] #'my-darkroom-out)
+              (define-key map [f10] #'my-darkroom-out)
               map)
     (if my-darkroom-mode
         (progn
@@ -74,23 +74,26 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
       (remove-hook 'window-configuration-change-hook
                    #'my-darkroom--set-margins t)))
 
-  (defun my-darkroom-in ()
-    "Enter distraction-free writing mode."
-    (interactive)
-    (display-line-numbers-mode 0)
-    (my-darkroom-mode 1)
-    (toggle-frame-fullscreen)
-    (setq-local line-spacing my-darkroom-line-spacing)
-    (when (fboundp 'evil-emacs-state) (evil-emacs-state)))
 
-  (defun my-darkroom-out ()
-    "Leave distraction-free writing mode."
-    (interactive)
-    (my-darkroom-mode 0)
-    (display-line-numbers-mode 1)
-    (toggle-frame-fullscreen)
-    (setq-local line-spacing 0)
-    (when (fboundp 'evil-normal-state) (evil-normal-state))))
+(defun my-darkroom-in ()
+ "Save current settings and enter distraction-free mode."
+  (interactive)
+  (setq-local my-dark-old-state
+              (list :line-num display-line-numbers-mode
+                    :spacing line-spacing))
+  (display-line-numbers-mode 0)
+  (setq-local line-spacing my-darkroom-line-spacing)
+  (my-darkroom-mode 1)
+  (toggle-frame-fullscreen))
+
+(defun my-darkroom-out ()
+ "Leave distraction-free mode and restore previous settings."
+  (interactive)
+  (my-darkroom-mode 0)
+  (toggle-frame-fullscreen)
+  ; Restore from saved list
+  (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
+  (setq-local line-spacing (plist-get my-dark-old-state :spacing))))
 
 
 ;; Local Variables:

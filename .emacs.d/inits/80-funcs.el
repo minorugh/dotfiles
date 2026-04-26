@@ -3,10 +3,10 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(bind-key "<f3>"  'terminal-open)
-(bind-key "<f4>"  'xsrv-gh)
-(bind-key "<f6>"  'thunar-open)
-(bind-key "<f10>" 'toggle-scratch-buffer)
+(bind-key "<f3>" 'terminal-open)
+(bind-key "<f4>" 'xsrv-gh)
+(bind-key "<f6>" 'thunar-open)
+(bind-key "<f8>" 'toggle-scratch-buffer)
 
 (defun terminal-open ()
   "Open gnome-terminal at current dir on adjacent display."
@@ -39,7 +39,7 @@ Optionally edit passwd files via TRAMP."
   (interactive)
   (let* ((candidates '("" "w: wmember.cgi" "d: dmember.cgi"))
          (choice (completing-read
-                  "xsrv-GH [Enter=terminal, Select:passwd file]: "
+                  "xsrv-GH [Enter=terminal]: "
                   candidates)))
     (cond
      ((string-prefix-p "d" choice)
