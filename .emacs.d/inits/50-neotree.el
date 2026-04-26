@@ -6,7 +6,7 @@
 (leaf neotree
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
-  :bind (("<f10>" . neotree-toggle)
+  :bind (("<f10>" . my-neotree-toggle)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
 	  ("j"       . next-line)
@@ -14,7 +14,7 @@
 	  ("a"       . neotree-hidden-file-toggle)
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
-	  ("<f10>"   . neotree-toggle)))
+	  ("<f10>"   . my-neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
   ;; concise にするとキーバインドをシンプルにできる
@@ -30,11 +30,15 @@
   (setq neo-mode-line-type nil)
   (setq neo-create-file-auto-open t)
 
-  (defun my-neotree-find ()
-    "Neotree-find with dimmer-off."
+  (defun my-neotree-toggle ()
+    "Toggle Neotree.  If opening, find current file."
     (interactive)
-    (dimmer-off)
-    (neotree-find))
+    (if (neo-global--window-exists-p)
+        (neotree-hide)
+      (let ((filename (buffer-file-name)))
+        (neotree-show)
+        (when filename
+          (neotree-find filename)))))
 
   (defun neotree-text-scale ()
     "Neotree text scale.
@@ -51,8 +55,7 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
     "Open a file node and hides tree."
     (neo-global--select-mru-window arg)
     (find-file full-path)
-    (neotree-hide)
-    (dimmer-on))
+    (neotree-hide))
 
   (defun neotree-enter-hide (&optional arg)
     "Enters file and hides neotree directly."
