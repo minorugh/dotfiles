@@ -34,10 +34,10 @@
     "Toggle Neotree.  If opening, find current file."
     (interactive)
     (if (neo-global--window-exists-p)
-        (neotree-hide)
+	(neotree-hide)
       (let ((filename (buffer-file-name)))
-        (neotree-show)
-        (when filename
+	(neotree-show)
+	(when filename
           (neotree-find filename)))))
 
   (defun neotree-text-scale ()
