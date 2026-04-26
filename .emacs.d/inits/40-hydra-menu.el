@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-work
-  :bind (("<henkan>" . hydra-work/body))
+  ;; :bind (("<henkan>" . hydra-work/body))
   :require (my-template)
   :hydra
   (hydra-work

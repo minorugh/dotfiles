@@ -1,5 +1,6 @@
 ;;; -*- lisp-data -*-
-(("/home/minoru/Dropbox/GH/")
+(("/home/minoru/.emacs.d/elpa/mozc-modeless/")
+ ("/home/minoru/Dropbox/GH/")
  ("/home/minoru/src/github.com/minorugh/dotfiles/")
  ("/home/minoru/.emacs.d/elpa/company/")
  ("/home/minoru/.emacs.d/elpa/deepl-translate/")

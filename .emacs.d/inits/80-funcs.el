@@ -33,9 +33,41 @@
       "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
 
 (defun xsrv-gh ()
-  "Open the xserver gospel-haiku.com in a terminal."
+  "Open xserver gospel-haiku.com.
+Optionally edit passwd files via TRAMP."
   (interactive)
-  (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH"))
+  (let* ((candidates '("" "w: wmember.cgi" "d: dmember.cgi"))
+         (choice (completing-read
+                  "xsrv-GH [Enter=terminal, Select:passwd file]: "
+                  candidates)))
+    (cond
+     ((string-prefix-p "d" choice)
+      (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
+      (text-mode)
+      (setq-local super-save-mode nil))
+     ((string-prefix-p "w" choice)
+      (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi")
+      (text-mode)
+      (setq-local super-save-mode nil))
+     (t
+      (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH")))))
+;; (defun xsrv-gh ()
+;;   "Open xserver gospel-haiku.com.
+;; Optionally edit passwd files via TRAMP."
+;;   (interactive)
+;;   (let* ((candidates '("" "w: wmember.cgi" "d: dmember.cgi"))
+;;          (choice (completing-read
+;;                   "xsrv-GH [Enter=terminal, Select:passwd file]: "
+;;                   candidates)))
+;;     (cond
+;;      ((string-prefix-p "d" choice)
+;;       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
+;;       (setq-local super-save-mode nil))
+;;      ((string-prefix-p "w" choice)
+;;       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi")
+;;       (setq-local super-save-mode nil))
+;;      (t
+;;       (start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH")))))
 
 (defun fzilla-GH ()
   "Open Filezilla with `gospel-haiku.com'."
@@ -64,6 +96,15 @@
       (switch-to-buffer (other-buffer))
     (switch-to-buffer "*scratch*")))
 
+(defun xsrv-gh-edit (member)
+  (interactive "sMember (d/w): ")
+  (let ((file (cond
+               ((string= member "d") "dmember.cgi")
+               ((string= member "w") "wmember.cgi")
+               (t (error "use 'd' or 'w'")))))
+    (find-file (format "/ssh:xsrv-GH:gospel-haiku.com/passwd/%s" file))
+    (setq-local super-save-mode nil)
+    (message "Opened %s (super-save disabled)" file)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
