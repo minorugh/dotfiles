@@ -109,19 +109,20 @@
 
 (leaf user-configurations
   :defun my-iconify-last-frame
-  :bind (("C-x C-c" . server-edit)
-         ("C-x b"   . ibuffer)
-         ("C-x m"   . neomutt)
-         ("M-,"     . xref-find-definitions)
-         ("M-w"     . clipboard-kill-ring-save)
-         ("C-w"     . my-clipboard-kill-region)
-         ("M-/"     . kill-current-buffer)
-         ("C-x /"   . delete-this-file)
-         ("s-c"     . clipboard-kill-ring-save)
-         ("s-v"     . clipboard-yank)
-         ("C-<tab>"     . other-window-or-split)
-	 ("S-<return>"   . (lambda () (interactive) (end-of-line) (newline)))
-         ([muhenkan] . my-keyboard-quit))
+  :bind (("C-x C-c"  . server-edit)
+         ("C-x b"    . ibuffer)
+         ("C-x m"    . neomutt)
+         ("M-,"      . xref-find-definitions)
+         ("M-w"      . clipboard-kill-ring-save)
+         ("C-w"      . my-clipboard-kill-region)
+         ("M-/"      . kill-current-buffer)
+         ("C-x /"    . delete-this-file)
+         ("s-c"      . clipboard-kill-ring-save)
+         ("s-v"      . clipboard-yank)
+         ("C-q"      . other-window-or-split)
+         ("C-<tab>"  . quoted-insert)
+         ([muhenkan] . my-muhenkan) ;; multipurpose keyboard quit see 03-evil.el
+	 ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
   :init
   (defun my-upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."

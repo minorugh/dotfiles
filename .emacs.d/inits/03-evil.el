@@ -27,7 +27,7 @@
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
-          ([muhenkan]  . my-muhenkan)
+          ([muhenkan] . my-muhenkan)
           ([escape]   . my-muhenkan)))
   :init
   ;; At the end of a line, move to the previous/next line
