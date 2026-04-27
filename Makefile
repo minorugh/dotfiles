@@ -20,7 +20,7 @@ PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
 PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
-PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd vlc
+PACKAGES += gimp darktable inkscape shotwell cups cups-bsd vlc
 
 BASE_PKGS	:= automake autoconf openssl build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev

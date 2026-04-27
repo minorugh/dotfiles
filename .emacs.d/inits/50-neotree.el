@@ -31,15 +31,16 @@
   (setq neo-mode-line-type nil)
   (setq neo-create-file-auto-open t)
 
-  (defun my-neotree-toggle ()
-    "Toggle Neotree.  If opening, find current file."
-    (interactive)
-    (if (neo-global--window-exists-p)
-	(neotree-hide)
-      (let ((filename (buffer-file-name)))
-	(neotree-show)
-	(when filename
-          (neotree-find filename)))))
+(defun my-neotree-toggle ()
+  "Toggle Neotree, jumping to current file/dir."
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (neotree-hide)
+    (let ((path (or (buffer-file-name)
+                    (and (eq major-mode 'dired-mode) (dired-current-directory))
+                    default-directory)))
+      (neotree-show)
+      (neotree-find path))))
 
   (defun neotree-text-scale ()
     "Neotree text scale.
