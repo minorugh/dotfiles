@@ -100,7 +100,7 @@
 
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
-         ("\\.\\(?:gitattributes\\|gitignore\\)\\'"                  . conf-mode)
+         ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"                  . conf-mode)
          ("\\.cgi\\'" . perl-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)

@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (bind-key "<f3>" 'terminal-open)
-(bind-key "<f4>" 'xsrv-gh)
+(bind-key "<f4>" 'xsrv-ssh)
 (bind-key "<f6>" 'thunar-open)
 (bind-key "<f8>" 'toggle-scratch-buffer)
 
@@ -33,20 +33,22 @@
      (shell-command
       "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
 
-(defun xsrv-gh ()
+(defun xsrv-ssh ()
   "Open xserver gospel-haiku.com.
 Optionally edit passwd files via TRAMP."
   (interactive)
-  (let* ((candidates '("" "w: wmember.cgi" "d: dmember.cgi"))
+  (let* ((candidates '("" "exec vim (xsrv)" "edit wmember" "edit dmember"))
          (choice (completing-read
-                  "xsrv-GH [Enter=terminal]: "
+                  "xsrv-ssh [Enter=terminal]: "
                   candidates)))
     (cond
-     ((string-prefix-p "d" choice)
+     ((string-prefix-p "exec" choice)
+      (start-process-shell-command "xsrv-vim" nil "gnome-terminal --maximize -- ssh -t xsrv 'exec vim'"))
+     ((string-prefix-p "edit d" choice)
       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
       (text-mode)
       (setq-local super-save-mode nil))
-     ((string-prefix-p "w" choice)
+     ((string-prefix-p "edit w" choice)
       (find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi")
       (text-mode)
       (setq-local super-save-mode nil))
