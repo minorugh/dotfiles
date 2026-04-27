@@ -15,6 +15,8 @@
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-leim-title          "あ")
+  (custom-set-faces
+   '(mozc-preedit-selected-face ((t (:background "#1E2029" :foreground "#bd93f9" :weight bold)))))
 
   (leaf mozc-cand-posframe
     :ensure t
@@ -24,7 +26,7 @@
     (setq mozc-candidate-style 'posframe)
     :config
     (custom-set-faces
-     '(mozc-cand-posframe-normal-face  ((t (:background "#282D43" :foreground "#C7C9D1"))))
+     '(mozc-cand-posframe-normal-face  ((t (:background "#1E2029" :foreground "#F8F8F2"))))
      '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1" :weight bold))))
      '(mozc-cand-posframe-footer-face  ((t (:background "#262626" :foreground "#454D73" :height 0.9))))))
 

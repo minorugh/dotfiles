@@ -5,6 +5,7 @@
 
 (leaf company
   :ensure t
+  ;; :vc (:url "https://github.com/minorugh/company")
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)
@@ -14,9 +15,9 @@
 	  ("<muhenkan>"    . company-abort)))
   :config
   (setq company-transformers          '(company-sort-by-backend-importance))
-  (setq company-idle-delay            0.5)
+  (setq company-idle-delay            0.1)
   (setq company-require-match         'never)
-  (setq company-minimum-prefix-length 2)
+  (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t)
   (setq completion-ignore-case        t)
   (setq company-dabbrev-downcase      nil)
@@ -34,12 +35,12 @@
 (leaf yasnippet
   :ensure t
   :doc "Template system: Operate only by your own work."
-  :hook (after-init-hook . yas-global-mode)
+  :hook ((after-init-hook . yas-global-mode)
+	 (prog-mode-hook  . yas-minor-mode))
   :config
   (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
   (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
