@@ -65,7 +65,7 @@
 
 ;; Change to short command
 (defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'quit-emacs 'save-buffers-kill-emacs)
+(defalias 'exit-emacs 'save-buffers-kill-emacs)
 
 ;; All history/data files are stored in `~/.emacs.d/tmp'
 (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))

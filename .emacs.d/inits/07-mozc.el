@@ -16,10 +16,17 @@
   (setq default-input-method     "japanese-mozc")
   (setq mozc-leim-title          "あ")
 
-  (leaf mozc-popup :ensure t
-    :doc "Mozc with popup."
-    :hook (mozc-mode-hook . (lambda () (require 'mozc-popup)))
-    :config  (setq mozc-candidate-style 'popup))
+  (leaf mozc-cand-posframe
+    :ensure t
+    :after mozc
+    :require t
+    :init
+    (setq mozc-candidate-style 'posframe)
+    :config
+    (custom-set-faces
+     '(mozc-cand-posframe-normal-face  ((t (:background "#282D43" :foreground "#C7C9D1"))))
+     '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1" :weight bold))))
+     '(mozc-cand-posframe-footer-face  ((t (:background "#262626" :foreground "#454D73" :height 0.9))))))
 
   (defun my-toggle-input-method ()
     "If `evil-mode' is enabled, set to `evil-insert-state'."

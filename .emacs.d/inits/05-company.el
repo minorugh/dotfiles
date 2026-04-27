@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 (leaf company
-  :vc (:url "https://github.com/minorugh/company")
+  :ensure t
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
   :bind (("<backtab>"      . company-complete)
@@ -34,8 +34,7 @@
 (leaf yasnippet
   :ensure t
   :doc "Template system: Operate only by your own work."
-  :hook ((after-init-hook . yas-global-mode)
-	 (prog-mode-hook  . yas-minor-mode))
+  :hook (after-init-hook . yas-global-mode)
   :config
   (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
