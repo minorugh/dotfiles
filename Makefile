@@ -503,9 +503,9 @@ git: ## Auto commit+push (main only, sub: pull only)
 
 ifeq ($(HOSTNAME),P1)
 # 別館が存在し、かつ中にMakefileがある時だけ静かに実行
-	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
-	$(MAKE) -C $(ENV_SOURCE_DIR)/  git ; \
-	fi
+	# if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
+	# $(MAKE) -C $(ENV_SOURCE_DIR)/  git ; \
+	# fi
 	git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
