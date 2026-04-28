@@ -22,32 +22,33 @@
   (setq dired-recursive-copies  'always)
   (setq dired-recursive-deletes 'always)
   (setq dired-listing-switches "-AFl")
+  (setq dired-listing-switches "-Al --group-directories-first")
   (setq ls-lisp-use-insert-directory-program nil)
   (setq ls-lisp-dirs-first t)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
-(defun my-dired-omit-mode ()
-  "Disable `dired-omit-mode' only in specific directories."
-  (let ((current (file-name-as-directory
-                  (expand-file-name default-directory))))
-    (dired-omit-mode
-     (if (member current
-                 (mapcar (lambda (d)
-                           (file-name-as-directory
-                            (expand-file-name d)))
-                         '("~/src/github.com/minorugh/dotfiles/"
-                           "~/src/github.com/minorugh/dotfiles/env/")))
-         -1
-       1))))
+  (defun my-dired-omit-mode ()
+    "Disable `dired-omit-mode' only in specific directories."
+    (let ((current (file-name-as-directory
+                    (expand-file-name default-directory))))
+      (dired-omit-mode
+       (if (member current
+                   (mapcar (lambda (d)
+                             (file-name-as-directory
+                              (expand-file-name d)))
+                           '("~/src/github.com/minorugh/dotfiles/"
+                             "~/src/github.com/minorugh/dotfiles/env/")))
+           -1
+	 1))))
 
-;; (defun my-dired-omit-mode ()
-;;     "Disable omit mode only in `dotfiles' directory."
-;;     (dired-omit-mode
-;;      (if (equal (expand-file-name "~/src/github.com/minorugh/dotfiles/")
-;; 		(expand-file-name default-directory))
-;; 	 -1
-;;        1)))
+  ;; (defun my-dired-omit-mode ()
+  ;;     "Disable omit mode only in `dotfiles' directory."
+  ;;     (dired-omit-mode
+  ;;      (if (equal (expand-file-name "~/src/github.com/minorugh/dotfiles/")
+  ;; 		(expand-file-name default-directory))
+  ;; 	 -1
+  ;;        1)))
 
   (defun my-dired-open ()
     "Open file or directory at point."

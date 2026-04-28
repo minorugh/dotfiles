@@ -3,4 +3,8 @@
 /_elpa/
 /eln-cache/
 /tmp
-/elisp/inits_junk/
+/elisp/junk/
+/elisp/img
+/elisp/bin
+_elisp/css
+
