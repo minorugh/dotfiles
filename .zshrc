@@ -18,7 +18,7 @@ export NO_AT_BRIDGE=1
 # History
 ########################################
 if [ $(uname -n) = "P1" ]; then
-    HISTFILE=~/Dropbox/backup/zsh/.zsh_history
+    HISTFILE=~/Dropbox/backup/env/zsh/.zsh_history
 else
     HISTFILE=~/.zsh_history
 fi
