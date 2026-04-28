@@ -57,7 +57,7 @@ init: ## dotfiles のシンボリックリンク展開
 	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
-	ln -vsf ${ENV_SOURCE_DIR}/.config/hub ${HOME}/.config/hub
+	ln -vsf ${ENV_SOURCE_DIR}/hub ${HOME}/.config/hub
 
 init-sub: ## サブ機のgit push封鎖（x250のみ実行）
 ifeq ($(HOSTNAME),x250)
