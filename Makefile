@@ -504,7 +504,7 @@ git: ## Auto commit+push (main only, sub: pull only)
 ifeq ($(HOSTNAME),P1)
 # 別館が存在し、かつ中にMakefileがある時だけ静かに実行
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
-	$(MAKE) -s -C secret $(ENV_SOURCE_DIR)/ git ; \
+	$(MAKE) -s -C $(ENV_SOURCE_DIR)/ secret git ; \
 	fi
 	git push
 else
