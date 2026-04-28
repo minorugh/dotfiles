@@ -5,4 +5,4 @@ doc/
 .emacs.d/session*
 
 # 秘密の小部屋（実体は別リポジトリ）
-secret_env/
+secret/
