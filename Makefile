@@ -44,10 +44,10 @@ nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom pri
 .ONESHELL:
 SHELL = /bin/bash
 
-ssh: ## SSH設定の初期化
+ssh: ## SSH設定の初期化（~/.env_source から展開）
 	mkdir -p ${HOME}/.$@
 	for item in config known_hosts id_rsa xsrv; do
-		ln -vsfn {${PWD},${HOME}}/.ssh/$$item
+		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item
 	done
 	chmod 600 ${HOME}/.ssh/id_rsa
 
@@ -57,7 +57,7 @@ init: ## dotfiles のシンボリックリンク展開
 	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
-	ln -vsf {${PWD},${HOME}}/.config/hub
+	ln -vsf ${ENV_SOURCE_DIR}/.config/hub ${HOME}/.config/hub
 
 init-sub: ## サブ機のgit push封鎖（x250のみ実行）
 ifeq ($(HOSTNAME),x250)
