@@ -213,7 +213,7 @@ fonts: ## ユーザーフォントのシンボリックリンク作成
 
 gist: ## gist コマンドのインストールと設定
 	sudo gem install gist
-	ln -vsf ${HOME}/Dropbox/backup/tokens/gist ${HOME}/.gist
+	ln -vsf ${HOME}/Dropbox/backup/env/tokens/gist ${HOME}/.gist
 
 gitk: ## gitkのインストールと設定ファイル
 	$(APT) $@
