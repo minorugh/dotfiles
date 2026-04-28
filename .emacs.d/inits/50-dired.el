@@ -37,7 +37,7 @@
                            (file-name-as-directory
                             (expand-file-name d)))
                          '("~/src/github.com/minorugh/dotfiles/"
-                           "~/src/github.com/minorugh/dotfiles/secret/")))
+                           "~/src/github.com/minorugh/dotfiles/env/")))
          -1
        1))))
 
