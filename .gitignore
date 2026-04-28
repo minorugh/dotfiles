@@ -3,5 +3,4 @@ cache
 .vim/plugged/
 
 doc/
-secret/
 env/
