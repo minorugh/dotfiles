@@ -3,8 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+(defvar my-dired-show-dotfiles-dirs
+  (mapcar (lambda (d) (file-name-as-directory (expand-file-name d)))
+          '("~/src/github.com/minorugh/dotfiles/"
+            "~/src/github.com/minorugh/dotfiles/env/"))
+  "Directories where dotfiles should NOT be hidden.")
+
+;; revert-buffer 後もトグル状態を保持するためディレクトリ単位で管理
+(defvar my-dired-hidden-table (make-hash-table :test 'equal)
+  "Hash table tracking dotfile visibility per directory, t = hidden.")
+
 (leaf dired
-  :hook (dired-mode-hook  . my-dired-omit-mode)
+  :hook (dired-after-readin-hook . my-dired-hide-dotfiles)
   :bind (:dired-mode-map
 	 ("<left>"  . my-dired-up)
 	 ("<right>" . my-dired-open)
@@ -13,7 +23,7 @@
 	 ("s"   . my-sudo-reopen)
 	 ("o"   . dired-open-file)
 	 ("["   . dired-hide-details-mode)
-	 ("a"   . dired-omit-mode)
+	 ("a"   . my-dired-toggle-dotfiles)
 	 ("."   . my-open-tig)
 	 ("i"   . my-sxiv))
   :config
@@ -24,22 +34,7 @@
   (setq dired-listing-switches "-AFl")
   (setq ls-lisp-use-insert-directory-program nil)
   (setq ls-lisp-dirs-first t)
-  (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-
-  (defun my-dired-omit-mode ()
-    "Disable `dired-omit-mode' only in specific directories."
-    (let ((current (file-name-as-directory
-                    (expand-file-name default-directory))))
-      (dired-omit-mode
-       (if (member current
-                   (mapcar (lambda (d)
-                             (file-name-as-directory
-                              (expand-file-name d)))
-                           '("~/src/github.com/minorugh/dotfiles/"
-                             "~/src/github.com/minorugh/dotfiles/env/")))
-           -1
-	 1))))
 
   (defun my-dired-open ()
     "Open file or directory at point."
@@ -90,6 +85,37 @@
            "bash" "-c"
            (format "tig %s" (shell-quote-argument path)))
 	(message "Not in a Git repo"))))
+  (defun my-dired-hide-dotfiles ()
+    "Hide dotfiles by removing lines, without using `dired-omit-mode'."
+    (unless (eq major-mode 'wdired-mode)
+      (let* ((current (file-name-as-directory
+                       (expand-file-name default-directory)))
+             (hidden (gethash current my-dired-hidden-table
+                              ;; 初回: 除外ディレクトリなら表示、それ以外は非表示
+                              (not (member current my-dired-show-dotfiles-dirs)))))
+	(puthash current hidden my-dired-hidden-table)
+	(when hidden
+          (save-excursion
+            (goto-char (point-min))
+            (let ((inhibit-read-only t))
+              (while (not (eobp))
+		(if (and (dired-get-filename 'no-dir t)
+			 (string-match
+                          "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$"
+                          (dired-get-filename 'no-dir t)))
+                    (delete-region (line-beginning-position)
+                                   (progn (forward-line 1) (point)))
+                  (forward-line 1)))))))))
+
+  (defun my-dired-toggle-dotfiles ()
+    "Toggle dotfile visibility in current `dired' buffer."
+    (interactive)
+    (let ((current (file-name-as-directory
+                    (expand-file-name default-directory))))
+      (puthash current
+               (not (gethash current my-dired-hidden-table t))
+               my-dired-hidden-table)
+      (revert-buffer)))
 
   (defun my-sxiv ()
     "Open images in current directory with sxiv (fullscreen)."
