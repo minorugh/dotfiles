@@ -58,59 +58,44 @@ sudo apt install -y nautilus-dropbox
 # メニューから Dropbox を起動して初期設定を完了させる
 ```
 
-#### 5. GPG 秘密鍵のインポート
-GPG 秘密鍵は Dropbox に AES256 暗号化済みで保存してあります。
-Dropbox の同期完了後に以下を実行してください。
+#### 5. GPG 秘密鍵のインポートと dotfiles の展開
 
 > ⚠️ この段階ではまだ SSH が使えないため **HTTPS** でクローンします。
 
 ```bash
 mkdir -p ~/src/github.com/minorugh
 cd ~/src/github.com/minorugh
-git clone https://github.com/minorugh/gpgimport.git
-cd gpgimport
+git clone https://github.com/minorugh/env-import.git
+cd env-import
 make gpg
+make dotfiles
 ```
 
-パスフレーズは SSH 鍵（id_rsa）と同じです。
-詳細は [gpgimport](https://github.com/minorugh/gpgimport) を参照してください。
+`make gpg` でパスフレーズを求められます。
+`make dotfiles` は以下を一括実行します：
+1. dotfiles を HTTPS でクローン
+2. `~/.env_source/` を Dropbox bundle から復元
+3. `make baseinstall`（基本環境の構築）
 
-#### 6. dotfiles のクローンと展開
+詳細は [env-import](https://github.com/minorugh/env-import) を参照してください。
 
-SSH がまだ使えないため **HTTPS** でクローンします。
-
-```bash
-mkdir -p ~/src/github.com/minorugh
-cd ~/src/github.com/minorugh
-git clone https://github.com/minorugh/dotfiles.git
-cd dotfiles
-git-crypt unlock
-make all
-```
-
-#### 7. 再起動して SSH に切り替え
+#### 6. 再起動して SSH に切り替え
 
 ```bash
 reboot
 ```
 
-再起動後に `~/.ssh/` のシンボリックリンクが有効になります。
-SSH 接続を確認してから git remote を切り替えてください。
+再起動後に SSH 接続を確認してから git remote を切り替えてください。
 
 ```bash
 ssh -T git@github.com
 # → "Hi minorugh! You've successfully authenticated..." と出ればOK
-# GitHub の SSH 登録は生きているので新規登録は不要
 
-# gpgimport と dotfiles の git remote を SSH に切り替え
-cd ~/src/github.com/minorugh/gpgimport
-git remote set-url origin git@github.com:minorugh/gpgimport.git
-
-cd ~/src/github.com/minorugh/dotfiles
-git remote set-url origin git@github.com:minorugh/dotfiles.git
+cd ~/src/github.com/minorugh/env-import
+make switch-ssh
 ```
 
-#### 8. シェルを zsh に変更
+#### 7. シェルを zsh に変更
 
 ```bash
 chsh -s /usr/bin/zsh
@@ -129,6 +114,7 @@ chsh -s /usr/bin/zsh
 | `make all` | `baseinstall` + `nextinstall` を一括実行 |
 | `make baseinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
 | `make nextinstall` | アプリケーション群のインストール |
+| `make env-setup` | `dotfiles/env/` のシンボリックリンク作成（`~/.env_source` から展開） |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
 | `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
 | `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期・Emacs/Thunderbird 自動起動＆最小化 |
@@ -144,7 +130,7 @@ chsh -s /usr/bin/zsh
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
 | `make emacs-stable` | Emacs 安定版のソースビルド |
 | `make emacs-devel` | Emacs 開発版のソースビルド（現在 30.1） |
-| `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 
+| `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 |
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -155,7 +141,6 @@ chsh -s /usr/bin/zsh
 GUI 起動時に `.autostart.sh` が実行され、SSH 鍵の自動入力に加えて Emacs・Thunderbird の自動起動と最小化も行います。
 
 SSH 鍵の自動入力フロー：
-
 
 1. `secret-tool` で Gnome keyring からパスフレーズを取得
 2. `keychain` に渡して `ssh-agent` を起動
@@ -202,6 +187,24 @@ make   # xsrv-backup 緊急停止
 
 ---
 
+## 秘密ファイルの管理（~/.env_source）
+
+SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` で管理します。
+
+```
+~/.env_source/
+    .ssh/        ← SSH 鍵一式
+    .netrc       ← メール認証情報
+    .config/hub  ← GitHub トークン
+```
+
+- git-crypt 廃止（2026.04.28）に伴い導入
+- Dropbox に GPG 暗号化 bundle として保存
+- `dotfiles/env/` から `~/.env_source/` へのシンボリックで参照（窓として機能）
+- 更新時は `cd ~/.env_source && make bundle` を実行
+
+---
+
 ## Emacs 設定
 
 詳細は以下を参照してください。
@@ -214,6 +217,7 @@ make   # xsrv-backup 緊急停止
 
 | 日付 | 内容 |
 |---|---|
+| 2026.04.29 | git-crypt 廃止・秘密ファイルを ~/.env_source で管理、env-setup ターゲット追加 |
 | 2026.04.11 | devilspie 廃止・Emacs/Thunderbird 自動起動を .autostart.sh に統合、xdotool で最小化 |
 | 2026.04.10 | emacs-restore を emacs-toggle に変更（F12キーによるEmacs最小化・復元トグル） |
 | 2026.04.07 | xsrv-backup を systemd-user timer に移行、xsrv-systemd ターゲット追加、cron/Makefile 緊急操作パネル整備 |
