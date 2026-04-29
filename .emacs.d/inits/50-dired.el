@@ -5,7 +5,8 @@
 
 (defvar my-dired-show-dotfiles-dirs
   (mapcar (lambda (d) (file-name-as-directory (expand-file-name d)))
-          '("~/src/github.com/minorugh/dotfiles/"
+          '("~/.env_source/"
+	    "~/src/github.com/minorugh/dotfiles/"
             "~/src/github.com/minorugh/dotfiles/env/"))
   "Directories where dotfiles should NOT be hidden.")
 
@@ -116,6 +117,7 @@
                (not (gethash current my-dired-hidden-table t))
                my-dired-hidden-table)
       (revert-buffer)))
+
 
   (defun my-sxiv ()
     "Open images in current directory with sxiv (fullscreen)."
