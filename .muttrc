@@ -5,7 +5,6 @@
 
 # Sources for Auth Configuration ---------------------------
 source "gpg -d ~/.mutt/password.gpg |"
-# source "~/.mutt/password.rc"
 
 # For japanese Environment
 # see "https://emaillab.org/mutt/1.4/doc/usage-japanese.ja.html#id2432623"
