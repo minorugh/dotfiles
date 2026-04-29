@@ -49,7 +49,7 @@ SHELL = /bin/bash
 env-setup: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source から展開）
 	ln -vsf ${ENV_SOURCE_DIR}/.netrc ${PWD}/env/.netrc
 	ln -vsf ${ENV_SOURCE_DIR}/.ssh ${PWD}/env/.ssh
-	ln -vsf ${ENV_SOURCE_DIR}/hub ${PWD}/env/hub
+	ln -vsf ${ENV_SOURCE_DIR}/tokens ${PWD}/env/tokens
 	ln -vsf ${ENV_SOURCE_DIR}/Makefile ${PWD}/env/Makefile
 	cp -vf "${ENV_SOURCE_DIR}/info.md" "${PWD}/env/info.md"
 
@@ -66,7 +66,7 @@ init: ## dotfiles のシンボリックリンク展開
 	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
-	ln -vsf ${ENV_SOURCE_DIR}/hub ${HOME}/.config/hub
+	ln -vsf ${ENV_SOURCE_DIR}/tokens/hub ${HOME}/.config/hub
 
 init-sub: ## サブ機のgit push封鎖（x250のみ実行）
 ifeq ($(HOSTNAME),x250)
@@ -222,7 +222,7 @@ fonts: ## ユーザーフォントのシンボリックリンク作成
 
 gist: ## gist コマンドのインストールと設定
 	sudo gem install gist
-	ln -vsf ${HOME}/Dropbox/backup/env/tokens/gist ${HOME}/.gist
+	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gis
 
 gitk: ## gitkのインストールと設定ファイル
 	$(APT) $@
