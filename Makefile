@@ -34,19 +34,19 @@ BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
 APT		:= sudo apt install -y
 .DEFAULT_GOAL	:= help
 
-.PHONY: all allinstall nextinstall env
+.PHONY: all allinstall nextinstall
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env ssh install base init init-sub keymap keyd grub autostart cron emacs-trash keyring tlp emacs-mozc icons gist fonts emacs-toggle
+baseinstall: env-setup ssh install base init init-sub keymap keyd grub autostart cron emacs-trash keyring tlp emacs-mozc icons gist fonts emacs-toggle
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
 
-env: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source から展開）
+env-setup: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source から展開）
 	ln -vsf ${ENV_SOURCE_DIR}/.netrc ${PWD}/env/.netrc
 	ln -vsf ${ENV_SOURCE_DIR}/.ssh ${PWD}/env/.ssh
 	ln -vsf ${ENV_SOURCE_DIR}/hub ${PWD}/env/hub
