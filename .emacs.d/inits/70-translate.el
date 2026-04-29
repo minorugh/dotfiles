@@ -9,7 +9,7 @@
   :doc "Translation in mini-buffer & copy to clipboard."
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :bind ("C-c d" . deepl-translate)
-  :config (load (locate-user-emacs-file "elisp/deepl-api.el.gpg")))
+  :config (load (locate-user-emacs-file "~/.env_source/deepl-api.el")))
 
 
 (leaf deepl-translate-web
