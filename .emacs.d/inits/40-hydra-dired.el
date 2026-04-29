@@ -15,7 +15,7 @@
 "
    ("a" consult-git-grep)
    ("f" consult-flymake)
-   ("-" fzilla-s)
+   ("8" fzilla-s)
    ("9" fzilla-GH)
    ("0" fzilla-minoruGH)
    ("t" my-open-tig)

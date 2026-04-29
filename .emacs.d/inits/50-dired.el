@@ -86,6 +86,7 @@
            "bash" "-c"
            (format "tig %s" (shell-quote-argument path)))
 	(message "Not in a Git repo"))))
+
   (defun my-dired-hide-dotfiles ()
     "Hide dotfiles by removing lines, without using `dired-omit-mode'."
     (unless (eq major-mode 'wdired-mode)
