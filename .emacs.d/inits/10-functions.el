@@ -3,7 +3,7 @@
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
 ;; Covers: gnome-terminal, Thunar, FileZilla, KeePassXC, and xserver access.
-;; F1-F12 bindings are centrally managed in 10-funcs.el
+;; F1-F12 bindings are centrally managed in 10-functions.el
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -33,12 +33,12 @@
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
   (defun thunar-open-this ()
-    "Open Thunar at current dir on adjacent display."
-    (interactive)
-    (let* ((cmd  (concat "thunar " default-directory))
-           (move "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))
-      (start-process-shell-command "thunar" nil cmd)
-      (run-with-timer 0.5 nil (lambda () (shell-command move)))))
+      "Open Thunar at current dir on adjacent display."
+      (interactive)
+      (let* ((cmd  (concat "thunar " default-directory))
+             (move "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))
+        (start-process-shell-command "thunar" nil cmd)
+        (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
   ;; Access xsrv gospel-haiku.com: terminal, vim, or TRAMP edit.
   (defun xsrv-ssh-access ()
