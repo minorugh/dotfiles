@@ -9,9 +9,9 @@
 ;; (setq debug-on-error t)
 
 (leaf external-functions
-  :bind (("<f3>" . terminal-open)
-         ("<f4>" . xsrv-ssh)
-         ("<f6>" . thunar-open)
+  :bind (("<f3>"  . terminal-open)
+         ("<f4>"  . xsrv-ssh)
+         ("<f6>"  . thunar-open)
          ("<f10>" . toggle-scratch-buffer))
   :init
   (defun terminal-open ()
