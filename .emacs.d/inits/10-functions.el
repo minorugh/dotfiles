@@ -10,18 +10,19 @@
 ;; (setq debug-on-error t)
 
 (leaf external-functions
+  :doc "External functions & SSH launchers."
   :bind (("<f1>"  . help-command)              ;; built-in
-         ("<f2>"  . consult-imenu)             ;; leaf consult
-         ("<f3>"  . terminal-open-this)        ;; leaf external-functions
-         ("<f4>"  . xsrv-ssh-access)           ;; leaf external-functions
-         ("<f5>"  . quickrun)                  ;; leaf quickrun
-         ("<f6>"  . thunar-open-this)          ;; leaf external-functions
-         ("<f7>"  . neotree-toggle)            ;; leaf neotree
-         ("<f8>"  . darkroom-mode)             ;; leaf darkroom
-         ("<f9>"  . display-line-numbers-mode) ;; leaf display-line
-         ("<f10>" . toggle-scratch-buffer)     ;; leaf external-functions
+         ("<f2>"  . consult-imenu)             ;; see 04-consult.el
+         ("<f3>"  . terminal-open-this)        ;; see :init
+         ("<f4>"  . xsrv-ssh-access)           ;; see :init
+         ("<f5>"  . quickrun)                  ;; see 30-utilities.el
+         ("<f6>"  . thunar-open-this)          ;; see :init
+         ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
+         ("<f8>"  . darkroom-mode)             ;; see 80-darkroom.el
+         ("<f9>"  . display-line-numbers-mode) ;; see 30-ui.el
+         ("<f10>" . toggle-scratch-buffer)     ;; see :init
          ("<f11>" . toggle-frame-fullscreen)   ;; built-in
-         ("<f12>" . toggle-emacs))             ;; shell script
+         ("<f12>" . toggle-emacs))             ;; user shell script
   :init
   (defun terminal-open-this ()
     "Open gnome-terminal at current dir on adjacent display."

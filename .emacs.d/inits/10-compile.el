@@ -40,16 +40,6 @@ STRING is the exit status message from the compilation process."
 (setq compilation-scroll-output t)
 (setq compilation-always-kill   t)
 
-;;; Other tool
-(leaf quickrun :ensure t
-  :bind (([f5] . quickrun))
-  :config
-  (add-hook 'quickrun--mode-hook
-            (lambda ()
-              (define-key quickrun--mode-map (kbd "q") #'quit-window)
-              (when (fboundp 'evil-define-key)
-                (evil-local-set-key 'normal (kbd "q") #'quit-window)))))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

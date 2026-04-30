@@ -21,6 +21,18 @@
 	  ("GG" . end-of-buffer)))
 
 
+(leaf quickrun
+  :ensure t
+  :doc"Run commands quickly"
+  "quickrun command Bound to F8; see 10-functions.el."
+  :config
+  (add-hook 'quickrun--mode-hook
+            (lambda ()
+              (define-key quickrun--mode-map (kbd "q") #'quit-window)
+              (when (fboundp 'evil-define-key)
+                (evil-local-set-key 'normal (kbd "q") #'quit-window)))))
+
+
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
