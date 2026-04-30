@@ -50,7 +50,6 @@ env-setup: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source
 	ln -vsf ${ENV_SOURCE_DIR}/.netrc ${PWD}/env/.netrc
 	ln -vsf ${ENV_SOURCE_DIR}/.ssh ${PWD}/env/.ssh
 	ln -vsf ${ENV_SOURCE_DIR}/tokens ${PWD}/env/tokens
-	ln -vsf ${ENV_SOURCE_DIR}/Makefile ${PWD}/env/Makefile
 	cp -vf "${ENV_SOURCE_DIR}/info.md" "${PWD}/env/info.md"
 
 ssh: ## SSH設定の初期化（~/.env_source から展開）
