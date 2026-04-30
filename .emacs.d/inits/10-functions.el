@@ -4,7 +4,6 @@
 ;; Interactive commands for launching external tools and managing SSH connections.
 ;; Covers: gnome-terminal, Thunar, FileZilla, KeePassXC, and xserver access.
 ;; F1-F12 bindings are centrally managed in 10-funcs.el
-;; via `leaf external-functions'.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -18,7 +17,7 @@
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
          ("<f6>"  . thunar-open-this)          ;; see :init
          ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
-         ("<f8>"  . darkroom-mode)             ;; see 80-darkroom.el
+         ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ;; see 30-ui.el
          ("<f10>" . toggle-scratch-buffer)     ;; see :init
          ("<f11>" . toggle-frame-fullscreen)   ;; built-in
@@ -41,9 +40,9 @@
       (start-process-shell-command "thunar" nil cmd)
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
+  ;; Access xsrv gospel-haiku.com: terminal, vim, or TRAMP edit.
   (defun xsrv-ssh-access ()
-    "Open xserver gospel-haiku.com.
-Optionally edit passwd files via TRAMP."
+    "Open xserver gospel-haiku.com."
     (interactive)
     (let* ((candidates '("" "exec vim (xsrv)" "edit wmember" "edit dmember"))
            (choice (completing-read "xsrv-ssh [Enter=terminal]: " candidates))
@@ -88,10 +87,10 @@ Optionally edit passwd files via TRAMP."
 	(switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*")))
 
+  ;; Open member file via TRAMP.
+  ;; Disables super-save-mode in the buffer.
   (defun xsrv-gh-edit (member)
-    "Open gospel-haiku.com member file via SSH.
-Specify \"d\"(dmember.cgi) or \"w\"(wmember.cgi) for MEMBER.
-Disable super-save-mode in buffer-local."
+    "Edit gospel-haiku.com MEMBER file via SSH."
     (interactive "sMember (d/w): ")
     (let ((file (cond
 		 ((string= member "d") "dmember.cgi")
@@ -100,6 +99,7 @@ Disable super-save-mode in buffer-local."
       (find-file (format "/ssh:xsrv-GH:gospel-haiku.com/passwd/%s" file))
       (setq-local super-save-mode nil)
       (message "Opened %s (super-save disabled)" file))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
