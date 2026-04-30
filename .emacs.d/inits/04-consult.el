@@ -76,6 +76,7 @@
 	 ("s-z g"   . consult-goto-line)
 	 ("s-z o"   . consult-outline)
 	 ("s-z i"   . consult-imenu)
+	 ("<f2>"    . consult-imenu)
          ("M-y"     . consult-yank-pop)
          ("C-:"     . consult-buffer)
          ("C-s"     . consult-line-region)
