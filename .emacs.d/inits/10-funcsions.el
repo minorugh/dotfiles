@@ -3,18 +3,27 @@
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
 ;; Covers: gnome-terminal, Thunar, FileZilla, KeePassXC, and xserver access.
-;; Keybindings (F3/F4/F6/F10) are registered through `leaf external-functions'.
+;; F1-F12 bindings are centrally managed in 10-funcs.el
+;; via `leaf external-functions'.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf external-functions
-  :bind (("<f3>"  . terminal-open)
-         ("<f4>"  . xsrv-ssh)
-         ("<f6>"  . thunar-open)
-         ("<f10>" . toggle-scratch-buffer))
+  :bind (("<f1>"  . help-command)              ;; built-in
+         ("<f2>"  . consult-imenu)             ;; leaf consult
+         ("<f3>"  . terminal-open-this)        ;; leaf external-functions
+         ("<f4>"  . xsrv-ssh-access)           ;; leaf external-functions
+         ("<f5>"  . quickrun)                  ;; leaf quickrun
+         ("<f6>"  . thunar-open-this)          ;; leaf external-functions
+         ("<f7>"  . neotree-toggle)            ;; leaf neotree
+         ("<f8>"  . darkroom-mode)             ;; leaf darkroom
+         ("<f9>"  . display-line-numbers-mode) ;; leaf display-line
+         ("<f10>" . toggle-scratch-buffer)     ;; leaf external-functions
+         ("<f11>" . toggle-frame-fullscreen)   ;; built-in
+         ("<f12>" . toggle-emacs))             ;; shell script
   :init
-  (defun terminal-open ()
+  (defun terminal-open-this ()
     "Open gnome-terminal at current dir on adjacent display."
     (interactive)
     (let ((dir (directory-file-name default-directory)))
@@ -27,7 +36,7 @@
 	 (shell-command
           "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
 
-  (defun thunar-open ()
+  (defun thunar-open-this ()
     "Open Thunar at current dir on adjacent display."
     (interactive)
     (start-process-shell-command
@@ -39,7 +48,7 @@
        (shell-command
 	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
 
-  (defun xsrv-ssh ()
+  (defun xsrv-ssh-access ()
     "Open xserver gospel-haiku.com.
 Optionally edit passwd files via TRAMP."
     (interactive)

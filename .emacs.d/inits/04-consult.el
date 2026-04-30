@@ -75,8 +75,7 @@
 	 ("s-z f"   . consult-flymake)
 	 ("s-z g"   . consult-goto-line)
 	 ("s-z o"   . consult-outline)
-	 ("s-z i"   . consult-imenu)
-	 ("<f2>"    . consult-imenu)
+	 ("s-z i"   . consult-imenu)	;; bound also to F2, see 10-funcsions.el
          ("M-y"     . consult-yank-pop)
          ("C-:"     . consult-buffer)
          ("C-s"     . consult-line-region)
