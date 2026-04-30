@@ -32,23 +32,6 @@ gitea-log: ## Gitea のログ表示
 	cd $(DOCKER_DIR)/gitea && docker compose logs -f
 
 ## ----------------------------------------
-## Mattermost（ポート 8065）
-## ----------------------------------------
-.PHONY: mattermost mattermost-down mattermost-log mattermost-backup
-mattermost: ## Mattermost の起動
-	sudo chown -R 2000:2000 /home/minoru/Docker/mattermost
-	cd $(DOCKER_DIR)/mattermost && docker compose up -d
-
-mattermost-down: ## Mattermost の停止
-	cd $(DOCKER_DIR)/mattermost && docker compose down
-
-mattermost-log: ## Mattermost のログ表示
-	cd $(DOCKER_DIR)/mattermost && docker compose logs -f
-
-mattermost-backup: ## Mattermost の手動バックアップ
-	/usr/local/bin/mattermost-backup.sh
-
-## ----------------------------------------
 ## Apache httpd（ポート 8080）
 ## ----------------------------------------
 .PHONY: httpd httpd-down httpd-log
@@ -65,9 +48,9 @@ httpd-log: ## Apache httpd のログ表示
 ## 一括操作
 ## ----------------------------------------
 .PHONY: docker-start docker-stop docker-ps
-docker-start: gitea mattermost httpd ## 全Dockerサービス起動
+docker-start: gitea httpd ## 全Dockerサービス起動
 
-docker-stop: gitea-down mattermost-down httpd-down ## 全Dockerサービス停止
+docker-stop: gitea-down httpd-down ## 全Dockerサービス停止
 
 docker-ps: ## 起動中コンテナ一覧
 	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"

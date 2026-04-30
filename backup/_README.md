@@ -19,6 +19,7 @@ backup/
   README.md              # このファイル
   Makefile               # 夜間自動バックアップ（autobackup.sh から呼び出される）
   autobackup.sh          # オーケストレーター（cron から毎日 23:50 に実行）
+  mattermost-backup.sh   # Mattermost DB バックアップ
   mozc-backup.sh         # Mozc 辞書バックアップ
   thunderbird-backup.sh  # Thunderbird バックアップ
   filezilla-backup.sh    # FileZilla 設定バックアップ
@@ -39,6 +40,7 @@ backup/
 [autobackup] START: 2026-04-06 23:50:01
 [autobackup] melpa: OK
 [autobackup] git-push (GH+minorugh.com): OK
+[autobackup] mattermost: OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
 [autobackup] gitea: OK
@@ -58,6 +60,7 @@ backup/
 ```makefile
 melpa:               # ELPAを Dropbox/backup/elpa へ rsync + git push
 git-push:            # GH・minorugh.com を日次自動コミット＆push
+mattermost-backup:   # Mattermost config/data/DB を Dropbox にバックアップ
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 gitea-backup:        # Gitea data を Dropbox にバックアップ
@@ -71,6 +74,7 @@ thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
 |---|---|
 | `melpa` | `~/Dropbox/backup/elpa/` + git push（Gitea・Xserver） |
 | `git-push` | GH・minorugh.com の変更を日次で自動コミット＆push |
+| `mattermost-backup` | `~/Dropbox/backup/mattermost/` |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
 | `gitea-backup` | `~/Dropbox/backup/gitea/` |

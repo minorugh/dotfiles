@@ -11,7 +11,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup
+all: melpa git-push mattermost-backup mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup
 
 .ONESHELL:
 
@@ -30,6 +30,10 @@ melpa: ## MELPAパッケージを ~/Dropbox/backup/elpa へ バックアップ
 git-push: ## dropbox/GH dropbox/minorugh.com を auto commit
 	$(MAKE) -C ${HOME}/Dropbox/GH git
 	$(MAKE) -C ${HOME}/Dropbox/minorugh.com git
+
+## Mattermost の config+data+DB を Dropbox にバックアップ
+mattermost-backup: ## Mattermost config+data+DB を Dropbox にバックアップ
+	/usr/local/bin/mattermost-backup.sh
 
 ## P1 の ~/.mozc を Dropbox にバックアップ
 mozc-backup: ## P1 の ~/.mozc を Dropbox にバックアップ
