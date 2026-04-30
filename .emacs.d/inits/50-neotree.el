@@ -32,7 +32,8 @@
   (setq neo-create-file-auto-open t)
 
 (defun my-neotree-toggle ()
-  "Toggle Neotree, jumping to current file/dir."
+  "Toggle Neotree, jumping to current file/dir.
+Bound to F7; see 10-functions.el."
   (interactive)
   (if (neo-global--window-exists-p)
       (neotree-hide)

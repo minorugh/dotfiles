@@ -92,7 +92,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
 
   (defun my-darkroom-toggle ()
     "Toggle distraction-free mode.
-Bound to F8; see 10-funcs.el."
+Bound to F8; see 10-functions.el."
     (interactive)
     (if my-darkroom-mode
         (my-darkroom-out)

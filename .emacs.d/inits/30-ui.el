@@ -53,10 +53,10 @@
   :config (setq nerd-icons-scale-factor 0.8))
 
 (leaf display-line-numbers
-  :ensure nil
   :tag "builtin"
   :doc "Interface for display-line-numbers."
-  :bind ([f9] . display-line-numbers-mode)
+  ;; Toogle display-line-numbers-mode
+  ;; Bound to F9; see 10-functions.el
   :hook ((prog-mode-hook . display-line-numbers-mode)
          (prog-mode-hook . goto-address-prog-mode)
          (text-mode-hook . display-line-numbers-mode)
