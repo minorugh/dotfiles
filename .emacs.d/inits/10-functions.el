@@ -27,69 +27,59 @@
   (defun terminal-open-this ()
     "Open gnome-terminal at current dir on adjacent display."
     (interactive)
-    (let ((dir (directory-file-name default-directory)))
-      (start-process-shell-command
-       "gnome-terminal" nil
-       (concat "gnome-terminal --working-directory " dir))
-      (run-with-timer
-       0.5 nil
-       (lambda ()
-	 (shell-command
-          "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0")))))
+    (let* ((dir (directory-file-name default-directory))
+           (cmd (concat "gnome-terminal --working-directory " dir))
+           (move "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0"))
+      (start-process-shell-command "gnome-terminal" nil cmd)
+      (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
   (defun thunar-open-this ()
     "Open Thunar at current dir on adjacent display."
     (interactive)
-    (start-process-shell-command
-     "thunar" nil
-     (concat "thunar " default-directory))
-    (run-with-timer
-     0.5 nil
-     (lambda ()
-       (shell-command
-	"xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))))
+    (let* ((cmd  (concat "thunar " default-directory))
+           (move "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))
+      (start-process-shell-command "thunar" nil cmd)
+      (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
   (defun xsrv-ssh-access ()
     "Open xserver gospel-haiku.com.
 Optionally edit passwd files via TRAMP."
     (interactive)
     (let* ((candidates '("" "exec vim (xsrv)" "edit wmember" "edit dmember"))
-           (choice (completing-read
-                    "xsrv-ssh [Enter=terminal]: "
-                    candidates)))
+           (choice (completing-read "xsrv-ssh [Enter=terminal]: " candidates))
+           (vim-cmd "gnome-terminal --maximize -- ssh -t xsrv 'exec vim'")
+           (ssh-cmd "gnome-terminal --maximize -- ssh xsrv-GH")
+           (dm-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
+           (wm-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi"))
       (cond
-       ((string-prefix-p "exec" choice)
-	(start-process-shell-command "xsrv-vim" nil "gnome-terminal --maximize -- ssh -t xsrv 'exec vim'"))
-       ((string-prefix-p "edit d" choice)
-	(find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/dmember.cgi")
-	(text-mode)
-	(setq-local super-save-mode nil))
-       ((string-prefix-p "edit w" choice)
-	(find-file "/ssh:xsrv-GH:gospel-haiku.com/passwd/wmember.cgi")
-	(text-mode)
-	(setq-local super-save-mode nil))
-       (t
-	(start-process-shell-command "xsrv-gh" nil "gnome-terminal --maximize -- ssh xsrv-GH")))))
+       ((string-prefix-p "exec"   choice) (start-process-shell-command "xsrv-vim" nil vim-cmd))
+       ((string-prefix-p "edit d" choice) (find-file dm-file) (text-mode) (setq-local super-save-mode nil))
+       ((string-prefix-p "edit w" choice) (find-file wm-file) (text-mode) (setq-local super-save-mode nil))
+       (t (start-process-shell-command "xsrv-gh" nil ssh-cmd)))))
 
   (defun fzilla-GH ()
     "Open Filezilla with `gospel-haiku.com'."
     (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla --site='0/gospel-haiku.com'"))
+    (start-process-shell-command
+     "filezilla" nil "filezilla --site='0/gospel-haiku.com'"))
 
   (defun fzilla-minoruGH ()
     "Open Filezilla with `minorugh.com'."
     (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla --site='0/minorugh.com'"))
+    (start-process-shell-command
+     "filezilla" nil "filezilla --site='0/minorugh.com'"))
 
   (defun fzilla-s ()
     "Open Filezilla with list of connections."
     (interactive)
-    (start-process-shell-command "filezilla" nil "filezilla -s"))
+    (start-process-shell-command
+     "filezilla" nil "filezilla -s"))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
     (interactive)
-    (start-process-shell-command "keepass" nil "keepass.sh"))
+    (start-process-shell-command
+     "keepass" nil "keepass.sh"))
 
   (defun toggle-scratch-buffer ()
     "Toggle *scratch* buffer."
@@ -110,7 +100,6 @@ Disable super-save-mode in buffer-local."
       (find-file (format "/ssh:xsrv-GH:gospel-haiku.com/passwd/%s" file))
       (setq-local super-save-mode nil)
       (message "Opened %s (super-save disabled)" file))))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
