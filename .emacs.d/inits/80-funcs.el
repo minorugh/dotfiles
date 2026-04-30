@@ -99,8 +99,8 @@ Disable super-save-mode in buffer-local."
 		 (t (error "%s" "use 'd' or 'w'")))))
       (find-file (format "/ssh:xsrv-GH:gospel-haiku.com/passwd/%s" file))
       (setq-local super-save-mode nil)
-      (message "Opened %s (super-save disabled)" file)))
-  )
+      (message "Opened %s (super-save disabled)" file))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
