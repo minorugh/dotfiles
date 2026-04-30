@@ -1,4 +1,4 @@
-;;; 80-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 10-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
@@ -115,4 +115,4 @@ Disable super-save-mode in buffer-local."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 80-funcs.el ends here
+;;; 10-functions.el ends here
