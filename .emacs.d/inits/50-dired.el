@@ -3,30 +3,27 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(defvar my-dired-show-dotfiles-dirs
-  (mapcar (lambda (d) (file-name-as-directory (expand-file-name d)))
-          '("~/.env_source/"
-	    "~/src/github.com/minorugh/dotfiles/"
-            "~/src/github.com/minorugh/dotfiles/env/"))
-  "Directories where dotfiles should NOT be hidden.")
-
-;; revert-buffer 後もトグル状態を保持するためディレクトリ単位で管理
-(defvar my-dired-hidden-table (make-hash-table :test 'equal)
-  "Hash table tracking dotfile visibility per directory, t = hidden.")
-
 (leaf dired
   :hook (dired-after-readin-hook . my-dired-hide-dotfiles)
   :bind (:dired-mode-map
-	 ("<left>"  . my-dired-up)
-	 ("<right>" . my-dired-open)
-	 ("RET" . my-dired-open)
-	 ("w"   . wdired-change-to-wdired-mode)
-	 ("s"   . my-sudo-reopen)
-	 ("o"   . dired-open-file)
-	 ("["   . dired-hide-details-mode)
-	 ("a"   . my-dired-toggle-dotfiles)
-	 ("."   . my-open-tig)
-	 ("i"   . my-sxiv))
+         ("<left>"  . my-dired-up)
+         ("<right>" . my-dired-open)
+         ("RET" . my-dired-open)
+         ("w"   . wdired-change-to-wdired-mode)
+         ("a"   . my-dired-toggle-dotfiles)
+         ("s"   . my-dired-sudo-rm)
+         ("o"   . my-dired-open-xdg)
+         ("."   . my-open-tig)
+         ("i"   . my-sxiv))
+  :init
+  (defvar my-dired-show-dotfiles-dirs
+    (mapcar (lambda (d) (file-name-as-directory (expand-file-name d)))
+            '("~/" "~/.env_source/"
+              "~/src/github.com/minorugh/dotfiles/"
+              "~/src/github.com/minorugh/dotfiles/env/"))
+    "Directories where dotfiles should NOT be hidden.")
+  (defvar my-dired-hidden-table (make-hash-table :test 'equal)
+    "Hash table tracking dotfile visibility per directory. t = hidden.")
   :config
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
@@ -43,14 +40,14 @@
     (let ((file (dired-get-filename)))
       (if (file-directory-p file)
           (find-alternate-file file)
-	(find-file file))))
+        (find-file file))))
 
   (defun my-dired-up ()
     "Go to parent directory in the same buffer."
     (interactive)
     (find-alternate-file ".."))
 
-  (defun dired-open-file ()
+  (defun my-dired-open-xdg ()
     "In dired, open the file in associated application."
     (interactive)
     (let* ((file (dired-get-filename nil t)))
@@ -62,7 +59,9 @@
     (let ((files (dired-get-marked-files)))
       (when (y-or-n-p "Delete marked files with sudo?")
 	(dolist (file files)
-          (call-process "sudo" nil nil nil "rm" "-rf" file))
+          (let ((result (call-process "sudo" nil t nil "rm" "-rf" file)))
+            (unless (zerop result)
+              (message "sudo rm failed for: %s" file))))
 	(revert-buffer))))
 
   (defun my-open-tig ()
@@ -85,7 +84,16 @@
            "--"
            "bash" "-c"
            (format "tig %s" (shell-quote-argument path)))
-	(message "Not in a Git repo"))))
+        (message "Not in a Git repo"))))
+
+  (defun my-sxiv ()
+    "Open images in current directory with sxiv (fullscreen)."
+    (interactive)
+    (let* ((files (directory-files default-directory nil
+                                   "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))
+           (cmd (format "sxiv -t -f %s"
+                        (mapconcat #'shell-quote-argument files " "))))
+      (start-process-shell-command "sxiv" nil cmd)))
 
   (defun my-dired-hide-dotfiles ()
     "Hide dotfiles by removing lines, without using `dired-omit-mode'."
@@ -93,16 +101,15 @@
       (let* ((current (file-name-as-directory
                        (expand-file-name default-directory)))
              (hidden (gethash current my-dired-hidden-table
-                              ;; 初回: 除外ディレクトリなら表示、それ以外は非表示
                               (not (member current my-dired-show-dotfiles-dirs)))))
-	(puthash current hidden my-dired-hidden-table)
-	(when hidden
+        (puthash current hidden my-dired-hidden-table)
+        (when hidden
           (save-excursion
             (goto-char (point-min))
             (let ((inhibit-read-only t))
               (while (not (eobp))
-		(if (and (dired-get-filename 'no-dir t)
-			 (string-match
+                (if (and (dired-get-filename 'no-dir t)
+                         (string-match
                           "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$"
                           (dired-get-filename 'no-dir t)))
                     (delete-region (line-beginning-position)
@@ -117,18 +124,7 @@
       (puthash current
                (not (gethash current my-dired-hidden-table t))
                my-dired-hidden-table)
-      (revert-buffer)))
-
-
-  (defun my-sxiv ()
-    "Open images in current directory with sxiv (fullscreen)."
-    (interactive)
-    (let* ((files (directory-files default-directory nil
-                                   "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))
-           (cmd (format "sxiv -t -f %s"
-			(mapconcat #'shell-quote-argument files " "))))
-      (start-process-shell-command "sxiv" nil cmd))))
-
+      (revert-buffer))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
