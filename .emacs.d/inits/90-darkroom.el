@@ -13,7 +13,7 @@
 
 (leaf my-darkroom
   :doc "Distraction-free writing mode (darkroom package alternative)."
-  :bind ([f10] . my-darkroom-in)
+  :bind ([f8] . my-darkroom-in)
   :init
   (defvar-local my-darkroom--saved nil
     "Saved state before entering distraction-free mode.")
@@ -54,7 +54,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     "Minor mode for distraction-free writing."
     :lighter " Dark"
     :keymap (let ((map (make-sparse-keymap)))
-              (define-key map [f10] #'my-darkroom-out)
+              (define-key map [f8] #'my-darkroom-out)
               map)
     (if my-darkroom-mode
         (progn

@@ -7,7 +7,7 @@
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :hook (neotree-mode-hook . (lambda () (setq-local mode-line-format nil)))
-  :bind (("<f2>" . my-neotree-toggle)
+  :bind (("<f7>" . my-neotree-toggle)
 	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
 	  ("j"       . next-line)
