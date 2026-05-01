@@ -502,6 +502,7 @@ ifeq ($(HOSTNAME),P1)
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	git pull --rebase
+	$(MAKE) -s -C ~/src/github.com/minorugh/env-import env-restore
 endif
 
 # ------------------------------------------------------------
