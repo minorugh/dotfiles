@@ -96,14 +96,12 @@
 ;;; Advice for using mozc_emacs_helper compiled before the spec change with the new mozc.el
 ;;; https://w.atwiki.jp/ntemacs/pages/48.html
 
-(advice-add 'mozc-protobuf-get
-	    :around (lambda (orig-fun &rest args)
-		      (when (eq (nth 1 args) 'candidate-window)
-			(setf (nth 1 args) 'candidates))
-		      (apply orig-fun args)))
+;; (advice-add 'mozc-protobuf-get
+;; 	    :around (lambda (orig-fun &rest args)
+;; 		      (when (eq (nth 1 args) 'candidate-window)
+;; 			(setf (nth 1 args) 'candidates))
+;; 		      (apply orig-fun args)))
 ;;; ---------------------------------------------------------------------
-
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
