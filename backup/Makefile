@@ -18,13 +18,18 @@ all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup
 ## Emacs ELPAパッケージを ~/Dropbox/backup/elpa へ rsync + git push（Gitea・Xserver）
 ELPA_SRC = ${HOME}/src/github.com/minorugh/dotfiles/.emacs.d/elpa
 ELPA_BAK = ${HOME}/Dropbox/backup/elpa
+ELPA_PAST = ${HOME}/Dropbox/backup/elpa/PAST
 
 melpa: ## MELPAパッケージを ~/Dropbox/backup/elpa へ バックアップ
-	rsync -av $(ELPA_SRC)/ $(ELPA_BAK)/
+	mkdir -p $(ELPA_PAST)
+	rsync -av \
+		--backup \
+		--backup-dir=$(ELPA_PAST) \
+		--exclude='.git' \
+		$(ELPA_SRC)/ $(ELPA_BAK)/
 	cd $(ELPA_BAK) && \
 	git add . && \
-	git commit -m "auto ELPA: $$(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit" && \
-	git push
+	git commit -m "auto ELPA: $$(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
 git-push: ## dropbox/GH dropbox/minorugh.com を auto commit
