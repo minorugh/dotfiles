@@ -1,5 +1,9 @@
 ;;; 40-hydra-dired.el --- Hydra dired-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; Hydra menu bound to `M-.' for quick `dired' navigation and external tool launch.
+;; filezilla function accepts site key (g/m/s) for direct launch via hydra keys.
+;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -15,9 +19,9 @@
 "
    ("a" consult-git-grep)
    ("f" consult-flymake)
-   ("8" fzilla-s)
-   ("9" fzilla-GH)
-   ("0" fzilla-minoruGH)
+   ("8" (filezilla "s"))
+   ("9" (filezilla "g"))
+   ("0" (filezilla "m"))
    ("t" my-open-tig)
    ("p" keepassxc)
    ("n" (browse-url "https://app.simplenote.com/"))
@@ -70,7 +74,19 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
 	 (goto-char (if (< n 0) (point-max) (point-min)))
 	 (forward-line n))))
     (when (memq :omit opts)  (dired-omit-mode 0))
-    (when (memq :emacs opts) (evil-emacs-state))))
+    (when (memq :emacs opts) (evil-emacs-state)))
+
+  (defun filezilla (&optional site)
+    "Open FileZilla with SITE."
+    (interactive)
+    (let* ((sites '(("g" . "0/gospel-haiku.com")
+                    ("m" . "0/minorugh.com")
+                    ("s" . "-s")))
+           (arg (or (cdr (assoc site sites)) "-s"))
+           (cmd (if (string= arg "-s")
+                    "filezilla -s"
+                  (format "filezilla --site='%s'" arg))))
+      (start-process-shell-command "filezilla" nil cmd))))
 
 
 ;; Local Variables:

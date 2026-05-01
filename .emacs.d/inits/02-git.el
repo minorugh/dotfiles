@@ -34,6 +34,7 @@ all git-peek buffers."
   :config
   (setq browse-at-remote-prefer-symbolic nil))
 
+
 (defun github-deploy ()
   "Insert current changelog buffer into CHANGELOG.md and open it."
   (interactive)

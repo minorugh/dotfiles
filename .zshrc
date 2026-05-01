@@ -236,6 +236,7 @@ alias v='vim'
 # emacs
 alias e='emacs'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
+alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
 
 # crontab
 alias ce='crontab -e'
@@ -386,6 +387,19 @@ function optimize-png() {
         echo 'usage: optimize-png sample.png'
     fi
 }
+
+function ssh-fzf () {
+    # configからHostを抜き出し、選んだらそのまま ssh するだけ
+    local selected_host=$(grep -i "^Host " ~/.ssh/config | grep -v '[*?]' | grep -v "github.com" | awk '{print $2}' | fzf --reverse --height 40% --prompt="SSH-JUMP > ")
+
+    if [ -n "$selected_host" ]; then
+        BUFFER="ssh ${selected_host}"
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+zle -N ssh-fzf
+bindkey '^\' ssh-fzf
 
 ########################################
 # Plugins
