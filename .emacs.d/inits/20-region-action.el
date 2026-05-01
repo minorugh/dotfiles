@@ -20,9 +20,9 @@
   :tag "builtin"
   :doc "Key bindings valid only during region selection"
   :config
+  (bind-key "s" 'consult-line-region my-selected-mode-map)
   (bind-key ";" 'comment-dwim     my-selected-mode-map)
   (bind-key "c" 'kill-ring-save   my-selected-mode-map)
-  (bind-key "s" 'consult-line-region my-selected-mode-map)
   (bind-key "g" 'my-google-search my-selected-mode-map)
   (bind-key "w" 'my-weblio-search my-selected-mode-map)
   (bind-key "d" 'deepl-translate  my-selected-mode-map)
