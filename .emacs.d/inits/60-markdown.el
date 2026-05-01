@@ -91,28 +91,28 @@
 	    (message "Deleted temporary file: %s" file))))))
   (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
-  (defun md2pdf ()
-    "Generate PDF from currently open markdown via pandoc + lualatex."
-    (interactive)
-    (let* ((filename (buffer-file-name (current-buffer)))
-           (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
-      (if (zerop (call-process-shell-command
-                  (concat "pandoc " filename
-                          " -o " pdffile
-                          " -V mainfont=IPAPGothic -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex")))
-          (call-process "xdg-open" nil nil nil pdffile)
+(defun md2pdf ()
+  "Generate PDF from currently open markdown via pandoc + lualatex."
+  (interactive)
+  (let* ((filename (buffer-file-name (current-buffer)))
+         (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
+    (if (zerop (call-process-shell-command
+                (concat "pandoc " filename
+                        " -o " pdffile
+                        " -V mainfont=IPAPGothic -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex")))
+        (call-process "xdg-open" nil nil nil pdffile)
 	(message "md2pdf: pandoc failed"))))
 
-  (defun md2docx ()
-    "Generate docx from currently open markdown."
-    (interactive)
-    (let* ((filename (buffer-file-name (current-buffer)))
-           (docxfile  (concat (file-name-sans-extension filename) ".docx")))
-      (if (zerop (call-process-shell-command
-                  (concat "pandoc " filename
-                          " -t docx -o " docxfile
-                          " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn")))
-          (call-process "xdg-open" nil nil nil docxfile)
+(defun md2docx ()
+  "Generate docx from currently open markdown."
+  (interactive)
+  (let* ((filename (buffer-file-name (current-buffer)))
+         (docxfile  (concat (file-name-sans-extension filename) ".docx")))
+    (if (zerop (call-process-shell-command
+                (concat "pandoc " filename
+                        " -t docx -o " docxfile
+                        " -V mainfont=IPAPGothic -V fontsize=16pt --highlight-style=zenburn")))
+        (call-process "xdg-open" nil nil nil docxfile)
 	(message "md2docx: pandoc failed")))))
 
 
