@@ -65,9 +65,9 @@
   ;;; mozc-cusor-color
   ;;; --------------------------------
   (setq my-mozc-cursor-color-alist
-	'((direct       . "lime green")
-	  (read-only    . "lime green")
-	  (hiragana     . "#cc3333")))
+	'((direct    . "#50fa7b")
+          (read-only . "#50fa7b")
+          (hiragana  . "#ff9580")))
 
   (setq-default my-mozc-current-input-mode 'hiragana)
 
