@@ -41,6 +41,9 @@
 ;; Start with a maximized frame and hide the splash screen
 (push '(fullscreen . maximized) initial-frame-alist)
 (setq inhibit-startup-message t)
+(setq inhibit-startup-screen t)
+;; Do not force *scratch* on startup; let dashboard take over
+(setq initial-buffer-choice nil)
 
 
 (provide 'early-init)
