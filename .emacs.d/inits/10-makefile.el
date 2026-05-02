@@ -92,12 +92,15 @@
 				(recenter)))
                     :caller 'my-make-ivy-integrated)))))
 
-  ;; Toggle read-only and report status in minibuffer.
+  ;; Toggle read-only and switch evil state accordingly.
   (defun my-makefile-toggle-readonly ()
     "Toggle read-only mode."
     (interactive)
     (read-only-mode 'toggle)
-    (message "Makefile: %s" (if buffer-read-only "read-only" "EDITABLE")))
+    (if (eq evil-state 'normal)
+	(evil-emacs-state)
+      (evil-normal-state))
+    (unless buffer-read-only (message "EDITABLE")))
 
   ;; Run `make git' from the nearest Makefile root.
   (defun my-make-git ()
