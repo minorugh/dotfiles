@@ -64,9 +64,8 @@ all git-peek buffers."
         (message "CHANGELOG.md updated: %s" date)))))
 
 
-(defun my-consult-git-grep-GH ()
-  "Run `consult-git-grep' in ~/Dropbox/GH.
-GIT_DIR points to the external .git in ~/src/github.com/minorugh/GH."
+(defun my-counsel-git-grep-GH ()
+  "Run `counsel-git-grep' in ~/Dropbox/GH."
   (interactive)
   (let ((process-environment
          (append
@@ -74,11 +73,10 @@ GIT_DIR points to the external .git in ~/src/github.com/minorugh/GH."
                 "GIT_WORK_TREE=/home/minoru/Dropbox/GH")
           process-environment))
         (default-directory "/home/minoru/Dropbox/GH/"))
-    (consult-git-grep)))
+    (counsel-git-grep)))
 
-(defun my-consult-git-grep-minorugh ()
-  "Run `consult-git-grep' in ~/Dropbox/minorugh.com.
-GIT_DIR points to the external .git in ~/src/github.com/minorugh/minorugh.com."
+(defun my-counsel-git-grep-minorugh ()
+  "Run `counsel-git-grep' in ~/Dropbox/minorugh.com."
   (interactive)
   (let ((process-environment
          (append
@@ -86,7 +84,7 @@ GIT_DIR points to the external .git in ~/src/github.com/minorugh/minorugh.com."
                 "GIT_WORK_TREE=/home/minoru/Dropbox/minorugh.com")
           process-environment))
         (default-directory "/home/minoru/Dropbox/minorugh.com/"))
-    (consult-git-grep)))
+    (counsel-git-grep)))
 
 
 ;; Local Variables:

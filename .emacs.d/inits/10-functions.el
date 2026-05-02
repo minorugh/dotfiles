@@ -11,7 +11,7 @@
 (leaf external-functions
   :doc "External functions & SSH launchers."
   :bind (("<f1>"  . help-command)              ;; built-in
-         ("<f2>"  . consult-imenu)             ;; see 04-consult.el
+         ("<f2>"  . my-ivy-imenu)             ;; see 04-consult.el
          ("<f3>"  . terminal-open-this)        ;; see :init
          ("<f4>"  . xsrv-ssh-fzf)              ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
