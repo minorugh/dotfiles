@@ -11,8 +11,8 @@
 (leaf my-switch-project
   :init
   (defcustom my-git-project-search-dirs
-    '("~/projects" "~/work" "~/src")
-    "Git プロジェクトを探すトップレベルディレクトリのリスト。"
+    '("~/src/github.com/minorugh/" "~/Dropbox/" "~/.env_source/")
+    "A list of top-level directories to look for Git projects."
     :type '(repeat directory)
     :group 'my)
   (defcustom my-git-project-search-depth 3

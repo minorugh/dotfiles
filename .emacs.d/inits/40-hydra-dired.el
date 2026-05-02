@@ -14,16 +14,18 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_chin  ftp._9_._0_._-_  meint._:__;_
-  _r_estart  Git:_[__-__]_  _n_otes  GH._h__j_  _f_lymk  _<home>_  h_@_wm_,_._v_._n_ote  key_p_ass  _g_ithub.i_o_^^  capture_,_
+  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_cahin  ftp._9_._0_._-_  meint_:__;_
+  _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lymk  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  _p_roject
 "
    ("a" counsel-git-grep)
    ("f" flymake-show-buffer-diagnostics)
+   ("z" (filezilla "s"))
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("t" my-open-tig)
-   ("p" keepassxc)
+   ("x" keepassxc)
+   ("p" my-ivy-switch-git-project)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    ("g" (my-open "~/src/github.com/minorugh"))
