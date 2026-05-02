@@ -62,6 +62,21 @@
 	(indent-region (point-min) (point-max)))
       (message "Indented selected region or buffer."))))
 
+(leaf flycheck
+  :ensure t
+  :hook ((prog-mode-hook . flycheck-mode)
+	(lisp-interaction-mode-hook . (lambda () (flycheck-mode -1))))
+  :custom ((flycheck-emacs-lisp-initialize-packages . t))
+  :config
+  ;; Fixing leaf-keywords "Unrecognized keyword" error in flycheck
+  (eval-and-compile (require 'flycheck))
+  (setq flycheck-emacs-lisp-package-initialize-form
+		(flycheck-sexp-to-string
+		 '(progn
+			(with-demoted-errors "Error during package initialization: %S"
+              (package-initialize))
+			(leaf-keywords-init)))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

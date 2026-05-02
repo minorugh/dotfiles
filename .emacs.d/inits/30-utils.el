@@ -21,6 +21,14 @@
 	  ("GG" . end-of-buffer)))
 
 
+(leaf sequential-command
+  :doc "Move to first and last line of buffer."
+  :vc (:url "https://github.com/minorugh/sequential-command")
+  :config
+  (leaf sequential-command-config
+    :hook (after-init-hook . sequential-command-setup-keys)))
+
+
 (leaf quickrun
   :ensure t
   :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")

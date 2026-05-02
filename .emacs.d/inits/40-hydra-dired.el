@@ -8,7 +8,7 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-dired
-  :bind ("M-." . hydra-dired/body)
+  :bind (("<henkan>" . hydra-dired/body))
   :hydra
   (hydra-dired
    (:hint nil :exit t)
@@ -18,7 +18,7 @@
   _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lymk  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  _p_roject
 "
    ("a" counsel-git-grep)
-   ("f" flymake-show-buffer-diagnostics)
+   ("f" flycheck-list-errors)
    ("z" (filezilla "s"))
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
@@ -54,7 +54,7 @@
    ("]" my-make-git)
    ("y" my-reload-keychain)
    ("q" top-level)
-   ("M-." hydra-work/body)
+   ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil))
   :init
   (defun my-make (target &optional dir)

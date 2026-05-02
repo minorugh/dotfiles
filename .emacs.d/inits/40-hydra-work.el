@@ -1,10 +1,10 @@
-;;; 40-hydra-menu.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
+;;; 40-hydra-work.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf hydra-work
-  :bind (("<henkan>" . hydra-work/body))
+  ;; :bind (("<henkan>" . hydra-work/body))
   :require (my-template)
   :hydra
   (hydra-work
@@ -53,7 +53,7 @@
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<henkan>" hydra-dired/body)
+   ;; ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
   (defun my-junk-new ()
@@ -70,4 +70,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 40-hydra-menu.el ends here
+;;; 40-hydra-work.el ends here

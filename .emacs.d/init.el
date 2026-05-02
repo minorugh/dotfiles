@@ -5,6 +5,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; (with-current-buffer " *Flymake log*"
+;;  (buffer-string))
+
 (when (version< emacs-version "29.1")
   (error "This requires Emacs 29.1 and above!"))
 

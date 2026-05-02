@@ -9,6 +9,7 @@
 ;; Git プロジェクト切り替え
 ;; ─────────────────────────────────────────
 (leaf my-switch-project
+  :after project ivy
   :init
   (defcustom my-git-project-search-dirs
     '("~/src/github.com/minorugh/" "~/Dropbox/" "~/.env_source/")
@@ -20,19 +21,17 @@
     :type 'integer
     :group 'my)
   :config
-  (require 'ivy)
-
   (defun my-find-git-projects ()
     (let (projects)
       (dolist (root my-git-project-search-dirs)
-        (let ((expanded (expand-file-name root)))
+	(let ((expanded (expand-file-name root)))
           (when (file-directory-p expanded)
             (let* ((cmd (format
-                         "find %s -maxdepth %d -name .git -type d 2>/dev/null"
-                         (shell-quote-argument expanded) my-git-project-search-depth))
+			 "find %s -maxdepth %d -name .git -type d 2>/dev/null"
+			 (shell-quote-argument expanded) my-git-project-search-depth))
                    (raw (shell-command-to-string cmd)))
               (dolist (git-dir (split-string raw "\n" t))
-                (push (file-name-directory git-dir) projects))))))
+		(push (file-name-directory git-dir) projects))))))
       (sort (delete-dups projects) #'string<)))
 
   (defun my-ivy-switch-git-project--transformer (s)
@@ -49,46 +48,42 @@
     (let ((projects (my-find-git-projects)))
       (if (null projects)
           (message "Git プロジェクトが見つかりません。`my-git-project-search-dirs` を確認してください。")
-        (ivy-read "Git project: " projects
+	(ivy-read "Git project: " projects
                   :action (lambda (dir)
                             (setq default-directory dir)
                             (message "移動しました: %s" dir)
                             (dired dir))
                   :caller 'my-ivy-switch-git-project))))
-
-  (global-set-key (kbd "C-c p p") #'my-ivy-switch-git-project))
+  )
 
 ;; ─────────────────────────────────────────
 ;; imenu
 ;; ─────────────────────────────────────────
 (leaf my-ivy-imenu
   :config
-  (require 'ivy)
-  (require 'imenu)
-
   (defun my-ivy-imenu--collect ()
-    "imenu インデックスをフラットな候補リストに変換する。"
+    "Convert the imenu index to a flat candidate list."
     (let ((index (imenu--make-index-alist t))
           (cands nil))
       (cl-labels
           ((flatten (alist prefix)
              (dolist (item alist)
                (cond
-                ((imenu--subalist-p item)
-                 (flatten (cdr item)
+		((imenu--subalist-p item)
+		 (flatten (cdr item)
                           (concat prefix
                                   (propertize (car item)
                                               'face 'font-lock-type-face)
                                   "/")))
-                ((and (cdr item) (not (equal (car item) "*Rescan*")))
-                 (let* ((category-fmt (if (string= prefix "")
-                                         ""
-                                       (concat prefix " ")))
-                        (name-fmt (propertize (car item)
+		((and (cdr item) (not (equal (car item) "*Rescan*")))
+		 (let* ((category-fmt (if (string= prefix "")
+                                          ""
+					(concat prefix " ")))
+			(name-fmt (propertize (car item)
                                               'face 'font-lock-function-name-face))
-                        (display (concat category-fmt name-fmt)))
+			(display (concat category-fmt name-fmt)))
                    (push (cons display (cdr item)) cands)))))))
-        (flatten index ""))
+	(flatten index ""))
       (nreverse cands)))
 
   (defun my-ivy-imenu--goto (x)
@@ -97,8 +92,8 @@
       (when (overlayp pos) (setq pos (overlay-start pos)))
       (when (markerp pos) (setq pos (marker-position pos)))
       (when pos
-        (goto-char pos)
-        (recenter))))
+	(goto-char pos)
+	(recenter))))
 
   (defun my-ivy-imenu ()
     "Ivy でバッファの imenu を ↑↓ プレビュー付きで表示する。"
@@ -109,9 +104,9 @@
            (map        (copy-keymap ivy-minibuffer-map)))
       (if (not cands)
           (message "imenu エントリが見つかりません。")
-        (define-key map (kbd "<down>") 'ivy-next-line-and-call)
-        (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
-        (ivy-read "imenu: " cands
+	(define-key map (kbd "<down>") 'ivy-next-line-and-call)
+	(define-key map (kbd "<up>")   'ivy-previous-line-and-call)
+	(ivy-read "imenu: " cands
                   :keymap map
                   :action (lambda (x)
                             (with-current-buffer orig-buf
@@ -122,7 +117,9 @@
                               (goto-char orig-point)
                               (recenter)))
                   :require-match t
-                  :caller 'my-ivy-imenu)))))
+                  :caller 'my-ivy-imenu))))
+
+  )
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
