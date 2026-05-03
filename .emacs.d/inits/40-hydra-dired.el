@@ -36,8 +36,8 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   (":" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   (";" (my-open "~/src/github.com/minorugh/dotfiles/cron/Makefile" :pos 'top))
+   (";" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
+   (":" my-reload-xprofile)
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
@@ -77,6 +77,12 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
 	 (forward-line n))))
     (when (memq :omit opts)  (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
+
+  (defun my-reload-xprofile ()
+    "Reload ~/.xprofile."
+    (interactive)
+    (shell-command "bash ~/.xprofile > /dev/null 2>&1")
+    (message "xprofile reloaded"))
 
   (defun filezilla (&optional site)
     "Open FileZilla with SITE."

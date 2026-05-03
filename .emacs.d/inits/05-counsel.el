@@ -3,6 +3,20 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;; (leaf ivy
+;;   :ensure t
+;;   :hook (after-init-hook . ivy-mode)
+;;   :bind ((:ivy-minibuffer-map
+;;           ("C-n"   . ivy-next-line-and-call)
+;;           ("C-p"   . ivy-previous-line-and-call)))
+;;           ;; ("<down>" . ivy-next-line-and-call)
+;;           ;; ("<up>"   . ivy-previous-line-and-call)))
+;;   :config
+;;   (setq ivy-use-virtual-buffers t)
+;;   (setq ivy-use-selectable-prompt t)
+;;   (setq enable-recursive-minibuffers t)
+;;   (setq ivy-extra-directories nil))
+
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
@@ -36,12 +50,13 @@
      (lambda (str)
        (concat (propertize " " 'display `(space :align-to 2)) str))
      cands
-     "\n")))
+     "\n"))
+
 
 (leaf ivy-rich
   :ensure t
   :doc "More friendly display transformer for ivy."
-  :hook (after-init-hook . ivy-rich-mode))
+  :hook (after-init-hook . ivy-rich-mode)))
 
 (leaf amx
   :ensure t
