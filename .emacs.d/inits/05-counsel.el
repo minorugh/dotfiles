@@ -1,28 +1,12 @@
-;;; 04-counsel.el --- Counsel configurations. -*- lexical-binding: t -*-
+;;; 05-counsel.el --- Counsel configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
-
-;; (leaf ivy
-;;   :ensure t
-;;   :hook (after-init-hook . ivy-mode)
-;;   :bind ((:ivy-minibuffer-map
-;;           ("C-n"   . ivy-next-line-and-call)
-;;           ("C-p"   . ivy-previous-line-and-call)))
-;;           ;; ("<down>" . ivy-next-line-and-call)
-;;           ;; ("<up>"   . ivy-previous-line-and-call)))
-;;   :config
-;;   (setq ivy-use-virtual-buffers t)
-;;   (setq ivy-use-selectable-prompt t)
-;;   (setq enable-recursive-minibuffers t)
-;;   (setq ivy-extra-directories nil))
 
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
   :hook (after-init-hook . ivy-mode)
-  :chord (("df" . counsel-describe-function)
-          ("fg" . counsel-describe-variable))
   :bind (("C-:"     . counsel-switch-buffer)
          ("C-x C-f" . counsel-find-file)
          ("C-x g"   . counsel-git)         ;; プロジェクト内のファイルを検索
@@ -57,6 +41,7 @@
   :ensure t
   :doc "More friendly display transformer for ivy."
   :hook (after-init-hook . ivy-rich-mode)))
+
 
 (leaf amx
   :ensure t
@@ -114,4 +99,4 @@ If the region isn't selected, `swiper'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 04-counsel.el ends here
+;;; 05-counsel.el ends here

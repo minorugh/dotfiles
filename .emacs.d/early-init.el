@@ -45,8 +45,6 @@
 ;; Do not force *scratch* on startup; let dashboard take over
 (setq initial-buffer-choice nil)
 
-;; 自分の設定ディレクトリ全体を信頼済みに
-;; (setq trusted-content (list (expand-file-name user-emacs-directory)))
 
 (provide 'early-init)
 ;;; early-init.el ends here

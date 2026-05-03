@@ -53,7 +53,7 @@
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ;; ("<henkan>" hydra-dired/body)
+   ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
   (defun my-junk-new ()
