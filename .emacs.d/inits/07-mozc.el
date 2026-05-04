@@ -90,6 +90,14 @@
                     my-mozc-cursor-color-alist))
 	 (frame-parameter nil 'foreground-color)))))
 
+(defun my-ime-on ()
+    (interactive)
+    (when (null current-input-method)
+      (toggle-input-method)))
+
+  (defun my-ime-off ()
+    (interactive)
+    (deactivate-input-method))
 
 ;;; ---------------------------------------------------------------------
 ;;; The specifications of mozc_helper_emacs and mozc.el have changed.

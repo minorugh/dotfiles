@@ -99,7 +99,7 @@
 ;;; Normal-state でleader key ";" を使って編集コマンドを呼び出す。
 ;;; insert-stateを使わずNormal stateのまま軽微な編集を完結させるための仕組み。
 ;;; ESCでキャンセル、完了後もNormal stateに留まる。muhenkanでEmacs stateへ。
-;; Normal-state leader key ( ; )
+  ;; Normal-state leader key ( ; )
   (defvar my-normal-leader-map (make-sparse-keymap)
     "Prefix map triggered by ';' in evil-normal-state.")
 
@@ -114,12 +114,22 @@
     (define-key m "i" #'my-insert-one-char)     ; ;i → 一文字だけ挿入
     (define-key m "@" #'my-insert-maru))        ; ;@ → 行頭に◎挿入（俳句選者用）
 
+;; (defun my-insert-one-char ()
+;;   (interactive)
+;;   (when (eq major-mode 'text-mode)
+;;     (my-ime-on))
+;;   (unwind-protect
+;;       (let ((str (read-string "insert: ")))
+;;         (unless (string-empty-p str)
+;;           (insert str)))
+    ;; (my-ime-off)))
+
   (defun my-insert-one-char ()
-    "一文字だけ挿入して Normal state に留まる。ESC でキャンセル。"
-    (interactive)
-    (let ((char (read-key "insert (ESC to cancel): ")))
-      (unless (eq char 27)  ; 27 = ESC
-        (insert char))))
+      "Insert only one character and stay in Normal state; ESC to cancel."
+      (interactive)
+      (let ((char (read-key "insert (ESC to cancel): ")))
+        (unless (eq char 27)  ; 27 = ESC
+          (insert char))))
 
   (defun my-insert-maru ()
     "行頭に◎を挿入する。カーソル位置は変わらず Normal state のまま完結。"
