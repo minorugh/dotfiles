@@ -15,7 +15,7 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_cahin  ftp._9_._0_._-_  meint_:__;_
-  _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lymk  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  _p_roject
+  _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lych  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  git_p_roj
 "
    ("a" counsel-git-grep)
    ("f" flycheck-list-errors)
@@ -25,7 +25,7 @@
    ("0" (filezilla "m"))
    ("t" my-open-tig)
    ("x" keepassxc)
-   ("p" ivy-switch-git-project)
+   ("p" ivy-git-project-switch)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    ("g" (my-open "~/src/github.com/minorugh"))
