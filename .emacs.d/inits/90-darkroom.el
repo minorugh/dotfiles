@@ -80,7 +80,10 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (display-line-numbers-mode 0)
     (setq-local line-spacing my-darkroom-line-spacing)
     (my-darkroom-mode 1)
-    (toggle-frame-fullscreen))
+    (toggle-frame-fullscreen)
+    (when (null current-input-method)
+      (toggle-input-method)))
+
 
   (defun my-darkroom-out ()
     "Leave distraction-free mode and restore previous settings."
@@ -88,14 +91,16 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (my-darkroom-mode 0)
     (toggle-frame-fullscreen)
     (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
-    (setq-local line-spacing (plist-get my-dark-old-state :spacing)))
+    (setq-local line-spacing (plist-get my-dark-old-state :spacing))
+    (toggle-input-method))
+
 
   (defun my-darkroom-toggle ()
     "Toggle distraction-free mode.
 Bound to F8; see 10-functions.el."
     (interactive)
     (if my-darkroom-mode
-        (my-darkroom-out)
+	(my-darkroom-out)
       (my-darkroom-in))))
 
 
