@@ -101,44 +101,36 @@
 ;;; insert-stateを使わずNormal stateのまま軽微な編集を完結させるための仕組み。
 ;;; ESCでキャンセル、完了後もNormal stateに留まる。muhenkanでEmacs stateへ。
   ;; Normal-state leader key ( ; )
-  (defvar my-normal-leader-map (make-sparse-keymap)
-    "Prefix map triggered by ';' in evil-normal-state.")
 
-  (define-key evil-normal-state-map ";" my-normal-leader-map)
+  (leaf evil-leader-map
+    :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
+    :config
+    (defvar my-normal-leader-map (make-sparse-keymap)
+      "Prefix map triggered by ';' in evil-normal-state.")
+    (define-key evil-normal-state-map ";" my-normal-leader-map)
+    (let ((m my-normal-leader-map))
+      (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
+      (define-key m "t" #'transpose-chars)     ; ;t → 前後の文字を入れ替え
+      (define-key m "s" #'swiper)              ; ;s → Swiper検索
+      (define-key m ";" #'comment-line)        ; ;; → コメントトグル
+      (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
+      (define-key m "i" #'my-insert-one-char)  ; ;i → 一文字だけ挿入
+      (define-key m "@" #'my-insert-maru))     ; ;@ → 行頭に◎挿入（俳句選者用）
 
-  (let ((m my-normal-leader-map))
-    (define-key m "w" #'save-buffer)            ; ;w → 保存
-    (define-key m "s" #'swiper)                 ; ;s → Swiper検索
-    (define-key m "b" #'consult-buffer)         ; ;b → バッファ切り替え
-    (define-key m ";" #'comment-line)           ; ;; → コメントトグル
-    (define-key m "d" #'duplicate-line)         ; ;d → 行の複製（Emacs29+）
-    (define-key m "i" #'my-insert-one-char)     ; ;i → 一文字だけ挿入
-    (define-key m "@" #'my-insert-maru))        ; ;@ → 行頭に◎挿入（俳句選者用）
-
-;; (defun my-insert-one-char ()
-;;   (interactive)
-;;   (when (eq major-mode 'text-mode)
-;;     (my-ime-on))
-;;   (unwind-protect
-;;       (let ((str (read-string "insert: ")))
-;;         (unless (string-empty-p str)
-;;           (insert str)))
-    ;; (my-ime-off)))
-
-  (defun my-insert-one-char ()
+    (defun my-insert-one-char ()
       "Insert only one character and stay in Normal state; ESC to cancel."
       (interactive)
       (let ((char (read-key "insert (ESC to cancel): ")))
-        (unless (eq char 27)  ; 27 = ESC
+	(unless (eq char 27)
           (insert char))))
 
-  (defun my-insert-maru ()
-    "行頭に◎を挿入する。カーソル位置は変わらず Normal state のまま完結。"
-    (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (insert "◎"))))
-;; 使い方: ;@ で◎挿入、j で次行、繰り返すだけ
+    (defun my-insert-maru ()
+      "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
+      (interactive)
+      (save-excursion
+	(beginning-of-line)
+	(insert "◎")))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
