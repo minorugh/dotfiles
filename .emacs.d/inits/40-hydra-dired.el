@@ -18,7 +18,7 @@
   _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lych  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  git_p_roj
 "
    ("a" counsel-git-grep)
-   ("f" flycheck-list-errors)
+   ("f" flymake-show-buffer-diagnostics)
    ("z" (filezilla "s"))
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
