@@ -19,6 +19,7 @@
          (:evil-visual-state-map
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
+          ("s"        . swiper-region)
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
           ([muhenkan] . my-muhenkan))

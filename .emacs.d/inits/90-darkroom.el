@@ -92,7 +92,8 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (toggle-frame-fullscreen)
     (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
     (setq-local line-spacing (plist-get my-dark-old-state :spacing))
-    (toggle-input-method))
+    (when current-input-method
+      (toggle-input-method)))
 
 
   (defun my-darkroom-toggle ()
