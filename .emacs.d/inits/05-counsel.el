@@ -34,13 +34,13 @@
      (lambda (str)
        (concat (propertize " " 'display `(space :align-to 2)) str))
      cands
-     "\n"))
+     "\n")))
 
 
 (leaf ivy-rich
   :ensure t
   :doc "More friendly display transformer for ivy."
-  :hook (after-init-hook . ivy-rich-mode)))
+  :hook (after-init-hook . ivy-rich-mode))
 
 
 (leaf amx
@@ -75,17 +75,17 @@ If the region isn't selected, `swiper'."
     (let* ((sep " \\|\\^\\|\\.\\|\\*")      ;; 区切り文字パターン（スペース・^・.・*）
            (chars (split-string str "" t))  ;; STR を1文字ずつに分割
            (splitted (let (result group)    ;; 区切り文字で分割し、連続する非区切り文字をグループ
-                       (dolist (c chars)
+		       (dolist (c chars)
                          (if (string-match-p sep c)
                              (progn
-                               (when group ;; グループが溜まっていれば結合してresultに追加
+			       (when group ;; グループが溜まっていれば結合してresultに追加
                                  (push (apply #'concat (nreverse group)) result)
                                  (setq group nil))
-                               (push c result))       ;; 区切り文字はそのままresultに追加
+			       (push c result))       ;; 区切り文字はそのままresultに追加
                            (push c group)))           ;; 非区切り文字はgroupに蓄積
-                       (when group                    ;; 末尾のグループを処理
+		       (when group                    ;; 末尾のグループを処理
                          (push (apply #'concat (nreverse group)) result))
-                       (nreverse result))))
+		       (nreverse result))))
       (mapconcat (lambda (s)                          ;; 各セグメントを変換して結合
                    (cond ((string= s " ") ".*?")      ;; スペース → 任意文字列
                          ((string-match-p sep s) s)   ;; 区切り文字 → そのまま

@@ -25,7 +25,7 @@
    ("0" (filezilla "m"))
    ("t" my-open-tig)
    ("x" keepassxc)
-   ("p" my-ivy-switch-git-project)
+   ("p" ivy-switch-git-project)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    ("g" (my-open "~/src/github.com/minorugh"))
