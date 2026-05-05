@@ -11,7 +11,8 @@
           ("C-a"      . seq-home)
           ("C-e"      . seq-end)
           ("C-w"      . evil-delete-backward-word)
-          ("SPC"      . set-mark-command)
+          ("SPC"      . evil-scroll-down)
+          ("b"        . evil-scroll-up)
           ("_"        . evil-visual-line)
           ("?"        . vim-cheat-sheet)
           ([muhenkan] . my-muhenkan)
@@ -114,7 +115,6 @@
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
       (define-key m ";" #'comment-line)        ; ;; → コメントトグル
       (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
-      (define-key m "i" #'my-insert-one-char)  ; ;i → 一文字だけ挿入
       (define-key m "@" #'my-insert-maru))     ; ;@ → 行頭に◎挿入（俳句選者用）
 
     (defun my-insert-one-char ()
