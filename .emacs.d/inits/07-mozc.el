@@ -12,7 +12,6 @@
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
-  :chord (";;" . my-mozc-temp)
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-leim-title          "あ")
