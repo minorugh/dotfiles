@@ -28,3 +28,5 @@
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 # Emacs ゴミ箱をシステムゴミ箱へ移送（毎月1日 23:45）
 45 23 1 * * /usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
+# xmodmap 毎分再適用（失速対策）
+* * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log

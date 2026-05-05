@@ -10,6 +10,7 @@
 ;;   infile.tmp → ;b リバート用（実行のたびに上書き・放置OK）
 ;;; Code:
 
+;; Include an executable perl script
 (defvar my-sen-script "~/.emacs.d/elisp/bin/sen_cleanup.pl"
   "Path of sen_cleanup.pl.")
 
@@ -44,7 +45,6 @@ On failure, display in error buffer."
         (set-buffer-modified-p t)
         (message "復元しました: %s" tmp)))))
 
-;; See 03-evil.el for key bindings
 
 (provide 'my-sen-cleanup)
 ;; Local Variables:
