@@ -67,7 +67,8 @@
   (setq my-mozc-cursor-color-alist
 	'((direct    . "#50fa7b")
           (read-only . "#50fa7b")
-          (hiragana  . "#ff9580")))
+          (hiragana  . "#ff9580")
+	  (visual    . "#ff79c6")))
 
   (setq-default my-mozc-current-input-mode 'hiragana)
 
@@ -84,7 +85,8 @@
   (defun my-mozc-cursor-color-update ()
     (set-cursor-color
      (or (cdr (assq (cond
-                     ((and buffer-read-only (not inhibit-read-only)) 'read-only)
+                     ((evil-visual-state-p) 'visual)  ; ← 最初に評価
+		     ((and buffer-read-only (not inhibit-read-only)) 'read-only)
                      ((not mozc-mode) 'direct)
                      (t my-mozc-current-input-mode))
                     my-mozc-cursor-color-alist))
