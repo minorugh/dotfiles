@@ -1,4 +1,4 @@
-;;; sen-cleanup.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
+;;; my-sen-cleanup.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; キーバインド（my-normal-leader-map）:
@@ -46,8 +46,8 @@ On failure, display in error buffer."
 
 ;; See 03-evil.el for key bindings
 
-(provide 'sen-cleanup)
+(provide 'my-sen-cleanup)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; sen-cleanup.el ends here
+;;; my-sen-cleanup.el ends here

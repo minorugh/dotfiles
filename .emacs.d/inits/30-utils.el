@@ -11,15 +11,11 @@
   (setq which-key-max-description-length 40)
   (setq which-key-delay 0.0))
 
-
 (leaf key-chord
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
-  :chord ((";;" . my-mozc-temp)
-	  ("l;" . init-loader-show-log)))
-
-
+  :chord (("l;" . init-loader-show-log)))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
@@ -28,11 +24,9 @@
   (leaf sequential-command-config
     :hook (after-init-hook . sequential-command-setup-keys)))
 
-
 (leaf quickrun
   :ensure t
   :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")
-
 
 (leaf ps-print
   :doc "PostScript printing with Japanese support."
@@ -50,7 +44,6 @@
   (setq ps-line-number       t)
   (setq ps-show-n-of-n       t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
-
 
 (leaf package-update
   :doc "Package management hydra."
