@@ -90,6 +90,24 @@
                     my-mozc-cursor-color-alist))
 	 (frame-parameter nil 'foreground-color)))))
 
+(defun my-mozc-smart-convert ()
+  "リージョンがあれば mozc-temp でその文字列を変換、なければ mozc-temp-convert-dwim"
+  (interactive)
+  (if (and (use-region-p) (not mozc-temp--minor-mode))
+      (let* ((start (region-beginning))
+             (end   (region-end))
+             (str   (buffer-substring-no-properties start end)))
+        (deactivate-mark)
+        (goto-char end)
+        (undo-boundary)
+        ;; prefix-overlay をリージョン範囲に合わせる
+        (setq mozc-temp--prefix-overlay (make-overlay start end))
+        (overlay-put mozc-temp--prefix-overlay 'invisible t)
+        (mozc-temp--minor-mode 1)
+        (mozc-temp--send-string
+         (concat str (if mozc-temp-auto-conversion " " ""))))
+    (mozc-temp-convert-dwim)))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
