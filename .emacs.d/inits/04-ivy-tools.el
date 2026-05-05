@@ -91,7 +91,7 @@ on the selected one."
         '("~/src/github.com/minorugh/" "~/Dropbox/GH/" "~/Dropbox/minorugh.com/" "~/.env_source/"))
   (setq ivy-git-project-search-depth 3)
   (setq ivy-git-project-alias-map
-        '(("~/src/github.com/minorugh/GH/"          . "~/Dropbox/GH/")
+        '(("~/src/github.com/minorugh/GH/"           . "~/Dropbox/GH/")
           ("~/src/github.com/minorugh/minorugh.com/" . "~/Dropbox/minorugh.com/"))))
 
 ;; Local Variables:
