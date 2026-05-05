@@ -68,7 +68,7 @@
 	'((direct    . "#50fa7b")
           (read-only . "#50fa7b")
           (hiragana  . "#ff9580")
-	  (visual    . "#ff79c6")))
+	  (visual    . "#F1FA8C")))
 
   (setq-default my-mozc-current-input-mode 'hiragana)
 
