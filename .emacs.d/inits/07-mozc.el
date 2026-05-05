@@ -12,6 +12,7 @@
 	 (:mozc-mode-map
 	  ("," . (lambda () (interactive) (mozc-insert-str "、")))
 	  ("." . (lambda () (interactive) (mozc-insert-str "。")))))
+  :chord (";;" . my-mozc-temp)
   :config
   (setq default-input-method     "japanese-mozc")
   (setq mozc-leim-title          "あ")
@@ -90,20 +91,14 @@
                     my-mozc-cursor-color-alist))
 	 (frame-parameter nil 'foreground-color)))))
 
-;;; ---------------------------------------------------------------------
-;;; The specifications of mozc_helper_emacs and mozc.el have changed.
-;;; Advice for using mozc_emacs_helper compiled before the spec change with the new mozc.el
-;;; https://w.atwiki.jp/ntemacs/pages/48.html
-
-;; (advice-add 'mozc-protobuf-get
-;; 	    :around (lambda (orig-fun &rest args)
-;; 		      (when (eq (nth 1 args) 'candidate-window)
-;; 			(setf (nth 1 args) 'candidates))
-;; 		      (apply orig-fun args)))
-;;; ---------------------------------------------------------------------
-
-
-
+;; ---------------------------------------------------------------------------
+;; mozc-temp as a Gateway to mozc-mode
+;;
+;; `my-mozc-temp' provides a temporary romaji-to-Japanese conversion workflow.
+;; It runs `mozc-temp-convert', which converts alphabetic input via mozc and
+;; returns to direct input after Enter.  On completion, `mozc-temp--complete'
+;; fires an advice hook that calls `my-toggle-input-method', switching to
+;; normal mozc-mode.  The advice removes itself after one use.
 (defun my-mozc-temp--on-complete (&rest _)
   "Complete handler: switch to `mozc-mode' after mozc-temp session."
   (advice-remove 'mozc-temp--complete #'my-mozc-temp--on-complete)
@@ -114,7 +109,6 @@
   (interactive)
   (advice-add 'mozc-temp--complete :after #'my-mozc-temp--on-complete)
   (mozc-temp-convert))
-
 
 
 ;; Local Variables:
