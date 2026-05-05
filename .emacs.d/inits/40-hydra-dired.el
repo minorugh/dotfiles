@@ -26,18 +26,18 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  root_/_^^  ~/_s_rc  _._files  make._k_._b_._m_._u_  ke_y_cahin  ftp._9_._0_._-_  meint_:__;_
-  _r_estart  Git:_[__-__]_  _z_illa  GH._h__j_  _f_lych  _<home>_  h_@_wm_,_._v_._n_ote  keypass_x_  _g_ithub.i_o_^^  git_p_roj
+  _d_ropbox  _e_macs.d^^^^  _i_nits  ~/_s_rc^^  roo_t_  _._files  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  meint_:__;_
+  _r_estart  Git:_[__-__]_  _w_rite  GH._h__j_  _x_srv^  _<home>_  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-proj^^^  _f_lymake
 "
    ("a" counsel-git-grep)
+   ("x" xsrv-ssh-fzf)
    ("f" flymake-show-buffer-diagnostics)
-   ("z" (filezilla "s"))
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
-   ("t" my-open-tig)
-   ("x" keepassxc)
-   ("p" ivy-git-project-switch)
+   ("t" my-reload-xprofile)
+   ("p" keepassxc)
+   ("g" ivy-git-project-switch)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    ("g" (my-open "~/src/github.com/minorugh"))
@@ -51,7 +51,7 @@
    (";" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
    (":" my-reload-xprofile)
    ("s" (my-open "~/src/"))
-   ("/" (my-open "/" :omit))
+   ("t" (my-open "/" :omit))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
@@ -60,10 +60,12 @@
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("," my-howm-create-with-category)
+   ("/" kill-current-buffer)
    ("_" delete-other-windows)
    ("[" git-peek)
    ("-" git-peek-deleted)
    ("]" my-make-git)
+   ("w" my-darkroom-toggle)
    ("y" my-reload-keychain)
    ("q" top-level)
    ("<henkan>" hydra-work/body)
