@@ -109,8 +109,9 @@
       "Prefix map triggered by ';' in evil-normal-state.")
     (define-key evil-normal-state-map ";" my-normal-leader-map)
     (let ((m my-normal-leader-map))
+      (define-key m "c" #'my-sen-cleanup)
+      (define-key m "b" #'my-sen-restore)
       (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
-      (define-key m "t" #'transpose-chars)     ; ;t → 前後の文字を入れ替え
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
       (define-key m ";" #'comment-line)        ; ;; → コメントトグル
       (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
