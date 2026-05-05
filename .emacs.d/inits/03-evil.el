@@ -100,7 +100,7 @@
 ;;; Normal-state でleader key ";" を使って編集コマンドを呼び出す。
 ;;; insert-stateを使わずNormal stateのまま軽微な編集を完結させるための仕組み。
 ;;; ESCでキャンセル、完了後もNormal stateに留まる。muhenkanでEmacs stateへ。
-  ;; Normal-state leader key ( ; )
+;; Normal-state leader key ( ; )
 
   (leaf evil-leader-map
     :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
