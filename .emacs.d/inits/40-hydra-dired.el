@@ -8,7 +8,19 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-dired
-  :bind (("<henkan>" . hydra-dired/body))
+  :bind (("<henkan>" . my-hydra-dired))
+  :init
+  ;; `<henkan>' key is caught by `mozc-handle-event' via catch-all `<t>' binding
+  ;; in `mozc-mode-map' while mozc is active.  Registering the key directly in
+  ;; `mozc-mode-map' ensures `my-hydra-dired' takes precedence over mozc.
+  (defun my-hydra-dired ()
+    "Disable mozc if active, then open hydra-dired."
+    (interactive)
+    (when current-input-method
+      (toggle-input-method))
+    (hydra-dired/body))
+  (with-eval-after-load 'mozc
+    (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
   :hydra
   (hydra-dired
    (:hint nil :exit t)

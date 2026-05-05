@@ -69,7 +69,7 @@
          (markdown-mode-hook . flymake-mode)
          (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
   :config
-  (setq warning-minimum-log-level :emergency))
+(setq warning-minimum-log-level :error))
 
 
 ;; Local Variables:

@@ -5,6 +5,7 @@
 ;; Loaded via (require 'my-template) in 40-hydra-dired.el and 40-hydra-menu.el
 
 ;;; Code:
+
 (declare-function evil-emacs-state "evil-states")
 
 ;;;###autoload
