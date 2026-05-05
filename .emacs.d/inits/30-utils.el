@@ -16,7 +16,8 @@
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
-  :chord (("l;" . init-loader-show-log)))
+  :chord ((";;" . my-mozc-temp)
+	  ("l;" . init-loader-show-log)))
 
 
 

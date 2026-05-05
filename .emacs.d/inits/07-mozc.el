@@ -102,6 +102,21 @@
 ;; 		      (apply orig-fun args)))
 ;;; ---------------------------------------------------------------------
 
+
+
+(defun my-mozc-temp--on-complete (&rest _)
+  "Complete handler: switch to `mozc-mode' after mozc-temp session."
+  (advice-remove 'mozc-temp--complete #'my-mozc-temp--on-complete)
+  (run-at-time 0 nil #'my-toggle-input-method))
+
+(defun my-mozc-temp ()
+  "Run `mozc-temp-convert' then enter `mozc-mode' on completion."
+  (interactive)
+  (advice-add 'mozc-temp--complete :after #'my-mozc-temp--on-complete)
+  (mozc-temp-convert))
+
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
