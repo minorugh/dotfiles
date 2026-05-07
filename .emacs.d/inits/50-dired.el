@@ -126,6 +126,9 @@
                my-dired-hidden-table)
       (revert-buffer))))
 
+;; Open .cgi files in ~/Dropbox/passwd/ with text-mode instead of perl-mode.
+(add-to-list 'auto-mode-alist '("/Dropbox/passwd/.*\\.cgi\\'" . text-mode))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
