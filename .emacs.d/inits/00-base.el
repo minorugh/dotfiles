@@ -165,12 +165,12 @@ If the region is inactive, `backward-kill-word'."
       (backward-kill-word 1)))
 
   (defun other-window-or-split ()
-      "If there is one window, open split window.
+    "If there is one window, open split window.
   If there are two or more windows, it will go to another window."
-      (interactive)
-      (when (one-window-p)
-        (split-window-horizontally))
-      (other-window 1))
+    (interactive)
+    (when (= (count-windows) 1)
+      (split-window-horizontally))
+    (other-window 1))
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame' defined in `frame.el'.

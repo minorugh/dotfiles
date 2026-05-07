@@ -31,11 +31,10 @@
      '(mozc-cand-posframe-footer-face  ((t (:background "#262626" :foreground "#454D73" :height 0.9))))))
 
   (defun my-toggle-input-method ()
-    "If `evil-mode' is enabled, set to `evil-insert-state'."
+    "Toggle input method only when in emacs-state."
     (interactive)
-    (when (and (boundp 'evil-mode) evil-mode)
-      (evil-insert-state))
-    (toggle-input-method))
+    (when (evil-emacs-state-p)
+      (toggle-input-method)))
 
   (defun mozc-insert-str (str)
     "Immediately confirmed by punctuation."
