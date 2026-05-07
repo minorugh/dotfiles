@@ -69,11 +69,10 @@
          (markdown-mode-hook . flymake-mode)
 	 (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
   :config
+  ;; Suppress "untrusted content" warning in flymake-log
   (with-eval-after-load 'elisp-mode
     (advice-add 'elisp-flymake-byte-compile :around
 		(lambda (orig-fun report-fn &rest args)
-                  ;; *scratch* 等で "untrusted content" と判定される条件（buffer-file-nameがnil）の時、
-                  ;; そもそも elisp-flymake-byte-compile を実行させない
                   (when buffer-file-name
                     (apply orig-fun report-fn args))))))
 
