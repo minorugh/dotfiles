@@ -1,8 +1,50 @@
-! ろ → _
-keycode 97 = underscore backslash
+!-------------------------------
+! ThinkPad 特有：PrtSc キー
+!
+! ThinkPadでは
+!   keycode 107 = Print
+! になっている。
+!
+! このキーを Alt_R として使う。
+! ただし screenshot を使えるように
+!
+!   Ctrl_R + PrtSc → Print
+!
+! を残している。
+!
+! keycode の4段定義
+!
+!   level1  通常
+!   level2  Shift
+!   level3  Mode_switch
+!   level4  Mode_switch + Shift
+!-------------------------------
+keycode 107 = Alt_R Meta_R Print Sys_Req
+!   - 通常: Alt_R
+!   - Shift + PrtSc: Meta_R
+!   - Ctrl_R + PrtSc: Print (スクリーンショット)
+!   - Ctrl_R + Shift + PrtSc: Sys_Req
 
-! ThinkPad PrtSc → Alt_R
-keycode 107 = Alt_R
+!-------------------------------
+! Alt modifier 安定化
+! Alt_R を追加した場合
+! Mod1 が壊れるケースがあるため
+! 一度削除して再登録する。
+!
+! ThinkPad + xmodmap でよく使われる安全策。
+!-------------------------------
 remove Mod1 = Alt_R
 add Mod1 = Alt_R
+
+!-------------------------------
+! 日本語キーボード対応
+! keycode 97 は
+!
+!   ろ  (JPキーボード)
+!
+! Emacsやシェルで使いやすいよう
+!   _ と \ を割り当てている。
+!-------------------------------
+keycode 97 = underscore backslash
+
 
