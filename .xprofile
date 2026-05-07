@@ -11,7 +11,7 @@ fi
 # X セッション情報をログに残す（デバッグ用・動作には影響なし）
 echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
 
-# ベースを日本語配列にリセット（余計な -option は付けない）
+# キーボードを日本語配列に設定し、CapsLockをCtrlに変更
 setxkbmap -layout jp -option ctrl:nocaps
 
 # .Xmodmap が存在する場合は読み込む
