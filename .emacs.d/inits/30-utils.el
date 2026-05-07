@@ -15,7 +15,9 @@
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
-  :chord (("l;" . init-loader-show-log)))
+  :chord (("l;" . init-loader-show-log))
+  :config
+  (key-chord-define-global ";;" (lambda () (interactive) (execute-kbd-macro (kbd "ESC")))))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."

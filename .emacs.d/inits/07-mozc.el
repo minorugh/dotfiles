@@ -20,7 +20,7 @@
 
   (leaf mozc-cand-posframe
     :ensure t
-    :after mozc
+    :after mozc evil
     :require t
     :init
     (setq mozc-candidate-style 'posframe)
@@ -65,10 +65,11 @@
   ;;; mozc-cusor-color
   ;;; --------------------------------
   (setq my-mozc-cursor-color-alist
-	'((direct    . "#50fa7b")
-          (read-only . "#50fa7b")
-          (hiragana  . "#ff9580")
-	  (visual    . "#F1FA8C")))
+	'((normal    . "#50fa7b")  ; normal-state
+          (direct    . "#ff9580")  ; emacs-state mozc OFF
+          (read-only . "#6272A4")  ; 読み取り専用
+          (hiragana  . "#BD93F9")  ; emacs-state mozc ON（紫）
+          (visual    . "#F1FA8C"))) ; visual-state（黄）
 
   (setq-default my-mozc-current-input-mode 'hiragana)
 
@@ -86,6 +87,7 @@
     (set-cursor-color
      (or (cdr (assq (cond
                      ((evil-visual-state-p) 'visual)  ; ← 最初に評価
+		     ((evil-normal-state-p) 'normal)
 		     ((and buffer-read-only (not inhibit-read-only)) 'read-only)
                      ((not mozc-mode) 'direct)
                      (t my-mozc-current-input-mode))
