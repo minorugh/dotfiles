@@ -36,17 +36,12 @@
     '((?m " memo"  "memo: " my-howm-face-memo)
       (?i " idea"  "idea: " my-howm-face-idea)
       (?t "  tech"  "tech: " my-howm-face-tech)
+      (?n " note"  "note: " my-howm-face-note)
       (?d " 日記"  "日記: " my-howm-face-diary)
+      (?w " 創作"  "創作: " my-howm-face-creative)
       (?c " code"  "code: " my-howm-face-church)
       (?g " 園芸"  "園芸: " my-howm-face-garden))
-    "howmカテゴリ定義。各要素: (キー文字 表示名 挿入文字列 フェイス名)
-検索メニュー・作成メニューの両方で使用する通常カテゴリ。")
-
-  (defvar my-howm-special-entries
-    '((?n " 推敲"  my-howm-face-note     my-haiku-note-post)
-      (?p " 創作"  my-howm-face-creative  my-haiku-note-post))
-    "作成メニュー専用の特殊エントリ。各要素: (キー文字 表示名 フェイス名 呼び出す関数)
-検索メニューには表示されない。動作は外部関数に委譲する。")
+    "howmカテゴリ定義。各要素: (キー文字 表示名 挿入文字列 フェイス名)")
 
   ;; ── フェイス定義 ─────────────────────────────────────────────
   (defface my-howm-face-memo
@@ -142,39 +137,27 @@
 
   ;; ── カテゴリ選択（縦リスト表示＋1キー確定）────────────────
   (defun my-howm-create-with-category ()
-    "カテゴリを縦リストで表示し1キーで選択してhowmメモを新規作成する。
-通常カテゴリ（my-howm-categories）は新規howmファイルを作成する。
-特殊エントリ（my-howm-special-entries）は外部関数を呼び出す。"
+    "カテゴリを縦リストで表示し1キーで選択してhowmメモを新規作成する。"
     (interactive)
-    (let* ((fmt-cat  (lambda (cat face-idx)
-			  (concat "  "
-				  (propertize (format "[%c]" (nth 0 cat)) 'face (nth face-idx cat))
-				  " "
-				  (propertize (nth 1 cat) 'face (nth face-idx cat)))))
-	   (all-entries (append my-howm-categories my-howm-special-entries))
-	   (keys (mapcar #'car all-entries))
+    (let* ((keys (mapcar #'car my-howm-categories))
 	   (prompt
 	    (concat
 	     "New memo:
 "
-	     (mapconcat (lambda (cat) (funcall fmt-cat cat 3)) my-howm-categories "
-")
-	     "
-"
-	     (mapconcat (lambda (cat) (funcall fmt-cat cat 2)) my-howm-special-entries "
+	     (mapconcat
+	      (lambda (cat)
+		(concat "  "
+			(propertize (format "[%c]" (nth 0 cat)) 'face (nth 3 cat))
+			" "
+			(propertize (nth 1 cat) 'face (nth 3 cat))))
+	      my-howm-categories "
 ")
 	     "
 > "))
 	   (key (read-char-choice prompt keys)))
-      (cond
-       ;; 通常カテゴリ: 新規howmファイル作成
-       ((assq key my-howm-categories)
-	(my-howm--insert-category (nth 2 (assq key my-howm-categories))))
-       ;; 特殊エントリ: 外部関数を呼び出す
-       ((assq key my-howm-special-entries)
-	(funcall (nth 3 (assq key my-howm-special-entries)))
-	(delete-other-windows)
-	(message "")))))
+      (when-let* ((cat (assq key my-howm-categories))
+		  (str (nth 2 cat)))
+	(my-howm--insert-category str))))
 
   ;; ── カテゴリ検索（ivy一覧から選択してgrep）──────────────────
   (defun my-howm-search-by-category ()

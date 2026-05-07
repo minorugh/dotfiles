@@ -261,18 +261,27 @@
 
 ;;;###autoload
 (defun my-haiku-note-post ()
-  "Open haiku note file and insert template."
+  "Open haiku note file and insert template if no entry for today."
   (interactive)
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
   (when evil-mode
     (evil-emacs-state))
   (goto-char (point-min))
-  (forward-line -2)
-  (insert
-   (format-time-string "> %Y年%-m月%-d日 (%a)\n")
-   (format-time-string "PLACE:\n\n"))
-  (forward-line -2)
-  (forward-char 6))
+  (let* ((today (format-time-string "> %Y年%-m月%-d日"))
+         (first-line (buffer-substring-no-properties
+                      (point-min)
+                      (progn (end-of-line) (point)))))
+    (if (string-prefix-p today first-line)
+        ;; 同日エントリあり → PLACEの後ろへ移動するだけ
+        (progn
+          (forward-line 1)
+          (forward-char 6))
+      ;; 同日エントリなし → テンプレート挿入
+      (insert
+       (format-time-string "> %Y年%-m月%-d日 (%a)\n")
+       "PLACE:\n\n")
+      (forward-line -2)
+      (forward-char 6))))
 
 (provide 'my-template)
 ;; Local Variables:
