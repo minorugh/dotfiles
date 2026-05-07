@@ -26,8 +26,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  ~/_s_rc^^  roo_t_  _._files  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  meint_:__;_
-  _r_estart  Git:_[__-__]_  _w_rite  GH._h__j_  _x_srv^  _<home>_  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-proj^^^  _f_lymake
+  _d_ropbox  _e_macs.d^^^^  _i_nits  ~/_s_rc^^  roo_t_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
+  _r_estart  Git:_[__-__]_  _w_rite  GH._h__j_  _x_srv^  _<home>_  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
    ("x" xsrv-ssh-fzf)
@@ -40,7 +40,7 @@
    ("g" ivy-git-project-switch)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   ("g" (my-open "~/src/github.com/minorugh"))
+   ;; ("g" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
@@ -48,8 +48,8 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   (";" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   (":" my-reload-xprofile)
+   (":" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
+   ("z" my-reload-xprofile)
    ("s" (my-open "~/src/"))
    ("t" (my-open "/" :omit))
    ("k" (my-make "-k"))
@@ -68,6 +68,7 @@
    ("w" my-darkroom-toggle)
    ("y" my-reload-keychain)
    ("q" top-level)
+   (";" hydra-work/body)
    ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil))
   :init
