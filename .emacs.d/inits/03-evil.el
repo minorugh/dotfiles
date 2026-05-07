@@ -38,6 +38,12 @@
   :config
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
+
+  ;; Insert-state は使わない運用のため全キーを無効化
+  ;; 編集は ;i (evil-emacs-state) に統一
+  (dolist (key '("i" "I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
+    (define-key evil-normal-state-map key #'ignore))
+
   ;; Overwrite `evil-quit' with kill-buffer
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
@@ -109,6 +115,8 @@
       "Prefix map triggered by ';' in evil-normal-state.")
     (define-key evil-normal-state-map ";" my-normal-leader-map)
     (let ((m my-normal-leader-map))
+      (define-key m "i" #'evil-emacs-state)    ; ;i → Emacs-state
+      (define-key m ";" #'comment-line)        ; ;; → コメントトグル
       (define-key m "c" #'my-sen-cleanup)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "b" #'my-sen-restore)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動

@@ -16,8 +16,8 @@
          ("<f4>"  . thunar-open-this)          ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
          ("<f6>"  . neotree-toggle)            ;; see 50-neotree.el
-         ;; ("<f7>"  . open-simplenote)
-         ;; ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
+         ("<f7>"  . my-open-tig)               ;; see 50-dired
+         ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ;; see 30-ui.el
          ("<f10>" . toggle-scratch-buffer)     ;; see :init
          ("<f11>" . toggle-frame-fullscreen)   ;; built-in
