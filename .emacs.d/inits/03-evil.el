@@ -5,8 +5,7 @@
 
 (leaf evil
   :ensure t
-  :hook ((after-init-hook . evil-mode)
-	 (evil-normal-state-entry-hook . deactivate-input-method))
+  :hook ((after-init-hook . evil-mode))
   :bind ((:evil-normal-state-map
           ("C-a"      . seq-home)
           ("C-e"      . seq-end)
@@ -30,7 +29,7 @@
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
           ([muhenkan] . my-muhenkan)
-          ([escape]   . my-muhenkan)))
+          ([escape] . (lambda () (interactive) (evil-normal-state)))))
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
@@ -45,20 +44,20 @@
 
   ;; Force evil-emacs-state for specific modes
   (dolist (mode '(howm-view-summary-mode
-                  imenu-list-major-mode easy-hugo-mode neotree-mode
-                  org-mode fundamental-mode))
+		  imenu-list-major-mode easy-hugo-mode neotree-mode
+		  org-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Emacs state only when creating new files
   (add-hook 'find-file-hook
-            (lambda ()
-              (unless (file-exists-p (buffer-file-name))
+	    (lambda ()
+	      (unless (file-exists-p (buffer-file-name))
                 (evil-emacs-state))))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
     (let ((def1 (lookup-key map key1))
-          (def2 (lookup-key map key2)))
+	  (def2 (lookup-key map key2)))
       (define-key map key1 def2)
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
@@ -90,7 +89,8 @@
 
      ;; すでにNormalならEmacsへ、それ以外（Emacs/Insert等）ならNormalへ
      ((evil-normal-state-p) (evil-emacs-state))
-     (t (evil-normal-state))))
+     (t (deactivate-input-method)
+        (evil-normal-state))))
 
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
@@ -113,16 +113,9 @@
       (define-key m "b" #'my-sen-restore)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
-      (define-key m ";" #'comment-line)        ; ;; → コメントトグル
+      (define-key m "n" #'neotree-toggle)      ; ;n → neo-tree起動
       (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
       (define-key m "@" #'my-insert-maru))     ; ;@ → 行頭に◎挿入（俳句選者用）
-
-    (defun my-insert-one-char ()
-      "Insert only one character and stay in Normal state; ESC to cancel."
-      (interactive)
-      (let ((char (read-key "insert (ESC to cancel): ")))
-	(unless (eq char 27)
-          (insert char))))
 
     (defun my-insert-maru ()
       "Insert ◎ at line beginning in Normal state. Use ;@ to insert."

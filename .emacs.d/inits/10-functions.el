@@ -13,11 +13,11 @@
   :bind (("<f1>"  . help-command)              ;; built-in
          ("<f2>"  . counsel-imenu)             ;; see 04-consult.el
          ("<f3>"  . terminal-open-this)        ;; see :init
-         ("<f4>"  . xsrv-ssh-fzf)              ;; see :init
+         ("<f4>"  . thunar-open-this)          ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
-         ("<f6>"  . thunar-open-this)          ;; see :init
-         ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
-         ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
+         ("<f6>"  . neotree-toggle)            ;; see 50-neotree.el
+         ;; ("<f7>"  . open-simplenote)
+         ;; ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ;; see 30-ui.el
          ("<f10>" . toggle-scratch-buffer)     ;; see :init
          ("<f11>" . toggle-frame-fullscreen)   ;; built-in
@@ -28,6 +28,7 @@
     (interactive)
     (let* ((dir (directory-file-name default-directory))
            (cmd (concat "gnome-terminal --working-directory " dir))
+
            (move "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0"))
       (start-process-shell-command "gnome-terminal" nil cmd)
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
