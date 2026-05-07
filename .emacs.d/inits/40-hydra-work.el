@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _[__]_:創作  _/_:月例^^  _p_rint._r_e  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y__,_:年度  _g_ist._l_  browse_@_p^^  _:_marque  _e_asy-hugo^^^^  _j_unk._+_scale^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^^  _p_rint._r_e  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_  browse_@_p^^  _:_marque  _e_asy-hugo^^^^  _j_unk._+_scale^^
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
