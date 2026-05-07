@@ -111,32 +111,43 @@
   (leaf evil-leader-map
     :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
     :config
+    (setq echo-keystrokes 0)
     (defvar my-normal-leader-map (make-sparse-keymap)
       "Prefix map triggered by ';' in evil-normal-state.")
+
     (define-key evil-normal-state-map ";" my-normal-leader-map)
     (let ((m my-normal-leader-map))
       (define-key m ";" #'comment-line)        ; ;; → コメントトグル
+      (define-key m "o" #'my-newline-below)    ; ;o で下に行挿入
       (define-key m "c" #'my-sen-cleanup)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "b" #'my-sen-restore)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
-      (define-key m "n" #'neotree-toggle)      ; ;n → neo-tree起動
-      (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
       (define-key m "@" #'my-insert-maru)      ; ;@ → 行頭に◎挿入（俳句選者用）
-      (define-key m "i" #'(lambda ()           ; ;i → Emacs-state+mozc on
-			    (interactive)
-			    (evil-emacs-state)
-			    (activate-input-method "japanese-mozc"))))
+      (define-key m "i" #'my-emacs-state-mozc)) ; ;i → Emacs-state+mozc on
 
-      (defun my-insert-maru ()
-	"Insert ◎ at line beginning in Normal state. Use ;@ to insert."
-	(interactive)
-	(save-excursion
-	  (beginning-of-line)
-	  (insert "◎")))))
+    (defun my-newline-below ()
+      "Insert a newline below the current line without leaving Normal state."
+      (interactive)
+      (save-excursion
+	(goto-char (line-end-position))
+	(newline)))
+
+    (defun my-emacs-state-mozc ()
+      "Go to Emacs state and turn on Mozc."
+      (interactive)
+      (evil-emacs-state)
+      (activate-input-method "japanese-mozc"))
+
+    (defun my-insert-maru ()
+      "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
+      (interactive)
+      (save-excursion
+	(beginning-of-line)
+	(insert "◎")))))
 
 
-  ;; Local Variables:
-  ;; byte-compile-warnings: (not free-vars unresolved)
-  ;; End:
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
 ;;; 03-evil.el ends here
