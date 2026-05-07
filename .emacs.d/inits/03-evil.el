@@ -41,7 +41,7 @@
 
   ;; Insert-state は使わない運用のため全キーを無効化
   ;; 編集は ;i (evil-emacs-state) に統一
-  (dolist (key '("i" "I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
+  (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
     (define-key evil-normal-state-map key #'ignore))
 
   ;; Overwrite `evil-quit' with kill-buffer
@@ -115,7 +115,6 @@
       "Prefix map triggered by ';' in evil-normal-state.")
     (define-key evil-normal-state-map ";" my-normal-leader-map)
     (let ((m my-normal-leader-map))
-      (define-key m "i" #'evil-emacs-state)    ; ;i → Emacs-state
       (define-key m ";" #'comment-line)        ; ;; → コメントトグル
       (define-key m "c" #'my-sen-cleanup)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
       (define-key m "b" #'my-sen-restore)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
@@ -123,17 +122,21 @@
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
       (define-key m "n" #'neotree-toggle)      ; ;n → neo-tree起動
       (define-key m "d" #'duplicate-line)      ; ;d → 行の複製（Emacs29+）
-      (define-key m "@" #'my-insert-maru))     ; ;@ → 行頭に◎挿入（俳句選者用）
+      (define-key m "@" #'my-insert-maru)      ; ;@ → 行頭に◎挿入（俳句選者用）
+      (define-key m "i" #'(lambda ()           ; ;i → Emacs-state+mozc on
+			    (interactive)
+			    (evil-emacs-state)
+			    (activate-input-method "japanese-mozc"))))
 
-    (defun my-insert-maru ()
-      "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
-      (interactive)
-      (save-excursion
-	(beginning-of-line)
-	(insert "◎")))))
+      (defun my-insert-maru ()
+	"Insert ◎ at line beginning in Normal state. Use ;@ to insert."
+	(interactive)
+	(save-excursion
+	  (beginning-of-line)
+	  (insert "◎")))))
 
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars unresolved)
+  ;; End:
 ;;; 03-evil.el ends here

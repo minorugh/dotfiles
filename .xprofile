@@ -12,7 +12,7 @@ fi
 echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
 
 # ベースを日本語配列にリセット（余計な -option は付けない）
-setxkbmap -layout jp
+setxkbmap -layout jp -option ctrl:nocaps
 
 # .Xmodmap が存在する場合は読み込む
 if [ -f ~/.Xmodmap ]; then
