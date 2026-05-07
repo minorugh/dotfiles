@@ -11,13 +11,13 @@
   (setq which-key-max-description-length 40)
   (setq which-key-delay 0.0))
 
+;; Forked from 20240910.1441 (MELPA), sit-for -> read-event timeout
+;;   to fix stalling on heavy buffers (key-seq style, 2025-05-08)
 (leaf key-chord
   :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
-  :chord (("l;" . init-loader-show-log))
-  :config
-  (key-chord-define-global ";;" (lambda () (interactive) (execute-kbd-macro (kbd "ESC")))))
+  :chord (("l;" . init-loader-show-log)))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
