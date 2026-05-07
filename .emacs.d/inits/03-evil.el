@@ -124,7 +124,13 @@
       (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
       (define-key m "s" #'swiper)              ; ;s → Swiper検索
       (define-key m "@" #'my-insert-maru)      ; ;@ → 行頭に◎挿入（俳句選者用）
-      (define-key m "i" #'my-emacs-state-mozc)) ; ;i → Emacs-state+mozc on
+      (define-key m "i" #'my-emacs-state-mozc) ; ;i → Emacs-state+mozc on
+      (define-key m "SPC" #'my-snsert-space))
+
+    (defun my-insert-space ()
+      "Insert one space with normal state."
+      (interactive)
+      (insert " "))
 
     (defun my-newline-below ()
       "Insert a newline below the current line without leaving Normal state."
