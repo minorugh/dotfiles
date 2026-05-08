@@ -117,15 +117,17 @@
 
     (define-key evil-normal-state-map ";" my-normal-leader-map)
     (let ((m my-normal-leader-map))
-      (define-key m ";" #'comment-line)        ; ;; → コメントトグル
-      (define-key m "o" #'my-newline-below)    ; ;o で下に行挿入
-      (define-key m "c" #'my-sen-cleanup)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
-      (define-key m "b" #'my-sen-restore)      ; see ~/.emacs.d/elisp/my-sen-cleanup.el
-      (define-key m "w" #'my-darkroom-toggle)  ; ;w → darkroom起動
-      (define-key m "s" #'swiper)              ; ;s → Swiper検索
-      (define-key m "@" #'my-insert-maru)      ; ;@ → 行頭に◎挿入（俳句選者用）
-      (define-key m "i" #'my-emacs-state-mozc) ; ;i → Emacs-state+mozc on
-      (define-key m "SPC" #'my-snsert-space))
+      (define-key m ";" #'comment-line)            ;; コメントトグル
+      (define-key m "o" #'my-newline-below)        ;; カーソル行の下に行挿入
+      (define-key m "c" #'my-sen-cleanup)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+      (define-key m "b" #'my-sen-restore)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+      (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
+      (define-key m "s" #'swiper)                  ;; → swiper検索
+      (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
+      (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
+      (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
+      (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
+      (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
     (defun my-insert-space ()
       "Insert one space with normal state."
