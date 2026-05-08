@@ -22,14 +22,16 @@
           ("s"        . swiper-region)
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
+	  ("i"        . my-iedit-toggle)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
-          ([muhenkan] . my-muhenkan)
-          ([escape] . (lambda () (interactive) (evil-normal-state)))))
+	  ([insert]   . my-iedit-toggle)
+	  ([muhenkan] . my-muhenkan)
+          ([escape]   . (lambda () (interactive) (evil-normal-state)))))
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
@@ -101,58 +103,60 @@
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
     (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html"))
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 ;;; --------------------------------------------------------------------------
 ;;; Normal-state でleader key ";" を使って編集コマンドを呼び出す。
 ;;; insert-stateを使わずNormal stateのまま軽微な編集を完結させるための仕組み。
 ;;; ESCでキャンセル、完了後もNormal stateに留まる。muhenkanでEmacs stateへ。
 
-  (leaf evil-leader-map
-    :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
-    :config
-    (setq echo-keystrokes 0)
-    (defvar my-normal-leader-map (make-sparse-keymap)
-      "Prefix map triggered by ';' in evil-normal-state.")
+(leaf evil-leader-map
+  :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
+  :after evil
+  :config
+  (setq echo-keystrokes 0)
+  (defvar my-normal-leader-map (make-sparse-keymap)
+    "Prefix map triggered by ';' in evil-normal-state.")
 
-    (define-key evil-normal-state-map ";" my-normal-leader-map)
-    (let ((m my-normal-leader-map))
-      (define-key m ";" #'comment-line)            ;; コメントトグル
-      (define-key m "o" #'my-newline-below)        ;; カーソル行の下に行挿入
-      (define-key m "c" #'my-sen-cleanup)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
-      (define-key m "b" #'my-sen-restore)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
-      (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
-      (define-key m "s" #'swiper)                  ;; → swiper検索
-      (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
-      (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
-      (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
-      (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
-      (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
+  (define-key evil-normal-state-map ";" my-normal-leader-map)
+  (let ((m my-normal-leader-map))
+    (define-key m ";" #'comment-line)            ;; コメントトグル
+    (define-key m "o" #'my-newline-below)        ;; カーソル行の下に行挿入
+    (define-key m "c" #'my-sen-cleanup)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+    (define-key m "b" #'my-sen-restore)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+    (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
+    (define-key m "s" #'swiper)                  ;; → swiper検索
+    (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
+    (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
+    (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
+    (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
+    (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
-    (defun my-insert-space ()
-      "Insert one space with normal state."
-      (interactive)
-      (insert " "))
+  (defun my-insert-space ()
+    "Insert one space with normal state."
+    (interactive)
+    (insert " "))
 
-    (defun my-newline-below ()
-      "Insert a newline below the current line without leaving Normal state."
-      (interactive)
-      (save-excursion
-	(goto-char (line-end-position))
-	(newline)))
+  (defun my-newline-below ()
+    "Insert a blank line below the current line without leaving Normal state."
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (open-line 1)
+      (forward-line 1)))
 
-    (defun my-emacs-state-mozc ()
-      "Go to Emacs state and turn on Mozc."
-      (interactive)
-      (evil-emacs-state)
-      (activate-input-method "japanese-mozc"))
+  (defun my-emacs-state-mozc ()
+    "Go to Emacs state and turn on Mozc."
+    (interactive)
+    (evil-emacs-state)
+    (activate-input-method "japanese-mozc"))
 
-    (defun my-insert-maru ()
-      "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
-      (interactive)
-      (save-excursion
-	(beginning-of-line)
-	(insert "◎")))))
+  (defun my-insert-maru ()
+    "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (insert "◎"))))
 
 
 ;; Local Variables:
