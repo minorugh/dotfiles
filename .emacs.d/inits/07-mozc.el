@@ -65,9 +65,9 @@
   ;;; --------------------------------
   (setq my-mozc-cursor-color-alist
 	'((normal    . "#50fa7b")  ; normal-state
-          (direct    . "#ff9580")  ; emacs-state mozc OFF
+          (direct    . "#BD93F9")  ; emacs-state mozc OFF
           (read-only . "#6272A4")  ; 読み取り専用
-          (hiragana  . "#BD93F9")  ; emacs-state mozc ON（紫）
+          (hiragana  . "#ff9580")  ; emacs-state mozc ON
           (visual    . "#F1FA8C"))) ; visual-state（黄）
 
   (setq-default my-mozc-current-input-mode 'hiragana)
