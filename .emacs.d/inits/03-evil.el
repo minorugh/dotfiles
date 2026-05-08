@@ -131,9 +131,6 @@
     (define-key m "s" #'swiper)                  ;; → swiper検索
     (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
     (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
-    (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
-    (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
-    (define-key m "g" #'tvy-git-project-switch)  ;; see 04-ivy-tools.el
     (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
   (defun my-insert-space ()
