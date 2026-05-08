@@ -18,6 +18,8 @@
           ([muhenkan] . my-muhenkan)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
+	  ([prior]    . er/expand-region)    ;; PgUp
+	  ([next]     . er/contract-region)  ;; PgDn
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
           ("s"        . swiper-region)
@@ -122,7 +124,7 @@
   (define-key evil-normal-state-map ";" my-normal-leader-map)
   (let ((m my-normal-leader-map))
     (define-key m ";" #'comment-line)            ;; コメントトグル
-    (define-key m "o" #'my-newline-below)        ;; カーソル行の下に行挿入
+    (define-key m "o" #'my-newline-above)        ;; カーソル行の下に行挿入
     (define-key m "c" #'my-sen-cleanup)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
     (define-key m "b" #'my-sen-restore)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
     (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
@@ -131,7 +133,7 @@
     (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
     (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
     (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
-    (define-key m "g" #'tvy-git-project-switch)
+    (define-key m "g" #'tvy-git-project-switch)  ;; see 04-ivy-tools.el
     (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
   (defun my-insert-space ()
@@ -139,13 +141,12 @@
     (interactive)
     (insert " "))
 
-  (defun my-newline-below ()
-    "Insert a blank line below the current line without leaving Normal state."
+  (defun my-newline-above ()
+    "Insert a blank line above the current line without leaving Normal state."
     (interactive)
     (save-excursion
-      (end-of-line)
-      (open-line 1)
-      (forward-line 1)))
+      (beginning-of-line)
+      (open-line 1)))
 
   (defun my-emacs-state-mozc ()
     "Go to Emacs state and turn on Mozc."
