@@ -18,8 +18,6 @@
           ([muhenkan] . my-muhenkan)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
-	  ([prior]     . er/expand-region)  ;; PgDn
-	  ([next]    . er/contract-region)  ;; PgUp
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
           ("s"        . swiper-region)
@@ -44,8 +42,8 @@
   ;; Insert state is automatically changed to emacs state
   (defalias 'evil-insert-state 'evil-emacs-state)
 
-  ;; Insert-state は使わない運用のため全キーを無効化
-  ;; 編集は ;i (evil-emacs-state) に統一
+  ;; Disable redundant insert-commands to enforce Emacs-state workflow.
+  ;; 編集トリガーを 'i' に限定し、Insert-state への誤進入を完全にシャットアウトする。
   (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
     (define-key evil-normal-state-map key #'ignore))
 
