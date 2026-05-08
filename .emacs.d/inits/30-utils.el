@@ -14,16 +14,18 @@
 ;; Forked from 20240910.1441 (MELPA), sit-for -> read-event timeout
 ;;   to fix stalling on heavy buffers (key-seq style, 2025-05-08)
 (leaf key-chord
-  :doc "map pairs of simultaneously pressed keys to commands."
   :vc (:url "https://github.com/minorugh/key-chord")
   :hook (after-init-hook . key-chord-mode)
   :chord (("l;" . init-loader-show-log))
   :config
-  ;; Restart key-chord-mode on idle to recover from occasional stalling
-  (defun my-restart-key-chord ()
-    (key-chord-mode -1)
-    (key-chord-mode 1))
-  (run-with-idle-timer 60 t #'my-restart-key-chord))
+  (defun my-key-chord-ensure ()
+    (when (and key-chord-mode
+               (not (eq input-method-function 'key-chord-input-method)))
+      (key-chord-mode -1)
+      (key-chord-mode 1)))
+
+  (add-hook 'post-command-hook #'my-key-chord-ensure)
+  (add-hook 'post-gc-hook #'my-key-chord-ensure))
 
 (leaf sequential-command
   :doc "Move to first and last line of buffer."
