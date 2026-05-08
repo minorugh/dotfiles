@@ -12,11 +12,14 @@
           ("C-w"      . evil-delete-backward-word)
           ("SPC"      . evil-scroll-down)
           ("b"        . evil-scroll-up)
+	  ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . vim-cheat-sheet)
           ([muhenkan] . my-muhenkan)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
+	  ([prior]     . er/expand-region)  ;; PgDn
+	  ([next]    . er/contract-region)  ;; PgUp
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
           ("s"        . swiper-region)
@@ -24,14 +27,14 @@
           ("d"        . deepl-translate)
 	  ("i"        . my-iedit-toggle)
           ([muhenkan] . my-muhenkan))
-         (:evil-motion-state-map
-          ([muhenkan] . my-muhenkan))
-         (:evil-replace-state-map
-          ([muhenkan] . my-muhenkan))
-         (:evil-emacs-state-map
+	 (:evil-motion-state-map
+	  ([muhenkan] . my-muhenkan))
+	 (:evil-replace-state-map
+	  ([muhenkan] . my-muhenkan))
+	 (:evil-emacs-state-map
 	  ([insert]   . my-iedit-toggle)
 	  ([muhenkan] . my-muhenkan)
-          ([escape]   . (lambda () (interactive) (evil-normal-state)))))
+	  ([escape]   . (lambda () (interactive) (evil-normal-state)))))
   :init
   ;; At the end of a line, move to the previous/next line
   (setq evil-cross-lines t)
@@ -60,7 +63,7 @@
   (add-hook 'find-file-hook
 	    (lambda ()
 	      (unless (file-exists-p (buffer-file-name))
-                (evil-emacs-state))))
+		(evil-emacs-state))))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -98,7 +101,7 @@
      ;; すでにNormalならEmacsへ、それ以外（Emacs/Insert等）ならNormalへ
      ((evil-normal-state-p) (evil-emacs-state))
      (t (deactivate-input-method)
-        (evil-normal-state))))
+	(evil-normal-state))))
 
   (defun vim-cheat-sheet ()
     "View vim cheat sheet online."
@@ -130,6 +133,7 @@
     (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
     (define-key m ":" #'toggle-frame-fullscreen) ;; built-in
     (define-key m "]" #'toggle-scratch-buffer)   ;; see 10-function.el
+    (define-key m "g" #'tvy-git-project-switch)
     (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
   (defun my-insert-space ()

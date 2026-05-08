@@ -71,6 +71,6 @@ Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 30-utils.el ends here

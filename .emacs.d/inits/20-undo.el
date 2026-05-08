@@ -8,6 +8,7 @@
   :bind (("C-_" . undo-fu-only-undo)
          ("C-/" . undo-fu-only-redo)))
 
+
 (leaf undohist
   :ensure t
   :doc "Persistent undo history."
@@ -16,8 +17,10 @@
   (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
+
 (leaf iedit
   :ensure t
+  :after evil
   :doc "Edit multiple occurrences in the same way simultaneously."
   :config
   (defun my-iedit-toggle ()
@@ -36,10 +39,7 @@ Emacs-stateなら通常通りiedit-modeをon/off。"
     "Return to Normal-state after the end of iedit."
     (evil-normal-state)
     (remove-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal t)))
-;; (leaf iedit
-;;   :ensure t
-;;   :doc "Edit multiple occurrences in the same way simultaneously."
-;;   :bind ("<insert>" . iedit-mode))
+
 
 (leaf expand-region
   :ensure t
@@ -47,6 +47,6 @@ Emacs-stateなら通常通りiedit-modeをon/off。"
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved))
 ;; End:
 ;;; 20-undo.el ends here
