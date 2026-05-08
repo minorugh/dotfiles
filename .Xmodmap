@@ -30,11 +30,14 @@ keycode 107 = Alt_R Meta_R Print Sys_Req
 ! Alt_R を追加した場合
 ! Mod1 が壊れるケースがあるため
 ! 一度削除して再登録する。
-!
 ! ThinkPad + xmodmap でよく使われる安全策。
+!
+! 2026-05-08 検証済み：K3Max環境では不要。
+! xmodmap -pm で Mod1 に Alt_R が正常登録されることを確認。
+! Shift_L Tap/Hold との組み合わせで警告が出るため下記無効化。
 !-------------------------------
-remove Mod1 = Alt_R
-add Mod1 = Alt_R
+! remove Mod1 = Alt_R
+! add Mod1 = Alt_R
 
 !-------------------------------
 ! 日本語キーボード対応
@@ -46,5 +49,3 @@ add Mod1 = Alt_R
 !   _ と \ を割り当てている。
 !-------------------------------
 keycode 97 = underscore backslash
-
-
