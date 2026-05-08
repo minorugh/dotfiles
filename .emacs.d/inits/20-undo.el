@@ -19,7 +19,27 @@
 (leaf iedit
   :ensure t
   :doc "Edit multiple occurrences in the same way simultaneously."
-  :bind ("<insert>" . iedit-mode))
+  :config
+  (defun my-iedit-toggle ()
+    "Visual-stateならEmacs-stateに切り替えてiedit-mode起動、終了後Normal-stateへ。
+Emacs-stateなら通常通りiedit-modeをon/off。"
+    (interactive)
+    (cond
+     ((evil-visual-state-p)
+      (evil-emacs-state)
+      (iedit-mode)
+      (add-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal nil t))
+     (t
+      (iedit-mode))))
+
+  (defun my-iedit-end-to-normal ()
+    "Return to Normal-state after the end of iedit."
+    (evil-normal-state)
+    (remove-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal t)))
+;; (leaf iedit
+;;   :ensure t
+;;   :doc "Edit multiple occurrences in the same way simultaneously."
+;;   :bind ("<insert>" . iedit-mode))
 
 (leaf expand-region
   :ensure t
