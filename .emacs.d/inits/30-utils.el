@@ -9,7 +9,7 @@
   :hook (after-init-hook . which-key-mode)
   :config
   (setq which-key-max-description-length 40)
-  (setq which-key-delay 0.0))
+  (setq which-key-idle-delay 0.0))
 
 ;; Forked from 20240910.1441 (MELPA), sit-for -> read-event timeout
 ;;   to fix stalling on heavy buffers (key-seq style, 2025-05-08)
