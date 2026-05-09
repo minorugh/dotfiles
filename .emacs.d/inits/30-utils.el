@@ -18,15 +18,13 @@
   :hook (after-init-hook . key-chord-mode)
   :chord (("l;" . init-loader-show-log))
   :config
-  ;; key code stall recovery
+  ;; key-chord stall recovery
   (defun my-key-chord-ensure ()
     (when (and key-chord-mode
                (not (eq input-method-function 'key-chord-input-method)))
       (key-chord-mode -1)
       (key-chord-mode 1)))
 
-  ;; (add-hook 'post-command-hook #'my-key-chord-ensure)
-  ;; (add-hook 'post-gc-hook #'my-key-chord-ensure)
   (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
   (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
 
