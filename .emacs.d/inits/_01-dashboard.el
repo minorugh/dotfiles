@@ -5,7 +5,6 @@
 
 (leaf dashboard
   :ensure t
-  :require seiho-haiku  ;; see ~/.emacs.d/elisp/seiho-haiku.el
   :doc "An extracted startup screen"
   :if (display-graphic-p)
   :hook ((emacs-startup-hook . open-dashboard)
@@ -15,21 +14,13 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-icon-type 'nerd-icons)
-  (defun dashboard-insert-haiku (_list-size)
-    "今日の一句をdashboardに挿入する。表示設定は seiho-haiku.el で調整。"
-    (seiho-haiku-insert-today #'dashboard-insert-heading))
   :config
   (leaf page-break-lines :ensure t
     :doc "Display ^L page breaks as tidy horizontal lines"
     :global-minor-mode t)
-  ;; コンテンツはデフォルト左寄せ (句だけ seiho-haiku.el 側でセンタリング)
-  (setq dashboard-center-content nil)
-  ;; ウィジェット登録 (dashboardロード後に行う)
-  (add-to-list 'dashboard-item-generators
-	       '(haiku . dashboard-insert-haiku))
-  ;; Set the items (P1 shows haiku+recents, others show recents only)
+  ;; Set the items (P1 shows agenda, others show recents only)
   (if (string-match "P1" (system-name))
-      (setq dashboard-items '((haiku . 1) (recents . 5)))
+      (setq dashboard-items '((recents . 10)))
     (setq dashboard-items '((recents . 5))))
   ;; Set the title (combine external commands into one call)
   (setq dashboard-banner-logo-title
