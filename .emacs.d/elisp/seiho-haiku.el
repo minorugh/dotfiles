@@ -457,6 +457,9 @@ HEADINGは dashboard-insert-heading を呼ぶ関数シンボル。"
      (propertize line
 		 'face `(:height ,seiho-haiku-ku-height
 			 :weight ,seiho-haiku-ku-weight
+			 ;; :family "Noto Serif CJK JP"
+			 ;; :family "Noto Sans CJK JP"
+			 :family "UD Digi Kyokasho N-B"
 			 :box (:line-width ,seiho-haiku-box-line-width
 			       :color ,seiho-haiku-box-color))))
     (insert "\n")))
