@@ -423,7 +423,7 @@
 (defvar seiho-haiku-ku-weight 'bold
   "俳句のフォントウェイト。'bold または 'normal。")
 
-(defvar seiho-haiku-box-color "gray50"
+(defvar seiho-haiku-box-color "gray40"
   "俳句ボックスの枠線色。")
 
 (defvar seiho-haiku-box-line-width 10
