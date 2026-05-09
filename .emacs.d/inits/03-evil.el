@@ -5,7 +5,7 @@
 
 (leaf evil
   :ensure t
-  :require my-evil-cheat-sheet
+  :require my-evil-cheat-sheet  ;; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
   :hook ((after-init-hook . evil-mode))
   :bind ((:evil-normal-state-map
           ("C-a"      . seq-home)
@@ -15,8 +15,7 @@
           ("b"        . evil-scroll-up)
 	  ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
-          ;; ("?"        . vim-cheat-sheet)
-          ("?"        . my-evil-cheat-sheet)
+	  ("?"        . my-evil-cheat-sheet)
           ([muhenkan] . my-muhenkan)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
