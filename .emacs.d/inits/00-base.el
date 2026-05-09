@@ -87,7 +87,6 @@
   (setq history-delete-duplicates t)
   (setq savehist-additional-variables '(extended-command-history
                                         my-describe-history)))
-
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
 (setq recentf-max-saved-items 100)
@@ -117,7 +116,6 @@
          ("M-w"      . clipboard-kill-ring-save)
          ("C-w"      . my-clipboard-kill-region)
          ("M-/"      . kill-current-buffer)
-         ("C-x /"    . delete-this-file)
          ("s-c"      . clipboard-kill-ring-save)
          ("s-v"      . clipboard-yank)
          ("C-q"      . other-window-or-split)
@@ -146,16 +144,6 @@
     (if (not (use-region-p))
         (abort-minibuffers)
       (keyboard-quit)))
-
-  (defun delete-this-file ()
-    "Delete the current file, and kill the buffer."
-    (interactive)
-    (unless (buffer-file-name)
-      (error "No file is currently being edited"))
-    (when (yes-or-no-p (format "Really delete '%s'?"
-                               (file-name-nondirectory buffer-file-name)))
-      (move-file-to-trash (buffer-file-name))
-      (kill-current-buffer)))
 
   (defun my-clipboard-kill-region ()
     "If the region is active, `clipboard-kill-region'.
