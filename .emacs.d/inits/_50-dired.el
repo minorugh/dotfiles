@@ -4,18 +4,26 @@
 ;; (setq debug-on-error t)
 
 (leaf dired
-  :hook (dired-mode-hook . my-dired-omit-mode)
+  :hook (dired-after-readin-hook . my-dired-hide-dotfiles)
   :bind (:dired-mode-map
          ("<left>"  . my-dired-up)
          ("<right>" . my-dired-open)
          ("RET" . my-dired-open)
          ("w"   . wdired-change-to-wdired-mode)
-         ("a"   . dired-omit-mode)
+         ("a"   . my-dired-toggle-dotfiles)
          ("s"   . my-dired-sudo-rm)
          ("o"   . my-dired-open-xdg)
-         ("["   . dired-hide-details-mode)
          ("."   . my-open-tig)
          ("i"   . my-sxiv))
+  :init
+  (defvar my-dired-show-dotfiles-dirs
+    (mapcar (lambda (d) (file-name-as-directory (expand-file-name d)))
+            '("~/" "~/.env_source/"
+              "~/src/github.com/minorugh/dotfiles/"
+              "~/src/github.com/minorugh/dotfiles/env/"))
+    "Directories where dotfiles should NOT be hidden.")
+  (defvar my-dired-hidden-table (make-hash-table :test 'equal)
+    "Hash table tracking dotfile visibility per directory. t = hidden.")
   :config
   (setq dired-dwim-target t)
   (setq delete-by-moving-to-trash t)
@@ -24,30 +32,7 @@
   (setq dired-listing-switches "-AFl")
   (setq ls-lisp-use-insert-directory-program nil)
   (setq ls-lisp-dirs-first t)
-  (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-  ;; Workaround for Emacs 30: dired-do-copy incorrectly treats symlinked
-  ;; directories as the same file via file-truename resolution.
-  (advice-add 'dired-do-copy :around
-              (lambda (orig &rest args)
-                (let ((find-file-visit-truename nil))
-                  (apply orig args))))
-
-  (defun my-dired-omit-mode ()
-    "Disable `dired-omit-mode' only in specific directories."
-    (let ((current (file-name-as-directory
-                    (expand-file-name default-directory))))
-      (dired-omit-mode
-       (if (member current
-                   (mapcar (lambda (d)
-                             (file-name-as-directory
-                              (expand-file-name d)))
-                           '("~/"
-                             "~/.env_source/"
-                             "~/src/github.com/minorugh/dotfiles/"
-                             "~/src/github.com/minorugh/dotfiles/env/")))
-           -1
-         1))))
 
   (defun my-dired-open ()
     "Open file or directory at point."
@@ -73,11 +58,11 @@
     (interactive)
     (let ((files (dired-get-marked-files)))
       (when (y-or-n-p "Delete marked files with sudo?")
-        (dolist (file files)
+	(dolist (file files)
           (let ((result (call-process "sudo" nil t nil "rm" "-rf" file)))
             (unless (zerop result)
               (message "sudo rm failed for: %s" file))))
-        (revert-buffer))))
+	(revert-buffer))))
 
   (defun my-open-tig ()
     "Run tig for current context in gnome-terminal."
@@ -108,8 +93,41 @@
                                    "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))
            (cmd (format "sxiv -t -f %s"
                         (mapconcat #'shell-quote-argument files " "))))
-      (start-process-shell-command "sxiv" nil cmd))))
+      (start-process-shell-command "sxiv" nil cmd)))
 
+  (defun my-dired-hide-dotfiles ()
+    "Hide dotfiles by removing lines, without using `dired-omit-mode'."
+    (unless (eq major-mode 'wdired-mode)
+      (let* ((current (file-name-as-directory
+                       (expand-file-name default-directory)))
+             (hidden (gethash current my-dired-hidden-table
+                              (not (member current my-dired-show-dotfiles-dirs)))))
+        (puthash current hidden my-dired-hidden-table)
+        (when hidden
+          (save-excursion
+            (goto-char (point-min))
+            (let ((inhibit-read-only t))
+              (while (not (eobp))
+                (if (and (dired-get-filename 'no-dir t)
+                         (string-match
+                          "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$"
+                          (dired-get-filename 'no-dir t)))
+                    (delete-region (line-beginning-position)
+                                   (progn (forward-line 1) (point)))
+                  (forward-line 1)))))))))
+
+  (defun my-dired-toggle-dotfiles ()
+    "Toggle dotfile visibility in current `dired' buffer."
+    (interactive)
+    (let ((current (file-name-as-directory
+                    (expand-file-name default-directory))))
+      (puthash current
+               (not (gethash current my-dired-hidden-table t))
+               my-dired-hidden-table)
+      (revert-buffer))))
+
+;; Open .cgi files in ~/Dropbox/passwd/ with text-mode instead of perl-mode.
+(add-to-list 'auto-mode-alist '("/Dropbox/passwd/.*\\.cgi\\'" . text-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

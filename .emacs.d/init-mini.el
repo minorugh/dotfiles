@@ -58,7 +58,7 @@
 ;; Use fido-mode
 (fido-mode 1)
 (fido-vertical-mode 1)
-(setq dired-listing-switches "-AFl --group-directories-first")
+(setq dired-listing-switches "-AFl")
 (setq default-directory user-emacs-directory)
 
 ;; Key modifiers to my liking
