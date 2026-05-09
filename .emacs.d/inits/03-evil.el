@@ -126,7 +126,7 @@
   (define-key evil-normal-state-map ";" my-normal-leader-map)
   (let ((m my-normal-leader-map))
     (define-key m ":" #'counsel-switch-buffer)   ;; バッファー切替
-    (define-key m "," #'indent-buffer)           ;; バッファーのインデント崩れを修復
+    (define-key m "i" #'indent-buffer)           ;; バッファーのインデント崩れを修復
     (define-key m "/" #'kill-current-buffer)     ;; built-in
     (define-key m ";" #'comment-line)            ;; コメントトグル
     (define-key m "o" #'my-newline-above)        ;; カーソル行の下に行挿入
@@ -135,7 +135,7 @@
     (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
     (define-key m "s" #'swiper)                  ;; → swiper検索
     (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
-    (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
+    (define-key m "m" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
     (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
 
   (defun my-insert-space ()
