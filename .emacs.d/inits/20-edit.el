@@ -51,16 +51,14 @@
   :hook (after-init-hook . electric-indent-mode))
 
 (leaf indent-helper
-  :bind* ("C-c i" . indent-region-or-buffer)
+  :bind* ("C-c i" . indent-buffer)
   :init
-  (defun indent-region-or-buffer ()
-    "If there is a selection, indent there; if not, indent the entire buffer."
+  (defun indent-buffer ()
+    "Indent the entire buffer."
     (interactive)
     (save-excursion
-      (if (use-region-p)
-          (indent-region (region-beginning) (region-end))
-	(indent-region (point-min) (point-max)))
-      (message "Indented selected region or buffer."))))
+      (indent-region (point-min) (point-max))
+      (message "Indented buffer."))))
 
 (leaf flymake
   :doc "On-the-fly syntax checking."

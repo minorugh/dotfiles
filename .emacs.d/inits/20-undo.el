@@ -23,17 +23,20 @@
   :after evil
   :doc "Edit multiple occurrences in the same way simultaneously."
   :config
-  (defun my-iedit-toggle ()
-    "Visual-stateならEmacs-stateに切り替えてiedit-mode起動、終了後Normal-stateへ。
-Emacs-stateなら通常通りiedit-modeをon/off。"
-    (interactive)
-    (cond
-     ((evil-visual-state-p)
+(defun my-iedit-toggle ()
+  "Toggle `iedit-mode' in visual-state, restrict to selected region."
+  (interactive)
+  (cond
+   ((evil-visual-state-p)
+    (let ((beg (region-beginning))
+          (end (region-end)))
       (evil-emacs-state)
+      (set-mark beg)
+      (goto-char end)
       (iedit-mode)
-      (add-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal nil t))
-     (t
-      (iedit-mode))))
+      (add-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal nil t)))
+   (t
+    (iedit-mode))))
 
   (defun my-iedit-end-to-normal ()
     "Return to Normal-state after the end of iedit."

@@ -124,6 +124,7 @@
   (define-key evil-normal-state-map ";" my-normal-leader-map)
   (let ((m my-normal-leader-map))
     (define-key m ":" #'counsel-switch-buffer)   ;; バッファー切替
+    (define-key m "," #'indent-buffer)           ;; バッファーのインデント崩れを修復
     (define-key m "/" #'kill-current-buffer)     ;; built-in
     (define-key m ";" #'comment-line)            ;; コメントトグル
     (define-key m "o" #'my-newline-above)        ;; カーソル行の下に行挿入
