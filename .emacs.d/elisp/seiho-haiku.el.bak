@@ -426,7 +426,7 @@
 (defvar seiho-haiku-box-color "gray50"
   "俳句ボックスの枠線色。")
 
-(defvar seiho-haiku-box-line-width 10
+(defvar seiho-haiku-box-line-width 8
   "俳句ボックスの上下padding (pxで指定)。")
 
 ;;; 表示用関数
@@ -457,9 +457,6 @@ HEADINGは dashboard-insert-heading を呼ぶ関数シンボル。"
      (propertize line
 		 'face `(:height ,seiho-haiku-ku-height
 			 :weight ,seiho-haiku-ku-weight
-			 :family "Noto Serif CJK JP"
-			 ;; :family "Noto Sans CJK JP"
-			 ;; :family "UD Digi Kyokasho N-B"
 			 :box (:line-width ,seiho-haiku-box-line-width
 			       :color ,seiho-haiku-box-color))))
     (insert "\n")))

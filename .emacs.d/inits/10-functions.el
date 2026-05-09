@@ -11,7 +11,7 @@
 (leaf external-functions
   :doc "External functions & SSH launchers."
   :bind (("<f1>"  . help-command)              ;; built-in
-         ("<f2>"  . counsel-imenu)             ;; see 04-consult.el
+         ("<f2>"  . counsel-imenu)             ;; see 04-counsel.el
          ("<f3>"  . terminal-open-this)        ;; see :init
          ("<f4>"  . thunar-open-this)          ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
