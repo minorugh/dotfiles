@@ -30,7 +30,7 @@
   ;; Set the items (P1 shows haiku+recents, others show recents only)
   (if (string-match "P1" (system-name))
       (setq dashboard-items '((haiku . 1) (recents . 5)))
-    (setq dashboard-items '((recents . 5))))
+    (setq dashboard-items '((haiku . 1))))
   ;; Set the title (combine external commands into one call)
   (setq dashboard-banner-logo-title
 	(let* ((uname (split-string (shell-command-to-string "uname -rn")))

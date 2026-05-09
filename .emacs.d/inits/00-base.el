@@ -74,6 +74,7 @@
 (setq url-configuration-directory (locate-user-emacs-file "tmp/url"))
 (setq bookmark-default-file       (locate-user-emacs-file "tmp/bookmarks"))
 (setq save-place-file             (locate-user-emacs-file "tmp/places"))
+(setq project-list-file           (locate-user-emacs-file "tmp/projects"))
 
 ;; Savehist
 (leaf savehist
@@ -84,9 +85,8 @@
   (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
   (setq history-length         200)
   (setq history-delete-duplicates t)
-  (setq savehist-additional-variables '(kill-ring
-					extended-command-history
-					my-describe-history)))
+  (setq savehist-additional-variables '(extended-command-history
+                                        my-describe-history)))
 
 ;; Recentf
 (run-with-idle-timer 0.5 nil #'recentf-mode)
@@ -101,6 +101,7 @@
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"                  . conf-mode)
+         ("/Dropbox/passwd/.*\\.cgi\\'" . text-mode)
          ("\\.cgi\\'" . perl-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)
