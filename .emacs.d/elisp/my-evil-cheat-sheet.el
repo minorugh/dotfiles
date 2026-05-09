@@ -59,7 +59,7 @@ i: ivy jump  m/e/o/v/n: section jump  q: quit"
       (setq buffer-read-only nil)
       (erase-buffer)
       (insert "\
-【m:移動】
+【移動】
   w b        単語単位 前進/後退
   e          次の単語末尾へ
   0 $        行頭/行末
@@ -68,7 +68,7 @@ i: ivy jump  m/e/o/v/n: section jump  q: quit"
   { }        段落単位で移動
   %          対応する括弧へ
 
-【e:編集（normal-state のまま）】
+【編集（normal-state のまま）】
   x          カーソル文字を削除
   X          カーソル前の文字を削除
   rx         1文字だけ置換（emacs-state に入らない）
