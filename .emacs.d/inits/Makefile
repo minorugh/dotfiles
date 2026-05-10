@@ -1,4 +1,4 @@
-a.out: clean
+all: clean
 
 
 clean:

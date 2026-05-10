@@ -116,6 +116,7 @@
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
+  :require my-sen-cleanup
   :after evil
   :config
   (setq echo-keystrokes 0)
