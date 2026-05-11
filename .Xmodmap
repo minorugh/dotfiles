@@ -49,3 +49,20 @@ keycode 107 = Alt_R Meta_R Print Sys_Req
 !   _ と \ を割り当てている。
 !-------------------------------
 keycode 97 = underscore backslash
+
+!-------------------------------
+! Keychron K3 Max：F13キー
+!
+! Keychron から KC_F13 を送ると
+! Linux では XF86Tools（keycode 191）として届く。
+! mozc は XF86Tools を認識しないため
+! F13 に上書きマップする。
+!
+! Keychron Launcher Layer2 設定：
+!   MT(MOD_LALT, KC_F13)
+!   単押し → F13（IMEトグル）
+!   長押し → Alt
+!
+! xev で keycode 191 を確認済み（2026-05-11）
+!-------------------------------
+keycode 191 = F13

@@ -6,7 +6,8 @@
 (leaf mozc
   :ensure t
   :hook (after-init-hook . mozc-mode)
-  :bind* ("<hiragana-katakana>" . my-toggle-input-method)
+  :bind* (("<hiragana-katakana>" . my-toggle-input-method)
+	  ("<f13>" . my-toggle-input-method))
   :bind (("s-m" . my-mozc-config)
 	 ("s-d" . my-mozc-word-regist)
 	 (:mozc-mode-map
