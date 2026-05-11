@@ -26,15 +26,10 @@
   (setq ls-lisp-dirs-first t)
   (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
+
   ;; Emacs 30 + ivy: dired-do-copy の read-file-name を ivy に横取りさせない
   (add-to-list 'ivy-completing-read-handlers-alist
                '(dired-do-copy . completing-read-default))
-  ;; ;; Workaround for Emacs 30: dired-do-copy incorrectly treats symlinked
-  ;;   ;; directories as the same file via file-truename resolution.
-  ;;   (advice-add 'dired-do-copy :around
-  ;;               (lambda (orig &rest args)
-  ;;                 (let ((find-file-visit-truename nil))
-  ;;                   (apply orig args))))
 
   (defun my-dired-omit-mode ()
     "Disable `dired-omit-mode' only in specific directories."
