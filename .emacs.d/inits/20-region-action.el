@@ -15,12 +15,12 @@
 
 ;;; --- キーバインド（evil-visual-state-map に対応）---
 
-(bind-key ";" #'comment-dwim     my-selected-mode-map)
-(bind-key "c" #'kill-ring-save   my-selected-mode-map)
-(bind-key "s" #'swiper-region    my-selected-mode-map)
-(bind-key "g" #'my-google-search my-selected-mode-map)
-(bind-key "w" #'my-weblio-search my-selected-mode-map)
-(bind-key "d" #'deepl-translate  my-selected-mode-map)
+(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
+(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
+(define-key my-selected-mode-map (kbd "s") #'swiper-region)
+(define-key my-selected-mode-map (kbd "g") #'my-google-search)
+(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
+(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
 
 ;;; --- ユーティリティ関数 ---
 

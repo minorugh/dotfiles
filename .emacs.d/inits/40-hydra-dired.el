@@ -66,7 +66,7 @@
    ("w" my-darkroom-toggle)
    ("y" my-reload-keychain)
    ("q" top-level)
-   (";" hydra-work/body)
+   ;; (";" hydra-work/body)
    ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil))
   :init

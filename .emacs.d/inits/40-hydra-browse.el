@@ -5,7 +5,7 @@
 
 (leaf hydra-browse
   :doc "Selection menu for project work."
-  :chord (".." . hydra-browse/body)
+  :bind ("<f15>" . hydra-browse/body)
   :hydra
   (hydra-browse
    (:hint nil :exit t)
@@ -50,6 +50,7 @@
    ("m" neomutt)
    ("t" thunderbird)
    ("s" (start-process "slack" nil "slack"))
+   ("<f15>" nil)
    ("<muhenkan>" nil)
    ("." nil))
   :init

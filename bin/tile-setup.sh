@@ -43,7 +43,8 @@ else
     fi
 
     sleep 1
-    emacsclient -e '(my-howm-create-with-category)'
+    # emacsclient -e '(my-howm-create-with-category)'
+    emacsclient -e
 
     echo "配置完了: Chrome(ID:$CID) / Emacs(ID:$EID)"
 fi

@@ -5,6 +5,10 @@
 ;;   ;c → sen_cleanup.pl 実行 → 成功でrevert-buffer・super-saveに委譲
 ;;   ;b → .tmp から復元して revert-buffer
 ;;
+;; *sen-cleanup* バッファー:
+;;   実行中はストリーミング表示。終了後は view-mode になり q で閉じる。
+;;   成功・失敗どちらもバッファーに結果を残す（super-saveによるecho上書き対策）。
+;;
 ;; ファイル管理:
 ;;   infile.bak → bklog.pl が使う永続バックアップ（触らない）
 ;;   infile.tmp → ;b リバート用（実行のたびに上書き・放置OK）
@@ -16,21 +20,43 @@
 
 (defun my-sen-cleanup ()
   "Run sen_cleanup.pl.
-On success, `revert-buffer' and delegate to super-save.
-On failure, display in error buffer."
+Progress is streamed to *sen-cleanup* buffer.
+On finish (success or failure), buffer enters `view-mode' so q closes it.
+On success, `revert-buffer' is called before switching to the result buffer."
   (interactive)
-  (let* ((file     (buffer-file-name))
-         (script   (expand-file-name my-sen-script))
-         (outbuf   (get-buffer-create "*sen-cleanup*"))
-         (exit-code (call-process "perl" nil outbuf nil script file)))
-    (if (= exit-code 0)
-        (progn
-          (revert-buffer t t t)
-          (set-buffer-modified-p t)
-          (message "%s"
-                   (with-current-buffer outbuf
-                     (string-trim (buffer-string)))))
-      (display-buffer outbuf))))
+  (let* ((file   (or (buffer-file-name)
+                     (user-error "バッファーはファイルに紐付いていません")))
+         (script (expand-file-name my-sen-script))
+         (srcbuf (current-buffer))
+         (outbuf (get-buffer-create "*sen-cleanup*")))
+    (with-current-buffer outbuf
+      (let ((inhibit-read-only t))
+        (erase-buffer)))
+    (let ((proc (start-process "sen-cleanup" outbuf "perl" script file)))
+      (set-process-sentinel
+       proc
+       (lambda (p _event)
+         (when (memq (process-status p) '(exit signal))
+           (let ((code (process-exit-status p)))
+             (when (= code 0)
+               (with-current-buffer srcbuf
+                 (let ((msg (with-current-buffer outbuf
+                              (string-trim (buffer-string)))))
+                   (revert-buffer t t t)
+                   (set-buffer-modified-p t)
+                   (letrec ((hook (lambda ()
+                                    (remove-hook 'after-save-hook hook t)
+                                    (message "%s" msg)
+                                    (when (buffer-live-p outbuf)
+                                      (kill-buffer outbuf)))))
+                     (add-hook 'after-save-hook hook nil t)))))
+             (when (/= code 0)
+               (with-current-buffer outbuf
+                 (let ((inhibit-read-only t))
+                   (goto-char (point-max))
+                   (insert "\n[失敗 — q で閉じる]"))
+                 (view-mode 1)
+                 (pop-to-buffer outbuf))))))))))
 
 (defun my-sen-restore ()
   "Restore from .tmp file and `revert-buffer'."

@@ -4,8 +4,8 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-work
-  :chord ((";;" . hydra-work/body))
   :require (my-template)
+  :bind ("<f14>" . hydra-work/body)
   :hydra
   (hydra-work
    (:hint nil :exit t)
@@ -53,7 +53,7 @@
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   (";" hydra-dired/body)
+   ("<f14>" hydra-dired/body)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
