@@ -50,22 +50,23 @@ keycode 107 = Alt_R Meta_R Print Sys_Req
 !-------------------------------
 keycode 97 = underscore backslash
 
-!-------------------------------
-! Keychron K3 Max：F13/F14/F15キー
+!---------------------------------------------------------------
+! Keychron K3 Max：F13 - F17 キーマッピング
 !
-! Keychron から KC_F13/F14/F15 を送ると
-! Linux では XF86Tools/XF86Launch5/XF86Launch6
-!（keycode 191/192/193）として届く。
-! mozc/fcitx5 はこれらを認識しないため
-! F13/F14/F15 に上書きマップする。
+! Keychron から送られる特殊キーコードを Linux (X11) で正しく
+! 認識させるために、標準のファンクションキー名に上書きマップする。
 !
-! Keychron Launcher Layer2 設定：
-!   MT(MOD_RALT, KC_F13)  単押し → F13（IMEトグル）、長押し → RAlt
-!   MT(MOD_RCTL, KC_F14)  単押し → F14、長押し → RCtrl
-!   MT(MOD_RGUI, KC_F15)  単押し → F15、長押し → RWin
+! [構成]
+! keycode 191 = F13 (全角/半角 単押し)
+! keycode 192 = F14 (設定キー1)
+! keycode 193 = F15 (設定キー2)
+! keycode 194 = F16 (全角/半角長押し + 1 -> シャットダウン)
+! keycode 195 = F17 (全角/半角長押し + 2 -> スリープ)
 !
-! xev で keycode 191/192/193 を確認済み（2026-05-11）
-!-------------------------------
+! 確認済み (2026-05-12)
+!---------------------------------------------------------------
 keycode 191 = F13
 keycode 192 = F14
 keycode 193 = F15
+keycode 194 = F16
+keycode 195 = F17
