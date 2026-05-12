@@ -125,7 +125,7 @@
 
   (define-key evil-normal-state-map ";" my-normal-leader-map)
   (let ((m my-normal-leader-map))
-    (define-key m "f" #'counsel-find-file)      ;; ファイル検索
+    (define-key m "f" #'counsel-find-file)       ;; ファイル検索
     (define-key m ":" #'counsel-switch-buffer)   ;; バッファー切替
     (define-key m "/" #'kill-current-buffer)     ;; built-in
     (define-key m ";" #'comment-line)            ;; コメントトグル

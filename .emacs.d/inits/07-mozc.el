@@ -27,7 +27,7 @@
     (setq mozc-candidate-style 'posframe)
     :config
     (custom-set-faces
-     '(mozc-cand-posframe-normal-face ((t (:background "#1E2029" :foreground "#F8F8F2" :weight normal))))
+     '(mozc-cand-posframe-normal-face  ((t (:background "#1E2029" :foreground "#F8F8F2" :weight normal))))
      '(mozc-cand-posframe-focused-face ((t (:background "#393F60" :foreground "#C7C9D1" :weight bold))))
      '(mozc-cand-posframe-footer-face  ((t (:background "#262626" :foreground "#454D73" :height 0.9))))))
 
@@ -61,9 +61,7 @@
     (start-process "mozc-word" nil "/usr/lib/mozc/mozc_tool" "--mode=word_register_dialog")
     (delete-other-windows))
 
-  ;;; --------------------------------
   ;;; mozc-cusor-color
-  ;;; --------------------------------
   (setq my-mozc-cursor-color-alist
 	'((normal    . "#50fa7b")  ; normal-state
           (direct    . "#BD93F9")  ; emacs-state mozc OFF
