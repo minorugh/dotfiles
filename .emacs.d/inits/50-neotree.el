@@ -14,7 +14,7 @@
 	  ("a"       . neotree-hidden-file-toggle)
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
-	  ("<f6>"   . my-neotree-toggle)))
+	  ("<f16>"   . my-neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
   ;; concise にするとキーバインドをシンプルにできる

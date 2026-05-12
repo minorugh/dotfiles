@@ -13,10 +13,10 @@
   :bind (("<f1>"  . help-command)              ;; built-in
          ("<f2>"  . counsel-imenu)             ;; see 04-counsel.el
          ("<f3>"  . terminal-open-this)        ;; see :init
-         ("<f4>"  . thunar-open-this)          ;; see :init
+	 ("<f4>"  . xsrv-ssh-fzf)              ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
-         ("<f6>"  . neotree-toggle)            ;; see 50-neotree.el
-         ("<f7>"  . my-open-tig)               ;; see 50-dired
+	 ("<f6>"  . thunar-open-this)          ;; see :init
+         ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
          ("<f8>"  . my-darkroom-toggle)        ;; see 80-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ;; see 30-ui.el
          ("<f10>" . toggle-scratch-buffer)     ;; see :init

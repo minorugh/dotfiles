@@ -254,10 +254,6 @@ alias ifconfig='/sbin/ifconfig'
 alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
 
-# system
-alias boot='sudo reboot'
-alias logout='xfce4-session-logout'
-
 ########################################
 # Functions
 ########################################
