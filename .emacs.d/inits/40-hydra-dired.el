@@ -27,7 +27,7 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits  ~/_s_rc^^  root_/_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
-  _r_estart  Git:_[__-__]_  _w_rite  GH._h__j_  _x_-srv  _<home>_^  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-repo^^^^  _f_lymake
+  _r_estart  Git:_[__-__]_  _c_hlog  GH._h__j_  _x_-srv  _<home>_^  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
    ("x" xsrv-ssh-fzf)
@@ -63,7 +63,7 @@
    ("[" git-peek)
    ("-" git-peek-deleted)
    ("]" my-make-git)
-   ("w" my-darkroom-toggle)
+   ("c" (my-open "~/Dropbox/Changelog/"))
    ("y" my-reload-keychain)
    ("q" top-level)
    ;; (";" hydra-work/body)
