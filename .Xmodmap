@@ -57,11 +57,11 @@ keycode 97 = underscore backslash
 ! 認識させるために、標準のファンクションキー名に上書きマップする。
 !
 ! [構成]
-! keycode 191 = F13 (全角/半角 単押し)
-! keycode 192 = F14 (設定キー1)
-! keycode 193 = F15 (設定キー2)
-! keycode 194 = F16 (全角/半角長押し + F1 -> シャットダウン)
-! keycode 195 = F17 (全角/半角長押し + F2 -> スリープ)
+! keycode 191 = F13 (RALT 単押し) → mozc on/off toggle
+! keycode 192 = F14 (RCTRL単押し) → hydra
+! keycode 193 = F15 (RGUI 単押し) → hydra
+! keycode 194 = F16 (全角/半角長押し + F1) → Snote|emacs tile
+! keycode 195 = F17 (全角/半角長押し + F2) → move active window
 !
 ! 確認済み (2026-05-12)
 !---------------------------------------------------------------
