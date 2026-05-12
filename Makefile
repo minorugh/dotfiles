@@ -19,7 +19,7 @@ PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm
 PACKAGES += zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
 PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
-PACKAGES	+= autokey-gtk autokey-common lhasa fzf tree aspell aspell-en
+PACKAGES	+= autokey-gtk autokey-common lhasa tree aspell aspell-en
 PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
 PACKAGES += gimp darktable inkscape shotwell cups cups-bsd vlc
@@ -40,7 +40,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init init-sub keymap keyd grub autostart cron emacs-trash keyring tlp emacs-mozc icons gist fonts emacs-toggle
+baseinstall: env-setup ssh install base init init-sub keymap keyd grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
@@ -209,9 +209,15 @@ keyring: ## Gnome keyring の初期化（両機: Dropboxからコピー / P1: �
 	mkdir -p ${HOME}/.local/share/keyrings
 	rsync -av --delete ${HOME}/Dropbox/backup/keyrings/ ${HOME}/.local/share/keyrings/
 
-fzf-tools: ## fzfツール群（emacs-kill.sh 等）のリンクと権限設定
-	sudo ln -vsfn ${PWD}/bin/emacs-kill.sh /usr/local/bin/emacs-kill.sh
-	sudo chmod +x /usr/local/bin/emacs-kill.sh
+fzf-tools: ## fzf最新版インストール＋ツール群（power-menu.sh 等）のリンクと権限設定
+	sudo apt remove -y fzf 2>/dev/null || true
+	cd ${HOME}/Downloads && \
+	wget -q https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_amd64.tar.gz && \
+	tar xzf fzf-0.72.0-linux_amd64.tar.gz && \
+	sudo mv fzf /usr/local/bin/fzf && \
+	rm -f fzf-0.72.0-linux_amd64.tar.gz
+	sudo ln -vsfn ${PWD}/bin/power-menu.sh /usr/local/bin/power-menu.sh
+	sudo chmod +x /usr/local/bin/power-menu.sh
 
 icons: ## アイコン・壁紙のシンボリックリンク作成
 	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures

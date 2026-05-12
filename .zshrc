@@ -255,15 +255,8 @@ alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
 
 # system
-alias sd='sudo shutdown -h now'
 alias boot='sudo reboot'
-alias by='xset dpms force standby'
 alias logout='xfce4-session-logout'
-
-# git log on xserver
-alias dflog="ssh xsrv 'git -C ~/git/dotfiles.git log --oneline -10'"
-alias ghlog="ssh xsrv 'git -C ~/git/GH.git log --oneline -10'"
-alias mglog="ssh xsrv 'git -C ~/git/minorugh.com.git log --oneline -10'"
 
 ########################################
 # Functions
