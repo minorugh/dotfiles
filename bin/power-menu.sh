@@ -13,9 +13,9 @@
 
 CHOICE=$( (
     ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v -e "<defunct>" -e "grep" -e "emacs-kill"
-    echo "1> SLEEP"
-    echo "2> POWEROFF"
-    echo "3> REBOOT"
+    echo "1. SLEEP"
+    echo "2. POWEROFF"
+    echo "3. REBOOT"
 ) | fzf --reverse --no-input --color='pointer:white' \
     --bind '1:pos(4)+accept' \
     --bind '2:pos(5)+accept' \
