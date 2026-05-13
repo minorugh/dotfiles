@@ -8,7 +8,8 @@
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
   :hook (emacs-startup-hook . howm-mode)
-  :chord (("@@" . howm-list-all))
+  :chord (("@@" . howm-list-all)
+	  (",," . my-howm-create-with-category))
   :bind ((:howm-view-summary-mode-map
 	  ([backtab]  . howm-view-summary-previous-section)
 	  ("<return>" . howm-view-summary-open)
@@ -43,8 +44,8 @@
 検索メニュー・作成メニューの両方で使用する通常カテゴリ。")
 
   (defvar my-howm-special-entries
-    '((?n " 推敲"  my-howm-face-note     my-haiku-note-post)
-      (?p " 創作"  my-howm-face-creative  my-haiku-note-post))
+    '((?p " 創作"  my-howm-face-creative  my-haiku-note-post)
+      (?n " 推敲"  my-howm-face-note     my-haiku-note))
     "作成メニュー専用の特殊エントリ。各要素: (キー文字 表示名 フェイス名 呼び出す関数)
 検索メニューには表示されない。動作は外部関数に委譲する。")
 
