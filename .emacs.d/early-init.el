@@ -28,9 +28,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; Language and font configuration
-(set-language-environment "Japanese")
-(setq-default indent-line-function 'indent-for-current-mode)
-(push '(font . "Cica-18") default-frame-alist)
+(push '(font . "Cica-18") initial-frame-alist)
+(setq inhibit-compacting-font-caches t)
 
 ;; Disable UI elements early to prevent flickering and speed up rendering
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -40,6 +39,8 @@
 
 ;; Start with a maximized frame and hide the splash screen
 (push '(fullscreen . maximized) initial-frame-alist)
+(push '(left . 1920) initial-frame-alist)
+(push '(top  . 0)    initial-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t)
 ;; Do not force *scratch* on startup; let dashboard take over

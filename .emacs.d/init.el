@@ -40,9 +40,6 @@
     :config
     (leaf-keywords-init)))
 
-;; Personal settings file managed outside of version control.
-(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-
 (leaf init-loader
   :ensure t
   :load-path "~/.emacs.d/elisp" ;; local elisp packages
@@ -50,6 +47,13 @@
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
   (init-loader-load))
+
+;; Personal settings file managed outside of version control.
+(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
+
+;; Japanese language environment and indentation settings
+(set-language-environment "Japanese")
+(setq-default indent-line-function 'indent-for-current-mode)
 
 ;; Start Emacs server if not already running
 (leaf server
