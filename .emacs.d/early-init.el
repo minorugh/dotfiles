@@ -38,11 +38,13 @@
 ;; (push '(undecorated . t) default-frame-alist)
 
 ;; Start with a maximized frame and hide the splash screen
+;; Place initial frame on external monitor (DP-1-2 at x=1920)
 (push '(fullscreen . maximized) initial-frame-alist)
 (push '(left . 1920) initial-frame-alist)
 (push '(top  . 0)    initial-frame-alist)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t)
+
 ;; Do not force *scratch* on startup; let dashboard take over
 (setq initial-buffer-choice nil)
 
