@@ -257,7 +257,8 @@
   (find-file (format-time-string "~/Dropbox/howm/haiku/haikunote.%Y.txt"))
   (when evil-mode
     (evil-emacs-state))
-  (goto-char (point-min)))
+  (goto-char (point-min))
+  (forward-line 1))
 
 ;;;###autoload
 (defun my-haiku-note-post ()

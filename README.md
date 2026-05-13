@@ -2,7 +2,8 @@
 
 ## スクリーンショット
 ![Debian12 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg)
-![Emacs-30.1](https://live.staticflickr.com/65535/53032684552_3f0767459c_b.jpg)
+![Emacs-30.1](https://live.staticflickr.com/65535/55267822600_07ae20cda9_h.jpg)
+
 
 ## 概要
 
