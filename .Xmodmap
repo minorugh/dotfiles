@@ -84,7 +84,7 @@ keycode 97 = underscore backslash
 !   キー    レイヤー3 での送出   Linux 側の用途
 !   ────────────────────────────────────────────
 !   F1      KC_F16              Simplenote 起動し emacsclientと左右タイル配置
-!   F2      KC_F17              アクティブウィンドウ移動
+!   F2      KC_F17              同上アクティブウィンドウ移動
 !   h       KC_LEFT             カーソル左
 !   j       KC_DOWN             カーソル下
 !   k       KC_UP               カーソル上
