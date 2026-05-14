@@ -351,8 +351,8 @@ google-earth: ## Google Earth のインストール
 slack: ## Slack デスクトップのインストール
 	cd ${HOME}/Downloads && \
 	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
-	sudo gdebi slack-desktop-4.47.69-amd64.deb # ファイル名はダウンロード時に確認すること
-	rm -f slack-desktop-4.47.69-amd64.deb
+	sudo gdebi slack-desktop-4.49.89-amd64.deb # ファイル名はダウンロード時に確認すること
+	rm -f slack-desktop-4.49.89-amd64.deb
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 
 spotify: ## Spotify クライアントのインストール

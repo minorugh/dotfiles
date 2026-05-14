@@ -31,7 +31,7 @@
    ("A" my-apvoice-new-post)
    ("b" thunderbird)
    ("." (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
-   (":" (my-open "~/Dropbox/GH/marquee.dat" :pos 'top :emacs))
+   (":" (my-open "~/Dropbox/GH/update/marquee.dat" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("J" (my-open "~/Dropbox/howm/junk/"))
