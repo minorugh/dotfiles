@@ -100,8 +100,8 @@
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"                  . conf-mode)
-         ("/Dropbox/passwd/.*\\.cgi\\'" . text-mode)
-         ("\\.cgi\\'" . perl-mode))
+         ("\\.cgi\\'" . perl-mode)
+         ("/Dropbox/passwd/.*\\.cgi\\'" . text-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
