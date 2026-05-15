@@ -99,7 +99,7 @@
 
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
-         ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"                  . conf-mode)
+         ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"          . conf-mode)
          ("\\.cgi\\'" . perl-mode)
          ("/Dropbox/passwd/.*\\.cgi\\'" . text-mode))
   :hook
