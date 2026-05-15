@@ -54,7 +54,8 @@
   (setq ps-line-number-font 'Courier)
   (setq ps-line-number       t)
   (setq ps-show-n-of-n       t)
-  (defalias 'ps-mule-header-string-charsets 'ignore))
+  (defalias 'ps-mule-header-string-charsets 'ignore)
+  (setq ps-end-with-control-d t))
 
 (leaf package-update
   :doc "Package management hydra."
