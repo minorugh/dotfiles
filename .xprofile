@@ -40,7 +40,8 @@ fi
 #
 # 備考：
 #   - イベント駆動のため常時ポーリングより遥かに軽量
-#   - cron による毎分実行の代替として採用
+#   - 単独では失速を取りこぼす場合があることが判明しているため
+#     cron による毎分実行と併用して多重防御とする
 #   - Xfce4 セッション終了時にプロセスも自動終了する
 (xprop -root -spy _XKB_RULES_NAMES | while read -r _; do
     sleep 0.3 && xmodmap ~/.Xmodmap
