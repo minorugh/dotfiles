@@ -7,14 +7,15 @@
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :hook (neotree-mode-hook . (lambda () (setq-local mode-line-format nil)))
-  :bind ((:neotree-mode-map
+  :bind (("<f7>"     . my-neotree-toggle)
+	 (:neotree-mode-map
 	  ("RET"     . neotree-enter-hide)
 	  ("j"       . next-line)
 	  ("k"       . previous-line)
 	  ("a"       . neotree-hidden-file-toggle)
 	  ("<left>"  . neotree-select-up-node)
 	  ("<right>" . neotree-change-root)
-	  ("<f16>"   . my-neotree-toggle)))
+	  ("<f7>"    . my-neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
   ;; concise にするとキーバインドをシンプルにできる
@@ -30,28 +31,17 @@
   (setq neo-mode-line-type nil)
   (setq neo-create-file-auto-open t)
 
-(defun my-neotree-toggle ()
-  "Toggle Neotree, jumping to current file/dir.
-Bound to F7; see 10-functions.el."
-  (interactive)
-  (if (neo-global--window-exists-p)
-      (neotree-hide)
-    (let ((path (or (buffer-file-name)
-                    (and (eq major-mode 'dired-mode)
-                         (dired-current-directory))
-                    default-directory)))
-      (neotree-find path))))
-;; (defun my-neotree-toggle ()
-;;   "Toggle Neotree, jumping to current file/dir.
-;; Bound to F7; see 10-functions.el."
-;;   (interactive)
-;;   (if (neo-global--window-exists-p)
-;;       (neotree-hide)
-;;     (let ((path (or (buffer-file-name)
-;;                     (and (eq major-mode 'dired-mode) (dired-current-directory))
-;;                     default-directory)))
-;;       (neotree-show)
-;;       (neotree-find path))))
+  (defun my-neotree-toggle ()
+    "Toggle Neotree, jumping to current file/dir.
+  Bound to F7; see 10-functions.el."
+    (interactive)
+    (if (neo-global--window-exists-p)
+        (neotree-hide)
+      (let ((path (or (buffer-file-name)
+                      (and (eq major-mode 'dired-mode)
+                           (dired-current-directory))
+                      default-directory)))
+        (neotree-find path))))
 
   (defun neotree-text-scale ()
     "Neotree text scale.
