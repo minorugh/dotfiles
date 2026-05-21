@@ -66,7 +66,7 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
   (defun my-edit-easy-hugo ()
     "Edit setting file for `easy-hugo'."
     (interactive)
-    (find-file "~/.emacs.d/inits/90-easy-hugo.el"))
+    (find-file "~/.emacs.d/inits/70-easy-hugo.el"))
 
   (defun my-easy-hugo-newpost-after (&rest _)
     "After creating a new post, switch to evil-emacs-state if in evil-mode."
