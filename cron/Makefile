@@ -56,6 +56,9 @@ xsrv-start: ## xsrv-backup 再開
 
 xsrv-status: ## xsrv-backup 状態確認
 	systemctl --user status xsrv-backup.timer
+	@echo "#########################"
+	systemctl --user cat xsrv-backup.timer
+	@echo "##>" >&2
 
 xsrv-reload: ## systemd 設定変更後のリロード
 	systemctl --user daemon-reload
@@ -64,6 +67,9 @@ xsrv-reload: ## systemd 設定変更後のリロード
 xsrv-run: ## xsrv-backup 今すぐ手動実行
 	systemctl --user start xsrv-backup.service
 	@echo "##> xsrv-backup: manual run triggered." >&2
+
+xsrv-edit-timer: ## xsrv-backup.timer を編集
+	gnome-terminal -- bash -c 'nano ~/.config/systemd/user/xsrv-backup.timer'
 
 ## バックアップのcommitログが肥大するので適宜初期化する（半年に1回程度手動で）
 ## 実行すると両リポジトリの履歴が1件にリセットされ、GitHub に force push される
