@@ -14,8 +14,8 @@
          ("s"   . my-dired-sudo-rm)
          ("o"   . my-dired-open-xdg)
          ("["   . dired-hide-details-mode)
-         ("."   . my-open-tig)
-	 ("x"   . xsrv-deploy-dired)
+         ("t"   . my-open-tig)
+	 ("."   . xsrv-deploy-dired)
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target t)
@@ -105,14 +105,19 @@
     (interactive)
     (let* ((file (dired-get-filename))
            (name (file-name-nondirectory file)))
-      (if (file-directory-p file)
-          (message "Error: ディレクトリは deploy できません。")
+      (cond
+       ((file-directory-p file)
+	(message "Error: ディレクトリは deploy できません。"))
+       ((not (or (string-prefix-p "/home/minoru/Dropbox/GH/" file)
+		 (string-prefix-p "/home/minoru/Dropbox/minorugh.com/" file)))
+	(message "Error: deploy 対象外のファイルです。"))
+       (t
 	(when (x-popup-dialog
                t
                `(,(format "本当に deploy しますか？\n\n  %s" name)
 		 ("Deploy する" . t)
 		 ("やめる" . nil)))
-          (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file))))))
+          (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
   (defun my-sxiv ()
     "Open images in current directory with sxiv (fullscreen)."
