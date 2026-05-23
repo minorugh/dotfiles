@@ -108,6 +108,8 @@
       (cond
        ((file-directory-p file)
 	(message "Error: ディレクトリは deploy できません。"))
+       ((string-match-p "\\(^Makefile$\\|^README\\|\\.mk$\\|\\.bak$\\)" name)
+        (message "Error: %s は deploy 対象外です。" name))
        ((not (or (string-prefix-p "/home/minoru/Dropbox/GH/" file)
 		 (string-prefix-p "/home/minoru/Dropbox/minorugh.com/" file)))
 	(message "Error: deploy 対象外のファイルです。"))
