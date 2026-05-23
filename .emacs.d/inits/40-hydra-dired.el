@@ -27,10 +27,10 @@
    "
    Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
-  _r_estart  Git:_[__-__]_  GH._h__j_  _p_assX  _c_lmem  _<home>_^  h_@_wm_,_._v_._n_ote  _x_serv.DL  _g_it-repo^^^^  _f_lymake
+  _r_estart  Git:_[__-__]_  GH._h__j_  _p_assX  _c_lmem  _<home>_^  h_@_wm_,_._v_._n_ote  _x_servSSH  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
-   ("x" my-xsrv-download)
+   ("x" my-xsrv-dired)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))

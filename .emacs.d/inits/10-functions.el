@@ -13,7 +13,7 @@
   :bind (("<f1>"  . help-command)              ;; built-in
          ("<f2>"  . counsel-imenu)             ;; see 04-counsel.el
          ("<f3>"  . terminal-open-this)        ;; see :init
-	 ("<f4>"  . xsrv-ssh-cd-select)        ;; see :init
+	 ("<f4>"  . xsrv-open-this)            ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
 	 ("<f6>"  . thunar-open-this)          ;; see :init
          ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
@@ -41,28 +41,22 @@
       (start-process-shell-command "thunar" nil cmd)
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
-(defun xsrv-ssh-cd-select ()
-  "Select remote dir and open gnome-terminal with SSH."
+(defun xsrv-open-this ()
+  "Open gnome-terminal with SSH to xserver at directory corresponding to current buffer."
   (interactive)
-  (let* ((home-root "/home/minorugh/")
-         (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
-         (mn-root   (concat home-root "minorugh.com/public_html/"))
-         (dirs `(("home/user/"    . ("ls" . ,home-root))
-                 ("gospel-haiku"  . ("ls" . ,gh-root))
-                 ("minorugh.com"  . ("ls" . ,mn-root))
-                 ("passwd"        . ("vim" . ,(concat home-root "gospel-haiku.com/passwd/")))
-                 ("d_kukai/data"  . ("vim" . ,(concat gh-root "d_kukai/data/")))
-                 ("w_kukai/data"  . ("vim" . ,(concat gh-root "w_kukai/data/")))
-                 ("s_kukai/data"  . ("vim" . ,(concat gh-root "s_kukai/data/")))
-                 ("m_kukai/data"  . ("vim" . ,(concat gh-root "m_kukai/data/")))))
-         (choice (completing-read "xsrv dir: " (mapcar #'car dirs) nil t "^"))
-         (entry  (cdr (assoc choice dirs)))
-         (action (car entry))
-         (dir    (cdr entry))
-         (cmd (if (string= action "vim")
-                  (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir)
-                (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir))))
-    (start-process-shell-command "ssh-cd" nil cmd)))
+  (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
+         (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
+         (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
+         (remote-mn "/home/minorugh/minorugh.com/public_html/")
+         (cur (expand-file-name default-directory))
+         (dir (cond
+               ((string-prefix-p local-gh cur)
+                (concat remote-gh (file-relative-name cur local-gh)))
+               ((string-prefix-p local-mn cur)
+                (concat remote-mn (file-relative-name cur local-mn)))
+               (t "/home/minorugh/")))
+         (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
+    (start-process-shell-command "ssh" nil cmd)))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
