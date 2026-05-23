@@ -26,11 +26,11 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits  ~/_s_rc^^  root_/_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
-  _r_estart  Git:_[__-__]_  _c_lmem  GH._h__j_  _x_-srv  _<home>_^  h_@_wm_,_._v_._n_ote  key_p_assx  _g_it-repo^^^^  _f_lymake
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _p_assX  _c_lmem  _<home>_^  h_@_wm_,_._v_._n_ote  _x_serv.DL  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
-   ("x" xsrv-ssh-fzf)
+   ("x" my-xsrv-download)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
@@ -96,6 +96,21 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (interactive)
     (shell-command "bash ~/.xprofile > /dev/null 2>&1")
     (message "xprofile reloaded"))
+
+  (defun xsrv-deploy-this ()
+    "Deploy current buffer file to xserver."
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (when (yes-or-no-p (format "Deploy %s ?" (file-name-nondirectory file)))
+	(save-buffer)
+	(shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))
+
+  (defun my-xsrv-download ()
+    "xserver から最新データを同期してdiredで確認。"
+    (interactive)
+    (compile "systemctl --user start xsrv-backup.service")
+    ;; (compile "systemctl --user start xsrv-backup.service && while systemctl --user is-active xsrv-backup.service | grep -q '^active'; do sleep 2; done")
+    (dired "~/src/github.com/minorugh/xsrv-GH/"))
 
   (defun filezilla (&optional site)
     "Open FileZilla with SITE."
