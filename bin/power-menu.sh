@@ -22,7 +22,7 @@ CHOICE=$( (
     --bind '3:pos(6)+accept')
 
 case "$CHOICE" in
-    1.*) systemctl suspend; kill $PPID ;;
+    1.*) xset dpms force off; kill $PPID ;;
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     "")  echo "Cancelled."; kill $PPID ;;
