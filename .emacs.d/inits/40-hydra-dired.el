@@ -28,7 +28,7 @@
    Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  c_l_memo  ftp_9_._0_._-_  rescue_:_
   _r_estart  Git:_[__-__]_  GH._h__j_  _x_serv  _n_mutt  _<home>_^  h_@_wm_,_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
-_"
+"
    ("a" counsel-git-grep)
    ("x" my-xsrv-dired)
    ("f" flymake-show-buffer-diagnostics)
