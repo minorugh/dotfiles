@@ -41,22 +41,22 @@
       (start-process-shell-command "thunar" nil cmd)
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
-(defun xsrv-open-this ()
-  "Open gnome-terminal with SSH to xserver at directory corresponding to current buffer."
-  (interactive)
-  (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
-         (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
-         (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
-         (remote-mn "/home/minorugh/minorugh.com/public_html/")
-         (cur (expand-file-name default-directory))
-         (dir (cond
-               ((string-prefix-p local-gh cur)
-                (concat remote-gh (file-relative-name cur local-gh)))
-               ((string-prefix-p local-mn cur)
-                (concat remote-mn (file-relative-name cur local-mn)))
-               (t "/home/minorugh/")))
-         (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
-    (start-process-shell-command "ssh" nil cmd)))
+  (defun xsrv-open-this ()
+    "Open gnome-terminal with SSH to xserver at current buffer's directory."
+    (interactive)
+    (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
+           (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
+           (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
+           (remote-mn "/home/minorugh/minorugh.com/public_html/")
+           (cur (expand-file-name default-directory))
+           (dir (cond
+		 ((string-prefix-p local-gh cur)
+                  (concat remote-gh (file-relative-name cur local-gh)))
+		 ((string-prefix-p local-mn cur)
+                  (concat remote-mn (file-relative-name cur local-mn)))
+		 (t "/home/minorugh/")))
+           (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
+      (start-process-shell-command "ssh" nil cmd)))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
