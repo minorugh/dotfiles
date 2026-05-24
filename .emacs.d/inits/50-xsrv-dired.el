@@ -27,7 +27,7 @@
     ("w_kukai/data" . ,(concat my-xsrv--gh "w_kukai/data/"))
     ("s_kukai/data" . ,(concat my-xsrv--gh "s_kukai/data/"))
     ("m_kukai/data" . ,(concat my-xsrv--gh "m_kukai/data/")))
-  "Alist of label -> remote directory path for xsrv-dired.")
+  "Alist of label->remote directory for xsrv-dired.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Deploy from local dired (50-dired.el から移植)
@@ -56,7 +56,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Remote dired via TRAMP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defun my-xsrv-dired ()
   "Open remote xserver directory in `dired' via TRAMP."
   (interactive)
