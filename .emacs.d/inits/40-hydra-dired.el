@@ -26,8 +26,8 @@
    (:hint nil :exit t)
    "
    Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  ke_y_cahin  ftp_9_._0_._-_  _z_meint_:_
-  _r_estart  Git:_[__-__]_  GH._h__j_  _x_serv  _c_lmem  _<home>_^  h_@_wm_,_._v_._n_ote  key_p_assX  _g_it-repo^^^^  _f_lymake
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  Makefile_;_  ftp_9_._0_._-_  rescue_:_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _x_serv  _c_lmem  _<home>_^  h_@_wm_,_._v_._n_ote  key_p_assXC  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
    ("x" my-xsrv-dired)
@@ -39,7 +39,6 @@
    ("g" ivy-git-project-switch)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   ;; ("g" (my-open "~/src/github.com/minorugh"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
@@ -47,8 +46,8 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   (":" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   ("z" my-reload-xprofile)
+   (";" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
+   (":" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
@@ -64,9 +63,7 @@
    ("-" git-peek-deleted)
    ("]" my-make-git)
    ("c" (my-open "~/Dropbox/Changelog/"))
-   ("y" my-reload-keychain)
    ("q" top-level)
-   ;; (";" hydra-work/body)
    ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil))
   :init
@@ -91,26 +88,21 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (when (memq :omit opts)  (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
-  (defun my-reload-xprofile ()
-    "Reload ~/.xprofile."
+  (defun my-reload-xenv ()
+    "Reload ~/.xprofile and re-import keychain env vars into Emacs."
     (interactive)
     (shell-command "bash ~/.xprofile > /dev/null 2>&1")
-    (message "xprofile reloaded"))
-
-  (defun xsrv-deploy-this ()
-    "Deploy current buffer file to xserver."
-    (interactive)
-    (let ((file (buffer-file-name)))
-      (when (yes-or-no-p (format "Deploy %s ?" (file-name-nondirectory file)))
-	(save-buffer)
-	(shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))
-
-  (defun my-xsrv-download ()
-    "xserver から最新データを同期してdiredで確認。"
-    (interactive)
-    (compile "systemctl --user start xsrv-backup.service")
-    ;; (compile "systemctl --user start xsrv-backup.service && while systemctl --user is-active xsrv-backup.service | grep -q '^active'; do sleep 2; done")
-    (dired "~/src/github.com/minorugh/xsrv-GH/"))
+    ;; keychain の環境変数を Emacs プロセスに反映
+    (let ((keychain-file (expand-file-name
+                          (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+	(with-temp-buffer
+          (insert-file-contents keychain-file)
+          (goto-char (point-min))
+          (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
+            (setenv (match-string 1)
+                    (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
+    (message "xprofile + keychain reloaded"))
 
   (defun filezilla (&optional site)
     "Open FileZilla with SITE."
