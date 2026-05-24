@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-04-25
+更新日: 2026-05-25
 
 ---
 
@@ -9,6 +9,7 @@
 - メイン機 (P1) の各種データを毎夜 Dropbox へ自動バックアップする
 - `autobackup.sh` がオーケストレーターとして `Makefile` の各ターゲットを順次呼び出す
 - 個別スクリプトのシンボリックリンク作成は `dotfiles/Makefile` の `autobackup` ターゲットで管理
+- シャットダウン中にスキップされたジョブは `anacron-backup.sh` が起動時に補完する
 
 ---
 
@@ -19,6 +20,7 @@ backup/
   README.md              # このファイル
   Makefile               # 夜間自動バックアップ（autobackup.sh から呼び出される）
   autobackup.sh          # オーケストレーター（cron から毎日 23:50 に実行）
+  anacron-backup.sh      # anacron用補完スクリプト（起動後5分以内に実行）
   mozc-backup.sh         # Mozc 辞書バックアップ
   thunderbird-backup.sh  # Thunderbird バックアップ
   filezilla-backup.sh    # FileZilla 設定バックアップ
@@ -51,7 +53,18 @@ backup/
 
 ---
 
-## 4. Makefile ターゲット一覧
+## 4. anacron-backup.sh（起動時補完）
+
+シャットダウン中にcronがスキップした場合に備え、起動後5分以内に自動実行される。
+前回実行から1日以上経過していない場合はスキップされる。
+
+```
+/etc/cron.daily/anacron-backup -> dotfiles/backup/anacron-backup.sh
+```
+
+---
+
+## 5. Makefile ターゲット一覧
 
 手動実行: `make -f ~/src/github.com/minorugh/dotfiles/backup/Makefile <ターゲット名>`
 
@@ -79,9 +92,9 @@ thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
 
 ---
 
-## 5. シンボリックリンク管理
+## 6. シンボリックリンク管理
 
-`dotfiles/Makefile` の `autobackup` ターゲットで `/usr/local/bin/` へのリンクを一括作成。
+`dotfiles/Makefile` の `autobackup` ターゲットで `/usr/local/bin/` および `/etc/cron.daily/` へのリンクを一括作成。
 
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
@@ -90,10 +103,10 @@ make autobackup
 
 ---
 
-## 6. 推奨手順（新規 PC リストア時）
+## 7. 推奨手順（新規 PC リストア時）
 
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
-make autobackup   # /usr/local/bin/ へのシンボリックリンク作成
+make autobackup   # /usr/local/bin/ へのシンボリックリンク作成 + anacron登録
 make cron         # crontab に autobackup.sh の実行登録
 ```
