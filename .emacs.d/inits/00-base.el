@@ -101,7 +101,7 @@
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"          . conf-mode)
          ("\\.cgi\\'" . perl-mode)
-         ("/Dropbox/passwd/.*\\.cgi\\'" . text-mode)
+         ("/passwd/.*\\.cgi\\'" . text-mode)
 	 ;; Disable whitespace highlighting for Thunderbird mail editing
 	 ("\\.eml\\'" . (lambda () (whitespace-mode -1))))
   :hook
