@@ -18,7 +18,7 @@ HOSTNAME := $(shell hostname)
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
 PACKAGES += zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
-PACKAGES	+= ruby gnome-terminal xclip vim tmux xdotool
+PACKAGES	+= ruby gnome-terminal xclip vim xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa tree aspell aspell-en
 PACKAGES	+= mosh xscreensaver xscreensaver-gl-extra nodejs sxiv
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
@@ -40,7 +40,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init init-sub keymap keyd grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap keyd grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
 nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
 
 .ONESHELL:
@@ -62,10 +62,13 @@ ssh: ## SSH設定の初期化（~/.env_source から展開）
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in xprofile gitconfig bashrc zshrc vimrc tmux.conf Xresources textlintrc aspell.conf; do
+	for item in xprofile gitconfig bashrc zshrc vimrc Xresources textlintrc aspell.conf; do
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/hub ${HOME}/.config/hub
+
+zsh-restore: ## zsh履歴を Dropbox からリストア
+	cp -p ${HOME}/Dropbox/backup/env/zsh/.zsh_history ${HOME}/.zsh_history
 
 init-sub: ## サブ機のgit push封鎖（x250のみ実行）
 ifeq ($(HOSTNAME),x250)

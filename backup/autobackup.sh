@@ -42,6 +42,7 @@ run_target "melpa"      melpa
 run_target "git-push (GH+minorugh.com)"   git-push
 run_target "mozc"        mozc-backup
 run_target "keyring"     keyring-backup
+run_target "zsh-history" zsh-history-backup
 run_target "gitea"       gitea-backup
 run_target "filezilla"   filezilla-backup
 run_target "thunderbird" thunderbird-backup
