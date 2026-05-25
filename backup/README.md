@@ -43,6 +43,7 @@ backup/
 [autobackup] git-push (GH+minorugh.com): OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
+[autobackup] zsh-history: OK
 [autobackup] gitea: OK
 [autobackup] filezilla: OK
 [autobackup] thunderbird: OK
@@ -73,6 +74,7 @@ melpa:               # ELPAを Dropbox/backup/elpa へ rsync + git push
 git-push:            # GH・minorugh.com を日次自動コミット＆push
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
+zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 gitea-backup:        # Gitea data を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
 thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
@@ -86,6 +88,7 @@ thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
 | `git-push` | GH・minorugh.com の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
+| `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
 | `gitea-backup` | `~/Dropbox/backup/gitea/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
 | `thunderbird-backup` | `~/Dropbox/backup/thunderbird/` |
