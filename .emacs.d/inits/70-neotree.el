@@ -1,4 +1,4 @@
-;;; 50-neotree.el --- Neotree configurations. -*- lexical-binding: t -*-
+;;; 70-neotree.el --- Neotree configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -69,4 +69,4 @@ see https://github.com/jaypei/emacs-neotree/issues/218"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 50-neotree.el ends here
+;;; 70-neotree.el ends here
