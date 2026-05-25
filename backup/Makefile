@@ -11,7 +11,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup
+all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup
 
 .ONESHELL:
 
@@ -55,6 +55,10 @@ gitea-backup: ## Gitea data を Dropbox にバックアップ
 ## Gnome keyring を Dropbox にバックアップ（P1 の実体 → Dropbox）
 keyring-backup: ## Gnome keyring を Dropbox にバックアップ
 	rsync -av --delete ${HOME}/.local/share/keyrings/ ${HOME}/Dropbox/backup/keyrings/
+
+## zsh履歴を Dropbox にバックアップ
+zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
+	cp -p ${HOME}/.zsh_history ${HOME}/Dropbox/backup/env/zsh/.zsh_history
 
 ## endfile
 
