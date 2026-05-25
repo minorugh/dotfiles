@@ -173,18 +173,6 @@ If it's the last frame, minimize it without deleting it."
       (cond ((> numfrs 1) (delete-frame frame t))
             ((iconify-frame))))))
 
-;; Suppress org-mode (built-in, cannot remove, so disable it)
-(with-eval-after-load 'org
-  (setq org-persist-directory (expand-file-name "tmp/org-disabled/" user-emacs-directory))
-  (setq org-modules           nil)
-  (setq org-agenda-files      nil)
-  (setq org-inhibit-startup     t)
-  (setq org-element-use-cache nil)
-  (define-key org-mode-map (kbd "C-,") nil)
-  (define-key org-mode-map (kbd "C-'") nil)
-  (define-key org-mode-map (kbd "M-h") nil))
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
