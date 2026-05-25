@@ -5,7 +5,7 @@
 # xfce keyboard shortcut: gnome-terminal --window -- bash -c "power-menu.sh"
 #
 # 操作:
-#   1 キー : SLEEP（サスペンド）
+#   1 キー : SLEEP（画面オフのみ・プロセス継続、任意キーで復帰）
 #   2 キー : POWEROFF
 #   3 キー : REBOOT
 #   Enter  : emacsプロセスをkill
