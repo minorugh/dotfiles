@@ -48,6 +48,5 @@
 ;; Do not force *scratch* on startup; let dashboard take over
 (setq initial-buffer-choice nil)
 
-
 (provide 'early-init)
 ;;; early-init.el ends here

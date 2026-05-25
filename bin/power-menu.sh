@@ -16,7 +16,7 @@ CHOICE=$( (
     echo "1. SLEEP"
     echo "2. POWEROFF"
     echo "3. REBOOT"
-) | fzf --reverse --no-input --color='pointer:white' \
+) | fzf --reverse --color='pointer:white' \
     --bind '1:pos(4)+accept' \
     --bind '2:pos(5)+accept' \
     --bind '3:pos(6)+accept')
