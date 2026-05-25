@@ -102,6 +102,7 @@
          ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"          . conf-mode)
          ("\\.cgi\\'" . perl-mode)
          ("/passwd/.*\\.cgi\\'" . text-mode)
+         ("\\.org\\'" . text-mode)  ; disable org-mode
 	 ;; Disable whitespace highlighting for Thunderbird mail editing
 	 ("\\.eml\\'" . (lambda () (whitespace-mode -1))))
   :hook
@@ -171,6 +172,17 @@ If it's the last frame, minimize it without deleting it."
           (numfrs (length (visible-frame-list))))
       (cond ((> numfrs 1) (delete-frame frame t))
             ((iconify-frame))))))
+
+;; Suppress org-mode (built-in, cannot remove, so disable it)
+(with-eval-after-load 'org
+  (setq org-persist-directory (expand-file-name "tmp/org-disabled/" user-emacs-directory))
+  (setq org-modules           nil)
+  (setq org-agenda-files      nil)
+  (setq org-inhibit-startup     t)
+  (setq org-element-use-cache nil)
+  (define-key org-mode-map (kbd "C-,") nil)
+  (define-key org-mode-map (kbd "C-'") nil)
+  (define-key org-mode-map (kbd "M-h") nil))
 
 
 ;; Local Variables:
