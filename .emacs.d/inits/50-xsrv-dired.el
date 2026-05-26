@@ -6,7 +6,7 @@
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar my-xsrv-modeline-color "#3a6a8a"
-  "Mode-line background color while xsrv-GH dired is active.")
+  "Mode-line background color while xsrv-GH `dired' is active.")
 
 (defvar my-xsrv--modeline-default nil
   "Saved mode-line background color before xsrv backup.")
@@ -62,7 +62,7 @@
                                              (interactive)
                                              (quit-window t)
                                              (my-xsrv--restore))))
-                (when (y-or-n-p "2ペインで開きますか？")
+                (when (y-or-n-p "2ペインで開きますか?")
                   (split-window-right)
                   (other-window 1)
                   (dired "~/Dropbox/GH/")
@@ -87,8 +87,12 @@
            `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
              ("Download する" . t)
              ("やめる" . nil)))
-      (copy-file file dest t)
-      (message "Downloaded: %s" rel))))
+      (if (and (file-exists-p dest)
+               (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
+          (message "キャンセルしました。")
+        (copy-file file dest t)
+        (message "Downloaded: %s" rel)))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
