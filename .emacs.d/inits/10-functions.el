@@ -48,7 +48,7 @@
                       ("gospel-haiku" . "ssh -t xsrv 'echo [gospel-haiku]; cd ~/gospel-haiku.com/public_html && bash -il'")
                       ("minorugh.com" . "ssh -t xsrv 'echo [minorugh.com]; cd ~/minorugh.com/public_html && bash -il'")
                       ("docker/httpd" . "echo [docker/httpd]; docker exec -it httpd /bin/bash || bash")))
-           (choice (completing-read "select: " (mapcar #'car choices) nil t))
+           (choice (completing-read "select: " (mapcar #'car choices) nil t "^"))
            (cmd (cdr (assoc choice choices))))
       (start-process-shell-command "xsrv" nil
 				   (format "gnome-terminal --maximize -- bash -c \"%s\"" cmd))))

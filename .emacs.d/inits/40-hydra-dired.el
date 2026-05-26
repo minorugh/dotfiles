@@ -10,9 +10,9 @@
 (leaf hydra-dired
   :bind (("<henkan>" . my-hydra-dired))
   :init
-  ;; `<henkan>' key is caught by `mozc-handle-event' via catch-all `<t>' binding
-  ;; in `mozc-mode-map' while mozc is active.  Registering the key directly in
-  ;; `mozc-mode-map' ensures `my-hydra-dired' takes precedence over mozc.
+  ;; `<henkan>' キーは mozc アクティブ時に `mozc-mode-map' の `<t>' バインディングに
+  ;; 横取りされ hydra が起動できない。そのため `my-hydra-dired' を `mozc-mode-map' に
+  ;; 直接登録し、mozc を deactivate してから hydra-dired を起動するようにしている。
   (defun my-hydra-dired ()
     "Disable mozc if active, then open hydra-dired."
     (interactive)
@@ -26,11 +26,12 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  chg_l_og  ftp_9_._0_._-_  _n_eomutt
-  _r_estart  Git:_[__-__]_  GH._h__j_  xsrv_,_  xenv_:_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc^^  root_/_  _._files^  make._k_._b_._m_._u_  chg_l_og  ftp_9_._0_._-_  _n_eomutt
+  _r_estart  Git:_[__-__]_  GH._h__j_  _x_srv_,_  xenv_:_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
    ("," my-xsrv-dired)
+   ("x" remote-select)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))

@@ -1,36 +1,27 @@
-;;; 50-xsrv-dired.el --- Xserver remote operations via TRAMP dired. -*- lexical-binding: t -*-
+;;; 50-xsrv-dired.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar my-xsrv-host "minorugh@sv13268.xserver.jp#10022"
-  "TRAMP host string for xserver.")
-
 (defvar my-xsrv-modeline-color "#3a6a8a"
-  "Mode-line background color while xsrv-dired is active.")
+  "Mode-line background color while xsrv-GH dired is active.")
 
 (defvar my-xsrv--modeline-default nil
-  "Saved mode-line background color before xsrv-dired.")
-
-(defconst my-xsrv--home "/home/minorugh/")
-(defconst my-xsrv--gh   (concat my-xsrv--home "gospel-haiku.com/public_html/"))
-(defconst my-xsrv--mn   (concat my-xsrv--home "minorugh.com/public_html/"))
-
-(defvar my-xsrv-dirs
-  `(("gospel-haiku" . ,my-xsrv--gh)
-    ("minorugh.com" . ,my-xsrv--mn)
-    ("home/user"    . ,my-xsrv--home)
-    ("passwd"       . ,(concat my-xsrv--home "gospel-haiku.com/passwd/"))
-    ("d_kukai/data" . ,(concat my-xsrv--gh "d_kukai/data/"))
-    ("w_kukai/data" . ,(concat my-xsrv--gh "w_kukai/data/"))
-    ("s_kukai/data" . ,(concat my-xsrv--gh "s_kukai/data/"))
-    ("m_kukai/data" . ,(concat my-xsrv--gh "m_kukai/data/")))
-  "Alist of label->remote directory for xsrv-dired.")
+  "Saved mode-line background color before xsrv backup.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Deploy from local dired (50-dired.el から移植)
+;; Mode-line color restore
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-xsrv--restore ()
+  "Restore mode-line color."
+  (when my-xsrv--modeline-default
+    (set-face-background 'mode-line my-xsrv--modeline-default)
+    (setq my-xsrv--modeline-default nil)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Deploy from local dired
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun xsrv-deploy-dired ()
   "Deploy file at point in `dired' to xserver."
@@ -54,49 +45,50 @@
         (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Remote dired via TRAMP
+;; Backup: xserver → xsrv-GH
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-xsrv-dired ()
-  "Open remote xserver directory in `dired' via TRAMP."
+(defun my-xsrv-backup ()
+  "Synchronize the latest data from `xserver' and check with dried."
   (interactive)
-  (let* ((choice (completing-read "Remote dir: " (mapcar #'car my-xsrv-dirs)))
-         (path   (cdr (assoc choice my-xsrv-dirs)))
-         (buf    (dired (format "/ssh:%s:%s" my-xsrv-host path))))
-    (with-current-buffer buf
-      (setq my-xsrv--modeline-default (face-background 'mode-line))
-      (set-face-background 'mode-line my-xsrv-modeline-color)
-      (add-hook 'kill-buffer-hook #'my-xsrv--restore nil t)
-      (local-set-key (kbd "q") #'my-xsrv--quit))))
+  (letrec ((finish-fn
+            (lambda (_buf _msg)
+              (remove-hook 'compilation-finish-functions finish-fn)
+              (let ((xsrv-buf (dired "~/src/github.com/minorugh/xsrv-GH/")))
+                (with-current-buffer xsrv-buf
+                  (setq my-xsrv--modeline-default (face-background 'mode-line))
+                  (set-face-background 'mode-line my-xsrv-modeline-color)
+                  (add-hook 'kill-buffer-hook #'my-xsrv--restore nil t)
+                  (local-set-key (kbd "q") (lambda ()
+                                             (interactive)
+                                             (quit-window t)
+                                             (my-xsrv--restore))))
+                (when (y-or-n-p "2ペインで開きますか？")
+                  (split-window-right)
+                  (other-window 1)
+                  (dired "~/Dropbox/GH/")
+                  (other-window 1))))))
+    (add-hook 'compilation-finish-functions finish-fn)
+    (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
 
-(defun my-xsrv--quit ()
-  "Quit xsrv `dired' and restore mode-line color."
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Download: xsrv-GH → local GH
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-xsrv-download-file ()
+  "Download file at point in `dired' from xsrv-GH to local GH."
   (interactive)
-  (quit-window t)
-  (my-xsrv--restore))
-
-(defun my-xsrv--restore ()
-  "Restore mode-line color."
-  (when (and my-xsrv--modeline-default
-             (not (cl-some (lambda (buf)
-                             (with-current-buffer buf
-                               (and (eq major-mode 'dired-mode)
-                                    (file-remote-p default-directory))))
-                           (buffer-list))))
-    (set-face-background 'mode-line my-xsrv--modeline-default)
-    (setq my-xsrv--modeline-default nil)))
-
-(add-hook 'dired-after-readin-hook
-          (lambda ()
-            (when (file-remote-p default-directory)
-              (setq-local dired-sort-inhibit t)
-              (goto-char (point-min))
-              (let ((inhibit-read-only t))
-                (sort-regexp-fields t "^.*$" "[ ]*." (point-min) (point-max)))
-              (when my-xsrv--modeline-default
-                (set-face-background 'mode-line my-xsrv-modeline-color)
-                (add-hook 'kill-buffer-hook #'my-xsrv--restore nil t)
-                (local-set-key (kbd "q") #'my-xsrv--quit)))))
-
+  (let* ((file (dired-get-filename))
+         (name (file-name-nondirectory file))
+         (xsrv-root "/home/minoru/src/github.com/minorugh/xsrv-GH/")
+         (local-root "/home/minoru/Dropbox/GH/")
+         (rel (file-relative-name file xsrv-root))
+         (dest (concat local-root rel)))
+    (when (x-popup-dialog
+           t
+           `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
+             ("Download する" . t)
+             ("やめる" . nil)))
+      (copy-file file dest t)
+      (message "Downloaded: %s" rel))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
