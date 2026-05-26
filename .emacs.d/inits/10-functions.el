@@ -13,7 +13,7 @@
   :bind (("<f1>"  . help-command)              ;; built-in
          ("<f2>"  . counsel-imenu)             ;; see 04-counsel.el
          ("<f3>"  . terminal-open-this)        ;; see :init
-	 ("<f4>"  . xsrv-open-this)            ;; see :init
+	 ("<f4>"  . remote-select)             ;; see :init
          ("<f5>"  . quickrun)                  ;; see 30-utilities.el
 	 ("<f6>"  . thunar-open-this)          ;; see :init
          ("<f7>"  . neotree-toggle)            ;; see 50-neotree.el
@@ -41,22 +41,17 @@
       (start-process-shell-command "thunar" nil cmd)
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
-  (defun xsrv-open-this ()
-    "Open gnome-terminal with SSH to xserver at current buffer's directory."
+  (defun remote-select ()
+    "Select remote dir and open gnome-terminal with SSH."
     (interactive)
-    (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
-           (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
-           (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
-           (remote-mn "/home/minorugh/minorugh.com/public_html/")
-           (cur (expand-file-name default-directory))
-           (dir (cond
-		 ((string-prefix-p local-gh cur)
-                  (concat remote-gh (file-relative-name cur local-gh)))
-		 ((string-prefix-p local-mn cur)
-                  (concat remote-mn (file-relative-name cur local-mn)))
-		 (t "/home/minorugh/")))
-           (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
-      (start-process-shell-command "ssh" nil cmd)))
+    (let* ((choices '(("xserver/root" . "ssh -t xsrv 'echo [xserver/root]; bash -il'")
+                      ("gospel-haiku" . "ssh -t xsrv 'echo [gospel-haiku]; cd ~/gospel-haiku.com/public_html && bash -il'")
+                      ("minorugh.com" . "ssh -t xsrv 'echo [minorugh.com]; cd ~/minorugh.com/public_html && bash -il'")
+                      ("docker/httpd" . "echo [docker/httpd]; docker exec -it httpd /bin/bash || bash")))
+           (choice (completing-read "select: " (mapcar #'car choices) nil t))
+           (cmd (cdr (assoc choice choices))))
+      (start-process-shell-command "xsrv" nil
+				   (format "gnome-terminal --maximize -- bash -c \"%s\"" cmd))))
 
   (defun keepassxc ()
     "Open keepassxc with auto passwd input."
