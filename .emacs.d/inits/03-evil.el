@@ -5,7 +5,7 @@
 
 (leaf evil
   :ensure t
-  :require my-evil-cheat-sheet  ;; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
+  :require (my-evil-cheat-sheet)  ;; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
   :hook ((after-init-hook . evil-mode))
   :bind ((:evil-normal-state-map
           ("C-a"      . seq-home)
@@ -61,10 +61,11 @@
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Emacs state only when creating new files
-  (add-hook 'find-file-hook
-	    (lambda ()
-	      (unless (file-exists-p (buffer-file-name))
-		(evil-emacs-state))))
+(add-hook 'find-file-hook
+          (lambda ()
+            (when (and (buffer-file-name)
+                       (not (file-exists-p (buffer-file-name))))
+              (evil-emacs-state))))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
@@ -116,7 +117,7 @@
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
-  :require my-sen-cleanup
+  :require (my-sen-cleanup)
   :after evil
   :config
   (setq echo-keystrokes 0)
@@ -135,13 +136,7 @@
     (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
     (define-key m "s" #'swiper)                  ;; → swiper検索
     (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
-    (define-key m "i" #'my-emacs-state-mozc)     ;; → Emacs-state+mozc on
-    (define-key m "SPC" #'my-snsert-space))      ;; スペース挿入（一個ずつ）
-
-  (defun my-insert-space ()
-    "Insert one space with normal state."
-    (interactive)
-    (insert " "))
+    (define-key m "i" #'my-emacs-state-mozc))    ;; → Emacs-state+mozc on
 
   (defun my-newline-above ()
     "Insert a blank line above the current line without leaving Normal state."
