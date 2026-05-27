@@ -16,6 +16,7 @@
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
 	 ("."   . xsrv-deploy-dired)
+	 (","   . xsrv-download-dired)
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target t)
@@ -65,13 +66,6 @@
         (find-file file)))
      (t
       (find-file file)))))
-;; (defun my-dired-open ()
-;;     "Open file or directory at point."
-;;     (interactive)
-;;     (let ((file (dired-get-filename)))
-;;       (if (file-directory-p file)
-;;           (find-alternate-file file)
-;;         (find-file file))))
 
   (defun my-dired-up ()
     "Go to parent directory in the same buffer."
