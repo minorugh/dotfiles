@@ -42,7 +42,7 @@
       (run-with-timer 0.5 nil (lambda () (shell-command move)))))
 
   (defun xsrv-open-this ()
-    "Open gnome-terminal with SSH to xserver at directory corresponding to current buffer."
+    "Open gnome-terminal via SSH at the xserver dir matching current buffer."
     (interactive)
     (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
            (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
