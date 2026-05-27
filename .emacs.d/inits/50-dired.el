@@ -17,6 +17,7 @@
          ("t"   . my-open-tig)
 	 ("."   . xsrv-deploy-dired)
 	 (","   . xsrv-download-dired)
+	 ("b"   . my-xsrv-backup-dwim)    ;; see 50-xsrv-dired.el
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target t)
