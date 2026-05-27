@@ -93,6 +93,16 @@
         (copy-file file dest t)
         (message "Downloaded: %s" rel)))))
 
+(defun my-git-peek-smart ()
+  "`xsrv-GH' からなら書き出し先を Dropbox/GH に設定して `git-peek'を実行."
+  (interactive)
+  (let* ((xsrv-root "/home/minoru/src/github.com/minorugh/xsrv-GH/")
+         (local-root "/home/minoru/Dropbox/GH/")
+         (git-peek-save-dir
+          (if (string-prefix-p xsrv-root (expand-file-name default-directory))
+              (concat local-root (file-relative-name default-directory xsrv-root))
+            git-peek-save-dir)))
+    (git-peek)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

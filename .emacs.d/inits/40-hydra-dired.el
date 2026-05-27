@@ -61,7 +61,7 @@
    ("@" howm-list-all)
    ("c" my-howm-create-with-category)
    ("_" delete-other-windows)
-   ("[" git-peek)
+   ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
    ("l" (my-open "~/Dropbox/Changelog/"))
