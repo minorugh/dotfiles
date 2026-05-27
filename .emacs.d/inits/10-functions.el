@@ -48,7 +48,13 @@
            (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
            (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
            (remote-mn "/home/minorugh/minorugh.com/public_html/")
-           (cur (expand-file-name default-directory))
+           (cur (expand-file-name
+		 (if (derived-mode-p 'dired-mode)
+                     (let ((f (dired-get-filename nil t)))
+                       (if (and f (file-directory-p f))
+                           f
+			 (file-name-directory (or f default-directory))))
+                   default-directory)))
            (dir (cond
 		 ((string-prefix-p local-gh cur)
                   (concat remote-gh (file-relative-name cur local-gh)))

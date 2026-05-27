@@ -26,12 +26,12 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc^^  root_/_  _._files^  make._k_._b_._m_._u_  chg_l_og  ftp_9_._0_._-_  _n_eomutt
-  _r_estart  Git:_[__-__]_  GH._h__j_  _x_srv_,_  xenv_:_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  chg_l_og  ftp_9_._0_._-_  _n_eomutt
+  _r_estart  Git:_[__-__]_  GH._h__j_  xsrv_,_  xenv_:_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
    ("," my-remote-select)
-   ("x" remote-select)
+   ;; ("x" remote-select)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
