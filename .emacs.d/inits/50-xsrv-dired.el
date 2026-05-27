@@ -3,7 +3,29 @@
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Backup: xserver → xsrv-GH
+;; key bindings in 40-hydra-dired.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-xsrv-backup ()
+  "Synchronize the latest data from `xserver' and check with `dired'."
+  (interactive)
+  (letrec ((finish-fn
+            (lambda (_buf _msg)
+              (remove-hook 'compilation-finish-functions finish-fn)
+              (let ((xsrv-buf (dired "~/src/github.com/minorugh/xsrv-GH/")))
+                (with-current-buffer xsrv-buf
+                  (local-set-key (kbd "q") #'quit-window))
+                (when (y-or-n-p "2ペインで開きますか?")
+                  (split-window-right)
+                  (other-window 1)
+                  (dired "~/Dropbox/GH/")
+                  (other-window 1))))))
+    (add-hook 'compilation-finish-functions finish-fn)
+    (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Deploy from local dired
+;; key bindings in 50-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun xsrv-deploy-dired ()
   "Deploy file at point in `dired' to xserver."
@@ -27,29 +49,10 @@
         (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Backup: xserver → xsrv-GH
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-xsrv-backup ()
-  "Synchronize the latest data from `xserver' and check with `dired'."
-  (interactive)
-  (letrec ((finish-fn
-            (lambda (_buf _msg)
-              (remove-hook 'compilation-finish-functions finish-fn)
-              (let ((xsrv-buf (dired "~/src/github.com/minorugh/xsrv-GH/")))
-                (with-current-buffer xsrv-buf
-                  (local-set-key (kbd "q") #'quit-window))
-                (when (y-or-n-p "2ペインで開きますか?")
-                  (split-window-right)
-                  (other-window 1)
-                  (dired "~/Dropbox/GH/")
-                  (other-window 1))))))
-    (add-hook 'compilation-finish-functions finish-fn)
-    (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Download: xsrv-GH → local GH
+;; key bindings in 50-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-xsrv-download-file ()
+(defun xsrv-download-dired ()
   "Download file at point in `dired' from xsrv-GH to local GH."
   (interactive)
   (let* ((file (dired-get-filename))
@@ -71,6 +74,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git-peek
+;; key bindings in 40-hydra-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `git-peek-save-dir' は git-peek パッケージ側で定義される変数。
 ;; `my-xsrv-git-peek' 内で let バインドするためコンパイラへ事前宣言。
@@ -106,12 +110,6 @@
                  (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
                                   (expand-file-name default-directory))))
     (buffer-face-set `(:background ,my-xsrv-buffer-color))))
-;; (defun my-xsrv--maybe-colorize ()
-;;   "xsrv-GH 配下の dired バッファなら buffer-face-mode で色付け。"
-;;   (when (and (derived-mode-p 'dired-mode)
-;;              (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-;;                               (expand-file-name default-directory)))
-;;     (buffer-face-set `(:background ,my-xsrv-buffer-color))))
 
 (add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
 
