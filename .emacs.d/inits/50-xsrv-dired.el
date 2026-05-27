@@ -3,14 +3,6 @@
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Settings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar my-xsrv-buffer-color "#1e3a5a"
-  "Background color for xsrv-GH `dired' buffers.")
-
-(defvar git-peek-save-dir)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Deploy from local dired
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun xsrv-deploy-dired ()
@@ -80,6 +72,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git-peek
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; `git-peek-save-dir' は git-peek パッケージ側で定義される変数。
+;; `my-xsrv-git-peek' 内で let バインドするためコンパイラへ事前宣言。
+(defvar git-peek-save-dir)
+
 (defun my-xsrv-git-peek ()
   "Set the `git-peek' export destination to the corresponding path in Dropbox/GH."
   (interactive)
@@ -95,7 +91,7 @@
   "`xsrv-GH' からなら `my-xsrv-git-peek' それ以外は `git-peek'."
   (interactive)
   (if (string-prefix-p "/home/minoru/src/github.com/minorugh/xsrv-GH/"
-                       (expand-file-name default-directory))
+		       (expand-file-name default-directory))
       (my-xsrv-git-peek)
     (git-peek)))
 
