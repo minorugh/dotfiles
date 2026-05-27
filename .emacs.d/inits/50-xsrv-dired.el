@@ -6,33 +6,38 @@
 ;; Backup: xserver → xsrv-GH
 ;; key bindings in 40-hydra-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-xsrv-backup ()
-  "Synchronize the latest data from `xserver' and check with `dired'."
+(defun my-xsrv-backup (src-dir peer-dir)
+  "Synchronize from xserver and open two-pane `dired'.
+SRC-DIR: backup先, PEER-DIR: 2ペインで並べる相手."
   (interactive)
   (letrec ((finish-fn
             (lambda (_buf _msg)
               (remove-hook 'compilation-finish-functions finish-fn)
-              (let ((xsrv-buf (dired "~/src/github.com/minorugh/xsrv-GH/")))
+              (let ((xsrv-buf (dired src-dir)))
                 (with-current-buffer xsrv-buf
                   (local-set-key (kbd "q") #'quit-window))
                 (when (y-or-n-p "2ペインで開きますか?")
                   (split-window-right)
                   (other-window 1)
-                  (dired "~/Dropbox/GH/")
+                  (dired peer-dir)
                   (other-window 1))))))
     (add-hook 'compilation-finish-functions finish-fn)
     (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
 
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "b")
-	      (lambda ()
-		(interactive)
-		(if (member (expand-file-name default-directory)
-			    (mapcar #'expand-file-name
-				    '("~/src/github.com/minorugh/xsrv-GH/"
-				      "~/src/github.com/minorugh/xsrv-minorugh/")))
-		    (my-xsrv-backup)
-		  (message "このディレクトリはbackup対象外です")))))
+    (lambda ()
+      (interactive)
+      (let ((dir (expand-file-name default-directory)))
+        (cond
+         ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/") dir)
+          (my-xsrv-backup "~/src/github.com/minorugh/xsrv-GH/"
+                          "~/Dropbox/GH/"))
+         ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") dir)
+          (my-xsrv-backup "~/src/github.com/minorugh/xsrv-minorugh/"
+                          "~/Dropbox/minorugh.com/"))        ; ← 相手ディレクトリを確認
+         (t
+          (message "このディレクトリはbackup対象外です")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Deploy from local dired
