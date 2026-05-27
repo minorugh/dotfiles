@@ -30,7 +30,7 @@
   _r_estart  Git:_[__-__]_  GH._h__j_  _x_srv_,_  xenv_:_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assXC  _g_it-repo^^^^  _f_lymake
 "
    ("a" counsel-git-grep)
-   ("," my-xsrv-dired)
+   ("," my-remote-select)
    ("x" remote-select)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
