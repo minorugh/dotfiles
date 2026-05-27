@@ -40,8 +40,8 @@
    ("n" neomutt)
    ("t" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   (":" (my-open "~/src/github.com/minorugh/xsrv-GH/"))
-   (";" (my-open "~/src/github.com/minorugh/xsrv-minorugh/"))
+   (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
+   (";" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-minorugh/" "~/Dropbox/minorugh.com/"))
    ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
@@ -90,6 +90,24 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
 	 (forward-line n))))
     (when (memq :omit opts)  (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
+
+  (defun my-open-xsrv-2pane (src-dir pair-dir)
+    "SRC-DIR を dired で開き、2ペインで PAIR-DIR を並べる。"
+    (delete-other-windows)
+    (let ((buf1 (dired src-dir))
+          (buf2 (progn
+                  (split-window-right)
+                  (other-window 1)
+                  (dired pair-dir))))
+      (dolist (buf (list buf1 buf2))
+	(with-current-buffer buf
+          (local-set-key (kbd "q")
+			 (lambda ()
+                           (interactive)
+                           (dolist (b (list buf1 buf2))
+                             (kill-buffer b))
+                           (delete-other-windows)))))
+      (other-window 1)))
 
   (defun my-reload-xenv ()
     "Reload ~/.xprofile and re-import keychain env vars into Emacs."

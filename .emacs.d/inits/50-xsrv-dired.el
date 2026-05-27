@@ -6,26 +6,18 @@
 ;; Backup: xserver → xsrv-GH / xsrv-minorugh
 ;; key bindings in 40-hydra-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun my-xsrv-backup (src-dir peer-dir)
-  "Synchronize from xserver and open two-pane `dired'.
-SRC-DIR: backup先, PEER-DIR: 2ペインで並べる相手."
+(defun my-xsrv-backup (src-dir pair-dir)
+  "SRC-DIR の `dired' で xsev-backup実行後に PAIR-DIRを復元する."
   (interactive)
   (letrec ((finish-fn
             (lambda (_buf _msg)
               (remove-hook 'compilation-finish-functions finish-fn)
-              (let ((xsrv-buf (dired src-dir)))
-                (with-current-buffer xsrv-buf
-                  (local-set-key (kbd "q") #'quit-window))
-                (when (y-or-n-p "2ペインで開きますか?")
-                  (split-window-right)
-                  (other-window 1)
-                  (dired peer-dir)
-                  (other-window 1))))))
+              (my-open-xsrv-2pane src-dir pair-dir))))
     (add-hook 'compilation-finish-functions finish-fn)
     (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
 
 (defun my-xsrv-backup-dwim ()
-  "Diredのカレントディレクトリに応じてrsync backupを実行する."
+  "Dired のカレントディレクトリに応じて rsync backup を実行する."
   (interactive)
   (let ((dir (expand-file-name default-directory)))
     (cond
