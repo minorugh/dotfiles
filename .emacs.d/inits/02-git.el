@@ -3,8 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; compilation (builtin)
-
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek")
   :commands (git-peek git-peek-emergency-quit)
@@ -88,6 +86,6 @@ all git-peek buffers."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolvedc)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 02-git.el ends here
