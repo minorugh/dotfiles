@@ -5,8 +5,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar my-xsrv-buffer-color "#1e3a5a"
-  "Background color for xsrv-GH `dired' buffers.")
+(defvar my-xsrv-modeline-color "#3a6a8a"
+  "Mode-line background color while xsrv-GH `dired' is active.")
 
 (defvar git-peek-save-dir)
 
@@ -38,7 +38,7 @@
 ;; Backup: xserver → xsrv-GH
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-xsrv-backup ()
-  "Synchronize the latest data from `xserver' and check with `dired'."
+  "Synchronize the latest data from `xserver' and check with dired."
   (interactive)
   (letrec ((finish-fn
             (lambda (_buf _msg)
@@ -86,7 +86,7 @@
   (let* ((xsrv-root "/home/minoru/src/github.com/minorugh/xsrv-GH/")
          (local-root "/home/minoru/Dropbox/GH/"))
     (unless (string-prefix-p xsrv-root (expand-file-name default-directory))
-      (user-error "Xsrv-GH の Dired から呼んでください"))
+      (user-error "xsrv-GH の dired から呼んでください"))
     (let ((git-peek-save-dir
            (concat local-root (file-relative-name default-directory xsrv-root))))
       (git-peek))))
@@ -100,22 +100,14 @@
     (git-peek)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Buffer colorize for xsrv-GH dired
+;; Mode-line colorize for xsrv-GH dired
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun my-xsrv--maybe-colorize ()
-  "`xsrv-GH/xsrv-minorugh' 配下の `dired' バッファなら `buffer-face-mode' で色付け."
+  "xsrv-GH 配下の dired バッファなら buffer-face-mode で色付け。"
   (when (and (derived-mode-p 'dired-mode)
-             (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-                                  (expand-file-name default-directory))
-                 (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
-                                  (expand-file-name default-directory))))
-    (buffer-face-set `(:background ,my-xsrv-buffer-color))))
-;; (defun my-xsrv--maybe-colorize ()
-;;   "xsrv-GH 配下の dired バッファなら buffer-face-mode で色付け。"
-;;   (when (and (derived-mode-p 'dired-mode)
-;;              (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-;;                               (expand-file-name default-directory)))
-;;     (buffer-face-set `(:background ,my-xsrv-buffer-color))))
+             (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
+                              (expand-file-name default-directory)))
+    (buffer-face-set '(:background "#1e3a5a"))))
 
 (add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
 
