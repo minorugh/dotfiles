@@ -152,7 +152,6 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
                   (format "filezilla --site='%s'" arg))))
       (start-process-shell-command "filezilla" nil cmd))))
 
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
