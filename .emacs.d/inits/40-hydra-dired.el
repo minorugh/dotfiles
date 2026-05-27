@@ -106,6 +106,40 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
                     (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
     (message "xprofile + keychain reloaded"))
 
+  (defun my-remote-select ()
+    "Select remote dir and open gnome-terminal with SSH."
+    (interactive)
+    (let* ((home-root "/home/minorugh/")
+           (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
+           (mn-root   (concat home-root "minorugh.com/public_html/"))
+           (dirs `(("home-root"     . ("ls"     . ,home-root))
+                   ("gospel-haiku"  . ("ls"     . ,gh-root))
+                   ("minorugh.com"  . ("ls"     . ,mn-root))
+                   ("docker/httpd"  . ("docker" . "docker exec -it httpd /bin/bash"))
+                   ("passwd"        . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
+                   ("d_kukai/data"  . ("vim"    . ,(concat gh-root "d_kukai/data/")))
+                   ("w_kukai/data"  . ("vim"    . ,(concat gh-root "w_kukai/data/")))
+                   ("s_kukai/data"  . ("vim"    . ,(concat gh-root "s_kukai/data/")))
+                   ("m_kukai/data"  . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
+           (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
+           (entry  (cdr (assoc choice dirs)))
+           (action (car entry))
+           (dir    (cdr entry))
+           (cmd (cond
+		 ((string= action "docker")
+                  (format "gnome-terminal --maximize -- %s" dir))
+		 ((string= action "vim")
+                  (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir))
+		 (t
+                  (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
+      (start-process-shell-command "ssh-cd" nil cmd)))
+
+  (defun keepassxc ()
+    "Open keepassxc with auto passwd input."
+    (interactive)
+    (start-process-shell-command
+     "keepass" nil "keepass.sh"))
+
   (defun filezilla (&optional site)
     "Open FileZilla with SITE."
     (interactive)
