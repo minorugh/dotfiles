@@ -11,6 +11,8 @@
 (defvar my-xsrv--modeline-default nil
   "Saved mode-line background color before xsrv backup.")
 
+(defvar git-peek-save-dir)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Mode-line color restore
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
