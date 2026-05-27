@@ -58,12 +58,6 @@
            (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
       (start-process-shell-command "ssh" nil cmd)))
 
-  (defun keepassxc ()
-    "Open keepassxc with auto passwd input."
-    (interactive)
-    (start-process-shell-command
-     "keepass" nil "keepass.sh"))
-
   (defun toggle-scratch-buffer ()
     "Toggle *scratch* buffer."
     (interactive)
