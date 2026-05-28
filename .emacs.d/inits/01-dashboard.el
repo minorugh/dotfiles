@@ -67,7 +67,8 @@
     (delete-other-windows)
     (switch-to-buffer (get-buffer-create "*dashboard*"))
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files))
+    (dashboard-goto-recent-files)
+    (delete-other-windows))
 
   (advice-add 'emacs-init-time :filter-return
 	      (lambda (_) (format "%.3f seconds"
