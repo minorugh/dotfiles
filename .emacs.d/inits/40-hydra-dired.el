@@ -26,18 +26,19 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  Ch_l_og  ftp_8_._9_._0_  xsrv._:__;_  mente_w__z_
-  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _x_.env  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX  _a_g._g_repo^^  _f_lymake^^  buffer_/_^^
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  _n_mutt  ftp_8_._9_._0_  xsrv._:__;_  mente_l__w__z_
+  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _x_.env  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX  _a_g._g_repo^^  fl_y_make^^  _f_f.buf_\___/_
 "
    ("a" counsel-git-grep)
    ("," my-remote-select)
-   ("f" flymake-show-buffer-diagnostics)
+   ("y" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("p" keepassxc)
-   ("g" ivy-git-project-switch)
    ("n" neomutt)
+   ("g" ivy-git-project-switch)
+   ("f" find-file)
    ("t" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
@@ -110,6 +111,11 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
                              (kill-buffer b))
                            (delete-other-windows)))))
       (other-window 1)))
+
+  (defun my-emacsclient-maximized ()
+    "Open a new maximized Emacs client frame."
+    (interactive)
+    (make-frame '((fullscreen . maximized))))
 
   (defun my-reload-xenv ()
     "Reload ~/.xprofile and re-import keychain env vars into Emacs."
