@@ -92,7 +92,7 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (when (memq :emacs opts) (evil-emacs-state)))
 
   (defun my-open-xsrv-2pane (src-dir pair-dir)
-    "SRC-DIR を dired で開き、2ペインで PAIR-DIR を並べる。"
+    "Open SRC-DIR in dired and line up PAIR-DIR in two panes."
     (delete-other-windows)
     (let ((buf1 (dired src-dir))
           (buf2 (progn
