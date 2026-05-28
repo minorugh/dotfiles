@@ -57,7 +57,7 @@
   (defun thunderbird ()
     "Open thunderbird mail-client for Gmail."
     (interactive)
-    (start-process "thunderbird" nil "thunderbird"))
+    (start-process "thunderbird" nil "thunderbird" "--maximized"))
 
   (defun neomutt ()
     "Open terminal and ssh to xsrv."
