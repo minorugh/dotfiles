@@ -102,6 +102,7 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
                   (dired pair-dir))))
       (dolist (buf (list buf1 buf2))
 	(with-current-buffer buf
+	  (revert-buffer)
           (local-set-key (kbd "q")
 			 (lambda ()
                            (interactive)

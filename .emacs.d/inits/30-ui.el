@@ -91,7 +91,7 @@
     "Return non-nil if W is a popup that should not count as a real split.
 Excludes minibuffer, hydra, lv, and Flymake diagnostics windows."
     (or (window-minibuffer-p w)
-	(string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*compilation\\|which-key"
+	(string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key"
 			(buffer-name (window-buffer w)))))
 
   (defun my-update-modeline-for-split ()
