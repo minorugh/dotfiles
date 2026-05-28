@@ -1,9 +1,6 @@
 ;;; 40-hydra-dired.el --- Hydra dired-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Hydra menu bound to `M-.' for quick `dired' navigation and external tool launch.
-;; filezilla function accepts site key (g/m/s) for direct launch via hydra keys.
-;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -26,8 +23,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  _n_mutt  ftp_8_._9_._0_  xsrv._:__;_  _x_env_w__z_
-  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  .i_o_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX  _a_g._g_repo^^  fl_y_make^^  _f_f._l_og
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  _n_mutt  fz_8_._9_._0_  xsrv._:__;_  _x_env_w__z_
+  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  .i_o_  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX  _a_g.._g_it^^  fl_y_make^^  _f_f._l_og
 "
    ("a" counsel-git-grep)
    ("," my-remote-select)
@@ -37,8 +34,8 @@
    ("0" (filezilla "m"))
    ("p" keepassxc)
    ("n" neomutt)
-   ("g" ivy-git-project-switch)
-   ("f" find-file)
+   ("g" counsel-git)
+   ("f" counsel-find-file)
    ("t" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
