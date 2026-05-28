@@ -157,13 +157,14 @@ If the region is inactive, `backward-kill-word'."
       (backward-kill-word 1)))
 
 (defun other-window-or-split ()
-  "If there is one window, open split window.
-If there are two or more windows, it will go to another window."
+  "If there is only one window, open split window.
+If there are two or more windows, go to another window."
   (interactive)
-  ;; frame-root-window から子ウィンドウが存在するか（＝分割されているか）を直接判定する
-  (when (null (window-combined-p (frame-root-window)))
-    (split-window-horizontally))
-  (other-window 1))
+  (run-with-idle-timer 0.2 nil
+    (lambda ()
+      (when (window-live-p (frame-root-window))
+        (split-window-horizontally))
+      (other-window 1))))
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame' defined in `frame.el'.
