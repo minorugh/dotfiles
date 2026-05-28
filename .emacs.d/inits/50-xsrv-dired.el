@@ -60,13 +60,20 @@
 ;; key bindings in 50-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun xsrv-download-dired ()
-  "Download file at point in `dired' from xsrv-GH to local GH."
+  "Download file at point in `dired' from xsrv-GH/xsrv-minorugh to local."
   (interactive)
   (let* ((file (dired-get-filename))
          (name (file-name-nondirectory file))
-         (xsrv-root "/home/minoru/src/github.com/minorugh/xsrv-GH/")
-         (local-root "/home/minoru/Dropbox/GH/")
-         (rel (file-relative-name file xsrv-root))
+         (xsrv-gh-root  "/home/minoru/src/github.com/minorugh/xsrv-GH/")
+         (xsrv-mn-root  "/home/minoru/src/github.com/minorugh/xsrv-minorugh/")
+         (local-gh-root "/home/minoru/Dropbox/GH/")
+         (local-mn-root "/home/minoru/Dropbox/minorugh.com/")
+         (local-root (cond
+                      ((string-prefix-p xsrv-gh-root file) local-gh-root)
+                      ((string-prefix-p xsrv-mn-root file) local-mn-root)
+                      (t (user-error "Error: xsrv-GH/xsrv-minorugh の dired から実行してください"))))
+         (xsrv-root (if (string-prefix-p xsrv-gh-root file) xsrv-gh-root xsrv-mn-root))
+         (rel  (file-relative-name file xsrv-root))
          (dest (concat local-root rel)))
     (when (x-popup-dialog
            t
@@ -77,7 +84,13 @@
                (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
           (message "キャンセルしました。")
         (copy-file file dest t)
-        (message "Downloaded: %s" rel)))))
+        (message "Downloaded: %s" rel)
+        (dolist (root (list xsrv-root local-root))
+          (let ((buf (get-buffer (file-name-nondirectory
+                                  (directory-file-name root)))))
+            (when buf
+              (with-current-buffer buf
+                (revert-buffer)))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git-peek
