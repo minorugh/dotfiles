@@ -23,8 +23,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  mail._n__t_  fz_8_._9_._0_  xsrv._:__;_  _x_env_w__z_
-  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  .i_o_  _<home>_^  h_@_wm_c_._v_.no_t_e  key_p_ass^^  _a_g.._g_it^^  fl_y_make^^  _f_f._l_og
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  mail._n__t_  fz_8_._9_._0_  xsrv._:__;_  _x_env._z_
+  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  pub._w_  _<home>_^  h_@_wm_c__v_.Sn_o_te  key_p_ass^^  _a_g.._g_it^^  fl_y_make^^  _f_f._l_og
 "
    ("a" counsel-git-grep)
    ("," my-remote-select)
@@ -37,21 +37,22 @@
    ("n" neomutt)
    ("g" counsel-git)
    ("f" counsel-find-file)
-   ("S" (browse-url "https://app.simplenote.com/"))
+   ("o" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
    (";" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-minorugh/" "~/Dropbox/minorugh.com/"))
-   ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
+   ;; ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("w" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
+   ("M" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
    ("z" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
    ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
+   ("w" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
