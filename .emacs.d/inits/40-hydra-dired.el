@@ -26,8 +26,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  _l_og._w_  ftp_9_._0_._-_  xsrv._:__;_
-  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _x_.env  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX^^  _g_it-repo^^^^  _f_lymake^^
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root_/_  _._files^  make._k_._b_._m_._u_  Ch_l_og  ftp_8_._9_._0_  xsrv._:__;_
+  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _x_.env  _<home>_^  h_@_wm_c_._v_.no_t_e  _p_assX  _g_repo._a__w_  _f_lymake^^
 "
    ("a" counsel-git-grep)
    ("," my-remote-select)
