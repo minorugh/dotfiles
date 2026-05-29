@@ -156,15 +156,13 @@ If the region is inactive, `backward-kill-word'."
         (clipboard-kill-region (region-beginning) (region-end))
       (backward-kill-word 1)))
 
-(defun other-window-or-split ()
-  "If there is only one window, open split window.
+  (defun other-window-or-split ()
+    "If there is only one window, open split window.
 If there are two or more windows, go to another window."
-  (interactive)
-  (run-with-idle-timer 0.2 nil
-    (lambda ()
-      (when (window-live-p (frame-root-window))
-        (split-window-horizontally))
-      (other-window 1))))
+    (interactive)
+    (when (window-live-p (frame-root-window))
+      (split-window-horizontally))
+    (other-window 1))
 
   (defun handle-delete-frame (event)
     "Overwrite `handle-delete-frame' defined in `frame.el'.
