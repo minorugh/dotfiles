@@ -98,47 +98,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek")
-  :commands (git-peek git-peek-emergency-quit)
-  :preface
-  ;; `git-peek-save-dir' はパッケージ側で定義される書き出し先ディレクトリ変数。
-  ;; デフォルトは ~/Dropbox/backup/tmp/。他の環境での設定例:
-  ;;   (setq git-peek-save-dir "~/your/save/dir/")
-  (defvar git-peek-save-dir)
   :config
-  (setq git-peek-save-dir (expand-file-name "~/Dropbox/backup/tmp/")))
+  (setq git-peek-save-dir (expand-file-name "~/Dropbox/backup/tmp/"))
 
-(defun my-git-peek-smart ()
-  "Run `git-peek' with appropriate `git-peek-save-dir'.
+  (defun my-git-peek-smart ()
+    "Run `git-peek' with appropriate `git-peek-save-dir'.
 Show 2pane when called from xsrv `dired'."
-  (interactive)
-  (let* ((dir          (expand-file-name default-directory))
-         (orig         git-peek-save-dir)
-         (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
-         (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
-         ;; xsrv配下かどうかを先に判定
-         (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
-                           (string-prefix-p xsrv-mn-root dir)))
-         ;; xsrv配下なら対応するローカルパスへ、それ以外はデフォルトのまま
-         (new-save-dir (cond
-                        ((string-prefix-p xsrv-gh-root dir)
-                         (concat (expand-file-name "~/Dropbox/GH/")
-                                 (file-relative-name dir xsrv-gh-root)))
-                        ((string-prefix-p xsrv-mn-root dir)
-                         (concat (expand-file-name "~/Dropbox/minorugh.com/")
-                                 (file-relative-name dir xsrv-mn-root)))
-                        (t orig))))
-    (setq git-peek-save-dir new-save-dir)
-    (let ((fn nil))
-      (setq fn (lambda ()
-                 ;; git-peek-save-dir を呼び出し前の値に戻す
-                 (setq git-peek-save-dir orig)
-                 ;; xsrv配下なら2pane表示、それ以外は何もしない
-                 (when xsrv-p
-                   (my-open-xsrv-2pane dir new-save-dir))
-                 (remove-hook 'git-peek-finish-hook fn)))
-      (add-hook 'git-peek-finish-hook fn))
-    (git-peek)))
-
+    (interactive)
+    (let* ((dir          (expand-file-name default-directory))
+           (orig         git-peek-save-dir)
+           (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
+           (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
+           ;; xsrv配下かどうかを先に判定
+           (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
+                             (string-prefix-p xsrv-mn-root dir)))
+           ;; xsrv配下なら対応するローカルパスへ、それ以外はデフォルトのまま
+           (new-save-dir (cond
+                          ((string-prefix-p xsrv-gh-root dir)
+                           (concat (expand-file-name "~/Dropbox/GH/")
+                                   (file-relative-name dir xsrv-gh-root)))
+                          ((string-prefix-p xsrv-mn-root dir)
+                           (concat (expand-file-name "~/Dropbox/minorugh.com/")
+                                   (file-relative-name dir xsrv-mn-root)))
+                          (t orig))))
+      (setq git-peek-save-dir new-save-dir)
+      (let ((fn nil))
+	(setq fn (lambda ()
+                   ;; git-peek-save-dir を呼び出し前の値に戻す
+                   (setq git-peek-save-dir orig)
+                   ;; xsrv配下なら2pane表示、それ以外は何もしない
+                   (when xsrv-p
+                     (my-open-xsrv-2pane dir new-save-dir))
+                   (remove-hook 'git-peek-finish-hook fn)))
+	(add-hook 'git-peek-finish-hook fn))
+      (git-peek))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffer colorize for xsrv-GH dired & files
