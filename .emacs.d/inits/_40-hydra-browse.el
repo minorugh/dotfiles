@@ -11,7 +11,7 @@
   (hydra-browse
    (:hint nil :exit t)
    "
-  ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
+  ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
   _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
@@ -54,37 +54,15 @@
    ("<muhenkan>" nil)
    ("." nil))
   :init
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail and detach it from Emacs."
-    (interactive)
-    (call-process "setsid" nil 0 nil "thunderbird"))
-
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv and detach it from Emacs."
-    (interactive)
-    (call-process "setsid" nil 0 nil "neomutt.sh")))
-
-
-;;; github-deploy
-;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
-;;; 処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
-(defun github-deploy ()
-  "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."
+(defun thunderbird ()
+  "Open thunderbird mail-client for Gmail and detach it from Emacs."
   (interactive)
-  (let* ((dir (expand-file-name "~/Dropbox/Changelog/"))
-         (files (sort (directory-files dir nil "changelog-[0-9]\\{8\\}\\.md") #'string>))
-         (selected (completing-read "Deploy: " files nil t))
-         (src (concat dir selected)))
-    ;; 事前確認: 対象ファイルをバッファで開く
-    (find-file src)
-    (when (y-or-n-p (format "%s を CHANGELOG.md にデプロイしますか？" selected))
-      (shell-command
-       (format "perl %s %s"
-               (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
-               src))
-      ;; 実行後にブラウザで確認
-      (browse-url "https://minorugh.github.io/"))))
+  (call-process "setsid" nil 0 nil "thunderbird"))
 
+(defun neomutt ()
+  "Open terminal and ssh to xsrv and detach it from Emacs."
+  (interactive)
+  (call-process "setsid" nil 0 nil "neomutt.sh")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
