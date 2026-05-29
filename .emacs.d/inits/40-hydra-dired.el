@@ -155,23 +155,23 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
                   (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
       (start-process-shell-command "ssh-cd" nil cmd)))
 
-  (defun keepassxc ()
-    "Open keepassxc with auto passwd input."
-    (interactive)
-    (start-process-shell-command
-     "keepass" nil "keepass.sh"))
+(defun keepassxc ()
+  "Open keepassxc with auto passwd input and detach it from Emacs."
+  (interactive)
+  (call-process "setsid" nil 0 nil "keepass.sh"))
 
-  (defun filezilla (&optional site)
-    "Open FileZilla with SITE."
-    (interactive)
-    (let* ((sites '(("g" . "0/gospel-haiku.com")
-                    ("m" . "0/minorugh.com")
-                    ("s" . "-s")))
-           (arg (or (cdr (assoc site sites)) "-s"))
-           (cmd (if (string= arg "-s")
-                    "filezilla -s"
-                  (format "filezilla --site='%s'" arg))))
-      (start-process-shell-command "filezilla" nil cmd))))
+(defun filezilla (&optional site)
+  "Open FileZilla with SITE and detach it from Emacs."
+  (interactive)
+  (let* ((sites '(("g" . "0/gospel-haiku.com")
+                  ("m" . "0/minorugh.com")
+                  ("s" . "-s")))
+         (arg (or (cdr (assoc site sites)) "-s"))
+         ;; setsid を使うため、コマンド全体を1つの文字列にせず引数を分離します
+         (args (if (string= arg "-s")
+                   '("-s")
+                 (list (format "--site=%s" arg)))))
+    (apply #'call-process "setsid" nil 0 nil "filezilla" args))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

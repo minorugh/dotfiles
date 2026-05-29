@@ -54,22 +54,15 @@
    ("<muhenkan>" nil)
    ("." nil))
   :init
-  (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail."
-    (interactive)
-    (start-process "thunderbird" nil "thunderbird" "--maximized"))
+(defun thunderbird ()
+  "Open thunderbird mail-client for Gmail and detach it from Emacs."
+  (interactive)
+  (call-process "setsid" nil 0 nil "thunderbird"))
 
-  (defun neomutt ()
-    "Open terminal and ssh to xsrv."
-    (interactive)
-    (start-process-shell-command "neomutt" nil "neomutt.sh"))
-  (setq auto-mode-alist (append '(("/tmp/mutt.*" . mail-mode)) auto-mode-alist))
-
-  (defun mattermost ()
-    "Open mattermost-desktop."
-    (interactive)
-    (start-process "mattermost" nil "mattermost-desktop")))
-
+(defun neomutt ()
+  "Open terminal and ssh to xsrv and detach it from Emacs."
+  (interactive)
+  (call-process "setsid" nil 0 nil "neomutt.sh")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
