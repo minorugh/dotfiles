@@ -71,7 +71,7 @@
          (local-root (cond
                       ((string-prefix-p xsrv-gh-root file) local-gh-root)
                       ((string-prefix-p xsrv-mn-root file) local-mn-root)
-                      (t (user-error "Error: xsrv-GH/xsrv-minorugh の dired から実行してください"))))
+                      (t (user-error "Error: xsrv-GH/xsrv-minorugh の Dired から実行してください"))))
          (xsrv-root (if (string-prefix-p xsrv-gh-root file) xsrv-gh-root xsrv-mn-root))
          (rel  (file-relative-name file xsrv-root))
          (dest (concat local-root rel)))
@@ -96,68 +96,61 @@
 ;; git-peek
 ;; key bindings in 40-hydra-dired.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; `git-peek-save-dir' は git-peek パッケージ側で定義される変数。
-;; `my-xsrv-git-peek' 内で let バインドするためコンパイラへ事前宣言。
-(defvar git-peek-save-dir)
-
-(defun my-xsrv-git-peek ()
-  "Set the `git-peek' export destination to the corresponding path in Dropbox/GH."
-  (interactive)
-  (let* ((xsrv-root "/home/minoru/src/github.com/minorugh/xsrv-GH/")
-         (local-root "/home/minoru/Dropbox/GH/"))
-    (unless (string-prefix-p xsrv-root (expand-file-name default-directory))
-      (user-error "Xsrv-GH の Dired から呼んでください"))
-    (let ((git-peek-save-dir
-           (concat local-root (file-relative-name default-directory xsrv-root))))
-      (git-peek))))
 
 (defun my-git-peek-smart ()
-  "Doc not set."
+  "Run `git-peek' with appropriate save-dir.
+Show 2pane when called from xsrv `dired'."
   (interactive)
   (let* ((dir (expand-file-name default-directory))
          (orig (and (boundp 'git-peek-save-dir) git-peek-save-dir))
+         (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
+         (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
          (new-save-dir
           (cond
-           ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/") dir)
+           ((string-prefix-p xsrv-gh-root dir)
             (concat (expand-file-name "~/Dropbox/GH/")
-                    (file-relative-name dir (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))))
-           ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") dir)
+                    (file-relative-name dir xsrv-gh-root)))
+           ((string-prefix-p xsrv-mn-root dir)
             (concat (expand-file-name "~/Dropbox/minorugh.com/")
-                    (file-relative-name dir (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))))
-           (t nil))))
-    (when new-save-dir
-      (setq git-peek-save-dir new-save-dir)
-      (add-hook 'git-peek-finish-hook
-                (lambda ()
-                  (when orig (setq git-peek-save-dir orig))
-                  (my-open-xsrv-2pane dir new-save-dir)
-                  (setq git-peek-finish-hook nil)))
-      (git-peek))))
+                    (file-relative-name dir xsrv-mn-root)))
+	   (t (expand-file-name "~/Dropbox/backup/tmp/")))))
+    (setq git-peek-save-dir new-save-dir)
+    (let ((fn nil))
+      (setq fn (lambda ()
+		 (when orig (setq git-peek-save-dir orig))
+		 (if (or (string-prefix-p xsrv-gh-root dir)
+			 (string-prefix-p xsrv-mn-root dir))
+		     (my-open-xsrv-2pane dir new-save-dir)
+		   (my-open-xsrv-2pane dir (expand-file-name "~/Dropbox/backup/tmp/")))
+		 (remove-hook 'git-peek-finish-hook fn)))
+      (add-hook 'git-peek-finish-hook fn))
+    (git-peek)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Buffer colorize for xsrv-GH dired & files
+;; Buffer colorize for xsrv-GH dired & files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (defvar my-xsrv-buffer-color "#051122"
-    "Background color of buffers under Xsrv-GH/xsrv-minorugh.")
+(defvar my-xsrv-buffer-color "#051122"
+  "Background color of buffers under Xsrv-GH/xsrv-minorugh.")
 
-  (defun my-xsrv--maybe-colorize ()
-    "`xsrv-GH/xsrv-minorugh' 配下のバッファ（diredまたはファイル）なら `buffer-face-mode' で色付け."
-    (when (and default-directory
-               (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-                                    (expand-file-name default-directory))
-                   (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
-                                    (expand-file-name default-directory))))
-      (buffer-face-set `(:background ,my-xsrv-buffer-color))))
+(defun my-xsrv--maybe-colorize ()
+  "`xsrv-GH/xsrv-minorugh' 配下のバッファ（diredまたはファイル）なら `buffer-face-mode' で色付け."
+  (when (and default-directory
+	     (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
+				  (expand-file-name default-directory))
+		 (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
+				  (expand-file-name default-directory))))
+    (buffer-face-set `(:background ,my-xsrv-buffer-color))))
 
-  ;; Dired (folder list) colored when loaded/updated
-  (add-hook 'dired-mode-hook #'my-xsrv--maybe-colorize)
-  (add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
+;; Dired (folder list) colored when loaded/updated
+(add-hook 'dired-mode-hook #'my-xsrv--maybe-colorize)
+(add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
 
-  ;; Automatic coloring when opening "files" under folders
-  (add-hook 'find-file-hook #'my-xsrv--maybe-colorize)
+;; Automatic coloring when opening "files" under folders
+(add-hook 'find-file-hook #'my-xsrv--maybe-colorize)
 
 
-  ;; Local Variables:
-  ;; byte-compile-warnings: (not free-vars unresolved)
-  ;; End:
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
 ;;; 50-xsrv-dired.el ends here
