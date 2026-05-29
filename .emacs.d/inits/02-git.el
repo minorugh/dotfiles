@@ -61,30 +61,6 @@ all git-peek buffers."
         (find-file changelog)
         (message "CHANGELOG.md updated: %s" date)))))
 
-
-(defun my-counsel-git-grep-GH ()
-  "Run `counsel-git-grep' in ~/Dropbox/GH."
-  (interactive)
-  (let ((process-environment
-         (append
-          (list "GIT_DIR=/home/minoru/src/github.com/minorugh/GH/.git"
-                "GIT_WORK_TREE=/home/minoru/Dropbox/GH")
-          process-environment))
-        (default-directory "/home/minoru/Dropbox/GH/"))
-    (counsel-git-grep)))
-
-(defun my-counsel-git-grep-minorugh ()
-  "Run `counsel-git-grep' in ~/Dropbox/minorugh.com."
-  (interactive)
-  (let ((process-environment
-         (append
-          (list "GIT_DIR=/home/minoru/src/github.com/minorugh/minorugh.com/.git"
-                "GIT_WORK_TREE=/home/minoru/Dropbox/minorugh.com")
-          process-environment))
-        (default-directory "/home/minoru/Dropbox/minorugh.com/"))
-    (counsel-git-grep)))
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
