@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# Change mutt startup directory so that attachments are stored in ~/Downloads.
-# Add option to start gonome-terminal with maximized mode
+# 'mail' という名前の tmux セッションがあるか確認
+tmux has-session -t mail 2>/dev/null
 
-cd ~/Downloads && gnome-terminal --maximize -- neomutt
+if [ $? -ne 0 ]; then
+    # セッションがなければ、~/Downloads に移動してから裏で NeoMutt を起動
+    cd ~/Downloads && tmux new-session -d -s mail 'neomutt'
+fi
+
+# 余計なオプションを全削除。元の確実な起動コマンドに戻す
+gnome-terminal --maximize --title="NeoMutt Mail" -- tmux attach -t mail
 
 exit

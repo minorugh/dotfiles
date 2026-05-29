@@ -5,6 +5,7 @@
 
 (leaf hydra-browse
   :doc "Selection menu for project work."
+  :defun my-github-deploy
   :chord (".."   . hydra-browse/body)
   :bind ("<f15>" . hydra-browse/body)
   :hydra
@@ -62,38 +63,41 @@
     (call-process "setsid" nil 0 nil "thunderbird"))
 
   (defun neomutt ()
-    "Open terminal and ssh to xsrv and detach it from Emacs."
+    "Toggle NeoMutt window."
     (interactive)
-    (call-process "setsid" nil 0 nil "neomutt.sh")))
+    (let ((win (string-trim (shell-command-to-string "wmctrl -l | grep 'NeoMutt Mail'"))))
+      (if (string= win "")
+          (call-process "setsid" nil 0 nil "neomutt.sh")
+	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
 
 ;;; github-deploy
 ;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
 ;;; 処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
 ;;; push 後のブラウザ確認は Makefile の make git の中で実行。
-(defun my-github-deploy ()
-  "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."
-  (interactive)
-  (let* ((base (expand-file-name "~/Dropbox/Changelog/"))
-         ;; 直下と archive 配下の changelog-*.md を日付降順で列挙
-         (files (sort
-                 (mapcar (lambda (f) (file-relative-name f base))
-                         (directory-files-recursively
-                          base "changelog-[0-9]\\{8\\}\\.md"))
-                 #'string>))
-         (selected (completing-read "Deploy: " files nil t "^"))
-         (src (expand-file-name selected base)))
-    ;; 事前確認: 対象ファイルをバッファで開く
-    (find-file src)
-    (when (y-or-n-p (format "%s を CHANGELOG.md にデプロイしますか？" selected))
-      ;; Step1: CHANGELOG.md に追記
-      (shell-command
-       (format "perl %s %s"
-               (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
-               src))
-      ;; Step2: git commit & push → ブラウザ確認は make git の中で実行
-      (let ((default-directory
-             (expand-file-name "~/src/github.com/minorugh/minorugh.github.io/")))
-        (compile "make git")))))
+  (defun my-github-deploy ()
+    "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."
+    (interactive)
+    (let* ((base (expand-file-name "~/Dropbox/Changelog/"))
+           ;; 直下と archive 配下の changelog-*.md を日付降順で列挙
+           (files (sort
+                   (mapcar (lambda (f) (file-relative-name f base))
+                           (directory-files-recursively
+                            base "changelog-[0-9]\\{8\\}\\.md"))
+                   #'string>))
+           (selected (completing-read "Deploy: " files nil t "^"))
+           (src (expand-file-name selected base)))
+      ;; 事前確認: 対象ファイルをバッファで開く
+      (find-file src)
+      (when (y-or-n-p (format "%s を CHANGELOG.md にデプロイしますか?" selected))
+	;; Step1: CHANGELOG.md に追記
+	(shell-command
+	 (format "perl %s %s"
+		 (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
+		 src))
+	;; Step2: git commit & push → ブラウザ確認は make git の中で実行
+	(let ((default-directory
+               (expand-file-name "~/src/github.com/minorugh/minorugh.github.io/")))
+          (compile "make git"))))))
 
 
 ;; Local Variables:

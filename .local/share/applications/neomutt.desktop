@@ -9,3 +9,4 @@ Categories=Development;Network;Email
 Path=
 Terminal=false
 StartupNotify=false
+StartupWMClass=neomutt-app

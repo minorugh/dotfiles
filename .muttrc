@@ -108,5 +108,9 @@ bind index,pager  b previous-page     # Go to previous page
 # Color settings for mutt --------------------------------
 source ~/.mutt/dracula.muttrc
 
+# index画面でqを押したらウィンドウを最小化（Xfce用）
+unset wait_key
+macro index q "<shell-escape>xdotool key End > /dev/null 2>&1<enter>" "minimize window"
+
 # .muttrc ends here
 ############################################################
