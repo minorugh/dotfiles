@@ -1,4 +1,4 @@
-;;; 04-ivy-tools.el --- Ivy-based tools: describe helpers and Git project switcher -*- lexical-binding: t -*-
+;;; 03-ivy-tools.el --- Ivy-based tools: describe helpers and Git project switcher -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; This file configures two Ivy-based utilities:
@@ -97,4 +97,4 @@ on the selected one."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 04-ivy-tools.el ends here
+;;; 03-ivy-tools.el ends here

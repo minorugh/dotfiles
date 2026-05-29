@@ -1,4 +1,4 @@
-;;; 09-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
+;;; 08-highlight.el --- Display highlight configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -39,4 +39,4 @@ indentation (auto-formatting) is not performed."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-highlight.el ends here
+;;; 08-highlight.el ends here
