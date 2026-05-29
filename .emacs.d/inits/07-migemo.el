@@ -1,4 +1,4 @@
-;;; 08-migemo.el --- migemo cmigemo configurations. -*- lexical-binding: t -*-
+;;; 07-migemo.el --- migemo cmigemo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -19,4 +19,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 08-migemo.el ends here
+;;; 07-migemo.el ends here

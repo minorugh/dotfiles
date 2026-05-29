@@ -1,4 +1,4 @@
-;;; 10-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 09-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
@@ -87,4 +87,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-functions.el ends here
+;;; 09-functions.el ends here
