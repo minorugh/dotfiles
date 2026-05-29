@@ -22,7 +22,7 @@ set hostname = gmail.com
 set mail_check = 60
 set timeout = 300
 set imap_keepalive = 300
-set postponed = "+[Gmail]/Drafts"
+# set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
 set header_cache = "~/.mutt/cache/headers"
 set message_cachedir = "~/.mutt/cache/bodies"
@@ -110,7 +110,29 @@ source ~/.mutt/dracula.muttrc
 
 # index画面でqを押したらウィンドウを最小化（Xfce用）
 unset wait_key
-macro index q "<shell-escape>xdotool key End > /dev/null 2>&1<enter>" "minimize window"
+macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter><refresh>" "close window"
+# macro index q "<shell-escape>xdotool key End > /dev/null 2>&1<enter>" "minimize window"
+
+# # 基本カラー
+# color normal     white          default
+# color index      brightgreen    default    ~N   # 未読
+# color index      brightyellow   default    ~F   # フラグ付き
+# color index      red            default    ~D   # 削除予定
+# color index      cyan           default    ~T   # タグ付き
+
+# # 選択行（現在カーソル位置）
+# color indicator  black          cyan
+
+# # ヘッダー行
+# color header     brightblue     default    "^(From|To|Subject|Date):"
+
+# # 引用
+# color quoted     green          default
+# color quoted1    yellow         default
+# color quoted2    red            default
+
+# # ステータスバー
+# color status     brightyellow   blue
 
 # .muttrc ends here
 ############################################################
