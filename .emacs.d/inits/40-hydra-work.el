@@ -57,6 +57,12 @@
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
+  (leaf browse-at-remote
+    :ensure t
+    :doc "Open github page from Emacs"
+    :config
+    (setq browse-at-remote-prefer-symbolic nil))
+
   (defun my-junk-new ()
     "タイムスタンプ付きPerlスクラッチファイルを開く。"
     (interactive)
