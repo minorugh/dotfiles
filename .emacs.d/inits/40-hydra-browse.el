@@ -11,12 +11,12 @@
   (hydra-browse
    (:hint nil :exit t)
    "
-  ^ Shop^       ^ SNS^        ^🔃 Repos^    ^ Blog^     ^ Life^      ^ Social^  ^ Github^    oogle
+  ^ Shop^          ^ SNS^          ^🔃 Repos^    ^ Blog^       ^ Life^      ^ Social^     ^ Github^        Google
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
   _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
-  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _3_: masasam   _t_: thinderbird
-  _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _4_: Centaur   _P_: photo
+  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _d_: deploy    _t_: thinderbird
+  _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _o_: view.io   _P_: photo
 "
    ("a" (browse-url "https://www.amazon.co.jp/"))
    ("r" (browse-url "https://www.rakuten.co.jp/"))
@@ -27,8 +27,8 @@
    ("G" (browse-url "https://drive.google.com/drive/u/0/my-drive"))
    ("1" (browse-url "https://github.com/minorugh"))
    ("2" (browse-url "https://gist.github.com/minorugh"))
-   ("3" (browse-url "https://github.com/masasam"))
-   ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
+   ;; ("3" (browse-url "https://github.com/masasam"))
+   ;; ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
    ("M" (browse-url "https://www.google.co.jp/maps"))
    ("B" (browse-url "http://blog.gospel-haiku.com/"))
@@ -48,6 +48,8 @@
    ("g" (browse-url "https://minorugh.github.io/"))
    ("p" (browse-url "https://getpocket.com/a/queue/"))
    ("x" (browse-url "https://twitter.com/gospelhaiku"))
+   ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
+   ("d" #'my-github-deploy)
    ("m" neomutt)
    ("t" thunderbird)
    ("s" (start-process "slack" nil "slack"))
@@ -64,26 +66,34 @@
     (interactive)
     (call-process "setsid" nil 0 nil "neomutt.sh")))
 
-
 ;;; github-deploy
 ;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
 ;;; 処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
-(defun github-deploy ()
+;;; push 後のブラウザ確認は Makefile の make git の中で実行。
+(defun my-github-deploy ()
   "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."
   (interactive)
-  (let* ((dir (expand-file-name "~/Dropbox/Changelog/"))
-         (files (sort (directory-files dir nil "changelog-[0-9]\\{8\\}\\.md") #'string>))
-         (selected (completing-read "Deploy: " files nil t))
-         (src (concat dir selected)))
+  (let* ((base (expand-file-name "~/Dropbox/Changelog/"))
+         ;; 直下と archive 配下の changelog-*.md を日付降順で列挙
+         (files (sort
+                 (mapcar (lambda (f) (file-relative-name f base))
+                         (directory-files-recursively
+                          base "changelog-[0-9]\\{8\\}\\.md"))
+                 #'string>))
+         (selected (completing-read "Deploy: " files nil t "^"))
+         (src (expand-file-name selected base)))
     ;; 事前確認: 対象ファイルをバッファで開く
     (find-file src)
     (when (y-or-n-p (format "%s を CHANGELOG.md にデプロイしますか？" selected))
+      ;; Step1: CHANGELOG.md に追記
       (shell-command
        (format "perl %s %s"
                (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
                src))
-      ;; 実行後にブラウザで確認
-      (browse-url "https://minorugh.github.io/"))))
+      ;; Step2: git commit & push → ブラウザ確認は make git の中で実行
+      (let ((default-directory
+             (expand-file-name "~/src/github.com/minorugh/minorugh.github.io/")))
+        (compile "make git")))))
 
 
 ;; Local Variables:
