@@ -7,7 +7,8 @@ if [ $? -ne 0 ]; then
     tmux set -t mail status off  # ここで直接設定
 fi
 
-gnome-terminal --maximize --title="NeoMutt Mail" -- tmux attach -t mail
+# gnome-terminal --maximize --title="NeoMutt Mail" -- tmux attach -t mail
+xfce4-terminal --maximize --title="NeoMutt Mail" -e "tmux attach -t mail"
 
 exit
 
