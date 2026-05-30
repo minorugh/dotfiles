@@ -80,9 +80,6 @@
     "Universal escape key."
     (interactive)
     (cond
-     ;; git-peek実行中なら強制終了
-     ((get-buffer "*git-peek-commits*") (git-peek-emergency-quit))
-
      ;; Helpバッファが開いていれば閉じる
      ((get-buffer-window "*Help*")
       (delete-window (get-buffer-window "*Help*"))

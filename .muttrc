@@ -30,7 +30,7 @@ set message_cachedir = "~/.mutt/cache/bodies"
 set certificate_file= "~/.mutt/certificates"
 set signature = "~/.env_source/.mutt/signature"
 set move = no
-set delete = yes
+# set delete = yes
 set include
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
@@ -99,13 +99,13 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 # Sidebar Navigation ---------------------------------------
 bind index,pager ]   sidebar-next
 bind index,pager [   sidebar-prev
-bind index,pager ^   sidebar-open
-bind index,pager \cv sidebar-toggle-visible
+bind index,pager \^  sidebar-toggle-visible
 
 # Index Key Bindings ---------------------------------------
 bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
 bind index,pager  b previous-page     # Go to previous page
+bind index,pager  S sync-mailbox      # 追記：Sで削除を実行（メールボックス同期）
 
 # Color settings for mutt --------------------------------
 source ~/.mutt/dracula.muttrc
