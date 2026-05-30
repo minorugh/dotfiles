@@ -106,6 +106,9 @@
 	 ;; Disable whitespace highlighting for Thunderbird mail editing
 	 ("\\.eml\\'" . (lambda () (whitespace-mode -1))))
   :hook
+  (find-file-hook . (lambda ()
+                      (when (string-match "neomutt-" (buffer-name))
+			(whitespace-mode -1))))
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
   (after-init-hook . savehist-mode))
