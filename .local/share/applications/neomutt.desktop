@@ -9,4 +9,3 @@ Categories=Development;Network;Email
 Path=
 Terminal=false
 StartupNotify=false
-StartupWMClass=xfce4-terminal
