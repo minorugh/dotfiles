@@ -15,12 +15,12 @@
   ^ Shop^          ^ SNS^          ^🔃 Repos^    ^ Blog^       ^ Life^      ^ Social^     ^ Github^        Google
   ^^^^^^^^^^^^^^^^^──────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _x_: Twitter    _D_: Dropbox  _g_: ghub.io  _j_: Jorudan   _K_: Keep    _1_: minorugh  _c_: calendar
-  _r_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt
-  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _d_: deploy    _t_: thinderbird
+  _R_: Rakuten    _u_: Youtube    _F_: Flickr   _S_: snap     _n_: News      _p_: Pocket  _2_: gist      _m_: muttt/_r_estart
+  _y_: Yodobashi  _i_: Instagram  _G_: Gdrive   _E_: Essay    _w_: Weather   _q_: Qiita   _d_: deploy    _t_: thunderbird
   _k_: Kakaku     _T_: Tumblr     _X_: Xserver  _B_: Blog     _b_: SanyoBas  _s_: Slack   _o_: view.io   _P_: photo
 "
    ("a" (browse-url "https://www.amazon.co.jp/"))
-   ("r" (browse-url "https://www.rakuten.co.jp/"))
+   ("R" (browse-url "https://www.rakuten.co.jp/"))
    ("y" (browse-url "https://www.yodobashi.com/"))
    ("k" (browse-url "http://kakaku.com/"))
    ("u" (browse-url "https://www.youtube.com/channel/UCnwoipb9aTyORVKHeTw159A/videos"))
@@ -52,6 +52,7 @@
    ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
    ("d" #'my-github-deploy)
    ("m" neomutt)
+   ("r" neomutt-restart)
    ("t" thunderbird)
    ("s" (start-process "slack" nil "slack"))
    ("<muhenkan>" nil)
@@ -69,6 +70,12 @@
       (if (string= win "")
           (call-process "setsid" nil 0 nil "neomutt.sh")
 	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
+
+  (defun neomutt-restart ()
+    "Kill and restart NeoMutt tmux session."
+    (interactive)
+    (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
+    (call-process "setsid" nil 0 nil "neomutt.sh"))
 
 ;;; github-deploy
 ;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。

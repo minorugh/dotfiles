@@ -288,7 +288,7 @@ neomutt: ## NeoMutt（IMAP read-only・検索／障害時の保険用）
 # Thunderbirdが使えない場合でもIMAPから直接メール参照するために残す
 # ※送信・削除しないread-only運用
 	$(APT) $@
-	mkdir -p ${HOME}/.mutt
+	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in password.gpg signature.gpg mailcap certificates dracula.muttrc nord.muttrc; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
