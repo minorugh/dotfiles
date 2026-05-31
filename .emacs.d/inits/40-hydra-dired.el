@@ -5,6 +5,7 @@
 ;; (setq debug-on-error t)
 
 (leaf hydra-dired
+  :after evil
   :bind (("<henkan>" . my-hydra-dired))
   :init
   ;; `<henkan>' キーは mozc アクティブ時に `mozc-mode-map' の `<t>' バインディングに
@@ -92,68 +93,68 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (when (memq :omit opts)  (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
-  (defun my-open-xsrv-2pane (src-dir pair-dir)
-    "Open SRC-DIR in dired and line up PAIR-DIR in two panes."
-    (delete-other-windows)
-    (let ((buf1 (dired src-dir))
-          (buf2 (progn
-                  (split-window-right)
-                  (other-window 1)
-                  (dired pair-dir))))
-      (dolist (buf (list buf1 buf2))
-	(with-current-buffer buf
-	  (revert-buffer)
-          (local-set-key (kbd "q")
-			 (lambda ()
-                           (interactive)
-                           (dolist (b (list buf1 buf2))
-                             (kill-buffer b))
-                           (delete-other-windows)))))
-      (other-window 1)))
-
-  (defun my-reload-xenv ()
-    "Reload ~/.xprofile and re-import keychain env vars into Emacs."
+  (defun my-2pane-quit ()
     (interactive)
-    (shell-command "bash ~/.xprofile > /dev/null 2>&1")
-    ;; keychain の環境変数を Emacs プロセスに反映
-    (let ((keychain-file (expand-file-name
-                          (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-	(with-temp-buffer
-          (insert-file-contents keychain-file)
-          (goto-char (point-min))
-          (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
-            (setenv (match-string 1)
-                    (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
-    (message "xprofile + keychain reloaded"))
+    (when (= (length (window-list)) 2)
+      (kill-buffer)
+      (delete-window)))
 
-  (defun my-remote-select ()
-    "Select remote dir and open gnome-terminal with SSH."
-    (interactive)
-    (let* ((home-root "/home/minorugh/")
-           (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
-           (mn-root   (concat home-root "minorugh.com/public_html/"))
-           (dirs `(("home-root"     . ("ls"     . ,home-root))
-                   ("gospel-haiku"  . ("ls"     . ,gh-root))
-                   ("minorugh.com"  . ("ls"     . ,mn-root))
-                   ("docker/httpd"  . ("docker" . "docker exec -it httpd /bin/bash"))
-                   ("passwd"        . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
-                   ("d_kukai/data"  . ("vim"    . ,(concat gh-root "d_kukai/data/")))
-                   ("w_kukai/data"  . ("vim"    . ,(concat gh-root "w_kukai/data/")))
-                   ("s_kukai/data"  . ("vim"    . ,(concat gh-root "s_kukai/data/")))
-                   ("m_kukai/data"  . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
-           (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
-           (entry  (cdr (assoc choice dirs)))
-           (action (car entry))
-           (dir    (cdr entry))
-           (cmd (cond
-		 ((string= action "docker")
-                  (format "gnome-terminal --maximize -- %s" dir))
-		 ((string= action "vim")
-                  (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir))
-		 (t
-                  (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
-      (start-process-shell-command "ssh-cd" nil cmd)))
+  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
+  (add-hook 'dired-mode-hook
+          (lambda () (local-set-key (kbd "q") #'my-2pane-quit)))
+
+(defun my-open-xsrv-2pane (src-dir pair-dir)
+  "Open SRC-DIR in `dired' and line up PAIR-DIR in two panes."
+  (delete-other-windows)
+  (dired src-dir)
+  (split-window-right)
+  (other-window 1)
+  (dired pair-dir)
+  (other-window 1))
+
+(defun my-reload-xenv ()
+  "Reload ~/.xprofile and re-import keychain env vars into Emacs."
+  (interactive)
+  (shell-command "bash ~/.xprofile > /dev/null 2>&1")
+  ;; keychain の環境変数を Emacs プロセスに反映
+  (let ((keychain-file (expand-file-name
+                        (concat "~/.keychain/" (system-name) "-sh"))))
+    (when (file-exists-p keychain-file)
+      (with-temp-buffer
+        (insert-file-contents keychain-file)
+        (goto-char (point-min))
+        (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
+          (setenv (match-string 1)
+                  (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
+  (message "xprofile + keychain reloaded"))
+
+(defun my-remote-select ()
+  "Select remote dir and open gnome-terminal with SSH."
+  (interactive)
+  (let* ((home-root "/home/minorugh/")
+         (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
+         (mn-root   (concat home-root "minorugh.com/public_html/"))
+         (dirs `(("home-root"     . ("ls"     . ,home-root))
+                 ("gospel-haiku"  . ("ls"     . ,gh-root))
+                 ("minorugh.com"  . ("ls"     . ,mn-root))
+                 ("docker/httpd"  . ("docker" . "docker exec -it httpd /bin/bash"))
+                 ("passwd"        . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
+                 ("d_kukai/data"  . ("vim"    . ,(concat gh-root "d_kukai/data/")))
+                 ("w_kukai/data"  . ("vim"    . ,(concat gh-root "w_kukai/data/")))
+                 ("s_kukai/data"  . ("vim"    . ,(concat gh-root "s_kukai/data/")))
+                 ("m_kukai/data"  . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
+         (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
+         (entry  (cdr (assoc choice dirs)))
+         (action (car entry))
+         (dir    (cdr entry))
+         (cmd (cond
+	       ((string= action "docker")
+                (format "gnome-terminal --maximize -- %s" dir))
+	       ((string= action "vim")
+                (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir))
+	       (t
+                (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
+    (start-process-shell-command "ssh-cd" nil cmd)))
 
 (defun keepassxc ()
   "Open keepassxc with auto passwd input and detach it from Emacs."

@@ -56,16 +56,22 @@
 
   ;; Force evil-emacs-state for specific modes
   (dolist (mode '(howm-view-summary-mode
-		  imenu-list-major-mode easy-hugo-mode neotree-mode
-		  org-mode fundamental-mode))
+		  imenu-list-major-mode easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
+  (add-hook 'buffer-list-update-hook
+            (lambda ()
+              (when (and (member (buffer-name) '("*init log*" "*scratch*"))
+			 (fboundp 'evil-emacs-state)
+			 (not (eq evil-state 'emacs)))  ;; すでにemacs-stateなら何もしない
+		(evil-emacs-state))))
+
   ;; Emacs state only when creating new files
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (and (buffer-file-name)
-                       (not (file-exists-p (buffer-file-name))))
-              (evil-emacs-state))))
+  (add-hook 'find-file-hook
+            (lambda ()
+              (when (and (buffer-file-name)
+			 (not (file-exists-p (buffer-file-name))))
+		(evil-emacs-state))))
 
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
