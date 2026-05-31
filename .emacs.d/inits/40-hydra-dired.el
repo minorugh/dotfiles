@@ -24,7 +24,7 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  mail._n__t_  fz._8_._9_._0_  xsrv._:__;_  _x_env._z_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_eomut_t_  fz._8_._9_._0_  xsrv._:__;_  _x_env._z_
   _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _w_iki  _<home>_^  h_\@_wm_c__v_.Sn_o_te  keyp_a_ss^^  _g_it._p_jct^^  fl_y_make^^  _f_f._l_og
 "
    ("p" ivy-git-project-switch)

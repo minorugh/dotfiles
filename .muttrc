@@ -20,8 +20,10 @@ set spoolfile = "+INBOX"
 set imap_check_subscribed
 set hostname = gmail.com
 set mail_check = 60
-set timeout = 300
-set imap_keepalive = 300
+set timeout = 15
+set imap_keepalive = 240
+set imap_idle = yes
+unset imap_passive
 # set postponed = "+[Gmail]/Drafts"
 set trash = "+[Gmail]/Trash"
 set record = "+[Gmail]/Sent Mail"
@@ -105,12 +107,13 @@ bind index,pager \^  sidebar-toggle-visible
 bind index,attach g first-entry       # Go to first entry
 bind index,attach G last-entry        # Go to last entry
 bind index,pager  b previous-page     # Go to previous page
-bind index,pager  S sync-mailbox      # 追記：Sで削除を実行（メールボックス同期）
+macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続とフォルダの開き直し"
 
 # Color settings for mutt --------------------------------
 source ~/.mutt/dracula.muttrc
 
 # index画面でqを押したらウィンドウを最小化（Xfce用）
+set quit = yes
 unset wait_key
 macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter><refresh>" "close window"
 
