@@ -31,4 +31,4 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 # neomutt 死活チェック（4時・5時）
-*/15 5,6,7 * * * /usr/local/bin/neomutt-watch.sh >> /tmp/cron.log 2>&1
+# */15 5,6,7 * * * /usr/local/bin/neomutt-watch.sh >> /tmp/cron.log 2>&1
