@@ -295,6 +295,8 @@ neomutt: ## NeoMutt（IMAP read-only・検索／障害時の保険用）
 	done
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
+	sudo ln -vsfn ${PWD}/bin/neomutt-watch.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/neomutt-watch.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
 
 w3m: ## NeoMutt補助（URL閲覧・簡易HTML表示）
