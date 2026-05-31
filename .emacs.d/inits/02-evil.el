@@ -59,11 +59,15 @@
 		  imenu-list-major-mode easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
+  ;; Force emacs-state for specific buffers (*init log*, *scratch*).
+  ;; Uses buffer-list-update-hook to check on every buffer switch,
+  ;; since these buffers are identified by name rather than major mode.
   (add-hook 'buffer-list-update-hook
             (lambda ()
               (when (and (member (buffer-name) '("*init log*" "*scratch*"))
 			 (fboundp 'evil-emacs-state)
-			 (not (eq evil-state 'emacs)))  ;; すでにemacs-stateなら何もしない
+			 ;; If already emacs-state, it does nothing.
+			 (not (eq evil-state 'emacs)))
 		(evil-emacs-state))))
 
   ;; Emacs state only when creating new files
