@@ -22,7 +22,7 @@ CHOICE=$( (
     --bind '3:pos(6)+accept')
 
 case "$CHOICE" in
-    1.*) xset dpms force off; kill $PPID ;;
+    1.*) xset dpms force off; tmux kill-session -t mail 2>/dev/null; cd ~/Downloads && tmux new-session -d -s mail 'neomutt'; tmux set -t mail status off; kill $PPID ;;
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     "")  echo "Cancelled."; kill $PPID ;;

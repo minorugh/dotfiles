@@ -31,7 +31,11 @@ emacs &
 sleep 5s
 wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
 [ -n "$wid" ] && xdotool windowminimize "$wid"
-thunderbird &
-sleep 8s
-wid=$(xdotool search --class thunderbird 2>/dev/null | tail -n1)
-[ -n "$wid" ] && xdotool windowminimize "$wid"
+# thunderbird &
+# sleep 8s
+# wid=$(xdotool search --class thunderbird 2>/dev/null | tail -n1)
+# [ -n "$wid" ] && xdotool windowminimize "$wid"
+
+# neomutt を最小化起動（tmuxセッションのみ、ウィンドウは起動しない）
+cd ~/Downloads && tmux new-session -d -s mail 'neomutt'
+tmux set -t mail status off
