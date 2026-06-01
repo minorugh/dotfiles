@@ -120,12 +120,54 @@ bind index,pager  b previous-page     # Go to previous page
 macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続とフォルダの開き直し"
 
 # Color settings for mutt --------------------------------
-source ~/.mutt/dracula.muttrc
+# source ~/.mutt/dracula.muttrc
 
 # index画面でqを押したらウィンドウを最小化（Xfce用）
 # set quit = yes
 unset wait_key
 macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "close window"
+
+# ====================================================================
+# Iceberg Inspired Theme for NeoMutt
+# ====================================================================
+
+# 全体のデフォルト（背景：深い青緑がかったグレー、文字：オフホワイト）
+color normal        color252        color234
+
+# エラーとステータス・インジケータ
+color error         color203        color234
+color message       color110        color234
+color status        color245        color235
+color indicator     color234        color110
+color prompt        color150        color234
+
+# インデックス（メール一覧）の配色
+color index         color252        color234        ~A           # すべてのメッセージ
+color index         color150        color234        ~N           # 新着 (淡いグリーン)
+color index         color110        color234        ~O           # 未読 (涼しいブルー)
+color index         color216        color234        ~F           # フラグ付き (淡いオレンジ)
+color index         color243        color234        ~D           # 削除済み (暗いグレー)
+
+# メッセージヘッダー（メール本文の上の情報）
+color hdrdefault    color243        color234
+color header        color110        color234        "^(From|Subject):"
+color header        color150        color234        "^Date:"
+
+# メール本文・引用（グラデーションを抑えた静かな色合い）
+color quoted        color109        color234        # 引用レベル 1 (青緑)
+color quoted1       color244        color234        # 引用レベル 2 (グレー)
+color quoted2       color150        color234        # 引用レベル 3 (薄緑)
+color signature     color243        color234
+color attachment    color216        color234
+
+# メインURLや検索ヒット
+color search        color234        color150
+color body          color110        color234        "(https?|ftp|news)://[^>\\s]+"
+color body          color110        color234        "[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+# サイドバー（有効にしている場合）
+color sidebar_divider color237      color234
+color sidebar_new     color150      color234
 
 # .muttrc ends here
 ############################################################
