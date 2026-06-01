@@ -24,7 +24,7 @@ set timeout = 15
 set imap_keepalive = 240
 set imap_idle = yes
 unset imap_passive
-set history_file = ~/.mutt/history 
+set history_file = ~/.mutt/history
 # set postponed = "+[Gmail]/Drafts"
 set trash = "+[Gmail]/Trash"
 set record = "+[Gmail]/Sent Mail"
@@ -56,10 +56,12 @@ set print_command = "nkf -em | e2ps -size 11 -head muttmail | lpr"
 set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new messages, %u unread.' &"
 
 # Open URL using w3m ---------------------------------------
-macro index,pager u ": unset wait_key; set pipe_decode\n|w3m\n: \
-set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
+# macro index,pager u ": unset wait_key; set pipe_decode\n|w3m\n: \
+# set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
 # macro index,pager \cb ": unset wait_key; set pipe_decode\n|w3m\n: \
 # set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
+# Open URL using urlscan
+macro index,pager u "<pipe-message> urlscan<Enter>" "scan URLs with urlscan"
 
 # Change the following line to a different editor you prefer.
 set editor="emacsclient"
