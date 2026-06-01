@@ -284,10 +284,8 @@ thunderbird: ## Thunderbird の設定
 # アドオン設定の Bypass version check にチェックを入れて Apply
 # Debian 13（GLIBC 2.40）に上げれば v1.2.0 バイナリも動くようになる
 
-neomutt: ## NeoMutt（IMAP read-only・検索／障害時の保険用）
-# Thunderbirdが使えない場合でもIMAPから直接メール参照するために残す
-# ※送信・削除しないread-only運用
-	$(APT) $@
+neomutt: ## NeoMutt の設定
+	$(APT) $@ urlscan
 	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in password.gpg signature.gpg mailcap certificates dracula.muttrc nord.muttrc; do
@@ -295,14 +293,9 @@ neomutt: ## NeoMutt（IMAP read-only・検索／障害時の保険用）
 	done
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
-	sudo ln -vsfn ${PWD}/bin/neomutt-watch.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/neomutt-watch.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
-
-w3m: ## NeoMutt補助（URL閲覧・簡易HTML表示）
-	$(APT) $@
-	mkdir -p ${HOME}/.w3m
-	ln -vsfn {${PWD},${HOME}}/.w3m/keymap
+	mkdir -p ${HOME}/.config/urlscan
+	ln -vsfn {${PWD},${HOME}}/.config/urlscan/config.toml
 
 abook: ## NeoMutt補助（簡易アドレス帳・検索用）
 	$(APT) $@

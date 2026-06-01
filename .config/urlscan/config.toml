@@ -1,0 +1,6 @@
+[general]
+queue = false
+show_browser_output = false
+
+[browser]
+cmd = "google-chrome"

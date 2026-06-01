@@ -24,7 +24,7 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_eomut_t_  fz._8_._9_._0_  xsrv._:__;_  _x_env._z_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_mutt/_z_  fz._8_._9_._0_  xsrv._:__;_  _x_env._w_
   _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _w_iki  _<home>_^  h_\@_wm_c__v_.Sn_o_te  keyp_a_ss^^  _g_it._p_jct^^  fl_y_make^^  _f_f._l_og
 "
    ("p" ivy-git-project-switch)
@@ -50,7 +50,7 @@
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("M" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   ("z" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
+   ;; ("z" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
    ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
@@ -60,6 +60,8 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" restart-emacs)
+   ("n" neomutt)
+   ("z"  neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("c" my-howm-create-with-category)
@@ -99,9 +101,9 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
       (kill-buffer)
       (delete-window)))
 
-  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
+  (define-key evil-normal-state-map (kbd "Q") #'my-2pane-quit)
   (add-hook 'dired-mode-hook
-          (lambda () (local-set-key (kbd "q") #'my-2pane-quit)))
+          (lambda () (local-set-key (kbd "Q") #'my-2pane-quit)))
 
 (defun my-open-xsrv-2pane (src-dir pair-dir)
   "Open SRC-DIR in `dired' and line up PAIR-DIR in two panes."
