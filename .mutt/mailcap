@@ -1,12 +1,11 @@
 # mailcap
 
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
-# text/markdown; w3m -I %{charset} -T text/markdown; copiousoutput;
 text/markdown; xdg-open %s &> /dev/null &; nametemplate=%s.html
 
 video/*;        vlc %s > /dev/null
 text/*;         more %s; print=enscript -2Gr %s
- 
+
 image/jpg; eog %s
 image/jpeg; eog %s
 image/png; eog %s

@@ -1,1 +1,3 @@
+keymap ENTER EXTERN
 keymap M-x EXTERN_LINK
+
