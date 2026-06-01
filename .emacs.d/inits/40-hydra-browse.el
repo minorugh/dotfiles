@@ -72,10 +72,17 @@
 	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
 
   (defun neomutt-restart ()
-    "Kill and restart NeoMutt tmux session."
+    "Kill or restart NeoMutt tmux session."
     (interactive)
-    (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
-    (call-process "setsid" nil 0 nil "neomutt.sh"))
+    (let ((action (completing-read "NeoMutt: " '("restart" "kill") nil t)))
+      (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
+      (when (string= action "restart")
+	(call-process "setsid" nil 0 nil "neomutt.sh"))))
+  ;; (defun neomutt-restart ()
+  ;;     "Kill and restart NeoMutt tmux session."
+  ;;     (interactive)
+  ;;     (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
+  ;;     (call-process "setsid" nil 0 nil "neomutt.sh"))
 
 ;;; github-deploy
 ;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
