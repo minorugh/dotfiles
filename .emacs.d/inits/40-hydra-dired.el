@@ -24,18 +24,18 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_mutt/_z_  fz._8_._9_._0_  xsrv._:__;_  _x_env._w_
-  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  _w_iki  _<home>_^  h_\@_wm_c__v_.Sn_o_te  keyp_a_ss^^  _g_it._p_jct^^  fl_y_make^^  _f_f._l_og
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_mutt/_,_  fz._8_._9_._0_  xsrv._:__;_  _x_env._w_
+  _r_estart  Git:_[__-__]_  GH._h__j_  g_t_erm  my_w_iki  _<home>_^  h_\@_wm_c__v_.Sn_o_te  keyp_a_ss^^  _g_it._p_jct^^  fl_y_make^^  _f_f._l_og
 "
    ("p" ivy-git-project-switch)
-   ("," my-remote-select)
+   ("t" my-remote-select)
    ("y" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("a" keepassxc)
-   ("t" thunderbird)
-   ("n" neomutt)
+   ;; ("t" thunderbird)
+   ("," neomutt)
    ("g" counsel-git)
    ("f" counsel-find-file)
    ("o" (browse-url "https://app.simplenote.com/"))
@@ -61,7 +61,7 @@
    ("u" (my-make "up"))
    ("r" restart-emacs)
    ("n" neomutt)
-   ("z"  neomutt-restart)
+   ("n"  neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("c" my-howm-create-with-category)
