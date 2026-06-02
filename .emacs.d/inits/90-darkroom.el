@@ -78,6 +78,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
                 (list :line-num display-line-numbers-mode
                       :spacing line-spacing))
     (display-line-numbers-mode 0)
+    (whitespace-mode -1)
     (setq-local line-spacing my-darkroom-line-spacing)
     (my-darkroom-mode 1)
     (toggle-frame-fullscreen)
@@ -90,6 +91,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (interactive)
     (my-darkroom-mode 0)
     (toggle-frame-fullscreen)
+    (whitespace-mode 1)
     (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
     (setq-local line-spacing (plist-get my-dark-old-state :spacing))
     (when current-input-method
@@ -103,6 +105,14 @@ Bound to F8; see 10-functions.el."
     (if my-darkroom-mode
 	(my-darkroom-out)
       (my-darkroom-in))))
+
+;; Neomuttのバッファが閉じられるときに自動でDarkroomを抜ける
+(add-hook 'kill-buffer-hook
+          (lambda ()
+            (when (and (boundp 'my-darkroom-mode)
+                       my-darkroom-mode
+                       (string-match "neomutt-" (buffer-name)))
+              (my-darkroom-out))))
 
 
 ;; Local Variables:

@@ -24,18 +24,16 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_  _._files^  make._k_._b_._m_._u_^  _n_mutt/_,_  fz._8_._9_._0_  xsrv._:__;_  _x_env._w_
-  _r_estart  Git:_[__-__]_  GH._h__j_  g_t_erm  my_w_iki  _<home>_^  h_\@_wm_c__v_.Sn_o_te  keyp_a_ss^^  _g_it._p_jct^^  fl_y_make^^  _f_f._l_og
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  ~/_s_rc  root._/_^^  _._files^  make._k_._b_._m_._u_^  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
+  _r_estart  Git:_[__-__]_  GH._h__j_  term_,_  xsrv_;__:_  _<home>_^  h_\@_wm_c__v_.Sn_o_te  _g_it._p_jct^^  fl_y_make  _f_ind._1__2__3_
 "
    ("p" ivy-git-project-switch)
-   ("t" my-remote-select)
+   ("," my-remote-select)
    ("y" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("a" keepassxc)
-   ;; ("t" thunderbird)
-   ("," neomutt)
    ("g" counsel-git)
    ("f" counsel-find-file)
    ("o" (browse-url "https://app.simplenote.com/"))
@@ -49,8 +47,8 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("M" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   ;; ("z" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
+   ("1" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
+   ("2" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
    ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
@@ -60,8 +58,7 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" restart-emacs)
-   ("n" neomutt)
-   ("n"  neomutt-restart)
+   ("3"  neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("c" my-howm-create-with-category)
