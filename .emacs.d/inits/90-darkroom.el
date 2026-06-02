@@ -106,13 +106,33 @@ Bound to F8; see 10-functions.el."
 	(my-darkroom-out)
       (my-darkroom-in))))
 
-;; Neomuttのバッファが閉じられるときに自動でDarkroomを抜ける
-(add-hook 'kill-buffer-hook
+
+;;; Neomutt integration
+;;
+;; Neomutt は一時ファイル "neomutt-XXXX" を外部エディタとして Emacs に渡す。
+;; そのバッファが開かれたとき、メール本文に集中できるよう自動で
+;; distraction-free モードに入る。Evil 使用時は insert 操作が自然になるよう
+;; Emacs state に切り替える。バッファを閉じると darkroom も自動で抜けて
+;; フルスクリーンを元に戻す。
+
+(add-hook 'find-file-hook
           (lambda ()
-            (when (and (boundp 'my-darkroom-mode)
-                       my-darkroom-mode
-                       (string-match "neomutt-" (buffer-name)))
-              (my-darkroom-out))))
+            (when (string-match "neomutt-" (buffer-name))
+              (text-mode)
+              (when (fboundp 'evil-emacs-state) (evil-emacs-state))
+              (my-darkroom-in))))
+
+;; C-x # (server-edit) で抜けるときは kill-buffer-hook が発火しない場合があるため
+;; server-done-hook も併用して確実に darkroom を終了させる。
+(defun my-darkroom--neomutt-cleanup ()
+  "Exit darkroom if the current buffer is a Neomutt temporary file."
+  (when (and (boundp 'my-darkroom-mode)
+             my-darkroom-mode
+             (string-match "neomutt-" (buffer-name)))
+    (my-darkroom-out)))
+
+(add-hook 'kill-buffer-hook #'my-darkroom--neomutt-cleanup)
+(add-hook 'server-done-hook #'my-darkroom--neomutt-cleanup)
 
 
 ;; Local Variables:
