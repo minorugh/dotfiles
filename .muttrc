@@ -127,6 +127,9 @@ macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続と
 unset wait_key
 macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "close window"
 
+# Rキーで tmux の mail ペインを再生成し、NeoMutt を再起動
+macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
+
 # ====================================================================
 # Iceberg Inspired Theme for NeoMutt
 # ====================================================================
