@@ -1,4 +1,4 @@
-;;; 10-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
+;;; 09-compile.el --- Compilation functions.    -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -44,4 +44,4 @@ STRING is the exit status message from the compilation process."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-compile.el ends here
+;;; 09-compile.el ends here
