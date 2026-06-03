@@ -53,7 +53,7 @@ set mailcap_path = "~/.mutt/mailcap"
 set print_command = "nkf -em | e2ps -size 11 -head muttmail | lpr"
 
 # notify-send ----------------------------------------------
-set new_mail_command="notify-send --icon=mail-message-new 'New Email' '%n new messages, %u unread.' &"
+set new_mail_command="notify-send --icon=neomutt 'New Email' '%n new messages, %u unread.' &"
 
 # Open URL using w3m ---------------------------------------
 macro index,pager u ": unset wait_key; set pipe_decode\n|w3m\n: \
