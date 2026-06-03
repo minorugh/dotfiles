@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   _p_rt._r_egion  _K_endai^^  yas._n_._v_._i_  _c_aption._u_p.d_o_wn^^
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_eptn  mutt_,__:_  _e_asy-hugo^^^^  b_@_point^^^^  _+_scale
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   _p_rint._r_eg  _K_endai^^  yas._n_._v_._i_  _c_aption._u_p.d_o_wn^^
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_ept  mutt_.__:_  _e_asy-hugo^^^^  b_@_point^^^^  _+_scale
 "
    ("+" text-scale-adjust)
    ("." neomutt)
@@ -39,6 +39,7 @@
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
    ("g" gist-region-or-buffer)
+   ("G" (browse-url "https://gist.github.com/minorugh"))
    ("l" open-lepton)
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
@@ -85,11 +86,6 @@
           (compile (concat "gist -od '' " file))
         (compile (concat "gist -oPd '' -f " (file-name-nondirectory file)))))
     (delete-other-windows))
-
- (defun open-gist-web-page ()
-    "Open GitHub Gist page."
-    (interactive)
-    (browse-url "https://gist.github.com/minorugh"))
 
   (defun open-lepton ()
     "Specify the full path, disable the sandbox if necessary, and start Lepton."
