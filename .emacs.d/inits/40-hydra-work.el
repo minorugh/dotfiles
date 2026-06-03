@@ -11,8 +11,8 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   thunder_b_ird^^  _p_rint._r_e  _K_endai^^  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_epton  browse_@_p^^  mutt_,__:_  _e_asy-hugo^^^^  _j_unk._+_scale^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   _p_rt._r_egion  _K_endai^^  yas._n_._v_._i_  _c_aption._u_p.d_o_wn^^
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_eptn  mutt_,__:_  _e_asy-hugo^^^^  b_@_point^^^^  _+_scale
 "
    ("+" text-scale-adjust)
    ("." neomutt)
@@ -31,7 +31,6 @@
    ("/" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" :pos 'top))
    ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
    ("A" my-apvoice-new-post)
-   ("b" thunderbird)
    ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
@@ -78,8 +77,28 @@
     (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
     (call-process "setsid" nil 0 nil "neomutt.sh"))
 
+  (defun gist-region-or-buffer ()
+    "Post region or buffer to Gist."
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (if (not (use-region-p))
+          (compile (concat "gist -od '' " file))
+        (compile (concat "gist -oPd '' -f " (file-name-nondirectory file)))))
+    (delete-other-windows))
 
-  (defun my-junk-new ()
+ (defun open-gist-web-page ()
+    "Open GitHub Gist page."
+    (interactive)
+    (browse-url "https://gist.github.com/minorugh"))
+
+  (defun open-lepton ()
+    "Specify the full path, disable the sandbox if necessary, and start Lepton."
+    (interactive)
+    (start-process-shell-command
+     "lepton" nil
+     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
+
+(defun my-junk-new ()
     "タイムスタンプ付きPerlスクラッチファイルを開く。"
     (interactive)
     (let* ((file    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
