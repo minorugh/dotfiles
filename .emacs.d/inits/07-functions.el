@@ -1,4 +1,4 @@
-;;; 08-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 07-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
@@ -87,4 +87,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 08-functions.el ends here
+;;; 07-functions.el ends here

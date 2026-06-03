@@ -1,12 +1,57 @@
-;;; 10-makefile.el --- Makefile support: targets, ivy, compile  -*- lexical-binding: t -*-
+;;; 08-build.el --- Compile and Makefile integration.    -*- lexical-binding: t -*-
 ;;; Commentary:
-;;
-;; Personal settings that summarize Makefile operations.
-;; Keybinding @ (evil normal) for target selection via ivy.
-;; C-c C-e to toggle read-only.  qq (key-chord) also toggles read-only.
-;;
 ;;; Code:
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compilation
+;; Smart compilation handler: auto-closes the window on success,
+;; surfaces ##> markers as echo-area messages, and keeps the
+;; output scrolling in real time.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun compile-autoclose (buffer string)
+  "Auto-close compile window if BUFFER finished successfully.
+STRING is the exit status message from the compilation process."
+  (if (and (string-match "compilation" (buffer-name buffer))
+           (string-match "finished" string))
+      (let ((msg (with-current-buffer buffer
+                   (save-excursion
+                     (goto-char (point-max))
+                     (if (re-search-backward "^##>\\(.*\\)$" nil t)
+                         (match-string 1)
+                       "Compile successful.")))))
+        (message "%s" msg)
+        (if (string-equal msg "")
+            ;; ##> 単体のとき → 全画面表示
+            (run-at-time 0.1 nil (lambda ()
+                                   (switch-to-buffer buffer)
+                                   (delete-other-windows)))
+          ;; ##> + コメント or echo のないとき → close window
+          (delete-windows-on buffer)))
+    ;; 失敗時
+    (message "Compilation exited abnormally: %s" string)))
+(setq compilation-finish-functions #'compile-autoclose)
+
+;;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
+(defun my-dim-compilation-marker ()
+  "Make bare ##> lines invisible in compilation buffer."
+  (save-excursion
+    (goto-char compilation-filter-start)
+    (while (re-search-forward "^##>[ \t]*$" nil t)
+      (put-text-property (line-beginning-position)
+                         (line-end-position)
+                         'invisible t))))
+(add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
+
+(setq compilation-scroll-output t)
+(setq compilation-always-kill   t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; make functions
+;; Ivy-powered Makefile target launcher with live preview.
+;; Works in makefile-mode, dired, and any buffer under a
+;; Makefile root.  Toggle read-only/evil-state in one keystroke.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (leaf makefile-functions
   :after (evil key-chord)
   :init
@@ -34,7 +79,6 @@
 		(t default-directory))))
       (let ((mk (expand-file-name "Makefile" dir)))
 	(when (file-exists-p mk) mk))))
-
 
   ;; Select and run targets via ivy.  Works in makefile-mode and dired.
   (defun my-make-ivy-integrated ()
@@ -113,7 +157,8 @@
             (compile "make git"))
 	(message "Makefile not found")))))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-makefile.el ends here
+;;; 08-build.el ends here

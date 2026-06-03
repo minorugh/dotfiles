@@ -12,12 +12,12 @@
   (hydra-browse
    (:hint nil :exit t)
    "
-  ^Shop^          ^SNS^           ^🔃 Repos^     ^Blog^       ^Life^         ^Social^     ^Github^        ^Google       ^^^Favorites
+  ^Shop^          ^SNS^           ^🔃 Repos^     ^Blog^       ^Life^         ^Social^     ^Github^        ^Google          ^^^Favorites
   ^^^^^^^^^^^^^^^^^────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  _a_: Amazon     _t_: Twitter    _D_: Dropbox   _b_: bible   _j_: Jorudan   _K_: Keep    _1_: minorugh   _c_: calendar^^  _3_: masasam
-  _R_: Rakuten    _u_: Youtube    _F_: Flickr    _S_: snap    _n_: News      _p_: Pocket  _2_: gist       _m_: mail/_r_es  _4_: seagle
+  _a_: Amazon     _t_: Twitter    _D_: Dropbox   _B_: bible   _j_: Jorudan   _K_: Keep    _1_: minorugh   _c_: calendar^^    _3_: masasam
+  _R_: Rakuten    _u_: Youtube    _F_: Flickr    _S_: snap    _n_: News      _p_: Pocket  _2_: gist       _m_: mutt/_b_ird   _4_: seagle
   _y_: Yodobashi  _i_: Instagram  _G_: Gdrive    _E_: Essay   _w_: Weather   _q_: Qiita   _d_: deploy     _M_: Map
-  _k_: Kakaku     _T_: Tumblr     _x_: Xserver   _B_: Blog    _b_: SanyoBas  _s_: Slack   _o_: github.io  _P_: photo
+  _k_: Kakaku     _T_: Tumblr     _x_: Xserver   _l_: Blog    _b_: SanyoBas  _s_: Slack   _o_: github.io  _P_: photo
 "
    ("a" (browse-url "https://www.amazon.co.jp/"))
    ("R" (browse-url "https://www.rakuten.co.jp/"))
@@ -32,10 +32,10 @@
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
    ("M" (browse-url "https://www.google.co.jp/maps"))
-   ("B" (browse-url "http://blog.gospel-haiku.com/"))
+   ("l" (browse-url "http://blog.gospel-haiku.com/"))
    ("E" (browse-url "https://es.gospel-haiku.com/post/"))
    ("S" (browse-url "https://snap.minorugh.com/"))
-   ("b" (browse-url "https://bible.minorugh.com/post/"))
+   ("B" (browse-url "https://bible.minorugh.com/post/"))
    ("i" (browse-url "https://www.instagram.com/"))
    ("j" (browse-url "https://www.jorudan.co.jp/"))
    ("n" (browse-url "https://news.yahoo.co.jp/"))
@@ -52,7 +52,7 @@
    ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
    ("d" #'my-github-deploy)
    ("m" neomutt)
-   ("r" neomutt-restart)
+   ("b" thunderbird)
    ("M" (browse-url "https://www.google.com/maps/@34.6595995,135.0840072,15z?authuser=0&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"))
    ("s" (start-process "slack" nil "slack"))
    ("<muhenkan>" nil)
@@ -62,20 +62,6 @@
     "Open thunderbird mail-client for Gmail and detach it from Emacs."
     (interactive)
     (call-process "setsid" nil 0 nil "thunderbird"))
-
-  (defun neomutt ()
-    "Toggle NeoMutt window."
-    (interactive)
-    (let ((win (string-trim (shell-command-to-string "wmctrl -l | grep 'NeoMutt Mail'"))))
-      (if (string= win "")
-          (call-process "setsid" nil 0 nil "neomutt.sh")
-	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
-
-  (defun neomutt-restart ()
-      "Kill and restart NeoMutt tmux session."
-      (interactive)
-      (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
-      (call-process "setsid" nil 0 nil "neomutt.sh"))
 
 ;;; github-deploy
 ;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。

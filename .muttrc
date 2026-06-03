@@ -129,46 +129,46 @@ macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
 # Color settings for mutt --------------------------------
 # ====================================================================
 # source ~/.mutt/dracula.muttrc
-
-# Iceberg Inspired Theme for NeoMutt
-# 全体のデフォルト（背景：深い青緑がかったグレー、文字：オフホワイト）
-color normal        color252        color234
-
+# Iceberg Inspired Theme for NeoMutt (Dracula background)
+# 全体のデフォルト（背景：Dracula #282a36）
+color normal        color252        default
 # エラーとステータス・インジケータ
-# color error         color203        color234
-color error         color110        color234
-color message       color110        color234
-color status        color245        color235
-color indicator     color234        color110
-color prompt        color150        color234
-
+color error         color110        default
+color message       color110        default
+color status        color245        default
+color indicator     color231        color68
+color prompt        color150        default
 # インデックス（メール一覧）の配色
-color index         color252        color234        ~A           # すべてのメッセージ
-color index         color150        color234        ~N           # 新着 (淡いグリーン)
-color index         color110        color234        ~O           # 未読 (涼しいブルー)
-color index         color216        color234        ~F           # フラグ付き (淡いオレンジ)
-color index         color243        color234        ~D           # 削除済み (暗いグレー)
-
-# メッセージヘッダー（メール本文の上の情報）
-color hdrdefault    color243        color234
-color header        color110        color234        "^(From|Subject):"
-color header        color150        color234        "^Date:"
-
-# メール本文・引用（グラデーションを抑えた静かな色合い）
-color quoted        color109        color234        # 引用レベル 1 (青緑)
-color quoted1       color244        color234        # 引用レベル 2 (グレー)
-color quoted2       color150        color234        # 引用レベル 3 (薄緑)
-color signature     color243        color234
-color attachment    color216        color234
-
+color index         color252        default        ~A
+color index         color150        default        ~N
+color index         color110        default        ~O
+color index         color216        default        ~F
+color index         color243        default        ~D
+# メッセージヘッダー
+color hdrdefault    color243        default
+color header        color110        default        "^(From|Subject):"
+color header        color150        default        "^Date:"
+# メール本文・引用
+color quoted        color109        default
+color quoted1       color244        default
+color quoted2       color150        default
+color signature     color243        default
+color attachment    color216        default
 # メインURLや検索ヒット
-color search        color234        color150
-color body          color110        color234        "(https?|ftp|news)://[^>\\s]+"
-color body          color110        color234        "[-a-z_0-9.]+@[-a-z_0-9.]+"
+color search        default        color150
+color body          color110        default        "(https?|ftp|news)://[^>\s]+"
+color body          color110        default        "[-a-z_0-9.]+@[-a-z_0-9.]+"
+# サイドバー
+color sidebar_divider color237      default
+color sidebar_new     color150      default
 
-# サイドバー（有効にしている場合）
-color sidebar_divider color237      color234
-color sidebar_new     color150      color234
+# カラーチャート表示コマンド（ターミナルで実行）
+# python3 -c "
+# for i in range(0, 256):
+#     print(f'\033[48;5;{i}m {i:3d} \033[0m', end='')
+#     if (i + 1) % 16 == 0:
+#         print()
+# "
 
 # .muttrc ends here
 ############################################################

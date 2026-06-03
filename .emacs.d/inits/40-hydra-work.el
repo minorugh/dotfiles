@@ -11,10 +11,12 @@
    (:hint nil :exit t)
    "
    Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   thunder_b_ird^^  _p_rint._r_e  _._kendai  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_epton  browse_@_p^^  _:_marque  _e_asy-hugo^^^^  _j_unk._+_scale^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _/_:月例^^   thunder_b_ird^^  _p_rint._r_e  _K_endai^^  yas._n_._v_._i_  _c_ap._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _y_:年度_,_  _g_ist._l_epton  browse_@_p^^  mutt_,__:_  _e_asy-hugo^^^^  _j_unk._+_scale^^
 "
    ("+" text-scale-adjust)
+   ("." neomutt)
+   (":" neomutt-restart)
    ("c" my-capitalize-word)
    ("u" my-upcase-word)
    ("o" my-downcase-word)
@@ -30,8 +32,7 @@
    ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
    ("A" my-apvoice-new-post)
    ("b" thunderbird)
-   ("." (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
-   (":" (my-open "~/Dropbox/GH/update/marquee.dat" :pos 'top :emacs))
+   ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
    ("@" browse-at-remote)
    ("e" easy-hugo)
    ("J" (my-open "~/Dropbox/howm/junk/"))
@@ -62,6 +63,21 @@
     :doc "Open github page from Emacs"
     :config
     (setq browse-at-remote-prefer-symbolic nil))
+
+  (defun neomutt ()
+    "Toggle NeoMutt window."
+    (interactive)
+    (let ((win (string-trim (shell-command-to-string "wmctrl -l | grep 'NeoMutt Mail'"))))
+      (if (string= win "")
+          (call-process "setsid" nil 0 nil "neomutt.sh")
+	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
+
+  (defun neomutt-restart ()
+    "Kill and restart NeoMutt tmux session."
+    (interactive)
+    (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
+    (call-process "setsid" nil 0 nil "neomutt.sh"))
+
 
   (defun my-junk-new ()
     "タイムスタンプ付きPerlスクラッチファイルを開く。"
