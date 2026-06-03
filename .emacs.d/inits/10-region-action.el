@@ -1,4 +1,4 @@
-;;; 20-region-action.el --- Region action configurations. -*- lexical-binding: t -*-
+;;; 10-region-action.el --- Region action configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; Emacs-state でのリージョン選択中だけ有効なキーマップと IME 自動 OFF 機能。
 ;; Evil の visual-state-map と同等のキーバインドを emacs-state でも使えるようにする。
@@ -69,4 +69,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 20-region-action.el ends here
+;;; 10-region-action.el ends here
