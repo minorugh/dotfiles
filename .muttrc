@@ -24,8 +24,8 @@ set timeout = 15
 set imap_keepalive = 240
 set imap_idle = yes
 unset imap_passive
-set history_file = ~/.mutt/history 
-# set postponed = "+[Gmail]/Drafts"
+set history_file = ~/.mutt/history
+set postponed = "+[Gmail]/下書き"
 set trash = "+[Gmail]/Trash"
 set record = "+[Gmail]/Sent Mail"
 set header_cache = "~/.mutt/cache/headers"
@@ -172,4 +172,3 @@ color sidebar_new     color150      default
 
 # .muttrc ends here
 ############################################################
-
