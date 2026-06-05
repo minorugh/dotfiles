@@ -11,7 +11,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup
+all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup
 
 .ONESHELL:
 
@@ -59,6 +59,9 @@ keyring-backup: ## Gnome keyring を Dropbox にバックアップ
 ## zsh履歴を Dropbox にバックアップ
 zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 	cp -p ${HOME}/.zsh_history ${HOME}/Dropbox/backup/env/zsh/.zsh_history
+
+abook-backup:  ## ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
+	/usr/local/bin/abook-backup.sh
 
 ## endfile
 
