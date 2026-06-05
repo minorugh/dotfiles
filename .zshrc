@@ -283,6 +283,38 @@ function optimize-png() {
     fi
 }
 
+# README集約用の便利コマンド
+mklink-readme() {
+    # ⚠️ 【ここだけ自分の環境に合わせて書き換えてください】
+    # インデックス用ディレクトリの「絶対パス」を指定します
+    local INDEX_DIR="$HOME/src/github.com/minorugh/dotfiles/doc/README"
+
+    # カレントディレクトリに README.md があるかチェック
+    if [ ! -f "README.md" ]; then
+        echo "❌ エラー: このディレクトリに README.md は見つかりません。"
+        return 1
+    fi
+
+    # 保存先ディレクトリがなければ自動作成
+    mkdir -p "$INDEX_DIR"
+
+    # 現在のディレクトリ名（末尾のフォルダ名）を取得
+    local current_dir_name=$(basename "$PWD")
+
+    # リンク先の名前を決定（例: auth-README.md）
+    local link_name="${current_dir_name}-README.md"
+
+    # 保存先のパスから、今いる場所（実体）への「相対パス」を自動計算
+    # ※Git共有を考慮し、環境に依存しない相対パスで作成します
+    local relative_target=$(python3 -c "import os; print(os.path.relpath('$PWD/README.md', '$INDEX_DIR'))")
+
+    # 指定場所にシンボリックリンクを作成
+    ln -sf "$relative_target" "$INDEX_DIR/$link_name"
+
+    echo "✅ シンボリックリンクを作成しました！"
+    echo "   🔗 $INDEX_DIR/$link_name -> $relative_target"
+}
+
 ########################################
 # Plugins
 ########################################

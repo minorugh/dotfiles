@@ -64,14 +64,16 @@ set editor="emacsclient"
 
 # addressbook use Abook
 set query_command= "abook --mutt-query '%s'"
+
 # 確認しながら追加（対話モード）
 macro index,pager a "<pipe-message>bash ~/.mutt/abook-add.sh<return>" "Add this sender to Abook"
 macro index,pager \Ca "<shell-escape>abook<return>" "Open abook"
 bind editor        <Tab> complete-query
 
-# Sidebar Patch --------------------------------------------
-set sidebar_format   = "%B%?F? [%F]?%* %?N?%N/?%S"
-set sidebar_width    = 28
+# Sidebar --------------------------------------------------
+# %B:フォルダ名 %*:スペース埋め %?N?%N/?:未読数/（未読時のみ） %S:総件数
+set sidebar_format = "%B%* %?N?%N/?%S"
+set sidebar_width  = 28
 
 # Status Bar -----------------------------------------------
 set status_chars  = " *%A"
