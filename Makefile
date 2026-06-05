@@ -41,7 +41,7 @@ help:
 
 all: baseinstall nextinstall
 baseinstall: env-setup ssh install base init zsh-restore init-sub keymap keyd grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
-nextinstall: google-chrome filezilla gitk neomutt w3m abook sxiv lepton zoom printer
+nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer
 
 .ONESHELL:
 SHELL = /bin/bash
@@ -152,6 +152,8 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/backup/gitea-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/gitea-backup.sh
+	sudo ln -vsfn ${PWD}/backup/abook-backup.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/abook-backup.sh
 	sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
 	sudo ln -vsf ${PWD}/backup/anacron-backup.sh /etc/cron.daily/anacron-backup
@@ -285,10 +287,10 @@ thunderbird: ## Thunderbird の設定
 # Debian 13（GLIBC 2.40）に上げれば v1.2.0 バイナリも動くようになる
 
 neomutt: ## NeoMutt の設定
-	$(APT) $@ urlscan
+	$(APT) $@ urlscan abook
 	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
-	for item in password.gpg signature.gpg mailcap certificates dracula.muttrc nord.muttrc; do
+	for item in mailcap certificates abook-add.sh; do
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item
 	done
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
@@ -296,11 +298,6 @@ neomutt: ## NeoMutt の設定
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
 	mkdir -p ${HOME}/.config/urlscan
 	ln -vsfn {${PWD},${HOME}}/.config/urlscan/config.toml
-
-abook: ## NeoMutt補助（簡易アドレス帳・検索用）
-	$(APT) $@
-	mkdir -p ${HOME}/.abook
-	ln -vsf {${PWD},${HOME}}/.abook/addressbook
 
 sxiv: ## sxiv の設定
 	$(APT) $@

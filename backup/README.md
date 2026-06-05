@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-05-25
+更新日: 2026-06-05
 
 ---
 
@@ -25,6 +25,7 @@ backup/
   thunderbird-backup.sh  # Thunderbird バックアップ
   filezilla-backup.sh    # FileZilla 設定バックアップ
   gitea-backup.sh        # Gitea data バックアップ
+  abook-backup.sh        # abook アドレス帳バックアップ
 ```
 
 ---
@@ -47,6 +48,7 @@ backup/
 [autobackup] gitea: OK
 [autobackup] filezilla: OK
 [autobackup] thunderbird: OK
+[autobackup] abook: OK
 [autobackup] END: 2026-04-06 23:50:30 (OK)
 ```
 
@@ -78,6 +80,7 @@ zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 gitea-backup:        # Gitea data を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
 thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
+abook-backup:        # ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 ```
 
 #### バックアップ対象詳細
@@ -92,7 +95,7 @@ thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
 | `gitea-backup` | `~/Dropbox/backup/gitea/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
 | `thunderbird-backup` | `~/Dropbox/backup/thunderbird/` |
-
+| `abook-backup` | `~/Dropbox/backup/abook/` |
 ---
 
 ## 6. シンボリックリンク管理

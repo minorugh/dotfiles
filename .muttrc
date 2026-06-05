@@ -25,15 +25,15 @@ set imap_keepalive = 240
 set imap_idle = yes
 unset imap_passive
 set history_file = ~/.mutt/history
+set history = 30
 set postponed = "+[Gmail]/下書き"
-set trash = "+[Gmail]/Trash"
-set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/ゴミ箱"
+set record = "+[Gmail]/送信済みメール"
 set header_cache = "~/.mutt/cache/headers"
 set message_cachedir = "~/.mutt/cache/bodies"
 set certificate_file= "~/.mutt/certificates"
 set signature = "~/.env_source/.mutt/signature"
 set move = no
-# set delete = yes
 set include
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
@@ -58,21 +58,19 @@ set new_mail_command="notify-send --icon=neomutt 'New Email' '%n new messages, %
 # Open URL using w3m ---------------------------------------
 macro index,pager u ": unset wait_key; set pipe_decode\n|w3m\n: \
 set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
-# macro index,pager \cb ": unset wait_key; set pipe_decode\n|w3m\n: \
-# set wait_key; unset pipe_decode\n" "call w3m to extract URLs out of a message"
 
 # Change the following line to a different editor you prefer.
 set editor="emacsclient"
-#set editor="vim"
 
 # addressbook use Abook
 set query_command= "abook --mutt-query '%s'"
-macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
+# 確認しながら追加（対話モード）
+macro index,pager a "<pipe-message>bash ~/.mutt/abook-add.sh<return>" "Add this sender to Abook"
+macro index,pager \Ca "<shell-escape>abook<return>" "Open abook"
 bind editor        <Tab> complete-query
 
 # Sidebar Patch --------------------------------------------
 set sidebar_format   = "%B%?F? [%F]?%* %?N?%N/?%S"
-# set sidebar_visible = yes
 set sidebar_width    = 28
 
 # Status Bar -----------------------------------------------
@@ -118,7 +116,6 @@ bind index,pager  b previous-page     # Go to previous page
 macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続とフォルダの開き直し"
 
 # index画面でqを押したらウィンドウを最小化（Xfce用）
-# set quit = yes
 unset wait_key
 macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "close window"
 
@@ -128,7 +125,6 @@ macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
 # ====================================================================
 # Color settings for mutt --------------------------------
 # ====================================================================
-# source ~/.mutt/dracula.muttrc
 # Iceberg Inspired Theme for NeoMutt (Dracula background)
 # 全体のデフォルト（背景：Dracula #282a36）
 color normal        color252        default
