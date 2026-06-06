@@ -11,7 +11,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup
+all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup readmes-backup
 
 .ONESHELL:
 
@@ -62,6 +62,20 @@ zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 
 abook-backup:  ## ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 	/usr/local/bin/abook-backup.sh
+
+
+readmes-backup: ## 各所のREADMEをDropbox/READMESにコピー
+	@mkdir -p ${HOME}/Dropbox/READMES
+	@cp ${HOME}/src/github.com/minorugh/env-import/README.md       ${HOME}/Dropbox/READMES/00-env-import-README.md
+	@cp ${HOME}/.env_source/README.md                              ${HOME}/Dropbox/READMES/01-env_source-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/README.md         ${HOME}/Dropbox/READMES/02-dotfiles-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/backup/README.md  ${HOME}/Dropbox/READMES/03-backup-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/cron/README.md    ${HOME}/Dropbox/READMES/04-cron-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/.mutt/README.md   ${HOME}/Dropbox/READMES/05-mutt-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/bin/README.md     ${HOME}/Dropbox/READMES/06-bin-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/docker/README.md  ${HOME}/Dropbox/READMES/07-docker-README.md
+	@cp ${HOME}/Dropbox/backup/README.md                           ${HOME}/Dropbox/READMES/08-Dropbox-README.md
+	@echo "$$(date '+%Y-%m-%d %H:%M:%S') readmes backup done"
 
 ## endfile
 
