@@ -1,8 +1,4 @@
 # zshrc
-
-########################################
-# Initialization
-########################################
 plugins=(… zsh-completions)
 autoload -U compinit promptinit
 compinit
@@ -141,15 +137,6 @@ precmd() { vcs_info }
 bindkey -e
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# 履歴をfzfでインクリメンタル検索
-function fzf-history() {
-    BUFFER=$(fc -l -n 1 | tac | fzf --reverse --no-sort --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N fzf-history
-bindkey '^r' fzf-history
-
 ########################################
 # PATH / Environment
 ########################################
@@ -157,7 +144,7 @@ export GOROOT="/usr/local/go"
 export GOPATH="$HOME/src/go"
 export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
 
-export EDITOR=emacsclient
+export EDITOR=nano
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
@@ -170,50 +157,53 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 ########################################
 # Aliases
 ########################################
-# 基本コマンド
 alias ls='ls -v -F --color=auto'
 alias ll='ls -al'
 alias la='ls -A'
 alias cl='clear'
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 alias cp='cp -ip'
 alias mv='mv -i'
 alias rm='rm -i'
 alias du='du -h'
 alias df='df -h'
 alias free='free -h'
-alias open='xdg-open'
-alias ex='exit'
-alias myip="ip -4 a | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v 127"
-alias is='whois'
-
-# アーカイブ展開
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
-
-# アプリ
 alias iv='sxiv'
 alias fz='filezilla -s'
+alias is='whois'
+alias myip="ip -4 a | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v 127"
+alias open='xdg-open'
+alias ex='exit'
+alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
+alias xsrv='ssh xsrv'
+alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
+
+# neomutt
+alias mutt='/usr/local/bin/neomutt.sh'
+
+# vim
 alias v='vim'
+
+# emacs
 alias e='emacs'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
-alias mutt='/usr/local/bin/neomutt.sh'
-alias xsrv='ssh xsrv'
-alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
-alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
-alias pinta='flatpak run com.github.PintaProject.Pinta'
-alias ifconfig='/sbin/ifconfig'
 
-# パスワード生成
+# crontab
+alias ce='crontab -e'
+
+# password generator
 alias pw12='pwgen 12 16'
 alias pw24='pwgen 24 8'
 alias pw40='pwgen 40 4'
 
+# apps
+alias pinta='flatpak run com.github.PintaProject.Pinta'
+alias ifconfig='/sbin/ifconfig'
+
 # apt
 alias update='sudo apt update'
 alias upgrade='sudo apt -y upgrade'
-
-# crontab
-alias ce='crontab -e'
 
 ########################################
 # Functions
@@ -223,6 +213,15 @@ alias ce='crontab -e'
 function chpwd() {
     ls -v -F --color=auto
 }
+
+# 履歴をfzfでインクリメンタル検索 (^r)
+function fzf-history() {
+    BUFFER=$(fc -l -n 1 | tac | fzf --reverse --no-sort --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N fzf-history
+bindkey '^r' fzf-history
 
 # 画像変換
 function webm2gif() {
@@ -234,39 +233,6 @@ function webm2gif() {
     fi
 }
 
-function optimize-jpg() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        convert $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB ${fname}_converted.jpg
-    else
-        echo 'usage: optimize-jpg sample.jpg'
-    fi
-}
-
-function optimize-png() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        convert $1 -strip ${fname}_converted.png
-    else
-        echo 'usage: optimize-png sample.png'
-    fi
-}
-
-function blog-jpg() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        convert $1 -resize 800x re_${fname}.jpg
-    else
-        echo 'usage: blog-jpg sample.jpg'
-    fi
-}
-
-function resize-all() {
-    mkdir resize
-    mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
-}
-
-# ドキュメント変換
 function md2pdf() {
     if [ $# = 1 ]; then
         fname="${1%.*}"
@@ -285,18 +251,63 @@ function md2docx() {
     fi
 }
 
-# README をインデックスディレクトリにシンボリックリンクで集約する
-function mklink-readme() {
+function optimize-jpg() {
+    if [ $# = 1 ]; then
+        fname="${1%.*}"
+        convert $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB ${fname}_converted.jpg
+    else
+        echo 'usage: optimize-jpg sample.jpg'
+    fi
+}
+
+function blog-jpg() {
+    if [ $# = 1 ]; then
+        fname="${1%.*}"
+        convert $1 -resize 800x re_${fname}.jpg
+    else
+        echo 'usage: blog-jpg sample.jpg'
+    fi
+}
+
+function resize-all() {
+    mkdir resize
+    mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
+}
+
+function optimize-png() {
+    if [ $# = 1 ]; then
+        fname="${1%.*}"
+        convert $1 -strip ${fname}_converted.png
+    else
+        echo 'usage: optimize-png sample.png'
+    fi
+}
+
+# README集約用の便利コマンド
+mklink-readme() {
+    # ⚠️ 【ここだけ自分の環境に合わせて書き換えてください】
+    # インデックス用ディレクトリの「絶対パス」を指定します
+    # local INDEX_DIR="$HOME/src/github.com/minorugh/dotfiles/READMES"
     local INDEX_DIR="$HOME/Dropbox/READMES"
+    # カレントディレクトリに README.md があるかチェック
     if [ ! -f "README.md" ]; then
         echo "❌ エラー: このディレクトリに README.md は見つかりません。"
         return 1
     fi
+    # 保存先ディレクトリがなければ自動作成
     mkdir -p "$INDEX_DIR"
-    local link_name="$(basename $PWD)-README.md"
+    # 現在のディレクトリ名（末尾のフォルダ名）を取得
+    local current_dir_name=$(basename "$PWD")
+    # リンク先の名前を決定（例: auth-README.md）
+    local link_name="${current_dir_name}-README.md"
+    # 保存先のパスから、今いる場所（実体）への「相対パス」を自動計算
+    # ※Git共有を考慮し、環境に依存しない相対パスで作成します
     local relative_target=$(python3 -c "import os; print(os.path.relpath('$PWD/README.md', '$INDEX_DIR'))")
+    # 指定場所にシンボリックリンクを作成
     ln -sf "$relative_target" "$INDEX_DIR/$link_name"
-    echo "✅ $INDEX_DIR/$link_name -> $relative_target"
+
+    echo "✅ シンボリックリンクを作成しました！"
+    echo "   🔗 $INDEX_DIR/$link_name -> $relative_target"
 }
 
 ########################################
@@ -305,7 +316,6 @@ function mklink-readme() {
 # zsh-syntax-highlighting: sudo apt install zsh-syntax-highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# gh コマンド補完
 eval "$(gh completion -s zsh)"
 
 ### end
