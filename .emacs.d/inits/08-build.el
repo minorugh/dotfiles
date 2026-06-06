@@ -2,12 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ---------------------------------------------------------------
 ;; Compilation
 ;; Smart compilation handler: auto-closes the window on success,
 ;; surfaces ##> markers as echo-area messages, and keeps the
 ;; output scrolling in real time.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ----------------------------------------------------------------
 (defun compile-autoclose (buffer string)
   "Auto-close compile window if BUFFER finished successfully.
 STRING is the exit status message from the compilation process."
@@ -31,7 +31,7 @@ STRING is the exit status message from the compilation process."
     (message "Compilation exited abnormally: %s" string)))
 (setq compilation-finish-functions #'compile-autoclose)
 
-;;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
+;; ##> 単体行を不可視化（バッファには残るのでシグナルとして機能する）
 (defun my-dim-compilation-marker ()
   "Make bare ##> lines invisible in compilation buffer."
   (save-excursion
@@ -46,12 +46,12 @@ STRING is the exit status message from the compilation process."
 (setq compilation-always-kill   t)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ----------------------------------------------------------------
 ;; make functions
 ;; Ivy-powered Makefile target launcher with live preview.
 ;; Works in makefile-mode, dired, and any buffer under a
 ;; Makefile root.  Toggle read-only/evil-state in one keystroke.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ----------------------------------------------------------------
 (leaf makefile-functions
   :after (evil key-chord)
   :init
