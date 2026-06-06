@@ -2,10 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ------------------------------------------------
 ;; Backup: xserver → xsrv-GH / xsrv-minorugh
 ;; key bindings in 50-dired.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ------------------------------------------------
 (defun my-xsrv-backup (src-dir pair-dir)
   "SRC-DIR の `dired' で xsev-backup実行後に PAIR-DIRを復元する."
   (interactive)
@@ -30,10 +30,10 @@
      (t
       (message "このディレクトリはbackup対象外です")))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ----------------------------------------
 ;; Deploy from local dired
 ;; key bindings in 50-dired.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ----------------------------------------
 (defun xsrv-deploy-dired ()
   "Deploy file at point in `dired' to xserver."
   (interactive)
@@ -55,10 +55,10 @@
                ("やめる" . nil)))
         (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --------------------------------------
 ;; Download: xsrv-GH → local GH
 ;; key bindings in 50-dired.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --------------------------------------
 (defun xsrv-download-dired ()
   "Download file at point in `dired' from xsrv-GH/xsrv-minorugh to local."
   (interactive)
@@ -92,10 +92,10 @@
               (with-current-buffer buf
                 (revert-buffer)))))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -----------------------------------------
 ;; git-peek
 ;; key bindings in 40-hydra-dired.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -----------------------------------------
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek")
   :config
@@ -133,9 +133,9 @@ Show 2pane when called from xsrv `dired'."
 	(add-hook 'git-peek-finish-hook fn))
       (git-peek))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --------------------------------------------
 ;; Buffer colorize for xsrv-GH dired & files
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --------------------------------------------
 (defvar my-xsrv-buffer-color "#051122"
   "Background color of buffers under Xsrv-GH/xsrv-minorugh.")
 

@@ -71,6 +71,9 @@
 	(switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*"))))
 
+;; ~/.emacs.d/lisp/ に置いて init.el に追加
+(load "my-fix-mojibake")
+(global-set-key (kbd "C-c f") 'my-fix-mojibake)
 
 ;; toggle-emacs.sh
 ;; #!/bin/bash

@@ -287,7 +287,8 @@ function optimize-png() {
 mklink-readme() {
     # ⚠️ 【ここだけ自分の環境に合わせて書き換えてください】
     # インデックス用ディレクトリの「絶対パス」を指定します
-    local INDEX_DIR="$HOME/src/github.com/minorugh/dotfiles/READMES"
+    # local INDEX_DIR="$HOME/src/github.com/minorugh/dotfiles/READMES"
+    local INDEX_DIR="$HOME/Dropbox/READMES"
     # カレントディレクトリに README.md があるかチェック
     if [ ! -f "README.md" ]; then
         echo "❌ エラー: このディレクトリに README.md は見つかりません。"
