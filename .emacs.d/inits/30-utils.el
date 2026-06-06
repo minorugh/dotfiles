@@ -73,6 +73,10 @@ Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
    ("v" package-vc-upgrade-all)
    ("<muhenkan>" nil)))
 
+;; 句会データの文字化け修正
+(load "my-fix-mojibake")
+(global-set-key (kbd "C-c f") 'my-fix-mojibake)
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
