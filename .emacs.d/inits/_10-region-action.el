@@ -4,15 +4,25 @@
 ;; Evil の visual-state-map と同等のキーバインドを emacs-state でも使えるようにする。
 ;;; Code:
 
-;; ---------------------------------------------------------------
-;; my-selected-mode: リージョン選択中のみ有効なマイナーモード
-;; ---------------------------------------------------------------
+;;; --- マイナーモード（リージョン選択中のみ有効）---
+
 (defvar my-selected-mode-map (make-sparse-keymap)
   "Keymap valid only during region selection.")
 
 (define-minor-mode my-selected-mode
   "Minor mode auto-enabled during region selection."
   :keymap my-selected-mode-map)
+
+;;; --- キーバインド（evil-visual-state-map に対応）---
+
+(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
+(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
+(define-key my-selected-mode-map (kbd "s") #'swiper-region)
+(define-key my-selected-mode-map (kbd "g") #'my-google-search)
+(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
+(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
+
+;;; --- ユーティリティ関数 ---
 
 (defun my-get-region-or-word ()
   "Return active region text, or word at point."
@@ -30,6 +40,8 @@
   (interactive (list (my-get-region-or-word)))
   (browse-url (format "https://www.weblio.jp/content/%s" (url-hexify-string str))))
 
+;;; --- リージョン連動でモードを ON/OFF ---
+
 (defun my-selected-mode-update ()
   "Toggle `my-selected-mode' based on whether a region is active."
   (if (use-region-p)
@@ -38,19 +50,9 @@
 
 (add-hook 'post-command-hook #'my-selected-mode-update)
 
-;; ---------------------------------------------------------------
-;; 設定: キーバインドと IME 自動 OFF
-;; ---------------------------------------------------------------
+;;; --- IME 自動 OFF（emacs-state では mozc ON のままだとリージョン選択後のキー入力が
+;;;                  my-selected-mode-map より mozc に横取りされるため）---
 
-(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
-(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
-(define-key my-selected-mode-map (kbd "s") #'swiper-region)
-(define-key my-selected-mode-map (kbd "g") #'my-google-search)
-(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
-(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
-
-;; IME 自動 OFF: emacs-state では mozc ON のままだとリージョン選択後のキー入力が
-;; my-selected-mode-map より mozc に横取りされるため
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
 
