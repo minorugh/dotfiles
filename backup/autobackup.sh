@@ -35,10 +35,28 @@ run_target() {
     > "$TMPLOG"
 }
 
+run_melpa() {
+    local before=$(git -C "$HOME/Dropbox/backup/elpa" rev-parse HEAD 2>/dev/null)
+    make -f "$MAKEFILE" melpa >> "$TMPLOG" 2>&1
+    if [ $? -ne 0 ]; then
+        log "melpa: ERROR"
+        cat "$TMPLOG"
+        ERRORS=$((ERRORS + 1))
+    else
+        local after=$(git -C "$HOME/Dropbox/backup/elpa" rev-parse HEAD 2>/dev/null)
+        if [ "$before" != "$after" ]; then
+            log "melpa: コミット＆プッシュしました"
+        else
+            log "melpa: 更新はありません"
+        fi
+    fi
+    > "$TMPLOG"
+}
+
 START=$(date '+%Y-%m-%d %H:%M:%S')
 log "START: ${START}"
 
-run_target "melpa"      melpa
+run_melpa
 run_target "git-push (GH+minorugh.com)"   git-push
 run_target "mozc"        mozc-backup
 run_target "keyring"     keyring-backup
