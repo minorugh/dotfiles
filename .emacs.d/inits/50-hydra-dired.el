@@ -68,7 +68,7 @@
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
-   ("l" (my-open "~/Dropbox/Changelog/"))
+   ("l" (my-open "~/Dropbox/CHANGELOG/"))
    ("q" top-level)
    ("<henkan>" hydra-work/body)
    ("<muhenkan>" nil))
