@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-06-06
+更新日: 2026-06-07
 
 ---
 
@@ -40,7 +40,8 @@ backup/
 
 ```
 [autobackup] START: 2026-04-06 23:50:01
-[autobackup] melpa: OK
+[autobackup] melpa: コミット＆プッシュしました  # 変更あり
+[autobackup] melpa: 更新はありません            # 変更なし
 [autobackup] git-push (GH+minorugh.com): OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
@@ -89,7 +90,7 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 
 | ターゲット | バックアップ先 |
 |---|---|
-| `melpa` | `~/Dropbox/backup/elpa/` + git push（Gitea・Xserver） |
+| `melpa` | `~/Dropbox/backup/elpa/` + git push（Gitea・Xserver）変更時のみ commit & push |
 | `git-push` | GH・minorugh.com の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
