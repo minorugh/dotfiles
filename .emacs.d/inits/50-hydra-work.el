@@ -96,7 +96,7 @@
      "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
 
 (defun my-junk-new ()
-    "タイムスタンプ付きPerlスクラッチファイルを開く。"
+    "タイムスタンプ付きPerlスクラッチファイルを開く."
     (interactive)
     (let* ((file    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
            (is-new  (not (file-exists-p file))))

@@ -57,11 +57,12 @@
   (defalias 'ps-mule-header-string-charsets 'ignore)
   (setq ps-end-with-control-d t))
 
-(leaf elpa-time-machine
-  :doc "Browse past elpa snapshots and extract to tmp/.
-and package management hydra."
+(leaf my-elpa
+  :doc "Browse ELPA snapshots and manage packages via hydra."
   :hook (after-init-hook . (lambda () (require 'elpa-time-machine)))
-  :bind ("C-c e" . elpa-time-machine)
+  :bind (("C-c e" . elpa-time-machine)
+	 ("C-c l" . (lambda () (interactive)
+                      (find-file "~/Dropbox/CHANGELOG/elpa/elpa-changes.log"))))
   :chord ("p@"   . hydra-package/body)
   :hydra
   (hydra-package

@@ -302,7 +302,7 @@
   "Elpa-time-machine プレビュー用 minor-mode キーマップ.")
 
 (define-minor-mode elpa-tm-preview-mode
-  "elpa-time-machine プレビューバッファ用 minor-mode."
+  "Eelpa-time-machine プレビューバッファ用 minor-mode."
   :keymap elpa-tm-preview-mode-map)
 
 ;;; Major mode
