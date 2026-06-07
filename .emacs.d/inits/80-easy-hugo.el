@@ -1,4 +1,4 @@
-;;; 70-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
+;;; 80-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -80,4 +80,4 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved callargs)
 ;; End:
-;;; 70-easy-hugo.el ends here
+;;; 80-easy-hugo.el ends here

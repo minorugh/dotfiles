@@ -1,4 +1,4 @@
-;;; 30-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
+;;; 40-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -57,15 +57,19 @@
   (defalias 'ps-mule-header-string-charsets 'ignore)
   (setq ps-end-with-control-d t))
 
-(leaf package-update
-  :doc "Package management hydra."
-  :chord ("p@" . hydra-package/body)
+(leaf elpa-time-machine
+  :doc "Browse past elpa snapshots and extract to tmp/.
+and package management hydra."
+  :hook (after-init-hook . (lambda () (require 'elpa-time-machine)))
+  :bind ("C-c e" . elpa-time-machine)
+  :chord ("p@"   . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)
    "
-Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
+Package: _t_m _i_nstall _d_elete _u_pgrade up-_a_ll _v_c-up-all
   "
+   ("t" elpa-time-machine)
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
@@ -73,12 +77,44 @@ Package: _i_nstall _d_elete _u_pgrade upgrade-_a_ll _v_c-update-all
    ("v" package-vc-upgrade-all)
    ("<muhenkan>" nil)))
 
-;; 句会データの文字化け修正
-(load "my-fix-mojibake")
-(global-set-key (kbd "C-c f") 'my-fix-mojibake)
+(leaf yatex
+  :ensure t
+  :doc "Yet Another tex-mode for emacs."
+  :url "https://github.com/emacsmirror/yatex"
+  :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
+  :config
+  (setq tex-command              "platex")
+  (setq dviprint-command-format  "dvpd.sh %s")
+  (setq YaTeX-kanji-code         nil)
+  (setq YaTeX-latex-message-code 'utf-8)
+  (setq YaTeX-default-pop-window-height 15))
 
+(leaf yatexprc
+  :ensure nil
+  :doc "YaTeX process handler"
+  :after yatex
+  :bind (("M-c" . YaTeX-typeset-buffer)
+	 ("M-v" . YaTeX-lpr)))
+
+;;-----------------------------
+;; dvpd.sh for Linux
+;;-----------------------------
+;; #!/bin/zsh
+;;
+;; # 生成されたPDFをevinceで開く
+;; name=$1
+;; dvipdfmx ${name%.*} && evince ${name%.*}.pdf
+;;
+;; # 不要ファイルを削除
+;; rm *.au*
+;; rm *.dv*
+;; rm *.lo*
+
+;; 句会データの文字化け修正
+;; (load "my-fix-mojibake")
+;; (global-set-key (kbd "C-c f") 'my-fix-mojibake)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 30-utils.el ends here
+;;; 40-utils.el ends here

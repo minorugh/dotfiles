@@ -1,10 +1,10 @@
-;;; 40-hydra-work.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
+;;; 50-hydra-work.el --- Hydra work-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 (leaf hydra-work
-  :require (my-template)
+  :hook (after-init-hook . (lambda () (require 'my-template)))
   :bind ("<f14>" . hydra-work/body)
   :hydra
   (hydra-work
@@ -57,6 +57,7 @@
    ("<f14>" hydra-dired/body)
    ("<henkan>" hydra-dired/body)
    ("<muhenkan>" nil))
+
   :preface
   (leaf browse-at-remote
     :ensure t
@@ -108,4 +109,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 40-hydra-work.el ends here
+;;; 50-hydra-work.el ends here

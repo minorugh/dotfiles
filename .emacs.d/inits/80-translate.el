@@ -1,4 +1,4 @@
-;;; 70-translate.el --- Deepl translate configurations.  -*- lexical-binding: t -*-
+;;; 80-translate.el --- Deepl translate configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; 2026-03-10 DeepL API 仕様変更に対応
 ;; 認証方式を POST ボディ (auth_key) から Authorization ヘッダーに変更
@@ -38,4 +38,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 70-translate.el ends here
+;;; 80-translate.el ends here
