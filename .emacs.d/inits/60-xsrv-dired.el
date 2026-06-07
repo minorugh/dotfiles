@@ -1,4 +1,4 @@
-;;; 50-xsrv-dired.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
+;;; 60-xsrv-dired.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -99,7 +99,7 @@
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek")
   :config
-  (setq git-peek-save-dir (expand-file-name "~/Dropbox/backup/tmp/"))
+  (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 
   (defun my-git-peek-smart ()
     "Run `git-peek' with appropriate `git-peek-save-dir'.
@@ -159,4 +159,4 @@ Show 2pane when called from xsrv `dired'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 50-xsrv-dired.el ends here
+;;; 60-xsrv-dired.el ends here

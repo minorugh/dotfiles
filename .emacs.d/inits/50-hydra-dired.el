@@ -1,4 +1,4 @@
-;;; 40-hydra-dired.el --- Hydra dired-menu configurations. -*- lexical-binding: t -*-
+;;; 50-hydra-dired.el --- Hydra dired-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -195,4 +195,4 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 40-hydra-dired.el ends here
+;;; 50-hydra-dired.el ends here

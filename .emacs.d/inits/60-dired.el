@@ -1,4 +1,4 @@
-;;; 50-dired.el --- Dired configurations. -*- lexical-binding: t -*-
+;;; 60-dired.el --- Dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -125,4 +125,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 50-dired.el ends here
+;;; 60-dired.el ends here
