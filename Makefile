@@ -139,6 +139,8 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/autobackup.sh
 	sudo ln -vsfn ${PWD}/backup/mozc-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/mozc-backup.sh
+	sudo ln -vsfn ${PWD}/backup/melpa-backup.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/melpa-backup.sh
 	sudo ln -vsfn ${PWD}/backup/thunderbird-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/thunderbird-backup.sh
 	sudo ln -vsfn ${PWD}/backup/filezilla-backup.sh /usr/local/bin

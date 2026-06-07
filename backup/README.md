@@ -21,6 +21,7 @@ backup/
   Makefile               # 夜間自動バックアップ（autobackup.sh から呼び出される）
   autobackup.sh          # オーケストレーター（cron から毎日 23:50 に実行）
   anacron-backup.sh      # anacron用補完スクリプト（起動後5分以内に実行）
+  melpa-backup.sh        # ELPAバックアップ（rsync + git + CHANGELOG出力）
   mozc-backup.sh         # Mozc 辞書バックアップ
   thunderbird-backup.sh  # Thunderbird バックアップ
   filezilla-backup.sh    # FileZilla 設定バックアップ
@@ -90,7 +91,7 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 
 | ターゲット | バックアップ先 |
 |---|---|
-| `melpa` | `~/Dropbox/backup/elpa/` + git push（Gitea・Xserver）変更時のみ commit & push |
+| `melpa` | `~/Dropbox/backup/elpa/` git管理・変更時のみ commit。変更ログを `~/Dropbox/CHANGELOG/elpa/` に蓄積 |
 | `git-push` | GH・minorugh.com の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
