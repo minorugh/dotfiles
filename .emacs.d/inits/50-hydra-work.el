@@ -79,23 +79,7 @@
     (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
     (call-process "setsid" nil 0 nil "neomutt.sh"))
 
-  (defun gist-region-or-buffer ()
-    "Post region or buffer to Gist."
-    (interactive)
-    (let ((file (buffer-file-name)))
-      (if (not (use-region-p))
-          (compile (concat "gist -od '' " file))
-        (compile (concat "gist -oPd '' -f " (file-name-nondirectory file)))))
-    (delete-other-windows))
-
-  (defun open-lepton ()
-    "Specify the full path, disable the sandbox if necessary, and start Lepton."
-    (interactive)
-    (start-process-shell-command
-     "lepton" nil
-     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
-
-(defun my-junk-new ()
+  (defun my-junk-new ()
     "タイムスタンプ付きPerlスクラッチファイルを開く."
     (interactive)
     (let* ((file    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))

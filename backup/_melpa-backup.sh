@@ -11,8 +11,6 @@
 #
 # 変更履歴:
 #   2026-06-07  Makefile の melpa ターゲットをスクリプトに移行
-#   2026-06-08  ADDED_DIRS の grep を '^.d' → '^[^*]d' に修正
-#               （*deleting 行が誤って追加判定されるバグを修正）
 
 set -euo pipefail
 
@@ -43,14 +41,13 @@ fi
 # ── 3. 変更パッケージをディレクトリ単位で集計 ───────────────────────────────
 #
 # rsync --itemize-changes の行頭フラグ:
-#   ^[^*]d..... : ディレクトリ新規作成 → 追加パッケージ
-#                 '^.d' だと *deleting 行もマッチするため [^*] で除外
-#   *deleting   : 削除
+#   >d......... : ディレクトリ新規作成 → 追加パッケージ
+#   *deleting   : 削除（--backup 方式では PAST/ へ退避）
 #
 # 更新 = git ステージ済みトップディレクトリのうち 追加でも削除でもないもの
 
 mapfile -t ADDED_DIRS < <(
-grep '^[^*]d' "${RSYNC_LOG}" \
+  grep '^>d' "${RSYNC_LOG}" \
   | awk '{print $2}' | cut -d/ -f1 | grep -v '^\.' | grep -v '^PAST$' | sort -u
 )
 

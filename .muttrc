@@ -23,6 +23,8 @@ set timeout = 15
 set imap_keepalive = 240
 set imap_idle = yes
 unset imap_passive
+set imap_pipeline_depth = 15
+set connect_timeout = 10
 
 # --- フォルダ・キャッシュ -----------------------------------
 set postponed = "+[Gmail]/下書き"
@@ -37,6 +39,7 @@ set signature = "~/.env_source/.mutt/signature"
 set move = no
 set include
 set auto_tag = yes
+set sendmail_wait = -1
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
