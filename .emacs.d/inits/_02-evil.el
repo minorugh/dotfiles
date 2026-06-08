@@ -1,0 +1,172 @@
+;;; 02-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+;; (setq debug-on-error t)
+
+(leaf evil
+  :ensure t
+  :require (my-evil-cheat-sheet)  ;; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
+  :hook ((after-init-hook . evil-mode))
+  :bind ((:evil-normal-state-map
+          ("C-a"      . seq-home)
+          ("C-e"      . seq-end)
+          ("C-w"      . evil-delete-backward-word)
+          ("SPC"      . evil-scroll-down)
+          ("b"        . evil-scroll-up)
+	  ("@"        . evil-visual-char)
+          ("_"        . evil-visual-line)
+	  ("?"        . my-evil-cheat-sheet)
+          ([muhenkan] . my-muhenkan)
+          ([home]     . dashboard-toggle))
+         (:evil-visual-state-map
+	  ([prior]    . er/expand-region)    ;; PgUp
+	  ([next]     . er/contract-region)  ;; PgDn
+          (";"        . comment-dwim)
+          ("c"        . clipboard-kill-ring-save)
+          ("s"        . swiper-region)
+          ("g"        . my-google-search)
+          ("d"        . deepl-translate)
+	  ("i"        . my-iedit-toggle)
+          ([muhenkan] . my-muhenkan))
+	 (:evil-motion-state-map
+	  ([muhenkan] . my-muhenkan))
+	 (:evil-replace-state-map
+	  ([muhenkan] . my-muhenkan))
+	 (:evil-emacs-state-map
+	  ([insert]   . my-iedit-toggle)
+	  ([muhenkan] . my-muhenkan)
+	  ([escape]   . (lambda () (interactive) (evil-normal-state)))))
+  :init
+  ;; At the end of a line, move to the previous/next line
+  (setq evil-cross-lines t)
+  ;; Use undo-fu for evil undo
+  (setq evil-undo-system 'undo-fu)
+  :config
+  ;; Insert state is automatically changed to emacs state
+  (defalias 'evil-insert-state 'evil-emacs-state)
+
+  ;; Disable redundant insert-commands to enforce Emacs-state workflow.
+  ;; 編集トリガーを 'i' に限定し、Insert-state への誤進入を完全にシャットアウトする。
+  (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
+    (define-key evil-normal-state-map key #'ignore))
+
+  ;; Overwrite `evil-quit' with kill-buffer
+  (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
+  (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
+
+  ;; Force evil-emacs-state for specific modes
+  (dolist (mode '(howm-view-summary-mode
+		  imenu-list-major-mode easy-hugo-mode neotree-mode))
+    (add-to-list 'evil-emacs-state-modes mode))
+
+  ;; Force emacs-state for specific buffers (*init log*, *scratch*).
+  ;; Uses buffer-list-update-hook to check on every buffer switch,
+  ;; since these buffers are identified by name rather than major mode.
+  (add-hook 'buffer-list-update-hook
+            (lambda ()
+              (when (and (member (buffer-name) '("*init log*" "*scratch*"))
+			 (fboundp 'evil-emacs-state)
+			 ;; If already emacs-state, it does nothing.
+			 (not (eq evil-state 'emacs)))
+		(evil-emacs-state))))
+
+  ;; Emacs state only when creating new files
+  (add-hook 'find-file-hook
+            (lambda ()
+              (when (and (buffer-file-name)
+			 (not (file-exists-p (buffer-file-name))))
+		(evil-emacs-state))))
+
+  (defun evil-swap-key (map key1 key2)
+    "Swap KEY1 and KEY2 in MAP."
+    (let ((def1 (lookup-key map key1))
+	  (def2 (lookup-key map key2)))
+      (define-key map key1 def2)
+      (define-key map key2 def1)))
+  (evil-swap-key evil-motion-state-map "j" "gj")
+  (evil-swap-key evil-motion-state-map "k" "gk")
+
+  (defun my-muhenkan ()
+    "Universal escape key."
+    (interactive)
+    (cond
+     ;; Helpバッファが開いていれば閉じる
+     ((get-buffer-window "*Help*")
+      (delete-window (get-buffer-window "*Help*"))
+      (kill-buffer "*Help*"))
+
+     ;; ミニバッファ操作中なら中断
+     ((minibuffer-window-active-p (selected-window))
+      (abort-minibuffers))
+
+     ;; 別のウィンドウでミニバッファが開いていれば、フォーカスして中断
+     ((active-minibuffer-window)
+      (select-window (active-minibuffer-window))
+      (abort-recursive-edit))
+
+     ;; 選択範囲（リージョン）があれば解除
+     ((use-region-p) (deactivate-mark))
+
+     ;; すでにNormalならEmacsへ、それ以外（Emacs/Insert等）ならNormalへ
+     ((evil-normal-state-p) (evil-emacs-state))
+     (t (deactivate-input-method)
+	(evil-normal-state))))
+
+  (defun vim-cheat-sheet ()
+    "View vim cheat sheet online."
+    (interactive)
+    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
+
+;;; --------------------------------------------------------------------------
+;;; Normal-state でleader key ";" を使って編集コマンドを呼び出す。
+;;; insert-stateを使わずNormal stateのまま軽微な編集を完結させるための仕組み。
+;;; ESCでキャンセル、完了後もNormal stateに留まる。muhenkanでEmacs stateへ。
+
+(leaf evil-leader-map
+  :doc "Normal-state leader key ';' で編集コマンドを呼び出す"
+  :require (my-sen-cleanup)
+  :after evil
+  :config
+  (setq echo-keystrokes 0)
+  (defvar my-normal-leader-map (make-sparse-keymap)
+    "Prefix map triggered by ';' in evil-normal-state.")
+
+  (define-key evil-normal-state-map ";" my-normal-leader-map)
+  (let ((m my-normal-leader-map))
+    (define-key m "f" #'counsel-find-file)       ;; ファイル検索
+    (define-key m ":" #'counsel-switch-buffer)   ;; バッファー切替
+    (define-key m "/" #'kill-current-buffer)     ;; built-in
+    (define-key m ";" #'comment-line)            ;; コメントトグル
+    (define-key m "o" #'my-newline-above)        ;; カーソル行の下に行挿入
+    (define-key m "c" #'my-sen-cleanup)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+    (define-key m "r" #'my-sen-restore)          ;; see ~/.emacs.d/elisp/my-sen-cleanup.el
+    (define-key m "w" #'my-darkroom-toggle)      ;; → darkroom起動
+    (define-key m "s" #'swiper)                  ;; → swiper検索
+    (define-key m "@" #'my-insert-maru)          ;; → 行頭に◎挿入（俳句選者用）
+    (define-key m "i" #'my-emacs-state-mozc))    ;; → Emacs-state+mozc on
+
+  (defun my-newline-above ()
+    "Insert a blank line above the current line without leaving Normal state."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (open-line 1)))
+
+  (defun my-emacs-state-mozc ()
+    "Go to Emacs state and turn on Mozc."
+    (interactive)
+    (evil-emacs-state)
+    (activate-input-method "japanese-mozc"))
+
+  (defun my-insert-maru ()
+    "Insert ◎ at line beginning in Normal state. Use ;@ to insert."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (insert "◎"))))
+
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; 02-evil.el ends here

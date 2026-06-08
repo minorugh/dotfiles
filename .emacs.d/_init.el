@@ -1,0 +1,94 @@
+;;; init.el --- User initialization.  -*- lexical-binding: t -*-
+;;; Commentary:
+;; Author: minorugh <https://github.com/minorugh/dotfiles>
+;; Package-Requires: ((Emacs "29.1"))
+;;; Code:
+;; (setq debug-on-error t)
+
+;; (with-current-buffer " *Flymake log*"
+;;  (buffer-string))
+
+(when (version< emacs-version "29.1")
+  (error "This requires Emacs 29.1 and above!"))
+
+;;; Temporarily suppress file-handlers processing to speed up startup
+(defconst default-handlers file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    "Recover file name handlers and GC values after startup."
+	    (setq file-name-handler-alist default-handlers)
+	    (setq gc-cons-threshold (* 16 1024 1024))
+	    (setq inhibit-message nil)
+	    (message "Emacs ready in %s with %d GCs."
+		     (emacs-init-time) gcs-done)
+	    (mapc #'delete-file (file-expand-wildcards "~/.emacs.d/session.*"))))
+
+;;; package system
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+		       ("melpa" . "https://melpa.org/packages/")))
+  (package-initialize)
+  (use-package leaf :ensure t)
+
+  (leaf leaf-keywords
+    :ensure t
+    :init
+    (leaf hydra :ensure t)
+    :config
+    (leaf-keywords-init)))
+
+(leaf init-loader
+  :ensure t
+  :load-path "~/.emacs.d/elisp" ;; To local elisp packages
+  :config
+  (setq init-loader-show-log-after-init 'error-only)
+  (setq init-loader-byte-compile t)
+  (init-loader-load))
+
+;; Personal settings file managed outside of version control.
+(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
+
+;; Japanese language environment and indentation settings
+(set-language-environment "Japanese")
+(setq-default indent-line-function 'indent-for-current-mode)
+
+;; Start Emacs server if not already running
+(leaf server
+  :commands server-running-p
+  :hook (emacs-startup-hook
+	 . (lambda ()
+	     (unless (server-running-p)
+	       (server-start)))))
+
+;; Inherit shell environment variables including SSH_AUTH_Sock
+(leaf exec-path-from-shell
+  :ensure t
+  :when (memq window-system '(mac ns x))
+  :hook (emacs-startup-hook . exec-path-from-shell-initialize)
+  :config
+  ;; Pass SSH_AUTH_SOCK from shell to Emacs so that ssh-agent (keychain)
+  ;; is available for git, FileZilla (shell), and other SSH operations.
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+
+
+(provide 'init)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-vc-selected-packages
+   '((ivy-git-project :url "https://github.com/minorugh/ivy-git-project"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
+;;; init.el ends here

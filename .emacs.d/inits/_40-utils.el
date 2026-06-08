@@ -3,10 +3,6 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Keybinding Utilities
-;;; ============================================================
-
 (leaf which-key
   :tag "builtin"
   :doc "Display available keybindings in popup."
@@ -43,11 +39,31 @@
   :ensure t
   :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")
 
+;; ------------------------------------------------
+;; PostScript printing
+;; ------------------------------------------------
+(leaf ps-print
+  :doc "PostScript printing with Japanese support."
+  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+  :if (executable-find "lpr")
+  :config
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-paper-type       'a4)
+  (setq ps-printer-name      nil)
+  (setq ps-print-header      nil)
+  (setq ps-print-footer      nil)
+  (setq ps-font-size         9)
+  (setq ps-font-family      'Courier)
+  (setq ps-line-number-font 'Courier)
+  (setq ps-line-number       t)
+  (setq ps-show-n-of-n       t)
+  (defalias 'ps-mule-header-string-charsets 'ignore)
+  (setq ps-end-with-control-d t))
 
-;;; ============================================================
-;;;  Package Management
-;;; ============================================================
 
+;; ---------------------------------------------------
+;; package utilities
+;; ---------------------------------------------------
 (leaf my-elpa
   :doc "Browse ELPA snapshots and manage packages via hydra."
   :hook (after-init-hook . (lambda () (require 'elpa-time-machine)))
@@ -70,43 +86,41 @@ Package: _t_m _i_nstall _d_elete _u_pgrade up-_a_ll _v_c-up-all
    ("<muhenkan>" nil)))
 
 
-;;; ============================================================
-;;;  Gist / Lepton Integration
-;;; ============================================================
-
+;; --------------------------------------------
+;; gist configurations
+;; --------------------------------------------
 (defun gist-description ()
-  "Add gist description."
-  (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
+    "Add gist description."
+    (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
 
-(defun gist-filename ()
-  "The character string entered in minibuffer is used as file-name.
+  (defun gist-filename ()
+    "The character string entered in minibuffer is used as file-name.
 If enter is pressed without file-name, that's will be buffer file name."
-  (interactive)
-  (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-    (read-from-minibuffer (format "File name (%s): " file) file)))
+    (interactive)
+    (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
+      (read-from-minibuffer (format "File name (%s): " file) file)))
 
-(defun gist-region-or-buffer ()
-  "If region is selected, post from the region.
+  (defun gist-region-or-buffer ()
+    "If region is selected, post from the region.
 If region isn't selected, post from the buffer."
-  (interactive)
-  (let ((file (buffer-file-name)))
-    (if (not (use-region-p))
-        (compile (concat "gist -od " (gist-description) " " file))
-      (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-  (delete-other-windows))
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (if (not (use-region-p))
+          (compile (concat "gist -od " (gist-description) " " file))
+	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+    (delete-other-windows))
 
-(defun open-lepton ()
-  "Specify the full path, disable the sandbox if necessary, and start Lepton."
-  (interactive)
-  (start-process-shell-command
-   "lepton" nil
-   "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
+  (defun open-lepton ()
+    "Specify the full path, disable the sandbox if necessary, and start Lepton."
+    (interactive)
+    (start-process-shell-command
+     "lepton" nil
+     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
 
 
-;;; ============================================================
-;;;  YaTeX --- Japanese LaTeX Environment
-;;; ============================================================
-
+;; ----------------------------------------------------
+;; Yet another tex-mode for emacs
+;; ----------------------------------------------------
 (leaf yatex
   :ensure t
   :doc "Yet Another tex-mode for emacs."
@@ -126,35 +140,23 @@ If region isn't selected, post from the buffer."
   :bind (("M-c" . YaTeX-typeset-buffer)
 	 ("M-v" . YaTeX-lpr)))
 
-;; dvpd.sh (Linux helper script)
-;;   #!/bin/zsh
-;;   name=$1
-;;   dvipdfmx ${name%.*} && evince ${name%.*}.pdf
-;;   rm *.au* *.dv* *.lo*
+;;-----------------------------
+;; dvpd.sh for Linux
+;;-----------------------------
+;; #!/bin/zsh
+;;
+;; # 生成されたPDFをevinceで開く
+;; name=$1
+;; dvipdfmx ${name%.*} && evince ${name%.*}.pdf
+;;
+;; # 不要ファイルを削除
+;; rm *.au*
+;; rm *.dv*
+;; rm *.lo*
 
-
-;;; ============================================================
-;;;  PostScript Printing
-;;; ============================================================
-
-(leaf ps-print
-  :doc "PostScript printing with Japanese support."
-  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
-  :if (executable-find "lpr")
-  :config
-  (setq ps-multibyte-buffer 'non-latin-printer)
-  (setq ps-paper-type       'a4)
-  (setq ps-printer-name      nil)
-  (setq ps-print-header      nil)
-  (setq ps-print-footer      nil)
-  (setq ps-font-size         9)
-  (setq ps-font-family      'Courier)
-  (setq ps-line-number-font 'Courier)
-  (setq ps-line-number       t)
-  (setq ps-show-n-of-n       t)
-  (defalias 'ps-mule-header-string-charsets 'ignore)
-  (setq ps-end-with-control-d t))
-
+;; 句会データの文字化け修正
+;; (load "my-fix-mojibake")
+;; (global-set-key (kbd "C-c f") 'my-fix-mojibake)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

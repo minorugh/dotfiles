@@ -3,20 +3,16 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Company  (in-buffer completion)
-;;; ============================================================
-
 (leaf company
   :ensure t
   ;; :vc (:url "https://github.com/minorugh/company")
   :doc "Modular in-buffer completion framework."
   :hook (after-init-hook . global-company-mode)
-  :bind (("<backtab>" . company-complete)
-         (:company-active-map
-          ("<tab>"      . company-complete-common-or-cycle)
-          ("<backtab>"  . company-select-previous)
-          ("<muhenkan>" . company-abort)))
+  :bind (("<backtab>"      . company-complete)
+	 (:company-active-map
+	  ("<tab>"         . company-complete-common-or-cycle)
+	  ("<backtab>"     . company-select-previous)
+	  ("<muhenkan>"    . company-abort)))
   :config
   (setq company-transformers          '(company-sort-by-backend-importance))
   (setq company-idle-delay            0.1)
@@ -27,37 +23,26 @@
   (setq company-dabbrev-downcase      nil)
   (setq company-format-margin-function #'company-dot-icons-margin)
   ;; (setq company-format-margin-function nil)
-
-  ;; Inject yasnippet into all company backends
+  ;; Add yasnippet support for all company backends
   ;; https://github.com/syl20bnr/spacemacs/pull/179
   (defvar company-mode/enable-yas t
     "Enable yasnippet for all backends.")
-
   (defun company-mode/backend-with-yas (backend)
-    "Append `company-yasnippet' to BACKEND if not already present."
-    (if (or (not company-mode/enable-yas)
-            (and (listp backend) (member 'company-yasnippet backend)))
-        backend
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+	backend
       (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-
+	      '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
-
-
-;;; ============================================================
-;;;  Yasnippet
-;;; ============================================================
 
 (leaf yasnippet
   :ensure t
-  :doc "Template system — snippets managed in ~/.emacs.d/snippets."
+  :doc "Template system: Operate only by your own work."
   :hook ((after-init-hook . yas-global-mode)
-         (prog-mode-hook  . yas-minor-mode))
+	 (prog-mode-hook  . yas-minor-mode))
   :config
-  (setq yas-verbosity    0)
+  (setq yas-verbosity 0)
   (setq yas-indent-line 'fixed)
   (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
