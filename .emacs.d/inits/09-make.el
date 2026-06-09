@@ -1,4 +1,4 @@
-;;; 08-make.el --- Makefile integration and target launcher. -*- lexical-binding: t -*-
+;;; 09-make.el --- Makefile integration and target launcher. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -175,4 +175,4 @@ STRING is the exit status message from the compilation process."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 08-make.el ends here
+;;; 09-make.el ends here

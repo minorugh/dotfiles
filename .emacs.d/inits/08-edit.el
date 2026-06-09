@@ -1,4 +1,4 @@
-;;; 09-edit.el --- Editing configurations.      -*- lexical-binding: t -*-
+;;; 08-edit.el --- Editing configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -206,4 +206,4 @@ STRING is the exit status message from the compilation process."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-edit.el ends here
+;;; 08-edit.el ends here
