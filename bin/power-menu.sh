@@ -23,15 +23,13 @@ POS1=$((EMACS_COUNT + 1))
 POS2=$((EMACS_COUNT + 2))
 POS3=$((EMACS_COUNT + 3))
 POS4=$((EMACS_COUNT + 4))
-POS5=$((EMACS_COUNT + 5))
 
 CHOICE=$( (
     [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
     echo "1. SLEEP"
     echo "2. POWEROFF"
     echo "3. REBOOT"
-    echo "4. NEOMUTT RESTART"
-    echo "5. KILL TMUX"
+    echo "4. MUTT RESTART"
 ) | fzf --reverse --no-input --color='pointer:white' \
     --bind "1:pos(${POS1})+accept" \
     --bind "2:pos(${POS2})+accept" \
@@ -44,7 +42,6 @@ case "$CHOICE" in
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     4.*) tmux kill-session -t mail 2>/dev/null; setsid neomutt.sh; kill $PPID ;;
-    5.*) tmux kill-server; kill $PPID ;;
     "")  echo "Cancelled."; kill $PPID ;;
     *)
         PID=$(echo "$CHOICE" | awk '{print $1}')
