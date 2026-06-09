@@ -5,3 +5,24 @@
 5:Re: 添削依頼|
 6:=INBOX|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+2:record|
+2:echo $record|
+2:source ~/.muttrc|
+0:tmux respawn-pane -k -t mail:0.0|
+2:set sort=reverse-date-sent|
+2:source ~/.muttrc|
+2:set sort|
+2:set sort=reverse-date-sent|
+2:source ~/.muttrc|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+2:set sort|
+2:set sort?|
+2:set sort_re?|
+2:set use_threads=no|
+2:set use_threads?|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
