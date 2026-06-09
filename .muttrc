@@ -128,7 +128,8 @@ macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
 color normal      color252  default
 color error       color110  default
 color message     color110  default
-color status      color245  default
+color status  color141  default
+# color status      color245  default
 color indicator   color231  color68
 color prompt      color150  default
 
