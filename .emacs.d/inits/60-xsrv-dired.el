@@ -148,7 +148,7 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
   "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
 
 (defun my-xsrv--maybe-colorize ()
-  "xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
+  "Xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
   (when (and default-directory
              (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
                                   (expand-file-name default-directory))

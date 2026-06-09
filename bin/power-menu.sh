@@ -29,13 +29,12 @@ CHOICE=$( (
     echo "1. SLEEP"
     echo "2. POWEROFF"
     echo "3. REBOOT"
-    echo "4. MUTT RESTART"
+    echo "4. RESTART MUTT"
 ) | fzf --reverse --no-input --color='pointer:white' \
     --bind "1:pos(${POS1})+accept" \
     --bind "2:pos(${POS2})+accept" \
     --bind "3:pos(${POS3})+accept" \
-    --bind "4:pos(${POS4})+accept" \
-    --bind "5:pos(${POS5})+accept")
+    --bind "4:pos(${POS4})+accept")
 
 case "$CHOICE" in
     1.*) xset dpms force off; kill $PPID ;;
