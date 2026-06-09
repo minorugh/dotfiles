@@ -45,14 +45,14 @@
   (defvar my-howm-categories
     '((?m " memo"  "memo: " my-howm-face-memo)
       (?i " idea"  "idea: " my-howm-face-idea)
-      (?t "  tech"  "tech: " my-howm-face-tech)
+      (?t " tech"  "tech: " my-howm-face-tech)
       (?d " 日記"  "日記: " my-howm-face-diary)
-      (?c " code"  "code: " my-howm-face-church)
       (?g " 園芸"  "園芸: " my-howm-face-garden))
     "howm 通常カテゴリ定義。検索・作成メニュー両方で使用する。")
 
   (defvar my-howm-special-entries
-    '((?p " 創作"  my-howm-face-creative  my-haiku-note-post)
+    '((?c " code"  my-howm-face-church  my-junk-new)
+      (?p " 創作"  my-howm-face-creative  my-haiku-note-post)
       (?n " 推敲"  my-howm-face-note      my-haiku-note))
     "作成メニュー専用の特殊エントリ。動作は外部関数に委譲する。")
 
@@ -135,6 +135,21 @@
 
   (with-eval-after-load 'howm-view
     (advice-add 'howm-view-summary-mode :after #'my-howm--apply-summary-font-lock))
+
+
+;;; ============================================================
+;;;  Junk (Perl スクラッチ)
+;;; ============================================================
+
+  (defun my-junk-new ()
+    "タイムスタンプ付き Perl スクラッチファイルを開く."
+    (interactive)
+    (let* ((file   (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
+           (is-new (not (file-exists-p file))))
+      (find-file file)
+      (when is-new
+        (insert "#!/usr/bin/perl\nuse strict;\nuse warnings;\n\n")
+        (when evil-mode (evil-insert-state)))))
 
 
 ;;; ============================================================
