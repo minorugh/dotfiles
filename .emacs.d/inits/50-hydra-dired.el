@@ -10,17 +10,17 @@
 (leaf hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
-  :init
-  (defun my-hydra-dired ()
-    "Disable mozc if active, then open hydra-dired."
-    (interactive)
-    (when current-input-method
-      (toggle-input-method))
-    (hydra-dired/body))
+  ;; :init
+  ;; (defun my-hydra-dired ()
+  ;;   "Disable mozc if active, then open hydra-dired."
+  ;;   (interactive)
+  ;;   (when current-input-method
+  ;;     (toggle-input-method))
+  ;;   (hydra-dired/body))
 
-  ;; mozc-mode-map からも同じキーで起動できるようにする
-  (with-eval-after-load 'mozc
-    (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
+  ;; ;; mozc-mode-map からも同じキーで起動できるようにする
+  ;; (with-eval-after-load 'mozc
+  ;;   (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
 
   :hydra
   (hydra-dired
@@ -74,6 +74,17 @@
    ("<muhenkan>" nil))
 
   :init
+  (defun my-hydra-dired ()
+    "Disable mozc if active, then open hydra-dired."
+    (interactive)
+    (when current-input-method
+      (toggle-input-method))
+    (hydra-dired/body))
+
+  ;; mozc-mode-map からも同じキーで起動できるようにする
+  (with-eval-after-load 'mozc
+    (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
+
 
 ;;; ============================================================
 ;;;  ファイル・ディレクトリオープン

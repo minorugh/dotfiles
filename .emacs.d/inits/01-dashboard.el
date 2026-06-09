@@ -9,7 +9,6 @@
 
 (leaf dashboard
   :ensure t
-  :require seiho-haiku  ; see ~/.emacs.d/elisp/seiho-haiku.el
   :doc "An extensible startup screen."
   :if (display-graphic-p)
   :hook ((emacs-startup-hook  . open-dashboard)
@@ -22,6 +21,7 @@
 
   (defun dashboard-insert-haiku (_list-size)
     "今日の一句を dashboard に挿入する。表示設定は seiho-haiku.el で調整。"
+    (require 'seiho-haiku)   ;; see ~/.emacs.d/elisp/seiho-haiku.el
     (seiho-haiku-insert-today #'dashboard-insert-heading))
 
   :config

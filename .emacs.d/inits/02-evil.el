@@ -131,7 +131,7 @@
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
-  :require (my-sen-cleanup)  ; see ~/.emacs.d/elisp/my-sen-cleanup.el
+  :hook (after-init-hook . (lambda () (require 'my-sen-cleanup)))
   :after evil
   :config
   (setq echo-keystrokes 0)
