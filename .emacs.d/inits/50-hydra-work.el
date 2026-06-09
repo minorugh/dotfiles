@@ -3,6 +3,10 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;; ============================================================
+;;;  Hydra Work  (俳句作業メニュー)
+;;; ============================================================
+
 (leaf hydra-work
   :hook (after-init-hook . (lambda () (require 'my-template)))
   :bind ("<f14>" . hydra-work/body)
@@ -45,7 +49,6 @@
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
    ("S" my-swan-new-post)
-   ("K" (my-open "~/Dropbox/GH/kinnei/kinnei.txt" :pos 'top))
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
    ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
    ("w" (my-open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" :pos 'top))
@@ -54,24 +57,34 @@
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<f14>" hydra-dired/body)
-   ("<henkan>" hydra-dired/body)
+   ("<f14>"     hydra-dired/body)
+   ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
+
+
+;;; ============================================================
+;;;  Browse at Remote
+;;; ============================================================
 
   :preface
   (leaf browse-at-remote
     :ensure t
-    :doc "Open github page from Emacs"
+    :doc "Open GitHub page of current file/line in browser."
     :config
     (setq browse-at-remote-prefer-symbolic nil))
 
+
+;;; ============================================================
+;;;  NeoMutt
+;;; ============================================================
+
   (defun neomutt ()
-    "Toggle NeoMutt window."
+    "Toggle NeoMutt window; launch if not running."
     (interactive)
     (let ((win (string-trim (shell-command-to-string "wmctrl -l | grep 'NeoMutt Mail'"))))
       (if (string= win "")
           (call-process "setsid" nil 0 nil "neomutt.sh")
-	(call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
+        (call-process "wmctrl" nil 0 nil "-a" "NeoMutt Mail"))))
 
   (defun neomutt-restart ()
     "Kill and restart NeoMutt tmux session."
@@ -79,15 +92,20 @@
     (call-process "tmux" nil 0 nil "kill-session" "-t" "mail")
     (call-process "setsid" nil 0 nil "neomutt.sh"))
 
+
+;;; ============================================================
+;;;  Junk File
+;;; ============================================================
+
   (defun my-junk-new ()
-    "タイムスタンプ付きPerlスクラッチファイルを開く."
+    "タイムスタンプ付き Perl スクラッチファイルを開く."
     (interactive)
-    (let* ((file    (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
-           (is-new  (not (file-exists-p file))))
+    (let* ((file   (format-time-string "~/Dropbox/howm/junk/%Y%m%d%H%M.pl"))
+           (is-new (not (file-exists-p file))))
       (find-file file)
       (when is-new
-	(insert "#!/usr/bin/perl\nuse strict;\nuse warnings;\n\n")
-	(when evil-mode (evil-insert-state))))))
+        (insert "#!/usr/bin/perl\nuse strict;\nuse warnings;\n\n")
+        (when evil-mode (evil-insert-state))))))
 
 
 ;; Local Variables:

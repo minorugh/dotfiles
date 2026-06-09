@@ -2,12 +2,14 @@
 ;;; Commentary:
 ;;; Code:
 
-;; ------------------------------------------------
-;; Backup: xserver → xsrv-GH / xsrv-minorugh
-;; key bindings in 50-dired.el
-;; ------------------------------------------------
+;;; ============================================================
+;;;  Backup  (xserver → xsrv-GH / xsrv-minorugh)
+;;;
+;;;  キーバインドは 60-dired.el で定義。
+;;; ============================================================
+
 (defun my-xsrv-backup (src-dir pair-dir)
-  "SRC-DIR の `dired' で xsev-backup実行後に PAIR-DIRを復元する."
+  "SRC-DIR で xsrv-backup を実行し、完了後に PAIR-DIR を 2ペイン復元する."
   (interactive)
   (letrec ((finish-fn
             (lambda (_buf _msg)
@@ -17,7 +19,7 @@
     (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
 
 (defun my-xsrv-backup-dwim ()
-  "Dired のカレントディレクトリに応じて rsync backup を実行する."
+  "カレントディレクトリに応じて rsync backup を自動選択して実行する."
   (interactive)
   (let ((dir (expand-file-name default-directory)))
     (cond
@@ -30,12 +32,15 @@
      (t
       (message "このディレクトリはbackup対象外です")))))
 
-;; ----------------------------------------
-;; Deploy from local dired
-;; key bindings in 50-dired.el
-;; ----------------------------------------
+
+;;; ============================================================
+;;;  Deploy  (local dired → xserver)
+;;;
+;;;  キーバインドは 60-dired.el で定義。
+;;; ============================================================
+
 (defun xsrv-deploy-dired ()
-  "Deploy file at point in `dired' to xserver."
+  "Deploy file at point in `dired' to xserver via deploy.pl."
   (interactive)
   (let* ((file (dired-get-filename))
          (name (file-name-nondirectory file)))
@@ -52,18 +57,22 @@
              t
              `(,(format "本当に deploy しますか？\n\n  %s" name)
                ("Deploy する" . t)
-               ("やめる" . nil)))
-        (shell-command (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
+               ("やめる"      . nil)))
+        (shell-command
+         (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
-;; --------------------------------------
-;; Download: xsrv-GH → local GH
-;; key bindings in 50-dired.el
-;; --------------------------------------
+
+;;; ============================================================
+;;;  Download  (xsrv-GH / xsrv-minorugh → local)
+;;;
+;;;  キーバインドは 60-dired.el で定義。
+;;; ============================================================
+
 (defun xsrv-download-dired ()
-  "Download file at point in `dired' from xsrv-GH/xsrv-minorugh to local."
+  "Download file at point from xsrv-GH or xsrv-minorugh to local Dropbox."
   (interactive)
-  (let* ((file (dired-get-filename))
-         (name (file-name-nondirectory file))
+  (let* ((file         (dired-get-filename))
+         (name         (file-name-nondirectory file))
          (xsrv-gh-root  "/home/minoru/src/github.com/minorugh/xsrv-GH/")
          (xsrv-mn-root  "/home/minoru/src/github.com/minorugh/xsrv-minorugh/")
          (local-gh-root "/home/minoru/Dropbox/GH/")
@@ -79,7 +88,7 @@
            t
            `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
              ("Download する" . t)
-             ("やめる" . nil)))
+             ("やめる"        . nil)))
       (if (and (file-exists-p dest)
                (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
           (message "キャンセルしました。")
@@ -92,27 +101,26 @@
               (with-current-buffer buf
                 (revert-buffer)))))))))
 
-;; -----------------------------------------
-;; git-peek
-;; key bindings in 40-hydra-dired.el
-;; -----------------------------------------
+
+;;; ============================================================
+;;;  git-peek  (差分プレビュー)
+;;; ============================================================
+
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek")
   :config
   (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 
   (defun my-git-peek-smart ()
-    "Run `git-peek' with appropriate `git-peek-save-dir'.
-Show 2pane when called from xsrv `dired'."
+    "Run `git-peek' with save-dir adjusted for xsrv dired context.
+xsrv 配下なら差分表示後に 2ペインを復元する。"
     (interactive)
     (let* ((dir          (expand-file-name default-directory))
            (orig         git-peek-save-dir)
            (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
            (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
-           ;; xsrv配下かどうかを先に判定
            (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
                              (string-prefix-p xsrv-mn-root dir)))
-           ;; xsrv配下なら対応するローカルパスへ、それ以外はデフォルトのまま
            (new-save-dir (cond
                           ((string-prefix-p xsrv-gh-root dir)
                            (concat (expand-file-name "~/Dropbox/GH/")
@@ -123,24 +131,24 @@ Show 2pane when called from xsrv `dired'."
                           (t orig))))
       (setq git-peek-save-dir new-save-dir)
       (let ((fn nil))
-	(setq fn (lambda ()
-                   ;; git-peek-save-dir を呼び出し前の値に戻す
+        (setq fn (lambda ()
                    (setq git-peek-save-dir orig)
-                   ;; xsrv配下なら2pane表示、それ以外は何もしない
                    (when xsrv-p
                      (my-open-xsrv-2pane dir new-save-dir))
                    (remove-hook 'git-peek-finish-hook fn)))
-	(add-hook 'git-peek-finish-hook fn))
+        (add-hook 'git-peek-finish-hook fn))
       (git-peek))))
 
-;; --------------------------------------------
-;; Buffer colorize for xsrv-GH dired & files
-;; --------------------------------------------
+
+;;; ============================================================
+;;;  Buffer Colorize  (xsrv-GH / xsrv-minorugh 配下のバッファを識別)
+;;; ============================================================
+
 (defvar my-xsrv-buffer-color "#051122"
-  "Background color of buffers under Xsrv-GH/xsrv-minorugh.")
+  "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
 
 (defun my-xsrv--maybe-colorize ()
-  "`xsrv-GH/xsrv-minorugh' 配下のバッファ（diredまたはファイル）なら `buffer-face-mode' で色付け."
+  "xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
   (when (and default-directory
              (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
                                   (expand-file-name default-directory))
@@ -148,12 +156,9 @@ Show 2pane when called from xsrv `dired'."
                                   (expand-file-name default-directory))))
     (buffer-face-set `(:background ,my-xsrv-buffer-color))))
 
-;; Dired (folder list) colored when loaded/updated
-(add-hook 'dired-mode-hook #'my-xsrv--maybe-colorize)
+(add-hook 'dired-mode-hook         #'my-xsrv--maybe-colorize)
 (add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
-
-;; Automatic coloring when opening "files" under folders
-(add-hook 'find-file-hook #'my-xsrv--maybe-colorize)
+(add-hook 'find-file-hook          #'my-xsrv--maybe-colorize)
 
 
 ;; Local Variables:

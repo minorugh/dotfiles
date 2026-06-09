@@ -40,6 +40,9 @@ set move = no
 set include
 set auto_tag = yes
 set sendmail_wait = -1
+set history = 100
+set history_file = "~/.mutt/history"
+set save_history = 100
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"

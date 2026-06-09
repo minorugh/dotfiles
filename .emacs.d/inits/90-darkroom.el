@@ -3,14 +3,18 @@
 ;;
 ;; A lightweight distraction-free writing mode without the darkroom package.
 ;; Toggle with F8 to enter or leave.  F1-F12 bindings are centrally managed
-;; in 10-funcs.el via `leaf external-functions'.
+;; in 07-functions.el via `leaf external-functions'.
 ;;
 ;; Customizable variables:
-;;   my-darkroom-margin       -- side margin ratio (default 0.15)
-;;   my-darkroom-text-scale   -- text zoom level  (default 2)
-;;   my-darkroom-line-spacing -- line height       (default 0.2)
+;;   my-darkroom-margin       -- side margin ratio  (default 0.15)
+;;   my-darkroom-text-scale   -- text zoom level    (default 2)
+;;   my-darkroom-line-spacing -- line height        (default 0.2)
 ;;
 ;;; Code:
+
+;;; ============================================================
+;;;  Darkroom Minor Mode
+;;; ============================================================
 
 (leaf my-darkroom
   :doc "Distraction-free writing mode (darkroom package alternative)."
@@ -37,18 +41,28 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     :type 'float
     :group 'convenience)
 
+
+;;; ============================================================
+;;;  Margin Helpers
+;;; ============================================================
+
   (defun my-darkroom--margin-cols ()
     "Calculate margin width in columns from `my-darkroom-margin'."
     (round (* (window-total-width) my-darkroom-margin)))
 
   (defun my-darkroom--set-margins ()
-    "Apply margins to the current window."
+    "Apply side margins to the current window."
     (let ((m (my-darkroom--margin-cols)))
       (set-window-margins (selected-window) m m)))
 
   (defun my-darkroom--reset-margins ()
     "Reset window margins to zero."
     (set-window-margins (selected-window) 0 0))
+
+
+;;; ============================================================
+;;;  Mode Definition & Toggle
+;;; ============================================================
 
   (define-minor-mode my-darkroom-mode
     "Minor mode for distraction-free writing."
@@ -72,11 +86,11 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
                    #'my-darkroom--set-margins t)))
 
   (defun my-darkroom-in ()
-    "Save current settings and enter distraction-free mode."
+    "Enter distraction-free mode, saving current state."
     (interactive)
     (setq-local my-dark-old-state
                 (list :line-num display-line-numbers-mode
-                      :spacing line-spacing))
+                      :spacing  line-spacing))
     (display-line-numbers-mode 0)
     (whitespace-mode -1)
     (setq-local line-spacing my-darkroom-line-spacing)
@@ -85,9 +99,8 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (when (null current-input-method)
       (toggle-input-method)))
 
-
   (defun my-darkroom-out ()
-    "Leave distraction-free mode and restore previous settings."
+    "Leave distraction-free mode and restore previous state."
     (interactive)
     (my-darkroom-mode 0)
     (toggle-frame-fullscreen)
@@ -97,23 +110,23 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (when current-input-method
       (toggle-input-method)))
 
-
   (defun my-darkroom-toggle ()
     "Toggle distraction-free mode.
-Bound to F8; see 10-functions.el."
+Bound to F8; see 07-functions.el."
     (interactive)
     (if my-darkroom-mode
-	(my-darkroom-out)
+        (my-darkroom-out)
       (my-darkroom-in))))
 
 
-;;; Neomutt integration
-;;
-;; Neomutt は一時ファイル "neomutt-XXXX" を外部エディタとして Emacs に渡す。
-;; そのバッファが開かれたとき、メール本文に集中できるよう自動で
-;; distraction-free モードに入る。Evil 使用時は insert 操作が自然になるよう
-;; Emacs state に切り替える。バッファを閉じると darkroom も自動で抜けて
-;; フルスクリーンを元に戻す。
+;;; ============================================================
+;;;  NeoMutt Integration
+;;;
+;;;  NeoMutt が外部エディタとして "neomutt-XXXX" を Emacs に渡したとき、
+;;;  メール本文に集中できるよう自動で darkroom に入る。
+;;;  Evil 使用時は Emacs state に切り替えて自然な入力を確保する。
+;;;  C-x # (server-edit) で抜けるときも server-done-hook で確実に終了。
+;;; ============================================================
 
 (add-hook 'find-file-hook
           (lambda ()
@@ -122,10 +135,8 @@ Bound to F8; see 10-functions.el."
               (when (fboundp 'evil-emacs-state) (evil-emacs-state))
               (my-darkroom-in))))
 
-;; C-x # (server-edit) で抜けるときは kill-buffer-hook が発火しない場合があるため
-;; server-done-hook も併用して確実に darkroom を終了させる。
 (defun my-darkroom--neomutt-cleanup ()
-  "Exit darkroom if the current buffer is a Neomutt temporary file."
+  "Exit darkroom if the current buffer is a NeoMutt temporary file."
   (when (and (boundp 'my-darkroom-mode)
              my-darkroom-mode
              (string-match "neomutt-" (buffer-name)))

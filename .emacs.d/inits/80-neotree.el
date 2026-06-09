@@ -3,37 +3,44 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;; ============================================================
+;;;  Neotree Core
+;;;
+;;;  neo-keymap-style 'concise で使えるキー:
+;;;    C  ルートディレクトリ変更
+;;;    c  作成    +  作成
+;;;    d  削除    r  リネーム    e  エンター
+;;; ============================================================
+
 (leaf neotree
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
   :hook (neotree-mode-hook . (lambda () (setq-local mode-line-format nil)))
-  :bind (("<f7>"     . my-neotree-toggle)
-	 (:neotree-mode-map
-	  ("RET"     . neotree-enter-hide)
-	  ("j"       . next-line)
-	  ("k"       . previous-line)
-	  ("a"       . neotree-hidden-file-toggle)
-	  ("<left>"  . neotree-select-up-node)
-	  ("<right>" . neotree-change-root)
-	  ("<f7>"    . my-neotree-toggle)))
+  :bind (("<f7>" . my-neotree-toggle)
+         (:neotree-mode-map
+          ("RET"     . neotree-enter-hide)
+          ("j"       . next-line)
+          ("k"       . previous-line)
+          ("a"       . neotree-hidden-file-toggle)
+          ("<left>"  . neotree-select-up-node)
+          ("<right>" . neotree-change-root)
+          ("<f7>"    . my-neotree-toggle)))
   :init
   (setq neo-keymap-style 'concise)
-  ;; concise にするとキーバインドをシンプルにできる
-  ;;  C ルートディレクトリ変更
-  ;;  c 作成
-  ;;  + 作成
-  ;;  d 削除
-  ;;  r リネーム
-  ;;  e エンター
   :config
   (with-eval-after-load 'doom-themes
     (doom-themes-neotree-config))
-  (setq neo-mode-line-type nil)
+  (setq neo-mode-line-type      nil)
   (setq neo-create-file-auto-open t)
 
+
+;;; ============================================================
+;;;  Toggle & Text Scale
+;;; ============================================================
+
   (defun my-neotree-toggle ()
-    "Toggle Neotree, jumping to current file/dir.
-  Bound to F7; see 10-functions.el."
+    "Toggle Neotree, jumping to the current file or directory.
+Bound to F7; see 07-functions.el."
     (interactive)
     (if (neo-global--window-exists-p)
         (neotree-hide)
@@ -44,24 +51,29 @@
         (neotree-find path))))
 
   (defun neotree-text-scale ()
-    "Neotree text scale.
-see https://github.com/jaypei/emacs-neotree/issues/218"
+    "Decrease text scale by 1 in Neotree buffer.
+See https://github.com/jaypei/emacs-neotree/issues/218"
     (interactive)
     (text-scale-adjust 0)
     (text-scale-decrease 1)
     (message nil))
+
   (add-hook 'neo-after-create-hook
-	    (lambda (_)
-	      (neotree-text-scale)))
+            (lambda (_) (neotree-text-scale)))
+
+
+;;; ============================================================
+;;;  Enter & Hide
+;;; ============================================================
 
   (defun neo-open-file-hide (full-path &optional arg)
-    "Open a file node and hides tree."
+    "Open FULL-PATH and hide the Neotree window."
     (neo-global--select-mru-window arg)
     (find-file full-path)
     (neotree-hide))
 
   (defun neotree-enter-hide (&optional arg)
-    "Enters file and hides neotree directly."
+    "Enter file at point and hide Neotree."
     (interactive "P")
     (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir)))
 

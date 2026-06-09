@@ -1,24 +1,35 @@
-;;; 80-translate.el --- Deepl translate configurations.  -*- lexical-binding: t -*-
+;;; 80-translate.el --- DeepL translate configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; 2026-03-10 DeepL API 仕様変更に対応
-;; 認証方式を POST ボディ (auth_key) から Authorization ヘッダーに変更
+;;   認証方式を POST ボディ (auth_key) から Authorization ヘッダーに変更。
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;; ============================================================
+;;;  DeepL API  (ミニバッファ翻訳 + クリップボードコピー)
+;;; ============================================================
+
 (leaf deepl-translate
-  :doc "Translation in mini-buffer & copy to clipboard."
+  :doc "Translation in minibuffer & copy result to clipboard."
   :vc (:url "https://github.com/minorugh/deepl-translate")
   :bind ("C-c d" . deepl-translate)
-  :config (load (locate-user-emacs-file "~/.env_source/tokens/deepl-api.el")))
+  :config
+  (load (locate-user-emacs-file "~/.env_source/tokens/deepl-api.el")))
 
+
+;;; ============================================================
+;;;  DeepL Web  (ブラウザで DeepL を開く)
+;;; ============================================================
 
 (leaf deepl-translate-web
-  :doc "Use DeepL Translator on a web browser."
+  :doc "Open DeepL Translator in a web browser with selected text."
   :bind ("C-c w" . my-deepl-translate)
   :preface
   (require 'url-util)
+
   (defun my-deepl-translate (&optional string)
-    "Translate at DeepL. Regions, or for sentences in the current location."
+    "Translate region or sentence at point using DeepL web interface.
+Auto-detects Japanese ↔ English direction."
     (interactive)
     (let* ((text (or string
                      (if (use-region-p)
@@ -27,8 +38,7 @@
            (is-ja (string-match-p "[ぁ-んァ-ン一-龯]" text))
            (src   (if is-ja "ja" "en"))
            (tgt   (if is-ja "en" "ja"))
-	   ;; If you include the language path, such as "://deepl.com"
-           ;; The interface of the free version is more likely to be preferred.
+           ;; "://deepl.com" 形式にすることでフリー版インターフェースに誘導
            (url   (format "https://://deepl.com#%s/%s/%s"
                           src tgt (url-hexify-string (string-trim text)))))
       (when (use-region-p) (deactivate-mark))
