@@ -129,10 +129,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
         (mapc #'kill-buffer bufs)
         (when (buffer-live-p my-2pane-origin-buffer)
           (switch-to-buffer my-2pane-origin-buffer)
-          (setq my-2pane-origin-buffer nil))))
-    ;; ウィンドウ構成変更後に明示的にモードラインを更新
-    (when (fboundp 'my-update-modeline-for-split)
-      (my-update-modeline-for-split)))
+          (setq my-2pane-origin-buffer nil)))))
 
   (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
   (add-hook 'dired-mode-hook

@@ -34,10 +34,8 @@
 
   (defun my-modeline-capture-defaults ()
     "Capture default mode-line face attributes after theme initialization."
-    (setq my-modeline-default-bg
-          (or (face-background 'mode-line nil t) "unspecified-bg"))
-    (setq my-modeline-default-box
-          (or (face-attribute 'mode-line :box nil t) 'unspecified)))
+    (setq my-modeline-default-bg  (face-background 'mode-line nil t))
+    (setq my-modeline-default-box (face-attribute  'mode-line :box nil t)))
 
   (defun my-modeline-popup-window-p (w)
     "Return non-nil if W is a popup that should not count as a real split."
@@ -58,13 +56,12 @@
                                    :box '(:line-width 2 :color "#bd93f9"))
                (set-face-attribute 'doom-modeline-bar nil
                                    :background "#bd93f9"))
-           ;; 1ペインに戻ったら確実に復元する
-           (when my-modeline-default-bg
+           (when (and my-modeline-default-bg my-modeline-default-box)
              (set-face-attribute 'mode-line nil
                                  :background my-modeline-default-bg
-                                 :box (or my-modeline-default-box 'unspecified))
+                                 :box my-modeline-default-box)
              (set-face-attribute 'doom-modeline-bar nil
-                                 :background my-modeline-default-bg)))))))
+                                 :background "#bd93f9")))))))
 
   (add-hook 'doom-modeline-mode-hook
             (lambda ()
