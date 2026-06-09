@@ -1,23 +1,24 @@
 ;;; 50-hydra-dired.el --- Hydra dired-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
-;;
 ;;; Code:
 ;; (setq debug-on-error t)
+
+;;; ============================================================
+;;;  Hydra Dired  (ファイルナビゲーションランチャー)
+;;; ============================================================
 
 (leaf hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
   :init
-
-  ;; ---------------------------------------------------------------
-  ;; hydra entry point: mozc を無効化してから起動
-  ;; ---------------------------------------------------------------
   (defun my-hydra-dired ()
     "Disable mozc if active, then open hydra-dired."
     (interactive)
     (when current-input-method
       (toggle-input-method))
     (hydra-dired/body))
+
+  ;; mozc-mode-map からも同じキーで起動できるようにする
   (with-eval-after-load 'mozc
     (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
 
@@ -42,7 +43,6 @@
    ("<home>" (my-open "~/" :omit))
    (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
    (";" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-minorugh/" "~/Dropbox/minorugh.com/"))
-   ;; ("o" (my-open "~/src/github.com/minorugh/minorugh.github.io/docs/"))
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
@@ -60,7 +60,7 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" restart-emacs)
-   ("3"  neomutt-restart)
+   ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("c" my-howm-create-with-category)
@@ -70,14 +70,15 @@
    ("]" my-make-git)
    ("l" (my-open "~/Dropbox/CHANGELOG/"))
    ("q" top-level)
-   ("<henkan>" hydra-work/body)
+   ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
 
   :init
 
-  ;; ---------------------------------------------------------------
-  ;; dired ナビゲーション: ディレクトリ・ファイルを開くユーティリティ
-  ;; ---------------------------------------------------------------
+;;; ============================================================
+;;;  ファイル・ディレクトリオープン
+;;; ============================================================
+
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
     (interactive "sTarget: ")
@@ -85,33 +86,37 @@
       (compile (concat "make " target))))
 
   (defun my-open (path &rest opts)
-    "Open PATH.  OPTS: :pos 'top|'bottom|integer, :omit, :emacs.
-e.g. :pos -10 => bottom-10  :pos 1 => top+1"
-    (find-file (expand-file-name
-		(format-time-string path)))
+    "Open PATH in dired or find-file.
+OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
+  :pos -10  → point-max then back 10 lines
+  :pos  1   → point-min then forward 1 line"
+    (find-file (expand-file-name (format-time-string path)))
     (pcase (plist-get opts :pos)
       ('top    (goto-char (point-min)))
       ('bottom (goto-char (point-max)))
       ((pred integerp)
        (let ((n (plist-get opts :pos)))
-	 (goto-char (if (< n 0) (point-max) (point-min)))
-	 (forward-line n))))
-    (when (memq :omit opts)  (dired-omit-mode 0))
+         (goto-char (if (< n 0) (point-max) (point-min)))
+         (forward-line n))))
+    (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
-  ;; ---------------------------------------------------------------
-  ;; 2ペイン: xsrv ローカル/リモート対比表示と Q による復帰
-  ;; ---------------------------------------------------------------
+
+;;; ============================================================
+;;;  2ペインビュー  (xsrv ローカル/リモート対比表示)
+;;; ============================================================
+
   (defvar my-2pane-origin-buffer nil
     "Buffer to return to when quitting 2-pane view.")
 
   (defun my-2pane-quit ()
+    "Close both panes and return to the original buffer."
     (interactive)
     (when (= (length (window-list)) 2)
       (let ((bufs (mapcar #'window-buffer (window-list))))
-	(delete-other-windows)
-	(mapc #'kill-buffer bufs)
-	(when (buffer-live-p my-2pane-origin-buffer)
+        (delete-other-windows)
+        (mapc #'kill-buffer bufs)
+        (when (buffer-live-p my-2pane-origin-buffer)
           (switch-to-buffer my-2pane-origin-buffer)
           (setq my-2pane-origin-buffer nil)))))
 
@@ -120,7 +125,7 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
             (lambda () (local-set-key (kbd "Q") #'my-2pane-quit)))
 
   (defun my-open-xsrv-2pane (src-dir pair-dir)
-    "Open SRC-DIR in `dired' and line up PAIR-DIR in two panes."
+    "Open SRC-DIR and PAIR-DIR side by side."
     (setq my-2pane-origin-buffer (current-buffer))
     (delete-other-windows)
     (dired src-dir)
@@ -129,9 +134,11 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (dired pair-dir)
     (other-window 1))
 
-  ;; ---------------------------------------------------------------
-  ;; 環境・外部アプリ連携
-  ;; ---------------------------------------------------------------
+
+;;; ============================================================
+;;;  環境・外部アプリ連携
+;;; ============================================================
+
   (defun my-reload-xenv ()
     "Reload ~/.xprofile and re-import keychain env vars into Emacs."
     (interactive)
@@ -139,7 +146,7 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-	(with-temp-buffer
+        (with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
@@ -148,49 +155,51 @@ e.g. :pos -10 => bottom-10  :pos 1 => top+1"
     (message "xprofile + keychain reloaded"))
 
   (defun my-remote-select ()
-    "Select remote dir and open gnome-terminal with SSH."
+    "Select remote directory and open gnome-terminal via SSH."
     (interactive)
     (let* ((home-root "/home/minorugh/")
            (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
            (mn-root   (concat home-root "minorugh.com/public_html/"))
-           (dirs `(("home-root"     . ("ls"     . ,home-root))
-                   ("gospel-haiku"  . ("ls"     . ,gh-root))
-                   ("minorugh.com"  . ("ls"     . ,mn-root))
-                   ("docker/httpd"  . ("docker" . "docker exec -it httpd /bin/bash"))
-                   ("passwd"        . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
-                   ("d_kukai/data"  . ("vim"    . ,(concat gh-root "d_kukai/data/")))
-                   ("w_kukai/data"  . ("vim"    . ,(concat gh-root "w_kukai/data/")))
-                   ("s_kukai/data"  . ("vim"    . ,(concat gh-root "s_kukai/data/")))
-                   ("m_kukai/data"  . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
+           (dirs `(("home-root"    . ("ls"     . ,home-root))
+                   ("gospel-haiku" . ("ls"     . ,gh-root))
+                   ("minorugh.com" . ("ls"     . ,mn-root))
+                   ("docker/httpd" . ("docker" . "docker exec -it httpd /bin/bash"))
+                   ("passwd"       . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
+                   ("d_kukai/data" . ("vim"    . ,(concat gh-root "d_kukai/data/")))
+                   ("w_kukai/data" . ("vim"    . ,(concat gh-root "w_kukai/data/")))
+                   ("s_kukai/data" . ("vim"    . ,(concat gh-root "s_kukai/data/")))
+                   ("m_kukai/data" . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
            (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
            (entry  (cdr (assoc choice dirs)))
            (action (car entry))
            (dir    (cdr entry))
            (cmd (cond
-		 ((string= action "docker")
+                 ((string= action "docker")
                   (format "gnome-terminal --maximize -- %s" dir))
-		 ((string= action "vim")
+                 ((string= action "vim")
                   (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir))
-		 (t
+                 (t
                   (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
       (start-process-shell-command "ssh-cd" nil cmd)))
 
   (defun keepassxc ()
-    "Open keepassxc with auto passwd input and detach it from Emacs."
+    "Open KeePassXC via keepass.sh, detached from Emacs."
     (interactive)
     (call-process "setsid" nil 0 nil "keepass.sh"))
 
   (defun filezilla (&optional site)
-    "Open FileZilla with SITE and detach it from Emacs."
+    "Open FileZilla with SITE, detached from Emacs.
+SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
     (interactive)
     (let* ((sites '(("g" . "0/gospel-haiku.com")
                     ("m" . "0/minorugh.com")
                     ("s" . "-s")))
-           (arg (or (cdr (assoc site sites)) "-s"))
+           (arg  (or (cdr (assoc site sites)) "-s"))
            (args (if (string= arg "-s")
                      '("-s")
                    (list (format "--site=%s" arg)))))
       (apply #'call-process "setsid" nil 0 nil "filezilla" args))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)

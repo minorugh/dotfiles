@@ -1,10 +1,14 @@
-;;; 50-hydra-broese.el --- hydra browse configurations. -*- lexical-binding: t -*-
+;;; 50-hydra-browse.el --- Hydra browse configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;; ============================================================
+;;;  Hydra Browse  (ブックマークランチャー)
+;;; ============================================================
+
 (leaf hydra-browse
-  :doc "Selection menu for project work."
+  :doc "Browser bookmark launcher via hydra."
   :defun my-github-deploy
   :chord (".."   . hydra-browse/body)
   :bind ("<f15>" . hydra-browse/body)
@@ -23,55 +27,64 @@
    ("R" (browse-url "https://www.rakuten.co.jp/"))
    ("y" (browse-url "https://www.yodobashi.com/"))
    ("k" (browse-url "http://kakaku.com/"))
+   ("t" (browse-url "https://twitter.com/gospelhaiku"))
    ("u" (browse-url "https://www.youtube.com/channel/UCnwoipb9aTyORVKHeTw159A/videos"))
+   ("i" (browse-url "https://www.instagram.com/"))
+   ("T" (browse-url "https://minorugh.tumblr.com"))
+   ("D" (browse-url "https://www.dropbox.com/home"))
    ("F" (browse-url "https://www.flickr.com/photos/minorugh/"))
    ("G" (browse-url "https://drive.google.com/drive/u/0/my-drive"))
-   ("1" (browse-url "https://github.com/minorugh"))
-   ("2" (browse-url "https://gist.github.com/minorugh"))
-   ("3" (browse-url "https://github.com/masasam"))
-   ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
-   ("c" (browse-url "https://calendar.google.com/calendar/r"))
-   ("M" (browse-url "https://www.google.co.jp/maps"))
-   ("l" (browse-url "http://blog.gospel-haiku.com/"))
-   ("E" (browse-url "https://es.gospel-haiku.com/post/"))
-   ("S" (browse-url "https://snap.minorugh.com/"))
+   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
    ("B" (browse-url "https://bible.minorugh.com/post/"))
-   ("i" (browse-url "https://www.instagram.com/"))
+   ("S" (browse-url "https://snap.minorugh.com/"))
+   ("E" (browse-url "https://es.gospel-haiku.com/post/"))
+   ("l" (browse-url "http://blog.gospel-haiku.com/"))
    ("j" (browse-url "https://www.jorudan.co.jp/"))
    ("n" (browse-url "https://news.yahoo.co.jp/"))
-   ("x" (browse-url "https://www.xserver.ne.jp/login_server.php"))
-   ("D" (browse-url "https://www.dropbox.com/home"))
-   ("q" (browse-url "https://qiita.com/minoruGH"))
-   ("P" (browse-url "https://photos.google.com/?pageId=none"))
-   ("K" (browse-url "https://keep.google.com/u/0/"))
-   ("T" (browse-url "https://minorugh.tumblr.com"))
    ("w" (browse-url "https://tenki.jp/week/6/31/"))
-   ("g" (browse-url "https://minorugh.github.io/"))
-   ("p" (browse-url "https://app.raindrop.io/my/0"))
-   ("t" (browse-url "https://twitter.com/gospelhaiku"))
-   ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
-   ("d" #'my-github-deploy)
-   ("m" neomutt)
    ("b" thunderbird)
-   ("M" (browse-url "https://www.google.com/maps/@34.6595995,135.0840072,15z?authuser=0&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"))
+   ("K" (browse-url "https://keep.google.com/u/0/"))
+   ("p" (browse-url "https://app.raindrop.io/my/0"))
+   ("q" (browse-url "https://qiita.com/minoruGH"))
    ("s" (start-process "slack" nil "slack"))
+   ("1" (browse-url "https://github.com/minorugh"))
+   ("2" (browse-url "https://gist.github.com/minorugh"))
+   ("d" #'my-github-deploy)
+   ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
+   ("g" (browse-url "https://minorugh.github.io/"))
+   ("c" (browse-url "https://calendar.google.com/calendar/r"))
+   ("M" (browse-url "https://www.google.com/maps/@34.6595995,135.0840072,15z?authuser=0&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"))
+   ("P" (browse-url "https://photos.google.com/?pageId=none"))
+   ("3" (browse-url "https://github.com/masasam"))
+   ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
+   ("m" neomutt)
    ("<muhenkan>" nil)
    ("." nil))
+
+
+;;; ============================================================
+;;;  Thunderbird
+;;; ============================================================
+
   :init
   (defun thunderbird ()
-    "Open thunderbird mail-client for Gmail and detach it from Emacs."
+    "Open Thunderbird mail client, detached from Emacs."
     (interactive)
     (call-process "setsid" nil 0 nil "thunderbird"))
 
-;;; github-deploy
-;;; changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
-;;; 処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
-;;; push 後のブラウザ確認は Makefile の make git の中で実行。
+
+;;; ============================================================
+;;;  GitHub Deploy
+;;;
+;;;  changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
+;;;  処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
+;;;  push 後のブラウザ確認は Makefile の make git の中で実行。
+;;; ============================================================
+
   (defun my-github-deploy ()
     "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."
     (interactive)
-    (let* ((base (expand-file-name "~/Dropbox/Changelog/"))
-           ;; 直下と archive 配下の changelog-*.md を日付降順で列挙
+    (let* ((base  (expand-file-name "~/Dropbox/Changelog/"))
            (files (sort
                    (mapcar (lambda (f) (file-relative-name f base))
                            (directory-files-recursively
@@ -79,16 +92,16 @@
                    #'string>))
            (selected (completing-read "Deploy: " files nil t "^"))
            (src (expand-file-name selected base)))
-      ;; 事前確認: 対象ファイルをバッファで開く
+      ;; Step 0: 対象ファイルをバッファで確認
       (find-file src)
       (when (y-or-n-p (format "%s を CHANGELOG.md にデプロイしますか?" selected))
-	;; Step1: CHANGELOG.md に追記
-	(shell-command
-	 (format "perl %s %s"
-		 (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
-		 src))
-	;; Step2: git commit & push → ブラウザ確認は make git の中で実行
-	(let ((default-directory
+        ;; Step 1: CHANGELOG.md に追記
+        (shell-command
+         (format "perl %s %s"
+                 (expand-file-name "~/Dropbox/Changelog/github-deploy.pl")
+                 src))
+        ;; Step 2: git commit & push（ブラウザ確認は make git の中で実行）
+        (let ((default-directory
                (expand-file-name "~/src/github.com/minorugh/minorugh.github.io/")))
           (compile "make git"))))))
 

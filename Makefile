@@ -76,6 +76,7 @@ init: ## dotfiles のシンボリックリンク展開
 		ln -vsf {${PWD},${HOME}}/.$$item
 	done
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/hub ${HOME}/.config/hub
+	ln -s ~/src/github.com/minorugh/dotfiles/.mutt/history ~/.mutt/history
 
 zsh-restore: ## zsh履歴を Dropbox からリストア
 	cp -p ${HOME}/Dropbox/backup/env/zsh/.zsh_history ${HOME}/.zsh_history

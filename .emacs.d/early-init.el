@@ -5,6 +5,7 @@
 ;;   - No XIM lag              (Emacs*useXIM: false)
 ;;   - Proper font scaling     (Xft.dpi: 120)
 ;;   - Instant dark frame      (Emacs.background/foreground) — prevents "white flash"
+;;   - No silver mode-line     (set-face-attribute) — prevents flash before theme loads
 ;; Apply changes with: xrdb -merge ~/.Xresources
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -47,6 +48,8 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 ;; (push '(undecorated . t) default-frame-alist)
 
+;; Suppress silver mode-line flash before doom-dracula theme loads
+(set-face-attribute 'mode-line nil :background "#44475a" :foreground "#999" :box nil)
 
 ;;; ============================================================
 ;;;  Frame Position & Splash Screen

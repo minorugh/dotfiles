@@ -3,6 +3,10 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
+;;; ============================================================
+;;;  Dired Core
+;;; ============================================================
+
 (leaf dired
   :hook (dired-mode-hook . my-dired-omit-mode)
   :bind (:dired-mode-map
@@ -15,34 +19,38 @@
          ("o"   . my-dired-open-xdg)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
-	 ("."   . xsrv-deploy-dired)
-	 (","   . xsrv-download-dired)
-	 ("b"   . my-xsrv-backup-dwim)    ;; see 50-xsrv-dired.el
+         ("."   . xsrv-deploy-dired)    ; see 60-xsrv-dired.el
+         (","   . xsrv-download-dired)  ; see 60-xsrv-dired.el
+         ("b"   . my-xsrv-backup-dwim)  ; see 60-xsrv-dired.el
          ("i"   . my-sxiv))
   :config
-  (setq dired-dwim-target t)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-recursive-copies  'always)
-  (setq dired-recursive-deletes 'always)
-  (setq dired-listing-switches "-AFl")
+  (setq dired-dwim-target             t)
+  (setq delete-by-moving-to-trash     t)
+  (setq dired-recursive-copies       'always)
+  (setq dired-recursive-deletes      'always)
+  (setq dired-listing-switches       "-AFl")
   (setq ls-lisp-use-insert-directory-program nil)
-  (setq ls-lisp-dirs-first t)
-  (setq dired-omit-files "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
+  (setq ls-lisp-dirs-first            t)
+  (setq dired-omit-files             "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
   ;; Emacs 30 + ivy: dired-do-copy の read-file-name を ivy に横取りさせない
   (add-to-list 'ivy-completing-read-handlers-alist
                '(dired-do-copy . completing-read-default))
 
+
+;;; ============================================================
+;;;  Omit Mode  (特定ディレクトリでは omit を無効化)
+;;; ============================================================
+
   (defun my-dired-omit-mode ()
-    "Disable `dired-omit-mode' only in specific directories."
+    "Disable `dired-omit-mode' in specific directories; enable elsewhere."
     (let ((current (file-name-as-directory
                     (expand-file-name default-directory))))
       (dired-omit-mode
        (if (member current
                    (mapcar (lambda (d)
-                             (file-name-as-directory
-                              (expand-file-name d)))
+                             (file-name-as-directory (expand-file-name d)))
                            '("~/"
                              "~/.env_source/"
                              "~/src/github.com/minorugh/dotfiles/"
@@ -50,23 +58,28 @@
            -1
          1))))
 
-(defun my-dired-open ()
-  "Open file or directory at point."
-  (interactive)
-  (let ((file (dired-get-filename)))
-    (cond
-     ((file-directory-p file)
-      (find-alternate-file file))
-     ((file-remote-p file)
-      (when (x-popup-dialog
-             t
-             `(,(format "リモートファイルを開きますか？\n\n  %s"
-                        (file-name-nondirectory file))
-               ("開く" . t)
-               ("やめる" . nil)))
-        (find-file file)))
-     (t
-      (find-file file)))))
+
+;;; ============================================================
+;;;  Navigation
+;;; ============================================================
+
+  (defun my-dired-open ()
+    "Open file or directory at point.  Confirm before opening remote files."
+    (interactive)
+    (let ((file (dired-get-filename)))
+      (cond
+       ((file-directory-p file)
+        (find-alternate-file file))
+       ((file-remote-p file)
+        (when (x-popup-dialog
+               t
+               `(,(format "リモートファイルを開きますか？\n\n  %s"
+                          (file-name-nondirectory file))
+                 ("開く"   . t)
+                 ("やめる" . nil)))
+          (find-file file)))
+       (t
+        (find-file file)))))
 
   (defun my-dired-up ()
     "Go to parent directory in the same buffer."
@@ -74,13 +87,18 @@
     (find-alternate-file ".."))
 
   (defun my-dired-open-xdg ()
-    "In dired, open the file in associated application."
+    "Open file at point with its associated application via xdg-open."
     (interactive)
-    (let* ((file (dired-get-filename nil t)))
+    (let ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
 
+
+;;; ============================================================
+;;;  File Operations
+;;; ============================================================
+
   (defun my-dired-sudo-rm ()
-    "Delete files marked with Dired with sudo."
+    "Delete dired-marked files with sudo."
     (interactive)
     (let ((files (dired-get-marked-files)))
       (when (y-or-n-p "Delete marked files with sudo?")
@@ -90,8 +108,13 @@
               (message "sudo rm failed for: %s" file))))
         (revert-buffer))))
 
+
+;;; ============================================================
+;;;  External Tools
+;;; ============================================================
+
   (defun my-open-tig ()
-    "Run tig for current context in gnome-terminal."
+    "Run tig for the current file or directory in gnome-terminal."
     (interactive)
     (let* ((path (or (and (derived-mode-p 'dired-mode)
                           (dired-get-filename nil t))
@@ -103,17 +126,14 @@
            (root (locate-dominating-file dir ".git")))
       (if root
           (start-process
-           "tig" nil
-           "gnome-terminal"
-           "--maximize"
+           "tig" nil "gnome-terminal" "--maximize"
            "--working-directory" dir
-           "--"
-           "bash" "-c"
+           "--" "bash" "-c"
            (format "tig %s" (shell-quote-argument path)))
         (message "Not in a Git repo"))))
 
   (defun my-sxiv ()
-    "Open images in current directory with sxiv (fullscreen)."
+    "Open all images in the current directory with sxiv (fullscreen tiling)."
     (interactive)
     (let* ((files (directory-files default-directory nil
                                    "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))

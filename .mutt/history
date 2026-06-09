@@ -1,0 +1,7 @@
+2:source ~/muttrc|
+2:source ~/.muttrc|
+0:tmux respawn-pane -k -t mail:0.0|
+1:aisei123@peach.ocn.ne.jp, |
+5:Re: 添削依頼|
+6:=INBOX|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|

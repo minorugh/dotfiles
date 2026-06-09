@@ -1,18 +1,32 @@
-;;; 10-region-action.el --- Region action configurations. -*- lexical-binding: t -*-
+;;; 10-selected.el --- Region action configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; Emacs-state でのリージョン選択中だけ有効なキーマップと IME 自動 OFF 機能。
 ;; Evil の visual-state-map と同等のキーバインドを emacs-state でも使えるようにする。
 ;;; Code:
 
-;; ---------------------------------------------------------------
-;; my-selected-mode: リージョン選択中のみ有効なマイナーモード
-;; ---------------------------------------------------------------
+;;; ============================================================
+;;;  my-selected-mode  (リージョン選択中のみ有効なマイナーモード)
+;;; ============================================================
+
 (defvar my-selected-mode-map (make-sparse-keymap)
-  "Keymap valid only during region selection.")
+  "Keymap active only while a region is selected.")
 
 (define-minor-mode my-selected-mode
   "Minor mode auto-enabled during region selection."
   :keymap my-selected-mode-map)
+
+(defun my-selected-mode-update ()
+  "Toggle `my-selected-mode' based on whether a region is active."
+  (if (use-region-p)
+      (unless my-selected-mode (my-selected-mode 1))
+    (when my-selected-mode (my-selected-mode -1))))
+
+(add-hook 'post-command-hook #'my-selected-mode-update)
+
+
+;;; ============================================================
+;;;  Web Search Helpers
+;;; ============================================================
 
 (defun my-get-region-or-word ()
   "Return active region text, or word at point."
@@ -30,17 +44,10 @@
   (interactive (list (my-get-region-or-word)))
   (browse-url (format "https://www.weblio.jp/content/%s" (url-hexify-string str))))
 
-(defun my-selected-mode-update ()
-  "Toggle `my-selected-mode' based on whether a region is active."
-  (if (use-region-p)
-      (unless my-selected-mode (my-selected-mode 1))
-    (when my-selected-mode (my-selected-mode -1))))
 
-(add-hook 'post-command-hook #'my-selected-mode-update)
-
-;; ---------------------------------------------------------------
-;; 設定: キーバインドと IME 自動 OFF
-;; ---------------------------------------------------------------
+;;; ============================================================
+;;;  Region Keybindings
+;;; ============================================================
 
 (define-key my-selected-mode-map (kbd ";") #'comment-dwim)
 (define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
@@ -49,8 +56,15 @@
 (define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
 (define-key my-selected-mode-map (kbd "d") #'deepl-translate)
 
-;; IME 自動 OFF: emacs-state では mozc ON のままだとリージョン選択後のキー入力が
-;; my-selected-mode-map より mozc に横取りされるため
+
+;;; ============================================================
+;;;  IME 自動 OFF  (リージョン選択時)
+;;;
+;;;  emacs-state では mozc ON のままだとリージョン選択後のキー入力が
+;;;  my-selected-mode-map より mozc に横取りされるため、選択開始時に
+;;;  一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
+;;; ============================================================
+
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
 
@@ -64,7 +78,8 @@
             (unless (null my-ime-flag)
               (toggle-input-method))))
 
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 10-region-action.el ends here
+;;; 10-selected.el ends here
