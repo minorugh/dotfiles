@@ -6,6 +6,7 @@
 # --- 認証情報 -----------------------------------------------
 source "~/.env_source/.mutt/password.rc"
 
+
 # --- 日本語環境 ---------------------------------------------
 set send_charset="iso-2022-jp:utf-8"
 set thorough_search=yes    # 日本語本文検索を有効化
@@ -72,10 +73,15 @@ set status_format = "---[ Folder: %f ]---[%r%m messages%?n? (%n new)?%?d? (%d to
 
 # --- インデックス表示 ---------------------------------------
 set index_format="%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
-set sort     = threads
-set sort_aux = reverse-last-date-received
-set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
-set sort_re          # 件名の正規表現でスレッド整理
+set sort=reverse-date-received
+unset sort_re
+set use_threads=flat
+
+# 元の設定（戻したくなったら復活）
+# set sort     = threads
+# set sort_aux = reverse-last-date-received
+# set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
+# set sort_re          # 件名の正規表現でスレッド整理
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # --- ページャー表示 -----------------------------------------

@@ -437,17 +437,13 @@ slack: ## Slack デスクトップのインストール
 	rm -f slack-desktop-4.49.89-amd64.deb
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 
-spotify: ## Spotify クライアントのインストール
-	curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-	sudo apt update
-	sudo apt install spotify-client
-
-flatpak: ## flatpak 経由で Pinta をインストール
+flatpak: ## flatpak 経由で Pinta・Spotify をインストール
 	$(APT) $@
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.github.PintaProject.Pinta
-# アンインストール: flatpak uninstall --delete-data flathub com.spotify.Client
+	flatpak install flathub com.spotify.Client
+# アンインストール: flatpak uninstall --delete-data com.github.PintaProject.Pinta
+# アンインストール: flatpak uninstall --delete-data com.spotify.Client
 
 ########################################################
 ## Docker（Step 0 → Step 1 の順で実行）
