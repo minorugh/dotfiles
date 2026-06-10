@@ -79,18 +79,7 @@ set status_chars  = " *%A"
 set status_format = "---[ Folder: %f ]---[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]---%>-%?p?( %p postponed )?---"
 
 # --- インデックス表示 ---------------------------------------
-# %4C:番号 %Z:フラグ(3文字) %<[y?...:日時(今日/今年/それ以前で書式切替)
-# %-15.15L:送信者名 (%?l?%4l&%4c?):行数orバイト数 %s:件名
 set index_format="%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
-
-# %Z の1文字目の主な意味:
-#   r = 自分がそのメールに返信済み
-#   + = 自分が To/Cc に明示的に含まれている
-# ※ Gmail/IMAP 環境では挙動に独自性があり、表示傾向は確認済みだが
-#   厳密な定義と完全一致するとは限らない
-
-# reply_regexp は sort_re と連動して件名マッチングに使用。
-# sort より前に書いても後に書いても動作は同じ（読み込み順に依存しない）
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # --- スレッド表示 -------------------------------------------
@@ -105,12 +94,12 @@ set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 # F5: スレッドOFF  F6: スレッドON  ― どのフォルダでも即時切り替え可能
 # （F1/F2 はドキュメント表示に使用済み、F5/F6 は未割り当て確認済み）
 
-# スレッドなしの設定（デフォルト）
+# スレッドなしの設定
 set use_threads=flat
 set sort=reverse-date-received
 unset sort_re
 
-# スレッドありの設定
+# スレッドありの設定（デフォルト）
 # set sort     = threads
 # set sort_aux = reverse-last-date-received
 # set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
@@ -152,7 +141,8 @@ macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続と
 
 # スレッド表示トグル
 macro index <F5> ":set use_threads=flat sort=reverse-date-received unset sort_re\n<refresh>" "スレッドOFF"
-macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received set sort_re\n<refresh>" "スレッドON"
+macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re\n<refresh>" "スレッドON"
+# macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received set sort_re\n<refresh>" "スレッドON"
 
 # --- その他 -------------------------------------------------
 # q でウィンドウを最小化（Xfce用）
