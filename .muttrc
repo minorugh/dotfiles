@@ -85,18 +85,18 @@ set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 # --- スレッド表示の ON/OFF 【Gmail/IMAP 環境での注意点】--------------
 # unset use_threads / set sort=reverse-date-received を試すも効果なし
 # use_threads=flat で neomutt 内部のスレッド構築自体を無効化
-# F5: スレッドOFF  F6: スレッドON  の切り替えをマクロ化
+# F5/F6 の切り替えをマクロを使用するときはスレッド表示をデフォルトにします
 
-# スレッドなしの設定（デフォルト）
-set use_threads=flat
-set sort=reverse-date-received
-unset sort_re
+# スレッドなしの設定
+# set use_threads=flat
+# set sort=reverse-date-received
+# unset sort_re
 
-# スレッドありの設定（どちらをデフォルトにしてもOK）
-# set sort     = threads
-# set sort_aux = reverse-last-date-received
-# set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
-# set sort_re          # 件名の正規表現でスレッド整理
+# スレッドありの設定
+set sort     = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
+set sort_re          # 件名の正規表現でスレッド整理
 
 # スレッド表示トグル
 macro index <F5> ":set use_threads=flat sort=reverse-date-received unset sort_re\n<refresh>" "スレッドOFF"
