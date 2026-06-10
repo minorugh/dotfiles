@@ -52,3 +52,13 @@
 2:set sort=threads sort_aux=reverse-last-date-received set sort_re|
 2:set use_threads=flat sort=reverse-date-received unset sort_re|
 2:set sort=threads sort_aux=reverse-last-date-received set sort_re|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received set sort_re|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received set sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
