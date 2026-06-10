@@ -1,14 +1,11 @@
 ############################################################
-# Neomutt Configuration  2026.06.10
+# Neomutt Configuration  2026.06.06
 # ~/.muttrc
 # @author Minoru Yamada <minorugh@gmail.com>
 
-# ====================================================================
-# 基本設定
-# ====================================================================
-
 # --- 認証情報 -----------------------------------------------
 source "~/.env_source/.mutt/password.rc"
+
 
 # --- 日本語環境 ---------------------------------------------
 set send_charset="iso-2022-jp:utf-8"
@@ -65,10 +62,6 @@ bind editor <Tab> complete-query
 # --- URL スキャン -------------------------------------------
 macro index,pager u "<pipe-message> urlscan<Enter>" "scan URLs with urlscan"
 
-# ====================================================================
-# 表示設定
-# ====================================================================
-
 # --- サイドバー ---------------------------------------------
 # %B:フォルダ名 %*:スペース埋め %?N?%N/?:未読数（未読時のみ） %S:総件数
 set sidebar_format = "%B%* %?N?%N/?%S"
@@ -79,42 +72,19 @@ set status_chars  = " *%A"
 set status_format = "---[ Folder: %f ]---[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]---%>-%?p?( %p postponed )?---"
 
 # --- インデックス表示 ---------------------------------------
-# %4C:番号 %Z:フラグ(3文字) %<[y?...:日時(今日/今年/それ以前で書式切替)
-# %-15.15L:送信者名 (%?l?%4l&%4c?):行数orバイト数 %s:件名
 set index_format="%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
-
-# %Z の1文字目の主な意味:
-#   r = 自分がそのメールに返信済み
-#   + = 自分が To/Cc に明示的に含まれている
-# ※ Gmail/IMAP 環境では挙動に独自性があり、表示傾向は確認済みだが
-#   厳密な定義と完全一致するとは限らない
-
-# reply_regexp は sort_re と連動して件名マッチングに使用。
-# sort より前に書いても後に書いても動作は同じ（読み込み順に依存しない）
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
-# --- スレッド表示 -------------------------------------------
-# 【Gmail/IMAP 環境での注意点】
-# Gmail Web UI でスレッド表示をOFFにしても neomutt の表示は変わらない。
-# neomutt は Message-ID / In-Reply-To ヘッダーを使って独自にスレッドを
-# 構築するため、sort=threads を外すだけでは消えない。
-# 教科書的な "unset use_threads / set sort=reverse-date-received" も
-# この環境では効果なし（実機確認済み）。
-# use_threads=flat で neomutt 内部のスレッド構築自体を無効化するのが唯一の解。
-#
-# F5: スレッドOFF  F6: スレッドON  ― どのフォルダでも即時切り替え可能
-# （F1/F2 はドキュメント表示に使用済み、F5/F6 は未割り当て確認済み）
-
-# スレッドなしの設定（デフォルト）
-set use_threads=flat
-set sort=reverse-date-received
-unset sort_re
+# スレッドなしの設定
+# set sort=reverse-date-received
+# unset sort_re
+# set use_threads=flat
 
 # スレッドありの設定
-# set sort     = threads
-# set sort_aux = reverse-last-date-received
-# set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
-# set sort_re          # 件名の正規表現でスレッド整理
+set sort     = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump  # 未読メッセージのあるスレッドを折り畳まない
+set sort_re          # 件名の正規表現でスレッド整理
 
 # --- ページャー表示 -----------------------------------------
 set pager_index_lines = 8
@@ -126,35 +96,31 @@ unset markers          # 折り返し行頭の + を非表示
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 alternative_order text/plain text/enriched text/html
 
-# ====================================================================
-# キーバインド
-# ====================================================================
-
-# --- コピー・移動 -------------------------------------------
+# --- キーバインド -------------------------------------------
+# コピー・移動
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
-# --- サイドバー操作 -----------------------------------------
+# サイドバー操作
 bind index,pager ]  sidebar-next
 bind index,pager [  sidebar-prev
 bind index,pager \^ sidebar-toggle-visible
 bind index,pager o  sidebar-open
 
-# --- ページャー操作 -----------------------------------------
+# ページャー操作
 bind pager j next-line
 bind pager k previous-line
 
-# --- インデックス操作 ---------------------------------------
+# インデックス操作
 bind index,attach g first-entry
 bind index,attach G last-entry
 bind index,pager  b previous-page
 macro index,pager S "<change-folder>=INBOX<enter><refresh>" "IMAPの再接続とフォルダの開き直し"
 
-# スレッド表示トグル
+# スレッド表示切り替え
 macro index <F5> ":set use_threads=flat sort=reverse-date-received unset sort_re\n<refresh>" "スレッドOFF"
 macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received set sort_re\n<refresh>" "スレッドON"
 
-# --- その他 -------------------------------------------------
 # q でウィンドウを最小化（Xfce用）
 unset wait_key
 macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "close window"
@@ -165,11 +131,11 @@ macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
 # ====================================================================
 # カラー設定（背景はターミナルのDraculaテーマに合わせてdefault）
 # ====================================================================
-
 color normal      color252  default
 color error       color110  default
 color message     color110  default
-color status      color141  default
+color status  color141  default
+# color status      color245  default
 color indicator   color231  color68
 color prompt      color150  default
 
