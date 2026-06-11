@@ -18,3 +18,6 @@ color status        255  234
 
 # 3. 選択行（カーソル）：どこを選んでいるか分かりやすくします
 color cursor        255  24     bold
+
+# git-peek 連携：選択中のコミットを emacsclient 経由で git-peek に渡す
+bind generic E !sh -c "emacsclient --eval '(git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"

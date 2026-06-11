@@ -131,12 +131,12 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
                           (t orig))))
       (setq git-peek-save-dir new-save-dir)
       (let ((fn nil))
-        (setq fn (lambda ()
+	(setq fn (lambda ()
                    (setq git-peek-save-dir orig)
                    (when xsrv-p
                      (my-open-xsrv-2pane dir new-save-dir))
                    (remove-hook 'git-peek-finish-hook fn)))
-        (add-hook 'git-peek-finish-hook fn))
+	(add-hook 'git-peek-finish-hook fn))
       (git-peek))))
 
 

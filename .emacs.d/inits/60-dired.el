@@ -8,6 +8,7 @@
 ;;; ============================================================
 
 (leaf dired
+  :require my-tig-bridge
   :hook (dired-mode-hook . my-dired-omit-mode)
   :bind (:dired-mode-map
          ("<left>"  . my-dired-up)
@@ -113,25 +114,6 @@
 ;;; ============================================================
 ;;;  External Tools
 ;;; ============================================================
-
-  (defun my-open-tig ()
-    "Run tig for the current file or directory in gnome-terminal."
-    (interactive)
-    (let* ((path (or (and (derived-mode-p 'dired-mode)
-                          (dired-get-filename nil t))
-                     (buffer-file-name)
-                     default-directory))
-           (dir  (if (file-directory-p path)
-                     path
-                   (file-name-directory path)))
-           (root (locate-dominating-file dir ".git")))
-      (if root
-          (start-process
-           "tig" nil "gnome-terminal" "--maximize"
-           "--working-directory" dir
-           "--" "bash" "-c"
-           (format "tig %s" (shell-quote-argument path)))
-        (message "Not in a Git repo"))))
 
   (defun my-dired-gitk ()
     "Run gitk for the current Git repository."

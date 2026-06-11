@@ -15,7 +15,7 @@
 (leaf external-functions
   :doc "External tools & SSH launchers."
   :bind (("<f1>"  . help-command)              ; built-in
-         ("<f2>"  . counsel-imenu)             ; see 04-counsel.el
+         ("<f2>"  . my-remote-select)          ; see below
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . quickrun)                  ; see 40-utils.el
@@ -33,6 +33,34 @@
 ;;; ============================================================
 
   :init
+  (defun my-remote-select ()
+    "Select remote directory and open gnome-terminal via SSH."
+    (interactive)
+    (let* ((home-root "/home/minorugh/")
+           (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
+           (mn-root   (concat home-root "minorugh.com/public_html/"))
+           (dirs `(("home-root"    . ("ls"     . ,home-root))
+                   ("gospel-haiku" . ("ls"     . ,gh-root))
+                   ("minorugh.com" . ("ls"     . ,mn-root))
+                   ("docker/httpd" . ("docker" . "docker exec -it httpd /bin/bash"))
+                   ("passwd"       . ("vim"    . ,(concat home-root "gospel-haiku.com/passwd/")))
+                   ("d_kukai/data" . ("vim"    . ,(concat gh-root "d_kukai/data/")))
+                   ("w_kukai/data" . ("vim"    . ,(concat gh-root "w_kukai/data/")))
+                   ("s_kukai/data" . ("vim"    . ,(concat gh-root "s_kukai/data/")))
+                   ("m_kukai/data" . ("vim"    . ,(concat gh-root "m_kukai/data/")))))
+           (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
+           (entry  (cdr (assoc choice dirs)))
+           (action (car entry))
+           (dir    (cdr entry))
+           (cmd (cond
+                 ((string= action "docker")
+                  (format "gnome-terminal --maximize -- %s" dir))
+                 ((string= action "vim")
+                  (format "gnome-terminal --maximize -- ssh -t xsrv 'exec vim %s'" dir))
+                 (t
+                  (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && bash -il'" dir)))))
+      (start-process-shell-command "ssh-cd" nil cmd)))
+
   (defun terminal-open-this ()
     "Open gnome-terminal at current directory."
     (interactive)
@@ -45,19 +73,6 @@
     (interactive)
     (let* ((cmd (concat "thunar " default-directory)))
       (start-process-shell-command "thunar" nil cmd)))
-
-  ;; (defun terminal-open-this ()
-  ;;   "Open gnome-terminal at current directory."
-  ;;   (interactive)
-  ;;   (let* ((dir  (directory-file-name default-directory))
-  ;;          (cmd  (concat "gnome-terminal --working-directory " dir))
-  ;;      (start-process-shell-command "gnome-terminal" nil cmd))))
-
-  ;; (defun thunar-open-this ()
-  ;;   "Open Thunar file manager at current directory."
-  ;;   (interactive)
-  ;;   (let* ((cmd  (concat "thunar " default-directory))
-  ;;     (start-process-shell-command "thunar" nil cmd))))
 
 
 ;;; ============================================================
