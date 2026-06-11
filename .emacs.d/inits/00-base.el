@@ -123,7 +123,7 @@
   :defun my-iconify-last-frame
   :bind (("C-x C-c"    . server-edit)
          ("C-x b"      . ibuffer)
-         ("C-x m"      . neomutt)
+         ("C-x m"      . counsel-imenu)
          ("M-,"        . xref-find-definitions)
          ("M-w"        . clipboard-kill-ring-save)
          ("C-w"        . my-clipboard-kill-region)
