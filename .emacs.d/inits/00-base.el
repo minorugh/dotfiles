@@ -121,6 +121,7 @@
 
 (leaf user-configurations
   :defun my-iconify-last-frame
+  :hook (after-init-hook . (lambda () (require 'my-tig-bridge)))
   :bind (("C-x C-c"    . server-edit)
          ("C-x b"      . ibuffer)
          ("C-x m"      . counsel-imenu)
