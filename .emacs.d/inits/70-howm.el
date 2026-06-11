@@ -11,6 +11,7 @@
   :ensure t
   :doc "Wiki-like note-taking tool."
   :url "https://howm.osdn.jp"
+  :commands (howm-list-all my-howm-create-with-category)
   :hook (emacs-startup-hook . howm-mode)
   :chord (("@@" . howm-list-all)
           (",," . my-howm-create-with-category))

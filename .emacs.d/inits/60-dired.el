@@ -19,6 +19,7 @@
          ("o"   . my-dired-open-xdg)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
+	 ("]"   . my-dired-gitk)
          ("."   . xsrv-deploy-dired)    ; see 60-xsrv-dired.el
          (","   . xsrv-download-dired)  ; see 60-xsrv-dired.el
          ("b"   . my-xsrv-backup-dwim)  ; see 60-xsrv-dired.el
@@ -131,6 +132,15 @@
            "--" "bash" "-c"
            (format "tig %s" (shell-quote-argument path)))
         (message "Not in a Git repo"))))
+
+  (defun my-dired-gitk ()
+    "Run gitk for the current Git repository."
+    (interactive)
+    (let* ((file (dired-get-file-for-visit))
+           (root (locate-dominating-file file ".git")))
+      (if root
+          (start-process "gitk" nil "gitk")
+	(message "Not in a Git repository"))))
 
   (defun my-sxiv ()
     "Open all images in the current directory with sxiv (fullscreen tiling)."

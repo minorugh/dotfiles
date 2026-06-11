@@ -36,19 +36,28 @@
   (defun terminal-open-this ()
     "Open gnome-terminal at current directory."
     (interactive)
-    (let* ((dir  (directory-file-name default-directory))
-           (cmd  (concat "gnome-terminal --working-directory " dir))
-           (move "xdotool search --sync --onlyvisible --class gnome-terminal windowmove 0 0"))
-      (start-process-shell-command "gnome-terminal" nil cmd)
-      (run-with-timer 0.5 nil (lambda () (shell-command move)))))
+    (let* ((dir (directory-file-name default-directory))
+           (cmd (concat "gnome-terminal --working-directory " dir)))
+      (start-process-shell-command "gnome-terminal" nil cmd)))
 
   (defun thunar-open-this ()
     "Open Thunar file manager at current directory."
     (interactive)
-    (let* ((cmd  (concat "thunar " default-directory))
-           (move "xdotool search --sync --onlyvisible --class thunar windowmove 0 0"))
-      (start-process-shell-command "thunar" nil cmd)
-      (run-with-timer 0.5 nil (lambda () (shell-command move)))))
+    (let* ((cmd (concat "thunar " default-directory)))
+      (start-process-shell-command "thunar" nil cmd)))
+
+  ;; (defun terminal-open-this ()
+  ;;   "Open gnome-terminal at current directory."
+  ;;   (interactive)
+  ;;   (let* ((dir  (directory-file-name default-directory))
+  ;;          (cmd  (concat "gnome-terminal --working-directory " dir))
+  ;;      (start-process-shell-command "gnome-terminal" nil cmd))))
+
+  ;; (defun thunar-open-this ()
+  ;;   "Open Thunar file manager at current directory."
+  ;;   (interactive)
+  ;;   (let* ((cmd  (concat "thunar " default-directory))
+  ;;     (start-process-shell-command "thunar" nil cmd))))
 
 
 ;;; ============================================================
