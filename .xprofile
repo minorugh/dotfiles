@@ -48,14 +48,6 @@ fi
 done) &
 
 #------------------------------------------------------------
-# Screen saver / DPMS
-#------------------------------------------------------------
-# Mesa25 + Intel UHD 630 環境でブランク復帰時にフリッカが発生するため
-# Xの自動ブランクだけ無効化する。
-# DPMSは残して power-menu.sh の「xset dpms force off」による手動オフを維持する。
-xset s off
-
-#------------------------------------------------------------
 # SSH agent (keychain)
 #------------------------------------------------------------
 # systemd ユーザーセッションへ SSH agent 環境変数を伝える
@@ -65,3 +57,12 @@ dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
 if [ -f ~/.keychain/$(hostname)-sh ]; then
     source "$HOME/.keychain/$(hostname)-sh"
 fi
+
+#------------------------------------------------------------
+# Screen Saver / DPMS
+#------------------------------------------------------------
+# スクリーンセーバー無効化
+# DPMS タイマーは無効（0 0 0）だが DPMS 自体は残す
+# → xset dpms force off（power-menu の疑似スリープ）が機能するために必要
+xset s off
+xset dpms 0 0 0
