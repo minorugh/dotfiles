@@ -323,11 +323,11 @@ hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 # 確認: hugo version
 
 emacs-stable: ## Emacs 安定版のソースビルド
-	cd ~/src/
-	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.2.tar.gz
-	tar xvfz emacs-30.2.tar.gz
-	cd emacs-30.2
-	sudo apt build-dep emacs-gtk
+	cd ~/src/ && \
+	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.2.tar.gz && \
+	tar xvfz emacs-30.2.tar.gz && \
+	cd emacs-30.2 && \
+	sudo apt build-dep emacs-gtk && \
 	./configure \
 	  --with-native-compilation=aot \
 	  --without-xim \
@@ -347,9 +347,9 @@ emacs-stable: ## Emacs 安定版のソースビルド
 	  --without-kerberos \
 	  --without-hesiod \
 	  --without-compress-install && \
-	NATIVE_FULL_AOT=1 make -j8 BYTE_COMPILE_FLAGS="--eval '(setq comp-num-cpus 8)'" && sudo make install
-	# rm -rf ${HOME}/.emacs.d/elpa  # elpa を初期化したくない場合はコメントアウトして実行
-# アンインストール: ソースディレクトリで sudo make uninstall && make clean && make distclean
+	NATIVE_FULL_AOT=1 make -j$(nproc) && \
+	sudo make install
+	@echo "## アンインストール: ~/src/emacs-30.2 で sudo make uninstall && make distclean"
 
 texlive: ## TeX Live のインストール（scheme-medium + 日本語）
 	cd ${HOME}/Downloads && \
