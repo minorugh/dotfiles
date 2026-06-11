@@ -123,3 +123,5 @@
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
 0:tmux respawn-pane -k -t mail:0.0|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
