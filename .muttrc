@@ -156,6 +156,7 @@ color message     color110  default
 color status      color141  default
 color indicator   color231  color68
 color prompt      color150  default
+color tree        color213  default
 
 # インデックス
 color index  color252  default  ~A  # 全メッセージ
@@ -163,6 +164,8 @@ color index  color150  default  ~N  # 新着
 color index  color110  default  ~O  # 未読
 color index  color216  default  ~F  # フラグ付き
 color index  color243  default  ~D  # 削除済み
+# 日付表示（index_formatの%dに影響）
+color index_date  color103  default
 
 # ヘッダー
 color hdrdefault  color243  default
@@ -195,4 +198,3 @@ color sidebar_new      color150  default
 
 # .muttrc ends here
 ############################################################
-
