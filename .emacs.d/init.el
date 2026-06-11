@@ -100,29 +100,7 @@
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 
-;;; ============================================================
-;;;  Custom (auto-generated — do not edit manually)
-;;; ============================================================
-
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-vc-selected-packages
-   '((deepl-translate :url "https://github.com/minorugh/deepl-translate")
-     (git-peek :url "https://github.com/minorugh/git-peek")
-     (sequential-command :url
-			 "https://github.com/minorugh/sequential-command")
-     (key-chord :url "https://github.com/minorugh/key-chord"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
