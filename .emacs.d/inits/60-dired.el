@@ -8,7 +8,6 @@
 ;;; ============================================================
 
 (leaf dired
-  :require my-tig-bridge
   :hook (dired-mode-hook . my-dired-omit-mode)
   :bind (:dired-mode-map
          ("<left>"  . my-dired-up)
