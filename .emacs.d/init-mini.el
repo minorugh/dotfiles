@@ -61,8 +61,6 @@
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 (set-frame-parameter nil 'fullscreen 'maximized)
-;; (global-hl-line-mode 1)
-;; (global-display-line-numbers-mode 1)
 
 
 ;;; ============================================================

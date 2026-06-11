@@ -58,7 +58,6 @@ STRING is the exit status message from the compilation process."
 (leaf makefile-functions
   :after (evil key-chord)
   :init
-
   (defun my-makefile-mode-setup ()
     "Setup keybindings for `makefile-mode'."
     (local-set-key (kbd "C-c C-e") #'my-makefile-toggle-readonly)

@@ -58,11 +58,3 @@ if [ -f ~/.keychain/$(hostname)-sh ]; then
     source "$HOME/.keychain/$(hostname)-sh"
 fi
 
-#------------------------------------------------------------
-# Screen Saver / DPMS
-#------------------------------------------------------------
-# スクリーンセーバー無効化
-# DPMS タイマーは無効（0 0 0）だが DPMS 自体は残す
-# → xset dpms force off（power-menu の疑似スリープ）が機能するために必要
-xset s off
-xset dpms 0 0 0

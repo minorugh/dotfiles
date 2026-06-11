@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-06-01
+# Updated : 2026-06-11
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -12,6 +12,7 @@
 # 4. keychain の環境変数をセッションに反映
 # 5. Emacs を --iconic で起動（一瞬も前面表示されない）
 # 6. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
+# 7. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
 #
 # 依存: keychain, secret-tool, rsync
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
@@ -45,3 +46,8 @@ xdotool windowminimize "$wid"
 tmux kill-session -t mail 2>/dev/null
 cd ~/Downloads && tmux new-session -d -s mail 'neomutt'
 tmux set -t mail status off
+
+# X スクリーンセーバー・DPMS タイマー無効化
+# xscreensaver 削除後に X 本体の timeout（デフォルト600秒）が直接発火しフリッカが起きるため
+xset s off
+xset dpms 0 0 0
