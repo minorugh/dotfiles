@@ -107,7 +107,7 @@
 ;;; ============================================================
 
 (leaf git-peek
-  :vc (:url "https://github.com/minorugh/git-peek")
+  :vc (:url "https://github.com/minorugh/git-peek" :only-if-missing t)
   :config
   (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 

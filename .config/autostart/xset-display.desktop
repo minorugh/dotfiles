@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=xset display settings
+Exec=bash -c "xset s off; xset dpms 0 0 0"
+X-GNOME-Autostart-enabled=true
