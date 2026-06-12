@@ -425,10 +425,6 @@ thunderbird: ## Thunderbird の設定
 	cp -a ${HOME}/Dropbox/backup/thunderbird/native-messaging-hosts/* \
 	      ${HOME}/.mozilla/native-messaging-hosts/
 	@echo "[Thunderbird] Done."
-# External Editor アドオン（External Editor Revived）
-# Debian 12 の GLIBC 2.36 では v1.2.0 バイナリが動かない（GLIBC 2.39 必要）
-# バイナリは v1.1.0 のまま・xpi は v1.2.0・Bypass version check にチェックして Apply
-# Debian 13（GLIBC 2.40）に上げれば v1.2.0 バイナリも動くようになる
 
 google-earth: ## Google Earth のインストール
 	cd ${HOME}/Downloads && \
