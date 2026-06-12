@@ -294,10 +294,15 @@ zoom: ## Zoom のインストール
 	sudo gdebi zoom_amd64.deb
 	rm -f ./zoom_amd64.deb
 
-printer: ## CUPS導入（driverless印刷を前提）
-	sudo apt install -y cups
+printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2375DW）
+	sudo apt install -y cups cups-browsed
+	grep -qF 'BrowseFilter NOT name Brother_HL_L2375DW_series' /etc/cups/cups-browsed.conf || \
+		echo 'BrowseFilter NOT name Brother_HL_L2375DW_series' | sudo tee -a /etc/cups/cups-browsed.conf
+	sudo systemctl restart cups-browsed
+	sudo lpadmin -x Brother_HL_L2375DW_series 2>/dev/null || true
+	@echo "✓ CUPS セットアップ完了。http://localhost:631 でプリンターを追加してください。"
 # Brother HL-L2375DW はドライバ不要（driverless対応）
-# CUPSの自動検出 or http://localhost:631 から追加
+# cups-browsed がアンダースコア版を自動追加して2枚印刷になる問題を抑制
 
 ########################################################
 ## 言語・ビルド（Go / Hugo / Emacs / TeX）
