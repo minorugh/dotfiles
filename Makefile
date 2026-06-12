@@ -335,22 +335,16 @@ emacs-stable: ## Emacs 安定版のソースビルド
 	sudo apt build-dep emacs-gtk && \
 	./configure \
 	  --with-native-compilation=aot \
+	  --with-x-toolkit=gtk3 \
 	  --without-xim \
 	  --without-gsettings \
-	  --without-gconf \
 	  --without-dbus \
-	  --with-x-toolkit=gtk3 \
 	  --without-toolkit-scroll-bars \
-	  --without-xaw3d \
-	  --without-m17n-flt \
-	  --without-otf \
 	  --without-imagemagick \
 	  --without-mailutils \
 	  --without-pop \
 	  --without-gpm \
 	  --without-selinux \
-	  --without-kerberos \
-	  --without-hesiod \
 	  --without-compress-install && \
 	NATIVE_FULL_AOT=1 make -j$(nproc) && \
 	sudo make install
