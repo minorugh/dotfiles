@@ -1,9 +1,7 @@
 !! ~/.Xresources
-!! Disable XIM when using Emacs
-Emacs*useXIM: false
-
-Xft.dpi: 120
+Xft.dpi: 120  !! HiDPI設定 (96=標準, 120=125%, 144=150%)
 
 !! doom-dracula theme
 Emacs.background: #282c36
 Emacs.foreground: #f8f8f2
+
