@@ -35,9 +35,9 @@ set imap_deflate = yes
 
 # --- フォルダ・キャッシュ -----------------------------------
 set postponed = "+[Gmail]/下書き"
-set trash    = "+[Gmail]/ゴミ箱"
-set record   = "+[Gmail]/送信済みメール"
-set header_cache    = "~/.mutt/cache/headers"
+set trash     = "+[Gmail]/ゴミ箱"
+set record    = "+[Gmail]/送信済みメール"
+set header_cache     = "~/.mutt/cache/headers"
 set message_cachedir = "~/.mutt/cache/bodies"
 set certificate_file = "~/.mutt/certificates"
 set signature = "~/.env_source/.mutt/signature"
@@ -54,7 +54,7 @@ ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
-set mailcap_path = "~/.mutt/mailcap"
+set mailcap_path  = "~/.mutt/mailcap"
 set print_command = "nkf -em | e2ps -size 11 -head muttmail | lpr"
 set new_mail_command="notify-send --icon=neomutt 'New Email' '%n new messages, %u unread.' &"
 
@@ -82,7 +82,7 @@ set status_chars  = " *%A"
 set status_format = "---[ Folder: %f ]---[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]---%>-%?p?( %p postponed )?---"
 
 # --- インデックス表示 ---------------------------------------
-set index_format="%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
+set index_format = "%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # --- スレッド表示の ON/OFF 【Gmail/IMAP 環境での注意点】--------------
