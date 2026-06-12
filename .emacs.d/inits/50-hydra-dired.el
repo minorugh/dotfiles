@@ -9,6 +9,7 @@
 
 (leaf hydra-dired
   :after evil
+  :require (my-tig-bridge)
   :bind (("<henkan>" . my-hydra-dired))
   :hydra
   (hydra-dired
