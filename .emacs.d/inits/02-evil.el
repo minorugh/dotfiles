@@ -58,8 +58,9 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for specific major modes
+  ;; 過去版（動いていた）
   (dolist (mode '(howm-view-summary-mode imenu-list-major-mode
-                  easy-hugo-mode neotree-mode))
+					 easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for named buffers (*init log*, *scratch*)
@@ -131,7 +132,7 @@
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
-  :hook (after-init-hook . (lambda () (require 'my-sen-cleanup)))
+  :require (my-sen-cleanup)
   :after evil
   :config
   (setq echo-keystrokes 0)
@@ -140,6 +141,7 @@
     "Prefix map triggered by ';' in evil-normal-state.")
 
   (define-key evil-normal-state-map ";" my-normal-leader-map)
+
 
   (let ((m my-normal-leader-map))
     (define-key m "f" #'counsel-find-file)     ; ファイル検索
