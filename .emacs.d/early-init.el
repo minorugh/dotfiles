@@ -48,8 +48,6 @@
 (push '(vertical-scroll-bars) default-frame-alist)
 ;; (push '(undecorated . t) default-frame-alist)
 
-;; Suppress silver mode-line flash before doom-dracula theme loads
-(set-face-attribute 'mode-line nil :background "#44475a" :foreground "#999" :box nil)
 
 ;;; ============================================================
 ;;;  Frame Position & Splash Screen
