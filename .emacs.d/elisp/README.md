@@ -1,59 +1,64 @@
 # ~/.emacs.d/elisp/
-
-Emacs の load-path を通しているディレクトリ。init.el で以下を設定することで、
-このディレクトリ以下のサブディレクトリも再帰的に load-path に追加される。
-
-```elisp
-(let ((default-directory "~/.emacs.d/elisp/"))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
-```
-
-これにより各 leaf ブロックで `:load-path` を個別指定する必要がない。
-
 ---
 
 ## ディレクトリ
 
-### emacs-logo/
-ダッシュボード用のロゴ画像を複数収録。気分転換に差し替えて使う。
 
-### markdown-css/
+### bin/
+elisp や外部から呼び出すスクリプト群を収録。
+
+- **gen_toc.pl** --- Markdown ファイルの目次（TOC）を自動生成。`my-markdown.el` から呼び出している。
+- **howm-fix-code-comments.pl** --- Markdown コードブロック内のコメント記号を変換。`my-markdown.el` から呼び出している。
+- **sen_cleanup.pl** --- 選句データの没句削除。`my-sen-cleanup.el` から呼び出している。
+- **tile-focus-toggle.sh** --- Simplenote と Emacs のフォーカスをトグル切り替えする。
+- **xsrv-backup-smart.sh** --- xserver からローカルへ rsync バックアップ。変更がなければスキップする。
+
+### css/
 `markdown-preview` 用の CSS を複数収録。設定変更で切り替えられるようにしてある。
 
-### deepl-translate/
-### key-chord/
-### mozc-cursor-color/
-### sequential-command/
-### tempbuf/
 
-上記はいずれも元々 VC（package-vc-install）で作者リポジトリから直接読み込んでいたもの。
-VC 管理を廃止し、このディレクトリに配置して load-path で読み込む方式に統一した。
-必要に応じて一部カスタマイズして使用している。
-
-`deepl-translate` については DeepL の API 仕様変更により本家のコードが動作しなくなったため、
-API 呼び出し部分を修正して使用している。
+### img/
+ダッシュボード用のロゴ画像を複数収録。気分転換に差し替えて使う。
 
 ---
 
-## スクリプト
+## 自作 elisp
 
-### gen_toc.pl
-Markdown ファイルの目次（TOC）を自動生成する Perl スクリプト。
-`markdown-mode` の設定内から呼び出している。
+Emacs の load-path を通しているディレクトリ。
 
-### howm-fix-code-comments.pl
-Markdown コードブロック内のコメント記号を変換する Perl スクリプト。
-`markdown-mode` の設定内から呼び出している。
+### elpa-time-machine.el
+elpa バックアップ（rsync + git 管理）の過去スナップショットをサイドバーで閲覧するツール。
+コミット一覧から選択してプレビューし、必要なものを `~/tmp/` に保存できる。
+Claude との共同開発。
 
----
+### my-evil-cheat-sheet.el
+Evil キーバインドのチートシートを表示するバッファー。
+ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
 
-## プライベート設定 elisp
+### my-fix-mojibake.el
+句会データファイルの文字化けを修復するコマンド。
+外部 Python スクリプト（`fix_mojibake.py`）を呼び出し、結果を専用バッファーに表示する。
 
-### my:dired.el
-hydra-dired メニューから呼び出すディレクトリ・ファイルオープン関数群。
-`40-hydra-dired.el` から `(require 'my:dired)` で読み込む。
+### my-markdown.el
+Markdown・howm ファイル編集用ユーティリティ関数群。
+コードブロック内コメント変換（`my-howm-fix-code-comments`）や
+目次生成（`gen_toc.pl` 呼び出し）などを提供する。
+`(require 'my-markdown)` で読み込む。
 
-### my:template.el
+### my-sen-cleanup.el
+選句作業用コマンド。`sen_cleanup.pl` を非同期実行し、結果をストリーミング表示する。
+実行前に `.tmp` バックアップを作成し、`;b` で復元できる。
+キーバインドは `my-normal-leader-map` の `;c` / `;b`。
+
+### my-template.el
 俳句関係の作業ファイルをヘッダー自動生成付きで開くテンプレート関数群。
-`40-hydra-menu.el` から `(require 'my:template)` で読み込む。
+`40-hydra-dired.el` および `40-hydra-menu.el` から `(require 'my-template)` で読み込む。
+
+### my-tig-bridge.el
+tig と git-peek を連携させるブリッジ。tig 起動時にファイルパスをコンテキストファイルに書き出し、
+tig 側から `emacsclient` 経由で `git-peek-from-hash` を呼べるようにする。
+`~/.tigrc` に `bind generic E` の設定が必要。
+
+### seiho-haiku.el
+青畝俳句データ（366 日分）を定数として保持する elisp ファイル。
+`seihohaiku.cgi` から自動変換生成したもの。
