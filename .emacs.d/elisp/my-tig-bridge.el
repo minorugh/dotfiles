@@ -11,10 +11,10 @@
 ;;; Code:
 
 (defvar my-tig-context-file "/tmp/tig-peek-context"
-  "tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持。")
+  "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
 
 (defun my-open-tig ()
-  "Run tig for the current file (dired or file buffer) in gnome-terminal.
+  "Run tig for the current file (`dired' or file buffer) in gnome-terminal.
 起動時に対象ファイルパスを `my-tig-context-file' に書き出す。
 git 管理外の場合はエラーメッセージを表示する。"
   (interactive)
@@ -45,9 +45,9 @@ git 管理外の場合はエラーメッセージを表示する。"
                (shell-quote-argument path)))))))
 
 (defun git-peek-from-hash (hash)
-  "HASH を受け取り、`my-tig-context-file' のファイルを git-peek で開く.
+  "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
 tig 上のキーバインドから emacsclient 経由で呼ばれることを想定。
-xsrv 配下なら my-git-peek-smart 相当の処理を自動適用する。"
+xsrv 配下なら `my-git-peek-smart' 相当の処理を自動適用する。"
   (let* ((ctx-file my-tig-context-file)
          (target (when (file-exists-p ctx-file)
                    (string-trim (with-temp-buffer
@@ -83,7 +83,7 @@ xsrv 配下なら my-git-peek-smart 相当の処理を自動適用する。"
       (git-peek-from-hash--run hash))))
 
 (defun git-peek-from-hash--run (hash)
-  "git-peek のサイドバーを開き、HASH の行にカーソルを移動する."
+  "Git-peek のサイドバーを開き、HASH の行にカーソルを移動する."
   (git-peek)
   ;; サイドバーが開いた後に hash 行を探してジャンプ
   (when (get-buffer "*git-peek-commits*")
