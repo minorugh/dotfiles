@@ -57,7 +57,7 @@
 
 (leaf init-loader
   :ensure t
-  :load-path "~/.emacs.d/elisp"   ; local elisp packages
+  :load-path "~/.emacs.d/elisp"   ;; Path to the local packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
