@@ -124,7 +124,6 @@
 
 ;;; ============================================================
 ;;;  Normal-state Leader Key ";"
-;;;
 ;;;  Normal state のまま軽微な編集を完結させるための仕組み。
 ;;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;;;  muhenkan で Emacs state へ。
@@ -141,7 +140,6 @@
     "Prefix map triggered by ';' in evil-normal-state.")
 
   (define-key evil-normal-state-map ";" my-normal-leader-map)
-
 
   (let ((m my-normal-leader-map))
     (define-key m "f" #'counsel-find-file)     ; ファイル検索
