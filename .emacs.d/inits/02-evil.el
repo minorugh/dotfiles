@@ -131,7 +131,7 @@
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
-  :require (my-sen-cleanup)
+  :require (my-sen-cleanup)  ;; minoru_sen commands
   :after evil
   :config
   (setq echo-keystrokes 0)
