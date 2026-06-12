@@ -22,13 +22,16 @@ set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
 set hostname = gmail.com
-set mail_check = 60
-set timeout = 15
-set imap_keepalive = 120
+
+# --- チューニング・失速対策 ---
+set mail_check = 90
+set timeout = 30
 unset imap_idle
-unset imap_passive
-set imap_pipeline_depth = 0
-set connect_timeout = 10
+unset imap_keepalive
+set imap_pipeline_depth = 15
+set imap_fetch_chunk_size = 200
+unset imap_qresync
+set imap_deflate = yes
 
 # --- フォルダ・キャッシュ -----------------------------------
 set postponed = "+[Gmail]/下書き"
