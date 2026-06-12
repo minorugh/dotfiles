@@ -8,6 +8,8 @@
 # update 2026.03.19 polkit ターゲット追加（Docker認証ダイアログ抑制）
 # update 2026.03.26 filezilla/gitea バックアップ追加
 # update 2026.03.26 keyring を全機共通コピー方式に統一、autostart.sh の条件分岐を削除
+# update 2026.06.11 for Debian13
+# update 2026.06.11 fixed emacs-stable for Emacs-30.2
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
