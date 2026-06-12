@@ -68,11 +68,9 @@
 ;;;  Language & Misc
 ;;; ============================================================
 
-;; Personal settings file — managed outside version control
-(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-
 (set-language-environment "Japanese")
 (setq-default indent-line-function 'indent-for-current-mode)
+(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
 
 ;;; ============================================================
