@@ -12,6 +12,20 @@ fi
 
 log() { echo "${LOG_PREFIX} $1"; }
 
+commit_lean() {
+    local count=$(git log --oneline | wc -l)
+    if [ "$count" -gt 200 ]; then
+        log "commit履歴 ${count}件、200件超えのためリセット"
+        git checkout --orphan newbranch
+        git add -A
+        git commit -m "reset: history truncated at $(date '+%Y-%m-%d')"
+        git branch -D main
+        git branch -m main
+        git push --force
+        log "commit履歴リセット完了"
+    fi
+}
+
 echo "${LOG_PREFIX} START: $(date '+%Y-%m-%d %H:%M:%S')"
 
 for kukai in d_kukai m_kukai s_kukai w_kukai; do
@@ -28,5 +42,7 @@ else
     git push
     log "push完了"
 fi
+
+commit_lean
 
 echo "${LOG_PREFIX} END: $(date '+%Y-%m-%d %H:%M:%S')"
