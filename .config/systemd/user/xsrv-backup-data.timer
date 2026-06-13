@@ -1,8 +1,10 @@
 [Unit]
 Description=Run Xserver Backup Data (hourly)
+
 [Timer]
-OnCalendar=*:00:00
-Persistent=true
+OnCalendar=07..22:00:00
+Persistent=false
 Unit=xsrv-backup-data.service
+
 [Install]
 WantedBy=timers.target

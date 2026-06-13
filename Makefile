@@ -404,6 +404,14 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/xsrv-minorugh.git
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
+github-remote-add: ## xsrv-GH / xsrv-minorugh に Gitea remote を追加（GitHub + Gitea の両方に push）
+	git -C ${HOME}/src/github.com/minorugh/xsrv-GH remote set-url --add origin http://localhost:3000/minoru/xsrv-GH.git
+	git -C ${HOME}/src/github.com/minorugh/xsrv-minorugh remote set-url --add origin http://localhost:3000/minoru/xsrv-minorugh.git
+	@echo "Gitea remote added to xsrv-GH and xsrv-minorugh."
+# git clone 直後は GitHub のみが remote。このターゲットで Gitea を push 先に追加する。
+# push 時は両リモートに送信される（fetch は GitHub のみ）
+
+
 ########################################################
 ## 対話実行系（個別に手動で実行するターゲット）
 ########################################################
