@@ -1,13 +1,8 @@
 [Unit]
-Description=Run Xserver Backup (7,10,13,16,19,22)
-
+Description=Run Xserver Backup (daily 22:05)
 [Timer]
-# 指定した時間の00分に実行
-OnCalendar=07,10,13,16,19,22:00:00
-# PCがスリープなどで実行時間を過ぎていた場合、起動直後に実行する
+OnCalendar=22:05:00
 Persistent=true
 Unit=xsrv-backup.service
-
 [Install]
 WantedBy=timers.target
-
