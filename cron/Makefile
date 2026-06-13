@@ -21,7 +21,7 @@ XSRV_GH_DST  = $(HOME)/src/github.com/minorugh/xsrv-GH
 XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
 HOSTNAME := $(shell hostname)
 
-all: xsrv-stop
+all: xsrv-stop xsrv-data-stop
 
 cron-log: ## cron 実行ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/cron.log")(goto-char (point-max)) (delete-other-windows))'
@@ -49,6 +49,21 @@ xsrv-log: ## xsrv-backup ログ表示
 xsrv-stop: ## xsrv-backup 緊急停止
 	systemctl --user stop xsrv-backup.timer
 	@echo "##> xsrv-backup: stopped." >&2
+
+xsrv-data-log: ## xsrv-backup-data ログ表示
+	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup-data.log")(goto-char (point-max)) (delete-other-windows))'
+
+xsrv-data-stop: ## xsrv-backup-data 緊急停止
+	systemctl --user stop xsrv-backup-data.timer
+	@echo "##> xsrv-backup-data: stopped." >&2
+
+xsrv-data-start: ## xsrv-backup-data 再開
+	systemctl --user start xsrv-backup-data.timer
+	@echo "##> xsrv-backup-data: started." >&2
+
+xsrv-data-run: ## xsrv-backup-data 今すぐ手動実行
+	systemctl --user start xsrv-backup-data.service
+	@echo "##> xsrv-backup-data: manual run triggered." >&2
 
 xsrv-start: ## xsrv-backup 再開
 	systemctl --user start xsrv-backup.timer
