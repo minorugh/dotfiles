@@ -5,6 +5,7 @@ XSRV_SSH="ssh -p 10022"
 XSRV_HOST="minorugh@sv13268.xserver.jp"
 XSRV_BASE="$XSRV_HOST:/home/minorugh/gospel-haiku.com/public_html"
 DST="$HOME/src/github.com/minorugh/xsrv-GH"
+COMMIT_LEAN_MAX=200
 
 if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
     source "$HOME/.keychain/$HOSTNAME-sh"
@@ -14,7 +15,7 @@ log() { echo "${LOG_PREFIX} $1"; }
 
 commit_lean() {
     local count=$(git log --oneline | wc -l)
-    if [ "$count" -gt 200 ]; then
+    if [ "$count" -gt "$COMMIT_LEAN_MAX" ]; then
         log "commit履歴 ${count}件、200件超えのためリセット"
         git checkout --orphan newbranch
         git add -A
