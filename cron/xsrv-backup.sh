@@ -19,6 +19,7 @@ XSRV_MN_DST="$HOME/src/github.com/minorugh/xsrv-minorugh"
 
 TMPLOG=$(mktemp)
 ERRORS=0
+COMMIT_LEAN_MAX=200
 
 if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
     source "$HOME/.keychain/$HOSTNAME-sh"
@@ -82,7 +83,7 @@ commit_lean() {
     local dir="$2"
     cd "$dir"
     local count=$(git log --oneline | wc -l)
-    if [ "$count" -gt 200 ]; then
+    if [ "$count" -gt "$COMMIT_LEAN_MAX" ]; then
         log "${label}: commit履歴 ${count}件、200件超えのためリセット"
         git checkout --orphan newbranch
         git add -A
