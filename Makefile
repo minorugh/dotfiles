@@ -170,21 +170,29 @@ cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成
 		crontab ${PWD}/cron/crontab; \
 	fi
 
-xsrv-systemd: ## systemd-user で xsrv-backup を登録・有効化（P1のみ）
+xsrv-systemd: ## systemd-user で xsrv-backup / xsrv-backup-data を登録・有効化（P1のみ）
 	@if [ "$$(hostname)" = "P1" ]; then \
 		sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin/xsrv-backup.sh; \
 		sudo chmod +x /usr/local/bin/xsrv-backup.sh; \
+		sudo ln -vsfn ${PWD}/cron/xsrv-backup-data.sh /usr/local/bin/xsrv-backup-data.sh; \
+		sudo chmod +x /usr/local/bin/xsrv-backup-data.sh; \
 		mkdir -p ${HOME}/.config/systemd/user; \
 		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.service \
 		          ${HOME}/.config/systemd/user/xsrv-backup.service; \
 		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.timer \
 		          ${HOME}/.config/systemd/user/xsrv-backup.timer; \
+		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup-data.service \
+		          ${HOME}/.config/systemd/user/xsrv-backup-data.service; \
+		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup-data.timer \
+		          ${HOME}/.config/systemd/user/xsrv-backup-data.timer; \
 		systemctl --user daemon-reload; \
 		systemctl --user enable --now xsrv-backup.timer; \
-		echo "xsrv-backup timer enabled."; \
+		systemctl --user enable --now xsrv-backup-data.timer; \
+		echo "xsrv-backup / xsrv-backup-data timer enabled."; \
 	else \
 		echo "P1 以外では実行しません"; \
 	fi
+
 
 ########################################################
 ## パッケージ・ツール・フォント
