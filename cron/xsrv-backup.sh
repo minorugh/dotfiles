@@ -46,7 +46,12 @@ run_rsync() {
     local label="$1"
     local src="$2"
     local dst="$3"
-    rsync -avz --delete --exclude='.git' --exclude='.gitignore' -e "$XSRV_SSH" "$src" "$dst/" >> "$TMPLOG" 2>&1
+    rsync -avz --delete --exclude='.git' --exclude='.gitignore' \
+        --exclude='d_kukai/data/' \
+        --exclude='m_kukai/data/' \
+        --exclude='s_kukai/data/' \
+        --exclude='w_kukai/data/' \
+        -e "$XSRV_SSH" "$src" "$dst/" >> "$TMPLOG" 2>&1
     if [ $? -eq 0 ]; then
         log "rsync ${label}: OK"
     else

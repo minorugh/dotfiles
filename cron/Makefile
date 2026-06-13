@@ -8,7 +8,7 @@
 ## echoなし                 → Compile successful. がminibufferに表示されるだけ
 ## ----------------------------------------------------------------
 
-## 緊急停止:      make（または make -k）
+## 緊急停止:      make xsrv-stop（または make -k）
 ## crontab編集:   make cron-edit
 ## crontab反映:   make cron-update
 ## commitリセット: make xsrv-commit-lean（半年に1回程度）
@@ -21,7 +21,7 @@ XSRV_GH_DST  = $(HOME)/src/github.com/minorugh/xsrv-GH
 XSRV_MN_DST  = $(HOME)/src/github.com/minorugh/xsrv-minorugh
 HOSTNAME := $(shell hostname)
 
-all: xsrv-stop xsrv-data-stop
+all: xsrv-stop
 
 cron-log: ## cron 実行ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/cron.log")(goto-char (point-max)) (delete-other-windows))'
@@ -46,45 +46,45 @@ emacs-trash: ## emacs-trash-sweep.sh を今すぐ手動実行
 xsrv-log: ## xsrv-backup ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup.log")(goto-char (point-max)) (delete-other-windows))'
 
-xsrv-stop: ## xsrv-backup 緊急停止
-	systemctl --user stop xsrv-backup.timer
-	@echo "##> xsrv-backup: stopped." >&2
-
 xsrv-data-log: ## xsrv-backup-data ログ表示
 	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup-data.log")(goto-char (point-max)) (delete-other-windows))'
 
-xsrv-data-stop: ## xsrv-backup-data 緊急停止
+xsrv-stop: ## xsrv-backup / xsrv-backup-data 両方停止
+	systemctl --user stop xsrv-backup.timer
 	systemctl --user stop xsrv-backup-data.timer
-	@echo "##> xsrv-backup-data: stopped." >&2
+	@echo "##> xsrv-backup + xsrv-backup-data: stopped." >&2
 
-xsrv-data-start: ## xsrv-backup-data 再開
-	systemctl --user start xsrv-backup-data.timer
-	@echo "##> xsrv-backup-data: started." >&2
-
-xsrv-data-run: ## xsrv-backup-data 今すぐ手動実行
-	systemctl --user start xsrv-backup-data.service
-	@echo "##> xsrv-backup-data: manual run triggered." >&2
-
-xsrv-start: ## xsrv-backup 再開
+xsrv-start: ## xsrv-backup / xsrv-backup-data 両方再開
 	systemctl --user start xsrv-backup.timer
-	@echo "##> xsrv-backup: started." >&2
+	systemctl --user start xsrv-backup-data.timer
+	@echo "##> xsrv-backup + xsrv-backup-data: started." >&2
 
-xsrv-status: ## xsrv-backup 状態確認
+xsrv-status: ## xsrv-backup / xsrv-backup-data 状態確認
+	@echo "=== xsrv-backup ==="
 	systemctl --user status xsrv-backup.timer
-	@echo "#########################"
-	systemctl --user cat xsrv-backup.timer
+	@echo "=== xsrv-backup-data ==="
+	systemctl --user status xsrv-backup-data.timer
 	@echo "##>" >&2
 
-xsrv-reload: ## systemd 設定変更後のリロード
+xsrv-reload: ## systemd timer設定変更後のリロード＆再起動
 	systemctl --user daemon-reload
-	@echo "##> xsrv-backup: daemon reloaded." >&2
+	systemctl --user restart xsrv-backup.timer
+	systemctl --user restart xsrv-backup-data.timer
+	@echo "##> xsrv-backup + xsrv-backup-data: reloaded & restarted." >&2
 
 xsrv-run: ## xsrv-backup 今すぐ手動実行
 	systemctl --user start xsrv-backup.service
 	@echo "##> xsrv-backup: manual run triggered." >&2
 
+xsrv-data-run: ## xsrv-backup-data 今すぐ手動実行
+	systemctl --user start xsrv-backup-data.service
+	@echo "##> xsrv-backup-data: manual run triggered." >&2
+
 xsrv-edit-timer: ## xsrv-backup.timer を編集
 	gnome-terminal -- bash -c 'nano ~/.config/systemd/user/xsrv-backup.timer'
+
+xsrv-edit-data-timer: ## xsrv-backup-data.timer を編集
+	gnome-terminal -- bash -c 'nano ~/.config/systemd/user/xsrv-backup-data.timer'
 
 ## バックアップのcommitログが肥大するので適宜初期化する（半年に1回程度手動で）
 ## 実行すると両リポジトリの履歴が1件にリセットされ、GitHub に force push される
