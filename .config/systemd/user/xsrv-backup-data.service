@@ -1,0 +1,4 @@
+[Service]
+ExecStart=/usr/local/bin/xsrv-backup-data.sh
+StandardOutput=truncate:/tmp/xsrv-backup-data.log
+StandardError=truncate:/tmp/xsrv-backup-data.log
