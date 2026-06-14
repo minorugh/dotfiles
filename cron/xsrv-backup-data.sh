@@ -18,12 +18,12 @@ commit_lean() {
     local count=$(git log --oneline | wc -l)
     if [ "$count" -gt "$COMMIT_LEAN_MAX" ]; then
         log "commit履歴 ${count}件、200件超えのためリセット"
-        git checkout --orphan newbranch
-        git add -A
-        git commit -m "reset: history truncated at $(date '+%Y-%m-%d')"
-        git branch -D main
-        git branch -m main
-        git push --force
+        git checkout --orphan newbranch >> /dev/null 2>&1
+        git add -A >> /dev/null 2>&1
+        git commit -m "reset: history truncated at $(date '+%Y-%m-%d')" >> /dev/null 2>&1
+        git branch -D main >> /dev/null 2>&1
+        git branch -m main >> /dev/null 2>&1
+        git push --force >> /dev/null 2>&1
         log "commit履歴リセット完了"
     fi
 }
@@ -38,12 +38,12 @@ for kukai in d_kukai m_kukai s_kukai w_kukai; do
 done
 
 cd "$DST"
-git add -A
+git add -A >> /dev/null 2>&1
 if git diff --cached --quiet; then
     log "変更なし、スキップ"
 else
-    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOGFILE" 2>&1
-    git push >> "$LOGFILE" 2>&1
+    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> /dev/null 2>&1
+    git push >> /dev/null 2>&1
     if [ $? -eq 0 ]; then
         log "push完了"
     else
