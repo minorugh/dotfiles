@@ -2,13 +2,11 @@
 #######################################################################
 ## xsrv-backup.sh
 ## xserver → ローカルへ rsync + git commit + push（2ドメイン）
-## systemd user timer で 07:00〜22:00 毎時実行
-## xsrv-backup.service の ExecStart 1行目（2行目は xsrv-backup-data.sh）
+## systemd user timer で毎日 22:05 に実行
 #######################################################################
 
 HOME=/home/minoru
 LOG_PREFIX="[xsrv-backup]"
-LOGFILE=/tmp/xsrv-backup.log
 
 XSRV_HOST="minorugh@sv13268.xserver.jp"
 XSRV_SSH="ssh -p 10022"
@@ -27,7 +25,7 @@ if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
     source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
-log() { echo "${LOG_PREFIX} $1" | tee -a "$LOGFILE"; }
+log() { echo "${LOG_PREFIX} $1"; }
 
 wait_for_network() {
     local max_attempts=10
@@ -48,37 +46,41 @@ run_rsync() {
     local label="$1"
     local src="$2"
     local dst="$3"
-    rsync -az --delete --exclude='.git' --exclude='.gitignore' \
+    rsync -avz --delete --exclude='.git' --exclude='.gitignore' \
         --exclude='d_kukai/data/' \
         --exclude='m_kukai/data/' \
         --exclude='s_kukai/data/' \
         --exclude='w_kukai/data/' \
-        -e "$XSRV_SSH" "$src" "$dst/" >> "$LOGFILE" 2>&1
+        -e "$XSRV_SSH" "$src" "$dst/" >> "$TMPLOG" 2>&1
     if [ $? -eq 0 ]; then
         log "rsync ${label}: OK"
     else
         log "rsync ${label}: ERROR"
+        cat "$TMPLOG"
         ERRORS=$((ERRORS + 1))
     fi
+    > "$TMPLOG"
 }
 
 run_git() {
     local label="$1"
     local dir="$2"
     cd "$dir"
-    git add -A >> "$LOGFILE" 2>&1
+    git add -A >> "$TMPLOG" 2>&1
     if git diff --cached --quiet; then
         log "git ${label}: 変更なし、スキップ"
     else
-        git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOGFILE" 2>&1
-        git push >> "$LOGFILE" 2>&1
+        git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> "$TMPLOG" 2>&1
+        git push >> "$TMPLOG" 2>&1
         if [ $? -eq 0 ]; then
             log "git push ${label}: OK"
         else
             log "git push ${label}: ERROR"
+            cat "$TMPLOG"
             ERRORS=$((ERRORS + 1))
         fi
     fi
+    > "$TMPLOG"
 }
 
 commit_lean() {
@@ -87,7 +89,7 @@ commit_lean() {
     cd "$dir"
     local count=$(git log --oneline | wc -l)
     if [ "$count" -gt "$COMMIT_LEAN_MAX" ]; then
-        log "${label}: commit履歴 ${count}件、${COMMIT_LEAN_MAX}件超えのためリセット"
+        log "${label}: commit履歴 ${count}件、200件超えのためリセット"
         git checkout --orphan newbranch
         git add -A
         git commit -m "reset: history truncated at $(date '+%Y-%m-%d')"
@@ -97,9 +99,6 @@ commit_lean() {
         log "${label}: commit履歴リセット完了"
     fi
 }
-
-# ログファイルをリセット
-echo "" > "$LOGFILE"
 
 START=$(date '+%Y-%m-%d %H:%M:%S')
 log "START: ${START}"

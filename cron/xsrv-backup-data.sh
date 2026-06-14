@@ -1,6 +1,7 @@
 #!/bin/bash
 HOME=/home/minoru
 LOG_PREFIX="[xsrv-backup-data]"
+LOGFILE=/tmp/xsrv-backup-data.log
 XSRV_SSH="ssh -p 10022"
 XSRV_HOST="minorugh@sv13268.xserver.jp"
 XSRV_BASE="$XSRV_HOST:/home/minorugh/gospel-haiku.com/public_html"
@@ -11,7 +12,7 @@ if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
     source "$HOME/.keychain/$HOSTNAME-sh"
 fi
 
-log() { echo "${LOG_PREFIX} $1"; }
+log() { echo "${LOG_PREFIX} $1" | tee -a "$LOGFILE"; }
 
 commit_lean() {
     local count=$(git log --oneline | wc -l)
@@ -27,11 +28,13 @@ commit_lean() {
     fi
 }
 
-echo "${LOG_PREFIX} START: $(date '+%Y-%m-%d %H:%M:%S')"
+# ログファイルをリセット
+echo "" > "$LOGFILE"
+log "START: $(date '+%Y-%m-%d %H:%M:%S')"
 
 for kukai in d_kukai m_kukai s_kukai w_kukai; do
     rsync -az --mkpath -e "$XSRV_SSH" \
-        "$XSRV_BASE/${kukai}/data/" "$DST/${kukai}/data/"
+        "$XSRV_BASE/${kukai}/data/" "$DST/${kukai}/data/" >> "$LOGFILE" 2>&1
 done
 
 cd "$DST"
@@ -39,11 +42,15 @@ git add -A
 if git diff --cached --quiet; then
     log "変更なし、スキップ"
 else
-    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')"
-    git push
-    log "push完了"
+    git commit -m "auto: $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOGFILE" 2>&1
+    git push >> "$LOGFILE" 2>&1
+    if [ $? -eq 0 ]; then
+        log "push完了"
+    else
+        log "push ERROR"
+    fi
 fi
 
 commit_lean
 
-echo "${LOG_PREFIX} END: $(date '+%Y-%m-%d %H:%M:%S')"
+log "END: $(date '+%Y-%m-%d %H:%M:%S')"
