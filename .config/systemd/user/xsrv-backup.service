@@ -1,10 +1,9 @@
 [Unit]
 Description=Xserver Backup Service
+
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/usr/local/bin/xsrv-backup.sh
+ExecStart=/usr/local/bin/xsrv-backup-data.sh
 StandardOutput=truncate:/tmp/xsrv-backup.log
 StandardError=truncate:/tmp/xsrv-backup.log
-# StandardOutput=append:/tmp/xsrv-backup.log 
-# StandardError=append:/tmp/xsrv-backup.log
-
