@@ -17,6 +17,6 @@ if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
 fi
 
 echo "${LOG_PREFIX} START: $(date '+%Y-%m-%d %H:%M:%S')"
-rsync -a --delete --exclude='.git' --exclude='.gitignore' \
+rsync -az --delete --exclude='.git' --exclude='.gitignore' \
       -e "ssh -p 10022" "$XSRV_GH_SRC" "$XSRV_GH_DST/"
 echo "${LOG_PREFIX} END: $(date '+%Y-%m-%d %H:%M:%S') ($( [ $? -eq 0 ] && echo OK || echo ERROR))"
