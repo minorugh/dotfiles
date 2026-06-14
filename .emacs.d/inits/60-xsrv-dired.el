@@ -113,7 +113,7 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
 ;;;  Buffer Colorize  (xsrv-GH / xsrv-minorugh 配下のバッファを識別)
 ;;; ============================================================
 
-(defvar my-xsrv-buffer-color "#191970"
+(defvar my-xsrv-buffer-color "#233B6C"
   "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
 
 (defun my-xsrv--maybe-colorize ()
