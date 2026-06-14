@@ -3,37 +3,6 @@
 ;;; Code:
 
 ;;; ============================================================
-;;;  Backup  (xserver → xsrv-GH / xsrv-minorugh)
-;;;
-;;;  キーバインドは 60-dired.el で定義。
-;;; ============================================================
-
-(defun my-xsrv-backup (src-dir pair-dir)
-  "SRC-DIR で xsrv-backup を実行し、完了後に PAIR-DIR を 2ペイン復元する."
-  (interactive)
-  (letrec ((finish-fn
-            (lambda (_buf _msg)
-              (remove-hook 'compilation-finish-functions finish-fn)
-              (my-open-xsrv-2pane src-dir pair-dir))))
-    (add-hook 'compilation-finish-functions finish-fn)
-    (compile "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh")))
-
-(defun my-xsrv-backup-dwim ()
-  "カレントディレクトリに応じて rsync backup を自動選択して実行する."
-  (interactive)
-  (let ((dir (expand-file-name default-directory)))
-    (cond
-     ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/") dir)
-      (my-xsrv-backup "~/src/github.com/minorugh/xsrv-GH/"
-                      "~/Dropbox/GH/"))
-     ((string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") dir)
-      (my-xsrv-backup "~/src/github.com/minorugh/xsrv-minorugh/"
-                      "~/Dropbox/minorugh/"))
-     (t
-      (message "このディレクトリはbackup対象外です")))))
-
-
-;;; ============================================================
 ;;;  Deploy  (local dired → xserver)
 ;;;
 ;;;  キーバインドは 60-dired.el で定義。
