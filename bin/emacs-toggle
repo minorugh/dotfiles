@@ -1,12 +1,32 @@
 #!/bin/bash
-for wid in $(xdotool search --class emacs 2>/dev/null); do
-    if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
-        xdotool windowmap --sync "$wid"
-        xdotool windowraise "$wid"
-        xdotool windowfocus --sync "$wid"
-        xdotool windowactivate --sync "$wid"
-        exit
-    fi
-done
+# =========================================================================================
+# emacs-toggle
+# F12などのショートカットから呼び出すEmacsトグルスクリプト。
+# Emacsが最前面にあれば最小化、そうでなければ（背後・最小化問わず）最前面にアクティブ化する。
+#
+# 動作:
+#   1. 現在アクティブなウィンドウIDを取得する
+#   2. Emacsのウィンドウを検索する（複数あれば最後のものを対象）
+#   3. EmacsがアクティブならWindowminimizeで最小化する
+#   4. そうでなければ windowmap→windowraise→windowfocus→windowactivate の順で
+#      最前面に復元・フォーカスを当てる（--syncで各処理の完了を待つ）
+#
+# 依存: xdotool
+# ==========================================================================================
+
+active=$(xdotool getactivewindow 2>/dev/null)
 wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
-xdotool windowminimize "$wid"
+
+if [ -z "$wid" ]; then
+    exit 1
+fi
+
+if [ "$active" = "$wid" ]; then
+    xdotool windowminimize "$wid"
+else
+    xdotool windowmap --sync "$wid"
+    xdotool windowraise "$wid"
+    xdotool windowfocus --sync "$wid"
+    xdotool windowactivate --sync "$wid"
+    wmctrl -i -b add,maximized_vert,maximized_horz -r "$wid"
+fi
