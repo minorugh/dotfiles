@@ -4,6 +4,12 @@
 ## xserver → ローカルへ rsync + git commit + push（2ドメイン）
 ## systemd user timer で 07:00〜22:00 毎時実行
 ## xsrv-backup.service の ExecStart 1行目（2行目は xsrv-backup-data.sh）
+##
+## 【注意】xsrv-backup-data.sh と同一リポジトリ（xsrv-GH）を共有
+## rsync の --exclude はサーバーからの取得を防ぐだけで、
+## xsrv-backup-data.sh がローカルに書き込んだ変化は防げない。
+## そのため run_git() 内で git reset HEAD により
+## d_kukai/data 等と fstat/log を git の対象から除外している。
 #######################################################################
 
 HOME=/home/minoru
@@ -49,11 +55,12 @@ run_rsync() {
     local src="$2"
     local dst="$3"
     rsync -az --delete --exclude='.git' --exclude='.gitignore' \
-        --exclude='d_kukai/data/' \
-        --exclude='m_kukai/data/' \
-        --exclude='s_kukai/data/' \
-        --exclude='w_kukai/data/' \
-        -e "$XSRV_SSH" "$src" "$dst/" >> "$LOGFILE" 2>&1
+          --exclude='d_kukai/data/' \
+          --exclude='m_kukai/data/' \
+          --exclude='s_kukai/data/' \
+          --exclude='w_kukai/data/' \
+	  --exclude='fstat/log/' \
+          -e "$XSRV_SSH" "$src" "$dst/" >> "$LOGFILE" 2>&1
     if [ $? -eq 0 ]; then
         log "rsync ${label}: OK"
     else
@@ -67,6 +74,8 @@ run_git() {
     local dir="$2"
     cd "$dir"
     git add -A >> /dev/null 2>&1
+    # fstat/log はアクセスログで毎時変化。d_kukai 等は xsrv-backup-data.sh が別管理
+    git reset HEAD d_kukai/data m_kukai/data s_kukai/data w_kukai/data fstat/log >> /dev/null 2>&1
     if git diff --cached --quiet; then
         log "git ${label}: 変更なし、スキップ"
     else
