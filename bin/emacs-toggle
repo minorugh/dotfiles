@@ -2,7 +2,9 @@
 for wid in $(xdotool search --class emacs 2>/dev/null); do
     if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
         xdotool windowmap --sync "$wid"
-        xdotool windowactivate "$wid"
+        xdotool windowraise "$wid"
+        xdotool windowfocus --sync "$wid"
+        xdotool windowactivate --sync "$wid"
         exit
     fi
 done

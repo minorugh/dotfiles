@@ -143,3 +143,5 @@
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
 2:set use_threads=flat sort=reverse-date-received unset sort_re|
 2:set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re|
+1:Aya <aya.shiprah@gmail.com>, |
+5:Re: 添削お願い致します|
