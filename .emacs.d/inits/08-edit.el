@@ -146,6 +146,8 @@ STRING is the exit status message from the compilation process."
 
 ;;; ============================================================
 ;;;  Tempbuf
+;;;  I had removed it once,
+;;;  but brought it back to work with the rsync lock feature (60-xsrv-dired).
 ;;; ============================================================
 
 (leaf tempbuf
