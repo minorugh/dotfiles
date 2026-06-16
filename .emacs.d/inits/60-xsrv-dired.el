@@ -149,24 +149,24 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
             "m_kukai/back/" "m_kukai/data/" "m_kukai/html/" "m_kukai/score/"
             "s_kukai/back/" "s_kukai/data/" "s_kukai/html/" "s_kukai/score/"
             "w_kukai/back/" "w_kukai/data/" "w_kukai/html/" "w_kukai/score/"))
-  "rsync lock の対象となる動的フォルダーの絶対パスリスト。")
+  "Rsync lock の対象となる動的フォルダーの絶対パスリスト.")
 
 (defconst my:xsrv-lockfile (expand-file-name "~/xsrv-rsync.lock"))
 
 (defun my:xsrv-dynamic-p (file)
-  "FILE が動的フォルダー配下であれば t を返す。"
+  "FILE が動的フォルダー配下であれば t を返す."
   (when file
     (cl-some (lambda (dir) (string-prefix-p dir file))
              my:xsrv-dynamic-dirs)))
 
 (defun my:xsrv-lock ()
-  "rsync lock ファイルを発行する。"
+  "Rsync lock ファイルを発行する."
   (unless (file-exists-p my:xsrv-lockfile)
     (write-region "" nil my:xsrv-lockfile)
     (message "[xsrv] rsync lock ON")))
 
 (defun my:xsrv-unlock-if-clean ()
-  "動的フォルダー配下の編集中バッファがゼロなら lock を解除する。"
+  "動的フォルダー配下の編集中バッファがゼロなら lock を解除する."
   (unless (cl-some (lambda (buf)
                      (with-current-buffer buf
                        (and (buffer-file-name)
@@ -178,26 +178,27 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
       (message "[xsrv] rsync lock OFF"))))
 
 (defun my:xsrv-find-file-hook ()
-  "動的フォルダー配下のファイルを自動 read-only にする。"
+  "動的フォルダー配下のファイルを自動 read-only にする."
   (when (my:xsrv-dynamic-p (buffer-file-name))
     (read-only-mode 1)
     (key-chord-define (or (current-local-map) global-map) "qq" #'my-makefile-toggle-readonly)))
 
 (defun my:xsrv-read-only-hook ()
-  "read-only 解除時に lock を発行、復帰時に unlock チェックする。"
+  "Read-only 解除時に lock を発行、復帰時に unlock チェックする."
   (when (my:xsrv-dynamic-p (buffer-file-name))
     (if buffer-read-only
         (my:xsrv-unlock-if-clean)
       (my:xsrv-lock))))
 
 (defun my:xsrv-kill-buffer-hook ()
-  "動的ファイルのバッファ kill 時に unlock チェックする。"
+  "動的ファイルのバッファ kill 時に unlock チェックする."
   (when (my:xsrv-dynamic-p (buffer-file-name))
     (my:xsrv-unlock-if-clean)))
 
 (add-hook 'find-file-hook       #'my:xsrv-find-file-hook)
 (add-hook 'read-only-mode-hook  #'my:xsrv-read-only-hook)
 (add-hook 'kill-buffer-hook     #'my:xsrv-kill-buffer-hook)
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
