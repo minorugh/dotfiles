@@ -145,6 +145,19 @@ STRING is the exit status message from the compilation process."
 
 
 ;;; ============================================================
+;;;  Tempbuf
+;;; ============================================================
+
+(leaf tempbuf
+  :doc "Auto kill unused buffers in the background"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((find-file-hook  . turn-on-tempbuf-mode)
+         (dired-mode-hook . turn-on-tempbuf-mode))
+  :config
+  (setq tempbuf-kill-message nil))
+
+
+;;; ============================================================
 ;;;  Diff / Ediff
 ;;; ============================================================
 

@@ -144,10 +144,11 @@ macro index <F5> ":set use_threads=flat sort=reverse-date-received unset sort_re
 macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re\n<refresh>" "スレッドON"
 
 # --- その他 -------------------------------------------------
-# q でウィンドウを最小化（Xfce用） R で tmux の mail ペインを再起動
+# q で同期してからウィンドウを最小化/クローズ（Xfce用）
 unset wait_key
-macro index q "<shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "close window"
-macro index,pager R "<shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
+macro index q "<sync-mailbox><shell-escape>wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1<enter>" "sync and close window"
+# R で同期してから tmux の mail ペインを再起動
+macro index,pager R "<sync-mailbox><shell-escape>tmux respawn-pane -k -t mail:0.0<Enter>"
 
 # ====================================================================
 # カラー設定（背景はターミナルのDraculaテーマに合わせてdefault）

@@ -8,6 +8,7 @@
 ##             rsync + git push（Gitea・Xserver）方式に変更
 ## 2026-06-07  melpa ターゲットを melpa-backup.sh に移行
 ##             ディレクトリ単位の変更ログを Dropbox/CHANGELOG/elpa/ に蓄積
+## 2026-06-16  git-push ターゲットに xsrv-GH・xsrv-minorugh を追加
 
 # Inherit SSH_AUTH_SOCK from keychain
 a.out: all
@@ -21,9 +22,11 @@ melpa: ## MELPAパッケージを ~/Dropbox/backup/elpa へ バックアップ
 	/usr/local/bin/melpa-backup.sh
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
-git-push: ## dropbox/GH dropbox/minorugh.com を auto commit
+git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit
 	$(MAKE) -C ${HOME}/Dropbox/GH git
 	$(MAKE) -C ${HOME}/Dropbox/minorugh.com git
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-GH git
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-minorugh git
 
 ## P1 の ~/.mozc を Dropbox にバックアップ
 mozc-backup: ## P1 の ~/.mozc を Dropbox にバックアップ

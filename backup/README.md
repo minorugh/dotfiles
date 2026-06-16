@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-06-07
+更新日: 2026-06-16
 
 ---
 
@@ -76,7 +76,7 @@ backup/
 
 ```makefile
 melpa:               # ELPAを Dropbox/backup/elpa へ rsync + git push
-git-push:            # GH・minorugh.com を日次自動コミット＆push
+git-push:            # GH・minorugh.com・xsrv-GH・xsrv-minorugh を日次自動コミット＆push
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
@@ -92,7 +92,7 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 | ターゲット | バックアップ先 |
 |---|---|
 | `melpa` | `~/Dropbox/backup/elpa/` git管理・変更時のみ commit。変更ログを `~/Dropbox/CHANGELOG/elpa/` に蓄積 |
-| `git-push` | GH・minorugh.com の変更を日次で自動コミット＆push |
+| `git-push` | GH・minorugh.com・xsrv-GH・xsrv-minorugh の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
 | `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
@@ -101,6 +101,7 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 | `thunderbird-backup` | `~/Dropbox/backup/thunderbird/` |
 | `abook-backup` | `~/Dropbox/backup/abook/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |
+
 ---
 
 ## 6. シンボリックリンク管理

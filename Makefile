@@ -11,6 +11,7 @@
 # update 2026.06.11 for Debian13
 # update 2026.06.11 fixed emacs-stable for Emacs-30.2
 # update 2026.06.14 xsrv-backup-data を xsrv-backup に統合（timer/service 一本化）
+# update 2026.06.16 xsrv-backup-data を廃止、xsrv-backup に一本化（動的ファイルのみ対象）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -172,16 +173,11 @@ cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成
 	fi
 
 xsrv-systemd: ## systemd-user で xsrv-backup を登録・有効化（P1のみ）
-# xsrv-backup.sh / xsrv-backup-data.sh を順次実行（service で両方呼び出し）
-# xsrv-backup-data.sh / xsrv-backup-data.service / xsrv-backup-data.timer は廃止
+# xsrv-backup.sh のみ実行（service 一本化）
 	@if [ "$$(hostname)" = "P1" ]; then \
 		sudo ln -vsfn ${PWD}/cron/xsrv-backup.sh /usr/local/bin/xsrv-backup.sh; \
 		sudo chmod +x /usr/local/bin/xsrv-backup.sh; \
-		sudo ln -vsfn ${PWD}/cron/xsrv-backup-data.sh /usr/local/bin/xsrv-backup-data.sh; \
-		sudo chmod +x /usr/local/bin/xsrv-backup-data.sh; \
 		mkdir -p ${HOME}/.config/systemd/user; \
-		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.service \
-		          ${HOME}/.config/systemd/user/xsrv-backup.service; \
 		ln -vsfn ${PWD}/.config/systemd/user/xsrv-backup.timer \
 		          ${HOME}/.config/systemd/user/xsrv-backup.timer; \
 		systemctl --user daemon-reload; \

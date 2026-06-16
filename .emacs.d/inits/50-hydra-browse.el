@@ -11,7 +11,6 @@
   :doc "Browser bookmark launcher via hydra."
   :defun my-github-deploy
   :chord (".."   . hydra-browse/body)
-  :bind ("<f15>" . hydra-browse/body)
   :hydra
   (hydra-browse
    (:hint nil :exit t)

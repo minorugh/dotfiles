@@ -24,7 +24,7 @@
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
-         ("<f11>" . toggle-frame-fullscreen)   ; built-in
+         ;; ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
 
 
