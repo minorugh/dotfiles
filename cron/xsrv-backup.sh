@@ -92,6 +92,8 @@ for file in \
     run_rsync "$file" "$XSRV_BASE/${file}" "$DST/${file}"
 done
 
+make -C "$DST" git >> /dev/null 2>&1 && log "git push: OK" || log "git push: ERROR"
+
 END=$(date '+%Y-%m-%d %H:%M:%S')
 if [ $ERRORS -eq 0 ]; then
     log "END: ${END} (OK)"
