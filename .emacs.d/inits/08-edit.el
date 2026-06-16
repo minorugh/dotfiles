@@ -209,11 +209,12 @@ STRING is the exit status message from the compilation process."
          (lisp-interaction-mode-hook . (lambda () (flymake-mode 0))))
   :config
   ;; Suppress "untrusted content" warning in flymake-log
-  (with-eval-after-load 'elisp-mode
+ (with-eval-after-load 'elisp-mode
     (advice-add 'elisp-flymake-byte-compile :around
                 (lambda (orig-fun report-fn &rest args)
-                  (when buffer-file-name
-                    (apply orig-fun report-fn args))))))
+                  (condition-case nil
+                      (apply orig-fun report-fn args)
+                    (user-error nil))))))
 
 
 ;; Local Variables:
