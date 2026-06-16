@@ -2,7 +2,7 @@
 #######################################################################
 ## xsrv-backup.sh
 ## xserver → Dropbox/GH へ動的ファイルを rsync（毎時）
-## systemd user timer で 07:00〜22:00 毎時実行
+# cron で 0:00 & 07:00〜23:00 毎時実行
 ## git push は autobackup.sh（毎晩）に委譲
 ##
 ## 【注意】~/xsrv-rsync.lock が存在する間はスキップする
@@ -36,6 +36,9 @@ if [ -f "$LOCKFILE" ]; then
     log "END: $(date '+%Y-%m-%d %H:%M:%S')"
     exit 0
 fi
+
+# 緊急停止チェック（make cron-stop で発行、make cron-start で解除）
+[ -f "$HOME/.xsrv-backup-stop" ] && exit 0
 
 run_rsync() {
     local label="$1"
