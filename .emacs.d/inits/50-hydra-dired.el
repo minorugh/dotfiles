@@ -137,15 +137,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (other-window 1)
     (dired pair-dir)
     (other-window 1))
-  ;; (defun my-open-xsrv-2pane (src-dir pair-dir)
-  ;;     "Open SRC-DIR and PAIR-DIR side by side."
-  ;;     (setq my-2pane-origin-buffer (current-buffer))
-  ;;     (delete-other-windows)
-  ;;     (dired src-dir)
-  ;;     (split-window-right)
-  ;;     (other-window 1)
-  ;;     (dired pair-dir)
-  ;;     (other-window 1))
 
 
 ;;; ============================================================
