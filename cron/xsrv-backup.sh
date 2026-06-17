@@ -55,30 +55,16 @@ run_rsync() {
 
 # フォルダー単位
 for dir in \
-    apvoice/log \
-    apvoice/voice \
     danwa/data \
     danwa/html \
     dia/divoice \
-    d_select/voice \
-    m_select/voice \
-    s_select/voice \
-    w_select/voice \
-    d_kukai/back \
     d_kukai/data \
-    d_kukai/html \
     d_kukai/score \
-    m_kukai/back \
     m_kukai/data \
-    m_kukai/html \
     m_kukai/score \
-    s_kukai/back \
     s_kukai/data \
-    s_kukai/html \
     s_kukai/score \
-    w_kukai/back \
     w_kukai/data \
-    w_kukai/html \
     w_kukai/score; do
     run_rsync "$dir" "$XSRV_BASE/${dir}/" "$DST/${dir}/"
 done
@@ -92,7 +78,7 @@ for file in \
     run_rsync "$file" "$XSRV_BASE/${file}" "$DST/${file}"
 done
 
-make -C "$DST" git >> /dev/null 2>&1 && log "git push: OK" || log "git push: ERROR"
+# make -C "$DST" git >> /dev/null 2>&1 && log "git push: OK" || log "git push: ERROR"
 
 END=$(date '+%Y-%m-%d %H:%M:%S')
 if [ $ERRORS -eq 0 ]; then

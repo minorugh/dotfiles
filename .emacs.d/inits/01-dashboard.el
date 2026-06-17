@@ -7,12 +7,19 @@
 ;;;  Dashboard
 ;;; ============================================================
 
+(leaf page-break-lines
+  :ensure t
+  :doc "Display ^L page breaks as tidy horizontal lines."
+  :commands page-break-lines-mode)
+
 (leaf dashboard
   :ensure t
   :doc "An extensible startup screen."
   :if (display-graphic-p)
   :hook ((emacs-startup-hook  . open-dashboard)
-         (dashboard-mode-hook . (lambda () (set-window-margins (selected-window) 2 2))))
+         (dashboard-mode-hook . (lambda ()
+				  (set-window-margins (selected-window) 2 2)
+				  (page-break-lines-mode 1))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
@@ -25,11 +32,6 @@
     (seiho-haiku-insert-today #'dashboard-insert-heading))
 
   :config
-  (leaf page-break-lines
-    :ensure t
-    :doc "Display ^L page breaks as tidy horizontal lines."
-    :global-minor-mode t)
-
   ;; Layout — content left-aligned (haiku centering handled in seiho-haiku.el)
   (setq dashboard-center-content nil)
 
@@ -58,8 +60,6 @@
   (setq dashboard-footer-messages '("God Bless Our Home And All Who Enter Here."))
   (setq dashboard-footer-icon
         (nerd-icons-octicon "nf-oct-home" :height 1.0 :face 'nerd-icons-lred))
-  ;; (setq dashboard-footer-icon
-  ;;       (nerd-icons-octicon "nf-oct-heart" :height 1.0 :face 'nerd-icons-lred))
 
 
 ;;; ============================================================
