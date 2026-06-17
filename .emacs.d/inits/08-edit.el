@@ -106,36 +106,6 @@ STRING is the exit status message from the compilation process."
 
 
 ;;; ============================================================
-;;;  Iedit  (multi-occurrence editing)
-;;; ============================================================
-
-(leaf iedit
-  :ensure t
-  :after evil
-  :doc "Edit multiple occurrences simultaneously."
-  :config
-  (defun my-iedit-toggle ()
-    "Toggle `iedit-mode'; if in visual-state, restrict to the selected region."
-    (interactive)
-    (cond
-     ((evil-visual-state-p)
-      (let ((beg (region-beginning))
-            (end (region-end)))
-        (evil-emacs-state)
-        (set-mark beg)
-        (goto-char end)
-        (iedit-mode)
-        (add-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal nil t)))
-     (t
-      (iedit-mode))))
-
-  (defun my-iedit-end-to-normal ()
-    "Return to Normal state after iedit exits."
-    (evil-normal-state)
-    (remove-hook 'iedit-mode-end-hook #'my-iedit-end-to-normal t)))
-
-
-;;; ============================================================
 ;;;  Region / Selection
 ;;; ============================================================
 

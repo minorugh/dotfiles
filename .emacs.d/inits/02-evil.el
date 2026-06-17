@@ -30,7 +30,6 @@
           ("s"        . swiper-region)
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
-          ("i"        . my-iedit-toggle)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
           ([muhenkan] . my-muhenkan))

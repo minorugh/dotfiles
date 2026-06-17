@@ -114,18 +114,25 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (interactive)
     (when (= (length (window-list)) 2)
       (let ((bufs (mapcar #'window-buffer (window-list))))
-        (delete-other-windows)
-        (mapc #'kill-buffer bufs)
-        (when (buffer-live-p my-2pane-origin-buffer)
+	(delete-other-windows)
+	(mapc #'kill-buffer bufs)
+	(when (buffer-live-p my-2pane-origin-buffer)
           (switch-to-buffer my-2pane-origin-buffer)
           (setq my-2pane-origin-buffer nil))))
-    ;; ウィンドウ構成変更後に明示的にモードラインを更新
     (when (fboundp 'my-update-modeline-for-split)
       (my-update-modeline-for-split)))
 
+  (defun my-dired-quit ()
+    "2ペイン中なら my-2pane-quit、それ以外は quit-window。"
+    (interactive)
+    (if (buffer-live-p my-2pane-origin-buffer)
+	(my-2pane-quit)
+      (quit-window)))
+
   (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
   (add-hook 'dired-mode-hook
-            (lambda () (local-set-key (kbd "q") #'my-2pane-quit)))
+            (lambda ()
+              (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
   (defun my-open-xsrv-2pane (src-dir pair-dir)
     "Open SRC-DIR and PAIR-DIR side by side."
