@@ -30,7 +30,7 @@ CHOICE=$( (
     echo "2. POWEROFF"
     echo "3. REBOOT"
     echo "4. RESTART MUTT"
-) | fzf --reverse --no-input --color='pointer:white' \
+) | fzf --reverse --color='pointer:white' \
     --bind "1:pos(${POS1})+accept" \
     --bind "2:pos(${POS2})+accept" \
     --bind "3:pos(${POS3})+accept" \
