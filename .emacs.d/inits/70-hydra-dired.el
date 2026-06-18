@@ -70,11 +70,6 @@
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
-  :config
-  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
-  (add-hook 'dired-mode-hook
-            (lambda ()
-              (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
   :init
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
@@ -120,6 +115,11 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (if (buffer-live-p my-2pane-origin-buffer)
         (my-2pane-quit)
       (quit-window)))
+
+  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
   (defun my-open-xsrv-2pane (src-dir pair-dir)
     "Open SRC-DIR and PAIR-DIR side by side."
