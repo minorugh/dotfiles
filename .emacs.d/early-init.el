@@ -35,7 +35,8 @@
 ;;; ============================================================
 
 (prefer-coding-system 'utf-8)
-(push '(font . "Cica-18") initial-frame-alist)
+(let ((font-size (if (string= (system-name) "P1") 18 15)))
+  (push `(font . ,(format "Cica-%d" font-size)) initial-frame-alist))
 (setq inhibit-compacting-font-caches t)
 
 
