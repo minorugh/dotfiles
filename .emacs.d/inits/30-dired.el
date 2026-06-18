@@ -33,6 +33,7 @@
   (setq ls-lisp-use-insert-directory-program nil)
   (setq ls-lisp-dirs-first            t)
   (setq dired-omit-files             "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
+  (setq dired-listing-switches "-alh --group-directories-first --no-group")
   (put 'dired-find-alternate-file 'disabled nil)
 
   ;; Emacs 30 + ivy: dired-do-copy の read-file-name を ivy に横取りさせない
