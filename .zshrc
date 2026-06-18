@@ -215,6 +215,7 @@ alias upgrade='sudo apt -y upgrade'
 # crontab
 alias ce='crontab -e'
 
+alias pm='power-menu.sh'
 ########################################
 # Functions
 ########################################
