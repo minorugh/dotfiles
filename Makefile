@@ -215,7 +215,8 @@ fonts: ## ユーザーフォントのシンボリックリンク作成
 	ln -vsfn {${PWD},${HOME}}/.fonts
 
 gist: ## gist コマンドのインストールと設定
-	sudo gem install gist
+	gem install gist
+	sudo cp $$(ruby -e 'puts Gem.user_dir')/bin/gist /usr/local/bin/gist
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gist
 
 ########################################################
