@@ -1,4 +1,4 @@
-;;; 70-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
+;;; 60-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Related custom functions (~/.emacs.d/elisp/my_markdown.el):
@@ -137,4 +137,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 70-markdown.el ends here
+;;; 60-markdown.el ends here
