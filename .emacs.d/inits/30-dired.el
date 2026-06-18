@@ -32,16 +32,6 @@
   (setq dired-listing-switches   "-Alh --group-directories-first --no-group")
   (setq dired-omit-files         "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
-  ;; (setq dired-dwim-target             t)
-  ;;   (setq delete-by-moving-to-trash     t)
-  ;;   (setq dired-recursive-copies       'always)
-  ;;   (setq dired-recursive-deletes      'always)
-  ;;   (setq dired-listing-switches       "-AFl")
-  ;;   (setq ls-lisp-use-insert-directory-program nil)
-  ;;   (setq ls-lisp-dirs-first            t)
-  ;;   (setq dired-omit-files             "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
-  ;;   (setq dired-listing-switches "-alh --group-directories-first --no-group")
-  ;;   (put 'dired-find-alternate-file 'disabled nil)
 
   ;; Emacs 30 + ivy: dired-do-copy の read-file-name を ivy に横取りさせない
   (add-to-list 'ivy-completing-read-handlers-alist
