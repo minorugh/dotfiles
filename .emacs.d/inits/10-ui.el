@@ -132,15 +132,19 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
   (line-number-mode   0)
-  (column-number-mode 0)
+  (column-number-mode 0))
 
-  ;; ============================================================
-  ;;  Active Window Highlight  (2ペイン時にアクティブ側を強調)
-  ;;  ポップアップ扱いのウィンドウ（minibuffer / hydra / lv /
-  ;;  Flymake / Compilation / which-key）は実ウィンドウ数から除外。
-  ;;  実ウィンドウが 2 枚以上あるときだけ mode-line を紫ボーダーで強調。
-  ;; ============================================================
 
+;; ============================================================
+;;  Active Window Highlight  (2ペイン時にアクティブ側を強調)
+;;  ポップアップ扱いのウィンドウ（minibuffer / hydra / lv /
+;;  Flymake / Compilation / which-key）は実ウィンドウ数から除外。
+;;  実ウィンドウが 2 枚以上あるときだけ mode-line を紫ボーダーで強調。
+;; ============================================================
+(leaf my-active-modeline
+  :after doom-modeline
+  :doc "Highlight active mode-line with purple border when 2+ windows are visible."
+  :config
   (defvar my-modeline-default-bg  nil
     "Default mode-line background captured after theme load.")
   (defvar my-modeline-default-box nil
