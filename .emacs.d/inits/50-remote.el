@@ -1,4 +1,4 @@
-;;; 50-xsrv-dired.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
+;;; 50-remote.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -203,4 +203,4 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 50-xsrv-dired.el ends here
+;;; 50-remote.el ends here
