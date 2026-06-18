@@ -20,9 +20,9 @@
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
 	 ("]"   . my-dired-gitk)
-         ("."   . xsrv-deploy-dired)    ; see 60-xsrv-dired.el
-         (","   . xsrv-download-dired)  ; see 60-xsrv-dired.el
-         ("b"   . my-xsrv-backup-dwim)  ; see 60-xsrv-dired.el
+         ("."   . xsrv-deploy-dired)    ; see 50-xsrv-dired.el
+         (","   . xsrv-download-dired)  ; see 50-xsrv-dired.el
+         ("b"   . my-xsrv-backup-dwim)  ; see 50-xsrv-dired.el
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target             t)

@@ -18,13 +18,13 @@
          ("<f2>"  . my-remote-select)          ; see below
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
-         ("<f5>"  . quickrun)                  ; see 40-utils.el
+         ("<f5>"  . quickrun)                  ; see 20-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . neotree-toggle)            ; see 50-neotree.el
+         ("<f7>"  . neotree-toggle)            ; see 80-neotree.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
-         ;; ("<f11>" . toggle-frame-fullscreen)   ; built-in
+         ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
 
 
