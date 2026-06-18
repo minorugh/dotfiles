@@ -1,4 +1,4 @@
-;;; 70-howm.el --- Howm mode configurations. -*- lexical-binding: t -*-
+;;; 60-howm.el --- Howm mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -293,4 +293,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 70-howm.el ends here
+;;; 60-howm.el ends here

@@ -1,4 +1,4 @@
-;;; 03-ivy-tools.el --- Ivy-based tools: describe helpers and Git project switcher -*- lexical-binding: t -*-
+;;; 03-ivy.el --- Ivy-based tools: describe helpers and Git project switcher -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Two Ivy-based utilities:
@@ -103,4 +103,4 @@ then call `describe-function' on the selected one."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 03-ivy-tools.el ends here
+;;; 03-ivy.el ends here

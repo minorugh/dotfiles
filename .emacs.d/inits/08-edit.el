@@ -106,15 +106,6 @@ STRING is the exit status message from the compilation process."
 
 
 ;;; ============================================================
-;;;  Region / Selection
-;;; ============================================================
-
-(leaf expand-region
-  :ensure t
-  :bind ("C-@" . er/expand-region))
-
-
-;;; ============================================================
 ;;;  Tempbuf
 ;;;  I had removed it once,
 ;;;  but brought it back to work with the rsync lock feature (60-xsrv-dired).
@@ -167,6 +158,81 @@ STRING is the exit status message from the compilation process."
     (save-excursion
       (indent-region (point-min) (point-max))
       (message "Indented buffer."))))
+
+
+;;; ============================================================
+;;;  Region / Selection
+;;; ============================================================
+
+(leaf expand-region
+  :ensure t
+  :bind ("C-@" . er/expand-region))
+
+;; my-selected-mode
+;; --------------------
+(defvar my-selected-mode-map (make-sparse-keymap)
+  "Keymap active only while a region is selected.")
+
+(define-minor-mode my-selected-mode
+  "Minor mode auto-enabled during region selection."
+  :keymap my-selected-mode-map)
+
+(defun my-selected-mode-update ()
+  "Toggle `my-selected-mode' based on whether a region is active."
+  (if (use-region-p)
+      (unless my-selected-mode (my-selected-mode 1))
+    (when my-selected-mode (my-selected-mode -1))))
+
+(add-hook 'post-command-hook #'my-selected-mode-update)
+
+;; Web Search Helpers
+;; --------------------
+(defun my-get-region-or-word ()
+  "Return active region text, or word at point."
+  (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (thing-at-point 'word t)))
+
+(defun my-google-search (str)
+  "Google search for STR."
+  (interactive (list (my-get-region-or-word)))
+  (browse-url (format "https://google.com/search?q=%s" (url-hexify-string str))))
+
+(defun my-weblio-search (str)
+  "Weblio search for STR."
+  (interactive (list (my-get-region-or-word)))
+  (browse-url (format "https://www.weblio.jp/content/%s" (url-hexify-string str))))
+
+;; Region Keybindings
+;; --------------------
+(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
+(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
+(define-key my-selected-mode-map (kbd "s") #'swiper-region)
+(define-key my-selected-mode-map (kbd "g") #'my-google-search)
+(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
+(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
+
+
+;;; ============================================================
+;;;  IME 自動 OFF  (リージョン選択時)
+;;;
+;;;  emacs-state では mozc ON のままだとリージョン選択後のキー入力が
+;;;  my-selected-mode-map より mozc に横取りされるため、選択開始時に
+;;;  一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
+;;; ============================================================
+
+(defvar my-ime-flag nil
+  "Non-nil means IME was active before region activation.")
+
+(add-hook 'activate-mark-hook
+          (lambda ()
+            (setq my-ime-flag current-input-method)
+            (deactivate-input-method)))
+
+(add-hook 'deactivate-mark-hook
+          (lambda ()
+            (unless (null my-ime-flag)
+              (toggle-input-method))))
 
 
 ;;; ============================================================

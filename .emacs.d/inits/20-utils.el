@@ -1,4 +1,4 @@
-;;; 40-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
+;;; 20-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -158,4 +158,4 @@ If region isn't selected, post from the buffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 40-utils.el ends here
+;;; 20-utils.el ends here
