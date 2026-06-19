@@ -116,7 +116,7 @@
     (interactive)
     (if (string= (buffer-name) "*scratch*")
         (switch-to-buffer (other-buffer))
-      (switch-to-buffer "*scratch*")))
+      (switch-to-buffer "*scratch*"))))
 
 
 ;; toggle-emacs.sh
