@@ -5,3 +5,5 @@ Xft.dpi: 120  !! HiDPI設定 (96=標準, 120=125%, 144=150%)
 Emacs.background: #282c36
 Emacs.foreground: #f8f8f2
 
+
+XTerm*geometry: 80x20
