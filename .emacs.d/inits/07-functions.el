@@ -25,7 +25,8 @@
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
+         ("<f12>" . toggle-emacs)              ; see toggle-emacs.sh below
+	 ("<zenkaku-hankaku>" . my-powe-menu))
 
 
 ;;; ============================================================
@@ -116,7 +117,17 @@
     (interactive)
     (if (string= (buffer-name) "*scratch*")
         (switch-to-buffer (other-buffer))
-      (switch-to-buffer "*scratch*"))))
+      (switch-to-buffer "*scratch*")))
+
+
+;;; ============================================================
+;;;  Power menu
+;;; ============================================================
+
+  (defun my-power-menu ()
+    "Open power-menu.sh in a new gnome-terminal."
+    (interactive)
+    (start-process "power-menu" nil "gnome-terminal" "--" "power-menu.sh")))
 
 
 ;; toggle-emacs.sh
