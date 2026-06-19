@@ -158,8 +158,6 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/abook-backup.sh
 	sudo ln -vsfn ${PWD}/backup/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
-	sudo ln -vsf ${PWD}/backup/anacron-backup.sh /etc/cron.daily/anacron-backup
-	sudo chmod +x /etc/cron.daily/anacron-backup
 
 emacs-trash: ## Emacs ゴミ箱スイープスクリプトのリンク作成
 	sudo ln -vsfn ${PWD}/backup/emacs-trash-sweep.sh /usr/local/bin/emacs-trash-sweep.sh
