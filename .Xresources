@@ -6,7 +6,7 @@ Emacs.background: #282c36
 Emacs.foreground: #f8f8f2
 
 ! xterm設定(power-menu.sh対応)
-XTerm*geometry: 100x30
+XTerm*geometry: 80x30
 XTerm*faceName: monospace
 XTerm*faceSize: 20
 
