@@ -28,11 +28,17 @@ log() {
 TODAY=$(date '+%Y%m%d')
 YESTERDAY=$(date -d 'yesterday' '+%Y%m%d')
 
-## --check: フラグが「今日」「昨日」のいずれでもなければ実行する
+## --check: フラグの状態に応じて判定する
 if [ "$1" = "--check" ]; then
     FLAG=$(cat "$FLAG_FILE" 2>/dev/null)
-    if [ "$FLAG" = "$TODAY" ] || [ "$FLAG" = "$YESTERDAY" ]; then
-        log "skip: フラグは${FLAG}のためスキップします"
+    if [ "$FLAG" = "$TODAY" ]; then
+        rm -f "$TMPLOG"
+        exit 0
+    fi
+    if [ "$FLAG" = "$YESTERDAY" ]; then
+        mkdir -p "$(dirname "$FLAG_FILE")"
+        echo "$TODAY" > "$FLAG_FILE"
+        log "skip: $(date '+%Y-%m-%d %H:%M')"
         rm -f "$TMPLOG"
         exit 0
     fi
