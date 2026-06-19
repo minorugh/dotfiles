@@ -119,16 +119,6 @@
       (switch-to-buffer "*scratch*")))
 
 
-;;; ============================================================
-;;;  Power menu
-;;; ============================================================
-
-  (defun my-power-menu ()
-    "Open power-menu.sh in a new gnome-terminal."
-    (interactive)
-    (start-process "power-menu" nil "gnome-terminal" "--" "power-menu.sh")))
-
-
 ;; toggle-emacs.sh
 ;;   #!/bin/bash
 ;;   for wid in $(xdotool search --class emacs 2>/dev/null); do
