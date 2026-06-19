@@ -9,4 +9,5 @@ Emacs.foreground: #f8f8f2
 XTerm*geometry: 80x30
 XTerm*faceName: monospace
 XTerm*faceSize: 20
-
+XTerm*background: #282c36
+XTerm*foreground: #f8f8f2
