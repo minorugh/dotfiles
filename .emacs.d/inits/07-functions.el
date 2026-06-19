@@ -26,7 +26,8 @@
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs)              ; see toggle-emacs.sh below
-	 ("<zenkaku-hankaku>" . my-powe-menu))
+	 ;; ("<zenkaku-hankaku>" . my-powe-menu)
+	 )
 
 
 ;;; ============================================================
