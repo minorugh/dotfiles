@@ -29,7 +29,7 @@
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies   'always)
   (setq dired-recursive-deletes  'always)
-  (setq dired-listing-switches   "-Alh --group-directories-first --no-group")
+  (setq dired-listing-switches   "-AlhF --group-directories-first --no-group")
   (setq dired-omit-files         "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
