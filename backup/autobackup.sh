@@ -1,14 +1,18 @@
 #!/bin/bash
 #######################################################################
 ## Execute nightly makefile for backup
-## Updated 2026.3.23
+## Updated 2026.6.19
 ##
-## cron: 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
+## cron 本実行:     50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
+## cron フォールバック: 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
+##   --check: フラグの日付が「今日」でも「昨日」でもなければ実行する
+##            （定時実行が飛んだ日だけ、5-12時のどこかで一度補う）
 ######################################################################
 
 HOME=/home/minoru
 LOG_PREFIX="[autobackup]"
 MAKEFILE="$HOME/src/github.com/minorugh/dotfiles/backup/Makefile"
+FLAG_FILE="$HOME/.cache/autobackup/last-success"
 TMPLOG=$(mktemp)
 ERRORS=0
 
@@ -20,6 +24,20 @@ fi
 log() {
     echo "${LOG_PREFIX} $1"
 }
+
+TODAY=$(date '+%Y%m%d')
+YESTERDAY=$(date -d 'yesterday' '+%Y%m%d')
+
+## --check: フラグが「今日」「昨日」のいずれでもなければ実行する
+if [ "$1" = "--check" ]; then
+    FLAG=$(cat "$FLAG_FILE" 2>/dev/null)
+    if [ "$FLAG" = "$TODAY" ] || [ "$FLAG" = "$YESTERDAY" ]; then
+        log "skip: フラグは${FLAG}のためスキップします"
+        rm -f "$TMPLOG"
+        exit 0
+    fi
+    log "check: フラグは${FLAG:-未記録}、実行します"
+fi
 
 run_target() {
     local label="$1"
@@ -72,7 +90,8 @@ rm -f "$TMPLOG"
 END=$(date '+%Y-%m-%d %H:%M:%S')
 if [ $ERRORS -eq 0 ]; then
     log "END: ${END} (OK)"
+    mkdir -p "$(dirname "$FLAG_FILE")"
+    echo "$TODAY" > "$FLAG_FILE"
 else
     log "END: ${END} (ERRORS=${ERRORS})"
 fi
-
