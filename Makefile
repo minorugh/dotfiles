@@ -515,9 +515,15 @@ ifeq ($(HOSTNAME),P1)
 	git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
-	git pull --rebase
+	git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
 	$(MAKE) -s -C ~/src/github.com/minorugh/env-import env-restore
 endif
+
+git-fix: ## rebase失敗時の自動修復
+	git rebase --abort 2>/dev/null || true
+	git reset --hard origin/main
+	git pull
+	$(MAKE) -s -C ~/src/github.com/minorugh/env-import env-restore
 
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
