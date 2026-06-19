@@ -7,5 +7,5 @@ Emacs.foreground: #f8f8f2
 
 ! xterm設定(power-menu.sh対応)
 XTerm*geometry: 100x30
-XTerm*faceSize: 14
+XTerm*faceSize: 20
 
