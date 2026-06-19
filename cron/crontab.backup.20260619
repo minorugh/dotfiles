@@ -28,6 +28,14 @@
 # 各種バックアップ一式（毎日23:50）
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 
+## --- バックアップ フォールバック（24:00前後の本実行が失敗・未実行だった場合の保険） ---
+## 5-12時の毎時、フラグの日付が「今日」でも「昨日」でもなければ実行する。
+## 本実行（23:40 automerge / 23:50 autobackup）が成功していれば、
+## フラグは「昨日」になっているため何もせずスキップする。
+## シャットダウン等で本実行が飛んだ場合のみ、起動後の最初のチェック時刻で1回だけ実行する。
+5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
+5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
+
 # xserver 動的ファイルを Dropbox/GH へ rsync（0:00 & 07:00〜23:00 毎時）
 0 7-23 * * * /usr/local/bin/xsrv-backup.sh
 0 0    * * * /usr/local/bin/xsrv-backup.sh

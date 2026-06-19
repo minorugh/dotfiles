@@ -24,8 +24,9 @@ cron-log: ## cron 実行ログ表示
 cron-edit: ## crontab を編集（dotfiles/cron/crontab を直接編集）
 	gnome-terminal -- bash -c "nano ${PWD}/crontab; exec bash"
 
-cron-update: ## 編集した crontab を反映（バックアップ→適用→確認）
-	crontab -l > crontab.backup.$$(date +%Y%m%d) 2>/dev/null || true
+cron-update: ## 編集した crontab を反映（バックアップ→日付更新→適用→確認）
+	crontab -l > crontab.backup 2>/dev/null || true
+	sed -i "1s|^# .* update$$|# $$(date +%F) update|" crontab
 	crontab crontab
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
 

@@ -102,13 +102,11 @@
 ;;; ============================================================
 
 (leaf *defer-modes
-  :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'"  . conf-mode)
-         ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"          . conf-mode)
-         ("\\.cgi\\'"          . perl-mode)
-         ("/passwd/.*\\.cgi\\'" . text-mode)
-         ("\\.org\\'"          . text-mode)   ; disable org-mode
-         ;; Disable whitespace highlighting for Thunderbird mail editing
-         ("\\.eml\\'" . (lambda () (whitespace-mode -1))))
+  :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
+         ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'" . conf-mode)
+	 ("/crontab\\(\\..*\\)?\\'" . conf-mode)
+         ("\\.cgi\\'"           . perl-mode)
+         ("/passwd/.*\\.cgi\\'" . text-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
