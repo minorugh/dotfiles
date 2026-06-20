@@ -1,6 +1,5 @@
-## ~/src/github.com/minorugh/dotfiles/backup/Makefile
-##
-## cron: autobackup.sh から呼び出される（直接 cron 実行ではない）
+## backup/Makefile
+#### 夜間自動バックアップ（autobackup.sh から呼び出される）
 ##
 ## 修正履歴:
 ## 2026-03-14  dotfiles/gh ターゲットを rsync から git push 方式に移行
@@ -9,8 +8,13 @@
 ## 2026-06-07  melpa ターゲットを melpa-backup.sh に移行
 ##             ディレクトリ単位の変更ログを Dropbox/CHANGELOG/elpa/ に蓄積
 ## 2026-06-16  git-push ターゲットに xsrv-GH・xsrv-minorugh を追加
+## 2026-06-20  cronにあったスクリプトをbackup-dir に移動
+##
+## autobackup.sh / automerge.sh / xsrv-backup.sh / emacs-trash-sweep.sh は
+## 2026-06-19 に cron/ から backup/ へ統合済み（自動実行されるバックアップ処理本体のため）
+## --check 機構（日付フラグ方式）により旧 anacron-backup.sh は廃止済み
+## 詳細: dotfiles/backup/README.md
 
-# Inherit SSH_AUTH_SOCK from keychain
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式

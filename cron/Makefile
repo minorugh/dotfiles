@@ -1,7 +1,8 @@
-## ~/src/github.com/minorugh/dotfiles/cron/Makefile
+## cron/Makefile
 ## cron 手動操作パネル
 ## 作成: 2026-04-09
 ## 更新: 2026-06-16 systemd timer 廃止、cron に移行
+## 更新: 2026-06-20 automerge / autobackup --check オプション追加
 ##
 ## --- compilation バッファー表示ルール ----------------------------
 ## @echo "##>" >&2          → 全画面表示（q で閉じる）※出力を確認したいターゲット
