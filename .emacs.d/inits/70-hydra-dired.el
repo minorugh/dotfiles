@@ -96,6 +96,27 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defvar my-2pane-origin-buffer nil
     "Buffer to return to when quitting 2-pane view.")
 
+  (defvar my-2pane-divider-active nil
+    "Non-nil while the xsrv-2pane window-divider highlight is active.")
+
+  (defun my-2pane-divider-on ()
+    "Enable a prominent window-divider, scoped to xsrv-2pane usage."
+    (window-divider-mode -1)
+    (setq window-divider-default-right-width 6)
+    (setq window-divider-default-bottom-width 0)
+    (setq window-divider-default-places 'right-only)
+    (window-divider-mode 1)
+    (set-face-foreground 'window-divider "#ff9900")
+    (set-face-foreground 'window-divider-first-pixel "#ff9900")
+    (set-face-foreground 'window-divider-last-pixel "#ff9900")
+    (setq my-2pane-divider-active t))
+
+  (defun my-2pane-divider-off ()
+    "Restore window-divider to its default (disabled) state."
+    (when my-2pane-divider-active
+      (window-divider-mode -1)
+      (setq my-2pane-divider-active nil)))
+
   (defun my-2pane-quit ()
     "Close both panes and return to the original buffer."
     (interactive)
@@ -106,6 +127,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
         (when (buffer-live-p my-2pane-origin-buffer)
           (switch-to-buffer my-2pane-origin-buffer)
           (setq my-2pane-origin-buffer nil))))
+    (my-2pane-divider-off)
     (when (fboundp 'my-update-modeline-for-split)
       (my-update-modeline-for-split)))
 
@@ -130,7 +152,8 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (split-window-right)
     (other-window 1)
     (dired pair-dir)
-    (other-window 1))
+    (other-window 1)
+    (my-2pane-divider-on))
 
   (defun my-reload-xenv ()
     "Reload ~/.xprofile and re-import keychain env vars into Emacs."
