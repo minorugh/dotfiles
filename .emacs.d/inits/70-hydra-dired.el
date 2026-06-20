@@ -18,7 +18,7 @@
 
 (leaf hydra-dired
   :after evil
-  :require (my-tig-bridge)
+  :require (my-tig-bridge my-xsrv)
   :bind (("<henkan>" . my-hydra-dired))
   :hydra
   (hydra-dired
@@ -149,9 +149,11 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
     (delete-other-windows)
     (dired src-dir)
+    (my-xsrv-2pane-enable-ui)
     (split-window-right)
     (other-window 1)
     (dired pair-dir)
+    (my-xsrv-2pane-enable-ui)
     (other-window 1)
     (my-2pane-divider-on))
 
