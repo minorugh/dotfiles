@@ -36,18 +36,13 @@
 
   ;; Emacs 30 + ivy: dired-do-copy の read-file-name を ivy に横取りさせない
   (add-to-list 'ivy-completing-read-handlers-alist
-               '(dired-do-copy . completing-read-default)))
+               '(dired-do-copy . completing-read-default))
 
 
 ;;; ============================================================
-;;;  Dired Extensions  (omit / navigation / file-ops / external / help)
+;;;  Omit Mode  (特定ディレクトリでは omit を無効化)
 ;;; ============================================================
 
-(leaf my-dired-extensions
-  :after dired
-  :config
-  ;;  Omit Mode  (特定ディレクトリでは omit を無効化)
-  ;; ----------------------------------------
   (defun my-dired-omit-mode ()
     "Disable `dired-omit-mode' in specific directories; enable elsewhere."
     (let ((current (file-name-as-directory
@@ -63,8 +58,11 @@
            -1
          1))))
 
-  ;;  Navigation
-  ;; ----------------------------------------
+
+;;; ============================================================
+;;;  Navigation
+;;; ============================================================
+
   (defun my-dired-open ()
     "Open file or directory at point.  Confirm before opening remote files."
     (interactive)
@@ -95,8 +93,10 @@
       (call-process "xdg-open" nil 0 nil file)))
 
 
-  ;;  File Operations
-  ;; ----------------------------------------
+;;; ============================================================
+;;;  File Operations
+;;; ============================================================
+
   (defun my-dired-sudo-rm ()
     "Delete dired-marked files with sudo."
     (interactive)
@@ -108,8 +108,11 @@
               (message "sudo rm failed for: %s" file))))
         (revert-buffer))))
 
-  ;;  External Tools
-  ;; ----------------------------------------
+
+;;; ============================================================
+;;;  External Tools
+;;; ============================================================
+
   (defun my-dired-gitk ()
     "Run gitk for the current Git repository."
     (interactive)
@@ -128,8 +131,11 @@
                         (mapconcat #'shell-quote-argument files " "))))
       (start-process-shell-command "sxiv" nil cmd)))
 
-  ;;  Permission Help
-  ;; ----------------------------------------
+
+;;; ============================================================
+;;;  Permission Help
+;;; ============================================================
+
   ;; *Permission Help* を右サイドバーに固定表示
   (add-to-list 'display-buffer-alist
                '("\\*Permission Help\\*"
