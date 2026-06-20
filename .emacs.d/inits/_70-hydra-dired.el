@@ -96,11 +96,26 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defvar my-2pane-origin-buffer nil
     "Buffer to return to when quitting 2-pane view.")
 
-  (defvar my-2pane-quit-hook nil
-    "Hook run at the end of `my-2pane-quit'.
-個人用の追加処理（例: my-xsrv.el の divider 解除など）を
-ここから差し込めるようにするための空の拡張ポイント。
-このファイル単体では何も登録されておらず、デフォルトでは何も起きない。")
+  (defvar my-2pane-divider-active nil
+    "Non-nil while the xsrv-2pane window-divider highlight is active.")
+
+  (defun my-2pane-divider-on ()
+    "Enable a prominent window-divider, scoped to xsrv-2pane usage."
+    (window-divider-mode -1)
+    (setq window-divider-default-right-width 6)
+    (setq window-divider-default-bottom-width 0)
+    (setq window-divider-default-places 'right-only)
+    (window-divider-mode 1)
+    (set-face-foreground 'window-divider "#ff9900")
+    (set-face-foreground 'window-divider-first-pixel "#ff9900")
+    (set-face-foreground 'window-divider-last-pixel "#ff9900")
+    (setq my-2pane-divider-active t))
+
+  (defun my-2pane-divider-off ()
+    "Restore window-divider to its default (disabled) state."
+    (when my-2pane-divider-active
+      (window-divider-mode -1)
+      (setq my-2pane-divider-active nil)))
 
   (defun my-2pane-quit ()
     "Close both panes and return to the original buffer."
@@ -112,9 +127,9 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
         (when (buffer-live-p my-2pane-origin-buffer)
           (switch-to-buffer my-2pane-origin-buffer)
           (setq my-2pane-origin-buffer nil))))
+    (my-2pane-divider-off)
     (when (fboundp 'my-update-modeline-for-split)
-      (my-update-modeline-for-split))
-    (run-hooks 'my-2pane-quit-hook))  ; 個人設定からの追加処理用フック
+      (my-update-modeline-for-split)))
 
   (defun my-dired-quit ()
     "2ペイン中なら my-2pane-quit、それ以外は quit-window。"
@@ -127,6 +142,20 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (add-hook 'dired-mode-hook
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
+
+  (defun my-open-xsrv-2pane (src-dir pair-dir)
+    "Open SRC-DIR and PAIR-DIR side by side."
+    (setq my-2pane-origin-buffer (current-buffer))
+    (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
+    (delete-other-windows)
+    (dired src-dir)
+    (my-xsrv-2pane-enable-ui)
+    (split-window-right)
+    (other-window 1)
+    (dired pair-dir)
+    (my-xsrv-2pane-enable-ui)
+    (other-window 1)
+    (my-2pane-divider-on))
 
   (defun my-reload-xenv ()
     "Reload ~/.xprofile and re-import keychain env vars into Emacs."
