@@ -3,3 +3,4 @@ cache
 .vim/plugged/
 
 env/
+*.ppk
