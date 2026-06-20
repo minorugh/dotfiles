@@ -20,6 +20,7 @@
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
 	 ("]"   . my-dired-gitk)
+	 ("p"   . my-dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 50-xsrv-dired.el
          (","   . xsrv-download-dired)  ; see 50-xsrv-dired.el
          ("b"   . my-xsrv-backup-dwim)  ; see 50-xsrv-dired.el
@@ -129,6 +130,69 @@
            (cmd (format "sxiv -t -f %s"
                         (mapconcat #'shell-quote-argument files " "))))
       (start-process-shell-command "sxiv" nil cmd))))
+
+
+;;; ============================================================
+;;;  Permission Help
+;;; ============================================================
+;; *Permission Help* を右サイドバーに固定表示
+(add-to-list 'display-buffer-alist
+             '("\\*Permission Help\\*"
+               (display-buffer-in-side-window)
+               (side . right)
+               (slot . 0)
+               (window-width . 36)
+               (window-parameters . ((no-delete-other-windows . t)
+                                     (mode-line-format . none)))))
+
+(defun my-dired-permission-help ()
+  "Show a quick permission reference."
+  (interactive)
+  (let ((help-window-select t))   ;; 表示後にヘルプウィンドウへフォーカスを移す
+    (with-help-window "*Permission Help*"
+      (princ "Permission Quick Reference\n")
+      (princ "==========================\n\n")
+
+      (princ "File type (first character)\n")
+      (princ "---------------------------\n")
+      (princ "-  regular file\n")
+      (princ "d  directory\n")
+      (princ "l  symbolic link\n")
+      (princ "c  character device\n")
+      (princ "b  block device\n")
+      (princ "p  FIFO (named pipe)\n")
+      (princ "s  socket\n\n")
+
+      (princ "Permission values\n")
+      (princ "-----------------\n")
+      (princ "r = 4\n")
+      (princ "w = 2\n")
+      (princ "x = 1\n\n")
+
+      (princ "Common combinations\n")
+      (princ "-------------------\n")
+      (princ "rwx = 7\n")
+      (princ "rw- = 6\n")
+      (princ "r-x = 5\n")
+      (princ "r-- = 4\n")
+      (princ "--- = 0\n\n")
+
+      (princ "Common permissions\n")
+      (princ "------------------\n")
+      (princ "-rw-r--r--  = 644\n")
+      (princ "-rw-------  = 600\n")
+      (princ "-rwxr-xr-x  = 755\n")
+      (princ "-rwx------  = 700\n")
+      (princ "drwxr-xr-x  = dir 755\n")
+      (princ "drwx------  = dir 700\n\n")
+
+      (princ "Examples\n")
+      (princ "--------\n")
+      (princ "drwxr-xr-x\n")
+      (princ " d   rwx   r-x   r-x\n")
+      (princ " |    7     5     5\n")
+      (princ " +--> directory\n")
+      (princ " => directory 755\n"))))
 
 
 ;; Local Variables:

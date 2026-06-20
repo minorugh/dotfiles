@@ -1,0 +1,354 @@
+# Cron 設定リファレンス (dotfiles/cron/)
+
+更新日: 2026-06-20
+
+---
+
+## 1. 目的
+
+- メイン機 (P1) のみ cron スクリプトをセットアップして crontab を管理
+- 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
+- サブ機 (X250) ではスキップ
+- 既存 crontab はバックアップし、dotfiles の crontab で上書き
+- `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
+  自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
+  （詳細は `dotfiles/backup/README.md` 参照）
+
+---
+
+## 2. 現在の crontab (参考)
+
+```crontab
+# 句会パスワード同期・マージ（毎日 23:40）
+40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
+
+# 各種バックアップ一式（毎日 23:50）
+50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
+
+# --- バックアップ フォールバック（本実行が失敗・未実行だった場合の保険） ---
+# 5-12時の毎時、成功フラグの日付が「今日」でも「昨日」でもなければ実行する。
+# 本実行が成功していれば、フラグは「昨日」になっているため
+# 初回チェック時に1回だけ skip ログを出し、以降は無言でスキップする。
+5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
+5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
+
+# xserver 動的ファイルを Dropbox/GH へ rsync（0:00 & 07:00〜23:00 毎時）
+0 7-23 * * * /usr/local/bin/xsrv-backup.sh
+0 0    * * * /usr/local/bin/xsrv-backup.sh
+
+# Emacs ゴミ箱をシステムゴミ箱へ移送（毎月1日 23:45）
+45 23 1 * * /usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
+
+# xmodmap 毎分再適用（失速対策）
+* * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
+```
+
+---
+
+## 3. 各ジョブ詳細
+
+### 3.1 automerge.sh (23:40 本実行 + 5-12時毎時 --check フォールバック)
+
+- 句会ウェブサイトの会員パスワードファイル 4 種を同期・マージしてサーバーに戻す
+- 23:30 に句会を締め切るため、23:40 実行
+- 実体は `dotfiles/backup/automerge.sh`（2026-06-19 に `cron/` から `backup/` へ移動）
+
+#### 処理概要
+
+- サーバーから4ファイルをダウンロード（rsync）
+- mergepasswd.pl で wmember を再生成
+- smember = dmember、mmember = wmember にコピー
+- バックアップ zip 作成（`~/Dropbox/passwd/backup/passwd_YYYYMMDD.zip`、7日保持）
+- 全4ファイルをサーバーへアップロード（rsync）
+
+#### ログ形式（本実行）
+
+```
+[automerge] START: 2026-03-23 23:40:01
+[automerge] Step1 rsync dmember: OK
+[automerge] Step1 rsync wmember: OK
+[automerge] Step1 rsync smember: OK
+[automerge] Step1 rsync mmember: OK
+[automerge] Step2 merge: OK
+[automerge] Step3 copy smember: OK
+[automerge] Step3 copy mmember: OK
+[automerge] Step4 git: OK
+[automerge] Step4 zip: OK
+[automerge] Step5 upload dmember: OK
+[automerge] Step5 upload wmember: OK
+[automerge] Step5 upload smember: OK
+[automerge] Step5 upload mmember: OK
+[automerge] END: 2026-03-23 23:40:08 (OK)
+```
+
+#### --check フォールバック（5-12時 毎時）
+
+成功フラグ（`~/.cache/autobackup/automerge-last-success`）の日付を見て判定する。
+
+| フラグの日付 | 動作 |
+|---|---|
+| 今日 | 何もせず無言で終了 |
+| 昨日 | フラグを今日に書き換え、skip ログを1回だけ出して終了 |
+| それ以外 | 通常実行する（本実行が連続で飛んだ場合の補完） |
+
+```
+[automerge] skip: 2026-06-20 05:05
+```
+
+#### パスワードファイル構成
+
+| ファイル | 句会 | 内容 |
+|---|---|---|
+| dmember.cgi | 毎日句会 | 自動登録 |
+| wmember.cgi | 若鮎句会 | dmember全員 + 若鮎固有メンバー |
+| smember.cgi | 吟行句会 | dmemberのコピー |
+| mmember.cgi | 月例句会 | wmemberのコピー |
+
+mergepasswd.pl の動作: dmember をベースに wmember を毎回ゼロから再生成。重複判定キーはメールアドレス。
+
+---
+
+### 3.2 autobackup.sh (23:50 本実行 + 5-12時毎時 --check フォールバック)
+
+- automerge.sh 完了後に `dotfiles/backup/Makefile` の各ターゲットを個別に呼び出してバックアップ一式を実行
+- `--check` フォールバックの判定ロジックは automerge.sh と同じ（成功フラグ:
+  `~/.cache/autobackup/last-success`）
+- 詳細は `dotfiles/backup/README.md` 参照
+- ログ: `/tmp/cron.log`
+
+---
+
+### 3.3 xsrv-backup.sh（0:00 & 07:00〜23:00 毎時）
+
+- xserver の動的ファイル（句会システム・掲示板等が自動生成するファイル群）を
+  `Dropbox/GH` へ毎時 rsync する
+- git push は `autobackup.sh`（毎晩）に委譲
+- `Dropbox/GH` は git 管理下かつ Dropbox の90日バージョン管理の恩恵も受ける
+- 実体は `dotfiles/backup/xsrv-backup.sh`（2026-06-19 に `cron/` から `backup/` へ移動）
+- ログ: `/tmp/xsrv-backup.log`（実行のたびに上書き、最新1回分のみ保持）
+
+#### 対象フォルダー（フォルダー単位）
+
+```
+apvoice/log/    apvoice/voice/
+danwa/data/     danwa/html/
+dia/divoice/
+d_select/voice/ m_select/voice/ s_select/voice/ w_select/voice/
+d_kukai/back/   d_kukai/data/   d_kukai/html/   d_kukai/score/
+m_kukai/back/   m_kukai/data/   m_kukai/html/   m_kukai/score/
+s_kukai/back/   s_kukai/data/   s_kukai/html/   s_kukai/score/
+w_kukai/back/   w_kukai/data/   w_kukai/html/   w_kukai/score/
+```
+
+#### 対象ファイル（特定ファイル単位）
+
+```
+d_kukai/_datefrag.dat
+m_kukai/_progfrag.dat
+s_kukai/_progfrag.dat
+w_kukai/_progfrag.dat
+```
+
+#### 緊急停止
+
+```bash
+cd ~/src/github.com/minorugh/dotfiles/cron
+make cron-stop    # 停止（~/.xsrv-backup-stop を作成）
+make cron-start   # 再開（~/.xsrv-backup-stop を削除）
+```
+
+#### ローカル編集時の安全対策
+
+動的ファイルをローカルで編集・deploy する際は rsync との衝突を避けるため
+lock ファイルを発行する。Emacs の `60-xsrv-dired.el` と `tempbuf.el` が自動連携する。
+
+- 動的フォルダー配下のファイルを開くと自動 read-only
+- `qq` で read-only 解除 → `~/xsrv-rsync.lock` を自動発行
+- tempbuf がバッファを自動 kill → 該当バッファがゼロになったら自動 unlock
+
+---
+
+### 3.4 emacs-trash-sweep.sh (毎月1日 23:45)
+
+- Emacs 専用ゴミ箱（`~/.emacs.d/tmp/trash`）をシステムゴミ箱へ移送する
+- howm メモの削除・dired からの削除が対象
+- ゴミ箱が空の場合は `nothing to sweep` をログに記録して終了
+- 実体は `dotfiles/backup/emacs-trash-sweep.sh`（2026-06-19 に `cron/` から `backup/` へ移動）
+
+#### ログ形式
+
+```
+[emacs-trash] START: 2026-04-25 23:45:01
+[emacs-trash] swept: trash_20260425_234501: OK
+[emacs-trash] END: 2026-04-25 23:45:01
+```
+
+---
+
+## 4. Makefile ターゲット一覧
+
+### dotfiles/Makefile の関連ターゲット
+
+```makefile
+cron:         ## メイン機 (P1) のみ実行: automerge/autobackup/xsrv-backup のリンク作成 + crontab バックアップ＆反映
+automerge:    ## automerge.sh のシンボリックリンク作成
+autobackup:   ## autobackup.sh + 各種backup.sh のシンボリックリンク作成
+emacs-trash:  ## Emacs ゴミ箱スイープスクリプトのリンク作成
+```
+
+### dotfiles/cron/Makefile（mente パネル）
+
+```makefile
+cron-log:     # cron 実行ログ表示
+cron-edit:    # crontab を編集（dotfiles/cron/crontab を直接編集）
+cron-update:  # 編集した crontab を反映（バックアップ→適用→確認）
+cron-stop:    # xsrv-backup 緊急停止（~/.xsrv-backup-stop を作成）
+cron-start:   # xsrv-backup 再開（~/.xsrv-backup-stop を削除）
+
+automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル実行）
+autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）
+emacs-trash:  # emacs-trash-sweep.sh を今すぐ手動実行
+
+xsrv-log:     # xsrv-backup ログ表示
+xsrv-run:     # xsrv-backup を今すぐ手動実行
+
+bat-status:          # バッテリー状態・しきい値を確認
+bat-set-60:          # 充電上限を60%に変更（長期AC接続時推奨）
+bat-set-80:          # 充電上限を80%に変更（外出前・標準運用）
+bat-discharge:       # 強制放電開始
+bat-discharge-stop:  # 強制放電停止（autoに戻す）
+bat-capacity:        # 現在の充電残量を確認（%のみ）
+
+temp:   # CPU/GPU/SSD温度を確認
+smart:  # SSD健康状態を確認（nvme0n1 / nvme1n1）
+```
+
+補足: `automerge` / `autobackup` ターゲットは `--check` を付けずに呼ぶため、
+成功フラグの状態に関わらず常にフル実行される。フラグ機構の動作自体を試したい場合は、
+ターミナルから直接 `--check` を付けて手動実行する。
+
+```bash
+/usr/local/bin/automerge.sh --check
+/usr/local/bin/autobackup.sh --check
+```
+
+### @echo ルール（Emacs compilation バッファー連携）
+
+- 実行系ターゲット: `@echo "##> メッセージ" >&2` → ミニバッファーに通知して自動クローズ
+- 確認系ターゲット: `@echo "##>" >&2` → compilation バッファーを全画面表示
+- `##>` なし → `"Compile successful."` を表示して自動クローズ
+
+---
+
+## 5. cron/ ディレクトリ構成
+
+```
+cron/
+  README.md              # このファイル
+  Makefile                # mente パネル（crontab 編集・手動実行・ハード健康診断等）
+  crontab                  # P1 に適用する crontab 本体（Git 管理）
+```
+
+注: バックアップ処理スクリプト本体（autobackup.sh / automerge.sh / xsrv-backup.sh /
+emacs-trash-sweep.sh 等）は `dotfiles/backup/` に統合済み。詳細は `dotfiles/backup/README.md` 参照。
+
+crontab を更新した場合は以下で Git 管理ファイルに反映すること：
+
+```bash
+crontab -l > ${PWD}/cron/crontab
+git add cron/crontab && git commit -m "update crontab"
+```
+
+---
+
+## 6. 運用のポイント
+
+- `cron` ターゲットは `.PHONY` 指定済みで毎回実行可能
+- crontab バックアップは日付付きで `cron/` 配下に保存（`crontab.backup.YYYYMMDD`）
+- サブ機では `cron` ターゲットはスキップされ、既存 crontab は保持される
+- xsrv-backup.sh は keychain 環境変数を自前で読み込むため cron から直接実行可能
+- **緊急停止は `dotfiles/cron/` で `make cron-stop` を実行**
+- Dropbox 90日バージョン管理が別途保険として機能している
+- 定時実行（23:40/23:50）が失敗・未実行だった場合は、翌朝 5-12時の `--check`
+  フォールバックが自動的に補完する（旧 anacron 方式は 2026-06-19 に廃止）
+
+---
+
+## 7. 推奨手順（新規 PC リストア時）
+
+```bash
+cd ~/src/github.com/minorugh/dotfiles
+make cron         # P1のみ: 個別スクリプトリンク作成 + crontab バックアップ＆反映
+make emacs-trash  # Emacs ゴミ箱スイープスクリプトのリンク作成
+```
+
+- `make cron` 実行後、`cron/crontab.backup.YYYYMMDD` が生成される
+- crontab の内容は `dotfiles/cron/crontab` のものに上書きされる（本実行・フォールバック含む）
+
+---
+
+## 8. ハードウェアメンテ（ThinkPad P1 + Debian13）
+
+Docker 常時稼働・蓋閉め運用のため、定期的にバッテリーと温度・SSD 状態を確認する。
+操作はすべて `dotfiles/cron/` の Makefile から呼び出せる。
+
+### 8.1 バッテリー管理（TLP）
+
+常時 AC 接続のため充電量を抑えてバッテリー劣化を防ぐ。
+`/etc/tlp.conf` に設定済み（再起動後も永続）。
+
+| ターゲット | 内容 |
+|---|---|
+| `make bat-status` | 現在の充電状態・しきい値を確認 |
+| `make bat-set-60` | 充電上限を 60% に変更（長期 AC 接続・外出なし） |
+| `make bat-set-80` | 充電上限を 80% に変更（外出前・持ち出し時） |
+| `make bat-discharge` | 強制放電開始（AC つなぎのまま放電・60% 以下になったら停止） |
+| `make bat-discharge-stop` | 強制放電停止（auto に戻す） |
+| `make bat-capacity` | 現在の充電残量を確認（% のみ） |
+
+**現在の設定**: START=40 / STOP=60（常時 AC 接続運用）
+
+確認ポイント:
+- `charge_control_end_threshold` が設定値と一致しているか
+- `status = Not charging` になっているか
+- `Capacity` が極端に下がっていないか（80% 以下で要注意）
+
+### 8.2 温度確認（lm-sensors）
+
+```bash
+make temp   # 月1回程度、Docker 高負荷時は随時
+```
+
+要注意ライン:
+
+| センサー | 要注意 |
+|---|---|
+| CPU (coretemp) | 80°C 以上 |
+| GPU (nouveau) | 85°C 以上 |
+| NVMe | 70°C 以上 |
+
+### 8.3 SSD 健康診断（smartmontools）
+
+```bash
+make smart  # 3〜6ヶ月に1回程度
+```
+
+| デバイス | 型番 | 容量 |
+|---|---|---|
+| nvme0n1 | Samsung MZVLB512 | 512GB（システム） |
+| nvme1n1 | Crucial CT1000T500 | 1TB（追加） |
+
+確認ポイント:
+- `SMART overall-health: PASSED` であること
+- `Media and Data Integrity Errors: 0` であること
+- `Percentage Used` が 90% 以下であること
+- `Available Spare` が閾値以上であること
+
+### 8.4 定期メンテスケジュール目安
+
+| 頻度 | 作業 |
+|---|---|
+| 月1回 | `make temp` で温度確認 |
+| 3〜6ヶ月 | `make smart` で SSD 健康診断 |
+| 外出前 | `make bat-set-80` で充電上限を 80% に変更 |
+| 帰宅後 | `make bat-set-60` で充電上限を 60% に戻す |
