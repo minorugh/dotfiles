@@ -50,21 +50,25 @@
 
 (leaf my-elpa
   :doc "Browse ELPA snapshots and manage packages via hydra."
-  :chord ("p@"   . hydra-package/body)
+  :chord ("p@" . hydra-package/body)
   :hydra
   (hydra-package
-   (:color red :hint nil :body-pre (require 'elpa-time-machine))
+   (:color red :hint nil)
    "
 Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
   "
-   ("l" (my-open "~/Dropbox/backup/elpa/LOG/elpa-changes.log"))
+   ("l" my-open-elpa-log)
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
    ("a" package-upgrade-all)
    ("v" package-vc-upgrade-all)
-   ("<muhenkan>" nil)))
-
+   ("<muhenkan>" nil))
+  :init
+  (defun my-open-elpa-log ()
+    "Open elpa-changes.log."
+    (interactive)
+    (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log")))
 
 ;;; ============================================================
 ;;;  Gist / Lepton Integration
@@ -153,6 +157,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved docstrings)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 20-utils.el ends here
