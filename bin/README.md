@@ -46,17 +46,6 @@ KeePassXC をパスワードなしで自動起動するラッパー。
 /usr/local/bin/keepass.sh → bin/keepass.sh
 ```
 
-### freerdp.sh
-X250 上の Windows にリモートデスクトップ接続するスクリプト。
-
-IP アドレスは変わる場合があるので `cmd → ipconfig` で確認してから変更すること。
-
-```bash
-/usr/local/bin/freerdp.sh → bin/freerdp.sh
-```
-
----
-
 ## シンボリックリンクの設定
 
 各スクリプトのリンク設定は `Makefile` の対応ターゲットで行います。

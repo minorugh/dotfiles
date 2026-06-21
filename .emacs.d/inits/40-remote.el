@@ -1,12 +1,34 @@
-;;; 40-remote.el --- Xserver deploy/backup operations. -*- lexical-binding: t -*-
+;;; 40-remote.el --- Xserver deploy/backup/2pane operations. -*- lexical-binding: t -*-
 ;;; Commentary:
+;;; xsrv-GH / xsrv-minorugh 関連の個人設定をすべてここに集約する。
+;;; 旧 my-xsrv.el の内容(2pane本体・UI・divider)もこのファイルに統合済み。
 ;;; Code:
 
-;;; ============================================================
-;;;  Deploy  (local dired → xserver)
-;;;
-;;;  キーバインドは 60-dired.el で定義。
-;;; ============================================================
+;; ============================================================
+;; xsrv ルート判定  (共通ヘルパー)
+;; ============================================================
+
+(defconst my-xsrv-roots
+  `((,(expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
+     . ,(expand-file-name "~/Dropbox/GH/"))
+    (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
+     . ,(expand-file-name "~/Dropbox/minorugh.com/")))
+  "xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
+
+(defun my-xsrv-root-for (path)
+  "PATH が xsrv-GH/xsrv-minorugh 配下なら (xsrv-root . local-root) を返す。それ以外は nil。"
+  (let ((path (expand-file-name path)))
+    (cl-find-if (lambda (pair) (string-prefix-p (car pair) path)) my-xsrv-roots)))
+
+(defun my-xsrv-p (path)
+  "PATH が xsrv-GH/xsrv-minorugh 配下であれば t を返す."
+  (and path (my-xsrv-root-for path) t))
+
+
+;; ============================================================
+;; Deploy / Download  (local dired ⇄ xserver)
+;; キーバインドは 60-dired.el で定義。
+;; ============================================================
 
 (defun xsrv-deploy-dired ()
   "Deploy file at point in `dired' to xserver via deploy.pl."
@@ -30,50 +52,169 @@
         (shell-command
          (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
-
-;;; ============================================================
-;;;  Download  (xsrv-GH / xsrv-minorugh → local)
-;;;
-;;;  キーバインドは 60-dired.el で定義。
-;;; ============================================================
-
 (defun xsrv-download-dired ()
   "Download file at point from xsrv-GH or xsrv-minorugh to local Dropbox."
   (interactive)
-  (let* ((file         (dired-get-filename))
-         (name         (file-name-nondirectory file))
-         (xsrv-gh-root  "/home/minoru/src/github.com/minorugh/xsrv-GH/")
-         (xsrv-mn-root  "/home/minoru/src/github.com/minorugh/xsrv-minorugh/")
-         (local-gh-root "/home/minoru/Dropbox/GH/")
-         (local-mn-root "/home/minoru/Dropbox/minorugh.com/")
-         (local-root (cond
-                      ((string-prefix-p xsrv-gh-root file) local-gh-root)
-                      ((string-prefix-p xsrv-mn-root file) local-mn-root)
-                      (t (user-error "Error: xsrv-GH/xsrv-minorugh の Dired から実行してください"))))
-         (xsrv-root (if (string-prefix-p xsrv-gh-root file) xsrv-gh-root xsrv-mn-root))
-         (rel  (file-relative-name file xsrv-root))
-         (dest (concat local-root rel)))
-    (when (x-popup-dialog
-           t
-           `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
-             ("Download する" . t)
-             ("やめる"        . nil)))
-      (if (and (file-exists-p dest)
-               (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
-          (message "キャンセルしました。")
-        (copy-file file dest t)
-        (message "Downloaded: %s" rel)
-        (dolist (root (list xsrv-root local-root))
-          (let ((buf (get-buffer (file-name-nondirectory
-                                  (directory-file-name root)))))
-            (when buf
-              (with-current-buffer buf
-                (revert-buffer)))))))))
+  (let* ((file      (dired-get-filename))
+         (name      (file-name-nondirectory file))
+         (root-pair (my-xsrv-root-for file)))
+    (unless root-pair
+      (user-error "Error: xsrv-GH/xsrv-minorugh の Dired から実行してください"))
+    (let* ((xsrv-root  (car root-pair))
+           (local-root (cdr root-pair))
+           (rel        (file-relative-name file xsrv-root))
+           (dest       (concat local-root rel)))
+      (when (x-popup-dialog
+             t
+             `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
+               ("Download する" . t)
+               ("やめる"        . nil)))
+        (if (and (file-exists-p dest)
+                 (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
+            (message "キャンセルしました。")
+          (copy-file file dest t)
+          (message "Downloaded: %s" rel)
+          (dolist (root (list xsrv-root local-root))
+            (let ((buf (get-buffer (file-name-nondirectory
+                                    (directory-file-name root)))))
+              (when buf
+                (with-current-buffer buf
+                  (revert-buffer))))))))))
 
 
-;;; ============================================================
-;;;  git-peek  (差分プレビュー)
-;;; ============================================================
+;; ============================================================
+;; xsrv-2pane  (dired 2ペイン比較・見た目・divider)
+;; 70-hydra-dired.el の hydra-dired から呼ばれる想定。
+;; ペイン終了処理(my-2pane-quit/my-dired-quit)は 70-hydra-dired.el 側の汎用機能。
+;; ============================================================
+
+;; -- 見た目: ヘッダー強調・アイコン (my-open-xsrv-2pane 専用。通常の dired には影響しない) --
+
+(defface my-xsrv-2pane-header-face
+  '((t (:inherit dired-header :background "#1A2640" :extend t)))
+  "Xsrv-2pane の `dired' バッファでヘッダー2行に使う face."
+  :group 'dired)
+
+(defun my-xsrv-2pane--fontify-header ()
+  "Overwrite `font-lock-face` in the first two lines of the `dired` buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((end (progn (forward-line 2) (point))))
+      (with-silent-modifications
+        (put-text-property (point-min) end 'font-lock-face 'my-xsrv-2pane-header-face)))))
+
+(defvar my-xsrv-2pane-remote-icon-name "nf-md-server"
+  "Xsrv-GH（rsync ミラー）側のパス行に表示する nerd-icons アイコン名.")
+
+(defvar my-xsrv-2pane-local-icon-name "nf-md-home"
+  "Dropbox（ローカル）側のパス行に表示する nerd-icons アイコン名.")
+
+(defun my-xsrv-2pane--icon-for (dir)
+  "DIR が xsrv-GH/xsrv-minorugh 配下なら remote アイコン、それ以外なら local アイコンの文字列を返す."
+  (if (my-xsrv-p dir)
+      (nerd-icons-mdicon my-xsrv-2pane-remote-icon-name)
+    (nerd-icons-mdicon my-xsrv-2pane-local-icon-name)))
+
+(defun my-xsrv-2pane--prepend-icon ()
+  "Dired バッファ1行目（パス行）の先頭にアイコンを付記する.既に付記済みなら二重に追加しない."
+  (save-excursion
+    (goto-char (point-min))
+    (unless (get-text-property (point) 'my-xsrv-2pane-icon)
+      (let ((icon (my-xsrv-2pane--icon-for default-directory))
+            (inhibit-read-only t))
+        (with-silent-modifications
+          (insert (propertize (concat "  " icon "")
+                              'my-xsrv-2pane-icon t)))))))
+
+(defun my-xsrv-2pane-refresh-ui ()
+  "Xsrv-2pane バッファの見た目（ヘッダー強調・アイコン）をまとめて適用する.`revert-buffer' 後にも呼べるよう冪等にしてある."
+  (when (derived-mode-p 'dired-mode)
+    (my-xsrv-2pane--fontify-header)
+    (my-xsrv-2pane--prepend-icon)))
+
+(defun my-xsrv-2pane-enable-ui ()
+  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
+  (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
+  (my-xsrv-2pane-refresh-ui))
+
+;; -- divider --
+
+(defvar my-2pane-divider-active nil
+  "Non-nil while the xsrv-2pane window-divider highlight is active.")
+
+(defun my-2pane-divider-on ()
+  "Enable a prominent window-divider, scoped to xsrv-2pane usage."
+  (window-divider-mode -1)
+  (setq window-divider-default-right-width 6)
+  (setq window-divider-default-bottom-width 0)
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 1)
+  (set-face-foreground 'window-divider "#ff9900")
+  (set-face-foreground 'window-divider-first-pixel "#ff9900")
+  (set-face-foreground 'window-divider-last-pixel "#ff9900")
+  (setq my-2pane-divider-active t))
+
+(defun my-2pane-divider-off ()
+  "Restore window-divider to its default (disabled) state."
+  (when my-2pane-divider-active
+    (window-divider-mode -1)
+    (setq my-2pane-divider-active nil)))
+
+;; -- 本体 --
+
+(defun my-open-xsrv-2pane (src-dir pair-dir)
+  "Open SRC-DIR and PAIR-DIR side by side."
+  (setq my-2pane-origin-buffer (current-buffer))
+  (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
+  (delete-other-windows)
+  (dired src-dir)
+  (my-xsrv-2pane-enable-ui)
+  (split-window-right)
+  (other-window 1)
+  (dired pair-dir)
+  (my-xsrv-2pane-enable-ui)
+  (other-window 1)
+  (my-2pane-divider-on))
+
+;; my-2pane-quit-hook は 70-hydra-dired.el 側で defvar される拡張ポイント。
+;; ここでは divider 解除だけを差し込む。
+(add-hook 'my-2pane-quit-hook #'my-2pane-divider-off)
+
+;; -- hydra から呼ぶための薄いラッパー (70-hydra-dired.el の ":" ";" から参照) --
+
+(defun my-open-xsrv-2pane-gh ()
+  "xsrv-GH と Dropbox/GH を 2ペインで開く."
+  (interactive)
+  (let ((pair (car my-xsrv-roots)))
+    (my-open-xsrv-2pane (car pair) (cdr pair))))
+
+(defun my-open-xsrv-2pane-minorugh ()
+  "xsrv-minorugh と Dropbox/minorugh.com を 2ペインで開く."
+  (interactive)
+  (let ((pair (cadr my-xsrv-roots)))
+    (my-open-xsrv-2pane (car pair) (cdr pair))))
+
+
+;; ============================================================
+;; バッファ識別  (xsrv-GH / xsrv-minorugh 配下を背景色で示す)
+;; ============================================================
+
+(defvar my-xsrv-buffer-color "#233B6C"
+  "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
+
+(defun my-xsrv--maybe-colorize ()
+  "Xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
+  (when (my-xsrv-p default-directory)
+    (buffer-face-set `(:background ,my-xsrv-buffer-color))))
+
+(add-hook 'dired-mode-hook         #'my-xsrv--maybe-colorize)
+(add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
+(add-hook 'find-file-hook          #'my-xsrv--maybe-colorize)
+
+
+;; ============================================================
+;; git-peek  (差分プレビュー、xsrv配下なら2pane復元と連携)
+;; ============================================================
 
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :only-if-missing t)
@@ -86,58 +227,28 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
     (interactive)
     (let* ((dir          (expand-file-name default-directory))
            (orig         git-peek-save-dir)
-           (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
-           (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
-           (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
-                             (string-prefix-p xsrv-mn-root dir)))
-           (new-save-dir (cond
-                          ((string-prefix-p xsrv-gh-root dir)
-                           (concat (expand-file-name "~/Dropbox/GH/")
-                                   (file-relative-name dir xsrv-gh-root)))
-                          ((string-prefix-p xsrv-mn-root dir)
-                           (concat (expand-file-name "~/Dropbox/minorugh.com/")
-                                   (file-relative-name dir xsrv-mn-root)))
-                          (t orig))))
+           (root-pair    (my-xsrv-root-for dir))
+           (new-save-dir (if root-pair
+                              (concat (cdr root-pair)
+                                      (file-relative-name dir (car root-pair)))
+                            orig)))
       (setq git-peek-save-dir new-save-dir)
       (let ((fn nil))
-	(setq fn (lambda ()
+        (setq fn (lambda ()
                    (setq git-peek-save-dir orig)
-                   (when xsrv-p
+                   (when root-pair
                      (my-open-xsrv-2pane dir new-save-dir))
                    (remove-hook 'git-peek-finish-hook fn)))
-	(add-hook 'git-peek-finish-hook fn))
+        (add-hook 'git-peek-finish-hook fn))
       (git-peek))))
 
 
-;;; ============================================================
-;;;  Buffer Colorize  (xsrv-GH / xsrv-minorugh 配下のバッファを識別)
-;;; ============================================================
-
-(defvar my-xsrv-buffer-color "#233B6C"
-  "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
-
-(defun my-xsrv--maybe-colorize ()
-  "Xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
-  (when (and default-directory
-             (or (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-                                  (expand-file-name default-directory))
-                 (string-prefix-p (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
-                                  (expand-file-name default-directory))))
-    (buffer-face-set `(:background ,my-xsrv-buffer-color))))
-
-(add-hook 'dired-mode-hook         #'my-xsrv--maybe-colorize)
-(add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
-(add-hook 'find-file-hook          #'my-xsrv--maybe-colorize)
-
-
-;;; ============================================================
-;;;  Dynamic file protection & rsync lock
-;;;
-;;;  Dropbox/GH 配下の動的フォルダーを自動 read-only 化。
-;;;  read-only 解除時に rsync lock を発行し、
-;;;  該当バッファが全て kill されたら自動 unlock する。
-;;;  tempbuf.el との連携で unlock し忘れを防ぐ。
-;;; ============================================================
+;; ============================================================
+;; 動的フォルダー保護 & rsync lock
+;; Dropbox/GH 配下の動的フォルダーを自動 read-only 化。
+;; read-only 解除時に rsync lock を発行し、該当バッファが全て kill されたら自動 unlock する。
+;; tempbuf.el との連携で unlock し忘れを防ぐ。
+;; ============================================================
 
 (defconst my:xsrv-dynamic-dirs
   (mapcar (lambda (d) (expand-file-name (concat "~/Dropbox/GH/" d)))

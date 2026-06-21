@@ -58,6 +58,8 @@
                              (file-name-as-directory (expand-file-name d)))
                            '("~/"
                              "~/.env_source/"
+                             "~/src/github.com/minorugh/GH/"
+                             "~/src/github.com/minorugh/minorugh.com/"
                              "~/src/github.com/minorugh/dotfiles/"
                              "~/src/github.com/minorugh/dotfiles/env/")))
            -1
@@ -66,22 +68,12 @@
   ;;  Navigation
   ;; ----------------------------------------
   (defun my-dired-open ()
-    "Open file or directory at point.  Confirm before opening remote files."
+    "Open file or directory at point."
     (interactive)
     (let ((file (dired-get-filename)))
-      (cond
-       ((file-directory-p file)
-        (find-alternate-file file))
-       ((file-remote-p file)
-        (when (x-popup-dialog
-               t
-               `(,(format "リモートファイルを開きますか？\n\n  %s"
-                          (file-name-nondirectory file))
-                 ("開く"   . t)
-                 ("やめる" . nil)))
-          (find-file file)))
-       (t
-        (find-file file)))))
+      (if (file-directory-p file)
+          (find-alternate-file file)
+	(find-file file))))
 
   (defun my-dired-up ()
     "Go to parent directory in the same buffer."

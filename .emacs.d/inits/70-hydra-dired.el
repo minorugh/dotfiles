@@ -18,7 +18,7 @@
 
 (leaf hydra-dired
   :after evil
-  :require (my-tig-bridge my-xsrv)
+  :require (my-tig-bridge)
   :bind (("<henkan>" . my-hydra-dired))
   :hydra
   (hydra-dired
@@ -39,8 +39,8 @@
    ("f" counsel-find-file)
    ("o" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   (":" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-GH/" "~/Dropbox/GH/"))
-   (";" (my-open-xsrv-2pane "~/src/github.com/minorugh/xsrv-minorugh/" "~/Dropbox/minorugh.com/"))
+   (":" my-open-xsrv-2pane-gh)        ;; 実体は 40-remote.el を参照
+   (";" my-open-xsrv-2pane-minorugh)  ;; 実体は 40-remote.el を参照
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
