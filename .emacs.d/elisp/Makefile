@@ -15,8 +15,7 @@ toggle-elc:
 	    echo "Removed *.elc"; \
 	else \
 	    $(EMACS) --batch -Q \
-	      --eval "(setq byte-compile-warnings nil)" \
-	--eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
+	      --eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
 	      --eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)" 2>/dev/null; \
 	    echo "Compiled *.elc"; \
 	fi
