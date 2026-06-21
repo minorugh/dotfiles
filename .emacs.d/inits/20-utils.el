@@ -58,9 +58,8 @@
   (hydra-package
    (:color red :hint nil :body-pre (require 'elpa-time-machine))
    "
-Package: _t_ime-machine  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
+Package: _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
   "
-   ("t" elpa-time-machine :exit t)
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)

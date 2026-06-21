@@ -35,10 +35,6 @@ Claude との共同開発。
 Evil キーバインドのチートシートを表示するバッファー。
 ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
 
-### my-fix-mojibake.el
-句会データファイルの文字化けを修復するコマンド。
-外部 Python スクリプト（`fix_mojibake.py`）を呼び出し、結果を専用バッファーに表示する。
-
 ### my-markdown.el
 Markdown・howm ファイル編集用ユーティリティ関数群。
 コードブロック内コメント変換（`my-howm-fix-code-comments`）や
