@@ -89,7 +89,8 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     (find-file "~/.emacs.d/inits/80-easy-hugo.el"))
 
   (defun my-easy-hugo-newpost-after (&rest _)
-    "After creating a new post, switch to Emacs state and move to end of buffer."
+  "After creating a new post, switch to Emacs state and
+move to end of buffer."
     (when (bound-and-true-p evil-mode)
       (evil-emacs-state)
       (goto-char (point-max))

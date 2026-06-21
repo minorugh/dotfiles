@@ -50,16 +50,14 @@
 
 (leaf my-elpa
   :doc "Browse ELPA snapshots and manage packages via hydra."
-  :bind (("C-c e" . elpa-time-machine)
-	 ("C-c l" . (lambda () (interactive)
-                      (find-file "~/Dropbox/CHANGELOG/elpa/elpa-changes.log"))))
   :chord ("p@"   . hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil :body-pre (require 'elpa-time-machine))
    "
-Package: _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
+Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
   "
+   ("l" (my-open "~/Dropbox/backup/elpa/LOG/elpa-changes.log"))
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
@@ -155,6 +153,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
+;; byte-compile-warnings: (not free-vars unresolved docstrings)
 ;; End:
 ;;; 20-utils.el ends here

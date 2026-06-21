@@ -19,10 +19,7 @@
   "Path of sen_cleanup.pl.")
 
 (defun my-sen-cleanup ()
-  "Run sen_cleanup.pl.
-Progress is streamed to *sen-cleanup* buffer.
-On finish (success or failure), buffer enters `view-mode' so q closes it.
-On success, `revert-buffer' is called before switching back to the source buffer."
+  "On success, call `revert-buffer' to switch back to the source buffer."
   (interactive)
   (let* ((file   (or (buffer-file-name)
                      (user-error "バッファーはファイルに紐付いていません")))

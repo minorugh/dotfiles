@@ -84,7 +84,8 @@
 ;;; ============================================================
 
   (defun xsrv-open-this ()
-    "Open gnome-terminal via SSH at the xserver directory matching current buffer."
+  "Open gnome-terminal via SSH at the xserver directory
+matching current buffer."
     (interactive)
     (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
            (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
