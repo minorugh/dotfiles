@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-06-20
+更新日: 2026-06-21
 
 ---
 
@@ -24,7 +24,7 @@ backup/
   automerge.sh             # 句会パスワード同期・マージ（cron から毎日 23:40 に実行 + --check フォールバック）
   xsrv-backup.sh           # xserver 動的ファイルを Dropbox/GH へ rsync（毎時）
   emacs-trash-sweep.sh     # Emacs ゴミ箱をシステムゴミ箱へ移送（月1回）
-  melpa-backup.sh         # ELPAバックアップ（rsync + git + CHANGELOG出力）
+  melpa-backup.sh         # ELPAバックアップ（rsync + PAST世代退避 + CHANGELOG出力）
   mozc-backup.sh          # Mozc 辞書バックアップ
   thunderbird-backup.sh   # Thunderbird バックアップ
   filezilla-backup.sh     # FileZilla 設定バックアップ
@@ -50,8 +50,7 @@ backup/
 
 ```
 [autobackup] START: 2026-04-06 23:50:01
-[autobackup] melpa: コミット＆プッシュしました  # 変更あり
-[autobackup] melpa: 更新はありません            # 変更なし
+[autobackup] melpa: OK
 [autobackup] git-push (GH+minorugh.com): OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
@@ -97,7 +96,7 @@ backup/
 手動実行: `make -f ~/src/github.com/minorugh/dotfiles/backup/Makefile <ターゲット名>`
 
 ```makefile
-melpa:               # ELPAを Dropbox/backup/elpa へ rsync + git push
+melpa:               # ELPAを Dropbox/backup/elpa へ rsync、消えるバージョンはPASTへ世代退避
 git-push:            # GH・minorugh.com・xsrv-GH・xsrv-minorugh を日次自動コミット＆push
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
@@ -113,7 +112,7 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 
 | ターゲット | バックアップ先 |
 |---|---|
-| `melpa` | `~/Dropbox/backup/elpa/` git管理・変更時のみ commit。変更ログを `~/Dropbox/CHANGELOG/elpa/` に蓄積 |
+| `melpa` | `~/Dropbox/backup/elpa/` へrsyncミラー。消えるバージョンは `PAST/<パッケージ名>/` へ退避（最大5世代）。変更ログを `~/Dropbox/backup/elpa/LOG/` に蓄積 |
 | `git-push` | GH・minorugh.com・xsrv-GH・xsrv-minorugh の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
