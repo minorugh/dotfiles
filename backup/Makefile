@@ -9,11 +9,10 @@
 ##             ディレクトリ単位の変更ログを Dropbox/CHANGELOG/elpa/ に蓄積
 ## 2026-06-16  git-push ターゲットに xsrv-GH・xsrv-minorugh を追加
 ## 2026-06-20  cronにあったスクリプトをbackup-dir に移動
-##
-## autobackup.sh / automerge.sh / xsrv-backup.sh / emacs-trash-sweep.sh は
-## 2026-06-19 に cron/ から backup/ へ統合済み（自動実行されるバックアップ処理本体のため）
-## --check 機構（日付フラグ方式）により旧 anacron-backup.sh は廃止済み
-## 詳細: dotfiles/backup/README.md
+## 2026-06-21  melpa-backup.sh から git管理を廃止
+##             PAST/<パッケージ名>/ への世代退避方式（最大5世代、FIFO）に変更
+##             変更ログの出力先を Dropbox/CHANGELOG/elpa/ から
+##             Dropbox/backup/elpa/LOG/ に変更## 詳細: dotfiles/backup/README.md
 
 a.out: all
 
