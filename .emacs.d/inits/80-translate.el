@@ -15,6 +15,9 @@
 (leaf deepl-translate
   :doc "Translation in minibuffer & copy result to clipboard."
   :bind ("C-c d" . deepl-translate)
+  :init
+  (load (expand-file-name "~/.env_source/tokens/deepl-api.el"))
+
   :preface
   (defvar deepl-auth-key) ; この変数にdeeplから発行されるキーを設定する
   (defvar deepl-confirmation-threshold 3000
@@ -95,37 +98,45 @@ Result is shown in the echo area and added to the kill ring."
 Result is shown in the echo area and added to the kill ring."
     (interactive "r")
     (let ((region (buffer-substring start end)))
-      (deepl-translate-internal region "JA" "EN" #'deepl--output-to-messages)))
-  :init
-  (load (locate-user-emacs-file "~/.env_source/tokens/deepl-api.el")))
+      (deepl-translate-internal region "JA" "EN" #'deepl--output-to-messages))))
 
 
 ;; ============================================================
-;;  DeepL Web  (ブラウザで DeepL を開く)
+;;  Google Web  (ブラウザで Google-translate を開く)
 ;; ============================================================
 
-(leaf deepl-translate-web
-  :doc "Open DeepL Translator in a web browser with selected text."
-  :bind ("C-c w" . my-deepl-translate)
+(leaf google-translate-web
+  :doc "Open Google Translate in browser."
+  :bind ("C-c w" . my-google-translate)
   :preface
   (require 'url-util)
+  (require 'subr-x)
 
-  (defun my-deepl-translate (&optional string)
-    "Translate region or sentence at point using DeepL web interface.
-Auto-detects Japanese ↔ English direction."
+  (defun my-google-translate (&optional string)
+    "Translate region or sentence at point using Google Translate."
     (interactive)
     (let* ((text (or string
                      (if (use-region-p)
-                         (buffer-substring-no-properties (region-beginning) (region-end))
-                       (thing-at-point 'sentence t))))
-           (is-ja (string-match-p "[ぁ-んァ-ン一-龯]" text))
-           (src   (if is-ja "ja" "en"))
-           (tgt   (if is-ja "en" "ja"))
-           ;; "://deepl.com" 形式にすることでフリー版インターフェースに誘導
-           (url   (format "https://://deepl.com#%s/%s/%s"
-                          src tgt (url-hexify-string (string-trim text)))))
-      (when (use-region-p) (deactivate-mark))
-      (browse-url url))))
+                         (buffer-substring-no-properties
+                          (region-beginning)
+                          (region-end))
+                       (thing-at-point 'sentence t)))))
+      (unless (and text (not (string-empty-p text)))
+        (user-error "No text found"))
+
+      (let* ((is-ja (string-match-p "[ぁ-んァ-ン一-龯]" text))
+             (src   (if is-ja "ja" "en"))
+             (tgt   (if is-ja "en" "ja"))
+             (url   (format
+                     "https://translate.google.com/?sl=%s&tl=%s&text=%s&op=translate"
+                     src
+                     tgt
+                     (url-hexify-string (string-trim text))))) ; URLパラメータ形式
+
+        (when (use-region-p)
+          (deactivate-mark))
+
+        (browse-url url)))))
 
 
 ;; Local Variables:
