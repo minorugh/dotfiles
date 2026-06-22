@@ -3,54 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Compilation
-;;;
-;;;  Smart handler: auto-closes window on success, surfaces
-;;;  ##> markers as echo-area messages, scrolls output in real time.
-;;; ============================================================
-
-(defun compile-autoclose (buffer string)
-  "Auto-close compile window if BUFFER finished successfully.
-STRING is the exit status message from the compilation process."
-  (if (and (string-match "compilation" (buffer-name buffer))
-           (string-match "finished" string))
-      (let ((msg (with-current-buffer buffer
-                   (save-excursion
-                     (goto-char (point-max))
-                     (if (re-search-backward "^##>\\(.*\\)$" nil t)
-                         (match-string 1)
-                       "Compile successful.")))))
-        (message "%s" msg)
-        (if (string-equal msg "")
-            ;; ##> 単体のとき → バッファを全画面表示
-            (run-at-time 0.1 nil (lambda ()
-                                   (switch-to-buffer buffer)
-                                   (delete-other-windows)))
-          ;; ##> + メッセージ or 通常成功 → ウィンドウを閉じる
-          (delete-windows-on buffer)))
-    ;; 失敗時
-    (message "Compilation exited abnormally: %s" string)))
-
-(setq compilation-finish-functions #'compile-autoclose)
-(setq compilation-scroll-output    t)
-(setq compilation-always-kill      t)
-
-;; ##> 単体行を不可視化（バッファには残りシグナルとして機能する）
-(defun my-dim-compilation-marker ()
-  "Make bare ##> lines invisible in the compilation buffer."
-  (save-excursion
-    (goto-char compilation-filter-start)
-    (while (re-search-forward "^##>[ \t]*$" nil t)
-      (put-text-property (line-beginning-position)
-                         (line-end-position)
-                         'invisible t))))
-(add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
-
-
-;;; ============================================================
-;;;  Auto Save
-;;; ============================================================
+;; ============================================================
+;;  Auto Save
+;; ============================================================
 
 (leaf super-save
   :ensure t
@@ -63,9 +18,9 @@ STRING is the exit status message from the compilation process."
   (setq super-save-exclude             '(".gpg")))
 
 
-;;; ============================================================
-;;;  Scratch Buffer Persistence
-;;; ============================================================
+;; ============================================================
+;;  Scratch Buffer Persistence
+;; ============================================================
 
 (leaf save-scratch
   :doc "Save *scratch* contents at shutdown and restore at startup."
@@ -87,9 +42,9 @@ STRING is the exit status message from the compilation process."
           (insert-file-contents f))))))
 
 
-;;; ============================================================
-;;;  Undo
-;;; ============================================================
+;; ============================================================
+;;  Undo
+;; ============================================================
 
 (leaf undo-fu
   :ensure t
@@ -105,11 +60,11 @@ STRING is the exit status message from the compilation process."
   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
-;;; ============================================================
-;;;  Tempbuf
-;;;  I had removed it once,
-;;;  but brought it back to work with the rsync lock feature (60-xsrv-dired).
-;;; ============================================================
+;; ============================================================
+;;  Tempbuf
+;;  I had removed it once,
+;;  but brought it back to work with the rsync lock feature (60-xsrv-dired).
+;; ============================================================
 
 (leaf tempbuf
   :doc "Auto kill unused buffers in the background"
@@ -120,9 +75,9 @@ STRING is the exit status message from the compilation process."
   (setq tempbuf-kill-message nil))
 
 
-;;; ============================================================
-;;;  Diff / Ediff
-;;; ============================================================
+;; ============================================================
+;;  Diff / Ediff
+;; ============================================================
 
 (leaf ediff
   :tag "builtin"
@@ -134,9 +89,9 @@ STRING is the exit status message from the compilation process."
   (setq ediff-diff-options          "-twB"))
 
 
-;;; ============================================================
-;;;  Electric Modes
-;;; ============================================================
+;; ============================================================
+;;  Electric Modes
+;; ============================================================
 
 (leaf elec-pair
   :tag "builtin"
@@ -160,16 +115,15 @@ STRING is the exit status message from the compilation process."
       (message "Indented buffer."))))
 
 
-;;; ============================================================
-;;;  Region / Selection
-;;; ============================================================
+;; ============================================================
+;;  Region / Selection
+;; ============================================================
 
 (leaf expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
 
 ;; my-selected-mode
-;; --------------------
 (defvar my-selected-mode-map (make-sparse-keymap)
   "Keymap active only while a region is selected.")
 
@@ -186,7 +140,6 @@ STRING is the exit status message from the compilation process."
 (add-hook 'post-command-hook #'my-selected-mode-update)
 
 ;; Web Search Helpers
-;; --------------------
 (defun my-get-region-or-word ()
   "Return active region text, or word at point."
   (if (use-region-p)
@@ -213,13 +166,13 @@ STRING is the exit status message from the compilation process."
 (define-key my-selected-mode-map (kbd "d") #'deepl-translate)
 
 
-;;; ============================================================
-;;;  IME 自動 OFF  (リージョン選択時)
-;;;
-;;;  emacs-state では mozc ON のままだとリージョン選択後のキー入力が
-;;;  my-selected-mode-map より mozc に横取りされるため、選択開始時に
-;;;  一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
-;;; ============================================================
+;; ============================================================
+;;  IME 自動 OFF  (リージョン選択時)
+;;
+;;  emacs-state では mozc ON のままだとリージョン選択後のキー入力が
+;;  my-selected-mode-map より mozc に横取りされるため、選択開始時に
+;;  一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
+;; ============================================================
 
 (defvar my-ime-flag nil
   "Non-nil means IME was active before region activation.")
@@ -235,9 +188,9 @@ STRING is the exit status message from the compilation process."
               (toggle-input-method))))
 
 
-;;; ============================================================
-;;;  Flymake  (on-the-fly syntax checking)
-;;; ============================================================
+;; ============================================================
+;;  Flymake  (on-the-fly syntax checking)
+;; ============================================================
 
 (leaf flymake
   :tag "builtin"

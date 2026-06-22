@@ -1,12 +1,19 @@
-;;; 03-ivy.el --- Ivy core settings and describe helpers -*- lexical-binding: t -*-
+;;; 03-ivy.el --- Ivy-based tools: describe helpers and Git project switcher -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Describe helpers
+;; Two Ivy-based utilities:
 ;;
-;;   `my-describe-command'  -- Search all interactive commands by keybinding
-;;                             or name and describe the selected one.
-;;   `my-describe-variable' -- Search all bound variables and describe the
-;;                             selected one.
+;;   1. Describe helpers
+;;      `my-describe-command'  -- Search all interactive commands by keybinding
+;;                                or name and describe the selected one.
+;;      `my-describe-variable' -- Search all bound variables and describe the
+;;                                selected one.
+;;
+;;   2. Git project switcher (`ivy-git-project')
+;;      Jump to any Git project directory via Ivy.
+;;      See https://github.com/minorugh/ivy-git-project
+;;      Personal search paths and alias map are configured here to keep
+;;      private path information out of the public repository.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -64,16 +71,6 @@ then call `describe-function' on the selected one."
       (ivy-read "Variable: " (sort cands #'string<)
                 :action        (lambda (x) (describe-variable (intern x)))
                 :require-match t))))
-
-
-;; ============================================================
-;;  Ivy-rich
-;; ============================================================
-
-(leaf ivy-rich
-  :ensure t
-  :doc "More friendly display transformer for ivy."
-  :hook (after-init-hook . ivy-rich-mode))
 
 
 ;; Local Variables:

@@ -1,100 +1,78 @@
 ;;; init-mini.el --- Emacs minimal configurations.  -*- lexical-binding: t no-byte-compile: t -*-
 ;;; Commentary:
-;; Minimal Emacs started with the `eq' shell alias:
-;;   alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
-;; Use for package testing or when the main config fails to load.
-;;; Code:
 
-;;; ============================================================
-;;;  Version Guard
-;;; ============================================================
+;; This will start with typing `eq' at shell with minimal Emacs.
+;; Write below at .zshrc or .bashrc.
+;; alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
+;; Use when test of package and my Emacs don't start.
+
+;;; Code:
 
 (when (version< emacs-version "28.1")
   (error "This requires Emacs 28.1 and above!"))
 
-
-;;; ============================================================
-;;;  Package Archives
-;;; ============================================================
-
+;; Packages
 (setq package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")))
 
-
-;;; ============================================================
-;;;  Encoding & Font
-;;; ============================================================
-
+;; Encodig and font
 (prefer-coding-system 'utf-8)
 (add-to-list 'default-frame-alist '(font . "Cica-18"))
 
-
-;;; ============================================================
-;;;  Better Defaults
-;;; ============================================================
-
-(setq-default bidi-display-reordering      nil)
-(setq inhibit-splash-screen                t)
-(setq make-backup-files                    nil)
-(setq auto-save-default                    nil)
-(setq auto-save-list-file-prefix           nil)
-(setq create-lockfiles                     nil)
-(setq completion-ignore-case               t)
+;; Better defaults
+(setq-default bidi-display-reordering nil)
+(setq inhibit-splash-screen t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq auto-save-list-file-prefix nil)
+(setq create-lockfiles nil)
+(setq completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
-(setq visible-bell                         nil)
-(setq ring-bell-function                  'ignore)
-(setq select-enable-clipboard              t)
-(setq scroll-preserve-screen-position      t)
-(setq electric-pair-inhibit-predicate     'electric-pair-conservative-inhibit)
-(setq dired-listing-switches              "-alh --group-directories-first")
-(setq default-directory                    user-emacs-directory)
+(setq visible-bell nil)
+(setq ring-bell-function 'ignore)
+(setq select-enable-clipboard  t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-
-;;; ============================================================
-;;;  UI
-;;; ============================================================
-
+;; UI
 (load-theme 'wombat t)
-(menu-bar-mode   -1)
-(tool-bar-mode   -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 (scroll-bar-mode -1)
 (set-frame-parameter nil 'fullscreen 'maximized)
+;; (global-hl-line-mode 1)
+;; (global-display-line-numbers-mode 1)
 
-
-;;; ============================================================
-;;;  Basic Modes
-;;; ============================================================
-
-(show-paren-mode        1)
-(delete-selection-mode  1)
+;; Basic modes
+(show-paren-mode 1)
+(delete-selection-mode 1)
 (global-auto-revert-mode 1)
-(electric-pair-mode     1)
-(savehist-mode          1)
+(savehist-mode 1)
 (setq savehist-file "~/.emacs.d/tmp/history-mini")
+
 (setq-default show-trailing-whitespace t)
+(setq scroll-preserve-screen-position t)
+(setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+(electric-pair-mode 1)
 
-;; Built-in completion (no external packages needed)
-(fido-mode          1)
+;; Use fido-mode
+(fido-mode 1)
 (fido-vertical-mode 1)
+(setq dired-listing-switches "-alh --group-directories-first")
+(setq default-directory user-emacs-directory)
 
-
-;;; ============================================================
-;;;  Keybindings
-;;; ============================================================
-
-(define-key global-map (kbd "M-w")      #'clipboard-kill-ring-save)
-(define-key global-map (kbd "C-w")      #'clipboard-kill-region)
-(define-key global-map (kbd "s-v")      #'yank)
-(define-key global-map (kbd "s-c")      #'clipboard-kill-ring-save)
-(define-key global-map (kbd "M-/")      #'kill-current-buffer)
-(define-key global-map (kbd "C-_")      #'undo)
-(define-key global-map (kbd "C-/")      #'undo-redo)
-(define-key global-map (kbd "C-:")      #'switch-to-buffer)
-(define-key global-map (kbd "C-x f")    #'find-file)
-(define-key global-map (kbd "C-x j")    #'dired-jump)
+;; Key modifiers to my liking
+(define-key global-map (kbd "M-w") #'clipboard-kill-ring-save)
+(define-key global-map (kbd "C-w") #'clipboard-kill-region)
+(define-key global-map (kbd "s-v") #'yank)
+(define-key global-map (kbd "s-c") #'clipboard-kill-ring-save)
+(define-key global-map (kbd "M-/") #'kill-current-buffer)
+(define-key global-map (kbd "C-_") #'undo)
+(define-key global-map (kbd "C-/") #'undo-redo)
+(define-key global-map (kbd "C-:") #'switch-to-buffer)
+(define-key global-map (kbd "C-x f") #'find-file)
+(define-key global-map (kbd "C-x j") #'dired-jump)
 (define-key global-map (kbd "<henkan>") #'dired-jump)
 
 
-;;; init-mini.el ends here
+;;; Init-mini.el ends here

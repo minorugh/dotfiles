@@ -10,9 +10,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Startup Performance
-;;; ============================================================
+;; ============================================================
+;;  Startup Performance
+;; ============================================================
 
 ;; Defer GC during startup; restored to 16MB in init.el's startup hook
 (setq gc-cons-threshold most-positive-fixnum)
@@ -23,16 +23,16 @@
 ;; Skip package init here; handled manually in init.el
 (setq package-enable-at-startup nil)
 
-;; Prefer newer source files and skip mtime checks to save IO
-(setq load-prefer-newer noninteractive)
+;; Always prefer newer source files to prevent stale .elc bugs
+(setq load-prefer-newer t)
 
 ;; Inhibit frame resizing to improve UI snappiness
 (setq frame-inhibit-implied-resize t)
 
 
-;;; ============================================================
-;;;  Encoding & Font
-;;; ============================================================
+;; ============================================================
+;;  Encoding & Font
+;; ============================================================
 
 (prefer-coding-system 'utf-8)
 (let ((font-size (if (string= (system-name) "P1") 18 16)))
@@ -40,18 +40,18 @@
 (setq inhibit-compacting-font-caches t)
 
 
-;;; ============================================================
-;;;  UI — Disable Early to Prevent Flicker
-;;; ============================================================
+;; ============================================================
+;;  UI — Disable Early to Prevent Flicker
+;; ============================================================
 
 (push '(menu-bar-lines    . 0) default-frame-alist)
 (push '(tool-bar-lines    . 0) default-frame-alist)
 (push '(vertical-scroll-bars ) default-frame-alist)
 (push '(undecorated       . t) default-frame-alist)
 
-;;; ============================================================
-;;;  Frame Position & Splash Screen
-;;; ============================================================
+;; ============================================================
+;;  Frame Position & Splash Screen
+;; ============================================================
 
 ;; Start maximized on external monitor (DP-1-2 at x=1920)
 (push '(fullscreen . maximized) initial-frame-alist)

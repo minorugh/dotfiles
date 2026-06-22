@@ -8,9 +8,9 @@
 ;; These are autoload-registered via my-loaddefs.el.
 ;;; Code:
 
-;;; ============================================================
-;;;  Markdown Mode
-;;; ============================================================
+;; ============================================================
+;;  Markdown Mode
+;; ============================================================
 
 (leaf markdown-mode
   :ensure t
@@ -34,9 +34,9 @@
         (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
 
 
-;;; ============================================================
-;;;  Preview HTML Header  (highlight.js + TOC スタイル)
-;;; ============================================================
+;; ============================================================
+;;  Preview HTML Header  (highlight.js + TOC スタイル)
+;; ============================================================
 
   (setq markdown-xhtml-header-content
         (concat
@@ -69,9 +69,9 @@
    '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
 
 
-;;; ============================================================
-;;;  Howm Fix Hook  (super-save 後にコメント記号を修正)
-;;; ============================================================
+;; ============================================================
+;;  Howm Fix Hook  (super-save 後にコメント記号を修正)
+;; ============================================================
 
   (defun my-howm-fix-after-super-save (&rest _)
     "super-save 後に howm バッファのコードブロック内コメントを修正する."
@@ -85,9 +85,9 @@
   (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
 
-;;; ============================================================
-;;;  Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
-;;; ============================================================
+;; ============================================================
+;;  Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
+;; ============================================================
 
   (defun my-delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when a markdown buffer is killed."
@@ -101,9 +101,9 @@
   (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
 
 
-;;; ============================================================
-;;;  Pandoc Export  (PDF / DOCX)
-;;; ============================================================
+;; ============================================================
+;;  Pandoc Export  (PDF / DOCX)
+;; ============================================================
 
 (defun md2pdf ()
   "Generate PDF from the current markdown buffer via pandoc + lualatex."
@@ -131,8 +131,6 @@
         (call-process "xdg-open" nil nil nil docxfile)
       (message "md2docx: pandoc failed"))))
 
-
-(require 'my-markdown)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

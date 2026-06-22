@@ -2,12 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-;;; ============================================================
-;;;  Compilation
-;;;
-;;;  Smart handler: auto-closes window on success, surfaces
-;;;  ##> markers as echo-area messages, scrolls output in real time.
-;;; ============================================================
+;; ============================================================
+;;  Compilation
+;;
+;;  Smart handler: auto-closes window on success, surfaces
+;;  ##> markers as echo-area messages, scrolls output in real time.
+;; ============================================================
 
 (defun compile-autoclose (buffer string)
   "Auto-close compile window if BUFFER finished successfully.
@@ -47,13 +47,13 @@ STRING is the exit status message from the compilation process."
 (add-hook 'compilation-filter-hook #'my-dim-compilation-marker)
 
 
-;;; ============================================================
-;;;  Makefile Functions
-;;;
-;;;  Ivy-powered target launcher with live preview.
-;;;  Works in makefile-mode, dired, and any buffer under a
-;;;  Makefile root.  Toggle read-only/evil-state in one keystroke.
-;;; ============================================================
+;; ============================================================
+;;  Makefile Functions
+;;
+;;  Ivy-powered target launcher with live preview.
+;;  Works in makefile-mode, dired, and any buffer under a
+;;  Makefile root.  Toggle read-only/evil-state in one keystroke.
+;; ============================================================
 
 (leaf makefile-functions
   :after (evil key-chord)
@@ -72,9 +72,9 @@ STRING is the exit status message from the compilation process."
   (add-hook 'dired-mode-hook    #'my-dired-mode-setup)
 
 
-;;; ============================================================
-;;;  Makefile Target Picker  (Ivy integrated)
-;;; ============================================================
+;; ============================================================
+;;  Makefile Target Picker  (Ivy integrated)
+;; ============================================================
 
   ;; Resolve Makefile path from dired, buffer file, or default-directory
   (defun my-make--find-makefile ()
@@ -145,9 +145,9 @@ STRING is the exit status message from the compilation process."
                     :caller 'my-make-ivy-integrated)))))
 
 
-;;; ============================================================
-;;;  Makefile Utilities
-;;; ============================================================
+;; ============================================================
+;;  Makefile Utilities
+;; ============================================================
 
   ;; Toggle read-only and sync evil state
   (defun my-makefile-toggle-readonly ()

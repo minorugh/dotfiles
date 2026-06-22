@@ -3,9 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Mozc Core
-;;; ============================================================
+;; ============================================================
+;;  Mozc Core
+;; ============================================================
 
 (leaf mozc
   :ensure t
@@ -25,9 +25,9 @@
      ((t (:background "#1E2029" :foreground "#bd93f9" :weight bold)))))
 
 
-;;; ============================================================
-;;;  Mozc Candidate Posframe
-;;; ============================================================
+;; ============================================================
+;;  Mozc Candidate Posframe
+;; ============================================================
 
   (leaf mozc-cand-posframe
     :ensure t
@@ -45,9 +45,9 @@
        ((t (:background "#262626" :foreground "#454D73" :height 0.9))))))
 
 
-;;; ============================================================
-;;;  Mozc Helper Commands
-;;; ============================================================
+;; ============================================================
+;;  Mozc Helper Commands
+;; ============================================================
 
   (defun my-toggle-input-method ()
     "Toggle input method only when in Emacs state."
@@ -80,15 +80,15 @@
     (delete-other-windows))
 
 
-;;; ============================================================
-;;;  Cursor Color by Evil State / Mozc Mode
-;;;
-;;;  normal-state  : #50fa7b (green)
-;;;  emacs-state   : #BD93F9 (purple)  mozc OFF
-;;;                  #ff9580 (orange)  mozc ON (hiragana)
-;;;  read-only     : #6272A4 (grey-blue)
-;;;  visual-state  : #F1FA8C (yellow)
-;;; ============================================================
+;; ============================================================
+;;  Cursor Color by Evil State / Mozc Mode
+;;
+;;  normal-state  : #50fa7b (green)
+;;  emacs-state   : #BD93F9 (purple)  mozc OFF
+;;                  #ff9580 (orange)  mozc ON (hiragana)
+;;  read-only     : #6272A4 (grey-blue)
+;;  visual-state  : #F1FA8C (yellow)
+;; ============================================================
 
   (setq my-mozc-cursor-color-alist
         '((normal    . "#50fa7b")

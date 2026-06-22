@@ -12,9 +12,9 @@
 ;;
 ;;; Code:
 
-;;; ============================================================
-;;;  Darkroom Minor Mode
-;;; ============================================================
+;; ============================================================
+;;  Darkroom Minor Mode
+;; ============================================================
 
 (leaf my-darkroom
   :doc "Distraction-free writing mode (darkroom package alternative)."
@@ -42,9 +42,9 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     :group 'convenience)
 
 
-;;; ============================================================
-;;;  Margin Helpers
-;;; ============================================================
+;; ============================================================
+;;  Margin Helpers
+;; ============================================================
 
   (defun my-darkroom--margin-cols ()
     "Calculate margin width in columns from `my-darkroom-margin'."
@@ -60,9 +60,9 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (set-window-margins (selected-window) 0 0))
 
 
-;;; ============================================================
-;;;  Mode Definition & Toggle
-;;; ============================================================
+;; ============================================================
+;;  Mode Definition & Toggle
+;; ============================================================
 
   (define-minor-mode my-darkroom-mode
     "Minor mode for distraction-free writing."
@@ -119,14 +119,14 @@ Bound to F8; see 07-functions.el."
       (my-darkroom-in))))
 
 
-;;; ============================================================
-;;;  NeoMutt Integration
-;;;
-;;;  NeoMutt が外部エディタとして "neomutt-XXXX" を Emacs に渡したとき、
-;;;  メール本文に集中できるよう自動で darkroom に入る。
-;;;  Evil 使用時は Emacs state に切り替えて自然な入力を確保する。
-;;;  C-x # (server-edit) で抜けるときも server-done-hook で確実に終了。
-;;; ============================================================
+;; ============================================================
+;;  NeoMutt Integration
+;;
+;;  NeoMutt が外部エディタとして "neomutt-XXXX" を Emacs に渡したとき、
+;;  メール本文に集中できるよう自動で darkroom に入る。
+;;  Evil 使用時は Emacs state に切り替えて自然な入力を確保する。
+;;  C-x # (server-edit) で抜けるときも server-done-hook で確実に終了。
+;; ============================================================
 
 (add-hook 'find-file-hook
           (lambda ()

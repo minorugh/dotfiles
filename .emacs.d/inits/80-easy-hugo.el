@@ -3,9 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Easy-Hugo Core
-;;; ============================================================
+;; ============================================================
+;;  Easy-Hugo Core
+;; ============================================================
 
 (leaf easy-hugo
   :ensure t
@@ -26,13 +26,13 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 ")
 
 
-;;; ============================================================
-;;;  Blog Settings
-;;;
-;;;  blog1 (main): snap.minorugh.com
-;;;  blog2: minorugh.github.io
-;;;  blog3–8: minorugh.com サブサイト群
-;;; ============================================================
+;; ============================================================
+;;  Blog Settings
+;;
+;;  blog1 (main): snap.minorugh.com
+;;  blog2: minorugh.github.io
+;;  blog3–8: minorugh.com サブサイト群
+;; ============================================================
 
   ;; blog1 (main)
   (setq easy-hugo-basedir    "~/Dropbox/minorugh.com/snap/")
@@ -78,9 +78,9 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
            (easy-hugo-root       . "/home/minorugh/minorugh.com/public_html/ryo/"))))
 
 
-;;; ============================================================
-;;;  Helper Commands
-;;; ============================================================
+;; ============================================================
+;;  Helper Commands
+;; ============================================================
 
   :config
   (defun my-edit-easy-hugo ()

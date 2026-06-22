@@ -3,18 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Performance
-;;; ============================================================
+;; ============================================================
+;;  Performance
+;; ============================================================
 
 ;; Faster rendering: disable right-to-left language support
 (setq-default bidi-display-reordering nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
 
 
-;;; ============================================================
-;;;  File / Backup / Lock
-;;; ============================================================
+;; ============================================================
+;;  File / Backup / Lock
+;; ============================================================
 
 (setq make-backup-files        nil)   ; no *.~ backup files
 (setq auto-save-default        nil)   ; no auto-save
@@ -25,9 +25,9 @@
 (setq next-line-add-newlines   nil)   ; no new line at end of buffer
 
 
-;;; ============================================================
-;;;  Temp / History File Locations  (~/.emacs.d/tmp/)
-;;; ============================================================
+;; ============================================================
+;;  Temp / History File Locations  (~/.emacs.d/tmp/)
+;; ============================================================
 
 (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
 (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
@@ -38,9 +38,9 @@
 (setq project-list-file           (locate-user-emacs-file "tmp/projects"))
 
 
-;;; ============================================================
-;;;  Editing Defaults
-;;; ============================================================
+;; ============================================================
+;;  Editing Defaults
+;; ============================================================
 
 (setq completion-ignore-case              t)   ; case-insensitive completion
 (setq read-file-name-completion-ignore-case t)
@@ -58,9 +58,9 @@
 (defalias 'exit-emacs  'save-buffers-kill-emacs)
 
 
-;;; ============================================================
-;;;  Trash
-;;; ============================================================
+;; ============================================================
+;;  Trash
+;; ============================================================
 
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
@@ -72,9 +72,9 @@
                 (make-directory trash-directory t))))
 
 
-;;; ============================================================
-;;;  Savehist / Recentf / Save-place
-;;; ============================================================
+;; ============================================================
+;;  Savehist / Recentf / Save-place
+;; ============================================================
 
 (leaf savehist
   :doc "Save minibuffer entry history"
@@ -97,9 +97,9 @@
             '("\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:")))
 
 
-;;; ============================================================
-;;;  Mode Associations / Global Minor Modes
-;;; ============================================================
+;; ============================================================
+;;  Mode Associations / Global Minor Modes
+;; ============================================================
 
 (leaf *defer-modes
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
@@ -113,9 +113,9 @@
   (after-init-hook . savehist-mode))
 
 
-;;; ============================================================
-;;;  Keybindings & User Commands
-;;; ============================================================
+;; ============================================================
+;;  Keybindings & User Commands
+;; ============================================================
 
 (leaf user-configurations
   :defun my-iconify-last-frame

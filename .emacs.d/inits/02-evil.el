@@ -3,9 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Evil Core
-;;; ============================================================
+;; ============================================================
+;;  Evil Core
+;; ============================================================
 
 (leaf evil
   :ensure t
@@ -89,9 +89,9 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
 
-;;; ============================================================
-;;;  Universal Escape Key (muhenkan)
-;;; ============================================================
+;; ============================================================
+;;  Universal Escape Key (muhenkan)
+;; ============================================================
 
   (defun my-muhenkan ()
     "Universal escape key — context-sensitive quit/state switch."
@@ -121,12 +121,12 @@
     (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
 
-;;; ============================================================
-;;;  Normal-state Leader Key ";"
-;;;  Normal state のまま軽微な編集を完結させるための仕組み。
-;;;  ESC でキャンセル、完了後も Normal state に留まる。
-;;;  muhenkan で Emacs state へ。
-;;; ============================================================
+;; ============================================================
+;;  Normal-state Leader Key ";"
+;;  Normal state のまま軽微な編集を完結させるための仕組み。
+;;  ESC でキャンセル、完了後も Normal state に留まる。
+;;  muhenkan で Emacs state へ。
+;; ============================================================
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
@@ -154,9 +154,9 @@
     (define-key m "i" #'my-emacs-state-mozc))  ; Emacs-state + mozc on
 
 
-;;; ============================================================
-;;;  Leader Key Helper Commands
-;;; ============================================================
+;; ============================================================
+;;  Leader Key Helper Commands
+;; ============================================================
 
   (defun my-newline-above ()
     "Insert a blank line above the current line without leaving Normal state."

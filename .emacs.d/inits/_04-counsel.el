@@ -10,6 +10,7 @@
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
+  :hook (after-init-hook . ivy-mode)
   :bind (("C-:"     . counsel-switch-buffer)
          ("C-x C-f" . counsel-find-file)
          ("C-x g"   . counsel-git)         ; プロジェクト内のファイルを検索
@@ -19,6 +20,9 @@
          ("C-,"     . counsel-mark-ring))
   :config
   (setq search-default-mode             nil)
+  (setq ivy-use-virtual-buffers         t)
+  (setq ivy-use-selectable-prompt       t)
+  (setq enable-recursive-minibuffers    t)
   (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
   (setq ivy-format-functions-alist      '((t . my-ivy-format-function-arrow)))
 
@@ -35,6 +39,16 @@
        (concat (propertize " " 'display `(space :align-to 2)) str))
      cands
      "\n")))
+
+
+;;; ============================================================
+;;;  Ivy-rich
+;;; ============================================================
+
+(leaf ivy-rich
+  :ensure t
+  :doc "More friendly display transformer for ivy."
+  :hook (after-init-hook . ivy-rich-mode))
 
 
 ;; ============================================================

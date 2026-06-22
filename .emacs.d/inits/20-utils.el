@@ -3,9 +3,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  Keybinding Utilities
-;;; ============================================================
+;; ============================================================
+;;  Keybinding Utilities
+;; ============================================================
 
 (leaf which-key
   :tag "builtin"
@@ -44,9 +44,9 @@
   :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")
 
 
-;;; ============================================================
-;;;  Package Management
-;;; ============================================================
+;; ============================================================
+;;  Package Management
+;; ============================================================
 
 (leaf my-elpa
   :doc "Browse ELPA snapshots and manage packages via hydra."
@@ -70,9 +70,9 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
     (interactive)
     (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log")))
 
-;;; ============================================================
-;;;  Gist / Lepton Integration
-;;; ============================================================
+;; ============================================================
+;;  Gist / Lepton Integration
+;; ============================================================
 
 (defun gist-description ()
   "Add gist description."
@@ -103,9 +103,9 @@ If region isn't selected, post from the buffer."
    "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
 
 
-;;; ============================================================
-;;;  YaTeX --- Japanese LaTeX Environment
-;;; ============================================================
+;; ============================================================
+;;  YaTeX --- Japanese LaTeX Environment
+;; ============================================================
 
 (leaf yatex
   :ensure t
@@ -126,16 +126,10 @@ If region isn't selected, post from the buffer."
   :bind (("M-c" . YaTeX-typeset-buffer)
 	 ("M-v" . YaTeX-lpr)))
 
-;; dvpd.sh (Linux helper script)
-;;   #!/bin/zsh
-;;   name=$1
-;;   dvipdfmx ${name%.*} && evince ${name%.*}.pdf
-;;   rm *.au* *.dv* *.lo*
 
-
-;;; ============================================================
-;;;  PostScript Printing
-;;; ============================================================
+;; ============================================================
+;;  PostScript Printing
+;; ============================================================
 
 (leaf ps-print
   :doc "PostScript printing with Japanese support."

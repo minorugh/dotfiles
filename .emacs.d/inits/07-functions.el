@@ -8,9 +8,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;;; ============================================================
-;;;  F-key Bindings
-;;; ============================================================
+;; ============================================================
+;;  F-key Bindings
+;; ============================================================
 
 (leaf external-functions
   :doc "External tools & SSH launchers."
@@ -28,9 +28,9 @@
          ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
 
 
-;;; ============================================================
-;;;  External App Launchers
-;;; ============================================================
+;; ============================================================
+;;  External App Launchers
+;; ============================================================
 
   :init
   (defun my-remote-select ()
@@ -75,13 +75,13 @@
       (start-process-shell-command "thunar" nil cmd)))
 
 
-;;; ============================================================
-;;;  SSH Launcher  (xsrv)
-;;;
-;;;  Maps local Dropbox paths to remote server paths:
-;;;    ~/Dropbox/GH/           → gospel-haiku.com/public_html/
-;;;    ~/Dropbox/minorugh.com/ → minorugh.com/public_html/
-;;; ============================================================
+;; ============================================================
+;;  SSH Launcher  (xsrv)
+;;
+;;  Maps local Dropbox paths to remote server paths:
+;;    ~/Dropbox/GH/           → gospel-haiku.com/public_html/
+;;    ~/Dropbox/minorugh.com/ → minorugh.com/public_html/
+;; ============================================================
 
   (defun xsrv-open-this ()
   "Open gnome-terminal via SSH at the xserver directory
@@ -108,9 +108,9 @@ matching current buffer."
       (start-process-shell-command "ssh" nil cmd)))
 
 
-;;; ============================================================
-;;;  Buffer Toggles
-;;; ============================================================
+;; ============================================================
+;;  Buffer Toggles
+;; ============================================================
 
   (defun toggle-scratch-buffer ()
     "Toggle between *scratch* and the previous buffer."
