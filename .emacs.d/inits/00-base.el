@@ -50,6 +50,7 @@
 (setq mouse-drag-copy-region             t)    ; mouse selection copies
 (setq select-enable-clipboard            t)    ; use X11 clipboard
 (setq uniquify-buffer-name-style        'post-forward-angle-brackets)
+(setq byte-compile-docstring-max-column 120)
 (setq-default cursor-in-non-selected-windows nil)
 (set-fringe-mode 1)
 
