@@ -15,13 +15,15 @@
   (setq which-key-max-description-length 40)
   (setq which-key-idle-delay 0.0))
 
-;; Forked from 20240910.1441 (MELPA), sit-for -> read-event timeout
-;;   to fix stalling on heavy buffers (key-seq style, 2025-05-08)
+;; NOTE: 必須。leafの:chordはkey-chord-define経由しないため、
+;; key-chord-use-key-tracking=t(デフォルト)だとチョードが無音で無効化される。
+;; 外すと "l;" などのチョードが何もせず単に自己挿入されるだけになる。
 (leaf key-chord
-  :vc (:url "https://github.com/minorugh/key-chord")
+  :ensure t
   :hook (after-init-hook . key-chord-mode)
   :chord (("l;" . init-loader-show-log))
   :config
+  (setq key-chord-use-key-tracking nil)
   ;; key-chord stall recovery
   (defun my-key-chord-ensure ()
     (when (and key-chord-mode
