@@ -34,13 +34,6 @@
   (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
   (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
 
-;; (leaf sequential-command
-;;   :doc "Move to first and last line of buffer."
-;;   :vc (:url "https://github.com/minorugh/sequential-command")
-;;   :config
-;;   (leaf sequential-command-config
-;;     :hook (after-init-hook . sequential-command-setup-keys)))
-
 (leaf quickrun
   :ensure t
   :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")
@@ -71,6 +64,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
     "Open elpa-changes.log."
     (interactive)
     (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log")))
+
 
 ;; ============================================================
 ;;  Gist / Lepton Integration
