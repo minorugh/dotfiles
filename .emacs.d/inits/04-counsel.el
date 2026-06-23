@@ -38,18 +38,6 @@
 
 
 ;; ============================================================
-;;  Amx  (enhanced M-x history)
-;; ============================================================
-
-;; (leaf amx
-;;   :ensure t
-;;   :doc "Alternative M-x with frecency-based history."
-;;   :config
-;;   (setq amx-save-file (locate-user-emacs-file "tmp/amx-items"))
-;;   (setq amx-history-length 20))
-
-
-;; ============================================================
 ;;  Swiper
 ;; ============================================================
 
