@@ -22,8 +22,8 @@
   :chord (("df" . my-describe-command)
           ("fg" . my-describe-variable))
   :bind (:ivy-minibuffer-map
-         ("<down>" . ivy-next-line-and-call)
-         ("<up>"   . ivy-previous-line-and-call))
+         ("<down>" . ivy-next-line)
+         ("<up>"   . ivy-previous-line))
   :config
   (setq ivy-use-virtual-buffers      t)
   (setq ivy-use-selectable-prompt    t)
@@ -31,9 +31,9 @@
   (setq ivy-extra-directories        nil)
 
 
-;; ============================================================
-;;  Describe Helpers
-;; ============================================================
+  ;; ============================================================
+  ;;  Describe Helpers
+  ;; ============================================================
 
   (defvar my-describe-history nil "History for `my-describe-command'.")
 

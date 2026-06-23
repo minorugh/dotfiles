@@ -32,6 +32,8 @@
           ("d"        . deepl-translate)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
+	  ;; ([up]       . nil)
+	  ;; ([down]     . nil)
           ([muhenkan] . my-muhenkan))
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
@@ -44,7 +46,6 @@
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
-
   :config
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)

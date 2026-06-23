@@ -380,7 +380,6 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/minorugh.github.io.git
 	git clone git@github.com:minorugh/upsftp.git
 	git clone git@github.com:minorugh/env-import.git
-	git clone git@github.com:minorugh/vim-cheat.git
 	git clone git@github.com:minorugh/git-peek.git
 	git clone git@github.com:minorugh/xsrv-GH.git
 	git clone git@github.com:minorugh/xsrv-minorugh.git
