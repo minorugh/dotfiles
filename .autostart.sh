@@ -30,7 +30,7 @@ rm -f "$ASKPASS_SCRIPT"
 source ~/.keychain/$(hostname)-sh
 
 # Emacs を iconic（最初から最小化）状態で起動
-emacs --maximized &
+emacs-start.sh &
 until xdotool search --class emacs 2>/dev/null | grep -q .; do sleep 0.5; done
 sleep 1s
 wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)

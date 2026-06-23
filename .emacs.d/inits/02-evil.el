@@ -12,8 +12,8 @@
   :require (my-evil-cheat-sheet)  ; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
   :hook ((after-init-hook . evil-mode))
   :bind ((:evil-normal-state-map
-          ("C-a"      . seq-home)
-          ("C-e"      . seq-end)
+          ("C-a"      . my-seq-home)   ; see 08-edit.el
+          ("C-e"      . my-seq-end)    ; see 08-edit.el
           ("C-w"      . evil-delete-backward-word)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
@@ -36,6 +36,8 @@
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
+          ("C-a"      . my-seq-home)   ; see 08-edit.el
+          ("C-e"      . my-seq-end)    ; see 08-edit.el
           ([insert]   . my-iedit-toggle)
           ([muhenkan] . my-muhenkan)
           ([escape]   . (lambda () (interactive) (evil-normal-state)))))
@@ -89,9 +91,9 @@
   (evil-swap-key evil-motion-state-map "k" "gk")
 
 
-;; ============================================================
-;;  Universal Escape Key (muhenkan)
-;; ============================================================
+  ;; ============================================================
+  ;;  Universal Escape Key (muhenkan)
+  ;; ============================================================
 
   (defun my-muhenkan ()
     "Universal escape key — context-sensitive quit/state switch."
@@ -154,9 +156,9 @@
     (define-key m "i" #'my-emacs-state-mozc))  ; Emacs-state + mozc on
 
 
-;; ============================================================
-;;  Leader Key Helper Commands
-;; ============================================================
+  ;; ============================================================
+  ;;  Leader Key Helper Commands
+  ;; ============================================================
 
   (defun my-newline-above ()
     "Insert a blank line above the current line without leaving Normal state."

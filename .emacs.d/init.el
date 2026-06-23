@@ -89,13 +89,13 @@
 ;;  Shell Environment (exec-path-from-shell)
 ;; ============================================================
 
-(leaf exec-path-from-shell
-  :ensure t
-  :doc "Inherit shell env vars including SSH_AUTH_SOCK"
-  :when (memq window-system '(mac ns x))
-  :hook (emacs-startup-hook . exec-path-from-shell-initialize)
-  :config
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+;; (leaf exec-path-from-shell
+;;   :ensure t
+;;   :doc "Inherit shell env vars including SSH_AUTH_SOCK"
+;;   :when (memq window-system '(mac ns x))
+;;   :hook (emacs-startup-hook . exec-path-from-shell-initialize)
+;;   :config
+;;   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 
 (provide 'init)

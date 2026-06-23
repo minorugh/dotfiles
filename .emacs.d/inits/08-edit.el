@@ -116,6 +116,39 @@
 
 
 ;; ============================================================
+;;  Sequential C-a / C-e
+;; ============================================================
+
+(defvar my-seq--count 0)
+(defvar my-seq--start nil)
+
+(defmacro my-define-seq-command (name &rest commands)
+  "依存なしの sequential-command 代替.
+NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで来たら巡回する."
+  (let ((cmdvec (apply #'vector commands)))
+    `(defun ,name ()
+       ,(format "Sequential command: %s" (mapconcat #'symbol-name commands " → "))
+       (interactive)
+       (if (eq last-command this-command)
+           (setq my-seq--count (1+ my-seq--count))
+         (setq my-seq--start (cons (point) (window-start))
+               my-seq--count 0))
+       (call-interactively (aref ,cmdvec (mod my-seq--count ,(length cmdvec)))))))
+
+(defun my-seq-return ()
+  "巡回開始前の位置に戻る."
+  (interactive)
+  (goto-char (car my-seq--start))
+  (set-window-start (selected-window) (cdr my-seq--start)))
+
+(my-define-seq-command my-seq-home
+  beginning-of-line back-to-indentation beginning-of-buffer my-seq-return)
+
+(my-define-seq-command my-seq-end
+  end-of-line end-of-buffer my-seq-return)
+
+
+;; ============================================================
 ;;  Region / Selection
 ;; ============================================================
 

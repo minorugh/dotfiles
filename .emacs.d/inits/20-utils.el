@@ -34,12 +34,12 @@
   (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
   (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
 
-(leaf sequential-command
-  :doc "Move to first and last line of buffer."
-  :vc (:url "https://github.com/minorugh/sequential-command")
-  :config
-  (leaf sequential-command-config
-    :hook (after-init-hook . sequential-command-setup-keys)))
+;; (leaf sequential-command
+;;   :doc "Move to first and last line of buffer."
+;;   :vc (:url "https://github.com/minorugh/sequential-command")
+;;   :config
+;;   (leaf sequential-command-config
+;;     :hook (after-init-hook . sequential-command-setup-keys)))
 
 (leaf quickrun
   :ensure t
