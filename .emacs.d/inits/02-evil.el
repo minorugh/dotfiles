@@ -9,11 +9,11 @@
 
 (leaf evil
   :ensure t
-  :require (my-evil-cheat-sheet)  ; see ~/.emacs.d/elisp/my-evil-cheat-sheet.el
+  :require (my-evil-cheat-sheet)       ; custom Evil help buffer
   :hook ((after-init-hook . evil-mode))
   :bind ((:evil-normal-state-map
-          ("C-a"      . my-seq-home)   ; see 08-edit.el
-          ("C-e"      . my-seq-end)    ; see 08-edit.el
+          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
+          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
           ("C-w"      . evil-delete-backward-word)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
@@ -23,8 +23,8 @@
           ([muhenkan] . my-muhenkan)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
-          ([prior]    . er/expand-region)    ; PgUp
-          ([next]     . er/contract-region)  ; PgDn
+          ([prior]    . er/expand-region)    ; Use PgUp to expand region
+	  ([next]     . er/contract-region)  ; Use PgDn to contract region
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
           ("s"        . swiper-region)
@@ -36,8 +36,8 @@
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
          (:evil-emacs-state-map
-          ("C-a"      . my-seq-home)   ; see 08-edit.el
-          ("C-e"      . my-seq-end)    ; see 08-edit.el
+          ("C-a"      . my-seq-home)
+          ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
           ([muhenkan] . my-muhenkan)
           ([escape]   . (lambda () (interactive) (evil-normal-state)))))
@@ -58,8 +58,7 @@
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
-  ;; Force Emacs state for specific major modes
-  ;; 過去版（動いていた）
+  ;; Force Emacs state for special-purpose modes
   (dolist (mode '(howm-view-summary-mode imenu-list-major-mode
 					 easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
@@ -148,8 +147,8 @@
     (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
     (define-key m ";" #'comment-line)          ; コメントトグル
     (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-    (define-key m "c" #'my-sen-cleanup)        ; see ~/.emacs.d/elisp/my-sen-cleanup.el
-    (define-key m "r" #'my-sen-restore)        ; see ~/.emacs.d/elisp/my-sen-cleanup.el
+    (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
+    (define-key m "r" #'my-sen-restore)        ; restore sen markers
     (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
     (define-key m "s" #'swiper)                ; swiper 検索
     (define-key m "@" #'my-insert-maru)        ; 行頭に ◎ 挿入（俳句選者用）
