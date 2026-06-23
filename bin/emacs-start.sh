@@ -5,5 +5,5 @@ if pgrep -x emacs >/dev/null; then
     [ -n "$wid" ] && xdotool windowmap --sync "$wid" \
         windowraise "$wid" windowfocus --sync "$wid" windowactivate --sync "$wid"
 else
-    exec zsh -ic "emacs --maximized"
+    exec zsh -lc "emacs --maximized"
 fi
