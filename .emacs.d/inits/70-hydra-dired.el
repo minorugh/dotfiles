@@ -49,7 +49,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("1" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
    ("2" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
-   ("x" my-reload-xenv)
+   ("x" my-reload-ssh-env)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
