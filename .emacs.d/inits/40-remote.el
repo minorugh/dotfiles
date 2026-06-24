@@ -13,10 +13,10 @@
      . ,(expand-file-name "~/Dropbox/GH/"))
     (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
      . ,(expand-file-name "~/Dropbox/minorugh.com/")))
-  "xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
+  "Xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
 
 (defun my-xsrv-root-for (path)
-  "PATH が xsrv-GH/xsrv-minorugh 配下なら (xsrv-root . local-root) を返す。それ以外は nil。"
+  "PATH が xsrv-GH/xsrv-minorugh 配下なら (xsrv-root . local-root) を返す。それ以外は nil."
   (let ((path (expand-file-name path)))
     (cl-find-if (lambda (pair) (string-prefix-p (car pair) path)) my-xsrv-roots)))
 
@@ -183,13 +183,13 @@
 ;; -- hydra から呼ぶための薄いラッパー (70-hydra-dired.el の ":" ";" から参照) --
 
 (defun my-open-xsrv-2pane-gh ()
-  "xsrv-GH と Dropbox/GH を 2ペインで開く."
+  "Xsrv-GH と Dropbox/GH を 2ペインで開く."
   (interactive)
   (let ((pair (car my-xsrv-roots)))
     (my-open-xsrv-2pane (car pair) (cdr pair))))
 
 (defun my-open-xsrv-2pane-minorugh ()
-  "xsrv-minorugh と Dropbox/minorugh.com を 2ペインで開く."
+  "Xsrv-minorugh と Dropbox/minorugh.com を 2ペインで開く."
   (interactive)
   (let ((pair (cadr my-xsrv-roots)))
     (my-open-xsrv-2pane (car pair) (cdr pair))))
@@ -246,8 +246,10 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
 ;; ============================================================
 ;; 動的フォルダー保護 & rsync lock
 ;; Dropbox/GH 配下の動的フォルダーを自動 read-only 化。
-;; read-only 解除時に rsync lock を発行し、該当バッファが全て kill されたら自動 unlock する。
-;; tempbuf.el との連携で unlock し忘れを防ぐ。
+;; read-only 解除時に rsync lock を発行する。
+;; カレントから外れるか kill されたら自動で read-only に戻し、
+;; 全バッファが read-only になったら lock を解除する。
+;; 緊急停止は power-menu の BACKUP STOP/START で手動対応。
 ;; ============================================================
 
 (defconst my:xsrv-dynamic-dirs
@@ -302,13 +304,26 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
       (my:xsrv-lock))))
 
 (defun my:xsrv-kill-buffer-hook ()
-  "動的ファイルのバッファ kill 時に unlock チェックする."
+  "動的ファイルの kill 時に read-only 化してから unlock チェックする."
   (when (my:xsrv-dynamic-p (buffer-file-name))
+    (read-only-mode 1)
     (my:xsrv-unlock-if-clean)))
 
-(add-hook 'find-file-hook       #'my:xsrv-find-file-hook)
-(add-hook 'read-only-mode-hook  #'my:xsrv-read-only-hook)
-(add-hook 'kill-buffer-hook     #'my:xsrv-kill-buffer-hook)
+(defun my:xsrv-buffer-list-update-hook ()
+  "カレントから外れた動的バッファを自動 read-only に戻す."
+  (dolist (buf (buffer-list))
+    (unless (eq buf (current-buffer))
+      (with-current-buffer buf
+        (when (and (buffer-file-name)
+                   (my:xsrv-dynamic-p (buffer-file-name))
+                   (not buffer-read-only))
+          (read-only-mode 1)
+          (my:xsrv-unlock-if-clean))))))
+
+(add-hook 'find-file-hook          #'my:xsrv-find-file-hook)
+(add-hook 'read-only-mode-hook     #'my:xsrv-read-only-hook)
+(add-hook 'kill-buffer-hook        #'my:xsrv-kill-buffer-hook)
+(add-hook 'buffer-list-update-hook #'my:xsrv-buffer-list-update-hook)
 
 
 ;; Local Variables:
