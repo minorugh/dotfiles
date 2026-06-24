@@ -57,7 +57,7 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("r" restart-emacs)
+   ("r" my-restart-emacs)
    ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
@@ -128,20 +128,26 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
-(defun my-reload-xenv ()
-  "Reload xmodmap and re-import SSH_AUTH_SOCK from keychain file."
-  (interactive)
-  (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-  (let ((keychain-file (expand-file-name
-                        (concat "~/.keychain/" (system-name) "-sh"))))
-    (when (file-exists-p keychain-file)
-      (with-temp-buffer
-        (insert-file-contents keychain-file)
-        (goto-char (point-min))
-        (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
-          (setenv (match-string 1)
-                  (match-string 2))))))
-  (message "xmodmap + SSH_AUTH_SOCK reloaded"))
+  (defun my-restart-emacs ()
+    (interactive)
+    (save-some-buffers t)
+    (shell-command "keychain --eval --quiet ~/.ssh/id_rsa > /dev/null 2>&1")
+    (restart-emacs))
+
+  (defun my-reload-xenv ()
+    "Reload xmodmap and re-import SSH_AUTH_SOCK from keychain file."
+    (interactive)
+    (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
+    (let ((keychain-file (expand-file-name
+                          (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+	(with-temp-buffer
+          (insert-file-contents keychain-file)
+          (goto-char (point-min))
+          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
+            (setenv (match-string 1)
+                    (match-string 2))))))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
