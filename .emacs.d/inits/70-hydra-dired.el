@@ -57,7 +57,7 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("r" my-restart-emacs)
+   ("r" restart-emacs)
    ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
