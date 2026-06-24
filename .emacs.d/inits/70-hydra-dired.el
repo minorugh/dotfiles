@@ -143,23 +143,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
                   (match-string 2))))))
   (message "xmodmap + SSH_AUTH_SOCK reloaded"))
 
-
-  ;; (defun my-reload-xenv ()
-  ;;   "Reload ~/.xprofile and re-import keychain env vars into Emacs."
-  ;;   (interactive)
-  ;;   (shell-command "bash ~/.xprofile > /dev/null 2>&1")
-  ;;   (let ((keychain-file (expand-file-name
-  ;;                         (concat "~/.keychain/" (system-name) "-sh"))))
-  ;;     (when (file-exists-p keychain-file)
-  ;;       (with-temp-buffer
-  ;;         (insert-file-contents keychain-file)
-  ;;         (goto-char (point-min))
-  ;;         (while (re-search-forward "^export \\([^=]+\\)=\\(.*\\)$" nil t)
-  ;;           (setenv (match-string 1)
-  ;;                   (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
-  ;;   (message "xprofile + keychain reloaded"))
-
-
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
     (interactive)
