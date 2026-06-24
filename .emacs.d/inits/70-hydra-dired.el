@@ -130,9 +130,9 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
 
   (defun my-restart-emacs ()
     (interactive)
-    (save-some-buffers t)
     (call-process "bash" nil nil nil "-c"
                   "nohup bash -c 'emacs-start.sh' &>/dev/null &")
+    (save-some-buffers t)
     (kill-emacs))
 
   (defun my-reload-xenv ()
