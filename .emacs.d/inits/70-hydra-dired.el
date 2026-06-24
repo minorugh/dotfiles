@@ -57,7 +57,7 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("r" my-restart-emacs)
+   ("r" restart-emacs)
    ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
@@ -127,20 +127,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (add-hook 'dired-mode-hook
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
-
-  (defun my-restart-emacs ()
-    (interactive)
-    (save-some-buffers t)
-    (let ((keychain-file (expand-file-name
-                          (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-	(with-temp-buffer
-          (insert-file-contents keychain-file)
-          (goto-char (point-min))
-          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
-            (setenv (match-string 1)
-                    (match-string 2))))))
-    (restart-emacs))
 
   (defun my-reload-xenv ()
     "Reload xmodmap and re-import SSH_AUTH_SOCK from keychain file."
