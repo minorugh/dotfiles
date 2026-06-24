@@ -57,7 +57,7 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("r" restart-emacs)
+   ("r" my-restart-emacs)
    ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
@@ -142,6 +142,13 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
             (setenv (match-string 1)
                     (replace-regexp-in-string "^\"\\|\"$" "" (match-string 2)))))))
     (message "xprofile + keychain reloaded"))
+
+  (defun my-restart-emacs ()
+    "Restart emacs with SSH."
+    (interactive)
+  (save-some-buffers t)
+  (shell-command "keychain --eval --quiet ~/.ssh/id_rsa > /dev/null 2>&1")
+  (restart-emacs))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
