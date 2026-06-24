@@ -5,20 +5,21 @@
 # Emacsが最前面にあれば最小化、そうでなければ（背後・最小化問わず）最前面にアクティブ化する。
 #
 # 動作:
+#   0. Emacsのウィンドウが見つからなければ emacs-start.sh を起動して終了する
 #   1. 現在アクティブなウィンドウIDを取得する
 #   2. Emacsのウィンドウを検索する（複数あれば最後のものを対象）
 #   3. EmacsがアクティブならWindowminimizeで最小化する
 #   4. そうでなければ windowmap→windowraise→windowfocus→windowactivate の順で
 #      最前面に復元・フォーカスを当てる（--syncで各処理の完了を待つ）
 #
-# 依存: xdotool
+# 依存: xdotool, wmctrl, emacs-start.sh
 # ==========================================================================================
 
 active=$(xdotool getactivewindow 2>/dev/null)
 wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
 
 if [ -z "$wid" ]; then
-    exit 1
+    exec /usr/local/bin/emacs-start.sh
 fi
 
 if [ "$active" = "$wid" ]; then
