@@ -128,6 +128,16 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
+  ;; restart-emacs: save buffers → launch new Emacs via emacs-start.sh → kill current session.
+  ;; Using nohup to detach the child process so it survives kill-emacs.
+  (defun my-restart-emacs ()
+    "Save all buffers, launch a new Emacs via emacs-start.sh, then kill the current session."
+    (interactive)
+    (save-some-buffers t)
+    (call-process "bash" nil nil nil "-c"
+                  "nohup bash -c 'emacs-start.sh' &>/dev/null &")
+    (kill-emacs))
+
   (defun my-reload-xenv ()
     "Reload xmodmap and re-import SSH_AUTH_SOCK from keychain file."
     (interactive)
