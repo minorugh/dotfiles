@@ -131,7 +131,15 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defun my-restart-emacs ()
     (interactive)
     (save-some-buffers t)
-    (shell-command "keychain --eval --quiet ~/.ssh/id_rsa > /dev/null 2>&1")
+    (let ((keychain-file (expand-file-name
+                          (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+	(with-temp-buffer
+          (insert-file-contents keychain-file)
+          (goto-char (point-min))
+          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
+            (setenv (match-string 1)
+                    (match-string 2))))))
     (restart-emacs))
 
   (defun my-reload-xenv ()
