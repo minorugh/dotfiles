@@ -25,8 +25,8 @@
   :doc "An extensible startup screen."
   :if (display-graphic-p)
   :hook ((emacs-startup-hook  . open-dashboard)
-         (dashboard-mode-hook . (lambda ()
-				  (set-window-margins (selected-window) 2 2))))
+         (dashboard-mode-hook
+	  . (lambda () (set-window-margins (selected-window) 2 2))))
   :bind ([home] . dashboard-toggle)
 
   :init
