@@ -7,10 +7,18 @@
 ;;  Dashboard
 ;; ============================================================
 
-(leaf page-break-lines
-  :ensure t
-  :doc "Display ^L page breaks as tidy horizontal lines."
-  :commands page-break-lines-mode)
+;; Replacement for page-break-lines: render widget separators as a
+;; colored horizontal rule without depending on the ^L character.
+(defface my-dashboard-rule
+    '((t :foreground "#6272a4" :bold nil))
+    "The face of the separator line." :group 'dashboard)
+
+  (defun my-dashboard-separator ()
+    "Return a full-width horizontal rule string for `dashboard-page-separator'."
+    (let* ((width (- (window-total-width) 1))
+           (line  (propertize (make-string width ?─) 'face 'my-dashboard-rule)))
+      (concat "\n\n" line "\n\n")))
+
 
 (leaf dashboard
   :ensure t
@@ -18,8 +26,7 @@
   :if (display-graphic-p)
   :hook ((emacs-startup-hook  . open-dashboard)
          (dashboard-mode-hook . (lambda ()
-				  (set-window-margins (selected-window) 2 2)
-				  (page-break-lines-mode 1))))
+				  (set-window-margins (selected-window) 2 2))))
   :bind ([home] . dashboard-toggle)
   :init
   (setq dashboard-set-heading-icons t)
@@ -27,11 +34,19 @@
   (setq dashboard-icon-type        'nerd-icons)
 
   (defun dashboard-insert-haiku (_list-size)
-    "今日の一句を dashboard に挿入する。表示設定は seiho-haiku.el で調整。"
+    "今日の一句を dashboard に挿入する. 表示設定は seiho-haiku.el で調整."
     (require 'seiho-haiku)   ;; see ~/.emacs.d/elisp/seiho-haiku.el
     (seiho-haiku-insert-today #'dashboard-insert-heading))
 
   :config
+  ;; Initialize separator; recomputed on each refresh via advice below.
+  (setq dashboard-page-separator (my-dashboard-separator))
+
+  ;; Recompute separator width before each refresh to follow window size.
+  (advice-add 'dashboard-refresh-buffer :before
+              (lambda (&rest _)
+                (setq dashboard-page-separator (my-dashboard-separator))))
+
   ;; Layout — content left-aligned (haiku centering handled in seiho-haiku.el)
   (setq dashboard-center-content nil)
 
@@ -53,7 +68,8 @@
 
   ;; Banner & layout
   (setq dashboard-startup-banner  "~/.emacs.d/emacs.png")
-  (setq dashboard-page-separator  "\n\f\f\n")
+  (setq dashboard-page-separator "\n\n")
+  ;; (setq dashboard-page-separator  "\n\f\f\n")
   (setq dashboard-week-agenda     t)
 
   ;; Footer
@@ -62,9 +78,9 @@
         (nerd-icons-octicon "nf-oct-home" :height 1.0 :face 'nerd-icons-lred))
 
 
-;; ============================================================
-;;  Dashboard Helper Commands
-;; ============================================================
+  ;; ============================================================
+  ;;  Dashboard Helper Commands
+  ;; ============================================================
 
   (defun dashboard-goto-recent-files ()
     "Jump to the recent-files widget."
@@ -90,9 +106,9 @@
     (delete-other-windows))
 
 
-;; ============================================================
-;;  Startup Time Display
-;; ============================================================
+  ;; ============================================================
+  ;;  Startup Time Display
+  ;; ============================================================
 
   (advice-add 'emacs-init-time :filter-return
               (lambda (_)
