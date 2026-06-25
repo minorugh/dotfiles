@@ -120,19 +120,6 @@ matching current buffer."
       (switch-to-buffer "*scratch*"))))
 
 
-;; toggle-emacs.sh
-;;   #!/bin/bash
-;;   for wid in $(xdotool search --class emacs 2>/dev/null); do
-;;       if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
-;;           xdotool windowmap --sync "$wid"
-;;           xdotool windowactivate "$wid"
-;;           exit
-;;       fi
-;;   done
-;;   wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
-;;   xdotool windowminimize "$wid"
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
