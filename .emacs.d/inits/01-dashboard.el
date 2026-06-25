@@ -28,13 +28,14 @@
          (dashboard-mode-hook . (lambda ()
 				  (set-window-margins (selected-window) 2 2))))
   :bind ([home] . dashboard-toggle)
-  :config
 
+  :init
   ;; ── Icons ────────────────────────────────────────────────────
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons    t)
   (setq dashboard-icon-type        'nerd-icons)
 
+  :config
   ;; ── Banner & title ───────────────────────────────────────────
   (setq dashboard-startup-banner  "~/.emacs.d/emacs.png")
   (setq dashboard-banner-logo-title
