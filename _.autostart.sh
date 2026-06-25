@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-06-25
+# Updated : 2026-06-11
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -29,10 +29,12 @@ DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force \
 rm -f "$ASKPASS_SCRIPT"
 source ~/.keychain/$(hostname)-sh
 
-# Emacs を --iconic で起動（X11レベルで最初からアイコン化、一瞬も前面表示されない）
-# SSH_AUTH_SOCK は emacs-start.sh 内で keychain から直接 source するため
-# ここでの xdotool による minimize 処理は不要
+# Emacs を iconic（最初から最小化）状態で起動
 emacs-start.sh &
+until xdotool search --class emacs 2>/dev/null | grep -q .; do sleep 0.5; done
+sleep 1s
+wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
+xdotool windowminimize "$wid"
 
 # thunderbird &
 # sleep 8s
