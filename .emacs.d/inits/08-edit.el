@@ -61,21 +61,6 @@
 
 
 ;; ============================================================
-;;  Tempbuf
-;;  I had removed it once,
-;;  but brought it back to work with the rsync lock feature (60-xsrv-dired).
-;; ============================================================
-
-;; (leaf tempbuf
-;;   :doc "Auto kill unused buffers in the background"
-;;   :vc (:url "https://github.com/minorugh/tempbuf")
-;;   :hook ((find-file-hook  . turn-on-tempbuf-mode)
-;;          (dired-mode-hook . turn-on-tempbuf-mode))
-;;   :config
-;;   (setq tempbuf-kill-message nil))
-
-
-;; ============================================================
 ;;  Diff / Ediff
 ;; ============================================================
 
