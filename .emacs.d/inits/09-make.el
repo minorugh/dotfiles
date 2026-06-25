@@ -72,9 +72,9 @@ STRING is the exit status message from the compilation process."
   (add-hook 'dired-mode-hook    #'my-dired-mode-setup)
 
 
-;; ============================================================
-;;  Makefile Target Picker  (Ivy integrated)
-;; ============================================================
+  ;; ============================================================
+  ;;  Makefile Target Picker  (Ivy integrated)
+  ;; ============================================================
 
   ;; Resolve Makefile path from dired, buffer file, or default-directory
   (defun my-make--find-makefile ()
@@ -103,14 +103,14 @@ STRING is the exit status message from the compilation process."
         (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
         ;; C-c C-c to execute make
         (define-key map (kbd "C-c C-c")
-          (lambda ()
-            (interactive)
-            (ivy-exit-with-action
-             (lambda (x)
-               (let ((target (cdr x)))
-                 (compile (format "make -C %s %s"
-                                  (file-name-directory makefile)
-                                  target)))))))
+		    (lambda ()
+		      (interactive)
+		      (ivy-exit-with-action
+		       (lambda (x)
+			 (let ((target (cdr x)))
+			   (compile (format "make -C %s %s"
+					    (file-name-directory makefile)
+					    target)))))))
         ;; Parse targets annotated with ## from Makefile
         (with-current-buffer (find-file-noselect makefile)
           (save-excursion
@@ -145,9 +145,9 @@ STRING is the exit status message from the compilation process."
                     :caller 'my-make-ivy-integrated)))))
 
 
-;; ============================================================
-;;  Makefile Utilities
-;; ============================================================
+  ;; ============================================================
+  ;;  Makefile Utilities
+  ;; ============================================================
 
   ;; Toggle read-only and sync evil state
   (defun my-makefile-toggle-readonly ()
@@ -168,7 +168,19 @@ STRING is the exit status message from the compilation process."
       (if root
           (let ((default-directory root))
             (compile "make git"))
-        (message "Makefile not found")))))
+        (message "Makefile not found"))))
+
+  (defun my-makefile-buffer-list-update-hook ()
+    "カレントから外れた Makefile バッファを自動 read-only に戻す."
+    (dolist (buf (buffer-list))
+      (unless (eq buf (current-buffer))
+	(with-current-buffer buf
+          (when (and (derived-mode-p 'makefile-mode)
+                     (not buffer-read-only))
+            (read-only-mode 1)
+            (evil-normal-state))))))
+
+  (add-hook 'buffer-list-update-hook #'my-makefile-buffer-list-update-hook))
 
 
 ;; Local Variables:
