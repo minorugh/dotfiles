@@ -41,7 +41,7 @@ CHOICE=$( (
 	    echo "3. REBOOT"
 	    echo "4. BACKUP STOP  $BACKUP_STATUS"
 	    echo "5. BACKUP START $BACKUP_STATUS"
-	) | fzf --ansi --reverse --color='pointer:white' \
+	) | fzf --ansi --reverse --no-input --color='pointer:white' \
 		--bind "1:pos(${POS1})+accept" \
 		--bind "2:pos(${POS2})+accept" \
 		--bind "3:pos(${POS3})+accept" \
