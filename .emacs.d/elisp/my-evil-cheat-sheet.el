@@ -13,6 +13,15 @@
 ;;   q        quit
 ;;; Code:
 
+(add-to-list 'display-buffer-alist
+             '("\\*evil-cheat\\*"
+               (display-buffer-in-side-window)
+               (side . right)
+               (slot . 0)
+               (window-width . 42)
+               (window-parameters . ((no-delete-other-windows . t)
+                                     (mode-line-format . none)))))
+
 (defvar evil-cheat-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "i") (lambda () (interactive) (my-evil-cheat-sheet--ivy-jump)))
@@ -48,14 +57,12 @@
   (beginning-of-line))
 
 (defun my-evil-cheat-sheet ()
-  "Show evil keybindings cheat sheet.
-i: ivy jump  m/e/o/v/n: section jump  q: quit"
+  "Toggle evil keybindings cheat sheet in right sidebar.
+? to open/close  i: ivy jump  m/e/o/v/n: section jump  q: quit"
   (interactive)
-  (let ((buf (get-buffer-create "*evil-cheat*")))
-    (with-current-buffer buf
-      (fundamental-mode)
-      (evil-emacs-state)
-      (use-local-map evil-cheat-mode-map)
+  (if-let ((win (get-buffer-window "*evil-cheat*")))
+      (delete-window win)
+    (with-current-buffer (get-buffer-create "*evil-cheat*")
       (setq buffer-read-only nil)
       (erase-buffer)
       (insert "\
@@ -71,7 +78,7 @@ i: ivy jump  m/e/o/v/n: section jump  q: quit"
 【編集（normal-state のまま）】
   x          カーソル文字を削除
   X          カーソル前の文字を削除
-  rx         1文字だけ置換（emacs-state に入らない）
+  r          1文字だけ置換
   dd         行ごと削除（カット）
   D          行末まで削除
   yy         行全体をヤンク
@@ -79,7 +86,7 @@ i: ivy jump  m/e/o/v/n: section jump  q: quit"
   J          次行を現在行に連結
   ~          大文字/小文字を切り替え
   u  C-r     undo / redo
-  .          直前の編集を繰り返す ← 強力！
+  .          直前の編集を繰り返す
 
 【operator + motion】
   dw diw daw 単語削除（各種）
@@ -104,9 +111,11 @@ i: ivy jump  m/e/o/v/n: section jump  q: quit"
   J          改行を消して行を繋げる
   .          直前の編集を繰り返す
 ")
+      (evil-emacs-state)
+      (use-local-map evil-cheat-mode-map)
       (setq buffer-read-only t)
       (goto-char (point-min)))
-    (switch-to-buffer buf)))
+    (display-buffer "*evil-cheat*")))
 
 (provide 'my-evil-cheat-sheet)
 ;;; my-evil-cheat-sheet.el ends here

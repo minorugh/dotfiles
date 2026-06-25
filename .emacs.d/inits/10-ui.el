@@ -160,8 +160,8 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (defun my-modeline-popup-window-p (w)
     "Return non-nil if W is a popup that should not count as a real split."
     (or (window-minibuffer-p w)
-        (string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key"
-                        (buffer-name (window-buffer w)))))
+	(string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key\\|\\*evil-cheat\\*\\|\\*Permission Help\\*"
+			(buffer-name (window-buffer w)))))
 
   (defun my-update-modeline-for-split ()
     "Highlight active mode-line when 2 or more real windows are visible."

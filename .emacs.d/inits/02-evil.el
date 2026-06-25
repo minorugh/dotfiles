@@ -32,8 +32,6 @@
           ("d"        . deepl-translate)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
-	  ;; ([up]       . nil)
-	  ;; ([down]     . nil)
           ([muhenkan] . my-muhenkan))
          (:evil-replace-state-map
           ([muhenkan] . my-muhenkan))
