@@ -15,7 +15,7 @@
 
 (defun my-dashboard-separator ()
   "Return a full-width horizontal rule string for `dashboard-page-separator'."
-  (let* ((width (- (window-total-width) 1))
+  (let* ((width (- (window-total-width) 2))
          (line  (propertize (make-string width ?─) 'face 'my-dashboard-rule)))
     (concat "\n\n" line "\n\n")))
 

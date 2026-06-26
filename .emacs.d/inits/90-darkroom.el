@@ -13,107 +13,109 @@
 ;;; Code:
 
 ;; ============================================================
-;;  Darkroom Minor Mode
+;;  Darkroom Minor Mode (darkroom package alternative)
 ;; ============================================================
 
-(leaf my-darkroom
-  :doc "Distraction-free writing mode (darkroom package alternative)."
-  :init
-  (defvar-local my-darkroom--saved nil
-    "Saved state before entering distraction-free mode.")
+(defvar-local my-darkroom--saved nil
+  "Saved state before entering distraction-free mode.")
 
-  (defcustom my-darkroom-margin 0.15
-    "Side margin ratio for distraction-free mode.
+(defcustom my-darkroom-margin 0.15
+  "Side margin ratio for distraction-free mode.
 A float between 0.0 and 0.5 representing the fraction of window width.
 Example: 0.15 = 15% margin on each side."
-    :type 'float
-    :group 'convenience)
+  :type 'float
+  :group 'convenience)
 
-  (defcustom my-darkroom-text-scale 2
-    "Text scale level for distraction-free mode.
+(defcustom my-darkroom-text-scale 2
+  "Text scale level for distraction-free mode.
 Passed to `text-scale-increase'. Default 2 = approx 20% larger."
-    :type 'integer
-    :group 'convenience)
+  :type 'integer
+  :group 'convenience)
 
-  (defcustom my-darkroom-line-spacing 0.2
-    "Line spacing for distraction-free mode.
+(defcustom my-darkroom-line-spacing 0.2
+  "Line spacing for distraction-free mode.
 Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
-    :type 'float
-    :group 'convenience)
-
-  ;;  Margin Helpers
-  ;; --------------------------------------
-  (defun my-darkroom--margin-cols ()
-    "Calculate margin width in columns from `my-darkroom-margin'."
-    (round (* (window-total-width) my-darkroom-margin)))
-
-  (defun my-darkroom--set-margins ()
-    "Apply side margins to the current window."
-    (let ((m (my-darkroom--margin-cols)))
-      (set-window-margins (selected-window) m m)))
-
-  (defun my-darkroom--reset-margins ()
-    "Reset window margins to zero."
-    (set-window-margins (selected-window) 0 0))
+  :type 'float
+  :group 'convenience)
 
 
-  ;;  Mode Definition & Toggle
-  ;; ---------------------------------
-  (define-minor-mode my-darkroom-mode
-    "Minor mode for distraction-free writing."
-    :lighter " Dark"
-    (if my-darkroom-mode
-        (progn
-          (setq my-darkroom--saved
-                (list (cons 'mode-line-format   mode-line-format)
-                      (cons 'header-line-format header-line-format)))
-          (setq-local mode-line-format nil header-line-format nil)
-          (text-scale-increase my-darkroom-text-scale)
-          (my-darkroom--set-margins)
-          (add-hook 'window-configuration-change-hook
-                    #'my-darkroom--set-margins nil t))
-      (dolist (pair my-darkroom--saved)
-        (set (make-local-variable (car pair)) (cdr pair)))
-      (setq my-darkroom--saved nil)
-      (text-scale-mode -1)
-      (my-darkroom--reset-margins)
-      (remove-hook 'window-configuration-change-hook
-                   #'my-darkroom--set-margins t)))
+;; ============================================================
+;;  Margin Helpers
+;; ============================================================
 
-  (defun my-darkroom-in ()
-    "Enter distraction-free mode, saving current state."
-    (interactive)
-    (setq-local my-dark-old-state
-                (list :line-num display-line-numbers-mode
-                      :spacing  line-spacing))
-    (display-line-numbers-mode 0)
-    (whitespace-mode -1)
-    (setq-local line-spacing my-darkroom-line-spacing)
-    (my-darkroom-mode 1)
-    (toggle-frame-fullscreen)
-    (when current-input-method
-      (toggle-input-method)
-      ;; Delay for initializing emacsclient
-      (run-with-timer 0.3 nil #'evil-normal-state)))
+(defun my-darkroom--margin-cols ()
+  "Calculate margin width in columns from `my-darkroom-margin'."
+  (round (* (window-total-width) my-darkroom-margin)))
 
-  (defun my-darkroom-out ()
-    "Leave distraction-free mode and restore previous state."
-    (interactive)
-    (my-darkroom-mode 0)
-    (toggle-frame-fullscreen)
-    (whitespace-mode 1)
-    (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
-    (setq-local line-spacing (plist-get my-dark-old-state :spacing))
-    (when current-input-method
-      (toggle-input-method)
-      (evil-normal-state)))
+(defun my-darkroom--set-margins ()
+  "Apply side margins to the current window."
+  (let ((m (my-darkroom--margin-cols)))
+    (set-window-margins (selected-window) m m)))
 
-  (defun my-darkroom-toggle ()
-    "Toggle distraction-free mode. Bound to F8; see 07-functions.el."
-    (interactive)
-    (if my-darkroom-mode
-        (my-darkroom-out)
-      (my-darkroom-in))))
+(defun my-darkroom--reset-margins ()
+  "Reset window margins to zero."
+  (set-window-margins (selected-window) 0 0))
+
+
+;; ============================================================
+;;  Mode Definition & Toggle
+;; ============================================================
+
+(define-minor-mode my-darkroom-mode
+  "Minor mode for distraction-free writing."
+  :lighter " Dark"
+  (if my-darkroom-mode
+      (progn
+        (setq my-darkroom--saved
+              (list (cons 'mode-line-format   mode-line-format)
+                    (cons 'header-line-format header-line-format)))
+        (setq-local mode-line-format nil header-line-format nil)
+        (text-scale-increase my-darkroom-text-scale)
+        (my-darkroom--set-margins)
+        (add-hook 'window-configuration-change-hook
+                  #'my-darkroom--set-margins nil t))
+    (dolist (pair my-darkroom--saved)
+      (set (make-local-variable (car pair)) (cdr pair)))
+    (setq my-darkroom--saved nil)
+    (text-scale-mode -1)
+    (my-darkroom--reset-margins)
+    (remove-hook 'window-configuration-change-hook
+                 #'my-darkroom--set-margins t)))
+
+(defun my-darkroom-in ()
+  "Enter distraction-free mode, saving current state."
+  (interactive)
+  (setq-local my-dark-old-state
+              (list :line-num display-line-numbers-mode
+                    :spacing  line-spacing))
+  (display-line-numbers-mode 0)
+  (whitespace-mode -1)
+  (setq-local line-spacing my-darkroom-line-spacing)
+  (my-darkroom-mode 1)
+  (toggle-frame-fullscreen)
+  (when current-input-method
+    (toggle-input-method))
+  ;; Delay for initializing emacsclient
+  (run-with-timer 0.3 nil #'evil-normal-state))
+
+(defun my-darkroom-out ()
+  "Leave distraction-free mode and restore previous state."
+  (interactive)
+  (my-darkroom-mode 0)
+  (toggle-frame-fullscreen)
+  (whitespace-mode 1)
+  (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
+  (setq-local line-spacing (plist-get my-dark-old-state :spacing))
+  (when current-input-method
+    (toggle-input-method)
+    (evil-normal-state)))
+
+(defun my-darkroom-toggle ()
+  "Toggle distraction-free mode.  Bound to F8; see 07-functions.el."
+  (interactive)
+  (if my-darkroom-mode
+      (my-darkroom-out)
+    (my-darkroom-in)))
 
 
 ;; ============================================================
