@@ -41,11 +41,8 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     :type 'float
     :group 'convenience)
 
-
-;; ============================================================
-;;  Margin Helpers
-;; ============================================================
-
+  ;;  Margin Helpers
+  ;; --------------------------------------
   (defun my-darkroom--margin-cols ()
     "Calculate margin width in columns from `my-darkroom-margin'."
     (round (* (window-total-width) my-darkroom-margin)))
@@ -60,10 +57,8 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (set-window-margins (selected-window) 0 0))
 
 
-;; ============================================================
-;;  Mode Definition & Toggle
-;; ============================================================
-
+  ;;  Mode Definition & Toggle
+  ;; ---------------------------------
   (define-minor-mode my-darkroom-mode
     "Minor mode for distraction-free writing."
     :lighter " Dark"
@@ -96,8 +91,10 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (setq-local line-spacing my-darkroom-line-spacing)
     (my-darkroom-mode 1)
     (toggle-frame-fullscreen)
-    (when (null current-input-method)
-      (toggle-input-method)))
+    (when current-input-method
+      (toggle-input-method)
+      ;; Delay for initializing emacsclient
+      (run-with-timer 0.3 nil #'evil-normal-state)))
 
   (defun my-darkroom-out ()
     "Leave distraction-free mode and restore previous state."
@@ -108,11 +105,11 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
     (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
     (setq-local line-spacing (plist-get my-dark-old-state :spacing))
     (when current-input-method
-      (toggle-input-method)))
+      (toggle-input-method)
+      (evil-normal-state)))
 
   (defun my-darkroom-toggle ()
-    "Toggle distraction-free mode.
-Bound to F8; see 07-functions.el."
+    "Toggle distraction-free mode. Bound to F8; see 07-functions.el."
     (interactive)
     (if my-darkroom-mode
         (my-darkroom-out)
@@ -122,28 +119,32 @@ Bound to F8; see 07-functions.el."
 ;; ============================================================
 ;;  NeoMutt Integration
 ;;
-;;  NeoMutt が外部エディタとして "neomutt-XXXX" を Emacs に渡したとき、
-;;  メール本文に集中できるよう自動で darkroom に入る。
-;;  Evil 使用時は Emacs state に切り替えて自然な入力を確保する。
-;;  C-x # (server-edit) で抜けるときも server-done-hook で確実に終了。
+;;  NeoMutt が外部エディタとして Emacs を利用するための設定。
+;;
+;;  - Compose バッファでは自動的に darkroom を有効化
+;;  - Evil は Emacs state に切り替えて入力しやすくする
+;;  - 編集終了時に darkroom を解除
+;;  - `server-edit' 後は Emacs を最小化し、NeoMutt へフォーカスを戻す
 ;; ============================================================
 
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (string-match "neomutt-" (buffer-name))
-              (text-mode)
-              (when (fboundp 'evil-emacs-state) (evil-emacs-state))
-              (my-darkroom-in))))
+(leaf my-neomutt
+  :doc "NeoMutt integration with emacsclient."
+  :bind (("C-x C-c" . my-server-edit-and-iconify))
+  :hook (server-visit-hook . my-neomutt-setup)
+  :init
+  (defun my-neomutt-setup ()
+    "Prepare a NeoMutt compose buffer."
+    (when (string-match "neomutt-" (buffer-name))
+      (my-darkroom-in)))
 
-(defun my-darkroom--neomutt-cleanup ()
-  "Exit darkroom if the current buffer is a NeoMutt temporary file."
-  (when (and (boundp 'my-darkroom-mode)
-             my-darkroom-mode
-             (string-match "neomutt-" (buffer-name)))
-    (my-darkroom-out)))
-
-(add-hook 'kill-buffer-hook #'my-darkroom--neomutt-cleanup)
-(add-hook 'server-done-hook #'my-darkroom--neomutt-cleanup)
+  (defun my-server-edit-and-iconify ()
+    "Finish NeoMutt edit and iconify frame."
+    (interactive)
+    (when my-darkroom-mode
+      (my-darkroom-out))
+    (server-edit)
+    (kill-buffer)
+    (iconify-frame)))
 
 
 ;; Local Variables:

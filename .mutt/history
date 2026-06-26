@@ -161,3 +161,11 @@
 5:Re: 【メール添削申請】投句０３|
 1:ミヨシエミコ <emikomiyoshi0@gmail.com>, |
 5:Re: 添削メール|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|

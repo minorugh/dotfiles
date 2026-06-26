@@ -95,7 +95,7 @@
 (setq recentf-exclude
       (list (expand-file-name "elpa/" user-emacs-directory)
             (expand-file-name "tmp/"  user-emacs-directory)
-            '("\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:")))
+            "\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:" "neomutt-"))
 
 
 ;; ============================================================
@@ -120,8 +120,7 @@
 
 (leaf user-configurations
   :defun my-iconify-last-frame
-  :bind (("C-x C-c"    . server-edit)
-         ("C-x b"      . ibuffer)
+  :bind (("C-x b"      . ibuffer)
          ("C-x m"      . counsel-imenu)
          ("M-,"        . xref-find-definitions)
          ("M-w"        . clipboard-kill-ring-save)
