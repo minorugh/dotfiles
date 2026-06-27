@@ -161,13 +161,13 @@
 (defun my-2pane-divider-on ()
   "Enable a prominent window-divider, scoped to xsrv-2pane usage."
   (window-divider-mode -1)
-  (setq window-divider-default-right-width 6)
+  (setq window-divider-default-right-width 4)
   (setq window-divider-default-bottom-width 0)
   (setq window-divider-default-places 'right-only)
   (window-divider-mode 1)
-  (set-face-foreground 'window-divider "#5272a4")
-  (set-face-foreground 'window-divider-first-pixel "#0088cc")
-  (set-face-foreground 'window-divider-last-pixel "#0088cc")
+  (set-face-foreground 'window-divider "#61bfff")
+  (set-face-foreground 'window-divider-first-pixel "#61bfff")
+  (set-face-foreground 'window-divider-last-pixel "#61bfff")
   (setq my-2pane-divider-active t))
 
 (defun my-2pane-divider-off ()
