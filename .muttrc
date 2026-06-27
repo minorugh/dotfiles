@@ -25,7 +25,7 @@ set hostname = gmail.com
 
 # --- チューニング・失速対策 ---
 set mail_check = 90
-set timeout = 60
+set timeout = 120
 unset imap_idle
 unset imap_keepalive
 set imap_pipeline_depth = 15

@@ -36,7 +36,7 @@
 
 (leaf quickrun
   :ensure t
-  :doc "Run commands quickly.  Bound to F5; see 10-funcs.el.")
+  :doc "Run commands quickly.  Bound to F5; see 07-funcs.el.")
 
 
 ;; ============================================================
