@@ -119,9 +119,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
 
 
 ;; ============================================================
-;;  NeoMutt Integration
-;;
-;;  NeoMutt が外部エディタとして Emacs を利用するための設定。
+;;  NeoMutt の外部エディタとして Emacs を利用するための設定。
 ;;
 ;;  - Compose バッファでは自動的に darkroom を有効化
 ;;  - Evil は Emacs state に切り替えて入力しやすくする
