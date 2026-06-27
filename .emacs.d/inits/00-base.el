@@ -95,7 +95,7 @@
 (setq recentf-exclude
       (list (expand-file-name "elpa/" user-emacs-directory)
             (expand-file-name "tmp/"  user-emacs-directory)
-            "\\.howm-keys" "\\^/session" "task.org" "/Dropbox/backup/" "/scp:" "neomutt-"))
+            "\\.howm-keys" "/session\\." "task.org" "/Dropbox/backup/" "/scp:" "neomutt-"))
 
 
 ;; ============================================================

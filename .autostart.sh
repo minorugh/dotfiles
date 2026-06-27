@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-06-25
+# Updated : 2026-06-27
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -10,11 +10,11 @@
 # 2. mozc・keyring を Dropbox からリストア
 # 3. SSH 鍵を keychain + secret-tool で自動入力（パスフレーズ不要）
 # 4. keychain の環境変数をセッションに反映
-# 5. Emacs を --iconic で起動（一瞬も前面表示されない）
+# 5. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
 # 6. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
 # 7. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
 #
-# 依存: keychain, secret-tool, rsync
+# 依存: keychain, secret-tool, rsync, xdotool
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
 
 pkill ssh-agent
@@ -29,18 +29,12 @@ DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force \
 rm -f "$ASKPASS_SCRIPT"
 source ~/.keychain/$(hostname)-sh
 
-# Emacs を --iconic で起動（X11レベルで最初からアイコン化、一瞬も前面表示されない）
-# SSH_AUTH_SOCK は emacs-start.sh 内で keychain から直接 source するため
-# ここでの xdotool による minimize 処理は不要
+# Emacs を起動し、表示されたウィンドウを xdotool で最小化する
+# --iconic だとちらつくため、起動後に windowminimize で対処
 emacs-start.sh &
 sleep 3
 wid=$(xdotool search --class Emacs 2>/dev/null | tail -n1)
 [ -n "$wid" ] && xdotool windowminimize "$wid"
-
-# thunderbird &
-# sleep 8s
-# wid=$(xdotool search --class thunderbird 2>/dev/null | tail -n1)
-# [ -n "$wid" ] && xdotool windowminimize "$wid"
 
 # neomutt を tmux セッションで起動
 # 再起動時に前回セッションが残っていればクリアしてから起動

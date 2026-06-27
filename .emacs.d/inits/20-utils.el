@@ -73,11 +73,12 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 (defun my-kill-other-file-buffers ()
   "Kill all non-current non-special buffers."
   (interactive)
-  (let ((current (current-buffer)))
-    (dolist (buf (buffer-list))
-      (unless (or (eq buf current)
-                  (string-prefix-p "*" (buffer-name buf)))
-        (kill-buffer buf)))))
+  (unless (minibuffer-window-active-p (minibuffer-window))
+    (let ((current (current-buffer)))
+      (dolist (buf (buffer-list))
+        (unless (or (eq buf current)
+                    (string-prefix-p "*" (buffer-name buf)))
+          (kill-buffer buf))))))
 
 (run-with-timer 60 60 #'my-kill-other-file-buffers)
 
