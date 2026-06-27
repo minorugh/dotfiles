@@ -90,7 +90,7 @@
 
 ;; -- 見た目: ヘッダー強調・アイコン (my-open-xsrv-2pane 専用。通常の dired には影響しない) --
 (defface my-xsrv-2pane-header-face
-  '((t (:inherit dired-header :background "#1A2640" :box (:line-width 4))))
+  '((t (:inherit dired-header :background "#1A2640" :box (:line-width 2))))
   "Xsrv-2pane の `dired' バッファでヘッダー2行に使う face."
   :group 'dired)
 
@@ -117,16 +117,6 @@
                                     'face 'my-xsrv-2pane-header-face)))
       (with-silent-modifications
         (put-text-property (point-min) end 'invisible t)))))
-;; (defun my-xsrv-2pane--set-header-line ()
-;;   "Dired バッファの上2行を `header-line-format' に固定表示する."
-;;   (save-excursion
-;;     (goto-char (point-min))
-;;     (let* ((line1 (buffer-substring (line-beginning-position) (line-end-position)))
-;;            (line2 (progn (forward-line 1)
-;;                          (buffer-substring (line-beginning-position) (line-end-position)))))
-;;       (setq-local header-line-format
-;;                   (list (propertize (concat line1 "  " line2)
-;;                                     'face 'my-xsrv-2pane-header-face))))))
 
 (defvar my-xsrv-2pane-remote-icon-name "nf-md-server"
   "Xsrv-GH（rsync ミラー）側のパス行に表示する nerd-icons アイコン名.")
@@ -175,9 +165,9 @@
   (setq window-divider-default-bottom-width 0)
   (setq window-divider-default-places 'right-only)
   (window-divider-mode 1)
-  (set-face-foreground 'window-divider "#ff9900")
-  (set-face-foreground 'window-divider-first-pixel "#ff9900")
-  (set-face-foreground 'window-divider-last-pixel "#ff9900")
+  (set-face-foreground 'window-divider "#5272a4")
+  (set-face-foreground 'window-divider-first-pixel "#0088cc")
+  (set-face-foreground 'window-divider-last-pixel "#0088cc")
   (setq my-2pane-divider-active t))
 
 (defun my-2pane-divider-off ()
