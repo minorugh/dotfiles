@@ -33,6 +33,9 @@ source ~/.keychain/$(hostname)-sh
 # SSH_AUTH_SOCK は emacs-start.sh 内で keychain から直接 source するため
 # ここでの xdotool による minimize 処理は不要
 emacs-start.sh &
+sleep 3
+wid=$(xdotool search --class Emacs 2>/dev/null | tail -n1)
+[ -n "$wid" ] && xdotool windowminimize "$wid"
 
 # thunderbird &
 # sleep 8s
