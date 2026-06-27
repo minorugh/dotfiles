@@ -89,9 +89,8 @@
 ;; ============================================================
 
 ;; -- 見た目: ヘッダー強調・アイコン (my-open-xsrv-2pane 専用。通常の dired には影響しない) --
-
 (defface my-xsrv-2pane-header-face
-  '((t (:inherit dired-header :background "#1A2640" :extend t)))
+  '((t (:inherit dired-header :background "#1A2640" :box (:line-width 4))))
   "Xsrv-2pane の `dired' バッファでヘッダー2行に使う face."
   :group 'dired)
 
@@ -102,6 +101,32 @@
     (let ((end (progn (forward-line 2) (point))))
       (with-silent-modifications
         (put-text-property (point-min) end 'font-lock-face 'my-xsrv-2pane-header-face)))))
+
+(defun my-xsrv-2pane--set-header-line ()
+  "Dired バッファの上2行を `header-line-format' に固定表示し、本体から隠す."
+  (save-excursion
+    (goto-char (point-min))
+    (let* ((label (if (my-xsrv-p default-directory) "  [REMOTE]" "  [LOCAL]"))
+           (line1 (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+           (line2 (progn (forward-line 1)
+                         (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+           (end (progn (forward-line 1) (point))))
+      (setq-local header-line-format
+                  (list (propertize (concat label "  " line1 "  " line2
+                                            (make-string 200 ?\s))
+                                    'face 'my-xsrv-2pane-header-face)))
+      (with-silent-modifications
+        (put-text-property (point-min) end 'invisible t)))))
+;; (defun my-xsrv-2pane--set-header-line ()
+;;   "Dired バッファの上2行を `header-line-format' に固定表示する."
+;;   (save-excursion
+;;     (goto-char (point-min))
+;;     (let* ((line1 (buffer-substring (line-beginning-position) (line-end-position)))
+;;            (line2 (progn (forward-line 1)
+;;                          (buffer-substring (line-beginning-position) (line-end-position)))))
+;;       (setq-local header-line-format
+;;                   (list (propertize (concat line1 "  " line2)
+;;                                     'face 'my-xsrv-2pane-header-face))))))
 
 (defvar my-xsrv-2pane-remote-icon-name "nf-md-server"
   "Xsrv-GH（rsync ミラー）側のパス行に表示する nerd-icons アイコン名.")
@@ -130,7 +155,8 @@
   "Xsrv-2pane バッファの見た目（ヘッダー強調・アイコン）をまとめて適用する.`revert-buffer' 後にも呼べるよう冪等にしてある."
   (when (derived-mode-p 'dired-mode)
     (my-xsrv-2pane--fontify-header)
-    (my-xsrv-2pane--prepend-icon)))
+    ;; (my-xsrv-2pane--prepend-icon)
+    (my-xsrv-2pane--set-header-line)))
 
 (defun my-xsrv-2pane-enable-ui ()
   "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
