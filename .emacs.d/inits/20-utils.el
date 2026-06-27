@@ -15,15 +15,11 @@
   (setq which-key-max-description-length 40)
   (setq which-key-idle-delay 0.0))
 
-;; NOTE: 必須。leafの:chordはkey-chord-define経由しないため、
-;; key-chord-use-key-tracking=t(デフォルト)だとチョードが無音で無効化される。
-;; 外すと "l;" などのチョードが何もせず単に自己挿入されるだけになる。
 (leaf key-chord
   :ensure t
   :hook (after-init-hook . key-chord-mode)
-  :chord (("l;" . init-loader-show-log))
   :config
-  (setq key-chord-use-key-tracking nil)
+  (key-chord-define-global "l;" 'init-loader-show-log)
   ;; key-chord stall recovery
   (defun my-key-chord-ensure ()
     (when (and key-chord-mode
@@ -45,7 +41,8 @@
 
 (leaf my-elpa
   :doc "Browse ELPA snapshots and manage packages via hydra."
-  :chord ("p@" . hydra-package/body)
+  :config
+  (key-chord-define-global "p@" 'hydra-package/body)
   :hydra
   (hydra-package
    (:color red :hint nil)

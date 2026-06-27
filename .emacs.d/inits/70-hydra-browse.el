@@ -10,7 +10,8 @@
 (leaf hydra-browse
   :doc "Browser bookmark launcher via hydra."
   :defun my-github-deploy
-  :chord (".."   . hydra-browse/body)
+  :config
+  (key-chord-define-global ".." 'hydra-browse/body)
   :hydra
   (hydra-browse
    (:hint nil :exit t)
@@ -63,9 +64,9 @@
    ("." nil))
 
 
-;; ============================================================
-;;  Thunderbird
-;; ============================================================
+  ;; ============================================================
+  ;;  Thunderbird
+  ;; ============================================================
 
   :init
   (defun thunderbird ()
@@ -74,13 +75,13 @@
     (call-process "setsid" nil 0 nil "thunderbird"))
 
 
-;; ============================================================
-;;  GitHub Deploy
-;;
-;;  changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
-;;  処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
-;;  push 後のブラウザ確認は Makefile の make git の中で実行。
-;; ============================================================
+  ;; ============================================================
+  ;;  GitHub Deploy
+  ;;
+  ;;  changelog-YYYYMMDD.md を ivy で選択して CHANGELOG.md の先頭に追記する。
+  ;;  処理本体は ~/Dropbox/Changelog/github-deploy.pl に委譲。
+  ;;  push 後のブラウザ確認は Makefile の make git の中で実行。
+  ;; ============================================================
 
   (defun my-github-deploy ()
     "Select a changelog-YYYYMMDD.md via ivy and deploy it to CHANGELOG.md."

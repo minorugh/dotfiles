@@ -65,7 +65,8 @@
          (text-mode-hook . display-line-numbers-mode)
          (lisp-interaction-mode-hook
           . (lambda () (display-line-numbers-mode 0))))
-  :config (setq display-line-numbers-width-start t))
+  :config
+  (setq display-line-numbers-width-start t))
 
 (leaf display-fill-column-indicator
   :tag "builtin"

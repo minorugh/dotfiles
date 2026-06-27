@@ -19,12 +19,12 @@
   :ensure t
   :doc "Generic completion mechanism for Emacs."
   :hook (after-init-hook . ivy-mode)
-  :chord (("df" . my-describe-command)
-          ("fg" . my-describe-variable))
   :bind (:ivy-minibuffer-map
          ("<down>" . ivy-next-line)
          ("<up>"   . ivy-previous-line))
   :config
+  (key-chord-define-global "df" 'my-describe-command)
+  (key-chord-define-global "fg" 'my-describe-variable)
   (setq ivy-use-virtual-buffers      t)
   (setq ivy-use-selectable-prompt    t)
   (setq enable-recursive-minibuffers t)
