@@ -93,9 +93,8 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
   (setq-local line-spacing my-darkroom-line-spacing)
   (my-darkroom-mode 1)
   (toggle-frame-fullscreen)
-  (when current-input-method
+  (when (null current-input-method)
     (toggle-input-method))
-  ;; Delay for initializing emacsclient
   (run-with-timer 0.3 nil #'evil-normal-state))
 
 (defun my-darkroom-out ()
@@ -106,9 +105,9 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
   (whitespace-mode 1)
   (display-line-numbers-mode (if (plist-get my-dark-old-state :line-num) 1 0))
   (setq-local line-spacing (plist-get my-dark-old-state :spacing))
-  (when current-input-method
-    (toggle-input-method)
-    (evil-normal-state)))
+  (deactivate-input-method)
+  (setq evil-input-method nil)
+  (evil-normal-state))
 
 (defun my-darkroom-toggle ()
   "Toggle distraction-free mode.  Bound to F8; see 07-functions.el."
