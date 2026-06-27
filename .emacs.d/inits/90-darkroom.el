@@ -93,6 +93,7 @@ Passed to `line-spacing'. Default 0.2 = 20% extra spacing."
   (setq-local line-spacing my-darkroom-line-spacing)
   (my-darkroom-mode 1)
   (toggle-frame-fullscreen)
+  ;; Switch between "evil-normal-state" and "evil-emacs-state" while keeping the IME enabled
   (when (null current-input-method)
     (toggle-input-method))
   (run-with-timer 0.3 nil #'evil-normal-state))
