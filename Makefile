@@ -398,11 +398,9 @@ github-remote-add: ## xsrv-GH / xsrv-minorugh に Gitea pushurl を追加（GitH
 ########################################################
 ## 対話実行系（個別に手動で実行するターゲット）
 ########################################################
-dracula-theme: ## gnome-terminal 用 Dracula テーマのインストール
-	cd ${HOME}/Downloads
-	git clone https://github.com/dracula/gnome-terminal
-	cd gnome-terminal && ./install.sh
-	rm -fr ${HOME}/Downloads/gnome-terminal
+dracula-theme: ## gnome-terminal に Dracula テーマを dconf で適用
+	dconf reset -f /org/gnome/terminal/legacy/profiles:/
+	dconf load /org/gnome/terminal/legacy/profiles:/ < ${PWD}/etc/gnome-terminal/dracula.dconf
 
 keepassxc: ## KeePassXC のインストールと自動起動設定
 	$(APT) $@ libsecret-tools

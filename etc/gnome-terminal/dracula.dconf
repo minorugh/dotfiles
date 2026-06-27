@@ -1,0 +1,13 @@
+[:]
+default='b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='#282A36'
+bold-color='#6E46A4'
+bold-color-same-as-fg=false
+font='Monospace 18'
+foreground-color='#F8F8F2'
+palette=['#21222C', '#FF5555', '#50FA7B', '#F1FA8C', '#BD93F9', '#FF79C6', '#8BE9FD', '#F8F8F2', '#6272A4', '#FF6E6E', '#69FF94', '#FFFFA5', '#D6ACFF', '#FF92DF', '#A4FFFF', '#FFFFFF']
+use-system-font=false
+use-theme-colors=false
+visible-name='Dracula'
