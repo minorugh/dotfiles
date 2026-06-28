@@ -17,6 +17,7 @@
           ("C-w"      . evil-delete-backward-word)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
+          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
           ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . my-evil-cheat-sheet)
@@ -24,12 +25,13 @@
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
           ([prior]    . er/expand-region)    ; Use PgUp to expand region
-	  ([next]     . er/contract-region)  ; Use PgDn to contract region
+          ([next]     . er/contract-region)  ; Use PgDn to contract region
           (";"        . comment-dwim)
           ("c"        . clipboard-kill-ring-save)
           ("s"        . swiper-region)
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
+          ([insert]   . my-iedit-toggle)
           ([muhenkan] . my-muhenkan))
          (:evil-motion-state-map
           ([muhenkan] . my-muhenkan))
@@ -44,6 +46,7 @@
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
+  (setq evil-visual-char 'exclusive)   ; exclude cursor position from visual selection (emacs-like)
   :config
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)
@@ -59,7 +62,7 @@
 
   ;; Force Emacs state for special-purpose modes
   (dolist (mode '(howm-view-summary-mode imenu-list-major-mode
-					 easy-hugo-mode neotree-mode))
+                                         easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for named buffers (*init log*, *scratch*)
@@ -115,71 +118,93 @@
      (t (deactivate-input-method)
         (evil-normal-state))))
 
-  (defun vim-cheat-sheet ()
-    "Open vim cheat sheet in browser."
-    (interactive)
-    (browse-url "https://minorugh.github.io/vim-cheat/vim-cheat-sheet.html")))
 
+  ;; ====================================================
+  ;;  iedit
+  ;; ====================================================
 
-;; ============================================================
-;;  Normal-state Leader Key ";"
-;;  Normal state のまま軽微な編集を完結させるための仕組み。
-;;  ESC でキャンセル、完了後も Normal state に留まる。
-;;  muhenkan で Emacs state へ。
-;; ============================================================
-
-(leaf evil-leader-map
-  :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
-  :require (my-sen-cleanup)  ;; minoru_sen commands
-  :after evil
-  :config
-  (setq echo-keystrokes 0)
-
-  (defvar my-normal-leader-map (make-sparse-keymap)
-    "Prefix map triggered by ';' in evil-normal-state.")
-
-  (define-key evil-normal-state-map ";" my-normal-leader-map)
-
-  (let ((m my-normal-leader-map))
-    (define-key m "f" #'counsel-find-file)     ; ファイル検索
-    (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
-    (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
-    (define-key m ";" #'comment-line)          ; コメントトグル
-    (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-    (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
-    (define-key m "r" #'my-sen-restore)        ; restore sen markers
-    (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
-    (define-key m "s" #'swiper)                ; swiper 検索
-    (define-key m "@" #'my-insert-maru)        ; 行頭に ◎ 挿入（俳句選者用）
-    (define-key m "i" #'my-emacs-state-mozc))  ; Emacs-state + mozc on
+  (leaf iedit
+    :ensure t
+    :config
+    (defun my-iedit-toggle ()
+      "Toggle `iedit-mode'.
+Visual-state で範囲選択中ならその範囲を対象に iedit を起動する.
+キーマップ競合を避けるため iedit 中は evil-emacs-state に切り替え、
+終了時は evil-normal-state に戻る."
+      (interactive)
+      (if (bound-and-true-p iedit-mode)
+          (progn
+            (iedit-mode -1)
+            (evil-normal-state))
+        (let ((beg (and (use-region-p) (region-beginning)))
+              (end (and (use-region-p) (region-end))))
+          (evil-emacs-state)
+          (when (and beg end)
+            (set-mark beg)
+            (goto-char end)
+            (activate-mark))
+          (iedit-mode)))))
 
 
   ;; ============================================================
-  ;;  Leader Key Helper Commands
+  ;;  Normal-state Leader Key ";"
+  ;;  Normal state のまま軽微な編集を完結させるための仕組み。
+  ;;  ESC でキャンセル、完了後も Normal state に留まる。
+  ;;  muhenkan で Emacs state へ。
   ;; ============================================================
 
-  (defun my-newline-above ()
-    "Insert a blank line above the current line without leaving Normal state."
-    (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (open-line 1)))
+  (leaf evil-leader-map
+    :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
+    :require (my-sen-cleanup)  ;; minoru_sen commands
+    :after evil
+    :config
+    (setq echo-keystrokes 0)
 
-  (defun my-emacs-state-mozc ()
-    "Switch to Emacs state and activate Mozc input method."
-    (interactive)
-    (evil-emacs-state)
-    (activate-input-method "japanese-mozc"))
+    (defvar my-normal-leader-map (make-sparse-keymap)
+      "Prefix map triggered by ';' in evil-normal-state.")
 
-  (defun my-insert-maru ()
-    "Insert ◎ at the beginning of the current line.  Bound to ;@."
-    (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (insert "◎"))))
+    (define-key evil-normal-state-map ";" my-normal-leader-map)
+
+    (let ((m my-normal-leader-map))
+      (define-key m "f" #'counsel-find-file)     ; ファイル検索
+      (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
+      (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
+      (define-key m ";" #'comment-line)          ; コメントトグル
+      (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+      (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
+      (define-key m "r" #'my-sen-restore)        ; restore sen markers
+      (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
+      (define-key m "s" #'swiper)                ; swiper 検索
+      (define-key m "@" #'my-insert-maru)        ; 行頭に ◎ 挿入（俳句選者用）
+      (define-key m "i" #'my-emacs-state-mozc))  ; Emacs-state + mozc on
 
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
+    ;; ============================================================
+    ;;  Leader Key Helper Commands
+    ;; ============================================================
+
+    (defun my-newline-above ()
+      "Insert a blank line above the current line without leaving Normal state."
+      (interactive)
+      (save-excursion
+        (beginning-of-line)
+        (open-line 1)))
+
+    (defun my-emacs-state-mozc ()
+      "Switch to Emacs state and activate Mozc input method."
+      (interactive)
+      (evil-emacs-state)
+      (activate-input-method "japanese-mozc"))
+
+    (defun my-insert-maru ()
+      "Insert ◎ at the beginning of the current line.  Bound to ;@."
+      (interactive)
+      (save-excursion
+        (beginning-of-line)
+        (insert "◎"))))
+
+
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars unresolved)
+  ;; End:
 ;;; 02-evil.el ends here
