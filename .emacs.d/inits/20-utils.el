@@ -30,6 +30,11 @@
   (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
   (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
 
+
+;; ============================================================
+;;  Quickrun
+;; ============================================================
+
 (leaf quickrun
   :ensure t
   :doc "Run commands quickly.  Bound to F5; see 07-funcs.el.")
@@ -131,7 +136,7 @@ If region isn't selected, post from the buffer."
   :doc "YaTeX process handler"
   :after yatex
   :bind (("M-c" . YaTeX-typeset-buffer)
-	 ("M-v" . YaTeX-lpr)))
+         ("M-v" . YaTeX-lpr)))
 
 
 ;; ============================================================
