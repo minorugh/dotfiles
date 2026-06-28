@@ -18,6 +18,7 @@
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
+	  ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
           ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . my-evil-cheat-sheet)
@@ -201,10 +202,10 @@ Visual-state で範囲選択中ならその範囲を対象に iedit を起動す
       (interactive)
       (save-excursion
         (beginning-of-line)
-        (insert "◎"))))
+        (insert "◎")))))
 
 
-  ;; Local Variables:
-  ;; byte-compile-warnings: (not free-vars unresolved)
-  ;; End:
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
 ;;; 02-evil.el ends here

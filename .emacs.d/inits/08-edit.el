@@ -89,15 +89,16 @@
   :doc "Auto-indent on newline.  Already ON; declared for documentation."
   :hook (after-init-hook . electric-indent-mode))
 
-(leaf indent-helper
-  :bind* ("C-c i" . indent-buffer)
+(leaf my-indent-buffer
+  :bind* ("C-c i" . my-indent-buffer)
   :init
-  (defun indent-buffer ()
-    "Indent the entire buffer."
+  (defun my-indent-buffer ()
+    "Untabify and indent the entire buffer."
     (interactive)
     (save-excursion
+      (untabify (point-min) (point-max))
       (indent-region (point-min) (point-max))
-      (message "Indented buffer."))))
+      (message "Untabified and indented buffer."))))
 
 
 ;; ============================================================
@@ -117,7 +118,7 @@ NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで�
        (if (eq last-command this-command)
            (setq my-seq--count (1+ my-seq--count))
          (setq my-seq--start (cons (point) (window-start))
-               my-seq--count 0))
+	       my-seq--count 0))
        (call-interactively (aref ,cmdvec (mod my-seq--count ,(length cmdvec)))))))
 
 (defun my-seq-return ()
@@ -203,7 +204,7 @@ NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで�
 (add-hook 'deactivate-mark-hook
           (lambda ()
             (unless (null my-ime-flag)
-              (toggle-input-method))))
+	      (toggle-input-method))))
 
 
 ;; ============================================================
@@ -222,7 +223,7 @@ NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで�
     (advice-add 'elisp-flymake-byte-compile :around
                 (lambda (orig-fun report-fn &rest args)
                   (condition-case nil
-                      (apply orig-fun report-fn args)
+		      (apply orig-fun report-fn args)
                     (user-error nil))))))
 
 
