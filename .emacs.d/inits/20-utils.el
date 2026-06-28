@@ -67,17 +67,26 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;;  Buffer Cleanup
 ;; ============================================================
 
+(defvar my--minibuffer-active nil)
+
+(add-hook 'minibuffer-setup-hook (lambda () (setq my--minibuffer-active t)))
+(add-hook 'minibuffer-exit-hook  (lambda () (setq my--minibuffer-active nil)))
+
 (defun my-kill-other-file-buffers ()
-  "Kill all non-current non-special buffers."
+  "Kill all non-current non-special buffers, but never while the minibuffer is in use."
   (interactive)
-  (unless (minibuffer-window-active-p (minibuffer-window))
-    (let ((current (current-buffer)))
+  (unless (or my--minibuffer-active
+              (active-minibuffer-window))  ; 二重チェックで保険
+    (let ((current (current-buffer))
+          (kill-buffer-query-functions nil)) ; 確認プロンプトを出さない
       (dolist (buf (buffer-list))
         (unless (or (eq buf current)
-                    (string-prefix-p "*" (buffer-name buf)))
-          (kill-buffer buf))))))
+                    (string-prefix-p "*" (buffer-name buf))
+                    (get-buffer-process buf)        ; プロセス付きバッファは除外
+                    (buffer-local-value 'buffer-read-only buf)) ; 念のため
+          (ignore-errors (kill-buffer buf)))))))
 
-(run-with-timer 60 60 #'my-kill-other-file-buffers)
+(run-with-timer 300 300 #'my-kill-other-file-buffers)
 
 
 ;; ============================================================
