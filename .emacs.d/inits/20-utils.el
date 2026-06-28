@@ -36,6 +36,20 @@
 
 
 ;; ============================================================
+;;  Tempbuf
+;;  無シャットダウン運用でバッファが溜まり続けるため必須。
+;; ============================================================
+
+(leaf tempbuf
+  :doc "Auto kill unused buffers in the background"
+  :vc (:url "https://github.com/minorugh/tempbuf")
+  :hook ((find-file-hook  . turn-on-tempbuf-mode)
+         (dired-mode-hook . turn-on-tempbuf-mode))
+  :config
+  (setq tempbuf-kill-message nil))
+
+
+;; ============================================================
 ;;  Package Management
 ;; ============================================================
 
@@ -61,32 +75,6 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
     "Open elpa-changes.log."
     (interactive)
     (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log")))
-
-
-;; ============================================================
-;;  Buffer Cleanup
-;; ============================================================
-
-(defvar my--minibuffer-active nil)
-
-(add-hook 'minibuffer-setup-hook (lambda () (setq my--minibuffer-active t)))
-(add-hook 'minibuffer-exit-hook  (lambda () (setq my--minibuffer-active nil)))
-
-(defun my-kill-other-file-buffers ()
-  "Kill all non-current non-special buffers, but never while the minibuffer is in use."
-  (interactive)
-  (unless (or my--minibuffer-active
-              (active-minibuffer-window))  ; 二重チェックで保険
-    (let ((current (current-buffer))
-          (kill-buffer-query-functions nil)) ; 確認プロンプトを出さない
-      (dolist (buf (buffer-list))
-        (unless (or (eq buf current)
-                    (string-prefix-p "*" (buffer-name buf))
-                    (get-buffer-process buf)        ; プロセス付きバッファは除外
-                    (buffer-local-value 'buffer-read-only buf)) ; 念のため
-          (ignore-errors (kill-buffer buf)))))))
-
-(run-with-timer 300 300 #'my-kill-other-file-buffers)
 
 
 ;; ============================================================
