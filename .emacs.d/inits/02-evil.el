@@ -7,6 +7,9 @@
 ;;  Evil Core
 ;; ============================================================
 
+(defvar-local my-evil--left-as-emacs nil
+  "Non-nil when this buffer was manually switched Normal→Emacs state.")
+
 (leaf evil
   :ensure t
   :require (my-evil-cheat-sheet)       ; custom Evil help buffer
@@ -75,6 +78,44 @@
                          (not (eq evil-state 'emacs)))
                 (evil-emacs-state))))
 
+  ;; Restore Normal state when returning to a buffer that was manually
+  ;; switched from Normal → Emacs state (e.g. via muhenkan or ;i).
+  ;;
+  ;; 仕組み:
+  ;;   1. normal-state → emacs-state への遷移時にバッファローカル変数
+  ;;      `my-evil--left-as-emacs' を t にセットする。
+  ;;   2. バッファが再びカレントになったとき (buffer-list-update-hook) に
+  ;;      その変数を確認し、emacs-state のままならば normal-state に戻す。
+  ;;   3. evil-emacs-state-modes 所属バッファや特殊バッファ (*…*) は対象外。
+  ;;
+  (defun my-evil--should-auto-restore-p ()
+    "Return non-nil if this buffer should auto-restore to Normal state."
+    (and my-evil--left-as-emacs
+         (eq evil-state 'emacs)
+         ;; evil-emacs-state-modes に登録されたモードは除外
+         (not (apply #'derived-mode-p evil-emacs-state-modes))
+         ;; *バッファ名* 形式の特殊バッファは除外
+         (not (string-match-p "\\`\\*" (buffer-name)))))
+
+  (defun my-evil--mark-emacs-transition ()
+    "Mark current buffer as having transitioned Normal→Emacs manually.
+Called from `evil-normal-state-exit-hook' so evil-state is still normal.
+Only set the flag when the destination is emacs-state."
+    (when (eq evil-next-state 'emacs)
+      (setq-local my-evil--left-as-emacs t)))
+
+  ;; normal→emacs 遷移をフックで捕捉する
+  ;; evil-emacs-state-entry-hook 実行時点では evil-state がすでに 'emacs に
+  ;; なっているため、'normal を抜ける瞬間を捕捉する exit-hook を使う。
+  (add-hook 'evil-normal-state-exit-hook #'my-evil--mark-emacs-transition)
+
+  ;; バッファがカレントになるたびに復帰条件を確認する
+  (add-hook 'buffer-list-update-hook
+            (lambda ()
+              (when (my-evil--should-auto-restore-p)
+                (setq-local my-evil--left-as-emacs nil)
+                (evil-normal-state))))
+
   ;; New files open in Emacs state
   (add-hook 'find-file-hook
             (lambda ()
@@ -129,7 +170,7 @@
   :after evil
   :config
   (defun my-iedit-toggle ()
-    "Toggle `iedit-mode'.
+    "Toggle `iedit-mode’.
 Visual-state で範囲選択中ならその範囲を対象に iedit を起動する.
 キーマップ競合を避けるため iedit 中は evil-emacs-state に切り替え、
 終了時は evil-normal-state に戻る."
@@ -154,6 +195,10 @@ Visual-state で範囲選択中ならその範囲を対象に iedit を起動す
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;;  muhenkan で Emacs state へ。
 ;; ============================================================
+
+(defvar-local my-evil--left-as-emacs nil
+  "Non-nil when this buffer was manually switched Normal→Emacs state.
+Set by \=`my-evil--mark-emacs-transition\='; cleared after restoring Normal state.")
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
