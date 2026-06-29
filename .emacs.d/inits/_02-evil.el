@@ -7,10 +7,8 @@
 ;;  Evil Core
 ;; ============================================================
 
-(defvar-local my-evil--to-emacs-state nil
+(defvar-local my-evil--left-as-emacs nil
   "Non-nil when this buffer was manually switched Normal→Emacs state.")
-(defvar my-evil--last-buffer nil
-  "The buffer that was current after the last command.")
 
 (leaf evil
   :ensure t
@@ -80,47 +78,60 @@
                          (not (eq evil-state 'emacs)))
                 (evil-emacs-state))))
 
+  ;; Restore Normal state when returning to a buffer that was manually
+  ;; switched from Normal → Emacs state (e.g. via muhenkan or ;i).
+  ;;
+  ;; 仕組み:
+  ;;   1. normal-state → emacs-state への遷移時にバッファローカル変数
+  ;;      `my-evil--left-as-emacs' を t にセットする。
+  ;;   2. バッファが再びカレントになったとき (buffer-list-update-hook) に
+  ;;      その変数を確認し、emacs-state のままならば normal-state に戻す。
+  ;;   3. evil-emacs-state-modes 所属バッファや特殊バッファ (*…*) は対象外。
+  ;;
+  (defun my-evil--should-auto-restore-p ()
+    "Return non-nil if this buffer should auto-restore to Normal state."
+    (and my-evil--left-as-emacs
+         (eq evil-state 'emacs)
+         ;; evil-emacs-state-modes に登録されたモードは除外
+         (not (apply #'derived-mode-p evil-emacs-state-modes))
+         ;; *バッファ名* 形式の特殊バッファは除外
+         (not (string-match-p "\\`\\*" (buffer-name)))))
 
-  ;; ============================================================
-  ;; Auto Restore Normal State
-  ;; ============================================================
+  (defun my-evil--mark-emacs-transition ()
+    "Mark current buffer as having transitioned Normal→Emacs manually.
+Called from `evil-normal-state-exit-hook' so evil-state is still normal.
+Only set the flag when the destination is emacs-state."
+    (when (eq evil-next-state 'emacs)
+      (setq-local my-evil--left-as-emacs t)))
 
-  ;; 手動で normal→emacs したときにフラグをたてる
-  (add-hook 'evil-normal-state-exit-hook
-            (lambda ()
-              (when (eq evil-next-state 'emacs)
-                (setq-local my-evil--to-emacs-state t))))
+  ;; normal→emacs 遷移をフックで捕捉する
+  ;; evil-emacs-state-entry-hook 実行時点では evil-state がすでに 'emacs に
+  ;; なっているため、'normal を抜ける瞬間を捕捉する exit-hook を使う。
+  (add-hook 'evil-normal-state-exit-hook #'my-evil--mark-emacs-transition)
 
-  ;; カレントバッファでなくなったら normal-state に戻す
+  ;; カレントバッファでなくなったら normal-state に戻す。
+  (defvar my-evil--last-buffer nil
+    "The buffer that was current after the last command.")
+
   (add-hook 'post-command-hook
             (lambda ()
               (unless (eq (current-buffer) my-evil--last-buffer)
                 (when (and my-evil--last-buffer
                            (buffer-live-p my-evil--last-buffer))
                   (with-current-buffer my-evil--last-buffer
-                    (when (and my-evil--to-emacs-state
-                               (eq evil-state 'emacs)
-                               (not (apply #'derived-mode-p evil-emacs-state-modes))
-                               (not (string-match-p "\\`\\*" (buffer-name))))
-                      (setq-local my-evil--to-emacs-state nil)
+                    (when (my-evil--should-auto-restore-p)
+                      (setq-local my-evil--left-as-emacs nil)
                       (evil-normal-state))))
                 (setq my-evil--last-buffer (current-buffer)))))
 
-
-  ;; ============================================================
   ;; New files open in Emacs state
-  ;; ============================================================
-
   (add-hook 'find-file-hook
             (lambda ()
               (when (and (buffer-file-name)
                          (not (file-exists-p (buffer-file-name))))
                 (evil-emacs-state))))
 
-  ;; ============================================================
   ;; Swap j/gj and k/gk so visual-line motion is the default
-  ;; ============================================================
-
   (defun evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
     (let ((def1 (lookup-key map key1))
@@ -130,9 +141,7 @@
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
 
-  ;; ============================================================
-  ;;  Universal Escape Key (muhenkan)
-  ;; ============================================================
+  ;; Universal Escape Key (muhenkan)
   (defun my-muhenkan ()
     "Universal escape key — context-sensitive quit/state switch."
     (interactive)
@@ -160,9 +169,9 @@
         (evil-normal-state)))))
 
 
-;; ============================================================
+;; ====================================================
 ;;  iedit
-;; ============================================================
+;; ====================================================
 
 (leaf iedit
   :ensure t
@@ -195,7 +204,7 @@ Visual-state で範囲選択中ならその範囲を対象に iedit を起動す
 ;;  muhenkan で Emacs state へ。
 ;; ============================================================
 
-(defvar-local my-evil--to-emacs-state nil
+(defvar-local my-evil--left-as-emacs nil
   "Non-nil when this buffer was manually switched Normal→Emacs state.
 Set by \=`my-evil--mark-emacs-transition\='; cleared after restoring Normal state.")
 
