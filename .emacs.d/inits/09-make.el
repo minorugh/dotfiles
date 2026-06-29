@@ -103,14 +103,14 @@ STRING is the exit status message from the compilation process."
         (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
         ;; C-c C-c to execute make
         (define-key map (kbd "C-c C-c")
-		    (lambda ()
-		      (interactive)
-		      (ivy-exit-with-action
-		       (lambda (x)
-			 (let ((target (cdr x)))
-			   (compile (format "make -C %s %s"
-					    (file-name-directory makefile)
-					    target)))))))
+                    (lambda ()
+                      (interactive)
+                      (ivy-exit-with-action
+                       (lambda (x)
+                         (let ((target (cdr x)))
+                           (compile (format "make -C %s %s"
+                                            (file-name-directory makefile)
+                                            target)))))))
         ;; Parse targets annotated with ## from Makefile
         (with-current-buffer (find-file-noselect makefile)
           (save-excursion
@@ -174,13 +174,24 @@ STRING is the exit status message from the compilation process."
     "カレントから外れた Makefile バッファを自動 read-only に戻す."
     (dolist (buf (buffer-list))
       (unless (eq buf (current-buffer))
-	(with-current-buffer buf
+        (with-current-buffer buf
           (when (and (derived-mode-p 'makefile-mode)
                      (not buffer-read-only))
             (read-only-mode 1)
             (evil-normal-state))))))
 
   (add-hook 'buffer-list-update-hook #'my-makefile-buffer-list-update-hook))
+
+
+;; bklog.pl 実行後のリバート＋フォーカス回復
+;; 各句会のMakefileから emacsclient --eval "(my-bklog-refresh \"...\")" で呼ぶ
+(defun my-bklog-refresh (sendata-path)
+  "Bklog.pl実行後、SENDATA-PATHのバッファをリバートしてフォーカスを回復する."
+  (let ((buf (find-file-noselect (expand-file-name sendata-path))))
+    (with-current-buffer buf
+      (revert-buffer t t t))
+    (select-frame-set-input-focus (selected-frame))
+    (redraw-frame)))
 
 
 ;; Local Variables:
