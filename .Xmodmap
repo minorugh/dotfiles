@@ -98,13 +98,9 @@ keycode 97 = underscore backslash
 !   191       F13       右 Alt 単押し           mozc IME on/off トグル
 !   192       F14       右 Ctrl 単押し          hydra-menu 起動（Emacs）
 !   193       F15       右 GUI 単押し           hydra-browse 起動（Emacs）
-!   194       F16       全角/半角長押し + F1    Snote / Emacs タイル配置
-!   195       F17       全角/半角長押し + F2    アクティブウィンドウ移動
 !
 ! 確認済み (2026-05-12)
 !===============================================================
 keycode 191 = F13
 keycode 192 = F14
 keycode 193 = F15
-keycode 194 = F16
-keycode 195 = F17
