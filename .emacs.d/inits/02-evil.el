@@ -9,8 +9,8 @@
 
 (defvar-local my-evil--to-emacs-state nil
   "Non-nil when this buffer was manually switched Normal→Emacs state.")
-(defvar my-evil--last-buffer nil
-  "The buffer that was current after the last command.")
+(defvar my-evil--current-buffer nil
+  "Buffer tracked for evil state restoration.")
 
 (leaf evil
   :ensure t
@@ -67,8 +67,7 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose modes
-  (dolist (mode '(howm-view-summary-mode imenu-list-major-mode
-                                         easy-hugo-mode neotree-mode))
+  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for named buffers (*init log*, *scratch*)
@@ -94,17 +93,17 @@
   ;; カレントバッファでなくなったら normal-state に戻す
   (add-hook 'post-command-hook
             (lambda ()
-              (unless (eq (current-buffer) my-evil--last-buffer)
-                (when (and my-evil--last-buffer
-                           (buffer-live-p my-evil--last-buffer))
-                  (with-current-buffer my-evil--last-buffer
+              (unless (eq (current-buffer) my-evil--current-buffer)
+                (when (and my-evil--current-buffer
+                           (buffer-live-p my-evil--current-buffer))
+                  (with-current-buffer my-evil--current-buffer
                     (when (and my-evil--to-emacs-state
                                (eq evil-state 'emacs)
                                (not (apply #'derived-mode-p evil-emacs-state-modes))
                                (not (string-match-p "\\`\\*" (buffer-name))))
                       (setq-local my-evil--to-emacs-state nil)
                       (evil-normal-state))))
-                (setq my-evil--last-buffer (current-buffer)))))
+                (setq my-evil--current-buffer (current-buffer)))))
 
 
   ;; ============================================================
@@ -129,6 +128,7 @@
       (define-key map key2 def1)))
   (evil-swap-key evil-motion-state-map "j" "gj")
   (evil-swap-key evil-motion-state-map "k" "gk")
+
 
   ;; ============================================================
   ;;  Universal Escape Key (muhenkan)

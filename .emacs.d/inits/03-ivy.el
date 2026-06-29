@@ -1,13 +1,6 @@
 ;;; 03-ivy.el --- Ivy core settings and describe helpers -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Describe helpers
-;;
-;;   `my-describe-command'  -- Search all interactive commands by keybinding
-;;                             or name and describe the selected one.
-;;   `my-describe-variable' -- Search all bound variables and describe the
-;;                             selected one.
-;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
