@@ -9,6 +9,8 @@
 ;; ============================================================
 
 (leaf ivy
+  :preface
+  (defvar my-describe-history nil "History for `my-describe-command'.")
   :ensure t
   :doc "Generic completion mechanism for Emacs."
   :hook (after-init-hook . ivy-mode)
@@ -27,8 +29,6 @@
   ;; ============================================================
   ;;  Describe Helpers
   ;; ============================================================
-
-  (defvar my-describe-history nil "History for `my-describe-command'.")
 
   (defun my-describe-command ()
     "Search all interactive commands by keybinding or name via Ivy,

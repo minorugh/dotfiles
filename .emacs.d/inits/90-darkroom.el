@@ -15,7 +15,7 @@
     "Enter distraction-free mode, saving current state."
     (interactive)
     (setq-local my-darkroom--old-state
-		(list :line-num display-line-numbers-mode
+                (list :line-num display-line-numbers-mode
                       :spacing  line-spacing
                       :input-method current-input-method))
     (display-line-numbers-mode 0)
@@ -43,7 +43,7 @@
     ;; 入る前から ON だった場合は触らない(前回バグの修正点).
     (unless (plist-get my-darkroom--old-state :input-method)
       (when current-input-method
-	(deactivate-input-method)))
+        (deactivate-input-method)))
     (setq evil-input-method nil)
     (evil-normal-state))
 
@@ -51,8 +51,9 @@
     "Toggle distraction-free mode. Bound to F8 in 07-functions.el."
     (interactive)
     (if (bound-and-true-p darkroom-mode)
-	(my-darkroom-out)
+        (my-darkroom-out)
       (my-darkroom-in))))
+
 
 ;; ============================================================
 ;;  NeoMutt の外部エディタとして Emacs を利用するための設定.

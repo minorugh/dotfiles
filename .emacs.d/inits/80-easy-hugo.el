@@ -26,13 +26,13 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
 ")
 
 
-;; ============================================================
-;;  Blog Settings
-;;
-;;  blog1 (main): snap.minorugh.com
-;;  blog2: minorugh.github.io
-;;  blog3–8: minorugh.com サブサイト群
-;; ============================================================
+  ;; ============================================================
+  ;;  Blog Settings
+  ;;
+  ;;  blog1 (main): snap.minorugh.com
+  ;;  blog2: minorugh.github.io
+  ;;  blog3–8: minorugh.com サブサイト群
+  ;; ============================================================
 
   ;; blog1 (main)
   (setq easy-hugo-basedir    "~/Dropbox/minorugh.com/snap/")
@@ -78,9 +78,9 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
            (easy-hugo-root       . "/home/minorugh/minorugh.com/public_html/ryo/"))))
 
 
-;; ============================================================
-;;  Helper Commands
-;; ============================================================
+  ;; ============================================================
+  ;;  Helper Commands
+  ;; ============================================================
 
   :config
   (defun my-edit-easy-hugo ()
@@ -89,7 +89,7 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     (find-file "~/.emacs.d/inits/80-easy-hugo.el"))
 
   (defun my-easy-hugo-newpost-after (&rest _)
-  "After creating a new post, switch to Emacs state and
+    "After creating a new post, switch to Emacs state and
 move to end of buffer."
     (when (bound-and-true-p evil-mode)
       (evil-emacs-state)

@@ -34,9 +34,9 @@
   (setq neo-create-file-auto-open t)
 
 
-;; ============================================================
-;;  Toggle & Text Scale
-;; ============================================================
+  ;; ============================================================
+  ;;  Toggle & Text Scale
+  ;; ============================================================
 
   (defun my-neotree-toggle ()
     "Toggle Neotree, jumping to the current file or directory.
@@ -62,9 +62,9 @@ See https://github.com/jaypei/emacs-neotree/issues/218"
             (lambda (_) (neotree-text-scale)))
 
 
-;; ============================================================
-;;  Enter & Hide
-;; ============================================================
+  ;; ============================================================
+  ;;  Enter & Hide
+  ;; ============================================================
 
   (defun neo-open-file-hide (full-path &optional arg)
     "Open FULL-PATH and hide the Neotree window."
