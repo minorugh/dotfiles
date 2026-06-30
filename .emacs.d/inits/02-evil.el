@@ -1,5 +1,10 @@
 ;;; 02-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; Vim流のInsert-stateは使わず、編集時は常にEmacs-stateへ強制遷移させる方針.
+;; IME入力(mozc)との相性を優先し、"i"キーをEmacs-state+IME-onの専用入口とした.
+;; ESCはvimのNormal復帰、無変換(muhenkan)はEmacsライクなEmacs-state復帰、と役割分担.
+;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
