@@ -225,8 +225,7 @@ Set by \=`my-evil--mark-emacs-transition\='; cleared after restoring Normal stat
     (define-key m "r" #'my-sen-restore)        ; restore sen markers
     (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
     (define-key m "s" #'swiper)                ; swiper 検索
-    (define-key m "@" #'my-insert-maru)        ; 行頭に ◎ 挿入（俳句選者用）
-    (define-key m "i" #'evil-emacs-state))     ; Emacs-state
+    (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
 
   ;;  Leader Key Helper Commands
   (defun my-newline-above ()
