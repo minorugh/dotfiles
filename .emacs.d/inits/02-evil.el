@@ -24,6 +24,7 @@
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
           ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
+	  ("i"        . my-emacs-state-mozc)
           ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . my-evil-cheat-sheet)
@@ -225,7 +226,7 @@ Set by \=`my-evil--mark-emacs-transition\='; cleared after restoring Normal stat
     (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
     (define-key m "s" #'swiper)                ; swiper 検索
     (define-key m "@" #'my-insert-maru)        ; 行頭に ◎ 挿入（俳句選者用）
-    (define-key m "i" #'my-emacs-state-mozc))  ; Emacs-state + mozc on
+    (define-key m "i" #'evil-emacs-state))     ; Emacs-state
 
   ;;  Leader Key Helper Commands
   (defun my-newline-above ()
