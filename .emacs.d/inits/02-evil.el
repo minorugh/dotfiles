@@ -24,11 +24,12 @@
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
           ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
-	  ("i"        . my-emacs-state-mozc)
+          ("i"        . my-emacs-state-mozc)
           ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . my-evil-cheat-sheet)
           ([muhenkan] . my-muhenkan)
+          ([escape]   . my-evil-toggle-state)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
           ([prior]    . er/expand-region)    ; Use PgUp to expand region
@@ -49,7 +50,7 @@
           ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
           ([muhenkan] . my-muhenkan)
-          ([escape]   . (lambda () (interactive) (evil-normal-state)))))
+          ([escape]   . my-evil-toggle-state)))
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
@@ -120,6 +121,7 @@
                          (not (file-exists-p (buffer-file-name))))
                 (evil-emacs-state))))
 
+
   ;; ============================================================
   ;; Swap j/gj and k/gk so visual-line motion is the default
   ;; ============================================================
@@ -135,8 +137,26 @@
 
 
   ;; ============================================================
+  ;; ESC: Toggle Normal/Emacs State
+  ;; ============================================================
+
+  (defun my-evil-toggle-state ()
+    "ESCでnormal-state⇔emacs-stateをtoggleする.
+normal-state側ではevilのデフォルト動作(保留中コマンドのキャンセル)を保持する."
+    (interactive)
+    (if (evil-normal-state-p)
+        (progn
+          (evil-force-normal-state)  ; 保留中のcount/prefix等をクリア(evil既定のESC挙動)
+          (evil-emacs-state))
+      (when current-input-method
+        (deactivate-input-method))
+      (evil-normal-state)))
+
+
+  ;; ============================================================
   ;;  Universal Escape Key (muhenkan)
   ;; ============================================================
+
   (defun my-muhenkan ()
     "Universal escape key — context-sensitive quit/state switch."
     (interactive)
@@ -198,10 +218,6 @@ Visual-state で範囲選択中ならその範囲を対象に iedit を起動す
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;;  muhenkan で Emacs state へ。
 ;; ============================================================
-
-(defvar-local my-evil--to-emacs-state nil
-  "Non-nil when this buffer was manually switched Normal→Emacs state.
-Set by \=`my-evil--mark-emacs-transition\='; cleared after restoring Normal state.")
 
 (leaf evil-leader-map
   :doc "Normal-state leader key ';' for edit commands without leaving Normal state."

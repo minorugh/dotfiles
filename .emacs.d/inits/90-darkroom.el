@@ -8,9 +8,6 @@
   :ensure t
   :doc "Remove visual distractions and focus on writing."
   :config
-  (defvar-local my-darkroom--old-state nil
-    "Darkroom復帰用の退避状態 (line-num/spacing/input-method).")
-
   (defun my-darkroom-in ()
     "Enter distraction-free mode, saving current state."
     (interactive)
@@ -25,25 +22,20 @@
     (setq-local darkroom-text-scale-increase 2)
     (darkroom-mode 1)
     (toggle-frame-fullscreen)
-    (when (null current-input-method)
-      (toggle-input-method))
     ;; mutt から emacsclient(server-visit) 経由で起動した場合、
     ;; 即時に evil-normal-state を呼んでも反映されないため遅延させる.
     (run-with-timer 0.3 nil #'evil-normal-state))
 
-  (defun my-darkroom-out ()
-    "Leave distraction-free mode and restore previous state."
+(defun my-darkroom-out ()
+    "Leave distraction-free mode."
     (interactive)
     (darkroom-mode 0)
     (toggle-frame-fullscreen)
     (whitespace-mode 1)
-    (display-line-numbers-mode (if (plist-get my-darkroom--old-state :line-num) 1 0))
-    (setq-local line-spacing (plist-get my-darkroom--old-state :spacing))
-    ;; IME: my-darkroom-in で自分が ON にした分だけ OFF に戻す.
-    ;; 入る前から ON だった場合は触らない(前回バグの修正点).
-    (unless (plist-get my-darkroom--old-state :input-method)
-      (when current-input-method
-        (deactivate-input-method)))
+    (display-line-numbers-mode 1)   ;; text-mode-hook の既定値に固定復元
+    (setq-local line-spacing nil)
+    (when current-input-method
+      (deactivate-input-method))
     (setq evil-input-method nil)
     (evil-normal-state))
 
