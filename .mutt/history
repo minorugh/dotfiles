@@ -171,3 +171,7 @@
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
 0:tmux respawn-pane -k -t mail:0.0|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+1:aisei123@peach.ocn.ne.jp, |
+5:Re: 添削依頼|
+1:Aya <aya.shiprah@gmail.com>, |
+5:Re: 添削お願い致します|

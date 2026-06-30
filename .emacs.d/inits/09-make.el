@@ -185,13 +185,10 @@ STRING is the exit status message from the compilation process."
 
 ;; bklog.pl 実行後のリバート＋フォーカス回復
 ;; 各句会のMakefileから emacsclient --eval "(my-bklog-refresh \"...\")" で呼ぶ
-(defun my-bklog-refresh (sendata-path)
-  "Bklog.pl実行後、SENDATA-PATHのバッファをリバートしてフォーカスを回復する."
-  (let ((buf (find-file-noselect (expand-file-name sendata-path))))
-    (with-current-buffer buf
-      (revert-buffer t t t))
-    (select-frame-set-input-focus (selected-frame))
-    (redraw-frame)))
+;; (defun my-bklog-refresh ()
+;;   "Bklog.pl実行後、フォーカスを回復する."
+;;   (select-frame-set-input-focus (selected-frame))
+;;   (redraw-frame))
 
 
 ;; Local Variables:
