@@ -59,8 +59,6 @@
   :ensure t
   :load-path "~/.emacs.d/elisp"   ;; Path to the local packages
   :init
-  ;; Suppress elisp-flymake-byte-compile warnings
-  ;; (add-to-list 'trusted-content "~/src/github.com/minorugh/dotfiles/.emacs.d/")
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
