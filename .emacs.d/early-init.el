@@ -27,7 +27,6 @@
 ;; Inhibit frame resizing to improve UI snappiness
 (setq frame-inhibit-implied-resize t)
 
-(add-to-list 'trusted-content "~/src/github.com/minorugh/dotfiles/.emacs.d/")
 
 
 ;; ============================================================
