@@ -92,9 +92,9 @@
 
   (setq my-mozc-cursor-color-alist
         '((normal    . "#50fa7b")
-          (direct    . "#BD93F9")
+          (direct    . "#ffb86c")
           (read-only . "#6272A4")
-          (hiragana  . "#ff9580")
+          (hiragana  . "#B33A3A")
           (visual    . "#F1FA8C")))
 
   (setq-default my-mozc-current-input-mode 'hiragana)

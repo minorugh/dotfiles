@@ -74,20 +74,11 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose ninor modes
-  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode))
+  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state via hooks to override major mode
   (add-hook 'yatex-mode-hook 'evil-emacs-state)
-
-  ;; Force Emacs state for named buffers (*init log*, *scratch*)
-  ;; Checked on every buffer switch via buffer-list-update-hook.
-  (add-hook 'buffer-list-update-hook
-            (lambda ()
-              (when (and (member (buffer-name) '("*init log*" "*scratch*"))
-                         (fboundp 'evil-emacs-state)
-                         (not (eq evil-state 'emacs)))
-                (evil-emacs-state))))
 
 
   ;; ============================================================

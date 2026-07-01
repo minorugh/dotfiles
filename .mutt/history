@@ -175,3 +175,14 @@
 5:Re: 添削依頼|
 1:Aya <aya.shiprah@gmail.com>, |
 5:Re: 添削お願い致します|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+1:dosankodebbie@yahoo.co.jp, |
+5:Re: GH-FEED|
+1:Deborah Davidson <davidsonlanguageworks@gmail.com>, |
+1:MyJCB <mail@cj.jcb.co.jp>, |
+5:Re: J-POINTについてのご案内／MyJCB Spot Mail|
+1:掛川幸子 <s.kakegawa@tcon-ecss.com>, |
+5:Re: WordPress: 更新通知 @ https://tcon-ecss.com|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
