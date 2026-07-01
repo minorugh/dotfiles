@@ -1,6 +1,10 @@
 ;;; 90-darkroom.el --- Distraction-free writing mode (built on darkroom.el) -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
+;; mutt/markdown/howmなどtext-mode系の日本語文章作成バッファ専用.
+;; darkroom-outではline-num/spacingをtext-mode-hookの既定値に固定復元するため、
+;; prog-mode系バッファでの使用は想定していない.
+;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -9,12 +13,8 @@
   :doc "Remove visual distractions and focus on writing."
   :config
   (defun my-darkroom-in ()
-    "Enter distraction-free mode, saving current state."
+    "Enter distraction-free mode."
     (interactive)
-    (setq-local my-darkroom--old-state
-                (list :line-num display-line-numbers-mode
-                      :spacing  line-spacing
-                      :input-method current-input-method))
     (display-line-numbers-mode 0)
     (whitespace-mode -1)
     (setq-local line-spacing 0.2)
@@ -26,16 +26,15 @@
     ;; 即時に evil-normal-state を呼んでも反映されないため遅延させる.
     (run-with-timer 0.3 nil #'evil-normal-state))
 
-(defun my-darkroom-out ()
+  (defun my-darkroom-out ()
     "Leave distraction-free mode."
     (interactive)
     (darkroom-mode 0)
     (toggle-frame-fullscreen)
     (whitespace-mode 1)
-    (display-line-numbers-mode 1)   ;; text-mode-hook の既定値に固定復元
+    (display-line-numbers-mode 1)
     (setq-local line-spacing nil)
-    (when current-input-method
-      (deactivate-input-method))
+    (deactivate-input-method)
     (setq evil-input-method nil)
     (evil-normal-state))
 
