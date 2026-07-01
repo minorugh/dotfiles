@@ -3,7 +3,7 @@
 ;;
 ;; Vim流のInsert-stateは使わず、編集時は常にEmacs-stateへ強制遷移させる方針.
 ;; IME入力(mozc)との相性を優先し、"i"キーをEmacs-state+IME-onの専用入口とした.
-;; ESCはvimのNormal復帰、無変換(muhenkan)はEmacsライクなEmacs-state復帰、と役割分担.
+;; ESCはvimのNormal復帰、無変換(muhenkan)はcontext-sensitiveなquit/emacs-state復帰、と役割分担.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -20,7 +20,8 @@
 (leaf evil
   :ensure t
   :require (my-evil-cheat-sheet)       ; custom Evil help buffer
-  :hook ((after-init-hook . evil-mode))
+  :hook ((after-init-hook . evil-mode)
+         (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind ((:evil-normal-state-map
           ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
           ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
@@ -33,7 +34,6 @@
           ("@"        . evil-visual-char)
           ("_"        . evil-visual-line)
           ("?"        . my-evil-cheat-sheet)
-          ([muhenkan] . my-muhenkan)
           ([escape]   . my-evil-toggle-state)
           ([home]     . dashboard-toggle))
          (:evil-visual-state-map
@@ -44,17 +44,16 @@
           ("s"        . swiper-region)
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
-          ([insert]   . my-iedit-toggle)
-          ([muhenkan] . my-muhenkan))
+          ([insert]   . my-iedit-toggle))
          (:evil-motion-state-map
-          ([muhenkan] . my-muhenkan))
+          ([muhenkan] . my-quit-dwim))
          (:evil-replace-state-map
-          ([muhenkan] . my-muhenkan))
+          ([muhenkan] . my-quit-dwim))
          (:evil-emacs-state-map
           ("C-a"      . my-seq-home)
           ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
-          ([muhenkan] . my-muhenkan)
+          ([muhenkan] . my-quit-dwim)
           ([escape]   . my-evil-toggle-state)))
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
@@ -80,42 +79,39 @@
   ;; Force Emacs state via hooks to override major mode
   (add-hook 'yatex-mode-hook 'evil-emacs-state)
 
+  ;; Open new files in Emacs state
+  (defun my-evil-emacs-state-for-new-file ()
+    "バッファが未存在ファイルなら evil-emacs-state に切り替える."
+    (when (and (buffer-file-name)
+               (not (file-exists-p (buffer-file-name))))
+      (evil-emacs-state)))
+
 
   ;; ============================================================
   ;; Auto Restore Normal State
   ;; ============================================================
 
-  ;; 手動で normal→emacs したときにフラグをたてる
-  (add-hook 'evil-normal-state-exit-hook
-            (lambda ()
-              (when (eq evil-next-state 'emacs)
-                (setq-local my-evil--to-emacs-state t))))
+  (defun my-evil--flag-manual-to-emacs ()
+    "手動で normal→emacs したときにフラグをたてる."
+    (when (eq evil-next-state 'emacs)
+      (setq-local my-evil--to-emacs-state t)))
 
-  ;; カレントバッファでなくなったら normal-state に戻す
-  (add-hook 'post-command-hook
-            (lambda ()
-              (unless (eq (current-buffer) my-evil--current-buffer)
-                (when (and my-evil--current-buffer
-                           (buffer-live-p my-evil--current-buffer))
-                  (with-current-buffer my-evil--current-buffer
-                    (when (and my-evil--to-emacs-state
-                               (eq evil-state 'emacs)
-                               (not (apply #'derived-mode-p evil-emacs-state-modes))
-                               (not (string-match-p "\\`\\*" (buffer-name))))
-                      (setq-local my-evil--to-emacs-state nil)
-                      (evil-normal-state))))
-                (setq my-evil--current-buffer (current-buffer)))))
+  (defun my-evil--restore-normal-state-on-buffer-switch ()
+    "カレントバッファでなくなったら normal-state に戻す."
+    (unless (eq (current-buffer) my-evil--current-buffer)
+      (when (and my-evil--current-buffer
+                 (buffer-live-p my-evil--current-buffer))
+        (with-current-buffer my-evil--current-buffer
+          (when (and my-evil--to-emacs-state
+                     (eq evil-state 'emacs)
+                     (not (apply #'derived-mode-p evil-emacs-state-modes))
+                     (not (string-match-p "\\`\\*" (buffer-name))))
+            (setq-local my-evil--to-emacs-state nil)
+            (evil-normal-state))))
+      (setq my-evil--current-buffer (current-buffer))))
 
-
-  ;; ============================================================
-  ;; New files open in Emacs state
-  ;; ============================================================
-
-  (add-hook 'find-file-hook
-            (lambda ()
-              (when (and (buffer-file-name)
-                         (not (file-exists-p (buffer-file-name))))
-                (evil-emacs-state))))
+  (add-hook 'evil-normal-state-exit-hook #'my-evil--flag-manual-to-emacs)
+  (add-hook 'post-command-hook #'my-evil--restore-normal-state-on-buffer-switch)
 
 
   ;; ============================================================
@@ -137,12 +133,11 @@
   ;; ============================================================
 
   (defun my-evil-toggle-state ()
-    "ESCでnormal-state⇔emacs-stateをtoggleする.
-normal-state側ではevilのデフォルト動作(保留中コマンドのキャンセル)を保持する."
+    "ESCでnormal-state⇔emacs-stateをtoggleする."
     (interactive)
     (if (evil-normal-state-p)
         (progn
-          (evil-force-normal-state)  ; 保留中のcount/prefix等をクリア(evil既定のESC挙動)
+          (evil-force-normal-state)  ; evil既定のESC挙動
           (evil-emacs-state))
       (when current-input-method
         (deactivate-input-method))
@@ -150,11 +145,11 @@ normal-state側ではevilのデフォルト動作(保留中コマンドのキャ
 
 
   ;; ============================================================
-  ;;  Universal Escape Key (muhenkan)
+  ;;  muhenkan: Universal escape & Quit
   ;; ============================================================
 
-  (defun my-muhenkan ()
-    "Universal escape key — context-sensitive quit/state switch."
+  (defun my-quit-dwim ()
+    "Context-sensitive quit / evil-state escape."
     (interactive)
     (cond
      ;; iedit-mode中なら終了してnormal-stateへ
@@ -182,6 +177,7 @@ normal-state側ではevilのデフォルト動作(保留中コマンドのキャ
 
 ;; ============================================================
 ;;  iedit
+;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
 ;; ============================================================
 
 (leaf iedit
@@ -189,10 +185,7 @@ normal-state側ではevilのデフォルト動作(保留中コマンドのキャ
   :after evil
   :config
   (defun my-iedit-toggle ()
-    "Toggle `iedit-mode’.
-Visual-state で範囲選択中ならその範囲を対象に iedit を起動する.
-キーマップ競合を避けるため iedit 中は evil-emacs-state に切り替え、
-終了時は evil-normal-state に戻る."
+    "Toggle `iedit-mode'."
     (interactive)
     (if (bound-and-true-p iedit-mode)
         (progn
@@ -209,14 +202,11 @@ Visual-state で範囲選択中ならその範囲を対象に iedit を起動す
 
 
 ;; ============================================================
-;;  Normal-state Leader Key ";"
 ;;  Normal state のまま軽微な編集を完結させるための仕組み。
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
-;;  muhenkan で Emacs state へ。
 ;; ============================================================
 
 (leaf evil-leader-map
-  :doc "Normal-state leader key ';' for edit commands without leaving Normal state."
   :require (my-sen-cleanup)  ;; minoru_sen commands
   :after evil
   :config
