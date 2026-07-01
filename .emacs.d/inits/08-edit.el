@@ -51,14 +51,6 @@
   :bind (("C-_" . undo-fu-only-undo)
          ("C-/" . undo-fu-only-redo)))
 
-(leaf undohist
-  :ensure t
-  :doc "Persist undo history across sessions."
-  :hook (after-init-hook . undohist-initialize)
-  :config
-  (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
-  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
-
 
 ;; ============================================================
 ;;  Diff / Ediff

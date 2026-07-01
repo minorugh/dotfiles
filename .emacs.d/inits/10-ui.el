@@ -132,8 +132,16 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (setq doom-modeline-icon            t)
   (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes     nil)
+  (setq doom-modeline-percent-position nil)
   (line-number-mode   0)
   (column-number-mode 0))
+
+(leaf nyan-mode
+  :ensure t
+  :hook (doom-modeline-mode-hook . (lambda () (nyan-mode 1)))
+  :config
+  (setq nyan-animate-nyancat t)
+  (setq nyan-bar-length 16))
 
 
 ;; ============================================================
@@ -161,8 +169,8 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (defun my-modeline-popup-window-p (w)
     "Return non-nil if W is a popup that should not count as a real split."
     (or (window-minibuffer-p w)
-	(string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key\\|\\*evil-cheat\\*\\|\\*Permission Help\\*"
-			(buffer-name (window-buffer w)))))
+        (string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key\\|\\*evil-cheat\\*\\|\\*Permission Help\\*"
+                        (buffer-name (window-buffer w)))))
 
   (defun my-update-modeline-for-split ()
     "Highlight active mode-line when 2 or more real windows are visible."
