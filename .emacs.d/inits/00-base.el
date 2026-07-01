@@ -130,7 +130,7 @@
          ("s-v"        . clipboard-yank)
          ("C-q"        . other-window-or-split)
          ("C-<tab>"    . quoted-insert)
-         ([muhenkan]   . my-muhenkan) ; multipurpose quit — see 03-evil.el
+         ([muhenkan]   . my-quit-dwim) ; multipurpose quit — see 02-evil.el
          ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
   :init
   (defun my-upcase-word (arg)
