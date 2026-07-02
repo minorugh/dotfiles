@@ -14,7 +14,7 @@
 
 (leaf deepl-translate
   :doc "Translation in minibuffer & copy result to clipboard."
-  :bind ("C-c d" . deepl-translate)
+  ;; :bind ("C-c d" . deepl-translate)
   :init
   (load (expand-file-name "~/.env_source/tokens/deepl-api.el"))
 

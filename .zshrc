@@ -310,3 +310,4 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(gh completion -s zsh)"
 
 ### end
+export PATH=~/.npm-global/bin:$PATH

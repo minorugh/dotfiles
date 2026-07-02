@@ -220,7 +220,14 @@ gist: ## gist コマンドのインストールと設定
 	sudo cp $$(ruby -e 'puts Gem.user_dir')/bin/gist /usr/local/bin/gist
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gist
 
-textlint: ## textlint一式のグローバルインストール＋設定リンク（俳句サイトのため通常OFF、使う時だけ手動実行）
+npm-setup: ## npmのグローバルインストール先を~/.npm-globalに変更（sudoなしでnpm install -gできるように）
+	mkdir -p ${HOME}/.npm-global
+	npm config set prefix '${HOME}/.npm-global'
+	grep -qF 'npm-global/bin' ${HOME}/.zshrc || \
+		echo 'export PATH=~/.npm-global/bin:$$PATH' >> ${HOME}/.zshrc
+	@echo "✓ npm prefix設定完了。反映には 'source ~/.zshrc' または再ログインが必要です。"
+
+textlint: npm-setup ## textlint一式のグローバルインストール＋設定リンク（俳句サイトのため通常OFF、使う時だけ手動実行）
 	npm install -g \
 		textlint \
 		textlint-filter-rule-allowlist \
