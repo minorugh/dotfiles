@@ -1,5 +1,6 @@
 ;;; 00-base.el --- Better default configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
+;; undo-fu-sesssion
 ;;; Code:
 ;; (setq debug-on-error t)
 
