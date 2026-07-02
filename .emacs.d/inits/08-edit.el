@@ -51,12 +51,13 @@
   :bind (("C-_" . undo-fu-only-undo)
          ("C-/" . undo-fu-only-redo)))
 
-(leaf undo-fu-session
+(leaf undohist
   :ensure t
-  :after undo-fu
+  :doc "Persist undo history across sessions."
+  :hook (after-init-hook . undohist-initialize)
   :config
-  (setq undo-fu-session-directory  "~/.emacs.d/tmp/undo-fu-session/")
-  (undo-fu-session-global-mode))
+  (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
 
 
 ;; ============================================================
@@ -214,10 +215,6 @@
 ;;  Flychek  (on-the-fly syntax checking)
 ;; ============================================================
 
-;; ============================================================
-;;  Flymake  (on-the-fly syntax checking)
-;; ============================================================
-
 (leaf flymake
   :tag "builtin"
   :doc "On-the-fly syntax checking."
@@ -232,25 +229,14 @@
                   "Disabling elisp-flymake-byte-compile"
                   fmt))
       (apply orig fmt args)))
-
-  ;; Hide obsolete process warnings in *Flymake log*.
-  (defun my-flymake--filter-log (orig level fmt &rest args)
-    (unless (and (eq level :warning)
-                 (stringp fmt)
-                 (string-prefix-p
-                  "byte-compile process %s obsolete"
-                  fmt))
-      (apply orig level fmt args)))
+  (advice-add 'message :around #'my-flymake--filter-message)
 
   (with-eval-after-load 'elisp-mode
     (advice-add 'elisp-flymake-byte-compile :around
                 (lambda (orig-fun report-fn &rest args)
                   (condition-case nil
                       (apply orig-fun report-fn args)
-                    (user-error nil)))))
-
-  (advice-add 'message :around #'my-flymake--filter-message)
-  (advice-add 'flymake-log :around #'my-flymake--filter-log))
+                    (user-error nil))))))
 
 
 ;; Local Variables:
