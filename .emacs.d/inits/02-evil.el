@@ -143,22 +143,18 @@
   ;;  muhenkan: Universal escape & Quit
   ;; ============================================================
 
-  (defun my-quit-temp-window ()
-    "現在のフレーム内に一時ウィンドウ(quit-restore窓)があれば閉じる."
-    (catch 'done
-      (dolist (win (window-list))
-        (when (window-parameter win 'quit-restore)
-          (quit-window nil win)
-          (throw 'done t)))))
-
   (defun my-quit-dwim ()
-    "文脈に応じてquit/evil-state escapeを行う."
+    "Context-sensitive quit / evil-state escape."
     (interactive)
     (cond
      ;; iedit-mode中なら終了してnormal-stateへ
      ((bound-and-true-p iedit-mode)
       (iedit-mode -1)
       (evil-normal-state))
+     ;; *Help* バッファが開いていれば閉じる
+     ((get-buffer-window "*Help*")
+      (delete-window (get-buffer-window "*Help*"))
+      (kill-buffer "*Help*"))
      ;; ミニバッファ操作中なら中断
      ((minibuffer-window-active-p (selected-window))
       (abort-minibuffers))
@@ -168,88 +164,86 @@
       (abort-recursive-edit))
      ;; リージョンがあれば解除
      ((use-region-p) (deactivate-mark))
-     ;; 一時ウィンドウ(*Help*, *Completions* 等)が開いていれば閉じる
-     ((my-quit-temp-window))
      ;; Normal → Emacs、それ以外 → Normal
      ((evil-normal-state-p) (evil-emacs-state))
      (t (deactivate-input-method)
-        (evil-normal-state))))
+        (evil-normal-state)))))
 
 
-  ;; ============================================================
-  ;;  iedit
-  ;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
-  ;; ============================================================
+;; ============================================================
+;;  iedit
+;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
+;; ============================================================
 
-  (leaf iedit
-    :ensure t
-    :after evil
-    :config
-    (defun my-iedit-toggle ()
-      "Toggle `iedit-mode'."
-      (interactive)
-      (if (bound-and-true-p iedit-mode)
-          (progn
-            (iedit-mode -1)
-            (evil-normal-state))
-        (let ((beg (and (use-region-p) (region-beginning)))
-              (end (and (use-region-p) (region-end))))
-          (evil-emacs-state)
-          (when (and beg end)
-            (set-mark beg)
-            (goto-char end)
-            (activate-mark))
-          (iedit-mode)))))
+(leaf iedit
+  :ensure t
+  :after evil
+  :config
+  (defun my-iedit-toggle ()
+    "Toggle `iedit-mode'."
+    (interactive)
+    (if (bound-and-true-p iedit-mode)
+        (progn
+          (iedit-mode -1)
+          (evil-normal-state))
+      (let ((beg (and (use-region-p) (region-beginning)))
+            (end (and (use-region-p) (region-end))))
+        (evil-emacs-state)
+        (when (and beg end)
+          (set-mark beg)
+          (goto-char end)
+          (activate-mark))
+        (iedit-mode)))))
 
 
-  ;; ============================================================
-  ;;  Normal state のまま軽微な編集を完結させるための仕組み。
-  ;;  ESC でキャンセル、完了後も Normal state に留まる。
-  ;; ============================================================
+;; ============================================================
+;;  Normal state のまま軽微な編集を完結させるための仕組み。
+;;  ESC でキャンセル、完了後も Normal state に留まる。
+;; ============================================================
 
-  (leaf evil-leader-map
-    :require (my-sen-cleanup)  ;; minoru_sen commands
-    :after evil
-    :config
-    (setq echo-keystrokes 0)
+(leaf evil-leader-map
+  :require (my-sen-cleanup)  ;; minoru_sen commands
+  :after evil
+  :config
+  (setq echo-keystrokes 0)
 
-    (defvar my-normal-leader-map (make-sparse-keymap)
-      "Prefix map triggered by ';' in evil-normal-state.")
+  (defvar my-normal-leader-map (make-sparse-keymap)
+    "Prefix map triggered by ';' in evil-normal-state.")
 
-    (define-key evil-normal-state-map ";" my-normal-leader-map)
+  (define-key evil-normal-state-map ";" my-normal-leader-map)
 
-    (let ((m my-normal-leader-map))
-      (define-key m "f" #'counsel-find-file)     ; ファイル検索
-      (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
-      (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
-      (define-key m ";" #'comment-line)          ; コメントトグル
-      (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-      (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
-      (define-key m "r" #'my-sen-restore)        ; restore sen markers
-      (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
-      (define-key m "s" #'swiper)                ; swiper 検索
-      (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
+  (let ((m my-normal-leader-map))
+    (define-key m "f" #'counsel-find-file)     ; ファイル検索
+    (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
+    (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
+    (define-key m ";" #'comment-line)          ; コメントトグル
+    (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+    (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
+    (define-key m "r" #'my-sen-restore)        ; restore sen markers
+    (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
+    (define-key m "s" #'swiper)                ; swiper 検索
+    (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
 
-    ;;  Leader Key Helper Commands
-    (defun my-newline-above ()
-      "Insert a blank line above the current line without leaving Normal state."
-      (interactive)
-      (save-excursion
-        (beginning-of-line)
-        (open-line 1)))
+  ;;  Leader Key Helper Commands
+  (defun my-newline-above ()
+    "Insert a blank line above the current line without leaving Normal state."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (open-line 1)))
 
-    (defun my-emacs-state-mozc ()
-      "Switch to Emacs state and activate Mozc input method."
-      (interactive)
-      (evil-emacs-state)
-      (activate-input-method "japanese-mozc"))
+  (defun my-emacs-state-mozc ()
+    "Switch to Emacs state and activate Mozc input method."
+    (interactive)
+    (evil-emacs-state)
+    (activate-input-method "japanese-mozc"))
 
-    (defun my-insert-maru ()
-      "Insert ◎ at the beginning of the current line.  Bound to ;@."
-      (interactive)
-      (save-excursion
-        (beginning-of-line)
-        (insert "◎")))))
+  (defun my-insert-maru ()
+    "Insert ◎ at the beginning of the current line.  Bound to ;@."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (insert "◎"))))
 
 
 ;; Local Variables:
