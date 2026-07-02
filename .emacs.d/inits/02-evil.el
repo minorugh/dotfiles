@@ -172,7 +172,6 @@
 
 ;; ============================================================
 ;;  iedit
-;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
 ;; ============================================================
 
 (leaf iedit
@@ -180,7 +179,7 @@
   :after evil
   :config
   (defun my-iedit-toggle ()
-    "Toggle `iedit-mode'."
+    "Switch to emacs-state and run iedit. After exiting, return to normal-state."
     (interactive)
     (if (bound-and-true-p iedit-mode)
         (progn
@@ -202,7 +201,7 @@
 ;; ============================================================
 
 (leaf evil-leader-map
-  :require (my-sen-cleanup)  ;; minoru_sen commands
+  :require (my-sen-cleanup)                    ; minoru_sen commands
   :after evil
   :config
   (setq echo-keystrokes 0)
