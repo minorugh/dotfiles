@@ -26,17 +26,16 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root._/_^^  _._files^  make._k_._b_._m_._u_^  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_.Sn_o_te  _g_it._p_jct^^  fl_y_make  _f_ind._1__2__3_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_.Sn_o_te  _g_it._p_jct^^  _f_ly-err  find._1__2__3_
 "
    ("p" project-find-regexp)
    ("t" my-open-tig)
-   ("y" flymake-show-buffer-diagnostics)
+   ("f" flycheck-list-errors)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("a" keepassxc)
    ("g" counsel-git)
-   ("f" counsel-find-file)
    ("o" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)        ;; 実体は 40-remote.el を参照
@@ -49,6 +48,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("1" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
    ("2" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
+   ("3" counsel-find-file)
    ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
@@ -58,7 +58,6 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
-   ("3" neomutt-restart)
    ("v" markdown-preview)
    ("@" howm-list-all)
    ("," my-howm-create-with-category)

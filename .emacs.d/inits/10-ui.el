@@ -169,37 +169,44 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (defun my-modeline-popup-window-p (w)
     "Return non-nil if W is a popup that should not count as a real split."
     (or (window-minibuffer-p w)
-        (string-match-p "\\*hydra\\|lv\\|\\*Flymake\\|\\*Compilation\\|which-key\\|\\*evil-cheat\\*\\|\\*Permission Help\\*"
-                        (buffer-name (window-buffer w)))))
+	(rx (or "*hydra"
+		"lv"
+		"*Flycheck errors"
+		"*Compilation"
+		"which-key"
+		"*evil-cheat*"
+		"*Permission Help*"))
+	(buffer-name (window-buffer w))))
 
-  (defun my-update-modeline-for-split ()
-    "Highlight active mode-line when 2 or more real windows are visible."
-    (run-with-idle-timer
-     0.1 nil
-     (lambda ()
-       (let ((wins (cl-count-if-not #'my-modeline-popup-window-p (window-list))))
-         (if (> wins 1)
-             (progn
+
+    (defun my-update-modeline-for-split ()
+      "Highlight active mode-line when 2 or more real windows are visible."
+      (run-with-idle-timer
+       0.1 nil
+       (lambda ()
+	 (let ((wins (cl-count-if-not #'my-modeline-popup-window-p (window-list))))
+           (if (> wins 1)
+               (progn
+		 (set-face-attribute 'mode-line nil
+                                     :background "#44475a"
+                                     :box '(:line-width 2 :color "#bd93f9"))
+		 (set-face-attribute 'doom-modeline-bar nil
+                                     :background "#bd93f9"))
+             ;; 1ペインに戻ったら確実に復元する
+             (when my-modeline-default-bg
                (set-face-attribute 'mode-line nil
-                                   :background "#44475a"
-                                   :box '(:line-width 2 :color "#bd93f9"))
+                                   :background my-modeline-default-bg
+                                   :box (or my-modeline-default-box 'unspecified))
                (set-face-attribute 'doom-modeline-bar nil
-                                   :background "#bd93f9"))
-           ;; 1ペインに戻ったら確実に復元する
-           (when my-modeline-default-bg
-             (set-face-attribute 'mode-line nil
-                                 :background my-modeline-default-bg
-                                 :box (or my-modeline-default-box 'unspecified))
-             (set-face-attribute 'doom-modeline-bar nil
-                                 :background my-modeline-default-bg)))))))
+                                   :background my-modeline-default-bg)))))))
 
-  (add-hook 'doom-modeline-mode-hook
-            (lambda ()
-              (run-with-idle-timer 1 nil #'my-modeline-capture-defaults)))
-  (add-hook 'window-configuration-change-hook #'my-update-modeline-for-split))
+    (add-hook 'doom-modeline-mode-hook
+              (lambda ()
+		(run-with-idle-timer 1 nil #'my-modeline-capture-defaults)))
+    (add-hook 'window-configuration-change-hook #'my-update-modeline-for-split))
 
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars unresolved)
-;; End:
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars unresolved)
+  ;; End:
 ;;; 10-ui.el ends here

@@ -1,9 +1,11 @@
 ;;; 02-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Vim流のInsert-stateは使わず、編集時は常にEmacs-stateへ強制遷移させる方針.
-;; IME入力(mozc)との相性を優先し、"i"キーをEmacs-state+IME-onの専用入口とした.
-;; ESCはvimのNormal復帰、無変換(muhenkan)はcontext-sensitiveなquit/emacs-state復帰、と役割分担.
+;; ESCと無変換(muhenkan)は、どちらもnormal-state⇔emacs-stateのtoggleとして働く.
+;; ESCはこのtoggleのみを行う(結果としてemacs-state時はvimのNormal復帰と等価になる).
+;; muhenkanはtoggleに入る前に、iedit終了/*Help*クローズ/ミニバッファ中断/
+;; リージョン解除といったcontext-sensitiveなquit処理を優先させ、
+;; どれにも該当しない場合のみESCと同じtoggleにフォールバックする.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -22,7 +24,8 @@
   :require (my-evil-cheat-sheet)       ; custom Evil help buffer
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
-  :bind ((:evil-normal-state-map
+  :bind (([muhenkan]  . my-quit-dwim)
+         (:evil-normal-state-map
           ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
           ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
           ("C-w"      . evil-delete-backward-word)
@@ -45,15 +48,10 @@
           ("g"        . my-google-search)
           ("d"        . deepl-translate)
           ([insert]   . my-iedit-toggle))
-         (:evil-motion-state-map
-          ([muhenkan] . my-quit-dwim))
-         (:evil-replace-state-map
-          ([muhenkan] . my-quit-dwim))
          (:evil-emacs-state-map
           ("C-a"      . my-seq-home)
           ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
-          ([muhenkan] . my-quit-dwim)
           ([escape]   . my-evil-toggle-state)))
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
@@ -72,7 +70,7 @@
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
-  ;; Force Emacs state for special-purpose ninor modes
+  ;; Force Emacs state for special-purpose minor modes
   (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
@@ -118,14 +116,14 @@
   ;; Swap j/gj and k/gk so visual-line motion is the default
   ;; ============================================================
 
-  (defun evil-swap-key (map key1 key2)
+  (defun my-evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
     (let ((def1 (lookup-key map key1))
           (def2 (lookup-key map key2)))
       (define-key map key1 def2)
       (define-key map key2 def1)))
-  (evil-swap-key evil-motion-state-map "j" "gj")
-  (evil-swap-key evil-motion-state-map "k" "gk")
+  (my-evil-swap-key evil-motion-state-map "j" "gj")
+  (my-evil-swap-key evil-motion-state-map "k" "gk")
 
 
   ;; ============================================================
@@ -137,29 +135,30 @@
     (interactive)
     (if (evil-normal-state-p)
         (progn
-          (evil-force-normal-state)  ; evil既定のESC挙動
-          (evil-emacs-state))
-      (when current-input-method
-        (deactivate-input-method))
-      (evil-normal-state)))
+          (evil-force-normal-state) (evil-emacs-state))  ; Normal→Emacs
+      (deactivate-input-method) (evil-normal-state)))    ; Emacs→Normal
 
 
   ;; ============================================================
   ;;  muhenkan: Universal escape & Quit
   ;; ============================================================
 
+  (defun my-quit-temp-window ()
+    "現在のフレーム内に一時ウィンドウ(quit-restore窓)があれば閉じる."
+    (catch 'done
+      (dolist (win (window-list))
+        (when (window-parameter win 'quit-restore)
+          (quit-window nil win)
+          (throw 'done t)))))
+
   (defun my-quit-dwim ()
-    "Context-sensitive quit / evil-state escape."
+    "文脈に応じてquit/evil-state escapeを行う."
     (interactive)
     (cond
      ;; iedit-mode中なら終了してnormal-stateへ
      ((bound-and-true-p iedit-mode)
       (iedit-mode -1)
       (evil-normal-state))
-     ;; *Help* バッファが開いていれば閉じる
-     ((get-buffer-window "*Help*")
-      (delete-window (get-buffer-window "*Help*"))
-      (kill-buffer "*Help*"))
      ;; ミニバッファ操作中なら中断
      ((minibuffer-window-active-p (selected-window))
       (abort-minibuffers))
@@ -169,86 +168,88 @@
       (abort-recursive-edit))
      ;; リージョンがあれば解除
      ((use-region-p) (deactivate-mark))
+     ;; 一時ウィンドウ(*Help*, *Completions* 等)が開いていれば閉じる
+     ((my-quit-temp-window))
      ;; Normal → Emacs、それ以外 → Normal
      ((evil-normal-state-p) (evil-emacs-state))
      (t (deactivate-input-method)
-        (evil-normal-state)))))
+        (evil-normal-state))))
 
 
-;; ============================================================
-;;  iedit
-;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
-;; ============================================================
+  ;; ============================================================
+  ;;  iedit
+  ;;  iedit中は emacs-stateに切り替え終了時は normal-stateに戻る
+  ;; ============================================================
 
-(leaf iedit
-  :ensure t
-  :after evil
-  :config
-  (defun my-iedit-toggle ()
-    "Toggle `iedit-mode'."
-    (interactive)
-    (if (bound-and-true-p iedit-mode)
-        (progn
-          (iedit-mode -1)
-          (evil-normal-state))
-      (let ((beg (and (use-region-p) (region-beginning)))
-            (end (and (use-region-p) (region-end))))
-        (evil-emacs-state)
-        (when (and beg end)
-          (set-mark beg)
-          (goto-char end)
-          (activate-mark))
-        (iedit-mode)))))
+  (leaf iedit
+    :ensure t
+    :after evil
+    :config
+    (defun my-iedit-toggle ()
+      "Toggle `iedit-mode'."
+      (interactive)
+      (if (bound-and-true-p iedit-mode)
+          (progn
+            (iedit-mode -1)
+            (evil-normal-state))
+        (let ((beg (and (use-region-p) (region-beginning)))
+              (end (and (use-region-p) (region-end))))
+          (evil-emacs-state)
+          (when (and beg end)
+            (set-mark beg)
+            (goto-char end)
+            (activate-mark))
+          (iedit-mode)))))
 
 
-;; ============================================================
-;;  Normal state のまま軽微な編集を完結させるための仕組み。
-;;  ESC でキャンセル、完了後も Normal state に留まる。
-;; ============================================================
+  ;; ============================================================
+  ;;  Normal state のまま軽微な編集を完結させるための仕組み。
+  ;;  ESC でキャンセル、完了後も Normal state に留まる。
+  ;; ============================================================
 
-(leaf evil-leader-map
-  :require (my-sen-cleanup)  ;; minoru_sen commands
-  :after evil
-  :config
-  (setq echo-keystrokes 0)
+  (leaf evil-leader-map
+    :require (my-sen-cleanup)  ;; minoru_sen commands
+    :after evil
+    :config
+    (setq echo-keystrokes 0)
 
-  (defvar my-normal-leader-map (make-sparse-keymap)
-    "Prefix map triggered by ';' in evil-normal-state.")
+    (defvar my-normal-leader-map (make-sparse-keymap)
+      "Prefix map triggered by ';' in evil-normal-state.")
 
-  (define-key evil-normal-state-map ";" my-normal-leader-map)
+    (define-key evil-normal-state-map ";" my-normal-leader-map)
 
-  (let ((m my-normal-leader-map))
-    (define-key m "f" #'counsel-find-file)     ; ファイル検索
-    (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
-    (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
-    (define-key m ";" #'comment-line)          ; コメントトグル
-    (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-    (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
-    (define-key m "r" #'my-sen-restore)        ; restore sen markers
-    (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
-    (define-key m "s" #'swiper)                ; swiper 検索
-    (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
+    (let ((m my-normal-leader-map))
+      (define-key m "f" #'counsel-find-file)     ; ファイル検索
+      (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
+      (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
+      (define-key m ";" #'comment-line)          ; コメントトグル
+      (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+      (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
+      (define-key m "r" #'my-sen-restore)        ; restore sen markers
+      (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
+      (define-key m "s" #'swiper)                ; swiper 検索
+      (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
 
-  ;;  Leader Key Helper Commands
-  (defun my-newline-above ()
-    "Insert a blank line above the current line without leaving Normal state."
-    (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (open-line 1)))
+    ;;  Leader Key Helper Commands
+    (defun my-newline-above ()
+      "Insert a blank line above the current line without leaving Normal state."
+      (interactive)
+      (save-excursion
+        (beginning-of-line)
+        (open-line 1)))
 
-  (defun my-emacs-state-mozc ()
-    "Switch to Emacs state and activate Mozc input method."
-    (interactive)
-    (evil-emacs-state)
-    (activate-input-method "japanese-mozc"))
+    (defun my-emacs-state-mozc ()
+      "Switch to Emacs state and activate Mozc input method."
+      (interactive)
+      (evil-emacs-state)
+      (activate-input-method "japanese-mozc"))
 
-  (defun my-insert-maru ()
-    "Insert ◎ at the beginning of the current line.  Bound to ;@."
-    (interactive)
-    (save-excursion
-      (beginning-of-line)
-      (insert "◎"))))
+    (defun my-insert-maru ()
+      "Insert ◎ at the beginning of the current line.  Bound to ;@."
+      (interactive)
+      (save-excursion
+        (beginning-of-line)
+        (insert "◎")))))
 
 
 ;; Local Variables:
