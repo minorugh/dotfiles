@@ -71,7 +71,7 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose minor modes
-  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode))
+  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state via hooks to override major mode

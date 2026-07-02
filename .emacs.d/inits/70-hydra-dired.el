@@ -30,7 +30,7 @@
 "
    ("p" project-find-regexp)
    ("t" my-open-tig)
-   ("f" flycheck-list-errors)
+   ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
