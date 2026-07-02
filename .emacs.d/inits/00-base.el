@@ -103,15 +103,24 @@
 ;; ============================================================
 
 (leaf *defer-modes
+  :defun my-view-mode-maybe evil-emacs-state
+  :after evil
   :mode (("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
          ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'" . conf-mode)
-	 ("/crontab\\(\\..*\\)?\\'" . conf-mode)
+         ("/crontab\\(\\..*\\)?\\'" . conf-mode)
          ("\\.cgi\\'"           . perl-mode)
          ("/passwd/.*\\.cgi\\'" . text-mode))
   :hook
   (after-init-hook . global-auto-revert-mode)
   (after-init-hook . save-place-mode)
-  (after-init-hook . savehist-mode))
+  (after-init-hook . savehist-mode)
+  (find-file-hook  . my-view-mode-maybe)
+  :init
+  (defun my-view-mode-maybe ()
+    "*.log ファイルなら view-mode にする。"
+    (when (and buffer-file-name
+               (string-match-p "\\.log\\'" buffer-file-name))
+      (evil-emacs-state) (view-mode 1))))
 
 
 ;; ============================================================

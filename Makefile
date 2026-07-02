@@ -220,6 +220,24 @@ gist: ## gist コマンドのインストールと設定
 	sudo cp $$(ruby -e 'puts Gem.user_dir')/bin/gist /usr/local/bin/gist
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gist
 
+textlint: ## textlint一式のグローバルインストール＋設定リンク（俳句サイトのため通常OFF、使う時だけ手動実行）
+	npm install -g \
+		textlint \
+		textlint-filter-rule-allowlist \
+		textlint-rule-preset-ja-technical-writing \
+		textlint-rule-preset-ja-spacing \
+		textlint-rule-no-mixed-zenkaku-and-hankaku-alphabet \
+		@textlint-ja/textlint-rule-no-insert-dropping-sa \
+		textlint-rule-prefer-tari-tari \
+		textlint-rule-ja-no-orthographic-variants \
+		textlint-rule-ja-no-inappropriate-words \
+		textlint-rule-ja-overlooked-typo
+	ln -vsf {${PWD},${HOME}}/.textlintrc.js
+	@echo "✓ textlintインストール完了。動作確認: echo 'テスト。' > /tmp/t.md && textlint /tmp/t.md"
+# 俳句は定型ルールに合わないため flycheck側では常時無効化中:
+#   ~/.emacs.d 側 flycheck設定の (setq-default flycheck-disabled-checkers '(textlint)) を参照
+# 個別バッファで使う場合は C-c t でON/OFFトグル（.emacs.d側にmy/toggle-textlintを定義済みの場合）
+
 ########################################################
 ## アプリケーション（baseinstall / nextinstall 対象）
 ########################################################
