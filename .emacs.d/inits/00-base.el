@@ -115,12 +115,19 @@
   (after-init-hook . save-place-mode)
   (after-init-hook . savehist-mode)
   (find-file-hook  . my-view-mode-maybe)
+  (find-file-hook  . my-read-only-maybe)
   :init
   (defun my-view-mode-maybe ()
     "*.log ファイルなら view-mode にする。"
     (when (and buffer-file-name
                (string-match-p "\\.log\\'" buffer-file-name))
-      (evil-emacs-state) (view-mode 1))))
+      (evil-emacs-state) (view-mode 1)))
+
+  (defun my-read-only-maybe ()
+  "*.dat ファイルなら read-only にする。"
+  (when (and buffer-file-name
+             (string-match-p "\\.dat\\'" buffer-file-name))
+    (read-only-mode 1))))
 
 
 ;; ============================================================

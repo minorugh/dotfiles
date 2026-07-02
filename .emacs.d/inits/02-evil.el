@@ -28,7 +28,6 @@
          (:evil-normal-state-map
           ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
           ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
-          ("C-w"      . evil-delete-backward-word)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
