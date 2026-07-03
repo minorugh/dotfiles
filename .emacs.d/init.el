@@ -1,24 +1,13 @@
 ;;; init.el --- User initialization.  -*- lexical-binding: t -*-
 ;;; Commentary:
-;; Author: minorugh <https://github.com/minorugh/dotfiles>
-;; Package-Requires: ((Emacs "29.1"))
 ;;; Code:
 ;; (setq debug-on-error t)
-;; (with-current-buffer " *Flymake log*" (buffer-string))
-
-;; ============================================================
-;;  Version Guard
-;; ============================================================
-
-(when (version< emacs-version "29.1")
-  (error "This requires Emacs 29.1 and above!"))
-
 
 ;; ============================================================
 ;;  Startup Speed — Suppress File Handlers
 ;; ============================================================
 
-(defconst default-handlers file-name-handler-alist)
+(defvar default-handlers file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
 (add-hook 'emacs-startup-hook
@@ -59,7 +48,6 @@
 (leaf init-loader
   :ensure t
   :load-path "~/.emacs.d/elisp"   ;; Path to the local packages
-  :init
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
