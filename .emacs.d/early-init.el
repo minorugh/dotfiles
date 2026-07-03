@@ -2,9 +2,9 @@
 ;;; Commentary:
 ;; Configures early-stage initialization (pre-init.el/packages).
 ;; X11/Display settings are offloaded to ~/.Xresources to ensure:
-;;   - Proper font scaling     (Xft.dpi: 120)
-;;   - Instant dark frame      (Emacs.background/foreground) — prevents "white flash"
-;;   - No silver mode-line     (set-face-attribute) — prevents flash before theme loads
+;; - Proper font scaling     (Xft.dpi: 120)
+;; - Instant dark frame      (Emacs.background/foreground) — prevents "white flash"
+;; - No silver mode-line     (set-face-attribute) — prevents flash before theme loads
 ;;; Code:
 ;; (setq debug-on-error t)
 

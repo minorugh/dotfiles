@@ -186,7 +186,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    (:hint nil :exit t :body-pre (require 'my-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint._r_eg  yas._n_._v_._i_  _h_own  _c_aption._u_p.d_o_wn^^
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _h_own  _c_aption._u_p.d_o_wn^^
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^^^  _j_unk  _+_scale
 "
    ("+" text-scale-adjust)
@@ -197,7 +197,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("v" yas-visit-snippet-file)
    ("i" yas-insert-snippet)
    ("p" ps-print-buffer)
-   ("r" ps-print-region)
+   ("P" ps-print-region)
    ("y" (my-open "~/Dropbox/GH/year/%Y.txt" :pos -10))
    (":" (my-open "~/Dropbox/GH/year/draft.dat" :pos 1))
    ("Y" my-year-new-post)
@@ -225,6 +225,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("F" my-dselext-new-post)
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
+   ("r" my-restart-emacs)
    ("q" top-level)
    ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)

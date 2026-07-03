@@ -2,9 +2,8 @@
 ;;; Commentary:
 ;;
 ;; ESCと無変換(muhenkan)は、どちらもnormal-state⇔emacs-stateのtoggleとして働く.
-;; ESCはこのtoggleのみを行う(結果としてemacs-state時はvimのNormal復帰と等価になる).
-;; muhenkanはtoggleに入る前に、iedit終了/*Help*クローズ/ミニバッファ中断/
-;; リージョン解除といったcontext-sensitiveなquit処理を優先させ、
+;; ESCはこのtoggleのみを行う(vimのNormal復帰と等価).
+;; muhenkanは iedit終了/*Help*クローズ/ミニバッファ中断/リージョン解除といったquit処理を優先させ、
 ;; どれにも該当しない場合のみESCと同じtoggleにフォールバックする.
 ;;
 ;;; Code:
@@ -24,7 +23,7 @@
   :require (my-evil-cheat-sheet)       ; custom Evil help buffer
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
-  :bind (([muhenkan]  . my-quit-dwim)
+  :bind (([muhenkan]  . my-quit-dwim)  ;  Universal escape
          (:evil-normal-state-map
           ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
           ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
@@ -83,6 +82,14 @@
                (not (file-exists-p (buffer-file-name))))
       (evil-emacs-state)))
 
+  (defun my-emacs-state-mozc ()
+    "Switch to Emacs state at one character right and activate Mozc input method."
+    (interactive)
+    (unless (eolp)
+      (forward-char))
+    (evil-emacs-state)
+    (activate-input-method "japanese-mozc"))
+
 
   ;; ============================================================
   ;; Auto Restore Normal State
@@ -130,7 +137,7 @@
   ;; ============================================================
 
   (defun my-evil-toggle-state ()
-    "ESCでnormal-state⇔emacs-stateをtoggleする."
+    "ESC key act as toggles between normal-state and emacs-state."
     (interactive)
     (if (evil-normal-state-p)
         (progn
@@ -141,6 +148,8 @@
   ;; ============================================================
   ;;  muhenkan: Universal escape & Quit
   ;; ============================================================
+  ;; [muhenkan] key gives priority to various exit operations,
+  ;; and if none of those operations apply, it functions as the ESC key.
 
   (defun my-quit-dwim ()
     "Context-sensitive quit / evil-state escape."
@@ -166,7 +175,11 @@
      ;; Normal → Emacs、それ以外 → Normal
      ((evil-normal-state-p) (evil-emacs-state))
      (t (deactivate-input-method)
-        (evil-normal-state)))))
+        (evil-normal-state))))
+
+  ;; mozc-mode-mapが無変換キーを奪うため、my-quit-dwimで上書きする
+  (with-eval-after-load 'mozc
+    (define-key mozc-mode-map [muhenkan] #'my-quit-dwim)))
 
 
 ;; ============================================================
@@ -229,12 +242,6 @@
     (save-excursion
       (beginning-of-line)
       (open-line 1)))
-
-  (defun my-emacs-state-mozc ()
-    "Switch to Emacs state and activate Mozc input method."
-    (interactive)
-    (evil-emacs-state)
-    (activate-input-method "japanese-mozc"))
 
   (defun my-insert-maru ()
     "Insert ◎ at the beginning of the current line.  Bound to ;@."
