@@ -28,14 +28,16 @@
 (setq frame-inhibit-implied-resize t)
 
 
-
 ;; ============================================================
-;;  Encoding & Font
+;;  Language, Encoding & Font
 ;; ============================================================
 
+(set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
+
 (let ((font-size (if (string= (system-name) "P1") 18 16)))
   (push `(font . ,(format "Cica-%d" font-size)) initial-frame-alist))
+
 (setq inhibit-compacting-font-caches t)
 
 
@@ -60,8 +62,11 @@
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen  t)
 
-;; Let dashboard take over *scratch* on startup
+;; Leave the initial buffer selection to dashboard.
 (setq initial-buffer-choice nil)
+
+;; Prevent Customize from writing directly to init.el
+(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
 
 (provide 'early-init)

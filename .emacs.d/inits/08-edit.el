@@ -55,17 +55,7 @@
   :ensure t
   :hook (after-init-hook . undo-fu-session-global-mode)
   :config
-  (setq undo-fu-session-directory (locate-user-emacs-file "tmp/undo-session"))
-  (setq undo-fu-session-incompatible-files '("/tmp/")))
-
-
-;; (leaf undohist
-;;   :ensure t
-;;   :doc "Persist undo history across sessions."
-;;   :hook (after-init-hook . undohist-initialize)
-;;   :config
-;;   (setq undohist-directory     (locate-user-emacs-file "tmp/undohist"))
-;;   (setq undohist-ignored-files '("/tmp/" "COMMIT_EDITMSG")))
+  (setq undo-fu-session-directory (locate-user-emacs-file "tmp/undo-session")))
 
 
 ;; ============================================================

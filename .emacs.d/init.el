@@ -37,14 +37,15 @@
 ;; ============================================================
 
 (eval-and-compile
-  (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                       ("melpa" . "https://melpa.org/packages/")))
+  (setq package-archives
+        '(("gnu"   . "https://elpa.gnu.org/packages/")
+          ("melpa" . "https://melpa.org/packages/")))
+
   (package-initialize)
+
   (use-package leaf :ensure t)
 
   (leaf hydra :ensure t)
-
   (leaf leaf-keywords
     :ensure t
     :config
@@ -66,15 +67,6 @@
 
 
 ;; ============================================================
-;;  Language & Misc
-;; ============================================================
-
-(set-language-environment "Japanese")
-(setq-default indent-line-function 'indent-for-current-mode)
-(setq custom-file (locate-user-emacs-file "tmp/custom.el"))
-
-
-;; ============================================================
 ;;  Server
 ;; ============================================================
 
@@ -87,21 +79,6 @@
 
 
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-vc-selected-packages
-   '((git-peek :url "https://github.com/minorugh/git-peek"
-	       :only-if-missing t)
-     (tempbuf :url "https://github.com/minorugh/tempbuf"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
