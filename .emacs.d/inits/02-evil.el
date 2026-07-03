@@ -1,11 +1,6 @@
 ;;; 02-evil.el --- Evil mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; ESCと無変換(muhenkan)は、どちらもnormal-state⇔emacs-stateのtoggleとして働く.
-;; ESCはこのtoggleのみを行う(vimのNormal復帰と等価).
-;; muhenkanは iedit終了/*Help*クローズ/ミニバッファ中断/リージョン解除といったquit処理を優先させ、
-;; どれにも該当しない場合のみESCと同じtoggleにフォールバックする.
-;;
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -23,7 +18,7 @@
   :require (my-evil-cheat-sheet)       ; custom Evil help buffer
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
-  :bind (([muhenkan]  . my-quit-dwim)  ;  Universal escape
+  :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
          (:evil-normal-state-map
           ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
           ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
@@ -177,7 +172,7 @@
      (t (deactivate-input-method)
         (evil-normal-state))))
 
-  ;; mozc-mode-mapが無変換キーを奪うため、my-quit-dwimで上書きする
+  ;; mozc起動中は mozc-modeが無変換キーを奪うため my-quit-dwimで上書きする
   (with-eval-after-load 'mozc
     (define-key mozc-mode-map [muhenkan] #'my-quit-dwim)))
 
