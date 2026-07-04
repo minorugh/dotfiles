@@ -107,16 +107,27 @@
 (defvar my-seq--start nil)
 
 (defmacro my-define-seq-command (name &rest commands)
-  "NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで来たら巡回する."
-  (let ((cmdvec (apply #'vector commands)))
+  "NAME を連続で呼ぶたびに COMMANDS を順番に実行し、最後まで来たら巡回する.
+途中、ポイントが動かない(no-op な)コマンドは自動でスキップする."
+  (let ((cmdvec (apply #'vector commands))
+        (len (length commands)))
     `(defun ,name ()
        ,(format "Sequential command: %s" (mapconcat #'symbol-name commands " → "))
        (interactive)
-       (if (eq last-command this-command)
-           (setq my-seq--count (1+ my-seq--count))
+       (unless (eq last-command this-command)
          (setq my-seq--start (cons (point) (window-start))
-               my-seq--count 0))
-       (call-interactively (aref ,cmdvec (mod my-seq--count ,(length cmdvec)))))))
+               my-seq--count -1))
+       (let ((pos (point))
+             (idx my-seq--count)
+             (tried 0))
+         (setq idx (mod (1+ idx) ,len))
+         (call-interactively (aref ,cmdvec idx))
+         (setq tried 1)
+         (while (and (= (point) pos) (< tried ,len))
+           (setq idx (mod (1+ idx) ,len))
+           (call-interactively (aref ,cmdvec idx))
+           (setq tried (1+ tried)))
+         (setq my-seq--count idx)))))
 
 (defun my-seq-return ()
   "巡回開始前の位置に戻る."
@@ -125,7 +136,9 @@
   (set-window-start (selected-window) (cdr my-seq--start)))
 
 (my-define-seq-command my-seq-home
-                       beginning-of-line back-to-indentation beginning-of-buffer my-seq-return)
+                       beginning-of-line beginning-of-buffer my-seq-return)
+;; (my-define-seq-command my-seq-home
+;;                        beginning-of-line back-to-indentation beginning-of-buffer my-seq-return)
 
 (my-define-seq-command my-seq-end
                        end-of-line end-of-buffer my-seq-return)
@@ -195,7 +208,7 @@
 ;; my-selected-mode-map より mozc に横取りされるため、選択開始時に
 ;; 一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
 
-(defvar my-ime-flag nil
+(defvar-local my-ime-flag nil
   "Non-nil means IME was active before region activation.")
 
 (add-hook 'activate-mark-hook
@@ -210,7 +223,7 @@
 
 
 ;; ============================================================
-;;  Flychek  (on-the-fly syntax checking)
+;;  Flymake  (on-the-fly syntax checking)
 ;; ============================================================
 
 (leaf flymake
