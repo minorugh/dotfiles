@@ -70,7 +70,7 @@
   ;; Items: P1 shows haiku + recents; other machines show recents only
   (if (string-match "P1" (system-name))
       (setq dashboard-items '((haiku . 1) (recents . 5)))
-    (setq dashboard-items '((recents . 5))))
+    (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────
   (setq dashboard-footer-messages '("God Bless Our Home And All Who Enter Here."))
