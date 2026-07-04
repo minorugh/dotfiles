@@ -60,6 +60,7 @@ set new_mail_command="notify-send --icon=neomutt 'New Email' '%n new messages, %
 
 # --- エディタ・アドレス帳 -----------------------------------
 set editor="emacsclient"
+set abort_unmodified = no
 set query_command= "abook --mutt-query '%s'"
 macro index,pager a  "<pipe-message>bash ~/.mutt/abook-add.sh<return>" "Add this sender to Abook"
 macro index,pager \Ca "<shell-escape>abook<return>" "Open abook"

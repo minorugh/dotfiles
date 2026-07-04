@@ -196,3 +196,27 @@
 5:毎日句会会員に推薦します|
 1:ktanabe5818@gmail.com|
 5:毎日句会メンバーに推薦します|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+0:tmux respawn-pane -k -t mail:0.0|
+1:エックスサーバー メンテナンス <support@xserver.ne.jp>, |
+5:Re: 『一部のお客様アカウント収容サーバー』7/5 AM2:00頃〜AM8:00頃にかけての10分〜20分程度のサーバー停止を伴う緊急システムメンテナンスについて|
+2:set edit_headers?|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+1:エックスサーバー メンテナンス <support@xserver.ne.jp>, |
+5:Re: 『一部のお客様アカウント収容サーバー』7/5 AM2:00頃〜AM8:00頃にかけての10分〜20分程度のサーバー停止を伴う緊急システムメンテナンスについて|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+1:エックスサーバー メンテナンス <support@xserver.ne.jp>, |
+5:Re: 『一部のお客様アカウント収容サーバー』7/5 AM2:00頃〜AM8:00頃にかけての10分〜20分程度のサーバー停止を伴う緊急システムメンテナンスについて|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+5:1|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|

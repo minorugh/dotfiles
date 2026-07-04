@@ -153,7 +153,7 @@ If region isn't selected, post from the buffer."
   (setq ps-printer-name      nil)
   (setq ps-print-header      nil)
   (setq ps-print-footer      nil)
-  (setq ps-font-size         9)
+  (setq ps-font-size         10)
   (setq ps-font-family      'Courier)
   (setq ps-line-number-font 'Courier)
   (setq ps-line-number       t)

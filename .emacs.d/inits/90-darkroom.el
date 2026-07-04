@@ -22,9 +22,7 @@
     (setq-local darkroom-text-scale-increase 2)
     (darkroom-mode 1)
     (toggle-frame-fullscreen)
-    ;; mutt から emacsclient(server-visit) 経由で起動した場合、
-    ;; 即時に evil-normal-state を呼んでも反映されないため遅延させる.
-    (run-with-timer 0.3 nil #'evil-normal-state))
+    (evil-emacs-state))
 
   (defun my-darkroom-out ()
     "Leave distraction-free mode."
@@ -55,17 +53,11 @@
 (leaf my-neomutt
   :doc "NeoMutt integration with emacsclient."
   :bind (("C-x C-c" . my-server-edit-and-iconify))
-  :hook (server-visit-hook . my-neomutt-setup)
   :init
-  (defun my-neomutt-setup ()
-    "Prepare a NeoMutt compose buffer."
-    (when (string-match "neomutt-" (buffer-name))
-      (my-darkroom-in)))
-
   (defun my-server-edit-and-iconify ()
     "Finish NeoMutt edit and iconify frame."
     (interactive)
-    (when darkroom-mode
+    (when (bound-and-true-p darkroom-mode)
       (my-darkroom-out))
     (server-edit)
     (kill-buffer)
