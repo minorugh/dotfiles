@@ -63,7 +63,7 @@
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
-  ;; Emacs state is sufficient as the initial state
+  ;; Force Emacs state for special-purpose major modes
   (dolist (mode '(howm-view-summary-mode easy-hugo-mode
 		  yatex-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
