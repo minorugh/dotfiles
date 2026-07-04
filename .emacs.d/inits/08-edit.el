@@ -137,8 +137,6 @@
 
 (my-define-seq-command my-seq-home
                        beginning-of-line beginning-of-buffer my-seq-return)
-;; (my-define-seq-command my-seq-home
-;;                        beginning-of-line back-to-indentation beginning-of-buffer my-seq-return)
 
 (my-define-seq-command my-seq-end
                        end-of-line end-of-buffer my-seq-return)

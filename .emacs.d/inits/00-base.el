@@ -149,28 +149,6 @@
          ("C-<tab>"    . quoted-insert)
          ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
   :init
-  (defun my-upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
-
-  (defun my-downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
-    (interactive "p")
-    (downcase-word (- arg)))
-
-  (defun my-capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
-    (interactive "p")
-    (capitalize-word (- arg)))
-
-  (defun my-keyboard-quit ()
-    "Abort minibuffer or deactivate region."
-    (interactive)
-    (if (not (use-region-p))
-        (abort-minibuffers)
-      (keyboard-quit)))
-
   (defun my-clipboard-kill-region ()
     "Kill region to clipboard, or `backward-kill-word' if no region."
     (interactive)

@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;; 2026-03-10 DeepL API 仕様変更に対応
 ;;   認証方式を POST ボディ (auth_key) から Authorization ヘッダーに変更。
-;; 2026-06-22 deepl-translate パッケージ(package-vc)を統合し直書きに変更。
-;;   分離するほどの規模ではないため。元コードは下記に保管。
-;;   https://github.com/minorugh/deepl-translate
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -14,7 +11,7 @@
 
 (leaf deepl-translate
   :doc "Translation in minibuffer & copy result to clipboard."
-  ;; :bind ("C-c d" . deepl-translate)
+  :bind ("C-c d" . deepl-translate)
   :init
   (load (expand-file-name "~/.env_source/tokens/deepl-api.el"))
 

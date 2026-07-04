@@ -229,7 +229,22 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("q" top-level)
    ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
-   ("<muhenkan>" nil)))
+   ("<muhenkan>" nil))
+  :init
+  (defun my-upcase-word (arg)
+    "Convert previous word (or ARG words) to upper case."
+    (interactive "p")
+    (upcase-word (- arg)))
+
+  (defun my-downcase-word (arg)
+    "Convert previous word (or ARG words) to down case."
+    (interactive "p")
+    (downcase-word (- arg)))
+
+  (defun my-capitalize-word (arg)
+    "Convert previous word (or ARG words) to capitalize."
+    (interactive "p")
+    (capitalize-word (- arg))))
 
 
 ;; Local Variables:
