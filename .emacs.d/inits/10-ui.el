@@ -107,7 +107,8 @@
 (leaf whitespace
   :tag "builtin"
   :doc "Visualize trailing whitespace and provide safe cleanup."
-  :hook (after-init-hook . global-whitespace-mode)
+  :hook (((prog-mode-hook markdown-mode-hook) . whitespace-mode)
+	 (text-mode-hook . (lambda () (whitespace-mode -1))))
   :bind ("C-c s" . my-cleanup-for-spaces-safe)
   :config
   (setq whitespace-style '(face trailing)) ; 行末スペースを赤くハイライト

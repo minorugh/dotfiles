@@ -137,7 +137,8 @@
 
 (leaf user-configurations
   :defun my-iconify-last-frame
-  :bind (("C-x b"      . ibuffer)
+  :bind (("C-x C-c"    . iconify-frame)
+	 ("C-x b"      . ibuffer)
          ("C-x m"      . counsel-imenu)
          ("M-,"        . xref-find-definitions)
          ("M-w"        . clipboard-kill-ring-save)
