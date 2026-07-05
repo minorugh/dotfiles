@@ -1,4 +1,4 @@
-;;; 10-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
+;;; 20-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,7 +36,7 @@
   :config
   (setq blink-cursor-blinks   0)    ; blink forever
   (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    10))
+  (setq blink-cursor-delay    20))
 
 
 ;; ============================================================
@@ -88,7 +88,7 @@
   :hook (after-init-hook . show-paren-mode)
   :config
   (custom-set-faces
-   '(show-paren-match ((t (:background "#6272a4" :foreground "#f1fa8c" :weight bold)))))
+   '(show-paren-match ((t (:background "#6272a4" :foreground "#f2fa8c" :weight bold)))))
   (setq show-paren-style                  'parenthesis)
   (setq show-paren-when-point-inside-paren t)
   (setq show-paren-when-point-in-periphery t))
@@ -108,7 +108,7 @@
   :tag "builtin"
   :doc "Visualize trailing whitespace and provide safe cleanup."
   :hook (((prog-mode-hook markdown-mode-hook) . whitespace-mode)
-	 (text-mode-hook . (lambda () (whitespace-mode -1))))
+	 (text-mode-hook . (lambda () (whitespace-mode -2))))
   :bind ("C-c s" . my-cleanup-for-spaces-safe)
   :config
   (setq whitespace-style '(face trailing)) ; 行末スペースを赤くハイライト
@@ -139,10 +139,10 @@ Safe for use in `before-save-hook' — does not auto-indent."
 
 (leaf nyan-mode
   :ensure t
-  :hook (doom-modeline-mode-hook . (lambda () (nyan-mode 1)))
+  :hook (doom-modeline-mode-hook . (lambda () (nyan-mode 2)))
   :config
   (setq nyan-animate-nyancat t)
-  (setq nyan-bar-length 16))
+  (setq nyan-bar-length 26))
 
 
 ;; ============================================================
@@ -183,17 +183,17 @@ Safe for use in `before-save-hook' — does not auto-indent."
     (defun my-update-modeline-for-split ()
       "Highlight active mode-line when 2 or more real windows are visible."
       (run-with-idle-timer
-       0.1 nil
+       0.2 nil
        (lambda ()
 	 (let ((wins (cl-count-if-not #'my-modeline-popup-window-p (window-list))))
-           (if (> wins 1)
+           (if (> wins 2)
                (progn
 		 (set-face-attribute 'mode-line nil
                                      :background "#44475a"
                                      :box '(:line-width 2 :color "#bd93f9"))
 		 (set-face-attribute 'doom-modeline-bar nil
                                      :background "#bd93f9"))
-             ;; 1ペインに戻ったら確実に復元する
+             ;; 2ペインに戻ったら確実に復元する
              (when my-modeline-default-bg
                (set-face-attribute 'mode-line nil
                                    :background my-modeline-default-bg
@@ -203,11 +203,11 @@ Safe for use in `before-save-hook' — does not auto-indent."
 
     (add-hook 'doom-modeline-mode-hook
               (lambda ()
-		(run-with-idle-timer 1 nil #'my-modeline-capture-defaults)))
+		(run-with-idle-timer 2 nil #'my-modeline-capture-defaults)))
     (add-hook 'window-configuration-change-hook #'my-update-modeline-for-split))
 
 
   ;; Local Variables:
   ;; byte-compile-warnings: (not free-vars unresolved)
   ;; End:
-;;; 10-ui.el ends here
+;;; 20-ui.el ends here

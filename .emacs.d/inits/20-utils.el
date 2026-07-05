@@ -55,38 +55,6 @@
 
 
 ;; ============================================================
-;;  NeoMutt
-;; ============================================================
-
-(define-derived-mode neomutt-mail-mode text-mode "NeoMutt"
-  "Major mode for editing NeoMutt compose buffers via emacsclient.")
-(add-to-list 'auto-mode-alist '("/neomutt-" . neomutt-mail-mode))
-
-(leaf my-neomutt
-  :doc "NeoMutt integration with emacsclient."
-  :hook ((server-visit-hook . my-neomutt-setup)
-	 (server-done-hook  . my-neomutt-server-done))
-  :bind (("C-x C-c" . server-edit))
-  :init
-  (defun my-neomutt-setup ()
-    "Prepare a NeoMutt compose buffer."
-    (when (and buffer-file-name
-               (string-match-p "neomutt" buffer-file-name))
-      (neomutt-mail-mode)))
-
-  (defun my-neomutt-server-done ()
-    "Run after `server-edit' (C-x C-c) finishes."
-    (when (derived-mode-p 'neomutt-mail-mode)
-      (when (bound-and-true-p darkroom-mode)
-        (my-darkroom-out))
-      (let ((buf (current-buffer))
-            (frame (selected-frame)))
-        (kill-buffer buf)
-        (when (frame-live-p frame)
-          (iconify-frame frame))))))
-
-
-;; ============================================================
 ;;  Package Management
 ;; ============================================================
 
@@ -118,64 +86,45 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;;  Gist / Lepton Integration
 ;; ============================================================
 
-(defun gist-description ()
-  "Add gist description."
-  (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
+(leaf my-gist-commands
+  :doc "Commands for posting gists and launching Lepton."
+  :bind (("C-x g" . gist-region-or-buffer)
+         ("C-x l" . my-open-leptom))
+  :init
+  (defun gist-description ()
+    "Add gist description."
+    (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
 
-(defun gist-filename ()
-  "The character string entered in minibuffer is used as file-name.
+  (defun gist-filename ()
+    "The character string entered in minibuffer is used as file-name.
 If enter is pressed without file-name, that's will be buffer file name."
-  (interactive)
-  (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-    (read-from-minibuffer (format "File name (%s): " file) file)))
+    (interactive)
+    (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
+      (read-from-minibuffer (format "File name (%s): " file) file)))
 
-(defun gist-region-or-buffer ()
-  "If region is selected, post from the region.
+  (defun gist-region-or-buffer ()
+    "If region is selected, post from the region.
 If region isn't selected, post from the buffer."
-  (interactive)
-  (let ((file (buffer-file-name)))
-    (if (not (use-region-p))
-        (compile (concat "gist -od " (gist-description) " " file))
-      (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-  (delete-other-windows))
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (if (not (use-region-p))
+          (compile (concat "gist -od " (gist-description) " " file))
+	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+    (delete-other-windows))
 
-(defun open-lepton ()
-  "Specify the full path, disable the sandbox if necessary, and start Lepton."
-  (interactive)
-  (start-process-shell-command
-   "lepton" nil
-   "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
-
-
-;; ============================================================
-;;  YaTeX --- Japanese LaTeX Environment
-;; ============================================================
-
-(leaf yatex
-  :ensure t
-  :doc "Yet Another tex-mode for emacs."
-  :url "https://github.com/emacsmirror/yatex"
-  :mode ("\\.tex\\'" "\\.sty\\'" "\\.cls\\'")
-  :config
-  (setq tex-command              "platex")
-  (setq dviprint-command-format  "dvpd.sh %s")
-  (setq YaTeX-kanji-code         nil)
-  (setq YaTeX-latex-message-code 'utf-8)
-  (setq YaTeX-default-pop-window-height 15))
-
-(leaf yatexprc
-  :ensure nil
-  :doc "YaTeX process handler"
-  :after yatex
-  :bind (("M-c" . YaTeX-typeset-buffer)
-         ("M-v" . YaTeX-lpr)))
+  (defun my-open-lepton ()
+    "Specify the full path, disable the sandbox if necessary, and start Lepton."
+    (interactive)
+    (start-process-shell-command
+     "lepton" nil
+     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox")))
 
 
 ;; ============================================================
 ;;  PostScript Printing
 ;; ============================================================
 
-(leaf ps-print
+(leaf my-ps-print
   :doc "PostScript printing with Japanese support."
   :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
   :if (executable-find "lpr")

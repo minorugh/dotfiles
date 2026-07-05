@@ -213,7 +213,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("D" my-diary-new-post)
    ("g" gist-region-or-buffer)
    ("G" (browse-url "https://gist.github.com/minorugh"))
-   ("l" open-lepton)
+   ("l" my-open-lepton)
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
