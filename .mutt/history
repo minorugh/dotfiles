@@ -287,3 +287,9 @@
 0:tmux respawn-pane -k -t mail:0.0|
 5:test|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+1:Ikuko Sawada <ikujune@gmail.com>, |
+5:Re: 昨日の阿佐ヶ谷吟行|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+1:やまだみのる minoru yamada <minorugh@gmail.com>, |
+5:test|

@@ -66,6 +66,7 @@
   :doc "NeoMutt integration with emacsclient."
   :hook ((server-visit-hook . my-neomutt-setup)
 	 (server-done-hook  . my-neomutt-server-done))
+  :bind (("C-x C-c" . server-edit))
   :init
   (defun my-neomutt-setup ()
     "Prepare a NeoMutt compose buffer."
@@ -74,9 +75,7 @@
       (neomutt-mail-mode)))
 
   (defun my-neomutt-server-done ()
-    "Run after `server-edit' (C-x #) finishes.
-Leaves darkroom, kills the buffer, and iconifies the frame,
-but only for NeoMutt compose buffers."
+    "Run after `server-edit' (C-x C-c) finishes."
     (when (derived-mode-p 'neomutt-mail-mode)
       (when (bound-and-true-p darkroom-mode)
         (my-darkroom-out))
