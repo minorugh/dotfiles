@@ -50,20 +50,6 @@
       (my-darkroom-in))))
 
 
-;; (leaf my-neomutt
-;;   :doc "NeoMutt integration with emacsclient."
-;;   :bind (("C-x C-c" . my-server-edit-and-iconify))
-;;   :init
-;;   (defun my-server-edit-and-iconify ()
-;;     "Finish NeoMutt edit and iconify frame."
-;;     (interactive)
-;;     (when (bound-and-true-p darkroom-mode)
-;;       (my-darkroom-out))
-;;     (server-edit)
-;;     (kill-buffer)
-;;     (iconify-frame)))
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved make-local)
 ;; End:

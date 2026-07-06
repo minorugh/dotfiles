@@ -10,7 +10,7 @@
 (leaf my-neomutt
   :doc "NeoMutt integration with emacsclient."
   :hook ((server-visit-hook . my-neomutt-setup)
-	 (server-done-hook  . my-neomutt-server-done))
+         (server-done-hook  . my-neomutt-server-done))
   :bind (("C-x C-c" . server-edit))  ; same as C-x #
   :init
   (defun my-neomutt-setup ()

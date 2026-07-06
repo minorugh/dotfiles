@@ -205,7 +205,6 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
    ("A" my-apvoice-new-post)
    ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
-   ("@" browse-at-remote)
    ("e" easy-hugo)
    ("j" (my-open "~/Dropbox/howm/junk/"))
    ("h" (my-open "~/Dropbox/howm/"))

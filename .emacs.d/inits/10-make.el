@@ -183,14 +183,6 @@ STRING is the exit status message from the compilation process."
   (add-hook 'buffer-list-update-hook #'my-makefile-buffer-list-update-hook))
 
 
-;; bklog.pl 実行後のリバート＋フォーカス回復
-;; 各句会のMakefileから emacsclient --eval "(my-bklog-refresh \"...\")" で呼ぶ
-;; (defun my-bklog-refresh ()
-;;   "Bklog.pl実行後、フォーカスを回復する."
-;;   (select-frame-set-input-focus (selected-frame))
-;;   (redraw-frame))
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

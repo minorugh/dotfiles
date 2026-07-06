@@ -20,6 +20,7 @@
   :hook (after-init-hook . key-chord-mode)
   :config
   (key-chord-define-global "l;" 'init-loader-show-log)
+  (key-chord-define-global "gg" 'beginning-of-buffer)
   ;; key-chord stall recovery
   (defun my-key-chord-ensure ()
     (when (and key-chord-mode
