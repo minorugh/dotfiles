@@ -297,3 +297,5 @@
 5:test|
 0:tmux respawn-pane -k -t mail:0.0|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
+2:set use_threads=flat sort=reverse-date-received unset sort_re|
+2:set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re|

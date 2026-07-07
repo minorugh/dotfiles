@@ -25,7 +25,7 @@
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
+         ("<f12>" . dashboard-toggle))         ; see toggle-emacs.sh below
 
 
   ;; ============================================================

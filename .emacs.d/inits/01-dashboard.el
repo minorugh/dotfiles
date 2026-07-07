@@ -27,7 +27,7 @@
   :hook ((emacs-startup-hook  . open-dashboard)
          (dashboard-mode-hook
 	  . (lambda () (set-window-margins (selected-window) 2 2))))
-  :bind ([home] . dashboard-toggle)
+  :bind ("<f12>" . dashboard-toggle)
 
   :init
   ;; ── Icons ────────────────────────────────────────────────────
