@@ -18,7 +18,7 @@
          ("<f2>"  . my-remote-select)          ; see below
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
-         ("<f5>"  . quickrun)                  ; see 20-utils.el
+         ("<f5>"  . quickrun)                  ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
          ("<f7>"  . neotree-toggle)            ; see 80-neotree.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
