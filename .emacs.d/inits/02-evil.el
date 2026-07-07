@@ -20,8 +20,7 @@
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
          (:evil-normal-state-map
-          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
-          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
+          ("C-e"      . move-end-of-line)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
@@ -42,8 +41,6 @@
           ("d"        . deepl-translate)
           ([insert]   . my-iedit-toggle))
          (:evil-emacs-state-map
-          ("C-a"      . my-seq-home)
-          ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
           ([escape]   . my-evil-toggle-state)))
   :init

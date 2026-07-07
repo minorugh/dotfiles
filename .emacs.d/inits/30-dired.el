@@ -10,8 +10,6 @@
 (leaf dired
   :hook (dired-mode-hook . my-dired-omit-mode)
   :bind (:dired-mode-map
-	 ("S-<home>" . beginning-of-buffer)
-	 ("S-<end>"  . end-of-buffer)
          ("<left>"   . my-dired-up)
          ("<right>"  . my-dired-open)
          ("RET" . my-dired-open)
