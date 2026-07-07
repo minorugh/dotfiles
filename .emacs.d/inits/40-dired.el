@@ -1,4 +1,4 @@
-;;; 30-dired.el --- Dired configurations. -*- lexical-binding: t -*-
+;;; 40-dired.el --- Dired configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -21,9 +21,9 @@
          ("t"   . my-open-tig)
 	 ("]"   . my-dired-gitk)
 	 ("p"   . my-dired-permission-help)
-         ("."   . xsrv-deploy-dired)    ; see 50-xsrv-dired.el
-         (","   . xsrv-download-dired)  ; see 50-xsrv-dired.el
-         ("b"   . my-xsrv-backup-dwim)  ; see 50-xsrv-dired.el
+         ("."   . xsrv-deploy-dired)    ; see 40-remote.el
+         (","   . xsrv-download-dired)  ; see 40-remote.el
+         ("b"   . my-xsrv-backup-dwim)  ; see 40-remote.el
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target         t)
@@ -128,7 +128,7 @@
 		 (display-buffer-in-side-window)
 		 (side . right)
 		 (slot . 0)
-		 (window-width . 30)
+		 (window-width . 40)
 		 (window-parameters . ((no-delete-other-windows . t)
                                        (mode-line-format . none)))))
 
@@ -186,4 +186,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 30-dired.el ends here
+;;; 40-dired.el ends here
