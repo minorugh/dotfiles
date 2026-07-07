@@ -148,8 +148,6 @@
          ("s-v"        . clipboard-yank)
          ("C-q"        . other-window-or-split)
          ("C-<tab>"    . quoted-insert)
-         ("S-<home>"   . beginning-of-buffer)
-         ("S-<end>"    . end-of-buffer)
          ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
   :init
   (defun my-clipboard-kill-region ()

@@ -20,7 +20,8 @@
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
          (:evil-normal-state-map
-          ("C-e"      . move-end-of-line)
+          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
+          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
           ("SPC"      . evil-scroll-page-down)
           ("b"        . evil-scroll-page-up)
           ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
@@ -41,6 +42,52 @@
           ("d"        . deepl-translate)
           ([insert]   . my-iedit-toggle))
          (:evil-emacs-state-map
+          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
+          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
+          ("SPC"      . evil-scroll-page-down)
+          ("b"        . evil-scroll-page-up)
+          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
+          ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
+          ("i"        . my-emacs-state-mozc)
+          ("@"        . evil-visual-char)
+          ("_"        . evil-visual-line)
+          ("?"        . my-evil-cheat-sheet)
+          ([escape]   . my-evil-toggle-state)
+          ([home]     . dashboard-toggle))
+         (:evil-visual-state-map
+          ([prior]    . er/expand-region)    ; Use PgUp to expand region
+          ([next]     . er/contract-region)  ; Use PgDn to contract region
+          (";"        . comment-dwim)
+          ("c"        . clipboard-kill-ring-save)
+          ("s"        . swiper-region)
+          ("g"        . my-google-search)
+          ("d"        . deepl-translate)
+          ([insert]   . my-iedit-toggle))
+         (:evil-emacs-state-map
+          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
+          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
+          ("SPC"      . evil-scroll-page-down)
+          ("b"        . evil-scroll-page-up)
+          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
+          ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
+          ("i"        . my-emacs-state-mozc)
+          ("@"        . evil-visual-char)
+          ("_"        . evil-visual-line)
+          ("?"        . my-evil-cheat-sheet)
+          ([escape]   . my-evil-toggle-state)
+          ([home]     . dashboard-toggle))
+         (:evil-visual-state-map
+          ([prior]    . er/expand-region)    ; Use PgUp to expand region
+          ([next]     . er/contract-region)  ; Use PgDn to contract region
+          (";"        . comment-dwim)
+          ("c"        . clipboard-kill-ring-save)
+          ("s"        . swiper-region)
+          ("g"        . my-google-search)
+          ("d"        . deepl-translate)
+          ([insert]   . my-iedit-toggle))
+         (:evil-emacs-state-map
+          ("C-a"      . my-seq-home)
+          ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
           ([escape]   . my-evil-toggle-state)))
   :init
