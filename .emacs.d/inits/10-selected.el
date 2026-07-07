@@ -1,4 +1,4 @@
-;;; 09-selected.el --- Region selected configurations.      -*- lexical-binding: t -*-
+;;; 10-selected.el --- Region selected configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-selected.el ends here
+;;; 10-selected.el ends here

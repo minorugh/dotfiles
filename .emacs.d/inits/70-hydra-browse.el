@@ -19,12 +19,14 @@
   ^Shop^          ^SNS^           ^🔃 Repos^     ^Blog^       ^Life^         ^Social^     ^Github^        ^Google          ^^^Favorites
   ^^^^^^^^^^^^^^^^^────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   _a_: Amazon     _t_: Twitter    _D_: Dropbox   _B_: bible   _j_: Jorudan   _K_: Keep    _1_: minorugh   _c_: calendar^^    _3_: masasam
-  _R_: Rakuten    _u_: Youtube    _F_: Flickr    _S_: snap    _n_: News      _p_: Pocket  _2_: gist       _m_: mutt/_b_ird   _4_: seagle
+  _R_: Rakuten    _u_: Youtube    _F_: Flickr    _S_: snap    _n_: News      _p_: Pocket  _2_: gist       _e_: earth^^       _4_: seagle
   _y_: Yodobashi  _i_: Instagram  _G_: Gdrive    _E_: Essay   _w_: Weather   _q_: Qiita   _d_: deploy     _M_: Map^^         _5_: Tarao
   _k_: Kakaku     _T_: Tumblr     _x_: Xserver   _l_: Blog    _b_: SanyoBas  _s_: Slack   _o_: github.io  _P_: photo^^       _6_: mugijiru
 "
+   ("e" my-google-earth)
    ("a" (browse-url "https://www.amazon.co.jp/"))
    ("R" (browse-url "https://www.rakuten.co.jp/"))
+   ("b" (browse-url "https://www.sanyo-bus.co.jp/route/index.html"))
    ("y" (browse-url "https://www.yodobashi.com/"))
    ("k" (browse-url "http://kakaku.com/"))
    ("t" (browse-url "https://twitter.com/gospelhaiku"))
@@ -42,7 +44,6 @@
    ("j" (browse-url "https://www.jorudan.co.jp/"))
    ("n" (browse-url "https://news.yahoo.co.jp/"))
    ("w" (browse-url "https://tenki.jp/week/6/31/"))
-   ("b" thunderbird)
    ("K" (browse-url "https://keep.google.com/u/0/"))
    ("p" (browse-url "https://app.raindrop.io/my/0"))
    ("q" (browse-url "https://qiita.com/minoruGH"))
@@ -59,20 +60,26 @@
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
    ("5" (browse-url "https://tarao.hatenablog.com/entry/20130304/evil_config"))
    ("6" (browse-url "https://mugijiru.github.io/.emacs.d/ui/"))
-   ("m" neomutt)
    ("<muhenkan>" nil)
    ("." nil))
 
 
   ;; ============================================================
-  ;;  Thunderbird
+  ;;  Google Earth
   ;; ============================================================
 
   :init
-  (defun thunderbird ()
-    "Open Thunderbird mail client, detached from Emacs."
+  (defun my-google-earth ()
+    "Launch Google Earth Pro."
     (interactive)
-    (call-process "setsid" nil 0 nil "thunderbird"))
+    (start-process
+     "google-earth"
+     nil
+     "/opt/google/earth/pro/google-earth-pro"))
+  ;; (defun thunderbird ()
+  ;;     "Open Thunderbird mail client, detached from Emacs."
+  ;;     (interactive)
+  ;;     (call-process "setsid" nil 0 nil "thunderbird"))
 
 
   ;; ============================================================

@@ -25,7 +25,7 @@
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . dashboard-toggle))         ; see toggle-emacs.sh below
+         ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
 
 
   ;; ============================================================
@@ -103,9 +103,28 @@ matching current buffer."
       (start-process-shell-command "ssh" nil cmd)))
 
 
-  ;; ============================================================
-  ;;  Buffer Toggles
-  ;; ============================================================
+;; ============================================================
+;;  Scratch Buffer Persistence
+;; ============================================================
+
+(leaf save-scratch
+  :doc "Save *scratch* contents at shutdown and restore at startup."
+  :hook ((kill-emacs-hook . save-scratch-buffer)
+         (after-init-hook . restore-scratch-buffer))
+  :init
+  (defun save-scratch-buffer ()
+    "Write *scratch* contents to disk."
+    (with-current-buffer "*scratch*"
+      (write-region (point-min) (point-max)
+                    (locate-user-emacs-file "tmp/scratch"))))
+
+  (defun restore-scratch-buffer ()
+    "Restore *scratch* contents from disk if the file exists."
+    (let ((f (locate-user-emacs-file "tmp/scratch")))
+      (when (file-exists-p f)
+        (with-current-buffer "*scratch*"
+          (erase-buffer)
+          (insert-file-contents f))))))
 
   (defun toggle-scratch-buffer ()
     "Toggle between *scratch* and the previous buffer."
