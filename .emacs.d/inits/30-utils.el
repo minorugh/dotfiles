@@ -1,4 +1,4 @@
-;;; 20-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
+;;; 30-utils.el --- Initialize utilities.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -126,7 +126,7 @@ If region isn't selected, post from the buffer."
 
 (leaf my-ps-print
   :doc "PostScript printing with Japanese support."
-  :url "https://tam5917.hatenablog.com/entry/20120914/1347600433"
+  :url "https://tam5917.hatenablog.com/entry/30130914/1347600433"
   :if (executable-find "lpr")
   :config
   (setq ps-multibyte-buffer 'non-latin-printer)
@@ -146,4 +146,4 @@ If region isn't selected, post from the buffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 20-utils.el ends here
+;;; 30-utils.el ends here

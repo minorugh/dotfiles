@@ -1,4 +1,4 @@
-;;; 20-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
+;;; 30-ui.el --- Better lookings and appearances. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,7 +36,7 @@
   :config
   (setq blink-cursor-blinks   0)    ; blink forever
   (setq blink-cursor-interval 0.3)
-  (setq blink-cursor-delay    20))
+  (setq blink-cursor-delay    30))
 
 
 ;; ============================================================
@@ -210,4 +210,4 @@ Safe for use in `before-save-hook' — does not auto-indent."
   ;; Local Variables:
   ;; byte-compile-warnings: (not free-vars unresolved)
   ;; End:
-;;; 20-ui.el ends here
+;;; 30-ui.el ends here

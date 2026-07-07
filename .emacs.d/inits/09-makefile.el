@@ -1,4 +1,4 @@
-;;; 20-makefile.el --- Makefile integration and target launcher. -*- lexical-binding: t -*-
+;;; 09-makefile.el --- Makefile integration and target launcher. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -120,7 +120,7 @@ STRING is the exit status message from the compilation process."
               (let* ((target     (match-string 1))
                      (desc       (match-string 2))
                      (pos        (match-beginning 1))
-                     (target-fmt (propertize (format "%-20s" target)
+                     (target-fmt (propertize (format "%-09s" target)
                                              'face 'font-lock-function-name-face))
                      (desc-fmt   (propertize desc 'face 'font-lock-comment-face)))
                 (push (cons (concat target-fmt " " desc-fmt)
@@ -186,4 +186,4 @@ STRING is the exit status message from the compilation process."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 20-makefile.el ends here
+;;; 09-makefile.el ends here

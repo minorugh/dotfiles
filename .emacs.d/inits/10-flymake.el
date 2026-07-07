@@ -1,4 +1,4 @@
-;;; 09-flymake.el --- Flymake configurations.      -*- lexical-binding: t -*-
+;;; 10-flymake.el --- Flymake configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -30,4 +30,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-flymake.el ends here
+;;; 10-flymake.el ends here
