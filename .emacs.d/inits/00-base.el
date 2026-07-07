@@ -79,7 +79,6 @@
 ;; ============================================================
 
 (leaf savehist
-  :doc "Save minibuffer entry history"
   :tag "builtin"
   :hook (after-init-hook . savehist-mode)
   :config
@@ -88,15 +87,17 @@
   (setq history-delete-duplicates      t)
   (setq savehist-additional-variables '(extended-command-history
                                         my-describe-history)))
-
-(run-with-idle-timer 0.5 nil #'recentf-mode)
-(setq recentf-max-saved-items 100)
-(setq recentf-auto-cleanup    'never)
-(setq recentf-save-file       (locate-user-emacs-file "tmp/recentf"))
-(setq recentf-exclude
-      (list (expand-file-name "elpa/" user-emacs-directory)
-            (expand-file-name "tmp/"  user-emacs-directory)
-            "\\.howm-keys" "/session\\." "task.org" "/Dropbox/backup/" "/scp:" "neomutt-"))
+(leaf recentf
+  :tag "builtin"
+  :config
+  (run-with-idle-timer 0.5 nil #'recentf-mode)
+  (setq recentf-max-saved-items 100)
+  (setq recentf-auto-cleanup    'never)
+  (setq recentf-save-file       (locate-user-emacs-file "tmp/recentf"))
+  (setq recentf-exclude
+        (list (expand-file-name "elpa/" user-emacs-directory)
+              (expand-file-name "tmp/"  user-emacs-directory)
+              "\\.howm-keys" "/session\\." "task.org" "/Dropbox/backup/" "/scp:" "neomutt-")))
 
 
 ;; ============================================================
@@ -125,10 +126,10 @@
       (evil-emacs-state) (view-mode 1)))
 
   (defun my-read-only-maybe ()
-  "*.dat ファイルなら read-only にする。"
-  (when (and buffer-file-name
-             (string-match-p "\\.dat\\'" buffer-file-name))
-    (read-only-mode 1))))
+    "*.dat ファイルなら read-only にする。"
+    (when (and buffer-file-name
+               (string-match-p "\\.dat\\'" buffer-file-name))
+      (read-only-mode 1))))
 
 
 ;; ============================================================
@@ -147,8 +148,8 @@
          ("s-v"        . clipboard-yank)
          ("C-q"        . other-window-or-split)
          ("C-<tab>"    . quoted-insert)
-	 ("S-<home>"   . beginning-of-buffer)
-	 ("S-<end>"    . end-of-buffer)
+         ("S-<home>"   . beginning-of-buffer)
+         ("S-<end>"    . end-of-buffer)
          ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
   :init
   (defun my-clipboard-kill-region ()
