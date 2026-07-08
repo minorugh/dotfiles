@@ -52,7 +52,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap keyd grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer
 
 .ONESHELL:
@@ -102,22 +102,14 @@ tig: ## tig の設定展開
 	mkdir -p ${HOME}/.config/tig
 	ln -vsf ${PWD}/.config/tig/config ${HOME}/.config/tig/config
 
+# キー変換は全てここに集約する。
+# - CapsLock→Ctrl: 標準XKBオプションのためシステムXKBで管理
+# - PrtSc/ろ/F13-F17: ハードウェア固有のためxmodmapで管理（keydは重複のため2026.07.08廃止）
 keymap: ## キーマップのカスタマイズ（CapsLock→Ctrl / .Xmodmap展開）
 	ln -vsf {${PWD},${HOME}}/.Xmodmap
 	sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 	sudo dpkg-reconfigure -f noninteractive keyboard-configuration
 	setxkbmap -layout jp -option ctrl:nocaps
-
-keyd: ## keyd のインストールと設定（PrtSc→Alt_R 専用、CapsLockは非対応）
-	$(APT) git build-essential
-	cd ${HOME}/src && \
-	git clone https://github.com/rvaiya/keyd && \
-	cd keyd && \
-	make && \
-	sudo make install
-	sudo ln -vsf ${PWD}/etc/keyd/default.conf /etc/keyd/default.conf
-	sudo systemctl enable keyd
-	sudo systemctl start keyd
 
 ifeq ($(shell uname -n),P1)
 grub: ## grub・lightdm・logind の設定（P1のみ）

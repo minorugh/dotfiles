@@ -24,28 +24,13 @@ setxkbmap -layout jp -option ctrl:nocaps
 #   - keycode 191-195 (Keychron QMK 単押し送出) → F13-F17 として命名
 #     ※ F13-F17 は xmodmap で名前をつけないと 0xef8d 等の未定義 keysym になり
 #        Emacs・Xfce どちらも認識できないため必須
+#
+# 再適用の保険は cron（毎分）と Emacs の my-reload-xenv（手動）で担う。
+# ThinkPad純正キーボード時代のイベント駆動ウォッチャーは
+# Keychron移行により失速が激減したため廃止（2026.07.08）。
 if [ -f ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
-
-# XKB 変化イベントを監視して xmodmap を自動再適用するウォッチャー
-#
-# 目的：
-#   以下のいずれかが発生すると XKB がリセットされ xmodmap の設定が失われる。
-#     - ThinkPad 内蔵キーボードを操作したとき（外部キーボードとの競合）
-#     - スリープ復帰後
-#     - IME 等が XKB を上書きしたとき
-#   _XKB_RULES_NAMES プロパティの変化を xprop で監視し、
-#   変化を検知したら 0.3 秒待って（競合状態を回避）xmodmap を再適用する。
-#
-# 備考：
-#   - イベント駆動のため常時ポーリングより遥かに軽量
-#   - 単独では失速を取りこぼす場合があることが判明しているため
-#     cron による毎分実行と併用して多重防御とする
-#   - Xfce4 セッション終了時にプロセスも自動終了する
-(xprop -root -spy _XKB_RULES_NAMES | while read -r _; do
-    sleep 0.3 && xmodmap ~/.Xmodmap
-done) &
 
 #------------------------------------------------------------
 # SSH agent (keychain)

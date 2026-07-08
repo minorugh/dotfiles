@@ -33,7 +33,6 @@
   (package-initialize)
 
   (use-package leaf :ensure t)
-
   (leaf hydra :ensure t)
   (leaf leaf-keywords
     :ensure t
@@ -47,7 +46,7 @@
 
 (leaf init-loader
   :ensure t
-  :load-path "~/.emacs.d/elisp"   ;; Path to the local packages
+  :load-path "~/.emacs.d/elisp"   ; Path to the local packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
