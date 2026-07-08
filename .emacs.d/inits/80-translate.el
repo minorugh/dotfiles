@@ -10,6 +10,7 @@
 ;;  実体: ~/.emacs.d/elisp/my-deepl-translate.el
 ;; ============================================================
 
+;; Load the DeepL API key for my-deepl-translate.el
 (load "~/.env_source/tokens/deepl-api.el")
 
 (autoload 'deepl-translate "my-deepl-translate" nil t)
