@@ -42,50 +42,6 @@
           ("d"        . deepl-translate)
           ([insert]   . my-iedit-toggle))
          (:evil-emacs-state-map
-          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
-          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
-          ("SPC"      . evil-scroll-page-down)
-          ("b"        . evil-scroll-page-up)
-          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
-          ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
-          ("i"        . my-emacs-state-mozc)
-          ("@"        . evil-visual-char)
-          ("_"        . evil-visual-line)
-          ("?"        . my-evil-cheat-sheet)
-          ([escape]   . my-evil-toggle-state)
-          ([home]     . dashboard-toggle))
-         (:evil-visual-state-map
-          ([prior]    . er/expand-region)    ; Use PgUp to expand region
-          ([next]     . er/contract-region)  ; Use PgDn to contract region
-          (";"        . comment-dwim)
-          ("c"        . clipboard-kill-ring-save)
-          ("s"        . swiper-region)
-          ("g"        . my-google-search)
-          ("d"        . deepl-translate)
-          ([insert]   . my-iedit-toggle))
-         (:evil-emacs-state-map
-          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
-          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
-          ("SPC"      . evil-scroll-page-down)
-          ("b"        . evil-scroll-page-up)
-          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
-          ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
-          ("i"        . my-emacs-state-mozc)
-          ("@"        . evil-visual-char)
-          ("_"        . evil-visual-line)
-          ("?"        . my-evil-cheat-sheet)
-          ([escape]   . my-evil-toggle-state)
-          ([home]     . dashboard-toggle))
-         (:evil-visual-state-map
-          ([prior]    . er/expand-region)    ; Use PgUp to expand region
-          ([next]     . er/contract-region)  ; Use PgDn to contract region
-          (";"        . comment-dwim)
-          ("c"        . clipboard-kill-ring-save)
-          ("s"        . swiper-region)
-          ("g"        . my-google-search)
-          ("d"        . deepl-translate)
-          ([insert]   . my-iedit-toggle))
-         (:evil-emacs-state-map
           ("C-a"      . my-seq-home)
           ("C-e"      . my-seq-end)
           ([insert]   . my-iedit-toggle)
@@ -109,7 +65,7 @@
 
   ;; Force Emacs state for special-purpose major modes
   (dolist (mode '(howm-view-summary-mode easy-hugo-mode
-		  yatex-mode neotree-mode fundamental-mode))
+                                         yatex-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Open new files in Emacs state
@@ -119,10 +75,12 @@
                (not (file-exists-p (buffer-file-name))))
       (evil-emacs-state)))
 
+  ;; Switch to Emacs state and enable Mozc.
   (defun my-emacs-state-mozc ()
-    "Switch to Emacs state at one character right and activate Mozc input method."
+    "If it's at the end of a line, shift it one character to the right and execute."
     (interactive)
-    (unless (eolp)
+    (when (and (not (bolp))
+               (save-excursion (forward-char) (eolp)))
       (forward-char))
     (evil-emacs-state)
     (activate-input-method "japanese-mozc"))
