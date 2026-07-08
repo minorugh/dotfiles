@@ -116,7 +116,7 @@
          (setq my-seq--count idx)))))
 
 (defun my-seq-return ()
-  "巡回開始前の位置に戻る."
+  "Return to the position before the patrol began."
   (interactive)
   (goto-char (car my-seq--start))
   (set-window-start (selected-window) (cdr my-seq--start)))
