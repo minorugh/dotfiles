@@ -12,10 +12,12 @@
   "Non-nil when this buffer was manually switched Normal→Emacs state.")
 (defvar my-evil--current-buffer nil
   "Buffer tracked for evil state restoration.")
+;; custom Evil help buffer
+(autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
 
 (leaf evil
   :ensure t
-  :require (my-evil-cheat-sheet)       ; custom Evil help buffer
+  ;; :require (my-evil-cheat-sheet)       ; custom Evil help buffer
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
@@ -207,12 +209,14 @@
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;; ============================================================
 
+;; Load user functions
+(autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
+(autoload 'my-sen-restore "my-sen-cleanup" nil t)
+
 (leaf evil-leader-map
-  :require (my-sen-cleanup)                    ; minoru_sen commands
   :after evil
   :config
   (setq echo-keystrokes 0)
-
   (defvar my-normal-leader-map (make-sparse-keymap)
     "Prefix map triggered by ';' in evil-normal-state.")
 
