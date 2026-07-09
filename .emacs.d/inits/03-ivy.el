@@ -8,9 +8,9 @@
 ;;  Ivy Core
 ;; ============================================================
 
+(defvar my-describe-history nil "History for `my-describe-command'.")
+
 (leaf ivy
-  :preface
-  (defvar my-describe-history nil "History for `my-describe-command'.")
   :ensure t
   :doc "Generic completion mechanism for Emacs."
   :hook (after-init-hook . ivy-mode)

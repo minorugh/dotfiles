@@ -19,11 +19,11 @@ setxkbmap -layout jp -option ctrl:nocaps
 # setxkbmap の直後に実行することで、XKB の初期化を上書きして反映させる
 #
 # 主な設定内容：
-#   - keycode 107 (ThinkPad PrtSc) → Alt_R として使用
-#   - keycode  97 (日本語「ろ」キー) → _ および \ を割り当て
-#   - keycode 191-195 (Keychron QMK 単押し送出) → F13-F17 として命名
-#     ※ F13-F17 は xmodmap で名前をつけないと 0xef8d 等の未定義 keysym になり
-#        Emacs・Xfce どちらも認識できないため必須
+#  - keycode 107 (ThinkPad PrtSc) → Alt_R として使用
+#  - keycode  97 (日本語「ろ」キー) → _ および \ を割り当て
+#  - keycode 191-195 (Keychron QMK 単押し送出) → F13-F17 として命名
+#  ※ F13-F15 は xmodmap で名前をつけないと 0xef8d 等の未定義 keysym になり
+#     Emacs・Xfce どちらも認識できないため必須
 #
 # 再適用の保険は cron（毎分）と Emacs の my-reload-xenv（手動）で担う。
 # ThinkPad純正キーボード時代のイベント駆動ウォッチャーは
