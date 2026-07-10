@@ -257,10 +257,10 @@
   ;;  キーバインド
   ;; ============================================================
 
-  (define-key howm-view-summary-mode-map (kbd "d") #'my-howm-move-to-trash)
-  (define-key howm-view-summary-mode-map (kbd "/") #'my-howm-search-by-category)
-  (define-key howm-mode-map (kbd "C-c ,") #'my-howm-create-with-category)
-  (define-key howm-mode-map (kbd "C-c /") #'my-howm-search-by-category)
+  (keymap-set howm-view-summary-mode-map "d" #'my-howm-move-to-trash)
+  (keymap-set howm-view-summary-mode-map "/" #'my-howm-search-by-category)
+  (keymap-set howm-mode-map "C-c ," #'my-howm-create-with-category)
+  (keymap-set howm-mode-map "C-c /" #'my-howm-search-by-category)
 
 
   ;; ============================================================

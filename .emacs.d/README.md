@@ -370,7 +370,7 @@ insert state は自動的に emacs state に変換します。これにより、
 
 ```elisp
 (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
-  (define-key evil-normal-state-map key #'ignore))
+  (keymap-set evil-normal-state-map key #'ignore))
 ```
 
 `:q` / `:wq` は `kill-current-buffer` にマップし、Emacs 終了を防いでいます。
@@ -678,12 +678,12 @@ evil の undo システムも `undo-fu` に統一しています（`evil-undo-sy
 `selected.el` の代わりに `my-selected-mode`（自作マイナーモード）でリージョン選択時のワンキーアクションを実装しています。
 
 ```elisp
-(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
-(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
-(define-key my-selected-mode-map (kbd "s") #'swiper-region)
-(define-key my-selected-mode-map (kbd "g") #'my-google-search)
-(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
-(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
+(keymap-set my-selected-mode-map (kbd ";") #'comment-dwim)
+(keymap-set my-selected-mode-map (kbd "c") #'kill-ring-save)
+(keymap-set my-selected-mode-map (kbd "s") #'swiper-region)
+(keymap-set my-selected-mode-map (kbd "g") #'my-google-search)
+(keymap-set my-selected-mode-map (kbd "w") #'my-weblio-search)
+(keymap-set my-selected-mode-map (kbd "d") #'deepl-translate)
 ```
 
 リージョン選択開始時に IME を自動 OFF、解除時に元の状態に戻します。

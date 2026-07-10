@@ -24,13 +24,13 @@
 
 (defvar evil-cheat-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "i") (lambda () (interactive) (my-evil-cheat-sheet--ivy-jump)))
-    (define-key map (kbd "m") (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【移動】")))
-    (define-key map (kbd "e") (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【編集")))
-    (define-key map (kbd "o") (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【operator")))
-    (define-key map (kbd "v") (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【visual")))
-    (define-key map (kbd "n") (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【normal")))
-    (define-key map (kbd "q") #'quit-window)
+    (keymap-set map "i" (lambda () (interactive) (my-evil-cheat-sheet--ivy-jump)))
+    (keymap-set map "m" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【移動】")))
+    (keymap-set map "e" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【編集")))
+    (keymap-set map "o" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【operator")))
+    (keymap-set map "v" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【visual")))
+    (keymap-set map "n" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【normal")))
+    (keymap-set map "q" #'quit-window)
     map)
   "Keymap for evil-cheat buffer.")
 

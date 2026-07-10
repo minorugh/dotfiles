@@ -59,7 +59,7 @@
   ;; Disable edit-entry keys to prevent accidental Insert-state entry.
   ;; 編集トリガーを 'i' に限定し、Insert-state への誤進入を完全にシャットアウトする。
   (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
-    (define-key evil-normal-state-map key #'ignore))
+    (keymap-set evil-normal-state-map key #'ignore))
 
   ;; Map :q and :wq to kill-buffer instead of quitting Emacs
   (evil-ex-define-cmd "q[uit]"  'kill-current-buffer)
@@ -121,12 +121,13 @@
 
   (defun my-evil-swap-key (map key1 key2)
     "Swap KEY1 and KEY2 in MAP."
-    (let ((def1 (lookup-key map key1))
-          (def2 (lookup-key map key2)))
-      (define-key map key1 def2)
-      (define-key map key2 def1)))
-  (my-evil-swap-key evil-motion-state-map "j" "gj")
-  (my-evil-swap-key evil-motion-state-map "k" "gk")
+    (let ((def1 (keymap-lookup map key1))
+          (def2 (keymap-lookup map key2)))
+      (keymap-set map key1 def2)
+      (keymap-set map key2 def1)))
+
+  (my-evil-swap-key evil-motion-state-map "j" "g j")
+  (my-evil-swap-key evil-motion-state-map "k" "g k")
 
 
   ;; ============================================================
@@ -176,7 +177,7 @@
 
   ;; mozc起動中は mozc-modeが無変換キーを奪うため my-quit-dwimで上書きする
   (with-eval-after-load 'mozc
-    (define-key mozc-mode-map [muhenkan] #'my-quit-dwim)))
+    (keymap-set mozc-mode-map "<muhenkan>" #'my-quit-dwim)))
 
 
 ;; ============================================================
@@ -220,19 +221,19 @@
   (defvar my-normal-leader-map (make-sparse-keymap)
     "Prefix map triggered by ';' in evil-normal-state.")
 
-  (define-key evil-normal-state-map ";" my-normal-leader-map)
+  (keymap-set evil-normal-state-map ";" my-normal-leader-map)
 
   (let ((m my-normal-leader-map))
-    (define-key m "f" #'counsel-find-file)     ; ファイル検索
-    (define-key m ":" #'counsel-switch-buffer) ; バッファ切替
-    (define-key m "/" #'kill-current-buffer)   ; バッファを閉じる
-    (define-key m ";" #'comment-line)          ; コメントトグル
-    (define-key m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-    (define-key m "c" #'my-sen-cleanup)        ; cleanup sen markers
-    (define-key m "r" #'my-sen-restore)        ; restore sen markers
-    (define-key m "w" #'my-darkroom-toggle)    ; darkroom 起動
-    (define-key m "s" #'swiper)                ; swiper 検索
-    (define-key m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
+    (keymap-set m "f" #'counsel-find-file)     ; ファイル検索
+    (keymap-set m ":" #'counsel-switch-buffer) ; バッファ切替
+    (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
+    (keymap-set m ";" #'comment-line)          ; コメントトグル
+    (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+    (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
+    (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
+    (keymap-set m "w" #'my-darkroom-toggle)    ; darkroom 起動
+    (keymap-set m "s" #'swiper)                ; swiper 検索
+    (keymap-set m "@" #'my-insert-maru))        ; 行頭に ◎ 挿入（俳句選者用）
 
   ;;  Leader Key Helper Commands
   (defun my-newline-above ()

@@ -15,12 +15,12 @@
   :keymap my-selected-mode-map)
 
 ;; キーバインド（モード定義直後にまとめる）
-(define-key my-selected-mode-map (kbd ";") #'comment-dwim)
-(define-key my-selected-mode-map (kbd "c") #'kill-ring-save)
-(define-key my-selected-mode-map (kbd "s") #'swiper-region)
-(define-key my-selected-mode-map (kbd "g") #'my-google-search)
-(define-key my-selected-mode-map (kbd "w") #'my-weblio-search)
-(define-key my-selected-mode-map (kbd "d") #'deepl-translate)
+(keymap-set my-selected-mode-map ";" #'comment-dwim)
+(keymap-set my-selected-mode-map "c" #'kill-ring-save)
+(keymap-set my-selected-mode-map "s" #'swiper-region)
+(keymap-set my-selected-mode-map "g" #'my-google-search)
+(keymap-set my-selected-mode-map "w" #'my-weblio-search)
+(keymap-set my-selected-mode-map "d" #'deepl-translate)
 
 ;; 有効化トリガー
 (defun my-selected-mode-update ()
@@ -32,7 +32,7 @@
 (add-hook 'post-command-hook #'my-selected-mode-update)
 
 ;; Web Search Helpers ────────────────────────────────────────────
-;; my-selected-mode-map から呼ばれるので上で define-key より前に defun が必要。
+;; my-selected-mode-map から呼ばれるので上で keymap-set より前に defun が必要。
 ;; ここに置く場合は (declare-function ...) か、ファイル先頭に移動する。
 
 (defun my-get-region-or-word ()

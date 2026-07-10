@@ -14,7 +14,7 @@
   (hydra-dired/body))
 
 (with-eval-after-load 'mozc
-  (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
+  (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
 (autoload 'my-open-tig "my-tig-bridge" nil t)
 
@@ -123,7 +123,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
         (my-2pane-quit)
       (quit-window)))
 
-  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit)
+  (keymap-set evil-normal-state-map "q" #'my-2pane-quit)
   (add-hook 'dired-mode-hook
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))

@@ -99,10 +99,10 @@ STRING is the exit status message from the compilation process."
             (orig-point (point))
             (map        (copy-keymap ivy-minibuffer-map)))
         ;; Real-time preview on arrow keys
-        (define-key map (kbd "<down>") 'ivy-next-line-and-call)
-        (define-key map (kbd "<up>")   'ivy-previous-line-and-call)
+        (keymap-set map "<down>" 'ivy-next-line-and-call)
+        (keymap-set map "<up>"   'ivy-previous-line-and-call)
         ;; C-c C-c to execute make
-        (define-key map (kbd "C-c C-c")
+        (keymap-set map "C-c C-c"
                     (lambda ()
                       (interactive)
                       (ivy-exit-with-action

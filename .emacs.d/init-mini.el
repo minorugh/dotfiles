@@ -62,17 +62,17 @@
 (setq default-directory user-emacs-directory)
 
 ;; Key modifiers to my liking
-(define-key global-map (kbd "M-w") #'clipboard-kill-ring-save)
-(define-key global-map (kbd "C-w") #'clipboard-kill-region)
-(define-key global-map (kbd "s-v") #'yank)
-(define-key global-map (kbd "s-c") #'clipboard-kill-ring-save)
-(define-key global-map (kbd "M-/") #'kill-current-buffer)
-(define-key global-map (kbd "C-_") #'undo)
-(define-key global-map (kbd "C-/") #'undo-redo)
-(define-key global-map (kbd "C-:") #'switch-to-buffer)
-(define-key global-map (kbd "C-x f") #'find-file)
-(define-key global-map (kbd "C-x j") #'dired-jump)
-(define-key global-map (kbd "<henkan>") #'dired-jump)
+(keymap-global-set "M-w" #'clipboard-kill-ring-save)
+(keymap-global-set "C-w" #'clipboard-kill-region)
+(keymap-global-set "s-v" #'yank)
+(keymap-global-set "s-c" #'clipboard-kill-ring-save)
+(keymap-global-set "M-/" #'kill-current-buffer)
+(keymap-global-set "C-_" #'undo)
+(keymap-global-set "C-/" #'undo-redo)
+(keymap-global-set "C-:" #'switch-to-buffer)
+(keymap-global-set "C-x f" #'find-file)
+(keymap-global-set "C-x j" #'dired-jump)
+(keymap-global-set "<henkan>" #'dired-jump)
 
 
 ;;; Init-mini.el ends here
