@@ -13,11 +13,12 @@
 ##             PAST/<パッケージ名>/ への世代退避方式（最大5世代、FIFO）に変更
 ##             変更ログの出力先を Dropbox/CHANGELOG/elpa/ から
 ##             Dropbox/backup/elpa/LOG/ に変更## 詳細: dotfiles/backup/README.md
+## 2026-07-10  Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird-backup ターゲットを削除
 
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup thunderbird-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup readmes-backup
+all: melpa git-push mozc-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup readmes-backup
 
 .ONESHELL:
 
@@ -34,10 +35,6 @@ git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit
 ## P1 の ~/.mozc を Dropbox にバックアップ
 mozc-backup: ## P1 の ~/.mozc を Dropbox にバックアップ
 	/usr/local/bin/mozc-backup.sh
-
-## Thunderbird バックアップ
-thunderbird-backup: ## Thunderbird バックアップ
-	/usr/local/bin/thunderbird-backup.sh
 
 ## FileZilla 設定を Dropbox にバックアップ
 filezilla-backup: ## FileZilla 設定を Dropbox にバックアップ

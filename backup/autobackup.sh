@@ -1,7 +1,7 @@
 #!/bin/bash
 #######################################################################
 ## Execute nightly makefile for backup
-## Updated 2026.6.19
+## Updated 2026.7.10 (thunderbird-backup 廃止)
 ##
 ## cron 本実行:     50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 ## cron フォールバック: 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
@@ -69,7 +69,6 @@ run_target "keyring"     keyring-backup
 run_target "zsh-history" zsh-history-backup
 run_target "gitea"       gitea-backup
 run_target "filezilla"   filezilla-backup
-run_target "thunderbird" thunderbird-backup
 run_target "abook"       abook-backup
 run_target "readmes"     readmes-backup
 
