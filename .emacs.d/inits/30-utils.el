@@ -41,17 +41,27 @@
 
 
 ;; ============================================================
+;;  Browse at remote
+;; ============================================================
+
+(leaf browse-at-remote
+  :ensure t
+  :doc "Open page client on GitHub from Emacs buffer")
+
+
+;; ============================================================
 ;;  Tempbuf
 ;;  無シャットダウン運用でバッファが溜まり続けるため必須。
 ;; ============================================================
 
-(leaf tempbuf
-  :doc "Auto kill unused buffers in the background"
-  :vc (:url "https://github.com/minorugh/tempbuf")
-  :hook ((find-file-hook  . turn-on-tempbuf-mode)
-         (dired-mode-hook . turn-on-tempbuf-mode))
-  :config
-  (setq tempbuf-kill-message nil))
+;; 実体: ~/.emacs.d/elisp/tempbuf.el
+(autoload 'tempbuf-mode "tempbuf" nil t)
+(autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
+
+(setq tempbuf-kill-message nil)
+
+(add-hook 'find-file-hook  #'turn-on-tempbuf-mode)
+(add-hook 'dired-mode-hook #'turn-on-tempbuf-mode)
 
 
 ;; ============================================================

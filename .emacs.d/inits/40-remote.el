@@ -259,31 +259,33 @@
 ;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
 ;; ============================================================
 
-(leaf git-peek
-  :vc (:url "https://github.com/minorugh/git-peek" :only-if-missing t)
-  :config
-  (setq git-peek-save-dir (expand-file-name "~/tmp/"))
+;; ============================================================
+;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
+;; ============================================================
+(autoload 'git-peek "git-peek" nil t)
 
-  (defun my-git-peek-smart ()
-    "Run `git-peek' with save-dir adjusted for xsrv dired context.
+(setq git-peek-save-dir (expand-file-name "~/tmp/"))
+
+(defun my-git-peek-smart ()
+  "Run `git-peek' with save-dir adjusted for xsrv dired context.
 xsrv 配下なら差分表示後に 2ペインを復元する。"
-    (interactive)
-    (let* ((dir          (expand-file-name default-directory))
-           (orig         git-peek-save-dir)
-           (root-pair    (my-xsrv-root-for dir))
-           (new-save-dir (if root-pair
-                              (concat (cdr root-pair)
-                                      (file-relative-name dir (car root-pair)))
-                            orig)))
-      (setq git-peek-save-dir new-save-dir)
-      (let ((fn nil))
-        (setq fn (lambda ()
-                   (setq git-peek-save-dir orig)
-                   (when root-pair
-                     (my-open-xsrv-2pane dir new-save-dir))
-                   (remove-hook 'git-peek-finish-hook fn)))
-        (add-hook 'git-peek-finish-hook fn))
-      (git-peek))))
+  (interactive)
+  (let* ((dir          (expand-file-name default-directory))
+         (orig         git-peek-save-dir)
+         (root-pair    (my-xsrv-root-for dir))
+         (new-save-dir (if root-pair
+                           (concat (cdr root-pair)
+                                   (file-relative-name dir (car root-pair)))
+                         orig)))
+    (setq git-peek-save-dir new-save-dir)
+    (let ((fn nil))
+      (setq fn (lambda ()
+                 (setq git-peek-save-dir orig)
+                 (when root-pair
+                   (my-open-xsrv-2pane dir new-save-dir))
+                 (remove-hook 'git-peek-finish-hook fn)))
+      (add-hook 'git-peek-finish-hook fn))
+    (git-peek)))
 
 
 ;; ============================================================

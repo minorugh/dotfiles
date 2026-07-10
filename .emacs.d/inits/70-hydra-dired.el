@@ -16,9 +16,10 @@
 (with-eval-after-load 'mozc
   (define-key mozc-mode-map (kbd "<henkan>") #'my-hydra-dired))
 
+(autoload 'my-open-tig "my-tig-bridge" nil t)
+
 (leaf hydra-dired
   :after evil
-  :require (my-tig-bridge)
   :bind (("<henkan>" . my-hydra-dired))
   :hydra
   (hydra-dired
@@ -26,9 +27,9 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root._/_^^  _._files^  make._k_._b_._m_._u_^  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_.Sn_o_te  _g_it._p_jct^^  _f_ly-err  find._1__2__3_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_._S_note  _g_it.b@rm^^  _f_ly-err  find._1__2__3_
 "
-   ("p" project-find-regexp)
+   ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
@@ -36,7 +37,7 @@
    ("0" (filezilla "m"))
    ("a" keepassxc)
    ("g" counsel-git)
-   ("o" (browse-url "https://app.simplenote.com/"))
+   ("S" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)        ;; 実体は 40-remote.el を参照
    (";" my-open-xsrv-2pane-minorugh)  ;; 実体は 40-remote.el を参照
@@ -59,7 +60,7 @@
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
    ("v" markdown-preview)
-   ("@" howm-list-all)
+   ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("_" delete-other-windows)
    ("[" my-git-peek-smart)

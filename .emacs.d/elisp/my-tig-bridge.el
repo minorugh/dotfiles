@@ -13,6 +13,7 @@
 (defvar my-tig-context-file "/tmp/tig-peek-context"
   "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
 
+;;;###autoload
 (defun my-open-tig ()
   "Run tig for the current file (`dired' or file buffer) in gnome-terminal.
 起動時に対象ファイルパスを `my-tig-context-file' に書き出す。
