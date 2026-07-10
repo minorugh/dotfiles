@@ -69,6 +69,7 @@ run_target "keyring"     keyring-backup
 run_target "zsh-history" zsh-history-backup
 run_target "gitea"       gitea-backup
 run_target "filezilla"   filezilla-backup
+run_target "thunderbird" thunderbird-backup
 run_target "abook"       abook-backup
 run_target "readmes"     readmes-backup
 
