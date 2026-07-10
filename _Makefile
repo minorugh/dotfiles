@@ -13,7 +13,6 @@
 # update 2026.06.14 xsrv-backup-data を xsrv-backup に統合（timer/service 一本化）
 # update 2026.06.16 xsrv-backup-data を廃止、xsrv-backup に一本化（動的ファイルのみ対象）
 # update 2026.06.16 xsrv-backup を cron に移行、xsrv-systemd ターゲット廃止
-# update 2026.07.10 Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird ターゲット・バックアップ関連を削除
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -145,6 +144,8 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/mozc-backup.sh
 	sudo ln -vsfn ${PWD}/backup/melpa-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/melpa-backup.sh
+	sudo ln -vsfn ${PWD}/backup/thunderbird-backup.sh /usr/local/bin
+	sudo chmod +x /usr/local/bin/thunderbird-backup.sh
 	sudo ln -vsfn ${PWD}/backup/filezilla-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/backup/gitea-backup.sh /usr/local/bin
@@ -429,6 +430,19 @@ keepassxc: ## KeePassXC のインストールと自動起動設定
 #   sudo secret-tool store --label "KeePassXC master password" type kbd
 # 以降は以下で起動可能:
 #   secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
+
+thunderbird: ## Thunderbird の設定
+# Gmail はOAuth2認証なので2段階認証設定必須
+	@echo "[Thunderbird] Installing and restoring profile..."
+	$(APT) $@
+	mv ${HOME}/.thunderbird ${HOME}/.thunderbird.bak.$(date +%s) 2>/dev/null || true
+	cp -a ${HOME}/Dropbox/backup/thunderbird/profile ${HOME}/.thunderbird
+	sudo cp ${HOME}/Dropbox/backup/thunderbird/addons/external-editor-revived /usr/local/bin
+	sudo chmod +x /usr/local/bin/external-editor-revived
+	mkdir -p ${HOME}/.mozilla/native-messaging-hosts
+	cp -a ${HOME}/Dropbox/backup/thunderbird/native-messaging-hosts/* \
+	      ${HOME}/.mozilla/native-messaging-hosts/
+	@echo "[Thunderbird] Done."
 
 google-earth: ## Google Earth のインストール
 	cd ${HOME}/Downloads && \

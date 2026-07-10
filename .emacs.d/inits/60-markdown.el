@@ -1,16 +1,18 @@
 ;;; 60-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Related custom functions (~/.emacs.d/elisp/my_markdown.el):
+;; Related custom functions (~/.emacs.d/elisp/my-markdown.el):
 ;;   `my-howm-fix-code-comments' -- Convert comment symbols in code blocks
 ;;   `gen-toc-term'              -- Generate TOC via gnome-terminal
 ;;
-;; These are autoload-registered via my-loaddefs.el.
 ;;; Code:
 
 ;; ============================================================
 ;;  Markdown Mode
 ;; ============================================================
+
+(autoload 'my-howm-fix-code-comments "my-markdown" nil t)
+(autoload 'gen-toc-term "my-markdown" nil t)
 
 (leaf markdown-mode
   :ensure t
@@ -18,6 +20,7 @@
          ("\\.md\\'"       . markdown-mode))
   :bind (("C-c RET" . markdown-follow-link-at-point)
          ("C-c #"   . my-howm-fix-code-comments)
+         ("C-c t"   . gen-toc-term)
          ("C-c C-c" . markdown-do-command)
          ("M-RET"   . markdown-insert-list-item))
   :config

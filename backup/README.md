@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-06-21
+更新日: 2026-07-10
 
 ---
 
@@ -26,7 +26,6 @@ backup/
   emacs-trash-sweep.sh     # Emacs ゴミ箱をシステムゴミ箱へ移送（月1回）
   melpa-backup.sh         # ELPAバックアップ（rsync + PAST世代退避 + CHANGELOG出力）
   mozc-backup.sh          # Mozc 辞書バックアップ
-  thunderbird-backup.sh   # Thunderbird バックアップ
   filezilla-backup.sh     # FileZilla 設定バックアップ
   gitea-backup.sh         # Gitea data バックアップ
   abook-backup.sh         # abook アドレス帳バックアップ
@@ -57,7 +56,6 @@ backup/
 [autobackup] zsh-history: OK
 [autobackup] gitea: OK
 [autobackup] filezilla: OK
-[autobackup] thunderbird: OK
 [autobackup] abook: OK
 [autobackup] readmes: OK
 [autobackup] END: 2026-04-06 23:50:30 (OK)
@@ -103,7 +101,6 @@ keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 gitea-backup:        # Gitea data を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
-thunderbird-backup:  # ~/.thunderbird を Dropbox にバックアップ
 abook-backup:        # ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 ```
@@ -119,7 +116,6 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 | `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
 | `gitea-backup` | `~/Dropbox/backup/gitea/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
-| `thunderbird-backup` | `~/Dropbox/backup/thunderbird/` |
 | `abook-backup` | `~/Dropbox/backup/abook/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |
 

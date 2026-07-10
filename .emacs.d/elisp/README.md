@@ -31,6 +31,13 @@ elpa バックアップ（rsync + git 管理）の過去スナップショット
 コミット一覧から選択してプレビューし、必要なものを `~/tmp/` に保存できる。
 Claude との共同開発。
 
+### git-peek.el
+git 管理下のファイルの過去バージョンを ivy で選択し、左右分割のサイドバーUIで
+プレビューしながら保存するツール。以前は GitHub で公開して `package-vc-install`
+していたが、メンテナンス負担を考慮して elisp 直置き + autoload に移行。
+`my-tig-bridge.el` と連携し、tig から探したコミットをそのまま開ける。
+Claude との共同開発。
+
 ### my-evil-cheat-sheet.el
 Evil キーバインドのチートシートを表示するバッファー。
 ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
@@ -58,3 +65,9 @@ tig 側から `emacsclient` 経由で `git-peek-from-hash` を呼べるように
 ### seiho-haiku.el
 青畝俳句データ（366 日分）を定数として保持する elisp ファイル。
 `seihohaiku.cgi` から自動変換生成したもの。
+
+### tempbuf.el
+未使用バッファをバックグラウンドで自動 kill するマイナーモード。
+EmacsWiki 限定配布で `package-vc-install` できないため、自分の GitHub に
+fork した上でこのディレクトリに直接配置（原作: Michele Bini, 2001年〜）。
+無シャットダウン運用でバッファが溜まり続けるため必須。
