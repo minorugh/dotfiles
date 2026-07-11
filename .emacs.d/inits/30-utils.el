@@ -148,17 +148,17 @@ If region isn't selected, post from the buffer."
 
 ;; my-ps-print: PostScript printing with Japanese support.
 (when (executable-find "lpr")
-  (setq ps-multibyte-buffer 'non-latin-printer
-        ps-paper-type       'a4
-        ps-printer-name      nil
-        ps-print-header      nil
-        ps-print-footer      nil
-        ps-font-size         10
-        ps-font-family      'Courier
-        ps-line-number-font 'Courier
-        ps-line-number       t
-        ps-show-n-of-n       t
-        ps-end-with-control-d t)
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-paper-type       'a4)
+  (setq ps-printer-name      nil)
+  (setq ps-print-header      nil)
+  (setq ps-print-footer      nil)
+  (setq ps-font-size         10)
+  (setq ps-font-family      'Courier)
+  (setq ps-line-number-font 'Courier)
+  (setq ps-line-number       t)
+  (setq ps-show-n-of-n       t)
+  (setq ps-end-with-control-d t)
   (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
