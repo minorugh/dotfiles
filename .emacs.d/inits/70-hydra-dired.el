@@ -16,8 +16,6 @@
 (with-eval-after-load 'mozc
   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
-(autoload 'my-open-tig "my-tig-bridge" nil t)
-
 (leaf hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
@@ -30,7 +28,7 @@
   _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_._S_note  _g_it.b@rm^^  _f_ly-err  find._1__2__3_
 "
    ("@" browse-at-remote)
-   ("t" my-open-tig)
+   ("t" my-open-tig)    ; 40-dired.el を参照
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
@@ -39,8 +37,8 @@
    ("g" counsel-git)
    ("S" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   (":" my-open-xsrv-2pane-gh)        ;; 実体は 40-remote.el を参照
-   (";" my-open-xsrv-2pane-minorugh)  ;; 実体は 40-remote.el を参照
+   (":" my-open-xsrv-2pane-gh)        ; 40-remote.el を参照
+   (";" my-open-xsrv-2pane-minorugh)  ; 40-remote.el を参照
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))

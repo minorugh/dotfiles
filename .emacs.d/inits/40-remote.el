@@ -259,11 +259,9 @@
 ;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
 ;; ============================================================
 
-;; ============================================================
-;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
-;; ============================================================
-(autoload 'git-peek "git-peek" nil t)
-
+(autoload 'git-peek         "git-peek" nil t)
+(autoload 'git-peek-deleted "git-peek" nil t)
+(autoload 'git-peek-debug   "git-peek" nil t)
 (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 
 (defun my-git-peek-smart ()

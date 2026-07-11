@@ -5,22 +5,24 @@
 ;;   `my-howm-fix-code-comments' -- Convert comment symbols in code blocks
 ;;   `gen-toc-term'              -- Generate TOC via gnome-terminal
 ;;
+;; 目次:
+;;   1. Markdown Mode        (パッケージ本体設定)
+;;   2. Preview HTML Header  (highlight.js + TOC スタイル)
+;;   3. 拡張機能キーバインド (自作関数の autoload と keymap-set)
+;;   4. Howm Fix Hook        (super-save 後にコメント記号を修正)
+;;   5. Temp File Cleanup    (プレビュー用 /tmp/burl*.html を自動削除)
+;;   6. Pandoc Export        (PDF / DOCX)
 ;;; Code:
 
 ;; ============================================================
-;;  Markdown Mode
+;; 1. Markdown Mode  (パッケージ本体設定)
 ;; ============================================================
-
-(autoload 'my-howm-fix-code-comments "my-markdown" nil t)
-(autoload 'gen-toc-term "my-markdown" nil t)
 
 (leaf markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode))
   :bind (("C-c RET" . markdown-follow-link-at-point)
-         ("C-c #"   . my-howm-fix-code-comments)
-         ("C-c t"   . gen-toc-term)
          ("C-c C-c" . markdown-do-command)
          ("M-RET"   . markdown-insert-list-item))
   :config
@@ -36,11 +38,16 @@
   (setq markdown-css-paths
         (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
 
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit nil :background "gray10"))))
+   '(markdown-pre-face  ((t (:inherit font-lock-constant-face))))))
 
-  ;; ============================================================
-  ;;  Preview HTML Header  (highlight.js + TOC スタイル)
-  ;; ============================================================
 
+;; ============================================================
+;; 2. Preview HTML Header  (highlight.js + TOC スタイル)
+;; ============================================================
+
+(with-eval-after-load 'markdown-mode
   (setq markdown-xhtml-header-content
         (concat
          "<link rel='stylesheet' href='"
@@ -65,47 +72,54 @@
           /* TOC: 2階層目はディスク表示 */
           .toc > ul > li > ul { list-style-type: disc; padding-left: 25px; }
           .toc > ul > li > ul > li { color: #555; }
-     </style>"))
-
-  (custom-set-faces
-   '(markdown-code-face ((t (:inherit nil :background "gray10"))))
-   '(markdown-pre-face  ((t (:inherit font-lock-constant-face)))))
-
-
-  ;; ============================================================
-  ;;  Howm Fix Hook  (super-save 後にコメント記号を修正)
-  ;; ============================================================
-
-  (defun my-howm-fix-after-super-save (&rest _)
-    "super-save 後に howm バッファのコードブロック内コメントを修正する."
-    (when (and (eq major-mode 'howm-mode)
-               (buffer-file-name))
-      (message "howm-fix running: %s" (buffer-file-name))
-      (shell-command
-       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
-               (shell-quote-argument (buffer-file-name))))))
-
-  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
-
-
-  ;; ============================================================
-  ;;  Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
-  ;; ============================================================
-
-  (defun my-delete-tmp-markdown-html ()
-    "Delete /tmp/burl*.html when a markdown buffer is killed."
-    (when (and (derived-mode-p 'markdown-mode)
-               (buffer-file-name))
-      (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
-        (when (file-exists-p file)
-          (delete-file file)
-          (message "Deleted temporary file: %s" file)))))
-
-  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
+     </style>")))
 
 
 ;; ============================================================
-;;  Pandoc Export  (PDF / DOCX)
+;; 3. 拡張機能キーバインド  (自作関数; markdown-mode 本体とは別扱い)
+;; ============================================================
+
+(autoload 'my-howm-fix-code-comments "my-markdown" nil t)
+(autoload 'gen-toc-term              "my-markdown" nil t)
+
+(keymap-set global-map "C-c #" #'my-howm-fix-code-comments)
+(keymap-set global-map "C-c t" #'gen-toc-term)
+
+
+;; ============================================================
+;; 4. Howm Fix Hook  (super-save 後にコメント記号を修正)
+;; ============================================================
+
+(defun my-howm-fix-after-super-save (&rest _)
+  "super-save 後に howm バッファのコードブロック内コメントを修正する."
+  (when (and (eq major-mode 'howm-mode)
+             (buffer-file-name))
+    (message "howm-fix running: %s" (buffer-file-name))
+    (shell-command
+     (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
+             (shell-quote-argument (buffer-file-name))))))
+
+(advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
+
+
+;; ============================================================
+;; 5. Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
+;; ============================================================
+
+(defun my-delete-tmp-markdown-html ()
+  "Delete /tmp/burl*.html when a markdown buffer is killed."
+  (when (and (derived-mode-p 'markdown-mode)
+             (buffer-file-name))
+    (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
+      (when (file-exists-p file)
+        (delete-file file)
+        (message "Deleted temporary file: %s" file)))))
+
+(add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
+
+
+;; ============================================================
+;; 6. Pandoc Export  (PDF / DOCX)
 ;; ============================================================
 
 (defun md2pdf ()

@@ -99,7 +99,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 (leaf my-gist-commands
   :doc "Commands for posting gists and launching Lepton."
   :bind (("C-x g" . gist-region-or-buffer)
-         ("C-x l" . my-open-leptom))
+         ("C-x l" . my-open-lepton))
   :init
   (defun gist-description ()
     "Add gist description."
