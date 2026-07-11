@@ -9,7 +9,6 @@
 
 (setq which-key-max-description-length 40)
 (setq which-key-idle-delay 0.0)
-
 (add-hook 'after-init-hook 'which-key-mode)
 
 
@@ -148,7 +147,6 @@ If region isn't selected, post from the buffer."
 ;; ============================================================
 
 ;; my-ps-print: PostScript printing with Japanese support.
-;; https://tam5917.hatenablog.com/entry/30130914/1347600433
 (when (executable-find "lpr")
   (setq ps-multibyte-buffer 'non-latin-printer
         ps-paper-type       'a4
