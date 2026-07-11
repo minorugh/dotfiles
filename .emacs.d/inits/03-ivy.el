@@ -18,8 +18,6 @@
          ("<down>" . ivy-next-line)
          ("<up>"   . ivy-previous-line))
   :config
-  (key-chord-define-global "df" 'my-describe-command)
-  (key-chord-define-global "fg" 'my-describe-variable)
   (setq ivy-use-virtual-buffers      t)
   (setq ivy-use-selectable-prompt    t)
   (setq enable-recursive-minibuffers t)
@@ -27,8 +25,21 @@
 
 
 ;; ============================================================
+;;  Ivy-rich
+;; ============================================================
+
+(leaf ivy-rich
+  :ensure t
+  :doc "More friendly display transformer for ivy."
+  :hook (after-init-hook . ivy-rich-mode))
+
+
+;; ============================================================
 ;;  Describe Helpers
 ;; ============================================================
+
+(key-chord-define-global "df" 'my-describe-command)
+(key-chord-define-global "fg" 'my-describe-variable)
 
 (defun my-describe-command ()
   "Search all interactive commands by keybinding or name via Ivy, then call `describe-function' on the selected one."
@@ -56,16 +67,6 @@
     (ivy-read "Variable: " (sort cands #'string<)
               :action        (lambda (x) (describe-variable (intern x)))
               :require-match t)))
-
-
-;; ============================================================
-;;  Ivy-rich
-;; ============================================================
-
-(leaf ivy-rich
-  :ensure t
-  :doc "More friendly display transformer for ivy."
-  :hook (after-init-hook . ivy-rich-mode))
 
 
 ;; Local Variables:

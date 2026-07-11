@@ -4,31 +4,46 @@
 ;; (setq debug-on-error t)
 
 ;; ============================================================
-;;  Keybinding Utilities
+;;  WhichKey
 ;; ============================================================
 
-(leaf which-key
-  :tag "builtin"
-  :doc "Display available keybindings in popup."
-  :hook (after-init-hook . which-key-mode)
-  :config
-  (setq which-key-max-description-length 40)
-  (setq which-key-idle-delay 0.0))
+(setq which-key-max-description-length 40)
+(setq which-key-idle-delay 0.0)
+
+(add-hook 'after-init-hook 'which-key-mode)
+
+
+;; ============================================================
+;;  Key chord
+;; ============================================================
 
 (leaf key-chord
   :ensure t
   :hook (after-init-hook . key-chord-mode)
   :config
-  (key-chord-define-global "l;" 'init-loader-show-log)
-  ;; key-chord stall recovery
-  (defun my-key-chord-ensure ()
-    (when (and key-chord-mode
-               (not (eq input-method-function 'key-chord-input-method)))
-      (key-chord-mode -1)
-      (key-chord-mode 1)))
+  (key-chord-define-global "l;" 'init-loader-show-log))
 
-  (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
-  (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
+;; --------------------------------------------------------------
+;; key-chord は key-chord-mode の有効化時に input-method-function を
+;; 自前の関数 (key-chord-input-method) に書き換える仕組みで動作している。
+;; ところが日本語入力メソッド（mozc / skk / Emacs標準の input-method 等）を
+;; 有効/無効にすると、それらも同じ input-method-function を奪い合うため、
+;; 「最後に取得した側が勝つ」形になり、IMEをオフにした後に
+;; key-chord が反応しなくなる（stall する）ことがある。
+;; https://github.com/emacsorphanage/key-chord#caveats 参照
+;;
+;; 対策として、入力メソッドの有効化・無効化のたびに key-chord-mode を
+;; 一旦オフ→オンし直し、input-method-function を key-chord 側に
+;; 強制的に取り戻す。
+;; --------------------------------------------------------------
+(defun my-key-chord-ensure ()
+  "Key-chord stall recovery."
+  (when (and key-chord-mode
+             (not (eq input-method-function 'key-chord-input-method)))
+    (key-chord-mode -1)
+    (key-chord-mode 1)))
+(add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
+(add-hook 'input-method-deactivate-hook #'my-key-chord-ensure)
 
 
 ;; ============================================================
@@ -96,61 +111,57 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;;  Gist / Lepton Integration
 ;; ============================================================
 
-(leaf my-gist-commands
-  :doc "Commands for posting gists and launching Lepton."
-  :bind (("C-x g" . gist-region-or-buffer)
-         ("C-x l" . my-open-lepton))
-  :init
-  (defun gist-description ()
-    "Add gist description."
-    (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
+(defun gist-description ()
+  "Add gist description."
+  (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
 
-  (defun gist-filename ()
-    "The character string entered in minibuffer is used as file-name.
+(defun gist-filename ()
+  "The character string entered in minibuffer is used as file-name.
 If enter is pressed without file-name, that's will be buffer file name."
-    (interactive)
-    (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-      (read-from-minibuffer (format "File name (%s): " file) file)))
+  (interactive)
+  (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
+    (read-from-minibuffer (format "File name (%s): " file) file)))
 
-  (defun gist-region-or-buffer ()
-    "If region is selected, post from the region.
+(defun gist-region-or-buffer ()
+  "If region is selected, post from the region.
 If region isn't selected, post from the buffer."
-    (interactive)
-    (let ((file (buffer-file-name)))
-      (if (not (use-region-p))
-          (compile (concat "gist -od " (gist-description) " " file))
-	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-    (delete-other-windows))
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (if (not (use-region-p))
+        (compile (concat "gist -od " (gist-description) " " file))
+      (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+  (delete-other-windows))
 
-  (defun my-open-lepton ()
-    "Specify the full path, disable the sandbox if necessary, and start Lepton."
-    (interactive)
-    (start-process-shell-command
-     "lepton" nil
-     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox")))
+(defun my-open-lepton ()
+  "Specify the full path, disable the sandbox if necessary, and start Lepton."
+  (interactive)
+  (start-process-shell-command
+   "lepton" nil
+   "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
+
+(keymap-global-set "C-x g" #'gist-region-or-buffer)
+(keymap-global-set "C-x l" #'my-open-lepton)
 
 
 ;; ============================================================
 ;;  PostScript Printing
 ;; ============================================================
 
-(leaf my-ps-print
-  :doc "PostScript printing with Japanese support."
-  :url "https://tam5917.hatenablog.com/entry/30130914/1347600433"
-  :if (executable-find "lpr")
-  :config
-  (setq ps-multibyte-buffer 'non-latin-printer)
-  (setq ps-paper-type       'a4)
-  (setq ps-printer-name      nil)
-  (setq ps-print-header      nil)
-  (setq ps-print-footer      nil)
-  (setq ps-font-size         10)
-  (setq ps-font-family      'Courier)
-  (setq ps-line-number-font 'Courier)
-  (setq ps-line-number       t)
-  (setq ps-show-n-of-n       t)
-  (defalias 'ps-mule-header-string-charsets 'ignore)
-  (setq ps-end-with-control-d t))
+;; my-ps-print: PostScript printing with Japanese support.
+;; https://tam5917.hatenablog.com/entry/30130914/1347600433
+(when (executable-find "lpr")
+  (setq ps-multibyte-buffer 'non-latin-printer
+        ps-paper-type       'a4
+        ps-printer-name      nil
+        ps-print-header      nil
+        ps-print-footer      nil
+        ps-font-size         10
+        ps-font-family      'Courier
+        ps-line-number-font 'Courier
+        ps-line-number       t
+        ps-show-n-of-n       t
+        ps-end-with-control-d t)
+  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
 ;; Local Variables:
