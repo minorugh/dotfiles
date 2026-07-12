@@ -74,95 +74,124 @@
 
 
 ;; ============================================================
-;;  Savehist / Recentf / Save-place
+;;  Savehist
 ;; ============================================================
 
-(add-hook 'after-init-hook #'savehist-mode)
-(setq savehist-file             (locate-user-emacs-file "tmp/savehist"))
-(setq history-length             200)
-(setq history-delete-duplicates  t)
-(setq savehist-additional-variables '(extended-command-history my-describe-history))
-
-(run-with-idle-timer 0.5 nil #'recentf-mode)
-(setq recentf-max-saved-items 100)
-(setq recentf-auto-cleanup    'never)
-(setq recentf-save-file       (locate-user-emacs-file "tmp/recentf"))
-(setq recentf-exclude
-      (list (expand-file-name "elpa/" user-emacs-directory)
-            (expand-file-name "tmp/"  user-emacs-directory)
-            "\\.howm-keys" "/session\\." "task.org" "/Dropbox/backup/" "/scp:" "neomutt-"))
-
-(add-hook 'after-init-hook #'save-place-mode)
+(leaf savehist
+  :hook (after-init-hook . savehist-mode)
+  :config
+  (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
+  (setq history-length 200)
+  (setq history-delete-duplicates t)
+  (setq savehist-additional-variables
+        '(extended-command-history my-describe-history)))
 
 
 ;; ============================================================
-;;  Mode Associations / Global Minor Modes
+;;  Recentf
 ;; ============================================================
 
-(add-hook 'after-init-hook #'global-auto-revert-mode)
-
-(dolist (pair '(("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
-                ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"         . conf-mode)
-                ("/crontab\\(\\..*\\)?\\'" . conf-mode)
-                ("\\.cgi\\'"               . perl-mode)
-                ("/passwd/.*\\.cgi\\'"     . text-mode)))
-  (add-to-list 'auto-mode-alist pair))
-
-(defun my-view-mode-maybe ()
-  "*.log ファイルなら `view-mode' にする."
-  (when (and buffer-file-name
-             (string-match-p "\\.log\\'" buffer-file-name))
-    (when (fboundp 'evil-emacs-state)
-      (evil-emacs-state))
-    (view-mode 1)))
-
-(defun my-read-only-maybe ()
-  "*.dat ファイルなら read-only にする."
-  (when (and buffer-file-name
-             (string-match-p "\\.dat\\'" buffer-file-name))
-    (read-only-mode 1)))
-
-(add-hook 'find-file-hook #'my-view-mode-maybe)
-(add-hook 'find-file-hook #'my-read-only-maybe)
+(leaf recentf
+  :config
+  (run-with-idle-timer 0.5 nil #'recentf-mode)
+  (setq recentf-max-saved-items 100)
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
+  (setq recentf-exclude
+        (list (expand-file-name "elpa/" user-emacs-directory)
+              (expand-file-name "tmp/" user-emacs-directory)
+              "\\.howm-keys"
+              "/session\\."
+              "task.org"
+              "/Dropbox/backup/"
+              "/scp:"
+              "neomutt-")))
 
 
 ;; ============================================================
-;;  Keybindings & User Commands
+;;  Save-place
 ;; ============================================================
 
-(defun my-clipboard-kill-region ()
-  "Kill region to clipboard, or `backward-kill-word' if no region."
-  (interactive)
-  (if (use-region-p)
-      (clipboard-kill-region (region-beginning) (region-end))
-    (backward-kill-word 1)))
+(leaf saveplace
+  :hook (after-init-hook . save-place-mode))
 
-(defun other-window-or-split ()
-  "Split window horizontally if only one window; otherwise go to next window."
-  (interactive)
-  (when (window-live-p (frame-root-window))
-    (split-window-horizontally))
-  (other-window 1))
 
-(defun handle-delete-frame (event)
-  "Override `handle-delete-frame': minimize last EVENT frame instead of deleting."
-  (interactive "e")
-  (let ((frame  (posn-window (event-start event)))
-        (numfrs (length (visible-frame-list))))
-    (cond ((> numfrs 1) (delete-frame frame t))
-          ((iconify-frame)))))
+;; ============================================================
+;;  Auto Revert
+;; ============================================================
 
-(keymap-global-set "C-x b"      #'ibuffer)
-(keymap-global-set "C-x m"      #'counsel-imenu)
-(keymap-global-set "M-,"        #'xref-find-definitions)
-(keymap-global-set "M-w"        #'clipboard-kill-ring-save)
-(keymap-global-set "C-w"        #'my-clipboard-kill-region)
-(keymap-global-set "M-/"        #'kill-current-buffer)
-(keymap-global-set "s-c"        #'clipboard-kill-ring-save)
-(keymap-global-set "s-v"        #'clipboard-yank)
-(keymap-global-set "C-q"        #'other-window-or-split)
-(keymap-global-set "C-<tab>"    #'quoted-insert)
-(keymap-global-set "S-<return>" (lambda () (interactive) (end-of-line) (newline)))
+(leaf autorevert
+  :hook (after-init-hook . global-auto-revert-mode))
+
+
+;; ============================================================
+;;  Auto Mode Associations
+;; ============================================================
+
+(leaf files
+  :config
+  (dolist (pair '(("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
+                  ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"         . conf-mode)
+                  ("/crontab\\(\\..*\\)?\\'" . conf-mode)
+                  ("\\.cgi\\'"               . perl-mode)
+                  ("/passwd/.*\\.cgi\\'"     . text-mode)))
+    (add-to-list 'auto-mode-alist pair)))
+
+
+;; ============================================================
+;;  User Commands
+;; ============================================================
+
+(leaf user-commands
+  :hook ((find-file-hook . my-view-mode-maybe)
+         (find-file-hook . my-read-only-maybe))
+  :bind (("C-x b" . ibuffer)
+         ("C-x m" . counsel-imenu)
+         ("M-,"   . xref-find-definitions)
+         ("M-w"   . clipboard-kill-ring-save)
+         ("C-w"   . my-clipboard-kill-region)
+         ("M-/"   . kill-current-buffer)
+         ("s-c"   . clipboard-kill-ring-save)
+         ("s-v"   . clipboard-yank)
+         ("C-q"   . other-window-or-split)
+         ("C-<tab>"    . quoted-insert)
+         ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
+  :preface
+  (defun my-view-mode-maybe ()
+    "*.log ファイルなら `view-mode' にする."
+    (when (and buffer-file-name
+               (string-match-p "\\.log\\'" buffer-file-name))
+      (when (fboundp 'evil-emacs-state)
+        (evil-emacs-state))
+      (view-mode 1)))
+
+  (defun my-read-only-maybe ()
+    "*.dat ファイルなら read-only にする."
+    (when (and buffer-file-name
+               (string-match-p "\\.dat\\'" buffer-file-name))
+      (read-only-mode 1)))
+
+  (defun my-clipboard-kill-region ()
+    "Kill region to clipboard, or `backward-kill-word' if no region."
+    (interactive)
+    (if (use-region-p)
+        (clipboard-kill-region (region-beginning) (region-end))
+      (backward-kill-word 1)))
+
+  (defun other-window-or-split ()
+    "Split window horizontally if only one window; otherwise go to next window."
+    (interactive)
+    (when (window-live-p (frame-root-window))
+      (split-window-horizontally))
+    (other-window 1))
+
+  (defun handle-delete-frame (event)
+    "Override `handle-delete-frame': minimize last EVENT frame instead of deleting."
+    (interactive "e")
+    (let ((frame  (posn-window (event-start event)))
+          (numfrs (length (visible-frame-list))))
+      (cond ((> numfrs 1) (delete-frame frame t))
+            ((iconify-frame))))))
 
 
 ;; Local Variables:

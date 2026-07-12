@@ -210,43 +210,43 @@
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;; ============================================================
 
-;; Load user functions
-(autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
-(autoload 'my-sen-restore "my-sen-cleanup" nil t)
+(leaf evil-leader-map
+  :after evil
+  :preface
+  (autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
+  (autoload 'my-sen-restore "my-sen-cleanup" nil t)
 
-(setq echo-keystrokes 0)
-(defvar my-normal-leader-map (make-sparse-keymap)
-  "Prefix map triggered by ';' in `evil-normal-state'.")
+  (defun my-newline-above ()
+    "Insert a blank line above the current line without leaving Normal state."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (open-line 1)))
 
-(with-eval-after-load 'evil
-  (keymap-set evil-normal-state-map ";" my-normal-leader-map))
+  (defun my-insert-maru ()
+    "Insert ◎ at the beginning of the current line.  Bound to ;@."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (insert "◎")))
 
-(let ((m my-normal-leader-map))
-  (keymap-set m "f" #'counsel-find-file)     ; ファイル検索
-  (keymap-set m ":" #'counsel-switch-buffer) ; バッファ切替
-  (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
-  (keymap-set m ";" #'comment-line)          ; コメントトグル
-  (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
-  (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
-  (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
-  (keymap-set m "w" #'my-darkroom-toggle)    ; darkroom 起動
-  (keymap-set m "s" #'swiper)                ; swiper 検索
-  (keymap-set m "@" #'my-insert-maru))       ; 行頭に ◎ 挿入（俳句選者用）
+  :config
+  (setq echo-keystrokes 0)
+  (defvar my-normal-leader-map (make-sparse-keymap)
+    "Prefix map triggered by ';' in evil-normal-state.")
+  (keymap-set evil-normal-state-map ";" my-normal-leader-map)
 
-;;  Leader Key Helper Commands
-(defun my-newline-above ()
-  "Insert a blank line above the current line without leaving Normal state."
-  (interactive)
-  (save-excursion
-    (beginning-of-line)
-    (open-line 1)))
-
-(defun my-insert-maru ()
-  "Insert ◎ at the beginning of the current line.  Bound to ;@."
-  (interactive)
-  (save-excursion
-    (beginning-of-line)
-    (insert "◎")))
+  (let ((m my-normal-leader-map))
+    (keymap-set m "f" #'counsel-find-file)     ; ファイル検索
+    (keymap-set m ":" #'counsel-switch-buffer) ; バッファ切替
+    (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
+    (keymap-set m ";" #'comment-line)          ; コメントトグル
+    (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+    (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
+    (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
+    (keymap-set m "w" #'my-darkroom-toggle)    ; darkroom 起動
+    (keymap-set m "s" #'swiper)                ; swiper 検索
+    (keymap-set m "@" #'my-insert-maru)))      ; 行頭に ◎ 挿入（俳句選者用）
 
 
 ;; Local Variables:

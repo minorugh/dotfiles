@@ -7,9 +7,13 @@
 ;;  WhichKey
 ;; ============================================================
 
-(setq which-key-max-description-length 40)
-(setq which-key-idle-delay 0.0)
-(add-hook 'after-init-hook 'which-key-mode)
+(leaf which-key
+  :tag "builtin"
+  :doc "Display available keybindings in popup."
+  :hook (after-init-hook . which-key-mode)
+  :config
+  (setq which-key-max-description-length 40)
+  (setq which-key-idle-delay 0.0))
 
 
 ;; ============================================================
@@ -68,14 +72,13 @@
 ;;  無シャットダウン運用でバッファが溜まり続けるため必須。
 ;; ============================================================
 
-;; 実体: ~/.emacs.d/elisp/tempbuf.el
-(autoload 'tempbuf-mode "tempbuf" nil t)
-(autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
-
-(setq tempbuf-kill-message nil)
-
-(add-hook 'find-file-hook  #'turn-on-tempbuf-mode)
-(add-hook 'dired-mode-hook #'turn-on-tempbuf-mode)
+(leaf tempbuf
+  :doc "実体: ~/.emacs.d/elisp/tempbuf.el"
+  :commands (tempbuf-mode turn-on-tempbuf-mode)
+  :hook ((find-file-hook . turn-on-tempbuf-mode)
+         (dired-mode-hook . turn-on-tempbuf-mode))
+  :config
+  (setq tempbuf-kill-message nil))
 
 
 ;; ============================================================
