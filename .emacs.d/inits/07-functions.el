@@ -21,12 +21,11 @@
          ("<f7>"  . neotree-toggle)            ; see 80-neotree.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode)
-         ("<f10>" . toggle-scratch-buffer)    ; see below
-         ("<f11>" . toggle-frame-fullscreen)  ; built-in
+         ("<f10>" . toggle-scratch-buffer)     ; see below
+         ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
 
   :preface
-  ;; External App Launchers
   (defun my-remote-select ()
     "Select remote directory and open gnome-terminal via SSH."
     (interactive)
@@ -63,7 +62,6 @@
     (let* ((cmd (concat "thunar " default-directory)))
       (start-process-shell-command "thunar" nil cmd)))
 
-  ;;  SSH Launcher  (xsrv)
   (defun xsrv-open-this ()
     "Open gnome-terminal via SSH at the xserver directory matching current buffer."
     (interactive)
@@ -116,6 +114,23 @@
     (if (string= (buffer-name) "*scratch*")
         (switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*"))))
+
+
+
+;; ============================================================
+;;  toggle-emacs.sh
+;; ============================================================
+;; toggle-emacs.sh
+;;   #!/bin/bash
+;;   for wid in $(xdotool search --class emacs 2>/dev/null); do
+;;       if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
+;;           xdotool windowmap --sync "$wid"
+;;           xdotool windowactivate "$wid"
+;;           exit
+;;       fi
+;;   done
+;;   wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
+;;   xdotool windowminimize "$wid"
 
 
 ;; Local Variables:

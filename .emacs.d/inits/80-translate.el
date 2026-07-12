@@ -10,9 +10,10 @@
 ;;  実体: ~/.emacs.d/elisp/my-deepl-translate.el
 ;; ============================================================
 
-(autoload 'deepl-translate "my-deepl-translate" nil t)
 
 (leaf deepl-translate
+  :preface
+  (autoload 'deepl-translate "my-deepl-translate" nil t)
   :doc "Translation in minibuffer & copy result to clipboard."
   :bind ("C-c d" . deepl-translate)
   :init

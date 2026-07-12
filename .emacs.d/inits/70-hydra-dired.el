@@ -25,7 +25,7 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root._/_^^  _._files^  make._k_._b_._m_._u_^  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_._S_note  _g_it.b@rm^^  _f_ly-err  find._1__2__3_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_\@_wm_,__v_._S_note  _g_it.b_@_rm^^  _f_ly-err  find._1__2__3_
 "
    ("@" browse-at-remote)
    ("t" my-open-tig)    ; 40-dired.el を参照

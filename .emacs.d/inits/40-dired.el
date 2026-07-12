@@ -47,7 +47,7 @@
   :after dired
   :config
   ;;  Omit Mode  (特定ディレクトリでは omit を無効化)
-  ;; ----------------------------------------
+  ;; ----------------------------------------------------------
   (defun my-dired-omit-mode ()
     "Disable `dired-omit-mode' in specific directories; enable elsewhere."
     (let ((current (file-name-as-directory
@@ -66,7 +66,7 @@
          1))))
 
   ;;  Navigation
-  ;; ----------------------------------------
+  ;; ----------------------------------------------------------
   (defun my-dired-open ()
     "Open file or directory at point."
     (interactive)
@@ -88,7 +88,7 @@
 
 
   ;;  File Operations
-  ;; ----------------------------------------
+  ;; ----------------------------------------------------------
   (defun my-dired-sudo-rm ()
     "Delete dired-marked files with sudo."
     (interactive)
@@ -101,7 +101,7 @@
         (revert-buffer))))
 
   ;;  External Tools
-  ;; ----------------------------------------
+  ;; ----------------------------------------------------------
   (defun my-dired-gitk ()
     "Run gitk for the current Git repository."
     (interactive)
@@ -120,9 +120,8 @@
                         (mapconcat #'shell-quote-argument files " "))))
       (start-process-shell-command "sxiv" nil cmd)))
 
-  ;;  Permission Help
-  ;; ----------------------------------------
   ;; *Permission Help* を右サイドバーに固定表示
+  ;; ----------------------------------------------------------
   (add-to-list 'display-buffer-alist
                '("\\*Permission Help\\*"
 		 (display-buffer-in-side-window)

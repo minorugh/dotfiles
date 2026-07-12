@@ -25,7 +25,8 @@
      ((t (:background "#1E2029" :foreground "#bd93f9" :weight bold)))))
 
   :preface
-  ;;  Mozc Helper Commands
+  ;; Mozc Helper Commands
+  ;; ---------------------------------------------------
   (defun my-toggle-input-method ()
     "Toggle input method only when in Emacs state."
     (interactive)

@@ -12,12 +12,12 @@
   "Non-nil when this buffer was manually switched Normal→Emacs state.")
 (defvar my-evil--current-buffer nil
   "Buffer tracked for evil state restoration.")
-;; custom Evil help buffer
-(autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
 
 (leaf evil
   :ensure t
-  ;; :require (my-evil-cheat-sheet)       ; custom Evil help buffer
+  :preface
+  ;; custom Evil help buffer
+  (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
@@ -210,10 +210,10 @@
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;; ============================================================
 
-(autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
-(autoload 'my-sen-restore "my-sen-cleanup" nil t)
-
 (leaf evil-leader-map
+  :preface
+  (autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
+  (autoload 'my-sen-restore "my-sen-cleanup" nil t)
   :after evil
   :config
   (setq echo-keystrokes 0)
@@ -231,7 +231,7 @@
     (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
     (keymap-set m "w" #'my-darkroom-toggle)    ; darkroom 起動
     (keymap-set m "s" #'swiper)                ; swiper 検索
-    (keymap-set m "@" #'my-insert-maru))      ; 行頭に ◎ 挿入（俳句選者用）
+    (keymap-set m "@" #'my-insert-maru))       ; 行頭に ◎ 挿入（俳句選者用）
 
   (defun my-newline-above ()
     "Insert a blank line above the current line without leaving Normal state."

@@ -259,31 +259,31 @@
 ;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
 ;; ============================================================
 
-(autoload 'git-peek         "git-peek" nil t)
-(autoload 'git-peek-deleted "git-peek" nil t)
-(autoload 'git-peek-debug   "git-peek" nil t)
-(setq git-peek-save-dir (expand-file-name "~/tmp/"))
+(leaf git-peek
+  :vc (:url "https://github.com/minorugh/git-peek" :only-if-missing t)
+  :config
+  (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 
-(defun my-git-peek-smart ()
-  "Run `git-peek' with save-dir adjusted for xsrv dired context.
+  (defun my-git-peek-smart ()
+    "Run `git-peek' with save-dir adjusted for xsrv dired context.
 xsrv 配下なら差分表示後に 2ペインを復元する。"
-  (interactive)
-  (let* ((dir          (expand-file-name default-directory))
-         (orig         git-peek-save-dir)
-         (root-pair    (my-xsrv-root-for dir))
-         (new-save-dir (if root-pair
-                           (concat (cdr root-pair)
-                                   (file-relative-name dir (car root-pair)))
-                         orig)))
-    (setq git-peek-save-dir new-save-dir)
-    (let ((fn nil))
-      (setq fn (lambda ()
-                 (setq git-peek-save-dir orig)
-                 (when root-pair
-                   (my-open-xsrv-2pane dir new-save-dir))
-                 (remove-hook 'git-peek-finish-hook fn)))
-      (add-hook 'git-peek-finish-hook fn))
-    (git-peek)))
+    (interactive)
+    (let* ((dir          (expand-file-name default-directory))
+           (orig         git-peek-save-dir)
+           (root-pair    (my-xsrv-root-for dir))
+           (new-save-dir (if root-pair
+                              (concat (cdr root-pair)
+                                      (file-relative-name dir (car root-pair)))
+                            orig)))
+      (setq git-peek-save-dir new-save-dir)
+      (let ((fn nil))
+        (setq fn (lambda ()
+                   (setq git-peek-save-dir orig)
+                   (when root-pair
+                     (my-open-xsrv-2pane dir new-save-dir))
+                   (remove-hook 'git-peek-finish-hook fn)))
+        (add-hook 'git-peek-finish-hook fn))
+      (git-peek))))
 
 
 ;; ============================================================
@@ -338,9 +338,7 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
 key-chord の内部表現に依存せず、自前で登録済みかどうかを判定するために使う。")
 
 (defun my-xsrv-find-file-hook ()
-  "動的フォルダー配下のファイルを自動 read-only にする.
-`qq' の key-chord は、まだ登録していないキーマップに対してのみ登録する
-(対象ファイルを開くたびに無条件で再定義していたのを冪等化)."
+  "動的フォルダー配下のファイルを自動 read-only にする."
   (when (my-xsrv-dynamic-p (buffer-file-name))
     (read-only-mode 1)
     (let ((map (or (current-local-map) global-map)))

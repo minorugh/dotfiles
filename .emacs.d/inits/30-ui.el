@@ -151,6 +151,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
 ;;  Flymake / Compilation / which-key）は実ウィンドウ数から除外。
 ;;  実ウィンドウが 2 枚以上あるときだけ mode-line を紫ボーダーで強調。
 ;; ============================================================
+
 (leaf my-active-modeline
   :after doom-modeline
   :doc "Highlight active mode-line with purple border when 2+ windows are visible."
@@ -183,7 +184,6 @@ Safe for use in `before-save-hook' — does not auto-indent."
                  "*evil-cheat*"
                  "*Permission Help*"))
          (buffer-name (window-buffer w)))))
-
 
   (defvar my-modeline-update-timer nil
     "Pending idle timer for `my-update-modeline-for-split'.")
@@ -222,6 +222,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
   ;; ケースを window-configuration-change-hook が拾えないことがあるため、
   ;; より頻繁に発火する buffer-list-update-hook でも再計算する。
   (add-hook 'buffer-list-update-hook #'my-update-modeline-for-split))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
