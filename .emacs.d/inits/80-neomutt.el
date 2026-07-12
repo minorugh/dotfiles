@@ -3,16 +3,18 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-(define-derived-mode neomutt-mail-mode text-mode "NeoMutt"
-  "Major mode for editing NeoMutt compose buffers via emacsclient.")
-(add-to-list 'auto-mode-alist '("/neomutt-" . neomutt-mail-mode))
 
 (leaf my-neomutt
   :doc "NeoMutt integration with emacsclient."
   :hook ((server-visit-hook . my-neomutt-setup)
          (server-done-hook  . my-neomutt-server-done))
   :bind (("C-x C-c" . server-edit))  ; same as C-x #
-  :init
+  :config
+  (add-to-list 'auto-mode-alist '("/neomutt-" . neomutt-mail-mode))
+  :preface
+  (define-derived-mode neomutt-mail-mode text-mode "NeoMutt"
+    "Major mode for editing NeoMutt compose buffers via emacsclient.")
+
   (defun my-neomutt-setup ()
     "Prepare a NeoMutt compose buffer."
     (when (and buffer-file-name

@@ -1,21 +1,10 @@
 ;;; 60-markdown.el --- Markdown mode configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Related custom functions (~/.emacs.d/elisp/my-markdown.el):
-;;   `my-howm-fix-code-comments' -- Convert comment symbols in code blocks
-;;   `gen-toc-term'              -- Generate TOC via gnome-terminal
-;;
-;; 目次:
-;;   1. Markdown Mode        (パッケージ本体設定)
-;;   2. Preview HTML Header  (highlight.js + TOC スタイル)
-;;   3. 拡張機能キーバインド (自作関数の autoload と keymap-set)
-;;   4. Howm Fix Hook        (super-save 後にコメント記号を修正)
-;;   5. Temp File Cleanup    (プレビュー用 /tmp/burl*.html を自動削除)
-;;   6. Pandoc Export        (PDF / DOCX)
 ;;; Code:
 
 ;; ============================================================
-;; 1. Markdown Mode  (パッケージ本体設定)
+;; Markdown Mode
 ;; ============================================================
 
 (leaf markdown-mode
@@ -38,16 +27,7 @@
   (setq markdown-css-paths
         (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
 
-  (custom-set-faces
-   '(markdown-code-face ((t (:inherit nil :background "gray10"))))
-   '(markdown-pre-face  ((t (:inherit font-lock-constant-face))))))
-
-
-;; ============================================================
-;; 2. Preview HTML Header  (highlight.js + TOC スタイル)
-;; ============================================================
-
-(with-eval-after-load 'markdown-mode
+  ;; Preview HTML Header
   (setq markdown-xhtml-header-content
         (concat
          "<link rel='stylesheet' href='"
@@ -72,81 +52,76 @@
           /* TOC: 2階層目はディスク表示 */
           .toc > ul > li > ul { list-style-type: disc; padding-left: 25px; }
           .toc > ul > li > ul > li { color: #555; }
-     </style>")))
+     </style>"))
+
+  ;; Customize inline code and fenced code block faces.
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit nil :background "gray10"))))
+   '(markdown-pre-face  ((t (:inherit font-lock-constant-face))))))
 
 
 ;; ============================================================
-;; 3. 拡張機能キーバインド  (自作関数; markdown-mode 本体とは別扱い)
+;;  Markdown Commands
 ;; ============================================================
 
-(autoload 'my-howm-fix-code-comments "my-markdown" nil t)
-(autoload 'gen-toc-term              "my-markdown" nil t)
+(leaf my-markdown-commands
+  :after markdown-mode
+  :bind (("C-c #" . my-howm-fix-code-comments)
+         ("C-c t" . gen-toc-term))
+  :preface
+  (autoload 'my-howm-fix-code-comments "my-markdown" nil t)
+  (autoload 'gen-toc-term              "my-markdown" nil t)
+  :config
+  ;; Howm Fix Hook  (super-save 後にコメント記号を修正)
+  (defun my-howm-fix-after-super-save (&rest _)
+    "super-save 後に howm バッファのコードブロック内コメントを修正する."
+    (when (and (eq major-mode 'howm-mode)
+               (buffer-file-name))
+      (message "howm-fix running: %s" (buffer-file-name))
+      (shell-command
+       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
+               (shell-quote-argument (buffer-file-name))))))
 
-(keymap-set global-map "C-c #" #'my-howm-fix-code-comments)
-(keymap-set global-map "C-c t" #'gen-toc-term)
+  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
+  ;; Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
+  (defun my-delete-tmp-markdown-html ()
+    "Delete /tmp/burl*.html when a markdown buffer is killed."
+    (when (and (derived-mode-p 'markdown-mode)
+               (buffer-file-name))
+      (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
+        (when (file-exists-p file)
+          (delete-file file)
+          (message "Deleted temporary file: %s" file)))))
 
-;; ============================================================
-;; 4. Howm Fix Hook  (super-save 後にコメント記号を修正)
-;; ============================================================
+  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
-(defun my-howm-fix-after-super-save (&rest _)
-  "super-save 後に howm バッファのコードブロック内コメントを修正する."
-  (when (and (eq major-mode 'howm-mode)
-             (buffer-file-name))
-    (message "howm-fix running: %s" (buffer-file-name))
-    (shell-command
-     (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
-             (shell-quote-argument (buffer-file-name))))))
+  ;; Pandoc Export  (PDF / DOCX)
+  (defun md2pdf ()
+    "Generate PDF from the current markdown buffer via pandoc + lualatex."
+    (interactive)
+    (let* ((filename (buffer-file-name))
+           (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
+      (if (zerop (call-process-shell-command
+                  (concat "pandoc " filename
+                          " -o " pdffile
+                          " -V mainfont=IPAPGothic -V geometry:margin=20mm"
+                          " -V fontsize=14pt --pdf-engine=lualatex")))
+          (call-process "xdg-open" nil nil nil pdffile)
+        (message "md2pdf: pandoc failed"))))
 
-(advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
-
-
-;; ============================================================
-;; 5. Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
-;; ============================================================
-
-(defun my-delete-tmp-markdown-html ()
-  "Delete /tmp/burl*.html when a markdown buffer is killed."
-  (when (and (derived-mode-p 'markdown-mode)
-             (buffer-file-name))
-    (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
-      (when (file-exists-p file)
-        (delete-file file)
-        (message "Deleted temporary file: %s" file)))))
-
-(add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
-
-
-;; ============================================================
-;; 6. Pandoc Export  (PDF / DOCX)
-;; ============================================================
-
-(defun md2pdf ()
-  "Generate PDF from the current markdown buffer via pandoc + lualatex."
-  (interactive)
-  (let* ((filename (buffer-file-name))
-         (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
-    (if (zerop (call-process-shell-command
-                (concat "pandoc " filename
-                        " -o " pdffile
-                        " -V mainfont=IPAPGothic -V geometry:margin=20mm"
-                        " -V fontsize=14pt --pdf-engine=lualatex")))
-        (call-process "xdg-open" nil nil nil pdffile)
-      (message "md2pdf: pandoc failed"))))
-
-(defun md2docx ()
-  "Generate DOCX from the current markdown buffer via pandoc."
-  (interactive)
-  (let* ((filename (buffer-file-name))
-         (docxfile  (concat (file-name-sans-extension filename) ".docx")))
-    (if (zerop (call-process-shell-command
-                (concat "pandoc " filename
-                        " -t docx -o " docxfile
-                        " -V mainfont=IPAPGothic -V fontsize=16pt"
-                        " --highlight-style=zenburn")))
-        (call-process "xdg-open" nil nil nil docxfile)
-      (message "md2docx: pandoc failed"))))
+  (defun md2docx ()
+    "Generate DOCX from the current markdown buffer via pandoc."
+    (interactive)
+    (let* ((filename (buffer-file-name))
+           (docxfile  (concat (file-name-sans-extension filename) ".docx")))
+      (if (zerop (call-process-shell-command
+                  (concat "pandoc " filename
+                          " -t docx -o " docxfile
+                          " -V mainfont=IPAPGothic -V fontsize=16pt"
+                          " --highlight-style=zenburn")))
+          (call-process "xdg-open" nil nil nil docxfile)
+        (message "md2docx: pandoc failed")))))
 
 
 ;; Local Variables:
