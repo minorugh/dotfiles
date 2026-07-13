@@ -256,11 +256,13 @@
 
 
 ;; ============================================================
-;; 7. git-peek 連携  (差分プレビュー、xsrv配下なら2pane復元と連携)
+;; 7. git-peek (差分プレビュー、xsrv配下なら2pane復元と連携)
 ;; ============================================================
 
 (leaf git-peek
-  :vc (:url "https://github.com/minorugh/git-peek" :only-if-missing t)
+  :preface
+  (autoload 'git-peek "git-peek" nil t)
+  (autoload 'git-peek-deleted "git-peek" nil t)
   :config
   (setq git-peek-save-dir (expand-file-name "~/tmp/"))
 
@@ -272,9 +274,9 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
            (orig         git-peek-save-dir)
            (root-pair    (my-xsrv-root-for dir))
            (new-save-dir (if root-pair
-                              (concat (cdr root-pair)
-                                      (file-relative-name dir (car root-pair)))
-                            orig)))
+                             (concat (cdr root-pair)
+                                     (file-relative-name dir (car root-pair)))
+                           orig)))
       (setq git-peek-save-dir new-save-dir)
       (let ((fn nil))
         (setq fn (lambda ()

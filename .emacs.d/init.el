@@ -57,12 +57,9 @@
   :defun my-key-chord-ensure
   :hook (after-init-hook . key-chord-mode)
   :config
-  (key-chord-define-global "l;" 'init-loader-show-log)
-
   (defun my-key-chord-ensure ()
     "Key-chord stall recovery."
-    (when (and key-chord-mode
-               (not (eq input-method-function 'key-chord-input-method)))
+    (when key-chord-mode
       (key-chord-mode -1)
       (key-chord-mode 1)))
   (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
@@ -79,6 +76,7 @@
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
+  (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 
 

@@ -8,6 +8,8 @@
 ;; ============================================================
 
 (leaf dired
+  :preface
+  (autoload 'my-open-tig "my-tig-bridge" nil t)
   :hook (dired-mode-hook . my-dired-omit-mode)
   :bind (:dired-mode-map
          ("<left>"   . my-dired-up)
@@ -19,8 +21,8 @@
          ("o"   . my-dired-open-xdg)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
-	 ("]"   . my-dired-gitk)
-	 ("p"   . my-dired-permission-help)
+         ("]"   . my-dired-gitk)
+         ("p"   . my-dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 40-remote.el
          (","   . xsrv-download-dired)  ; see 40-remote.el
          ("i"   . my-sxiv))
@@ -33,7 +35,7 @@
   (setq dired-omit-files         "^\\.$\\|^\\.[^\\.].*$\\|\\.elc$")
   (put 'dired-find-alternate-file 'disabled nil)
 
-;; Don't let Ivy override Emacs 30 file-name completion in dired copy.
+  ;; Don't let Ivy override Emacs 30 file-name completion in dired copy.
   (add-to-list 'ivy-completing-read-handlers-alist
                '(dired-do-copy . completing-read-default)))
 
@@ -72,7 +74,7 @@
     (let ((file (dired-get-filename)))
       (if (file-directory-p file)
           (find-alternate-file file)
-	(find-file file))))
+        (find-file file))))
 
   (defun my-dired-up ()
     "Go to parent directory in the same buffer."
@@ -108,7 +110,7 @@
            (root (locate-dominating-file file ".git")))
       (if root
           (start-process "gitk" nil "gitk")
-	(message "Not in a Git repository"))))
+        (message "Not in a Git repository"))))
 
   (defun my-sxiv ()
     "Open all images in the current directory with sxiv (fullscreen tiling)."
@@ -123,11 +125,11 @@
   ;; ----------------------------------------------------------
   (add-to-list 'display-buffer-alist
                '("\\*Permission Help\\*"
-		 (display-buffer-in-side-window)
-		 (side . right)
-		 (slot . 0)
-		 (window-width . 40)
-		 (window-parameters . ((no-delete-other-windows . t)
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 0)
+                 (window-width . 40)
+                 (window-parameters . ((no-delete-other-windows . t)
                                        (mode-line-format . none)))))
 
   (defun my-dired-permission-help ()
@@ -135,50 +137,50 @@
     (interactive)
     (let ((help-window-select t))   ;; 表示後にヘルプウィンドウへフォーカスを移す
       (with-help-window "*Permission Help*"
-	(princ "Permission Quick Reference\n")
-	(princ "==========================\n\n")
+        (princ "Permission Quick Reference\n")
+        (princ "==========================\n\n")
 
-	(princ "Permission values\n")
-	(princ "-----------------\n")
-	(princ "r = 4\n")
-	(princ "w = 2\n")
-	(princ "x = 1\n\n")
+        (princ "Permission values\n")
+        (princ "-----------------\n")
+        (princ "r = 4\n")
+        (princ "w = 2\n")
+        (princ "x = 1\n\n")
 
-	(princ "Common combinations\n")
-	(princ "-------------------\n")
-	(princ "rwx = 7\n")
-	(princ "rw- = 6\n")
-	(princ "r-x = 5\n")
-	(princ "r-- = 4\n")
-	(princ "--- = 0\n\n")
+        (princ "Common combinations\n")
+        (princ "-------------------\n")
+        (princ "rwx = 7\n")
+        (princ "rw- = 6\n")
+        (princ "r-x = 5\n")
+        (princ "r-- = 4\n")
+        (princ "--- = 0\n\n")
 
-	(princ "Common permissions\n")
-	(princ "------------------\n")
-	(princ "-rw-r--r--  = 644\n")
-	(princ "-rw-------  = 600\n")
-	(princ "-rw----r--  = 604\n")
-	(princ "-rw----rw-  = 606\n")
-	(princ "-rwxr-xr-x  = 755\n")
-	(princ "-rwx------  = 700\n")
-	(princ "-rwx---r-x  = 705\n\n")
+        (princ "Common permissions\n")
+        (princ "------------------\n")
+        (princ "-rw-r--r--  = 644\n")
+        (princ "-rw-------  = 600\n")
+        (princ "-rw----r--  = 604\n")
+        (princ "-rw----rw-  = 606\n")
+        (princ "-rwxr-xr-x  = 755\n")
+        (princ "-rwx------  = 700\n")
+        (princ "-rwx---r-x  = 705\n\n")
 
-	(princ "File type (first character)\n")
-	(princ "---------------------------\n")
-	(princ "-  regular file\n")
-	(princ "d  directory\n")
-	(princ "l  symbolic link\n")
-	(princ "c  character device\n")
-	(princ "b  block device\n")
-	(princ "p  FIFO (named pipe)\n")
-	(princ "s  socket\n\n")
+        (princ "File type (first character)\n")
+        (princ "---------------------------\n")
+        (princ "-  regular file\n")
+        (princ "d  directory\n")
+        (princ "l  symbolic link\n")
+        (princ "c  character device\n")
+        (princ "b  block device\n")
+        (princ "p  FIFO (named pipe)\n")
+        (princ "s  socket\n\n")
 
-	(princ "Examples\n")
-	(princ "--------\n")
-	(princ "drwxr-xr-x\n")
-	(princ " d   rwx   r-x   r-x\n")
-	(princ " |    7     5     5\n")
-	(princ " +--> directory\n")
-	(princ " => directory 755\n")))))
+        (princ "Examples\n")
+        (princ "--------\n")
+        (princ "drwxr-xr-x\n")
+        (princ " d   rwx   r-x   r-x\n")
+        (princ " |    7     5     5\n")
+        (princ " +--> directory\n")
+        (princ " => directory 755\n")))))
 
 
 ;; Local Variables:
