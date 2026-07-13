@@ -39,6 +39,7 @@
 ;; ============================================================
 
 (leaf tempbuf
+  :tag "local"
   :doc "Kill unused buffers in the background."
   :preface
   (autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
@@ -54,7 +55,13 @@
 ;; ============================================================
 
 (leaf my-elpa
+  :tag "local"
   :doc "Browse ELPA snapshots and manage packages via hydra."
+  :preface
+  (defun my-open-elpa-log ()
+    "Open elpa-changes.log."
+    (interactive)
+    (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log"))
   :config
   (key-chord-define-global "p@" 'hydra-package/body)
   :hydra
@@ -69,12 +76,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
    ("d" package-delete)
    ("a" package-upgrade-all)
    ("v" package-vc-upgrade-all)
-   ("<muhenkan>" nil))
-  :init
-  (defun my-open-elpa-log ()
-    "Open elpa-changes.log."
-    (interactive)
-    (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log")))
+   ("<muhenkan>" nil)))
 
 
 ;; ============================================================
@@ -82,6 +84,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;; ============================================================
 
 (leaf my-gist-command
+  :tag "local"
   :bind (("C-x g" . gist-region-or-buffer)
          ("C-x l" . my-open-lepton))
   :preface
@@ -103,7 +106,7 @@ If region isn't selected, post from the buffer."
     (let ((file (buffer-file-name)))
       (if (not (use-region-p))
           (compile (concat "gist -od " (gist-description) " " file))
-	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+        (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
     (delete-other-windows))
 
   (defun my-open-lepton ()

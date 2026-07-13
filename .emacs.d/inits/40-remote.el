@@ -260,6 +260,7 @@
 ;; ============================================================
 
 (leaf git-peek
+  :tag "local"
   :preface
   (autoload 'git-peek "git-peek" nil t)
   (autoload 'git-peek-deleted "git-peek" nil t)

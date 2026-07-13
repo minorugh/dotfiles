@@ -9,12 +9,9 @@
 
 (leaf howm
   :ensure t
-  :doc "Wiki-like note-taking tool."
-  :url "https://howm.osdn.jp"
+  :doc "Hitori Otegaru Wiki Modoki"
   :commands (howm-list-all my-howm-create-with-category)
   :hook (emacs-startup-hook . howm-mode)
-  :chord (("@@" . howm-list-all)
-          (",," . my-howm-create-with-category))
   :bind ((:howm-view-summary-mode-map
           ([backtab]  . howm-view-summary-previous-section)
           ("<return>" . howm-view-summary-open)
