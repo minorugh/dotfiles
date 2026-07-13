@@ -1,4 +1,4 @@
-;;; 80-translate.el --- DeepL / Google translate key bindings.  -*- lexical-binding: t -*-
+;;; 70-translate.el --- DeepL / Google translate key bindings.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; DeepL API 翻訳の実体は ~/.emacs.d/elisp/my-deepl-translate.el に分離し、
 ;; ここでは autoload 宣言とキーバインドのみを行う。
@@ -57,4 +57,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 80-translate.el ends here
+;;; 70-translate.el ends here

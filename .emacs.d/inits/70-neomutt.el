@@ -1,4 +1,4 @@
-;;; 80-neomutt.el --- Neomuttt configurations. -*- lexical-binding: t -*-
+;;; 70-neomutt.el --- Neomuttt configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -36,4 +36,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 80-neomutt.el ends here
+;;; 70-neomutt.el ends here

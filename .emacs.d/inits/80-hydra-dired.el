@@ -1,4 +1,4 @@
-;;; 70-hydra-dired.el --- Hydra dired/work-menu configurations. -*- lexical-binding: t -*-
+;;; 80-hydra-dired.el --- Hydra dired/work-menu configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -248,4 +248,4 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 70-hydra-dired.el ends here
+;;; 80-hydra-dired.el ends here

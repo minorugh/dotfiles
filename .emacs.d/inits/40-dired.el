@@ -23,7 +23,6 @@
 	 ("p"   . my-dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 40-remote.el
          (","   . xsrv-download-dired)  ; see 40-remote.el
-         ("b"   . my-xsrv-backup-dwim)  ; see 40-remote.el
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target         t)

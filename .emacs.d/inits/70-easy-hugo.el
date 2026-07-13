@@ -1,4 +1,4 @@
-;;; 80-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
+;;; 70-easy-hugo.el --- Easy-Hugo configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -86,7 +86,7 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
   (defun my-edit-easy-hugo ()
     "Open the easy-hugo configuration file for editing."
     (interactive)
-    (find-file "~/.emacs.d/inits/80-easy-hugo.el"))
+    (find-file "~/.emacs.d/inits/70-easy-hugo.el"))
 
   (defun my-easy-hugo-newpost-after (&rest _)
     "After creating a new post, switch to Emacs state and
@@ -102,4 +102,4 @@ move to end of buffer."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved callargs)
 ;; End:
-;;; 80-easy-hugo.el ends here
+;;; 70-easy-hugo.el ends here

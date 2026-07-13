@@ -77,8 +77,8 @@
 
 ;; ============================================================
 ;; 2. xsrv-2pane 見た目  (ヘッダー)
-;; 70-hydra-dired.el の hydra-dired から呼ばれる想定。
-;; ペイン終了処理(my-2pane-quit/my-dired-quit)は 70-hydra-dired.el 側の汎用機能。
+;; 80-hydra-dired.el の hydra-dired から呼ばれる想定。
+;; ペイン終了処理(my-2pane-quit/my-dired-quit)は 80-hydra-dired.el 側の汎用機能。
 ;; ============================================================
 
 (defface my-xsrv-2pane-header-face
@@ -236,11 +236,11 @@
   (other-window 1)
   (my-2pane-divider-on))
 
-;; my-2pane-quit-hook は 70-hydra-dired.el 側で defvar される拡張ポイント。
+;; my-2pane-quit-hook は 80-hydra-dired.el 側で defvar される拡張ポイント。
 ;; ここでは divider 解除だけを差し込む。
 (add-hook 'my-2pane-quit-hook #'my-2pane-divider-off)
 
-;; -- hydra から呼ぶための薄いラッパー (70-hydra-dired.el の ":" ";" から参照) --
+;; -- hydra から呼ぶための薄いラッパー (80-hydra-dired.el の ":" ";" から参照) --
 
 (defun my-open-xsrv-2pane-gh ()
   "Xsrv-GH と Dropbox/GH を 2ペインで開く."

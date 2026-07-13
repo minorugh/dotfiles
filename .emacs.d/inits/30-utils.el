@@ -17,39 +17,6 @@
 
 
 ;; ============================================================
-;;  Key chord
-;; ============================================================
-
-(leaf key-chord
-  :ensure t
-  :hook (after-init-hook . key-chord-mode)
-  :config
-  (key-chord-define-global "l;" 'init-loader-show-log))
-
-;; --------------------------------------------------------------
-;; key-chord は key-chord-mode の有効化時に input-method-function を
-;; 自前の関数 (key-chord-input-method) に書き換える仕組みで動作している。
-;; ところが日本語入力メソッド（mozc / skk / Emacs標準の input-method 等）を
-;; 有効/無効にすると、それらも同じ input-method-function を奪い合うため、
-;; 「最後に取得した側が勝つ」形になり、IMEをオフにした後に
-;; key-chord が反応しなくなる（stall する）ことがある。
-;; https://github.com/emacsorphanage/key-chord#caveats 参照
-;;
-;; 対策として、入力メソッドの有効化・無効化のたびに key-chord-mode を
-;; 一旦オフ→オンし直し、input-method-function を key-chord 側に
-;; 強制的に取り戻す。
-;; --------------------------------------------------------------
-(defun my-key-chord-ensure ()
-  "Key-chord stall recovery."
-  (when (and key-chord-mode
-             (not (eq input-method-function 'key-chord-input-method)))
-    (key-chord-mode -1)
-    (key-chord-mode 1)))
-(add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
-(add-hook 'input-method-deactivate-hook #'my-key-chord-ensure)
-
-
-;; ============================================================
 ;;  Quickrun
 ;; ============================================================
 

@@ -1,4 +1,4 @@
-;;; 70-hydra-browse.el --- Hydra browse configurations. -*- lexical-binding: t -*-
+;;; 80-hydra-browse.el --- Hydra browse configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -118,4 +118,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; 70-hydra-browse.el ends here
+;;; 80-hydra-browse.el ends here

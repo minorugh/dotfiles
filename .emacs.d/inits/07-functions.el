@@ -18,7 +18,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . quickrun)                  ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . neotree-toggle)            ; see 80-neotree.el
+         ("<f7>"  . neotree-toggle)            ; see 70-neotree.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below

@@ -49,6 +49,27 @@
 
 
 ;; ============================================================
+;;  Key-chord
+;; ============================================================
+
+(leaf key-chord
+  :ensure t
+  :defun my-key-chord-ensure
+  :hook (after-init-hook . key-chord-mode)
+  :config
+  (key-chord-define-global "l;" 'init-loader-show-log)
+
+  (defun my-key-chord-ensure ()
+    "Key-chord stall recovery."
+    (when (and key-chord-mode
+               (not (eq input-method-function 'key-chord-input-method)))
+      (key-chord-mode -1)
+      (key-chord-mode 1)))
+  (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
+  (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
+
+
+;; ============================================================
 ;;  Config Loader
 ;; ============================================================
 
