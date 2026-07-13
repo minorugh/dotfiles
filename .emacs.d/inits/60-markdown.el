@@ -65,12 +65,13 @@
 ;; ============================================================
 
 (leaf my-markdown-commands
-  :after markdown-mode
-  :bind (("C-c #" . my-howm-fix-code-comments)
-         ("C-c t" . gen-toc-term))
+  :tag "local"
   :preface
   (autoload 'my-howm-fix-code-comments "my-markdown" nil t)
   (autoload 'gen-toc-term              "my-markdown" nil t)
+  :after markdown-mode
+  :bind (("C-c #" . my-howm-fix-code-comments)
+         ("C-c t" . gen-toc-term))
   :config
   ;; Howm Fix Hook  (super-save 後にコメント記号を修正)
   (defun my-howm-fix-after-super-save (&rest _)
