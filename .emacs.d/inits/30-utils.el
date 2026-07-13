@@ -36,11 +36,12 @@
 
 ;; ============================================================
 ;;  Tempbuf
-;;  無シャットダウン運用でバッファが溜まり続けるため必須。
 ;; ============================================================
 
 (leaf tempbuf
-  :doc "実体: ~/.emacs.d/elisp/tempbuf.el"
+  :doc "Kill unused buffers in the background."
+  :preface
+  (autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
   :commands (tempbuf-mode turn-on-tempbuf-mode)
   :hook ((find-file-hook . turn-on-tempbuf-mode)
          (dired-mode-hook . turn-on-tempbuf-mode))
@@ -80,36 +81,37 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;;  Gist / Lepton Integration
 ;; ============================================================
 
-(defun gist-description ()
-  "Add gist description."
-  (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
+(leaf my-gist-command
+  :bind (("C-x g" . gist-region-or-buffer)
+         ("C-x l" . my-open-lepton))
+  :preface
+  (defun gist-description ()
+    "Add gist description."
+    (shell-quote-argument (read-from-minibuffer "Add gist description: ")))
 
-(defun gist-filename ()
-  "The character string entered in minibuffer is used as file-name.
+  (defun gist-filename ()
+    "The character string entered in minibuffer is used as file-name.
 If enter is pressed without file-name, that's will be buffer file name."
-  (interactive)
-  (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
-    (read-from-minibuffer (format "File name (%s): " file) file)))
+    (interactive)
+    (let ((file (file-name-nondirectory (buffer-file-name (current-buffer)))))
+      (read-from-minibuffer (format "File name (%s): " file) file)))
 
-(defun gist-region-or-buffer ()
-  "If region is selected, post from the region.
+  (defun gist-region-or-buffer ()
+    "If region is selected, post from the region.
 If region isn't selected, post from the buffer."
-  (interactive)
-  (let ((file (buffer-file-name)))
-    (if (not (use-region-p))
-        (compile (concat "gist -od " (gist-description) " " file))
-      (compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
-  (delete-other-windows))
+    (interactive)
+    (let ((file (buffer-file-name)))
+      (if (not (use-region-p))
+          (compile (concat "gist -od " (gist-description) " " file))
+	(compile (concat "gist -oPd " (gist-description) " -f " (gist-filename)))))
+    (delete-other-windows))
 
-(defun my-open-lepton ()
-  "Specify the full path, disable the sandbox if necessary, and start Lepton."
-  (interactive)
-  (start-process-shell-command
-   "lepton" nil
-   "~/Apps/Lepton-1.10.0.AppImage --no-sandbox"))
-
-(keymap-global-set "C-x g" #'gist-region-or-buffer)
-(keymap-global-set "C-x l" #'my-open-lepton)
+  (defun my-open-lepton ()
+    "Specify the full path, disable the sandbox if necessary, and start Lepton."
+    (interactive)
+    (start-process-shell-command
+     "lepton" nil
+     "~/Apps/Lepton-1.10.0.AppImage --no-sandbox")))
 
 
 ;; ============================================================
