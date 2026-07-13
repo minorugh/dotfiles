@@ -14,7 +14,7 @@
   :bind ((:easy-hugo-mode-map
           ("<tab>" . easy-hugo-no-help)
           ("o"     . easy-hugo-open-basedir)
-          ("SPC"   . easy-hugo-view)
+          ("SPC"   . my-easy-hugo-view)
           ("e"     . my-edit-easy-hugo)))
   :init
   (setq easy-hugo-help-line 4)
@@ -87,6 +87,15 @@ N .. No help [tab]    . .. Next postdir    c .. Open config      o .. Open base 
     "Open the easy-hugo configuration file for editing."
     (interactive)
     (find-file "~/.emacs.d/inits/70-easy-hugo.el"))
+
+  (defun my-easy-hugo-view ()
+    "Open Easy Hugo file in View mode and enter Evil Emacs state."
+    (interactive)
+    (easy-hugo-view)
+    (when (fboundp 'evil-emacs-state)
+      (with-current-buffer (current-buffer)
+	(when view-mode
+          (evil-emacs-state)))))
 
   (defun my-easy-hugo-newpost-after (&rest _)
     "After creating a new post, switch to Emacs state and
