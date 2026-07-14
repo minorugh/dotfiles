@@ -182,6 +182,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
                  "*Compilation"
                  "which-key"
                  "*evil-cheat*"
+                 "*dvi-printing*"
                  "*Permission Help*"))
          (buffer-name (window-buffer w)))))
 
