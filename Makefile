@@ -56,7 +56,6 @@ all: baseinstall nextinstall
 baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer
 
-.ONESHELL:
 SHELL = /bin/bash
 
 ########################################################
@@ -392,14 +391,14 @@ latex: ## LaTeX 用スクリプト・スタイルファイルのシンボリッ�
 
 github: ## GitHub リポジトリのクローン
 	mkdir -p ${HOME}/src/github.com/minorugh
-	cd ${HOME}/src/github.com/minorugh
-	git clone git@github.com:minorugh/GH.git
-	git clone git@github.com:minorugh/minorugh.com.git
-	git clone git@github.com:minorugh/minorugh.github.io.git
-	git clone git@github.com:minorugh/upsftp.git
-	git clone git@github.com:minorugh/env-import.git
-	git clone git@github.com:minorugh/git-peek.git
-	git clone git@github.com:minorugh/xsrv-GH.git
+	cd ${HOME}/src/github.com/minorugh; \
+	git clone git@github.com:minorugh/GH.git; \
+	git clone git@github.com:minorugh/minorugh.com.git; \
+	git clone git@github.com:minorugh/minorugh.github.io.git; \
+	git clone git@github.com:minorugh/upsftp.git; \
+	git clone git@github.com:minorugh/env-import.git; \
+	git clone git@github.com:minorugh/git-peek.git; \
+	git clone git@github.com:minorugh/xsrv-GH.git; \
 	git clone git@github.com:minorugh/xsrv-minorugh.git
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
@@ -506,14 +505,14 @@ docker-setup: polkit ## 【Step1】データディレクトリ作成＋Dropbox�
 # P1 (main): commit + push / others (sub): pull --rebase only
 # Note: Also synchronizes the secret '~/.env_source' repository on P1.
 git: ## Auto commit+push (main only, sub: pull only)
-	@git add -A
-	@git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
+	git add -A
+	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 
 ifeq ($(HOSTNAME),P1)
-	@if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
+	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
-	@git push
+	git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	@git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
