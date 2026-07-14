@@ -516,7 +516,7 @@ ifeq ($(HOSTNAME),P1)
 	git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
-	git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
+	@git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
 endif
 
 git-fix: ## rebase失敗時の自動修復
