@@ -70,7 +70,7 @@
   :load-path "~/.emacs.d/elisp"   ; Path to the local packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
-  ;; (setq init-loader-byte-compile t)
+  (setq init-loader-byte-compile t)
   (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 

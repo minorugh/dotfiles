@@ -45,8 +45,6 @@ STRING is the exit status message from the compilation process."
                            'invisible t))))
   :init
   (setq compilation-finish-functions #'compile-autoclose)
-  (message "DEBUG: compilation-finish-functions set to %S" compilation-finish-functions)
-  (setq compilation-finish-functions #'compile-autoclose)
   (setq compilation-scroll-output    t)
   (setq compilation-always-kill      t))
 
