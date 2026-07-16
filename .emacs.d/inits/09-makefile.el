@@ -164,15 +164,15 @@ STRING is the exit status message from the compilation process."
       (evil-normal-state))
     (unless buffer-read-only (message "EDITABLE")))
 
-  (defun my-make-git ()
-    "Run `make git' in the repository root."
-    (interactive)
-    (let* ((dir  (or buffer-file-name default-directory))
-           (root (locate-dominating-file dir "Makefile")))
-      (if root
-          (let ((default-directory root))
-            (compile "make git"))
-        (message "Makefile not found"))))
+  ;; (defun my-make-git ()
+  ;;   "Run `make git' in the repository root."
+  ;;   (interactive)
+  ;;   (let* ((dir  (or buffer-file-name default-directory))
+  ;;          (root (locate-dominating-file dir "Makefile")))
+  ;;     (if root
+  ;;         (let ((default-directory root))
+  ;;           (compile "make git"))
+  ;;       (message "Makefile not found"))))
 
   (defun my-makefile-buffer-list-update-hook ()
     "カレントから外れた Makefile バッファを自動 read-only に戻す."
