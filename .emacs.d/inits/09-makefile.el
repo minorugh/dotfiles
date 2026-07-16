@@ -45,6 +45,8 @@ STRING is the exit status message from the compilation process."
                            'invisible t))))
   :config
   (setq compilation-finish-functions #'compile-autoclose)
+  (message "DEBUG: compilation-finish-functions set to %S" compilation-finish-functions)
+  (setq compilation-finish-functions #'compile-autoclose)
   (setq compilation-scroll-output    t)
   (setq compilation-always-kill      t))
 
@@ -160,7 +162,7 @@ STRING is the exit status message from the compilation process."
     (interactive)
     (read-only-mode 'toggle)
     (if (eq evil-state 'normal)
-	(evil-emacs-state)
+        (evil-emacs-state)
       (evil-normal-state))
     (unless buffer-read-only (message "EDITABLE")))
 
@@ -172,13 +174,13 @@ STRING is the exit status message from the compilation process."
       (if root
           (let ((default-directory root))
             (compile "make git"))
-	(message "Makefile not found"))))
+        (message "Makefile not found"))))
 
   (defun my-makefile-buffer-list-update-hook ()
     "カレントから外れた Makefile バッファを自動 read-only に戻す."
     (dolist (buf (buffer-list))
       (unless (eq buf (current-buffer))
-	(with-current-buffer buf
+        (with-current-buffer buf
           (when (and (derived-mode-p 'makefile-mode)
                      (not buffer-read-only))
             (read-only-mode 1)

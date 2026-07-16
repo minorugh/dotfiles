@@ -52,6 +52,7 @@
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
+   ("c" (my-make "clean"))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
