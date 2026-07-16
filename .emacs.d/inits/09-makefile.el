@@ -43,7 +43,7 @@ STRING is the exit status message from the compilation process."
         (put-text-property (line-beginning-position)
                            (line-end-position)
                            'invisible t))))
-  :config
+  :init
   (setq compilation-finish-functions #'compile-autoclose)
   (message "DEBUG: compilation-finish-functions set to %S" compilation-finish-functions)
   (setq compilation-finish-functions #'compile-autoclose)
