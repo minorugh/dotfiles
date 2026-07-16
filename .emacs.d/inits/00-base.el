@@ -59,31 +59,18 @@
 
 
 ;; ============================================================
-;;  Global Minor Modes
+;;  History & Trash
 ;; ============================================================
 
-(add-hook 'after-init-hook #'global-auto-revert-mode)
-(add-hook 'after-init-hook #'save-place-mode)
-
-
-;; ============================================================
-;;  Trash
-;; ============================================================
-
+;; --- Trash ---
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
-
-;; Auto-create trash directory if missing
 (advice-add 'move-file-to-trash :before
             (lambda (&rest _)
               (unless (file-exists-p trash-directory)
                 (make-directory trash-directory t))))
 
-
-;; ============================================================
-;;  Savehist
-;; ============================================================
-
+;; --- Savehist ---
 (leaf savehist
   :hook (after-init-hook . savehist-mode)
   :config
@@ -93,11 +80,7 @@
   (setq savehist-additional-variables
         '(extended-command-history my-describe-history)))
 
-
-;; ============================================================
-;;  Recentf
-;; ============================================================
-
+;; --- Recentf ---
 (leaf recentf
   :config
   (run-with-idle-timer 0.5 nil #'recentf-mode)
@@ -105,7 +88,7 @@
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
   (setq recentf-exclude
-	(list (expand-file-name "elpa/" user-emacs-directory)
+        (list (expand-file-name "elpa/" user-emacs-directory)
               (expand-file-name "tmp/" user-emacs-directory)
               "\\.howm-keys"
               "/session\\."
@@ -116,9 +99,14 @@
 
 
 ;; ============================================================
-;;  Mode Associations
+;;  Mode Settings
 ;; ============================================================
 
+;; --- Global Minor Modes ---
+(add-hook 'after-init-hook #'global-auto-revert-mode)
+(add-hook 'after-init-hook #'save-place-mode)
+
+;; --- Auto Mode Associations ---
 (leaf *auto-mode
   :config
   (dolist (pair '(("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
