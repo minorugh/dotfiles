@@ -14,7 +14,7 @@
   "Minor mode auto-enabled during region selection."
   :keymap my-selected-mode-map)
 
-;; キーバインド（モード定義直後にまとめる）
+;; Key bindings
 (keymap-set my-selected-mode-map ";" #'comment-dwim)
 (keymap-set my-selected-mode-map "c" #'kill-ring-save)
 (keymap-set my-selected-mode-map "s" #'swiper-region)
@@ -22,7 +22,6 @@
 (keymap-set my-selected-mode-map "w" #'my-weblio-search)
 (keymap-set my-selected-mode-map "d" #'deepl-translate)
 
-;; 有効化トリガー
 (defun my-selected-mode-update ()
   "Toggle `my-selected-mode' based on whether a region is active."
   (if (use-region-p)
@@ -31,9 +30,10 @@
 
 (add-hook 'post-command-hook #'my-selected-mode-update)
 
-;; Web Search Helpers ────────────────────────────────────────────
-;; my-selected-mode-map から呼ばれるので上で keymap-set より前に defun が必要。
-;; ここに置く場合は (declare-function ...) か、ファイル先頭に移動する。
+
+;; ============================================================
+;; Search Commands
+;; ============================================================
 
 (defun my-get-region-or-word ()
   "Return active region text, or word at point."
@@ -52,23 +52,26 @@
   (browse-url (format "https://www.weblio.jp/content/%s" (url-hexify-string str))))
 
 
-;; IME 自動 OFF（リージョン選択時）────────────────────────────────
-;; emacs-state では mozc ON のままだとリージョン選択後のキー入力が
-;; my-selected-mode-map より mozc に横取りされるため、選択開始時に
-;; 一時的に IME を OFF にし、選択解除後に元の状態へ戻す。
+;; ============================================================
+;; IME Handling
+;; ============================================================
 
 (defvar-local my-ime-flag nil
   "Non-nil means IME was active before region activation.")
 
-(add-hook 'activate-mark-hook
-          (lambda ()
-            (setq my-ime-flag current-input-method)
-            (deactivate-input-method)))
+(defun my-selected-ime-off ()
+  "Temporarily disable IME when a region becomes active."
+  (setq my-ime-flag current-input-method)
+  (deactivate-input-method))
 
-(add-hook 'deactivate-mark-hook
-          (lambda ()
-            (when my-ime-flag
-              (toggle-input-method))))
+(defun my-selected-ime-restore ()
+  "Restore IME state after the region is deactivated."
+  (when my-ime-flag
+    (toggle-input-method)
+    (setq my-ime-flag nil)))
+
+(add-hook 'activate-mark-hook   #'my-selected-ime-off)
+(add-hook 'deactivate-mark-hook #'my-selected-ime-restore)
 
 
 ;; Local Variables:

@@ -12,6 +12,7 @@
   :config
   ;; Hide Trust notifications from elisp-flymake-byte-compile.
   (defun my-flymake--filter-message (orig fmt &rest args)
+    "Call ORIG with FMT and ARGS, suppressing the elisp-flymake-byte-compile trust notice."
     (unless (and (stringp fmt)
                  (string-prefix-p
                   "Disabling elisp-flymake-byte-compile"

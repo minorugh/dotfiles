@@ -9,7 +9,7 @@
 
 (leaf howm
   :ensure t
-  :doc "Hitori Otegaru Wiki Modoki"
+  :doc "Hitori Otegaru Wiki Modoki -- a personal, wiki-like note-taking tool."
   :commands (howm-list-all my-howm-create-with-category)
   :hook (emacs-startup-hook . howm-mode)
   :bind ((:howm-view-summary-mode-map

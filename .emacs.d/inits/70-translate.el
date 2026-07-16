@@ -11,7 +11,7 @@
 ;; ============================================================
 
 
-(leaf deepl-translate
+(leaf *deepl-translate
   :preface
   (autoload 'deepl-translate "my-deepl-translate" nil t)
   :doc "Translation in minibuffer & copy result to clipboard."
@@ -25,7 +25,7 @@
 ;;  Google Web  (ブラウザで Google-translate を開く)
 ;; ============================================================
 
-(leaf my-google-translate
+(leaf *my-google-translate
   :bind (("C-c w" . my-google-translate))
   :init
   (defun my-google-translate (&optional string)

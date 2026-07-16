@@ -9,7 +9,7 @@
 ;;  ##> markers as echo-area messages, scrolls output in real time.
 ;; ============================================================
 
-(leaf compile
+(leaf *compile
   :hook (compilation-filter-hook . my-dim-compilation-marker)
   :preface
   (defun compile-autoclose (buffer string)
@@ -57,7 +57,7 @@ STRING is the exit status message from the compilation process."
 ;;  Makefile root.  Toggle read-only/evil-state in one keystroke.
 ;; ============================================================
 
-(leaf makefile-functions
+(leaf *makefile-functions
   :after (evil key-chord)
   :hook ((makefile-mode-hook . my-makefile-mode-setup)
          (dired-mode-hook    . my-dired-mode-setup))
@@ -77,7 +77,7 @@ STRING is the exit status message from the compilation process."
 ;;  Makefile Target Picker  (Ivy integrated)
 ;; ============================================================
 
-(leaf make-target
+(leaf *make-target
   :after ivy
   :preface
   ;; Resolve Makefile path from dired, buffer file, or default-directory
@@ -152,7 +152,7 @@ STRING is the exit status message from the compilation process."
 ;;  Makefile Utilities
 ;; ============================================================
 
-(leaf make-utils
+(leaf *make-utils
   :hook (buffer-list-update-hook . my-makefile-buffer-list-update-hook)
   :preface
   (defun my-makefile-toggle-readonly ()

@@ -23,10 +23,8 @@
   (setq company-require-match         'never)
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t)
-  (setq completion-ignore-case        t)
   (setq company-dabbrev-downcase      nil)
   (setq company-format-margin-function #'company-dot-icons-margin)
-  ;; (setq company-format-margin-function nil)
 
   ;; Inject yasnippet into all company backends
   ;; https://github.com/syl20bnr/spacemacs/pull/179

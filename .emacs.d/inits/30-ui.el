@@ -16,7 +16,7 @@
 
 
 ;; ============================================================
-;;  Cursor & Line Highlight
+;; Cursor & Current Line
 ;; ============================================================
 
 (leaf hl-line
@@ -40,21 +40,7 @@
 
 
 ;; ============================================================
-;;  Icons
-;; ============================================================
-
-(leaf nerd-icons
-  :ensure t
-  :if (display-graphic-p))
-
-(leaf nerd-icons-dired
-  :ensure t
-  :hook (dired-mode-hook . nerd-icons-dired-mode)
-  :config (setq nerd-icons-scale-factor 0.8))
-
-
-;; ============================================================
-;;  Line Numbers & Fill Column
+;;  Editor Guides
 ;; ============================================================
 
 (leaf display-line-numbers
@@ -77,11 +63,6 @@
   (setopt display-fill-column-indicator-column 79)
   (setq-default display-fill-column-indicator-character ?│))
 
-
-;; ============================================================
-;;  Parens & Delimiters
-;; ============================================================
-
 (leaf paren
   :tag "builtin"
   :doc "Highlight matching parentheses."
@@ -98,11 +79,6 @@
   :doc "Colorize nested brackets by depth."
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
-
-
-;; ============================================================
-;;  Whitespace
-;; ============================================================
 
 (leaf whitespace
   :tag "builtin"
@@ -122,7 +98,21 @@ Safe for use in `before-save-hook' — does not auto-indent."
 
 
 ;; ============================================================
-;;  Doom Modeline
+;;  Icons
+;; ============================================================
+
+(leaf nerd-icons
+  :ensure t
+  :if (display-graphic-p))
+
+(leaf nerd-icons-dired
+  :ensure t
+  :hook (dired-mode-hook . nerd-icons-dired-mode)
+  :config (setq nerd-icons-scale-factor 0.8))
+
+
+;; ============================================================
+;;  Mode Line
 ;; ============================================================
 
 (leaf doom-modeline
@@ -146,13 +136,10 @@ Safe for use in `before-save-hook' — does not auto-indent."
 
 
 ;; ============================================================
-;;  Active Window Highlight  (2ペイン時にアクティブ側を強調)
-;;  ポップアップ扱いのウィンドウ（minibuffer / hydra / lv /
-;;  Flymake / Compilation / which-key）は実ウィンドウ数から除外。
-;;  実ウィンドウが 2 枚以上あるときだけ mode-line を紫ボーダーで強調。
+;; Active Window Highlight
 ;; ============================================================
 
-(leaf my-active-modeline
+(leaf *my-active-modeline
   :after doom-modeline
   :doc "Highlight active mode-line with purple border when 2+ windows are visible."
   :config
@@ -182,6 +169,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
                  "*Compilation"
                  "which-key"
                  "*evil-cheat*"
+                 "*YaTeX-typesetting*"
                  "*dvi-printing*"
                  "*Permission Help*"))
          (buffer-name (window-buffer w)))))
@@ -218,10 +206,9 @@ Safe for use in `before-save-hook' — does not auto-indent."
   (add-hook 'doom-modeline-mode-hook
             (lambda ()
               (run-with-idle-timer 2 nil #'my-modeline-capture-defaults)))
+
+  ;; Update on window or buffer changes.
   (add-hook 'window-configuration-change-hook #'my-update-modeline-for-split)
-  ;; quit-window 等、ウィンドウ「構成」自体は変わらずバッファだけ差し替わる
-  ;; ケースを window-configuration-change-hook が拾えないことがあるため、
-  ;; より頻繁に発火する buffer-list-update-hook でも再計算する。
   (add-hook 'buffer-list-update-hook #'my-update-modeline-for-split))
 
 

@@ -64,7 +64,7 @@
 ;;  Markdown Commands
 ;; ============================================================
 
-(leaf my-markdown-commands
+(leaf *my-markdown-commands
   :tag "local"
   :preface
   (autoload 'my-howm-fix-code-comments "my-markdown" nil t)
@@ -73,7 +73,6 @@
   :bind (("C-c #" . my-howm-fix-code-comments)
          ("C-c t" . gen-toc-term))
   :config
-  ;; Howm Fix Hook  (super-save 後にコメント記号を修正)
   (defun my-howm-fix-after-super-save (&rest _)
     "super-save 後に howm バッファのコードブロック内コメントを修正する."
     (when (and (eq major-mode 'howm-mode)
@@ -85,7 +84,6 @@
 
   (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
-  ;; Temp File Cleanup  (プレビュー用 /tmp/burl*.html を自動削除)
   (defun my-delete-tmp-markdown-html ()
     "Delete /tmp/burl*.html when a markdown buffer is killed."
     (when (and (derived-mode-p 'markdown-mode)
@@ -97,7 +95,6 @@
 
   (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
-  ;; Pandoc Export  (PDF / DOCX)
   (defun md2pdf ()
     "Generate PDF from the current markdown buffer via pandoc + lualatex."
     (interactive)

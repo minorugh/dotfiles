@@ -82,7 +82,7 @@
 ;;  Cursor Color by Evil State / Mozc Mode
 ;; ============================================================
 
-(leaf my-mozc-cursor
+(leaf *my-mozc-cursor
   :after (mozc evil)
   :config
   (setq my-mozc-cursor-color-alist

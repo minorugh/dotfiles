@@ -1,4 +1,4 @@
-;;; 07-funcs.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 07-funcstions.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
@@ -11,7 +11,7 @@
 ;; ============================================================
 ;;  F-key Bindings
 ;; ============================================================
-(leaf function-keys
+(leaf *function-keys
   :bind (("<f1>"  . help-command)              ; built-in
          ("<f2>"  . my-remote-select)          ; see below
          ("<f3>"  . terminal-open-this)        ; see below
@@ -23,10 +23,15 @@
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . toggle-emacs))             ; see toggle-emacs.sh below
+         ("<f12>" . toggle-emacs))             ; see below
 
   :preface
-  (defun my-remote-select ()
+   (defun toggle-emacs ()
+    "Show/hide the Emacs window via toggle-emacs.sh."
+    (interactive)
+    (start-process-shell-command "toggle-emacs" nil "toggle-emacs.sh"))
+
+   (defun my-remote-select ()
     "Select remote directory and open gnome-terminal via SSH."
     (interactive)
     (let* ((home-root "/home/minorugh/")
@@ -90,7 +95,7 @@
 ;;  Scratch Buffer Persistence
 ;; ============================================================
 
-(leaf scratch-buffer
+(leaf *scratch-buffer
   :hook ((after-init-hook . restore-scratch-buffer)
          (kill-emacs-hook . save-scratch-buffer))
   :preface

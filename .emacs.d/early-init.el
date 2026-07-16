@@ -35,6 +35,8 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
+;; NOTE: マシン固有設定（自分の環境専用）。他環境へ持ち出すときは書き換えること。
+;; "P1" はメインデスクトップのホスト名。フォントサイズをここで切り替えている。
 (let ((font-size (if (string= (system-name) "P1") 18 16)))
   (push `(font . ,(format "Cica-%d" font-size)) initial-frame-alist))
 
@@ -54,7 +56,7 @@
 ;;  Frame Position & Splash Screen
 ;; ============================================================
 
-;; Start maximized on external monitor (DP-1-2 at x=1920)
+;; NOTE: マシン固有設定。外部モニタ(DP-1-2, x=1920)に最大化して起動する。
 (push '(fullscreen . maximized) initial-frame-alist)
 (push '(left . 1920)            initial-frame-alist)
 (push '(top  . 0)               initial-frame-alist)

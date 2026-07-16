@@ -22,7 +22,7 @@
 
 (leaf quickrun
   :ensure t
-  :doc "Run commands quickly.  Bound to F5; see 07-funcs.el.")
+  :doc "Run commands quickly.  Bound to F5; see 07-funcsions.el.")
 
 
 ;; ============================================================
@@ -54,11 +54,11 @@
 ;;  Package Management
 ;; ============================================================
 
-(leaf my-elpa
+(leaf *package
   :tag "local"
   :doc "Browse ELPA snapshots and manage packages via hydra."
   :preface
-  (defun my-open-elpa-log ()
+  (defun package-log-open ()
     "Open elpa-changes.log."
     (interactive)
     (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log"))
@@ -70,7 +70,7 @@
    "
 Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
   "
-   ("l" my-open-elpa-log)
+   ("l" package-log-open)
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
@@ -83,7 +83,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;;  Gist / Lepton Integration
 ;; ============================================================
 
-(leaf my-gist-command
+(leaf *my-gist-command
   :tag "local"
   :bind (("C-x g" . gist-region-or-buffer)
          ("C-x l" . my-open-lepton))

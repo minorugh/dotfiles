@@ -28,7 +28,6 @@
          ("i"   . my-sxiv))
   :config
   (setq dired-dwim-target         t)
-  (setq delete-by-moving-to-trash t)
   (setq dired-recursive-copies   'always)
   (setq dired-recursive-deletes  'always)
   (setq dired-listing-switches   "-AlhF --group-directories-first --no-group")
@@ -44,7 +43,7 @@
 ;;  Dired Extensions  (omit / navigation / file-ops / external / help)
 ;; ============================================================
 
-(leaf my-dired-extensions
+(leaf *my-dired-extensions
   :after dired
   :config
   ;;  Omit Mode  (特定ディレクトリでは omit を無効化)

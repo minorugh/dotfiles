@@ -16,7 +16,7 @@
 (with-eval-after-load 'mozc
   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
-(leaf hydra-dired
+(leaf *hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
   :hydra
@@ -177,7 +177,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
 ;;  Hydra Work  (俳句作業メニュー)
 ;; ============================================================
 
-(leaf hydra-work
+(leaf *hydra-work
   :after evil
   :bind ("<f14>" . hydra-work/body)
   :hydra
@@ -235,12 +235,12 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
     (upcase-word (- arg)))
 
   (defun my-downcase-word (arg)
-    "Convert previous word (or ARG words) to down case."
+    "Convert previous word (or ARG words) to lower case."
     (interactive "p")
     (downcase-word (- arg)))
 
   (defun my-capitalize-word (arg)
-    "Convert previous word (or ARG words) to capitalize."
+    "Capitalize previous word (or ARG words)."
     (interactive "p")
     (capitalize-word (- arg))))
 

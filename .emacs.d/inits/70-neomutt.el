@@ -1,10 +1,10 @@
-;;; 70-neomutt.el --- Neomuttt configurations. -*- lexical-binding: t -*-
+;;; 70-neomutt.el --- NeoMuttt configurations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
 
 
-(leaf my-neomutt
+(leaf *my-neomutt
   :doc "NeoMutt integration with emacsclient."
   :hook ((server-visit-hook . my-neomutt-setup)
          (server-done-hook  . my-neomutt-server-done))

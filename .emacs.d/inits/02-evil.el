@@ -16,7 +16,6 @@
 (leaf evil
   :ensure t
   :preface
-  ;; custom Evil help buffer
   (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
@@ -210,7 +209,7 @@
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;; ============================================================
 
-(leaf evil-leader-map
+(leaf *evil-leader-map
   :preface
   (autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
   (autoload 'my-sen-restore "my-sen-cleanup" nil t)

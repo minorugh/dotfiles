@@ -7,7 +7,7 @@
 ;;  Hydra Browse  (ブックマークランチャー)
 ;; ============================================================
 
-(leaf hydra-browse
+(leaf *hydra-browse
   :doc "Browser bookmark launcher via hydra."
   :defun my-github-deploy
   :config
@@ -54,7 +54,7 @@
    ("o" (browse-url "https://github.com/minorugh/minorugh.github.io/blob/main/CHANGELOG.md"))
    ("g" (browse-url "https://minorugh.github.io/"))
    ("c" (browse-url "https://calendar.google.com/calendar/r"))
-   ("M" (browse-url "https://www.google.com/maps/@34.6595995,135.0840072,15z?authuser=0&entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D"))
+   ("M" (browse-url "https://www.google.com/maps"))
    ("P" (browse-url "https://photos.google.com/?pageId=none"))
    ("3" (browse-url "https://github.com/masasam"))
    ("4" (browse-url "https://github.com/seagle0128/.emacs.d"))
@@ -76,10 +76,6 @@
      "google-earth"
      nil
      "/opt/google/earth/pro/google-earth-pro"))
-  ;; (defun thunderbird ()
-  ;;     "Open Thunderbird mail client, detached from Emacs."
-  ;;     (interactive)
-  ;;     (call-process "setsid" nil 0 nil "thunderbird"))
 
 
   ;; ============================================================

@@ -19,7 +19,6 @@
 
 (setq make-backup-files        nil)   ; no *.~ backup files
 (setq auto-save-default        nil)   ; no auto-save
-(setq auto-save-list-file-prefix nil)
 (setq create-lockfiles         nil)   ; no .#lockfiles
 (setq vc-follow-symlinks       t)     ; follow symlinks without asking
 (setq require-final-newline    t)     ; always end file with newline
@@ -57,6 +56,14 @@
 ;; Shorter aliases
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'exit-emacs  'save-buffers-kill-emacs)
+
+
+;; ============================================================
+;;  Global Minor Modes
+;; ============================================================
+
+(add-hook 'after-init-hook #'global-auto-revert-mode)
+(add-hook 'after-init-hook #'save-place-mode)
 
 
 ;; ============================================================
@@ -98,7 +105,7 @@
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
   (setq recentf-exclude
-        (list (expand-file-name "elpa/" user-emacs-directory)
+	(list (expand-file-name "elpa/" user-emacs-directory)
               (expand-file-name "tmp/" user-emacs-directory)
               "\\.howm-keys"
               "/session\\."
@@ -109,26 +116,10 @@
 
 
 ;; ============================================================
-;;  Save-place
+;;  Mode Associations
 ;; ============================================================
 
-(leaf saveplace
-  :hook (after-init-hook . save-place-mode))
-
-
-;; ============================================================
-;;  Auto Revert
-;; ============================================================
-
-(leaf autorevert
-  :hook (after-init-hook . global-auto-revert-mode))
-
-
-;; ============================================================
-;;  Auto Mode Associations
-;; ============================================================
-
-(leaf files
+(leaf *auto-mode
   :config
   (dolist (pair '(("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
                   ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"         . conf-mode)
@@ -142,7 +133,7 @@
 ;;  User Commands
 ;; ============================================================
 
-(leaf user-commands
+(leaf *user-commands
   :hook ((find-file-hook . my-view-mode-maybe)
          (find-file-hook . my-read-only-maybe))
   :bind (("C-x b" . ibuffer)
