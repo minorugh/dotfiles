@@ -13,10 +13,10 @@
 (defvar my-evil--current-buffer nil
   "Buffer tracked for evil state restoration.")
 
+;; (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
+
 (leaf evil
   :ensure t
-  :preface
-  (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
@@ -52,6 +52,8 @@
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
   (setq evil-visual-char 'exclusive)   ; exclude cursor position from visual selection (emacs-like)
   :config
+  (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
+
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)
 

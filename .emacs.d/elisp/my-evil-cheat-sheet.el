@@ -3,14 +3,6 @@
 ;; Claude-recommended evil keybindings, tailored for this config.
 ;; Bound to ? in normal-state.
 ;;
-;; Keys in cheat buffer:
-;;   i        ivy jump (all lines)
-;;   m        jump → 移動
-;;   e        jump → 編集
-;;   o        jump → operator
-;;   v        jump → visual-state
-;;   n        jump → normal-stateに留まるコツ
-;;   q        quit
 ;;; Code:
 
 (add-to-list 'display-buffer-alist
@@ -24,41 +16,13 @@
 
 (defvar evil-cheat-mode-map
   (let ((map (make-sparse-keymap)))
-    (keymap-set map "i" (lambda () (interactive) (my-evil-cheat-sheet--ivy-jump)))
-    (keymap-set map "m" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【移動】")))
-    (keymap-set map "e" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【編集")))
-    (keymap-set map "o" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【operator")))
-    (keymap-set map "v" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【visual")))
-    (keymap-set map "n" (lambda () (interactive) (my-evil-cheat-sheet--jump-to "【normal")))
     (keymap-set map "q" #'quit-window)
     map)
   "Keymap for evil-cheat buffer.")
 
-(defun my-evil-cheat-sheet--ivy-jump ()
-  "Jump to a line in *evil-cheat* via ivy."
-  (let ((cands nil))
-    (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
-        (let ((line (buffer-substring-no-properties
-                     (line-beginning-position)
-                     (line-end-position))))
-          (unless (string-blank-p line)
-            (push (cons line (line-beginning-position)) cands)))
-        (forward-line 1)))
-    (ivy-read "Jump: " (reverse cands)
-              :caller 'my-evil-cheat-sheet--ivy-jump
-              :action (lambda (x) (goto-char (cdr x))))))
-
-(defun my-evil-cheat-sheet--jump-to (keyword)
-  "Jump directly to section matching KEYWORD."
-  (goto-char (point-min))
-  (search-forward keyword nil t)
-  (beginning-of-line))
-
 (defun my-evil-cheat-sheet ()
   "Toggle evil keybindings cheat sheet in right sidebar.
-? to open/close  i: ivy jump  m/e/o/v/n: section jump  q: quit"
+? to open/close q: quit."
   (interactive)
   (if-let ((win (get-buffer-window "*evil-cheat*")))
       (delete-window win)
@@ -66,7 +30,7 @@
       (setq buffer-read-only nil)
       (erase-buffer)
       (insert "\
-【移動】
+【move:移動】
   w b        単語単位 前進/後退
   e          次の単語末尾へ
   0 $        行頭/行末
@@ -75,7 +39,7 @@
   { }        段落単位で移動
   %          対応する括弧へ
 
-【編集（normal-state のまま）】
+【edit:編集（normal-state のまま）】
   x          カーソル文字を削除
   X          カーソル前の文字を削除
   r          1文字だけ置換
@@ -115,7 +79,8 @@
       (use-local-map evil-cheat-mode-map)
       (setq buffer-read-only t)
       (goto-char (point-min)))
-    (display-buffer "*evil-cheat*")))
+   (select-window (display-buffer "*evil-cheat*"))))
+
 
 (provide 'my-evil-cheat-sheet)
 ;;; my-evil-cheat-sheet.el ends here

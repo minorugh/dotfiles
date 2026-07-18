@@ -7,11 +7,21 @@
 ;;  Hydra Browse  (ブックマークランチャー)
 ;; ============================================================
 
+(defun my-hydra-browse ()
+  "Disable mozc if active, then open hydra-browse."
+  (interactive)
+  (when current-input-method
+    (toggle-input-method))
+  (hydra-browse/body))
+
+(with-eval-after-load 'mozc
+ (key-chord-define mozc-mode-map ".." 'my-hydra-browse))
+
 (leaf *hydra-browse
   :doc "Browser bookmark launcher via hydra."
   :defun my-github-deploy
   :config
-  (key-chord-define-global ".." 'hydra-browse/body)
+  (key-chord-define-global ".." 'my-hydra-browse)
   :hydra
   (hydra-browse
    (:hint nil :exit t)
@@ -112,6 +122,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 80-hydra-browse.el ends here

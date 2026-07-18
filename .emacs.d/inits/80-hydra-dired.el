@@ -25,7 +25,7 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root._/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _g_it.b_@_rm^^  _f_ly-err  find._1__2__3_
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  xsrv_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  find._1__2__3_
 "
    ("@" browse-at-remote)
    ("t" my-open-tig)    ; 40-dired.el を参照
@@ -178,9 +178,19 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
 ;;  Hydra Work  (俳句作業メニュー)
 ;; ============================================================
 
+(defun my-hydra-work ()
+  "Disable mozc if active, then open hydra-work."
+  (interactive)
+  (when current-input-method
+    (toggle-input-method))
+  (hydra-work/body))
+
+(with-eval-after-load 'mozc
+  (keymap-set mozc-mode-map "<f14>" #'my-hydra-work))
+
 (leaf *hydra-work
   :after evil
-  :bind ("<f14>" . hydra-work/body)
+  :bind ("<f14>" . my-hydra-work)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'my-template))
