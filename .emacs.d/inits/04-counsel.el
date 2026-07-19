@@ -70,38 +70,6 @@
 ;; ============================================================
 ;;  Migemo  (Japanese incremental search)
 ;; ============================================================
-
-(with-eval-after-load 'swiper
-  (defun my-ivy-migemo-re-builder (str)
-    "Build a regexp for swiper using migemo for Japanese incremental search.
-STR is split into segments by separators (space, ^, ., *).
-Each segment is converted via `migemo-get-pattern'; separators are kept as-is.
-Space is treated as a wildcard '.*?' for flexible matching."
-    (let* ((sep      " \\|\\^\\|\\.\\|\\*")     ; 区切り文字パターン（スペース・^・.・*）
-           (chars    (split-string str "" t))    ; STR を1文字ずつ分割
-           (splitted (let (result group)         ; 区切り文字で分割し、連続する非区切り文字をグループ化
-                       (dolist (c chars)
-                         (if (string-match-p sep c)
-                             (progn
-                               (when group      ; グループが溜まっていれば結合して result に追加
-                                 (push (apply #'concat (nreverse group)) result)
-                                 (setq group nil))
-                               (push c result)) ; 区切り文字はそのまま result に追加
-                           (push c group)))     ; 非区切り文字は group に蓄積
-                       (when group              ; 末尾のグループを処理
-                         (push (apply #'concat (nreverse group)) result))
-                       (nreverse result))))
-      (mapconcat                                ; 各セグメントを変換して結合
-       (lambda (s)
-         (cond ((string= s " ") ".*?")          ; スペース → 任意文字列
-               ((string-match-p sep s) s)        ; 区切り文字 → そのまま
-               (t (migemo-get-pattern s))))      ; 日本語 → migemo 変換
-       splitted "")))
-
-  ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
-  (setq ivy-re-builders-alist '((t      . ivy--regex-plus)
-                                (swiper . my-ivy-migemo-re-builder))))
-
 (leaf migemo
   :ensure t
   :doc "Japanese incremental search through dynamic pattern expansion."
@@ -112,7 +80,33 @@ Space is treated as a wildcard '.*?' for flexible matching."
   (setq migemo-dictionary       "/usr/share/cmigemo/utf-8/migemo-dict")
   (setq migemo-user-dictionary  nil)
   (setq migemo-regex-dictionary nil)
-  (setq migemo-coding-system   'utf-8-unix))
+  (setq migemo-coding-system   'utf-8-unix)
+
+  (defun my-ivy-migemo-re-builder (str)
+    "Build a regexp for swiper using migemo for Japanese incremental search."
+    (let* ((sep      " \\|\\^\\|\\.\\|\\*")     ; 区切り文字パターン（スペース・^・.・*）
+           (chars    (split-string str "" t))    ; STR を1文字ずつ分割
+           (splitted (let (result group)         ; 区切り文字で分割し、連続する非区切り文字をグループ化
+                       (dolist (c chars)
+			 (if (string-match-p sep c)
+                             (progn
+                               (when group      ; グループが溜まっていれば結合して result に追加
+				 (push (apply #'concat (nreverse group)) result)
+				 (setq group nil))
+                               (push c result)) ; 区切り文字はそのまま result に追加
+                           (push c group)))     ; 非区切り文字は group に蓄積
+                       (when group              ; 末尾のグループを処理
+			 (push (apply #'concat (nreverse group)) result))
+                       (nreverse result))))
+      (mapconcat                                ; 各セグメントを変換して結合
+       (lambda (s)
+	 (cond ((string= s " ") ".*?")          ; スペース → 任意文字列
+               ((string-match-p sep s) s)        ; 区切り文字 → そのまま
+               (t (migemo-get-pattern s))))      ; 日本語 → migemo 変換
+       splitted "")))
+  ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
+  (setq ivy-re-builders-alist '((t      . ivy--regex-plus)
+				(swiper . my-ivy-migemo-re-builder))))
 
 
 ;; Local Variables:

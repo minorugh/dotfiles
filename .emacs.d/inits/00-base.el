@@ -52,13 +52,17 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'exit-emacs  'save-buffers-kill-emacs)
 
+
+;; ============================================================
 ;; Trash
+;; ============================================================
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
 (advice-add 'move-file-to-trash :before
             (lambda (&rest _)
               (unless (file-exists-p trash-directory)
                 (make-directory trash-directory t))))
+
 
 ;; ============================================================
 ;; Save History

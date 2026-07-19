@@ -13,8 +13,6 @@
 (defvar my-evil--current-buffer nil
   "Buffer tracked for evil state restoration.")
 
-;; (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
-
 (leaf evil
   :ensure t
   :hook ((after-init-hook . evil-mode)
