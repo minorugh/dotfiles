@@ -165,7 +165,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
         (string-match-p
          (rx (or "*hydra"
                  "lv"
-                 "*Flycheck errors"
+                 "*Flymake"
                  "*Compilation"
                  "which-key"
                  "*evil-cheat*"

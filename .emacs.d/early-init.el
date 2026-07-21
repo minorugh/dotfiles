@@ -38,7 +38,7 @@
 ;; NOTE: マシン固有設定（自分の環境専用）。他環境へ持ち出すときは書き換えること。
 ;; "P1" はメインデスクトップのホスト名。フォントサイズをここで切り替えている。
 (let ((font-size (if (string= (system-name) "P1") 18 16)))
-  (push `(font . ,(format "Cica-%d" font-size)) initial-frame-alist))
+  (push `(font . ,(format "Cica-%d" font-size)) default-frame-alist))
 
 (setq inhibit-compacting-font-caches t)
 
@@ -47,17 +47,17 @@
 ;;  UI — Disable Early to Prevent Flicker
 ;; ============================================================
 
-(push '(menu-bar-lines    . 0) default-frame-alist)
-(push '(tool-bar-lines    . 0) default-frame-alist)
-(push '(vertical-scroll-bars ) default-frame-alist)
-(push '(undecorated       . t) default-frame-alist)
+(push '(fullscreen . maximized) default-frame-alist)
+(push '(menu-bar-lines     . 0) default-frame-alist)
+(push '(tool-bar-lines     . 0) default-frame-alist)
+(push '(vertical-scroll-bars  ) default-frame-alist)
+(push '(undecorated        . t) default-frame-alist)
 
 ;; ============================================================
 ;;  Frame Position & Splash Screen
 ;; ============================================================
 
 ;; NOTE: マシン固有設定。外部モニタ(DP-1-2, x=1920)に最大化して起動する。
-(push '(fullscreen . maximized) initial-frame-alist)
 (push '(left . 1920)            initial-frame-alist)
 (push '(top  . 0)               initial-frame-alist)
 

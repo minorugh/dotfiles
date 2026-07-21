@@ -17,34 +17,34 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
-  :bind (([muhenkan]  . my-quit-dwim)  ;   Universal escape (see below)
+  :bind (([muhenkan]  . my-quit-dwim)       ; Universal escape (see below)
          (:evil-normal-state-map
-          ("C-a"      . my-seq-home)   ; Smart beginning-of-line (see 08-edit.el)
-          ("C-e"      . my-seq-end)    ; Smart end-of-line (see 08-edit.el)
-          ("SPC"      . evil-scroll-page-down)
-          ("b"        . evil-scroll-page-up)
-          ("p"        . evil-paste-before)    ; paste at cursor position (emacs-like)
-          ("P"        . evil-paste-after)     ; paste after cursor (needed at EOL)
-          ("i"        . my-emacs-state-mozc)
-          ("@"        . evil-visual-char)
-          ("_"        . evil-visual-line)
-          ("?"        . my-evil-cheat-sheet)
-          ([escape]   . my-evil-toggle-state)
-          ([home]     . dashboard-toggle))
+          ("M-."    . nil)                  ; Reserved for a global binding (see 80-hydra-dired.el)
+          ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
+          ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
+          ("SPC"    . evil-scroll-page-down)
+          ("b"      . evil-scroll-page-up)
+          ("f"      . counsel-find-file)
+          ("i"      . my-emacs-state-mozc)
+          ("@"      . evil-visual-char)
+          ("_"      . evil-visual-line)
+          ("?"      . my-evil-cheat-sheet)
+          ([escape] . my-evil-toggle-state)
+          ([home]   . dashboard-toggle))
          (:evil-visual-state-map
-          ([prior]    . er/expand-region)    ; Use PgUp to expand region
-          ([next]     . er/contract-region)  ; Use PgDn to contract region
-          (";"        . comment-dwim)
-          ("c"        . clipboard-kill-ring-save)
-          ("s"        . swiper-region)
-          ("g"        . my-google-search)
-          ("d"        . deepl-translate)
-          ([insert]   . my-iedit-toggle))
+          ([prior]  . er/expand-region)    ; Use PgUp to expand region
+          ([next]   . er/contract-region)  ; Use PgDn to contract region
+          (";"      . comment-dwim)
+          ("c"      . clipboard-kill-ring-save)
+          ("s"      . swiper-region)
+          ("g"      . my-google-search)
+          ("d"      . deepl-translate)
+          ([insert] . my-iedit-toggle))
          (:evil-emacs-state-map
-          ("C-a"      . my-seq-home)
-          ("C-e"      . my-seq-end)
-          ([insert]   . my-iedit-toggle)
-          ([escape]   . my-evil-toggle-state)))
+          ("C-a"    . my-seq-home)
+          ("C-e"    . my-seq-end)
+          ([insert] . my-iedit-toggle)
+          ([escape] . my-evil-toggle-state)))
   :init
   (setq evil-cross-lines  t)           ; wrap to prev/next line at EOL/BOL
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
@@ -115,7 +115,7 @@
 
 
   ;; ============================================================
-  ;; Swap j/gj and k/gk so visual-line motion is the default
+  ;; Swap default Evil bindings
   ;; ============================================================
 
   (defun my-evil-swap-key (map key1 key2)
@@ -125,8 +125,12 @@
       (keymap-set map key1 def2)
       (keymap-set map key2 def1)))
 
+  ;; Make visual-line motion the default.
   (my-evil-swap-key evil-motion-state-map "j" "g j")
   (my-evil-swap-key evil-motion-state-map "k" "g k")
+
+  ;; Make paste behave like Emacs (p at point, P after point).
+  (my-evil-swap-key evil-normal-state-map "p" "P")
 
 
   ;; ============================================================
@@ -169,6 +173,9 @@
       (abort-recursive-edit))
      ;; リージョンがあれば解除
      ((use-region-p) (deactivate-mark))
+     ;; ウィンドウが複数なら1枚にする
+     ((not (one-window-p))
+      (delete-other-windows))
      ;; Normal → Emacs、それ以外 → Normal
      ((evil-normal-state-p) (evil-emacs-state))
      (t (deactivate-input-method)
@@ -221,7 +228,7 @@
   (keymap-set evil-normal-state-map ";" my-normal-leader-map)
 
   (let ((m my-normal-leader-map))
-    (keymap-set m "f" #'counsel-find-file)     ; ファイル検索
+    (keymap-set m "f" #'flymake-show-buffer-diagnostics)
     (keymap-set m ":" #'counsel-switch-buffer) ; バッファ切替
     (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
     (keymap-set m ";" #'comment-line)          ; コメントトグル

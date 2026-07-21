@@ -26,12 +26,16 @@
          ("<f12>" . toggle-emacs))             ; see below
 
   :preface
-   (defun toggle-emacs ()
+  (when (not (display-graphic-p))
+    (define-key input-decode-map (kbd "<f16>") (kbd "<henkan>"))
+    (define-key input-decode-map (kbd "<f17>") (kbd "<muhenkan>")))
+
+  (defun toggle-emacs ()
     "Show/hide the Emacs window via toggle-emacs.sh."
     (interactive)
     (start-process-shell-command "toggle-emacs" nil "toggle-emacs.sh"))
 
-   (defun my-remote-select ()
+  (defun my-remote-select ()
     "Select remote directory and open gnome-terminal via SSH."
     (interactive)
     (let* ((home-root "/home/minorugh/")

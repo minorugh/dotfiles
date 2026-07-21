@@ -16,6 +16,9 @@
 (with-eval-after-load 'mozc
   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
+;; (with-eval-after-load 'evil
+;;   (keymap-set evil-normal-state-map (kbd "M-.") nil))
+
 (leaf *hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
@@ -147,7 +150,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-	(with-temp-buffer
+        (with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
