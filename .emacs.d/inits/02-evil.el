@@ -19,7 +19,6 @@
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)       ; Universal escape (see below)
          (:evil-normal-state-map
-          ("M-."    . nil)                  ; Reserved for a global binding (see 80-hydra-dired.el)
           ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
