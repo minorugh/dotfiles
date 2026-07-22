@@ -28,8 +28,8 @@
           ("@"      . evil-visual-char)
           ("_"      . evil-visual-line)
           ("?"      . my-evil-cheat-sheet)
-          ([escape] . my-evil-toggle-state)
-          ([home]   . dashboard-toggle))
+          ([home]   . dashboard-toggle)
+          ([escape] . my-evil-toggle-state))
          (:evil-visual-state-map
           ([prior]  . er/expand-region)    ; Use PgUp to expand region
           ([next]   . er/contract-region)  ; Use PgDn to contract region
@@ -228,14 +228,11 @@
 
   (let ((m my-normal-leader-map))
     (keymap-set m "f" #'flymake-show-buffer-diagnostics)
-    (keymap-set m ":" #'counsel-switch-buffer) ; バッファ切替
     (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
     (keymap-set m ";" #'comment-line)          ; コメントトグル
     (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
     (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
     (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
-    (keymap-set m "w" #'my-darkroom-toggle)    ; darkroom 起動
-    (keymap-set m "s" #'swiper)                ; swiper 検索
     (keymap-set m "@" #'my-insert-maru))       ; 行頭に ◎ 挿入（俳句選者用）
 
   (defun my-newline-above ()
