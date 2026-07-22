@@ -245,20 +245,21 @@ function eq() {
     emacs -q -l ~/.emacs.d/init-mini.el
 }
 
-# Git restore: discard working tree changes
-# Restore files to the latest commit (HEAD).
+# Restore configuration changes to the last saved state.
+# In this environment, "saved" means make git (commit + push).
 function gitb() {
     git status --short
     echo
-    echo "Restore working tree to HEAD?"
+    echo "⚠️  最後にpushした状態へ戻します"
+    echo "    ※ push 前のファイルは変更されません"
     read -q "REPLY? (y/N) "
     echo
 
     if [[ "$REPLY" == "y" ]]; then
         git restore .
-        echo "Restored."
+        echo "復元しました。"
     else
-        echo "Canceled."
+        echo "キャンセルしました。"
     fi
 }
 
