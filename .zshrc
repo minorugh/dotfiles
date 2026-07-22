@@ -196,7 +196,6 @@ alias iv='sxiv'
 alias fz='filezilla -s'
 alias e='emacs'
 alias ec='emacsclient -c --alternate-editor=emacs-start.sh'
-alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
 alias v='vim'
 alias svim='sudoedit'
@@ -221,20 +220,46 @@ alias upgrade='sudo apt -y upgrade'
 alias ce='crontab -e'
 
 alias pm='power-menu.sh'
+
 ########################################
 # Functions
 ########################################
-
-# Emacs byte-compile cache cleanup
+# Remove Emacs byte-compiled cache files (*.elc)
+# Used before troubleshooting Emacs configuration.
 function eclean() {
     echo "Removing Emacs .elc files..."
     find -L ~/.emacs.d -name "*.elc" -print -delete
 }
 
-# Vim edit Emacs configuration (rescue mode)
+# Open Emacs configuration with Vim for recovery
+# Use when normal Emacs startup fails.
 function ve() {
     eclean
     vim ~/.emacs.d/
+}
+
+# Start Emacs with minimal configuration for recovery
+# Skip init.el and load init-mini.el only.
+function eq() {
+    eclean
+    emacs -q -l ~/.emacs.d/init-mini.el
+}
+
+# Git restore: discard working tree changes
+# Restore files to the latest commit (HEAD).
+function gitb() {
+    git status --short
+    echo
+    echo "Restore working tree to HEAD?"
+    read -q "REPLY? (y/N) "
+    echo
+
+    if [[ "$REPLY" == "y" ]]; then
+        git restore .
+        echo "Restored."
+    else
+        echo "Canceled."
+    fi
 }
 
 # cd してから ls
