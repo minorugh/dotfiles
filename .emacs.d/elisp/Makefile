@@ -11,13 +11,13 @@ all: toggle-elc
 
 toggle-elc:
 	if find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | grep -q .; then \
-	    find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
-	    echo "Removed *.elc"; \
+	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
+	echo "Removed *.elc"; \
 	else \
-	    $(EMACS) --batch -Q \
-	      --eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
-	      --eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)" 2>/dev/null; \
-	    echo "Compiled *.elc"; \
+	$(EMACS) --batch -Q \
+	--eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
+	--eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)" 2>/dev/null; \
+	echo "Compiled *.elc"; \
 	fi
 
 clean:

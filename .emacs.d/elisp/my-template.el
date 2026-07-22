@@ -1,9 +1,9 @@
 ;;; my-template.el --- User template configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
-
+;;
 ;; Template functions for haiku writing files.
 ;; Loaded via (require 'my-template) in 40-hydra-dired.el and 40-hydra-menu.el
-
+;;
 ;;; Code:
 
 (declare-function evil-emacs-state "evil-states")

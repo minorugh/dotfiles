@@ -74,6 +74,15 @@
   (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 
+;; elisp/ 配下の自作パッケージを終了時に自動byte-compile
+(defun my-byte-recompile-elisp-dir ()
+  "Byte-compile outdated or missing .elc files under ~/.emacs.d/elisp/."
+  (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
+    (when (file-directory-p elisp-dir)
+      (byte-recompile-directory elisp-dir 0))))
+
+(add-hook 'kill-emacs-hook #'my-byte-recompile-elisp-dir)
+
 
 ;; ============================================================
 ;;  Server
@@ -89,6 +98,6 @@
 
 (provide 'init)
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; init.el ends here
