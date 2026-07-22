@@ -158,6 +158,8 @@ export GOPATH="$HOME/src/go"
 export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
 
 export EDITOR=emacsclient
+export VISUAL=emacsclient
+export SUDO_EDITOR=vim
 export XDG_CONFIG_HOME=$HOME/.config
 export PAGER=less
 export LESS='-g -i -M -R -S -W -z-4 -x4'
@@ -192,13 +194,14 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 # アプリ
 alias iv='sxiv'
 alias fz='filezilla -s'
-alias v='vim'
-alias svim='sudo vim'
-alias snano='sudo nano'
 alias e='emacs'
 alias ec='emacsclient -c --alternate-editor=emacs-start.sh'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
+alias v='vim'
+alias ve='vim ~/.emacs.d/'
+alias svim='sudoedit'
+alias snano='sudo nano'
 alias mutt='/usr/local/bin/neomutt.sh'
 alias xsrv='ssh xsrv'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'

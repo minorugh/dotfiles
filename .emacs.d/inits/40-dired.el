@@ -95,7 +95,6 @@
       (start-process
        "gnome-terminal" nil
        "gnome-terminal"
-       "--maximize"
        "--"
        "vim"
        (dired-get-file-for-visit))))
@@ -107,7 +106,6 @@
       (start-process
        "gnome-terminal" nil
        "gnome-terminal"
-       "--maximize"
        "--"
        "nano"
        (dired-get-file-for-visit))))

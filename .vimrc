@@ -1,91 +1,114 @@
+" --------------------------------------------------------------------
+" Rescue Vim Configuration
+"
+" 日本語:
+" Emacs設定の編集・復旧、および sudoedit 用の軽量Vim設定。
+" 普段の編集環境はEmacsであり、このVimはEmacsが起動できない場合や
+" システム設定ファイルを編集する場合の補助ツールとして使用する。
+"
+" English:
+" Lightweight Vim configuration for editing and recovering Emacs
+" configuration files, and for use with sudoedit.
+" Emacs is the primary editing environment; this Vim is intended as
+" a fallback tool when Emacs cannot start or when editing system files.
+"
+" --------------------------------------------------------------------
+
 " ============================================================
 " 基本設定
 " ============================================================
 
-syntax enable                        " シンタックスハイライト有効化
-set encoding=utf-8                   " Vim内部の文字コード
-set fileencoding=utf-8               " 保存時の文字コード
-set fileencodings=utf-8,euc-jp,cp932 " 読み込み時の文字コード候補（BOM不要のため ucs-boms は除去）
-set fileformats=unix,dos,mac         " 改行コードの自動判別順
-set ambiwidth=double                 " 全角文字（記号など）の幅を2として扱う
+syntax enable
+
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,euc-jp,cp932
+set fileformats=unix,dos,mac
+set ambiwidth=double
+
+set noswapfile
 
 " ============================================================
 " 表示
 " ============================================================
 
-set number                           " 行番号を表示
-set scrolloff=8                      " カーソル上下に常に8行の余白を確保
-set linebreak                        " 長い行を単語単位で折り返し表示
-set laststatus=2                     " ステータスラインを常時表示（ruler は laststatus=2 で不要なため削除）
+set number
+set scrolloff=8
+set linebreak
+set laststatus=2
 
 " ============================================================
 " 編集・インデント
 " ============================================================
 
-set expandtab                        " タブをスペースに展開
-set tabstop=2                        " タブ幅を2スペースに
-set shiftwidth=2                     " インデント幅を2スペースに
-set autoindent                       " 改行時に前の行のインデントを継続
-set virtualedit=onemore              " 行末の1文字後ろにもカーソルを移動可能
-set whichwrap=b,s,h,l,<,>,[,]       " 行頭・行末でカーソルが前後の行に移動できる文字を指定
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set autoindent
+set virtualedit=onemore
+set whichwrap=b,s,h,l,<,>,[,]
+
+set autoread
+set hidden
 
 " ============================================================
 " 検索
 " ============================================================
 
-set incsearch                        " 入力中にリアルタイム検索
-set hlsearch                         " 検索結果をハイライト
-set ignorecase                       " 大文字小文字を区別しない
-set smartcase                        " 検索語に大文字が含まれる場合は区別する
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
 
 " ============================================================
 " クリップボード
 " ============================================================
 
-set clipboard+=unnamed               " OSのクリップボードとyank/putを共有
+set clipboard+=unnamed
 
 " ============================================================
 " キーマップ
 " ============================================================
 
-let g:mapleader = "\<Space>"         " Leaderキーをスペースに設定
+let g:mapleader = "\<Space>"
 
-nnoremap <Leader>w :w<CR>            " Space+w で保存
+" Space+w で保存
+nnoremap <Leader>w :w<CR>
 
-" Esc 2回押しでハイライト消去（Esc単体のリマップはターミナルのキーコードと衝突するため非推奨）
+" Esc 2回で検索ハイライト解除
 nnoremap <Esc><Esc> :noh<CR>
 
 " ============================================================
-" vim-plug（プラグインマネージャー）
+" vim-plug
 " ============================================================
 
-" vim-plug が未インストールの場合は自動でダウンロード
-if empty(glob(expand('~/.vim/autoload/plug.vim')))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 call plug#begin()
-  Plug 'preservim/nerdtree'          " ファイルツリー表示
-  Plug 'tpope/vim-commentary'        " gcc でコメントアウト
-  Plug 'LunarWatcher/auto-pairs'     " 括弧・クォートの自動補完（jiangmiao/auto-pairs のメンテ継続フォーク）
-  Plug 'nordtheme/vim'               " カラースキーム: Nord
+
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'nordtheme/vim'
+
 call plug#end()
 
-colorscheme nord                     " Nord カラースキームを適用
+colorscheme nord
 
 " ============================================================
 " NERDTree
 " ============================================================
 
-let g:NERDTreeShowHidden=1           " 隠しファイル（ドットファイル）を表示
+let g:NERDTreeShowHidden=1
 
-" 引数なしで起動した場合のみ NERDTree を自動表示
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Ctrl+e でツリー開閉
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
-" NERDTree のウィンドウだけ残った場合に自動終了
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" ============================================================
+" 終了
+" ============================================================
 
-nnoremap <silent><C-e> :NERDTreeToggle<CR>  " Ctrl+e でツリー開閉
+" NERDTreeだけ残った場合は終了
+autocmd BufEnter *
+      \ if (winnr("$") == 1 &&
+      \ exists("b:NERDTree") &&
+      \ b:NERDTree.isTabTree()) |
+      \ q |
+      \ endif
