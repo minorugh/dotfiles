@@ -51,7 +51,6 @@
 (leaf ediff
   :tag "builtin"
   :doc "Side-by-side diff editing."
-  :hook (ediff-mode-hook . dimmer-off)
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
   (setq ediff-split-window-function 'split-window-horizontally)

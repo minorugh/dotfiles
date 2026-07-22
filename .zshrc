@@ -199,7 +199,6 @@ alias ec='emacsclient -c --alternate-editor=emacs-start.sh'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
 alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
 alias v='vim'
-alias ve='vim ~/.emacs.d/'
 alias svim='sudoedit'
 alias snano='sudo nano'
 alias mutt='/usr/local/bin/neomutt.sh'
@@ -225,6 +224,18 @@ alias pm='power-menu.sh'
 ########################################
 # Functions
 ########################################
+
+# Emacs byte-compile cache cleanup
+function eclean() {
+    echo "Removing Emacs .elc files..."
+    find -L ~/.emacs.d -name "*.elc" -print -delete
+}
+
+# Vim edit Emacs configuration (rescue mode)
+function ve() {
+    eclean
+    vim ~/.emacs.d/
+}
 
 # cd してから ls
 function chpwd() {

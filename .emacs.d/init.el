@@ -62,6 +62,20 @@
 
 
 ;; ============================================================
+;;  Local Elisp Auto Byte Compile
+;; ============================================================
+
+(defun my-byte-compile-elisp ()
+  "Byte compile local elisp files if needed."
+  (let ((byte-compile-warnings nil))
+    (byte-recompile-directory
+     (expand-file-name "elisp/" user-emacs-directory)
+     0)))
+
+(my-byte-compile-elisp)
+
+
+;; ============================================================
 ;;  Config Loader
 ;; ============================================================
 

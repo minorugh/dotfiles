@@ -95,6 +95,7 @@ Example: \"#852941\"")
 (defvar git-peek--filename-overlay nil "Overlay covering the filename header line in the sidebar.")
 (defvar git-peek--sidebar-win nil "The sidebar window object.")
 (defvar git-peek--preview-win nil "The preview window object.")
+(defvar git-peek--dimmer-was-on nil "Non-nil if dimmer-mode was active before `git-peek'.")
 (defvar git-peek--saved-wconf nil "Window configuration saved before `git-peek' layout.")
 (defvar git-peek--preview-modeline-cookie nil "Face-remap cookie for preview modeline color.")
 (defvar git-peek--modeline-color-default nil "Default mode-line background color saved before `git-peek'.")
@@ -346,6 +347,8 @@ Keeps focus on the sidebar window throughout."
   (when git-peek--preview-modeline-cookie
     (set-face-background 'mode-line git-peek--modeline-color-default)
     (setq git-peek--preview-modeline-cookie nil))
+  (when (and git-peek--dimmer-was-on (fboundp 'dimmer-mode))
+    (dimmer-mode 1))
   ;; ウィンドウ設定を復元
   (when git-peek--saved-wconf
     (set-window-configuration git-peek--saved-wconf)
@@ -429,6 +432,11 @@ Inherits global map so normal scroll keys (\\[scroll-up-command], \\[scroll-down
           git-peek--file    file
           git-peek--deleted deleted
           git-peek--modeline-color-default (face-background 'mode-line))
+    ;; dimmer-mode paused
+    (setq git-peek--dimmer-was-on
+          (and (boundp 'dimmer-mode) dimmer-mode))
+    (when git-peek--dimmer-was-on
+      (dimmer-mode -1))
     ;; Clear existing buffer overlay
     (when (overlayp git-peek--hl-overlay)
       (delete-overlay git-peek--hl-overlay)
