@@ -1,4 +1,4 @@
-;;; seiho-haiku.el --- 青畝俳句データ (366日分)
+;;; seiho-haiku.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
 ;;; Commentary: seihohaiku.cgi から自動変換
 ;;; Code:
 
