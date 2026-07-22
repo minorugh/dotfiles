@@ -19,6 +19,8 @@
          ("a"   . dired-omit-mode)
          ("s"   . my-dired-sudo-rm)
          ("o"   . my-dired-open-xdg)
+         ("v"   . my-dired-open-vim)
+	 ("n"   . my-dired-open-nano)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
          ("]"   . my-dired-gitk)
@@ -86,6 +88,29 @@
     (let ((file (dired-get-filename nil t)))
       (call-process "xdg-open" nil 0 nil file)))
 
+  (defun my-dired-open-vim ()
+    "Open the file at point in gnome-terminal with Vim."
+    (interactive)
+    (let ((default-directory (dired-current-directory)))
+      (start-process
+       "gnome-terminal" nil
+       "gnome-terminal"
+       "--maximize"
+       "--"
+       "vim"
+       (dired-get-file-for-visit))))
+
+  (defun my-dired-open-nano ()
+    "Open the file at point in a maximized gnome-terminal with GNU nano."
+    (interactive)
+    (let ((default-directory (dired-current-directory)))
+      (start-process
+       "gnome-terminal" nil
+       "gnome-terminal"
+       "--maximize"
+       "--"
+       "nano"
+       (dired-get-file-for-visit))))
 
   ;;  File Operations
   ;; ----------------------------------------------------------

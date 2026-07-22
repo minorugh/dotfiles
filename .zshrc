@@ -193,6 +193,8 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 alias iv='sxiv'
 alias fz='filezilla -s'
 alias v='vim'
+alias svim='sudo vim'
+alias snano='sudo nano'
 alias e='emacs'
 alias ec='emacsclient -c --alternate-editor=emacs-start.sh'
 alias eq='emacs -q -l ~/.emacs.d/init-mini.el'
