@@ -12,7 +12,7 @@
 ;;  F-key Bindings
 ;; ============================================================
 (leaf *function-keys
-  :bind (("<f1>"  . help-command)
+  :bind (("<f1>"  . help-command)              ; built-in
          ("<f2>"  . neotree)                   ; see 70-neotree.el
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
@@ -20,7 +20,7 @@
          ("<f6>"  . thunar-open-this)          ; see below
          ("<f7>"  . calendar)                  ; see below
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
-         ("<f9>"  . display-line-numbers-mode)
+         ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))             ; see below
