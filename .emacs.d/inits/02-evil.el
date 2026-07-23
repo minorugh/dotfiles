@@ -23,7 +23,6 @@
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
           ("b"      . evil-scroll-page-up)
-          ("f"      . counsel-find-file)
           ("i"      . my-emacs-state-mozc)
           ("@"      . evil-visual-char)
           ("_"      . evil-visual-line)
@@ -227,7 +226,7 @@
   (keymap-set evil-normal-state-map ";" my-normal-leader-map)
 
   (let ((m my-normal-leader-map))
-    (keymap-set m "f" #'flymake-show-buffer-diagnostics)
+    (keymap-set m "f" #'counsel-find-file)     ; ファイル検索
     (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
     (keymap-set m ";" #'comment-line)          ; コメントトグル
     (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入

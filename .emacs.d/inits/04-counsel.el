@@ -12,6 +12,7 @@
   :doc "Various completion functions using Ivy."
   :bind (("C-:"     . counsel-switch-buffer)
          ("C-x C-f" . counsel-find-file)
+         ("C-x f"   . counsel-find-file)
          ("C-x g"   . counsel-git)         ; プロジェクト内のファイルを検索
          ("s-a"     . counsel-git-grep)    ; プロジェクト内を全文検索 (ag の代わり)
          ("M-x"     . counsel-M-x)

@@ -27,8 +27,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_env._l_og
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_rm  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  find._1__2__3_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_orc  root_/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_reload
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_erm  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  env___src
 "
    ("@" browse-at-remote)
    ("t" my-remote-select)
@@ -48,9 +48,6 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("1" (my-open "~/src/github.com/minorugh/dotfiles/Makefile" :pos 'top))
-   ("2" (my-open "~/src/github.com/minorugh/dotfiles/.zshrc" :pos 'top))
-   ("3" counsel-find-file)
    ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
@@ -64,11 +61,11 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("_" delete-other-windows)
+   ("l" (my-open "~/Dropbox/CHANGELOG"))
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" (my-make "git"))
-   ("l" (my-open "~/Dropbox/CHANGELOG/"))
+   ("_" (my-open "~/.env_source/"))
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
