@@ -44,19 +44,29 @@
     (let* ((cmd (concat "thunar " default-directory)))
       (start-process-shell-command "thunar" nil cmd)))
 
+  (defvar xsrv-mirror-roots
+    (list (expand-file-name "~/Dropbox/GH/")
+          (expand-file-name "~/Dropbox/minorugh.com/"))
+    "xsrv (リモートサーバー) とミラー構造になっているローカルディレクトリのリスト.
+`xsrv-open-this' はこの配下の dired バッファでのみ動作する.")
+
   (defun xsrv-open-this ()
-    "Open gnome-terminal via SSH at the xserver directory matching current buffer."
+    "Open gnome-terminal via SSH at the xserver directory matching current buffer.
+Only valid in a `dired-mode' buffer whose directory is under one of
+`xsrv-mirror-roots'; otherwise signal a `user-error'."
     (interactive)
+    (unless (derived-mode-p 'dired-mode)
+      (user-error "xsrv-open-this: Dired バッファでのみ実行できます"))
     (let* ((cur (expand-file-name
-                 (if (derived-mode-p 'dired-mode)
-                     (let ((f (dired-get-filename nil t)))
-                       (if (and f (file-directory-p f))
-                           f
-                         (file-name-directory (or f default-directory))))
-                   default-directory)))
-           (cmd (format "gnome-terminal -- zsh -ic 'xsrv-open %s'"
-                        (shell-quote-argument cur))))
-      (start-process-shell-command "xsrv-open" nil cmd))))
+                 (let ((f (dired-get-filename nil t)))
+                   (if (and f (file-directory-p f))
+                       f
+                     (file-name-directory (or f default-directory)))))))
+      (unless (seq-some (lambda (root) (string-prefix-p root cur)) xsrv-mirror-roots)
+        (user-error "xsrv-open-this: 対象外のディレクトリです: %s" cur))
+      (let ((cmd (format "gnome-terminal -- zsh -ic 'xsrv-open %s'"
+                         (shell-quote-argument cur))))
+        (start-process-shell-command "xsrv-open" nil cmd)))))
 
 
 ;; ============================================================

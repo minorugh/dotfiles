@@ -369,7 +369,7 @@ function xsrv-open() {
         *)            dir="/home/minorugh/" ;;
     esac
 
-    gnome-terminal --maximize -- ssh -t xsrv "cd '$dir' && exec \$SHELL -il"
+    gnome-terminal -- ssh -t xsrv "cd '$dir' && exec \$SHELL -il"
 }
 
 # リモート(xsrv)／Dockerの作業先をfzfで選んでgnome-terminalを開く
