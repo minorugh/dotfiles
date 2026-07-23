@@ -74,9 +74,8 @@
   (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 
-;; elisp/ 配下の自作パッケージを終了時に自動byte-compile
 (defun my-byte-recompile-elisp-dir ()
-  "Byte-compile outdated or missing .elc files under ~/.emacs.d/elisp/."
+  "Recompile Elisp files in ~/.emacs.d/elisp when needed."
   (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
     (when (file-directory-p elisp-dir)
       (byte-recompile-directory elisp-dir 0))))
