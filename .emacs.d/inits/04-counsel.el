@@ -88,25 +88,25 @@
            (chars    (split-string str "" t))    ; STR を1文字ずつ分割
            (splitted (let (result group)         ; 区切り文字で分割し、連続する非区切り文字をグループ化
                        (dolist (c chars)
-			 (if (string-match-p sep c)
+                         (if (string-match-p sep c)
                              (progn
                                (when group      ; グループが溜まっていれば結合して result に追加
-				 (push (apply #'concat (nreverse group)) result)
-				 (setq group nil))
+                                 (push (apply #'concat (nreverse group)) result)
+                                 (setq group nil))
                                (push c result)) ; 区切り文字はそのまま result に追加
                            (push c group)))     ; 非区切り文字は group に蓄積
                        (when group              ; 末尾のグループを処理
-			 (push (apply #'concat (nreverse group)) result))
+                         (push (apply #'concat (nreverse group)) result))
                        (nreverse result))))
       (mapconcat                                ; 各セグメントを変換して結合
        (lambda (s)
-	 (cond ((string= s " ") ".*?")          ; スペース → 任意文字列
+         (cond ((string= s " ") ".*?")          ; スペース → 任意文字列
                ((string-match-p sep s) s)        ; 区切り文字 → そのまま
                (t (migemo-get-pattern s))))      ; 日本語 → migemo 変換
        splitted "")))
   ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
   (setq ivy-re-builders-alist '((t      . ivy--regex-plus)
-				(swiper . my-ivy-migemo-re-builder))))
+                                (swiper . my-ivy-migemo-re-builder))))
 
 
 ;; Local Variables:

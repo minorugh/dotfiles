@@ -173,7 +173,7 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 # Aliases
 ########################################
 # 基本コマンド
-alias ls='ls -v -F --color=auto'
+alias ls='ls -v -F --color=auto --group-directories-first'
 alias ll='ls -al'
 alias la='ls -A'
 alias cl='clear'
@@ -224,15 +224,17 @@ alias pm='power-menu.sh'
 ########################################
 # Functions
 ########################################
-# Remove Emacs byte-compiled cache files (*.elc)
+# Remove Emacs byte-compiled cache files (*.elc) under elisp/ and inits/.
+# Does NOT touch elpa/ (installed packages) — only local/user config.
 # Used before troubleshooting Emacs configuration.
 function eclean() {
-    echo "Removing Emacs .elc files..."
-    find -L ~/.emacs.d -name "*.elc" -print -delete
+    echo "Removing Emacs .elc files under elisp/ and inits/..."
+    find -L ~/.emacs.d/elisp ~/.emacs.d/inits -name "*.elc" -print -delete
 }
 
 # Open Emacs configuration with Vim for recovery
 # Use when normal Emacs startup fails.
+# (Removes .elc under elisp/ and inits/ first — see eclean)
 function ve() {
     eclean
     vim ~/.emacs.d/
@@ -240,6 +242,7 @@ function ve() {
 
 # Start Emacs with minimal configuration for recovery
 # Skip init.el and load init-mini.el only.
+# (Removes .elc under elisp/ and inits/ first — see eclean)
 function eq() {
     eclean
     emacs -q -l ~/.emacs.d/init-mini.el
@@ -341,6 +344,56 @@ function mklink-readme() {
     local relative_target=$(python3 -c "import os; print(os.path.relpath('$PWD/README.md', '$INDEX_DIR'))")
     ln -sf "$relative_target" "$INDEX_DIR/$link_name"
     echo "✅ $INDEX_DIR/$link_name -> $relative_target"
+}
+
+########################################
+# Remote (xsrv / Docker)
+########################################
+# ローカルのDropbox配下のディレクトリを、xsrv上の対応パスに変換して
+# gnome-terminal + ssh で開く。
+# 引数なし: $PWD を使う（Emacs の xsrv-open-this からもここを呼ぶ）
+# 引数あり: xsrv-open /path/to/dir のように任意パスを指定可能
+function xsrv-open() {
+    local local_gh="$HOME/Dropbox/GH/"
+    local local_mn="$HOME/Dropbox/minorugh.com/"
+    local remote_gh="/home/minorugh/gospel-haiku.com/public_html/"
+    local remote_mn="/home/minorugh/minorugh.com/public_html/"
+
+    local cur="${1:-$PWD}"
+    cur="$(realpath "$cur")/"
+
+    local dir
+    case "$cur" in
+        "$local_gh"*) dir="${remote_gh}${cur#"$local_gh"}" ;;
+        "$local_mn"*) dir="${remote_mn}${cur#"$local_mn"}" ;;
+        *)            dir="/home/minorugh/" ;;
+    esac
+
+    gnome-terminal --maximize -- ssh -t xsrv "cd '$dir' && exec \$SHELL -il"
+}
+
+# リモート(xsrv)／Dockerの作業先をfzfで選んでgnome-terminalを開く
+# レスキュー用途の power-menu.sh とは別系統：固定ターゲットの選択メニュー
+function remote-select() {
+    local home_root="/home/minorugh/"
+    local gh_root="${home_root}gospel-haiku.com/public_html/"
+    local mn_root="${home_root}minorugh.com/public_html/"
+
+    local choice
+    choice=$(printf '%s\n' "home-root" "gospel-haiku" "minorugh.com" "docker/httpd" \
+              | fzf --reverse --header="[Remote Select]")
+
+    case "$choice" in
+        home-root)
+            gnome-terminal -- ssh -t xsrv "cd '$home_root' && exec \$SHELL -il" ;;
+        gospel-haiku)
+            gnome-terminal -- ssh -t xsrv "cd '$gh_root' && printf '%s\n' '${gh_root%public_html/}' && exec \$SHELL -il" ;;
+        minorugh.com)
+            gnome-terminal -- ssh -t xsrv "cd '$mn_root' && printf '%s\n' '${mn_root%public_html/}' && exec \$SHELL -il" ;;
+        docker/httpd)
+            gnome-terminal -- docker exec -it httpd /bin/bash ;;
+        "") echo "Cancelled." ;;
+    esac
 }
 
 ########################################

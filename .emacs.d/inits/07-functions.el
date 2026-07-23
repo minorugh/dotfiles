@@ -12,13 +12,13 @@
 ;;  F-key Bindings
 ;; ============================================================
 (leaf *function-keys
-  :bind (("<f1>"  . help-command)              ; built-in
-         ("<f2>"  . my-remote-select)          ; see below
+  :bind (("<f1>"  . help-command)
+         ("<f2>"  . neotree)                   ; see 70-neotree.el
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . quickrun)                  ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . neotree-toggle)            ; see 70-neotree.el
+         ("<f7>"  . calendar)                  ; see below
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode)
          ("<f10>" . toggle-scratch-buffer)     ; see below
@@ -26,37 +26,10 @@
          ("<f12>" . toggle-emacs))             ; see below
 
   :preface
-  (when (not (display-graphic-p))
-    (define-key input-decode-map (kbd "<f16>") (kbd "<henkan>"))
-    (define-key input-decode-map (kbd "<f17>") (kbd "<muhenkan>")))
-
   (defun toggle-emacs ()
     "Show/hide the Emacs window via toggle-emacs.sh."
     (interactive)
     (start-process-shell-command "toggle-emacs" nil "toggle-emacs.sh"))
-
-  (defun my-remote-select ()
-    "Select remote directory and open gnome-terminal via SSH."
-    (interactive)
-    (let* ((home-root "/home/minorugh/")
-           (gh-root   (concat home-root "gospel-haiku.com/public_html/"))
-           (mn-root   (concat home-root "minorugh.com/public_html/"))
-           (dirs `(("home-root"    . ("ls" . ,home-root))
-                   ("gospel-haiku" . ("ls" . ,gh-root))
-                   ("minorugh.com" . ("ls" . ,mn-root))
-                   ("docker/httpd" . ("docker" . "docker exec -it httpd /bin/bash"))))
-           (choice (completing-read "remote: " (mapcar #'car dirs) nil t "^"))
-           (entry  (cdr (assoc choice dirs)))
-           (action (car entry))
-           (dir    (cdr entry))
-           (cmd (cond
-                 ((string= action "docker")
-                  (format "gnome-terminal -- %s" dir))
-                 (t
-                  (let ((display-dir (replace-regexp-in-string "public_html/$" "" dir)))
-                    (format "gnome-terminal -- ssh -t xsrv 'cd %s && printf \"%s\\n\" && bash -il'"
-                            dir display-dir))))))
-      (start-process-shell-command "ssh-cd" nil cmd)))
 
   (defun terminal-open-this ()
     "Open gnome-terminal at current directory."
@@ -74,25 +47,16 @@
   (defun xsrv-open-this ()
     "Open gnome-terminal via SSH at the xserver directory matching current buffer."
     (interactive)
-    (let* ((local-gh  (expand-file-name "~/Dropbox/GH/"))
-           (local-mn  (expand-file-name "~/Dropbox/minorugh.com/"))
-           (remote-gh "/home/minorugh/gospel-haiku.com/public_html/")
-           (remote-mn "/home/minorugh/minorugh.com/public_html/")
-           (cur (expand-file-name
+    (let* ((cur (expand-file-name
                  (if (derived-mode-p 'dired-mode)
                      (let ((f (dired-get-filename nil t)))
                        (if (and f (file-directory-p f))
                            f
                          (file-name-directory (or f default-directory))))
                    default-directory)))
-           (dir (cond
-                 ((string-prefix-p local-gh cur)
-                  (concat remote-gh (file-relative-name cur local-gh)))
-                 ((string-prefix-p local-mn cur)
-                  (concat remote-mn (file-relative-name cur local-mn)))
-                 (t "/home/minorugh/")))
-           (cmd (format "gnome-terminal --maximize -- ssh -t xsrv 'cd %s && exec $SHELL -il'" dir)))
-      (start-process-shell-command "ssh" nil cmd))))
+           (cmd (format "gnome-terminal -- zsh -ic 'xsrv-open %s'"
+                        (shell-quote-argument cur))))
+      (start-process-shell-command "xsrv-open" nil cmd))))
 
 
 ;; ============================================================
@@ -124,6 +88,29 @@
         (switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*"))))
 
+
+;; ============================================================
+;;  Calendar
+;; ============================================================
+(leaf calendar
+  :defvar calendar-holidays japanese-holidays
+  :bind (("<f7>"   . calendar)
+	 (:calendar-mode-map
+          ("<f7>" . calendar-exit)))
+  :config
+  (with-eval-after-load 'japanese-holidays
+    (setq calendar-holidays (append japanese-holidays holiday-local-holidays))))
+
+(leaf japanese-holidays :ensure t
+  :after calendar
+  :require t
+  :hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
+         (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
+         (calendar-today-visible-hook   . calendar-mark-today))
+  :config
+  (setq calendar-holidays
+        (append japanese-holidays holiday-local-holidays holiday-other-holidays))
+  (setq calendar-mark-holidays-flag t))
 
 
 ;; ============================================================
