@@ -18,7 +18,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . quickrun)                  ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . calendar)                  ; see below
+         ("<f7>"  . calendar)                  ; see 90-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
@@ -97,30 +97,6 @@ Only valid in a `dired-mode' buffer whose directory is under one of
     (if (string= (buffer-name) "*scratch*")
         (switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*"))))
-
-
-;; ============================================================
-;;  Calendar
-;; ============================================================
-(leaf calendar
-  :defvar calendar-holidays japanese-holidays
-  :bind (("<f7>"   . calendar)
-	 (:calendar-mode-map
-          ("<f7>" . calendar-exit)))
-  :config
-  (with-eval-after-load 'japanese-holidays
-    (setq calendar-holidays (append japanese-holidays holiday-local-holidays))))
-
-(leaf japanese-holidays :ensure t
-  :after calendar
-  :require t
-  :hook ((calendar-today-visible-hook   . japanese-holiday-mark-weekend)
-         (calendar-today-invisible-hook . japanese-holiday-mark-weekend)
-         (calendar-today-visible-hook   . calendar-mark-today))
-  :config
-  (setq calendar-holidays
-        (append japanese-holidays holiday-local-holidays holiday-other-holidays))
-  (setq calendar-mark-holidays-flag t))
 
 
 ;; ============================================================
