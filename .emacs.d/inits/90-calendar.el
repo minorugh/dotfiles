@@ -1,9 +1,6 @@
 ;;; 90-calendardar.el --- Calendar configurations.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; mutt/markdown/howmなどtext-mode系の日本語文章作成バッファ専用.
-;; darkroom-outではline-num/spacingをtext-mode-hookの既定値に固定復元するため、
-;; prog-mode系バッファでの使用は想定していない.
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -65,7 +62,7 @@
 
 (defun my-gcal-sync-to-diary ()
   "Google Calendar(マイカレンダー)の予定をdiary-gcalへ一方向同期する.
-diary-gcalは毎回まるごと作り直す(洗い替え)。手書きのdiary本体には触れない。"
+diary-gcalは毎回まるごと作り直す(洗い替え)。手書きのdiary本体には触れない."
   (interactive)
   (unless my-gcal-diary-url
     (user-error "my-gcal-diary-url が設定されていません"))
@@ -106,17 +103,20 @@ diary-gcalは毎回まるごと作り直す(洗い替え)。手書きのdiary本
                       :foreground "white"
                       :background "#d33682"
                       :weight 'bold)
-
-(set-face-attribute 'calendar-today nil
-                    :foreground "white"
-                    :background "#228b22"
-                    :weight 'bold
-                    :underline nil)
+  (set-face-attribute 'calendar-today nil
+                      :foreground "white"
+                      :background "#228b22"
+                      :weight 'bold
+                      :underline nil)
 
   (with-eval-after-load 'japanese-holidays
     (setq calendar-holidays
           (append japanese-holidays holiday-local-holidays))))
 
+
+;; ============================================================
+;;  Japanese Holidays
+;; ============================================================
 (leaf japanese-holidays :ensure t
   :after calendar
   :require t
