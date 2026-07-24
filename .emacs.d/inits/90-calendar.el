@@ -53,10 +53,9 @@
   (add-hook 'calendar-today-visible-hook #'diary-mark-entries t)
   (add-hook 'calendar-today-invisible-hook #'diary-mark-entries t)
 
-  ;; 予定がある日
-  (set-face-attribute 'diary nil :foreground "white" :background "#d33682")
-  ;; 当日
-  (set-face-attribute 'calendar-today nil :background "#228b22")
+  ;; 日付の背景色
+  (set-face-attribute 'diary nil :background "#d33682")          ; 予定がある日
+  (set-face-attribute 'calendar-today nil :background "#228b22") ; 当日
 
   (with-eval-after-load 'japanese-holidays
     (setq calendar-holidays
