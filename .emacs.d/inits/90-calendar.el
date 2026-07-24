@@ -21,7 +21,7 @@
   :config
   (require 'my-gcal-diary)
 
-    (defun my-gcal-sync-on-exit ()
+  (defun my-gcal-sync-on-exit ()
     "Sync Google Calendar on Emacs exit, ignoring errors and timeouts."
     (with-timeout (10 (message "my-gcal-sync-to-diary: タイムアウトのためスキップ"))
       (ignore-errors (my-gcal-sync-to-diary))))
@@ -53,18 +53,10 @@
   (add-hook 'calendar-today-visible-hook #'diary-mark-entries t)
   (add-hook 'calendar-today-invisible-hook #'diary-mark-entries t)
 
-  ;; 予定がある日: ピンク背景・白文字
-  (set-face-attribute 'diary nil
-                      :foreground "white"
-                      :background "#d33682"
-                      :weight 'bold)
-
-  ;; 当日: 緑背景・白文字(土日祝・diaryマークと被っても見分けがつくように)
-  (set-face-attribute 'calendar-today nil
-                      :foreground "white"
-                      :background "#228b22"
-                      :weight 'bold
-                      :underline nil)
+  ;; 予定がある日
+  (set-face-attribute 'diary nil :foreground "white" :background "#d33682")
+  ;; 当日
+  (set-face-attribute 'calendar-today nil :background "#228b22")
 
   (with-eval-after-load 'japanese-holidays
     (setq calendar-holidays
