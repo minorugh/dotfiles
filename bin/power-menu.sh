@@ -8,9 +8,9 @@
 #   1 キー : SLEEP（画面オフのみ・プロセス継続、任意キーで復帰）
 #   2 キー : POWEROFF
 #   3 キー : REBOOT
-#   4 キー : BACKUP toggle（STOP⇔START）
-#   5 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
-#   6 キー : EQ（.elc削除 + emacs -q ミニ構成で起動）
+#   4 キー : XSRV BACKUP toggle（STOP⇔START）
+#   5 キー : CHECK ENV BACKUP
+#   6 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
 #   7 キー : XSRV-ROOT（xsrv home-root へ接続）
 #   8 キー : GH（xsrv gospel-haiku.com へ接続）
 #   9 キー : minorugh.com（xsrv minorugh.com へ接続）
@@ -30,8 +30,8 @@ GH_ROOT="${HOME_ROOT}gospel-haiku.com/public_html/"
 MN_ROOT="${HOME_ROOT}minorugh.com/public_html/"
 
 EMACS_LINES=$(ps -u $USER -o pid,stat,time,command \
-		  | grep -E "emacs-start|/usr/(local/)?bin/emacs" \
-		  | grep -v -e "<defunct>" -e "grep" -e "emacs-kill" -e "mozc" -e "cmigemo")
+                  | grep -E "emacs-start|/usr/(local/)?bin/emacs" \
+                  | grep -v -e "<defunct>" -e "grep" -e "emacs-kill" -e "mozc" -e "cmigemo")
 
 if [[ -z "$EMACS_LINES" ]]; then
     EMACS_COUNT=0
@@ -58,28 +58,28 @@ else
 fi
 
 CHOICE=$( (
-	    [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
-	    echo "1. SLEEP"
-	    echo "2. POWEROFF"
-	    echo "3. REBOOT"
-	    echo "4. BACKUP $BACKUP_STATUS"
-	    echo "5. VE (Emacs設定をVimで開く)"
-	    echo "6. EQ (Emacsをミニ構成で起動)"
-	    echo "7. XSRV-ROOT"
-	    echo "8. GH"
-	    echo "9. minorugh.com"
-	    echo "0. docker/httpd"
-	) | fzf --ansi --reverse --color='pointer:white' \
-		--bind "1:pos(${POS1})+accept" \
-		--bind "2:pos(${POS2})+accept" \
-		--bind "3:pos(${POS3})+accept" \
-		--bind "4:pos(${POS4})+accept" \
-		--bind "5:pos(${POS5})+accept" \
-		--bind "6:pos(${POS6})+accept" \
-		--bind "7:pos(${POS7})+accept" \
-		--bind "8:pos(${POS8})+accept" \
-		--bind "9:pos(${POS9})+accept" \
-		--bind "0:pos(${POS0})+accept" )
+            [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
+            echo "1. SLEEP"
+            echo "2. POWEROFF"
+            echo "3. REBOOT"
+            echo "4. XSRV BACKUP $BACKUP_STATUS"
+            echo "5. CHECK ENV BACKUP"
+            echo "6. VE (Open ~/.emacs.d in Vim)"
+            echo "7. XSRV-ROOT"
+            echo "8. GH"
+            echo "9. minorugh.com"
+            echo "0. docker/httpd"
+        ) | fzf --ansi --reverse --color='pointer:white' \
+                --bind "1:pos(${POS1})+accept" \
+                --bind "2:pos(${POS2})+accept" \
+                --bind "3:pos(${POS3})+accept" \
+                --bind "4:pos(${POS4})+accept" \
+                --bind "5:pos(${POS5})+accept" \
+                --bind "6:pos(${POS6})+accept" \
+                --bind "7:pos(${POS7})+accept" \
+                --bind "8:pos(${POS8})+accept" \
+                --bind "9:pos(${POS9})+accept" \
+                --bind "0:pos(${POS0})+accept" )
 
 
 case "$CHOICE" in
@@ -87,23 +87,22 @@ case "$CHOICE" in
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     4.*)
-        if [[ -f "$XSRV_STOP" ]]; then
+	if [[ -f "$XSRV_STOP" ]]; then
             rm -f "$XSRV_STOP"
             echo "xsrv-backup: started."
-        else
+	else
             touch "$XSRV_STOP"
             echo "xsrv-backup: stopped."
-        fi
-        sleep 1; kill $PPID ;;
+	fi
+	sleep 1
+	kill $PPID ;;
     5.*)
-        echo "Removing Emacs .elc files under elisp/ and inits/..."
-        find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
-        vim ~/.emacs.d/
-        kill $PPID ;;
+	~/.env_source/check-backup.sh
+	kill $PPID ;;
     6.*)
         echo "Removing Emacs .elc files under elisp/ and inits/..."
         find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
-        emacs -q -l ~/.emacs.d/init-mini.el
+        vim ~/.emacs.d/
         kill $PPID ;;
     7.*)
         exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il" ;;
