@@ -1,3 +1,4 @@
+# Makefile for ~/.emacs.d/inits/
 all: clean
 
 MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
@@ -6,7 +7,6 @@ clean:
 	@n=$$(ls -1 *.elc 2>/dev/null | wc -l); \
 	rm -f *.elc; \
 	echo "##> Removed $$n .elc file(s)"
-# rm -fv *.elc
 
 HOSTNAME := $(shell hostname)
 # Hostname-based git push control:

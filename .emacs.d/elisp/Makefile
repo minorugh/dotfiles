@@ -1,35 +1,25 @@
 # Makefile for ~/.emacs.d/elisp/
-# Usage: make         → toggle *.elc (remove if exists, compile if not)
-#        make clean   → remove *.elc only
-ELISP_DIR := $(shell cd "$(dir $(abspath $(lastword $(MAKEFILE_LIST))))" && pwd)
-EMACS     := emacs
-IVY_DIR   := $(shell ls -d $(HOME)/.emacs.d/elpa/ivy-*/ 2>/dev/null | head -1)
+all: clean
 
-.PHONY: all toggle-elc clean
-
-all: toggle-elc
-
-toggle-elc:
-	@n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
-	if [ $$n -gt 0 ]; then \
-	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
-	echo "##> Removed $$n .elc file(s)"; \
-	else \
-	total=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.el" ! -name ".*" | wc -l); \
-	$(EMACS) --batch -Q \
-	--eval "(add-to-list 'load-path \"$(ELISP_DIR)\")" \
-	--eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
-	--eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)"; \
-	n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
-	echo "##> Compiled $$n/$$total .elc file(s)"; \
-	fi
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 clean:
-	@n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
-	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
+	@n=$$(ls -1 *.elc 2>/dev/null | wc -l); \
+	rm -f *.elc; \
 	echo "##> Removed $$n .elc file(s)"
 
-git: toggle-elc
+HOSTNAME := $(shell hostname)
+# Hostname-based git push control:
+# P1 (main): commit + push / others (sub): pull --rebase only
+git: ## Auto commit+push (main only, sub: pull only)
+	git add -A
+	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
+ifeq ($(HOSTNAME),P1)
+	git push
+else
+	@echo "$(HOSTNAME): サブ機からはpushしません"
+	git pull --rebase
+endif
 
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
