@@ -89,26 +89,20 @@
       (call-process "xdg-open" nil 0 nil file)))
 
   (defun my-dired-open-vim ()
-    "Open the file at point in gnome-terminal with Vim."
+    "Open the file at point in gnome-terminal with Vim.
+Placed on the external monitor when one is connected."
     (interactive)
     (let ((default-directory (dired-current-directory)))
-      (start-process
-       "gnome-terminal" nil
-       "gnome-terminal"
-       "--"
-       "vim"
-       (dired-get-file-for-visit))))
+      ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
+      (my-launch-gnome-terminal "--" "vim" (dired-get-file-for-visit))))
 
   (defun my-dired-open-nano ()
-    "Open the file at point in a maximized gnome-terminal with GNU nano."
+    "Open the file at point in a maximized gnome-terminal with GNU nano.
+Placed on the external monitor when one is connected."
     (interactive)
     (let ((default-directory (dired-current-directory)))
-      (start-process
-       "gnome-terminal" nil
-       "gnome-terminal"
-       "--"
-       "nano"
-       (dired-get-file-for-visit))))
+      ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
+      (my-launch-gnome-terminal "--" "nano" (dired-get-file-for-visit))))
 
   ;;  File Operations
   ;; ----------------------------------------------------------

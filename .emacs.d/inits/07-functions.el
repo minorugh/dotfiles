@@ -31,12 +31,39 @@
     (interactive)
     (start-process-shell-command "toggle-emacs" nil "toggle-emacs.sh"))
 
+  (defun my-external-monitor-geometry ()
+    "Return the \"+X+Y\" position of the first connected external monitor,
+or nil if none is found (e.g. only the internal eDP display is active)."
+    (with-temp-buffer
+      (call-process "xrandr" nil t nil "--query")
+      (goto-char (point-min))
+      (let (result)
+        (while (and (not result)
+                    (re-search-forward
+                     "^\\([A-Za-z0-9-]+\\) connected \\(?:primary \\)?[0-9]+x[0-9]+\\(\\+[0-9]+\\+[0-9]+\\)"
+                     nil t))
+          (let ((name (match-string 1))
+                (pos (match-string 2)))
+            (unless (string-prefix-p "eDP" name)
+              (setq result pos))))
+        result)))
+
+  (defun my-launch-gnome-terminal (&rest args)
+    "Launch gnome-terminal with ARGS, placed on the external monitor
+when one is connected (via `my-external-monitor-geometry')."
+    (let ((geo (my-external-monitor-geometry)))
+      (apply #'start-process
+             "gnome-terminal" nil
+             "gnome-terminal"
+             `(,@(when geo (list (concat "--geometry=" geo)))
+               ,@args))))
+
   (defun terminal-open-this ()
-    "Open gnome-terminal at current directory."
+    "Open gnome-terminal at current directory.
+Placed on the external monitor when one is connected."
     (interactive)
-    (let* ((dir (directory-file-name default-directory))
-           (cmd (concat "gnome-terminal --working-directory " dir)))
-      (start-process-shell-command "gnome-terminal" nil cmd)))
+    (let ((dir (directory-file-name default-directory)))
+      (my-launch-gnome-terminal "--working-directory" dir)))
 
   (defun thunar-open-this ()
     "Open Thunar file manager at current directory."
@@ -64,9 +91,7 @@ Only valid in a `dired-mode' buffer whose directory is under one of
                      (file-name-directory (or f default-directory)))))))
       (unless (seq-some (lambda (root) (string-prefix-p root cur)) xsrv-mirror-roots)
         (user-error "xsrv-open-this: 対象外のディレクトリです: %s" cur))
-      (let ((cmd (format "gnome-terminal -- zsh -ic 'xsrv-open %s'"
-                         (shell-quote-argument cur))))
-        (start-process-shell-command "xsrv-open" nil cmd)))))
+      (my-launch-gnome-terminal "--" "zsh" "-ic" (concat "xsrv-open " cur)))))
 
 
 ;; ============================================================

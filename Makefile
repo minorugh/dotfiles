@@ -69,16 +69,16 @@ env-setup: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source
 
 ssh: ## SSH設定の初期化（~/.env_source から展開）
 	mkdir -p ${HOME}/.$@
-	for item in config known_hosts id_rsa xsrv; do
-		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item
+	for item in config known_hosts id_rsa xsrv; do \
+		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item; \
 	done
 	chmod 600 ${HOME}/.ssh/id_rsa
 
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
-	for item in xprofile gitconfig bashrc zshrc vimrc Xresources ; do
-		ln -vsf {${PWD},${HOME}}/.$$item
+	for item in xprofile gitconfig bashrc zshrc vimrc Xresources ; do \
+		ln -vsf {${PWD},${HOME}}/.$$item; \
 	done
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/hub ${HOME}/.config/hub
 	ln -sf ~/src/github.com/minorugh/dotfiles/.mutt/history ~/.mutt/history
@@ -275,8 +275,8 @@ neomutt: ## NeoMutt の設定
 	$(APT) $@ urlscan abook
 	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
-	for item in mailcap certificates abook-add.sh; do
-		ln -vsf {${PWD},${HOME}}/.mutt/$$item
+	for item in mailcap certificates abook-add.sh; do \
+		ln -vsf {${PWD},${HOME}}/.mutt/$$item; \
 	done
 	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/neomutt.sh
