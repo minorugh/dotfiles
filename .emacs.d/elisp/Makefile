@@ -10,19 +10,21 @@ IVY_DIR   := $(shell ls -d $(HOME)/.emacs.d/elpa/ivy-*/ 2>/dev/null | head -1)
 all: toggle-elc
 
 toggle-elc:
-	if find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | grep -q .; then \
+	@n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
+	if [ $$n -gt 0 ]; then \
 	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
-	echo "Removed *.elc"; \
+	echo "##> Removed $$n .elc file(s)"; \
 	else \
 	$(EMACS) --batch -Q \
 	--eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
 	--eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)" 2>/dev/null; \
-	echo "Compiled *.elc"; \
+	echo "##> Compiled *.elc"; \
 	fi
 
 clean:
-	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete
-	echo "Removed *.elc"
+	@n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
+	find $(ELISP_DIR) -maxdepth 1 -name "*.elc" -delete; \
+	echo "##> Removed $$n .elc file(s)"
 
 git: toggle-elc
 

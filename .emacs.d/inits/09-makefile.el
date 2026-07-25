@@ -1,6 +1,7 @@
 ;;; 09-makefile.el --- Makefile integration and target launcher. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+;; (setq debug-on-error t)
 
 ;; ============================================================
 ;;  Compilation
@@ -110,24 +111,32 @@ STRING is the exit status message from the compilation process."
                       (interactive)
                       (ivy-exit-with-action
                        (lambda (x)
-                         (let ((target (cdr x)))
-                           (compile (format "make -C %s %s"
-                                            (file-name-directory makefile)
-                                            target)))))))
+                         (let* ((target (cdr x))
+                                (dir    (file-name-directory makefile))
+                                (cmd    (format "make -C %s %s" dir target)))
+                           (if (get-text-property 0 'interactive-p target)
+                               (message "対話確認が必要なターゲットです。ターミナルで実行してください: %s" cmd)
+                             (compile cmd)))))))
         ;; Parse targets annotated with ## from Makefile
         (with-current-buffer (find-file-noselect makefile)
           (save-excursion
             (goto-char (point-min))
             (while (re-search-forward
-                    "^\\([^:# \t\n]+\\):.*?##[ \t]*\\(.*\\)$" nil t)
-              (let* ((target     (match-string 1))
-                     (desc       (match-string 2))
-                     (pos        (match-beginning 1))
-                     (target-fmt (propertize (format "%-09s" target)
-                                             'face 'font-lock-function-name-face))
-                     (desc-fmt   (propertize desc 'face 'font-lock-comment-face)))
-                (push (cons (concat target-fmt " " desc-fmt)
-                            (propertize target 'pos pos 'makefile makefile))
+                    "^\\([^:# \t\n]+\\):.*?##\\(!?\\)[ \t]*\\(.*\\)$" nil t)
+              (let* ((target       (match-string 1))
+                     (interactive-p (string= (match-string 2) "!"))
+                     (desc         (match-string 3))
+                     (pos          (match-beginning 1))
+                     (target-fmt   (propertize (format "%-09s" target)
+                                               'face 'font-lock-function-name-face))
+                     (desc-fmt     (propertize desc 'face 'font-lock-comment-face))
+                     (mark-fmt     (if interactive-p
+                                       (propertize " ⚠" 'face 'warning)
+                                     "")))
+                (push (cons (concat target-fmt " " desc-fmt mark-fmt)
+                            (propertize target
+                                       'pos pos 'makefile makefile
+                                       'interactive-p interactive-p))
                       candidates)))))
         (if (not candidates)
             (message "ターゲットが見つかりませんでした。")

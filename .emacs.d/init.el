@@ -26,7 +26,9 @@
             (setq inhibit-message nil)
             (message "Emacs ready in %s with %d GCs."
                      (emacs-init-time) gcs-done)
-            (mapc #'delete-file (file-expand-wildcards "~/.emacs.d/session.*"))))
+            (let ((stale (file-expand-wildcards "~/.emacs.d/session.*")))
+              (when stale
+		(message "警告: session.* が残存 (%s) — 削除はスキップ中" stale)))))
 
 
 ;; ============================================================

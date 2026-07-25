@@ -14,6 +14,7 @@
 # update 2026.06.16 xsrv-backup-data を廃止、xsrv-backup に一本化（動的ファイルのみ対象）
 # update 2026.06.16 xsrv-backup を cron に移行、xsrv-systemd ターゲット廃止
 # update 2026.07.10 Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird ターゲット・バックアップ関連を削除
+# update 2026.07.25 emacs-stable を ##! に変更（対話確認ありターゲットの目印、09-makefile.el側で判定）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -336,7 +337,7 @@ hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 # バージョンアップ時はURLの数字を変更すること
 # 確認: hugo version
 
-emacs-stable: ## Emacs 安定版のソースビルド
+emacs-stable: ##! Emacs 安定版のソースビルド（apt build-depで対話確認あり）
 	cd ~/src/ && \
 	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.2.tar.gz && \
 	tar xvfz emacs-30.2.tar.gz && \
@@ -359,7 +360,7 @@ emacs-stable: ## Emacs 安定版のソースビルド
 	sudo make install
 	@echo "## アンインストール: ~/src/emacs-30.2 で sudo make uninstall && make distclean"
 
-texlive: ## TeX Live のインストール（scheme-medium + 日本語）
+texlive: ##! TeX Live のインストール（scheme-medium + 日本語）
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz && \
@@ -372,7 +373,7 @@ texlive: ## TeX Live のインストール（scheme-medium + 日本語）
 	sudo tlmgr install collection-langjapanese
 	sudo tlmgr update --self --all
 
-texlive-full: ## TeX Live フルインストール（全パッケージ約7GB）
+texlive-full: ##! TeX Live フルインストール（全パッケージ約7GB）
 	cd ${HOME}/Downloads && \
 	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 	tar xvf install-tl-unx.tar.gz && \

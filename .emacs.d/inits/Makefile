@@ -1,8 +1,12 @@
 all: clean
 
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 clean:
-	rm -f *.elc
+	@n=$$(ls -1 *.elc 2>/dev/null | wc -l); \
+	rm -f *.elc; \
+	echo "##> Removed $$n .elc file(s)"
+# rm -fv *.elc
 
 HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
