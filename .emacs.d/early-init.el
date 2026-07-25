@@ -1,10 +1,6 @@
 ;;; early-init.el --- Early initialization. -*- lexical-binding: t -*-
 ;;; Commentary:
-;; Configures early-stage initialization (pre-init.el/packages).
-;; X11/Display settings are offloaded to ~/.Xresources to ensure:
-;; - Proper font scaling     (Xft.dpi: 120)
-;; - Instant dark frame      (Emacs.background/foreground) — prevents "white flash"
-;; - No silver mode-line     (set-face-attribute) — prevents flash before theme loads
+;; X11 display settings (font scale, colors) are configured in ~/.Xresources.
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -35,8 +31,7 @@
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
-;; NOTE: マシン固有設定（自分の環境専用）。他環境へ持ち出すときは書き換えること。
-;; "P1" はメインデスクトップのホスト名。フォントサイズをここで切り替えている。
+;; "P1" is the hostname of the main machine.
 (let ((font-size (if (string= (system-name) "P1") 18 16)))
   (push `(font . ,(format "Cica-%d" font-size)) default-frame-alist))
 
@@ -47,19 +42,20 @@
 ;;  UI — Disable Early to Prevent Flicker
 ;; ============================================================
 
-(push '(fullscreen . maximized) default-frame-alist)
 (push '(menu-bar-lines     . 0) default-frame-alist)
 (push '(tool-bar-lines     . 0) default-frame-alist)
 (push '(vertical-scroll-bars  ) default-frame-alist)
 (push '(undecorated        . t) default-frame-alist)
 
-;; ============================================================
-;;  Frame Position & Splash Screen
-;; ============================================================
+;; Launch maximized on the monitor to the right.
+;; (A negative "left" value is measured from the right edge.)
+(push '(left . -1)            initial-frame-alist)
+(push '(fullscreen . maximized) default-frame-alist)
 
-;; NOTE: マシン固有設定。外部モニタ(DP-1-2, x=1920)に最大化して起動する。
-(push '(left . 1920)            initial-frame-alist)
-(push '(top  . 0)               initial-frame-alist)
+
+;; ============================================================
+;;  Splash Screen
+;; ============================================================
 
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen  t)
