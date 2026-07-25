@@ -20,7 +20,7 @@
          ("s"   . my-dired-sudo-rm)
          ("o"   . my-dired-open-xdg)
          ("v"   . my-dired-open-vim)
-	 ("n"   . my-dired-open-nano)
+         ("n"   . my-dired-open-nano)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
          ("]"   . my-dired-gitk)
