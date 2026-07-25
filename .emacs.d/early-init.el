@@ -49,7 +49,7 @@
 
 ;; Launch maximized on the monitor to the right.
 ;; (A negative "left" value is measured from the right edge.)
-(push '(left . -1)            initial-frame-alist)
+(push '(left . -1)              initial-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
 
 
