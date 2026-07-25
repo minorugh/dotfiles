@@ -80,7 +80,7 @@
   "Recompile Elisp files in ~/.emacs.d/elisp when needed."
   (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
     (when (file-directory-p elisp-dir)
-      (byte-recompile-directory elisp-dir 0))))
+      (byte-recompile-directory elisp-dir 0 t))))
 
 (add-hook 'kill-emacs-hook #'my-byte-recompile-elisp-dir)
 

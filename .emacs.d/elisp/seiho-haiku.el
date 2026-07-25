@@ -1,5 +1,6 @@
 ;;; seiho-haiku.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
-;;; Commentary: seihohaiku.cgi から自動変換
+;;; Commentary:
+;; seihohaiku.cgi から自動変換
 ;;; Code:
 
 (defconst seiho-haiku-data
@@ -414,24 +415,24 @@
       ("除夜の火は金の砂子を撒いてをり" . "青畝")
     )
   )
-  "青畝俳句366日データ。(nth MON data) で月リスト、(nth DAY month) で句を取得。MONは0始まり、DAYは1始まり。")
+  "青畝俳句366日データ。(nth MON data) で月リスト、(nth DAY month) で句を取得。MONは0始まり、DAYは1始まり.")
 
 ;;; 表示設定 (お好みで変更してください)
 (defvar seiho-haiku-ku-height 1.4
-  "俳句のフォントサイズ倍率。")
+  "俳句のフォントサイズ倍率.")
 
 (defvar seiho-haiku-ku-weight 'bold
-  "俳句のフォントウェイト。'bold または 'normal。")
+  "俳句のフォントウェイト。bold または normal.")
 
 (defvar seiho-haiku-box-color "gray40"
-  "俳句ボックスの枠線色。")
+  "俳句ボックスの枠線色.")
 
 (defvar seiho-haiku-box-line-width 10
-  "俳句ボックスの上下padding (pxで指定)。")
+  "俳句ボックスの上下padding (pxで指定).")
 
 ;;; 表示用関数
 (defun seiho-haiku-today ()
-  "今日の日付に対応する句を (俳句 . 作者) の形で返す。"
+  "今日の日付に対応する句を (俳句 . 作者) の形で返す."
   (let* ((now (decode-time))
 	 (mon (1- (nth 4 now)))
 	 (day (1- (nth 3 now)))
@@ -440,8 +441,8 @@
     entry))
 
 (defun seiho-haiku-insert-today (heading)
-  "今日の一句をdashboard用にフォーマットして挿入する。
-HEADINGは dashboard-insert-heading を呼ぶ関数シンボル。"
+  "今日の一句をdashboard用にフォーマットして挿入する.
+HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
   (let* ((entry (seiho-haiku-today))
 	 (ku     (if entry (car entry) "句が見つかりません"))
 	 (author (if entry (cdr entry) ""))
@@ -449,8 +450,8 @@ HEADINGは dashboard-insert-heading を呼ぶ関数シンボル。"
 	 (mon    (nth 4 now))
 	 (day    (nth 3 now))
 	 (youbi  (nth (nth 6 now) '("日" "月" "火" "水" "木" "金" "土")))
-	 (line   (format "    %s      %s    " ku author))
-	 (start  (point)))
+	 (line   (format "    %s      %s    " ku author)))
+	 ;; (start  (point)))
 (funcall heading (format "%s 今日の一句  %d月%d日（%s）"
                          (nerd-icons-faicon "nf-fa-heart_o" :face 'dashboard-heading :height 1.2)
                          mon day youbi))

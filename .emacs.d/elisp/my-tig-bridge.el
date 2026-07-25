@@ -10,6 +10,8 @@
 ;;
 ;;; Code:
 
+(require 'git-peek)
+
 (defvar my-tig-context-file "/tmp/tig-peek-context"
   "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
 

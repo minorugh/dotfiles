@@ -52,6 +52,7 @@
 ;; Emacs側からGoogle Calendarへの書き込みは行わない(あくまで一方向)。
 ;;
 ;;; Code:
+(require 'calendar)
 
 ;; 同期対象カレンダーのリスト。(名前 . 非公開URLファイルパス) の形式。
 ;; URL自体は ~/.env_source で秘密管理し、dotfilesには含めない。

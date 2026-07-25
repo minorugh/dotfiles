@@ -16,9 +16,11 @@ toggle-elc:
 	echo "##> Removed $$n .elc file(s)"; \
 	else \
 	$(EMACS) --batch -Q \
+	--eval "(add-to-list 'load-path \"$(ELISP_DIR)\")" \
 	--eval "(add-to-list 'load-path \"$(IVY_DIR)\")" \
-	--eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)" 2>/dev/null; \
-	echo "##> Compiled *.elc"; \
+	--eval "(byte-recompile-directory \"$(ELISP_DIR)\" 0 nil)"; \
+	n=$$(find $(ELISP_DIR) -maxdepth 1 -name "*.elc" | wc -l); \
+	echo "##> Compiled $$n .elc file(s)"; \
 	fi
 
 clean:
