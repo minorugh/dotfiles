@@ -11,6 +11,7 @@
 ;; ============================================================
 ;;  F-key Bindings
 ;; ============================================================
+
 (leaf *function-keys
   :bind (("<f1>"  . help-command)              ; built-in
          ("<f2>"  . neotree)                   ; see 70-neotree.el
@@ -127,6 +128,7 @@ Only valid in a `dired-mode' buffer whose directory is under one of
 ;; ============================================================
 ;;  toggle-emacs.sh
 ;; ============================================================
+
 ;; toggle-emacs.sh
 ;;   #!/bin/bash
 ;;   for wid in $(xdotool search --class emacs 2>/dev/null); do

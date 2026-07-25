@@ -28,7 +28,7 @@
                      (emacs-init-time) gcs-done)
             (let ((stale (file-expand-wildcards "~/.emacs.d/session.*")))
               (when stale
-		(message "警告: session.* が残存 (%s) — 削除はスキップ中" stale)))))
+                (message "警告: session.* が残存 (%s) — 削除はスキップ中" stale)))))
 
 
 ;; ============================================================
@@ -76,13 +76,15 @@
   (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 
-(defun my-byte-recompile-elisp-dir ()
-  "Recompile Elisp files in ~/.emacs.d/elisp when needed."
-  (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
-    (when (file-directory-p elisp-dir)
-      (byte-recompile-directory elisp-dir 0 t))))
-
-(add-hook 'kill-emacs-hook #'my-byte-recompile-elisp-dir)
+(leaf *my-byte-compile-elisp
+  :hook (kill-emacs-hook . my-byte-compile-elisp-dir)
+  :preface
+  (defun my-byte-compile-elisp-dir ()
+    "Byte-compile newer Elisp files in ~/.emacs.d/elisp."
+    (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
+      (dolist (el (directory-files elisp-dir t "\\.el\\'"))
+	(when (file-newer-than-file-p el (concat el "c"))
+          (ignore-errors (byte-compile-file el)))))))
 
 
 ;; ============================================================

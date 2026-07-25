@@ -7,6 +7,7 @@
 ;; ============================================================
 ;;  Performance
 ;; ============================================================
+
 (setq-default bidi-display-reordering nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
 
@@ -14,6 +15,7 @@
 ;; ============================================================
 ;;  File / Backup / Lock
 ;; ============================================================
+
 (setq make-backup-files        nil)   ; no *.~ backup files
 (setq auto-save-default        nil)   ; no auto-save
 (setq create-lockfiles         nil)   ; no .#lockfiles
@@ -24,6 +26,7 @@
 ;; ============================================================
 ;;  Temp / History File Locations  (~/.emacs.d/tmp/)
 ;; ============================================================
+
 (setq auto-save-list-file-prefix  (locate-user-emacs-file "tmp/auto-save-list/.saves-"))
 (setq tramp-persistency-file-name (locate-user-emacs-file "tmp/tramp"))
 (setq request-storage-directory   (locate-user-emacs-file "tmp/request"))
@@ -36,6 +39,7 @@
 ;; ============================================================
 ;;  Editing Defaults
 ;; ============================================================
+
 (setq completion-ignore-case              t)   ; case-insensitive completion
 (setq read-file-name-completion-ignore-case t)
 (setq scroll-preserve-screen-position    t)    ; point stays on scroll
@@ -56,6 +60,7 @@
 ;; ============================================================
 ;; Trash
 ;; ============================================================
+
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
 (advice-add 'move-file-to-trash :before
@@ -67,6 +72,7 @@
 ;; ============================================================
 ;; Save History
 ;; ============================================================
+
 (setq savehist-file (locate-user-emacs-file "tmp/savehist"))
 (setq history-length 200)
 (setq history-delete-duplicates t)
@@ -74,10 +80,12 @@
       '(extended-command-history my-describe-history))
 (add-hook 'after-init-hook #'savehist-mode)
 
+
 ;; ============================================================
 ;; Recent Files
 ;; ============================================================
-  (run-with-idle-timer 0.5 nil #'recentf-mode)
+
+(run-with-idle-timer 0.5 nil #'recentf-mode)
   (setq recentf-max-saved-items 100)
   (setq recentf-auto-cleanup 'never)
   (setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
@@ -95,6 +103,7 @@
 ;; ============================================================
 ;; Global Minor Modes
 ;; ============================================================
+
 (add-hook 'after-init-hook #'global-auto-revert-mode)
 (add-hook 'after-init-hook #'save-place-mode)
 
@@ -102,6 +111,7 @@
 ;; ============================================================
 ;; Auto Mode Associations ---
 ;; ============================================================
+
 (leaf *auto-mode
   :config
   (dolist (pair '(("\\.\\(?:tmux\\.conf\\|muttrc\\|xprofile\\|Xmodmap\\)\\'" . conf-mode)
@@ -115,6 +125,7 @@
 ;; ============================================================
 ;;  User Commands
 ;; ============================================================
+
 (leaf *user-commands
   :hook ((find-file-hook . my-view-mode-maybe)
          (find-file-hook . my-read-only-maybe))

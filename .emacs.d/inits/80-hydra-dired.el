@@ -16,9 +16,6 @@
 (with-eval-after-load 'mozc
   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
-;; (with-eval-after-load 'evil
-;;   (keymap-set evil-normal-state-map (kbd "M-.") nil))
-
 (leaf *hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))

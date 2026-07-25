@@ -12,6 +12,7 @@
 ;; ============================================================
 ;;  Calendar / diary 本体
 ;; ============================================================
+
 (leaf calendar
   :defvar calendar-holidays japanese-holidays
   :hook (kill-emacs-hook . my-gcal-sync-on-exit)
@@ -60,6 +61,11 @@
   (with-eval-after-load 'japanese-holidays
     (setq calendar-holidays
           (append japanese-holidays holiday-local-holidays))))
+
+
+;; ============================================================
+;;  Japanese-Holidays
+;; ============================================================
 
 (leaf japanese-holidays :ensure t
   :after calendar
