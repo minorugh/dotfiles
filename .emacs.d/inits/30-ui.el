@@ -22,13 +22,19 @@
 (leaf hl-line
   :tag "builtin"
   :doc "Highlight the current line."
-  :hook ((after-init-hook . global-hl-line-mode)
-         (dashboard-mode-hook
-          . (lambda () (setq-local global-hl-line-mode nil))))
+  :hook ((after-init-hook     . global-hl-line-mode)
+	 (dashboard-mode-hook . my-disable-hl-line)
+	 (calendar-mode-hook  . my-disable-hl-line))
   :config
-  (custom-set-faces
-   '(region  ((t (:background "#6272a4" :extend t))))
-   '(hl-line ((t (:background "#3B4252" :extend t))))))
+  (set-face-background 'region "#6272a4")
+  (set-face-background 'hl-line "#3B4252")
+  (set-face-extend 'region t)
+  (set-face-extend 'hl-line t)
+
+  (defun my-disable-hl-line ()
+    (setq-local global-hl-line-mode nil)
+    (when (bound-and-true-p hl-line-overlay)
+      (delete-overlay hl-line-overlay))))
 
 (leaf blink-cursor
   :tag "builtin"
@@ -166,7 +172,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
          (rx (or "*hydra"
                  "lv"
                  "*Flymake"
-		 "Calendar"
+                 "Calendar"
                  "*Compilation"
                  "which-key"
                  "*evil-cheat*"

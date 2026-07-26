@@ -14,13 +14,15 @@
 ;; ============================================================
 
 (leaf calendar
+  :tag "builtin"
   :defvar calendar-holidays japanese-holidays
   :hook (kill-emacs-hook . my-gcal-sync-on-exit)
   :bind (("<f7>" . calendar)
          (:calendar-mode-map
           ("<f7>" . calendar-exit)))
   :config
-  (require 'my-gcal-diary)
+  ;; (require 'my-gcal-diary
+  (autoload 'my-gcal-sync-to-diary "my-gcal-diary" nil t)
 
   (defun my-gcal-sync-on-exit ()
     "Sync Google Calendar on Emacs exit, ignoring errors and timeouts."
@@ -36,9 +38,10 @@
       (make-empty-file diary t)))
 
   ;; Google Calendar同期用ファイル(存在しなければ空で作成)
-  ;; my-diary-gcal-file は elisp/my-gcal-diary.el で定義
-  (unless (file-exists-p my-diary-gcal-file)
-    (make-empty-file my-diary-gcal-file t))
+  ;; #includeが初回同期前でもエラーにならないよう、実在だけ保証する
+  (let ((gcal-diary (locate-user-emacs-file "tmp/diary-gcal")))
+    (unless (file-exists-p gcal-diary)
+      (make-empty-file gcal-diary t)))
 
   ;; diary本体の先頭に以下を書いておくことで、diary-gcalの内容が
   ;; #include され、下記2フックによって一覧表示・マーク付けの両方に
