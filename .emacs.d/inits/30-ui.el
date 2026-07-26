@@ -23,8 +23,8 @@
   :tag "builtin"
   :doc "Highlight the current line."
   :hook ((after-init-hook     . global-hl-line-mode)
-	 (dashboard-mode-hook . my-disable-hl-line)
-	 (calendar-mode-hook  . my-disable-hl-line))
+         (dashboard-mode-hook . my-disable-hl-line)
+         (calendar-mode-hook  . my-disable-hl-line))
   :config
   (set-face-background 'region "#6272a4")
   (set-face-background 'hl-line "#3B4252")
@@ -40,7 +40,7 @@
   :tag "builtin"
   :doc "Blinking cursor settings."
   :config
-  (setq blink-cursor-blinks   0)    ; blink forever
+  (setq blink-cursor-blinks   0)
   (setq blink-cursor-interval 0.3)
   (setq blink-cursor-delay    30))
 

@@ -16,13 +16,17 @@
 (leaf calendar
   :tag "builtin"
   :defvar calendar-holidays japanese-holidays
-  :hook (kill-emacs-hook . my-gcal-sync-on-exit)
+  :hook ((kill-emacs-hook . my-gcal-sync-on-exit)
+         (calendar-mode-hook . my-calendar-cursor-type))  ; ← 追加
   :bind (("<f7>" . calendar)
          (:calendar-mode-map
           ("<f7>" . calendar-exit)))
   :config
-  ;; (require 'my-gcal-diary
   (autoload 'my-gcal-sync-to-diary "my-gcal-diary" nil t)
+
+  ;; カーソルを「輪郭だけ」にして、下の日付の色を隠さないようにする
+  (defun my-calendar-cursor-type ()
+    (setq-local evil-motion-state-cursor '(hollow)))
 
   (defun my-gcal-sync-on-exit ()
     "Sync Google Calendar on Emacs exit, ignoring errors and timeouts."
@@ -37,29 +41,22 @@
     (unless (file-exists-p diary)
       (make-empty-file diary t)))
 
-  ;; Google Calendar同期用ファイル(存在しなければ空で作成)
-  ;; #includeが初回同期前でもエラーにならないよう、実在だけ保証する
   (let ((gcal-diary (locate-user-emacs-file "tmp/diary-gcal")))
     (unless (file-exists-p gcal-diary)
       (make-empty-file gcal-diary t)))
 
-  ;; diary本体の先頭に以下を書いておくことで、diary-gcalの内容が
-  ;; #include され、下記2フックによって一覧表示・マーク付けの両方に
-  ;; 反映されるようになる。
-  ;;   #include "/home/minoru/.emacs.d/tmp/diary-gcal"
   (add-hook 'diary-list-entries-hook #'diary-include-other-diary-files)
   (add-hook 'diary-mark-entries-hook #'diary-mark-included-diary-files)
 
-  ;; 土日祝マーク(japanese-holidays)は calendar-today-visible-hook の
-  ;; 先頭に入るため先に実行される。ここで diary-mark-entries を末尾(t)に
-  ;; 追加し直すことで、diaryの色(ピンク)が土日祝色より後に塗られ、
-  ;; 常にdiaryの色が優先されるようにしている。
   (add-hook 'calendar-today-visible-hook #'diary-mark-entries t)
   (add-hook 'calendar-today-invisible-hook #'diary-mark-entries t)
 
-  ;; 日付の背景色
+  ;; 日付の背景色(calendar-todayの指定はここ一箇所だけにする)
   (set-face-attribute 'diary nil :background "#d33682")          ; 予定がある日
-  (set-face-attribute 'calendar-today nil :background "#228b22") ; 当日
+  (set-face-attribute 'calendar-today nil
+                      :background "#f2fa8c"
+                      :foreground "#282a36"
+                      :weight 'bold)                             ; 当日
 
   (with-eval-after-load 'japanese-holidays
     (setq calendar-holidays
