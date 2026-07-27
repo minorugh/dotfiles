@@ -125,11 +125,11 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
   (defun my-restart-emacs ()
-    "Save buffers, stop the Emacs server, launch a new Emacs, then exit."
+    "Save buffers, stop server, kill this Emacs, then launch emacs-start.sh."
     (interactive)
     (save-some-buffers t)
     (server-mode -1)
-    ;; Using nohup to detach the child process so it survives kill-emacs.
+    ;; `emacs-start.sh` takes over once `kill-emacs` finishes.
     (call-process "bash" nil nil nil "-c"
                   "nohup bash -c 'emacs-start.sh' &>/dev/null &")
     (kill-emacs))
