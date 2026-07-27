@@ -83,22 +83,22 @@ CHOICE=$( (
 
 
 case "$CHOICE" in
-    1.*) xset dpms force off; kill $PPID ;;
+    1.*) xset dpms force off; sleep 1; kill $PPID ;;
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     4.*)
-	if [[ -f "$XSRV_STOP" ]]; then
+        if [[ -f "$XSRV_STOP" ]]; then
             rm -f "$XSRV_STOP"
             echo "xsrv-backup: started."
-	else
+        else
             touch "$XSRV_STOP"
             echo "xsrv-backup: stopped."
-	fi
-	sleep 1
-	kill $PPID ;;
+        fi
+        sleep 1
+        kill $PPID ;;
     5.*)
-	~/.env_source/check-backup.sh
-	kill $PPID ;;
+        ~/.env_source/check-backup.sh
+        kill $PPID ;;
     6.*)
         echo "Removing Emacs .elc files under elisp/ and inits/..."
         find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
