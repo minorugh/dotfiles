@@ -129,7 +129,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (interactive)
     (save-some-buffers t)
     (server-mode -1)
-    ;; `emacs-start.sh` takes over once `kill-emacs` finishes.
     (call-process "bash" nil nil nil "-c"
                   "nohup bash -c 'emacs-start.sh' &>/dev/null &")
     (kill-emacs))
