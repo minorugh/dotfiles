@@ -24,7 +24,7 @@
 ;;;       誤上書きを防いでいる。
 ;;;
 ;;;   動的フォルダーの read-only 化 & rsync lock (8章) も、この
-;;;   2段階構成を前提に、編集中ファイルとの rsync 競合を防ぐために
+;;;   2段階構成を前提に、ファイル編集中に rsync で上書きされるのを防ぐために
 ;;;   組まれている。
 ;;;
 ;;;   このフローは運用手順への依存度が高いので、コンセプトを忘れた
@@ -55,10 +55,8 @@
 ;; ============================================================
 
 (defconst my-xsrv-roots
-  `((,(expand-file-name "~/src/github.com/minorugh/xsrv-GH/")
-     . ,(expand-file-name "~/Dropbox/GH/"))
-    (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/")
-     . ,(expand-file-name "~/Dropbox/minorugh.com/")))
+  `((,(expand-file-name "~/src/github.com/minorugh/xsrv-GH/") . ,(expand-file-name "~/Dropbox/GH/"))
+    (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") . ,(expand-file-name "~/Dropbox/minorugh.com/")))
   "Xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
 
 (defun my-xsrv-root-for (path)
