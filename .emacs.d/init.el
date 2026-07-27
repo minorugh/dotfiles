@@ -80,7 +80,7 @@
     "Byte-compile newer Elisp files in ~/.emacs.d/elisp."
     (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
       (dolist (el (directory-files elisp-dir t "\\.el\\'"))
-	(when (file-newer-than-file-p el (concat el "c"))
+        (when (file-newer-than-file-p el (concat el "c"))
           (ignore-errors (byte-compile-file el)))))))
 
 
