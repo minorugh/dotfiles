@@ -34,7 +34,7 @@
 
   (defun my-external-monitor-geometry ()
     "Return the \"+X+Y\" position of the first connected external monitor,
-or nil if none is found (e.g. only the internal eDP display is active)."
+  or nil if none is found (e.g. only the internal eDP display is active)."
     (with-temp-buffer
       (call-process "xrandr" nil t nil "--query")
       (goto-char (point-min))
@@ -51,7 +51,7 @@ or nil if none is found (e.g. only the internal eDP display is active)."
 
   (defun my-launch-gnome-terminal (&rest args)
     "Launch gnome-terminal with ARGS, placed on the external monitor
-when one is connected (via `my-external-monitor-geometry')."
+  when one is connected (via `my-external-monitor-geometry')."
     (let ((geo (my-external-monitor-geometry)))
       (apply #'start-process
              "gnome-terminal" nil
@@ -61,16 +61,10 @@ when one is connected (via `my-external-monitor-geometry')."
 
   (defun terminal-open-this ()
     "Open gnome-terminal at current directory.
-Placed on the external monitor when one is connected."
+  Placed on the external monitor when one is connected."
     (interactive)
     (let ((dir (directory-file-name (expand-file-name default-directory))))
       (my-launch-gnome-terminal "--working-directory" dir)))
-
-  (defun thunar-open-this ()
-    "Open Thunar file manager at current directory."
-    (interactive)
-    (let* ((cmd (concat "thunar " default-directory)))
-      (start-process-shell-command "thunar" nil cmd)))
 
   (defvar xsrv-mirror-map
     (list (cons (expand-file-name "~/Dropbox/GH/")
@@ -99,7 +93,13 @@ Only valid in a `dired-mode' buffer whose directory is under one of
              (remote-root (cdr match))
              (remote-dir (concat remote-root (substring cur (length local-root)))))
         (my-launch-gnome-terminal "--" "ssh" "-t" "xsrv"
-                                  (format "cd '%s' && exec $SHELL -il" remote-dir))))))
+                                  (format "cd '%s' && exec $SHELL -il" remote-dir)))))
+
+  (defun thunar-open-this ()
+    "Open Thunar file manager at current directory."
+    (interactive)
+    (let* ((cmd (concat "thunar " default-directory)))
+      (start-process-shell-command "thunar" nil cmd))))
 
 
 ;; ============================================================
