@@ -26,7 +26,7 @@
   :if (display-graphic-p)
   :hook ((emacs-startup-hook  . open-dashboard)
          (dashboard-mode-hook
-	  . (lambda () (set-window-margins (selected-window) 2 2))))
+          . (lambda () (set-window-margins (selected-window) 2 2))))
   :bind ([home] . dashboard-toggle)
 
   :init
@@ -98,7 +98,7 @@
   (defun open-dashboard ()
     "Open *dashboard* and jump to the first widget."
     (interactive)
-    (setq default-directory "~/")
+    (setq default-directory (expand-file-name "~/"))
     (delete-other-windows)
     (switch-to-buffer (get-buffer-create "*dashboard*"))
     (dashboard-refresh-buffer)

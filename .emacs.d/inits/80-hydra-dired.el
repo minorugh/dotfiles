@@ -28,7 +28,6 @@
   _r_estart  Git:_[__-__]_  GH._h__j_  _t_erm  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  del___cx1
 "
    ("@" browse-at-remote)
-   ("t" my-remote-select)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
@@ -151,13 +150,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
             (setenv (match-string 1)
                     (match-string 2))))))
     (message "xmodmap + SSH_AUTH_SOCK reloaded"))
-
-  (defun my-remote-select ()
-    "Select a remote/docker target via fzf and open a terminal there."
-    (interactive)
-    (start-process-shell-command
-     "remote-select" nil
-     "gnome-terminal -- zsh -ic remote-select"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."

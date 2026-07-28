@@ -347,56 +347,6 @@ function mklink-readme() {
 }
 
 ########################################
-# Remote (xsrv / Docker)
-########################################
-# ローカルのDropbox配下のディレクトリを、xsrv上の対応パスに変換して
-# gnome-terminal + ssh で開く。
-# 引数なし: $PWD を使う（Emacs の xsrv-open-this からもここを呼ぶ）
-# 引数あり: xsrv-open /path/to/dir のように任意パスを指定可能
-function xsrv-open() {
-    local local_gh="$HOME/Dropbox/GH/"
-    local local_mn="$HOME/Dropbox/minorugh.com/"
-    local remote_gh="/home/minorugh/gospel-haiku.com/public_html/"
-    local remote_mn="/home/minorugh/minorugh.com/public_html/"
-
-    local cur="${1:-$PWD}"
-    cur="$(realpath "$cur")/"
-
-    local dir
-    case "$cur" in
-        "$local_gh"*) dir="${remote_gh}${cur#"$local_gh"}" ;;
-        "$local_mn"*) dir="${remote_mn}${cur#"$local_mn"}" ;;
-        *)            dir="/home/minorugh/" ;;
-    esac
-
-    gnome-terminal -- ssh -t xsrv "cd '$dir' && exec \$SHELL -il"
-}
-
-# リモート(xsrv)／Dockerの作業先をfzfで選んでgnome-terminalを開く
-# レスキュー用途の power-menu.sh とは別系統：固定ターゲットの選択メニュー
-function remote-select() {
-    local home_root="/home/minorugh/"
-    local gh_root="${home_root}gospel-haiku.com/public_html/"
-    local mn_root="${home_root}minorugh.com/public_html/"
-
-    local choice
-    choice=$(printf '%s\n' "home-root" "gospel-haiku" "minorugh.com" "docker/httpd" \
-              | fzf --reverse --header="[Remote Select]")
-
-    case "$choice" in
-        home-root)
-            gnome-terminal -- ssh -t xsrv "cd '$home_root' && exec \$SHELL -il" ;;
-        gospel-haiku)
-            gnome-terminal -- ssh -t xsrv "cd '$gh_root' && printf '%s\n' '${gh_root%public_html/}' && exec \$SHELL -il" ;;
-        minorugh.com)
-            gnome-terminal -- ssh -t xsrv "cd '$mn_root' && printf '%s\n' '${mn_root%public_html/}' && exec \$SHELL -il" ;;
-        docker/httpd)
-            gnome-terminal -- docker exec -it httpd /bin/bash ;;
-        "") echo "Cancelled." ;;
-    esac
-}
-
-########################################
 # Plugins
 ########################################
 # zsh-syntax-highlighting: sudo apt install zsh-syntax-highlighting

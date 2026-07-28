@@ -63,7 +63,7 @@ when one is connected (via `my-external-monitor-geometry')."
     "Open gnome-terminal at current directory.
 Placed on the external monitor when one is connected."
     (interactive)
-    (let ((dir (directory-file-name default-directory)))
+    (let ((dir (directory-file-name (expand-file-name default-directory))))
       (my-launch-gnome-terminal "--working-directory" dir)))
 
   (defun thunar-open-this ()
@@ -72,16 +72,18 @@ Placed on the external monitor when one is connected."
     (let* ((cmd (concat "thunar " default-directory)))
       (start-process-shell-command "thunar" nil cmd)))
 
-  (defvar xsrv-mirror-roots
-    (list (expand-file-name "~/Dropbox/GH/")
-          (expand-file-name "~/Dropbox/minorugh.com/"))
-    "xsrv (リモートサーバー) とミラー構造になっているローカルディレクトリのリスト.
-`xsrv-open-this' はこの配下の dired バッファでのみ動作する.")
+  (defvar xsrv-mirror-map
+    (list (cons (expand-file-name "~/Dropbox/GH/")
+                "/home/minorugh/gospel-haiku.com/public_html/")
+          (cons (expand-file-name "~/Dropbox/minorugh.com/")
+                "/home/minorugh/minorugh.com/public_html/"))
+    "ローカルミラーディレクトリ→xsrv側の対応する公開ディレクトリのalist.
+`xsrv-open-this' はこのいずれかの配下の dired バッファでのみ動作する.")
 
   (defun xsrv-open-this ()
     "Open gnome-terminal via SSH at the xserver directory matching current buffer.
 Only valid in a `dired-mode' buffer whose directory is under one of
-`xsrv-mirror-roots'; otherwise signal a `user-error'."
+`xsrv-mirror-map' keys; otherwise signal a `user-error'."
     (interactive)
     (unless (derived-mode-p 'dired-mode)
       (user-error "xsrv-open-this: Dired バッファでのみ実行できます"))
@@ -89,10 +91,15 @@ Only valid in a `dired-mode' buffer whose directory is under one of
                  (let ((f (dired-get-filename nil t)))
                    (if (and f (file-directory-p f))
                        f
-                     (file-name-directory (or f default-directory)))))))
-      (unless (seq-some (lambda (root) (string-prefix-p root cur)) xsrv-mirror-roots)
+                     (file-name-directory (or f default-directory))))))
+           (match (seq-find (lambda (pair) (string-prefix-p (car pair) cur)) xsrv-mirror-map)))
+      (unless match
         (user-error "xsrv-open-this: 対象外のディレクトリです: %s" cur))
-      (my-launch-gnome-terminal "--" "zsh" "-ic" (concat "xsrv-open " cur)))))
+      (let* ((local-root (car match))
+             (remote-root (cdr match))
+             (remote-dir (concat remote-root (substring cur (length local-root)))))
+        (my-launch-gnome-terminal "--" "ssh" "-t" "xsrv"
+                                  (format "cd '%s' && exec $SHELL -il" remote-dir))))))
 
 
 ;; ============================================================
