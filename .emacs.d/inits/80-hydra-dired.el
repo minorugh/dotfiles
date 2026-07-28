@@ -7,10 +7,12 @@
 ;; ============================================================
 
 (defun my-hydra-dired ()
-  "Disable mozc if active, then open hydra-dired."
+  "Disable mozc if active, leave `evil-emacs-state', then open hydra-dired."
   (interactive)
   (when current-input-method
     (toggle-input-method))
+  (unless (evil-normal-state-p)
+    (evil-normal-state))
   (hydra-dired/body))
 
 (with-eval-after-load 'mozc
@@ -176,10 +178,12 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
 ;; ============================================================
 
 (defun my-hydra-work ()
-  "Disable mozc if active, then open hydra-work."
+  "Disable mozc if active, leave `evil-emacs-state', then open hydra-work."
   (interactive)
   (when current-input-method
     (toggle-input-method))
+  (unless (evil-normal-state-p)
+    (evil-normal-state))
   (hydra-work/body))
 
 (with-eval-after-load 'mozc

@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
-;; Covers: gnome-terminal, Thunar, KeePassXC, and xserver SSH access.
+;; Covers: gnome-terminal, Thunar, and xserver SSH access.
 ;; F1-F12 bindings are centrally managed here.
 ;;
 ;;; Code:
