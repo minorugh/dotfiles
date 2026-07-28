@@ -24,10 +24,11 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_orc  root_/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_reload
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_erm  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  del___cx1
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_reload
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  del___cx1
 "
    ("@" browse-at-remote)
+   ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
