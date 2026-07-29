@@ -10,7 +10,8 @@
 (leaf dired
   :preface
   (autoload 'my-open-tig "my-tig-bridge" nil t)
-  :hook (dired-mode-hook . my-dired-omit-mode)
+ :hook ((dired-mode-hook . my-dired-omit-mode)
+	(dired-mode-hook . my-dired-env-warning-face))
   :bind (:dired-mode-map
          ("<left>"   . my-dired-up)
          ("<right>"  . my-dired-open)
@@ -67,7 +68,18 @@
            -1
          1))))
 
-  ;;  Navigation
+;;  Env Window Warning Face  (窓であることを視覚的に警告)
+;; ----------------------------------------------------------
+(defun my-dired-env-warning-face ()
+  "Set a background color in Dired buffers under `~/.env_source' or `dotfiles/env/'.
+These directories hold the secrets repository and its bindfs-mounted
+window, so the color distinguishes them from ordinary working directories."
+  (let ((current (file-name-as-directory (expand-file-name default-directory))))
+    (when (or (string-prefix-p (expand-file-name "~/.env_source/") current)
+              (string-prefix-p (expand-file-name "~/src/github.com/minorugh/dotfiles/env/") current))
+      (buffer-face-set '(:background "#3a1a1a")))))
+
+;;  Navigation
   ;; ----------------------------------------------------------
   (defun my-dired-open ()
     "Open file or directory at point."

@@ -6,16 +6,21 @@
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
 #
-# 1. ssh-agent リセット
-# 2. mozc・keyring を Dropbox からリストア
-# 3. SSH 鍵を keychain + secret-tool で自動入力（パスフレーズ不要）
-# 4. keychain の環境変数をセッションに反映
-# 5. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
-# 6. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
-# 7. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
+# 1. env/ を bindfs で ~/.env_source にマウント（新規ファイル自動反映）
+# 2. ssh-agent リセット
+# 3. mozc・keyring を Dropbox からリストア
+# 4. SSH 鍵を keychain + secret-tool で自動入力（パスフレーズ不要）
+# 5. keychain の環境変数をセッションに反映
+# 6. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
+# 7. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
+# 8. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
 #
 # 依存: keychain, secret-tool, rsync, xdotool
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
+
+# env/ を ~/.env_source にbindfsで透過マウント（新規ファイル即反映のため）
+ENV_MNT=~/src/github.com/minorugh/dotfiles/env
+mountpoint -q "$ENV_MNT" || bindfs ~/.env_source "$ENV_MNT"
 
 pkill ssh-agent
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/

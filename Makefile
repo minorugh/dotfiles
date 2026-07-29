@@ -62,11 +62,11 @@ SHELL = /bin/bash
 ########################################################
 ## 環境初期化（dotfiles 展開・SSH・zsh）
 ########################################################
-env-setup: ## dotfiles/env/ のシンボリックリンク作成（~/.env_source から展開）
-	ln -vsf ${ENV_SOURCE_DIR}/.netrc ${PWD}/env/.netrc
-	ln -vsf ${ENV_SOURCE_DIR}/.ssh ${PWD}/env/.ssh
-	ln -vsf ${ENV_SOURCE_DIR}/tokens ${PWD}/env/tokens
-	cp -vf "${ENV_SOURCE_DIR}/info.md" "${PWD}/env/info.md"
+env-setup: ## env/ を bindfs で ~/.env_source にマウント（新規ファイル自動反映）
+	$(APT) bindfs
+	sudo ln -vsf ${PWD}/etc/fuse.conf /etc/fuse.conf
+	mkdir -p ${PWD}/env
+	mountpoint -q ${PWD}/env || bindfs ${ENV_SOURCE_DIR} ${PWD}/env
 
 ssh: ## SSH設定の初期化（~/.env_source から展開）
 	mkdir -p ${HOME}/.$@
