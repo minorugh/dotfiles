@@ -17,7 +17,7 @@
          ("<f2>"  . neotree)                   ; see 70-neotree.el
          ("<f3>"  . terminal-open-this)        ; see below
          ("<f4>"  . xsrv-open-this)            ; see below
-         ("<f5>"  . quickrun)                  ; see 30-utils.el
+         ("<f5>"  . my-quickrun)               ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
          ("<f7>"  . calendar)                  ; see 90-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el

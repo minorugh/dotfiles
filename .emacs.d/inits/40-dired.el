@@ -10,8 +10,8 @@
 (leaf dired
   :preface
   (autoload 'my-open-tig "my-tig-bridge" nil t)
- :hook ((dired-mode-hook . my-dired-omit-mode)
-	(dired-mode-hook . my-dired-env-warning-face))
+  :hook ((dired-mode-hook . my-dired-omit-mode)
+         (dired-mode-hook . my-dired-env-warning-face))
   :bind (:dired-mode-map
          ("<left>"   . my-dired-up)
          ("<right>"  . my-dired-open)
@@ -68,18 +68,18 @@
            -1
          1))))
 
-;;  Env Window Warning Face  (窓であることを視覚的に警告)
-;; ----------------------------------------------------------
-(defun my-dired-env-warning-face ()
-  "Set a background color in Dired buffers under `~/.env_source' or `dotfiles/env/'.
+  ;;  Env Window Warning Face  (窓であることを視覚的に警告)
+  ;; ----------------------------------------------------------
+  (defun my-dired-env-warning-face ()
+    "Set a background color in Dired buffers under `~/.env_source' or `dotfiles/env/'.
 These directories hold the secrets repository and its bindfs-mounted
 window, so the color distinguishes them from ordinary working directories."
-  (let ((current (file-name-as-directory (expand-file-name default-directory))))
-    (when (or (string-prefix-p (expand-file-name "~/.env_source/") current)
-              (string-prefix-p (expand-file-name "~/src/github.com/minorugh/dotfiles/env/") current))
-      (buffer-face-set '(:background "#3a1a1a")))))
+    (let ((current (file-name-as-directory (expand-file-name default-directory))))
+      (when (or (string-prefix-p (expand-file-name "~/.env_source/") current)
+		(string-prefix-p (expand-file-name "~/src/github.com/minorugh/dotfiles/env/") current))
+	(buffer-face-set '(:background "#3a1a1a")))))
 
-;;  Navigation
+  ;;  Navigation
   ;; ----------------------------------------------------------
   (defun my-dired-open ()
     "Open file or directory at point."
@@ -131,6 +131,17 @@ Placed on the external monitor when one is connected."
 
   ;;  External Tools
   ;; ----------------------------------------------------------
+  (defun my-dired-run-script ()
+    "Run the executable script at point in an external gnome-terminal.
+Intended for interactive scripts (e.g. check-backup.sh) that prompt
+for input or launch vim/emacsclient, which don't work well inside
+Emacs's own shell-command output.
+Placed on the external monitor when one is connected."
+    (interactive)
+    (let ((default-directory (dired-current-directory)))
+      ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
+      (my-launch-gnome-terminal "--" "bash" (dired-get-file-for-visit))))
+
   (defun my-dired-gitk ()
     "Run gitk for the current Git repository."
     (interactive)
