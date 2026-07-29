@@ -524,6 +524,11 @@ git-fix: ## rebase失敗時の自動修復
 	git reset --hard origin/main
 	git pull
 
+
+make-run: ## make-run.sh のシンボリックリンク作成（Emacs経由のmake実行を安全化）
+	sudo ln -vsfn ${PWD}/bin/make-run.sh /usr/local/bin/make-run.sh
+	sudo chmod +x /usr/local/bin/make-run.sh
+
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
 # Toggle editable: C-c C-e  or  qq
