@@ -16,7 +16,11 @@ is_interactive() {
     grep -qE "^${FIRST_WORD}:.*##!" "$MAKEFILE" 2>/dev/null
 }
 
-if is_interactive && [ ! -t 1 ]; then
+from_emacs() {
+    [ -n "${INSIDE_EMACS:-}" ]
+}
+
+if is_interactive && from_emacs; then
     EMACS_WID=$(xdotool getactivewindow 2>/dev/null || true)
     gnome-terminal -- bash -c "
         make -C '$DIR' $TARGET
