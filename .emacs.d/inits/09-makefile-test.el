@@ -58,6 +58,12 @@ invoked remotely via `emacsclient -e'."
             (insert-file-contents logfile))
           (goto-char (point-max)))
         (compilation-mode)
+        ;; タイムスタンプ等が file:line 形式に誤爆してリンク化・赤字化される
+        ;; のを防ぐため、このバッファでは compilation のエラー検出自体を無効化する
+        ;; (静的なログ表示なので Makefile:NN のクリックジャンプは諦める)
+        (setq-local compilation-error-regexp-alist nil)
+        (font-lock-flush)
+        (font-lock-ensure)
         (save-excursion
           (goto-char (point-min))
           (while (re-search-forward "^##>[ \t]*$" nil t)
@@ -74,8 +80,9 @@ invoked remotely via `emacsclient -e'."
                              (string-trim (match-string 1))
                            "Compile successful.")))))
             (message "%s" (if (string= msg "") "Compile successful." msg)))
-        ;; 失敗時: ログを前面に出して確認できるようにする
+        ;; 失敗時: ログを前面に出して確認できるようにする（他ウィンドウは畳む）
         (switch-to-buffer buf)
+        (delete-other-windows)
         (message "make: exited abnormally with code %d (see *compilation-log*)" status)))
     (when (file-exists-p logfile)
       (delete-file logfile))
@@ -146,7 +153,6 @@ invoked remotely via `emacsclient -e'."
         ;; Real-time preview on arrow keys
         (keymap-set map "<down>" 'ivy-next-line-and-call)
         (keymap-set map "<up>"   'ivy-previous-line-and-call)
-        ;; C-c C-c to execute make (常に make-run.sh 経由)
         (keymap-set map "C-c C-c"
                     (lambda ()
                       (interactive)

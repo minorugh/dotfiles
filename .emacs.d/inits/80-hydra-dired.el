@@ -69,11 +69,6 @@
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
   :init
-  ;; (defun my-make (target &optional dir)
-  ;;   "Run make TARGET in DIR (default: current directory) via make-run.sh."
-  ;;   (interactive "sTarget: ")
-  ;;   (let ((d (expand-file-name (or dir default-directory))))
-  ;;     (compile (format "make-run.sh %s %s" (shell-quote-argument d) target))))
   (defun my-make (target &optional dir)
       "Run make TARGET in DIR (default: current directory)."
       (interactive "sTarget: ")

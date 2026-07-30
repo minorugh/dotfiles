@@ -32,14 +32,14 @@ if is_interactive && from_emacs; then
         set -o pipefail
         {
             echo \"# make -C $DIR $TARGET\"
-            echo \"# started:  \$(date '+%Y-%m-%d %H:%M:%S')\"
+            echo \"# started at \$(date '+%Y-%m-%d %H:%M:%S')\"
             echo
             make -C '$DIR' $TARGET
         } 2>&1 | tee '$LOGFILE'
         STATUS=\${PIPESTATUS[0]}
         {
             echo
-            echo \"# finished: \$(date '+%Y-%m-%d %H:%M:%S')\"
+            echo \"# finished at \$(date '+%Y-%m-%d %H:%M:%S')\"
             if [ \"\$STATUS\" -eq 0 ]; then
                 echo '##> Compile successful.'
             else
