@@ -528,7 +528,7 @@ docker-setup: polkit ## 【Step1】データディレクトリ作成＋Dropbox�
 ########################################################
 # P1 (main): commit + push / others (sub): pull --rebase only
 # Note: Also synchronizes the secret '~/.env_source' repository on P1.
-git: ## Auto commit+push (main only, sub: pull only)
+git: ##! Auto commit+push (main only, sub: pull only)
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 
@@ -543,7 +543,7 @@ else
 	@$(MAKE) env-sync
 endif
 
-env-sync: ##! env_source / abook の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
+env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
 	@mkdir -p $(ENV_SYNC_CACHE); \
 	env_hash_new=$$(sha256sum ~/Dropbox/backup/env/env_repo.bundle.gpg 2>/dev/null | awk '{print $$1}'); \
 	env_hash_old=$$(cat $(ENV_SYNC_CACHE)/env.hash 2>/dev/null); \
