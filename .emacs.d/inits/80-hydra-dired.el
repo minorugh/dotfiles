@@ -63,17 +63,29 @@
    ("l" (my-open "~/Dropbox/CHANGELOG"))
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
-   ("]" (my-make "git"))
+   ("]" my-make-git)
    ("_" delete-other-windows)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
   :init
   (defun my-make (target &optional dir)
-      "Run make TARGET in DIR (default: current directory)."
-      (interactive "sTarget: ")
-      (let ((default-directory (expand-file-name (or dir default-directory))))
-        (compile (concat "make " target))))
+    "Run make TARGET in DIR (default: current directory)."
+    (interactive "sTarget: ")
+    (let ((default-directory (expand-file-name (or dir default-directory))))
+      (compile (concat "make " target))))
+
+  (defun my-make-git ()
+    "P1(メイン機)なら compile、それ以外(サブ機)なら gnome-terminal で `make git' を実行する。"
+    (interactive)
+    (if (string= (system-name) "P1")
+	(my-make "git")
+      (let ((dir (expand-file-name default-directory)))
+	(start-process "make-git-term" nil
+                       "gnome-terminal" "--"
+                       "bash" "-lc"
+                       (format "cd %s && make git; echo; read -p '[Enterで閉じる]'"
+                               (shell-quote-argument dir))))))
 
   (defun my-open (path &rest opts)
     "Open PATH in dired or find-file.

@@ -528,7 +528,7 @@ docker-setup: polkit ## 【Step1】データディレクトリ作成＋Dropbox�
 ########################################################
 # P1 (main): commit + push / others (sub): pull --rebase only
 # Note: Also synchronizes the secret '~/.env_source' repository on P1.
-git: ##! Auto commit+push (main only, sub: pull only)
+git: ## Auto commit+push (main only, sub: pull only)
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 
