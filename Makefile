@@ -65,6 +65,7 @@ SHELL = /bin/bash
 env-setup: ## env/ を bindfs で ~/.env_source にマウント（新規ファイル自動反映）
 	$(APT) bindfs
 	sudo ln -vsf ${PWD}/etc/fuse.conf /etc/fuse.conf
+	mountpoint -q ${PWD}/env && fusermount -u ${PWD}/env || true
 	mkdir -p ${PWD}/env
 	mountpoint -q ${PWD}/env || bindfs ${ENV_SOURCE_DIR} ${PWD}/env
 
