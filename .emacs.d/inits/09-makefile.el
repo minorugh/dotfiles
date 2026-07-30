@@ -1,4 +1,4 @@
-;;; 09-makefile-test.el --- Makefile integration and target launcher (test). -*- lexical-binding: t -*-
+;;; 09-makefile.el --- Makefile integration and target launcher (test). -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -50,7 +50,7 @@ STRING is the exit status message from the compilation process."
 into a compilation-mode buffer and display it. STATUS is the
 exit code of the underlying make invocation. Intended to be
 invoked remotely via `emacsclient -e'."
-    (let ((buf (get-buffer-create "*compilation-log*")))
+    (let ((buf (get-buffer-create "*make-run-log*")))
       (with-current-buffer buf
         (let ((inhibit-read-only t))
           (erase-buffer)
@@ -234,4 +234,4 @@ invoked remotely via `emacsclient -e'."
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 09-makefile-test.el ends here
+;;; 09-makefile.el ends here

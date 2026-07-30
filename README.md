@@ -115,7 +115,7 @@ chsh -s /usr/bin/zsh
 | `make all` | `baseinstall` + `nextinstall` を一括実行 |
 | `make baseinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
 | `make nextinstall` | アプリケーション群のインストール |
-| `make env-setup` | `dotfiles/env/` のシンボリックリンク作成（`~/.env_source` から展開） |
+| `make env-setup` | `dotfiles/env/` を bindfs で `~/.env_source` にマウント（新規ファイル自動反映） |
 | `make keymap` | CapsLock→Ctrl（`/etc/default/keyboard`＋現セッション）・`.Xmodmap`展開 |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
 | `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
@@ -131,7 +131,10 @@ chsh -s /usr/bin/zsh
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
 | `make emacs-stable` | Emacs 安定版のソースビルド |
 | `make emacs-devel` | Emacs 開発版のソースビルド（現在 30.1） |
-| `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 |
+| `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 + F12ショートカット登録 |
+| `make power-menu` | power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー） |
+| `make tile-toggle` | tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替） |
+| `make make-run` | make-run.sh のリンク作成（Emacs経由のmake実行を安全化） |
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -208,10 +211,21 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 
 - git-crypt 廃止（2026.04.28）に伴い導入
 - Dropbox に GPG 暗号化 bundle として保存
-- `dotfiles/env/` から `~/.env_source/` へのシンボリックで参照（窓として機能）
+- `dotfiles/env/` から `~/.env_source/` へ bindfs でバインドマウントして参照（窓として機能。
+  新規ファイルも自動反映され、シンボリックリンクの個別作成は不要）
+- マウントは `make env-setup`（初回構築時）と `.autostart.sh`（ログイン毎）が担当
 - 更新時は `cd ~/.env_source && make bundle` を実行
 
 ---
+
+## Emacs からの make 実行について
+
+Emacs（`compile`, ivy target picker, hydra-dired 等）から `make` ターゲットを
+実行する際は `bin/make-run.sh` を経由します。対話入力（gpgパスフレーズ等）や
+破壊的処理を伴う `##!` 付きターゲットは、Emacs 経由の実行に限り自動的に
+`gnome-terminal` へ委譲され、安全な場所で実行されます。実行ログは完了後
+Emacs 側の `*compilation-log*` バッファに自動で流し込まれます。詳細は
+`bin/README.md` を参照してください。
 
 ## Emacs 設定
 
@@ -225,6 +239,8 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 
 | 日付 | 内容 |
 |---|---|
+| 2026.07.30 | Emacsからのmake実行を安全化する bin/make-run.sh を導入（##!付きターゲットのみgnome-terminalへ委譲、結果は*compilation-log*バッファへ自動反映）。bin/スクリプトのMakefileターゲットを整理し tile-toggle.sh を新規登録（従来未登録だった）、keepass.sh を keepassxc.sh にリネーム |
+| 2026.07.29 | 秘密ファイル管理（dotfiles/env/ → ~/.env_source）をシンボリックリンクから bindfs バインドマウントに移行、新規ファイルの自動反映に対応。env_local を gpg_bundle_key にリネーム |
 | 2026.07.10 | Thunderbird 廃止（neomutt+Gmail Webへ移行）、make thunderbird ターゲット・autostart自動起動・thunderbird-backup 一式を削除 |
 | 2026.07.08 | keyd を廃止し xmodmap に一本化（CapsLock/PrtSc等のキー変換を keymap ターゲットに集約）、.xprofile の xmodmap 再適用ウォッチャーを廃止（cron毎分実行＋Emacs手動リロードに統一） |
 | 2026.06.16 | xsrv-backup を cron に移行、xsrv-systemd ターゲット廃止、cron-stop/cron-start 追加 |

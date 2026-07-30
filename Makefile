@@ -15,6 +15,7 @@
 # update 2026.06.16 xsrv-backup を cron に移行、xsrv-systemd ターゲット廃止
 # update 2026.07.10 Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird ターゲット・バックアップ関連を削除
 # update 2026.07.25 emacs-stable を ##! に変更（対話確認ありターゲットの目印、09-makefile.el側で判定）
+# update 2026.07.30 bin/ スクリプト（シンボリックリンク＋xfconf-queryショートカット登録）を専用セクションに集約、tile-toggle 新規登録、keepass.sh→keepassxc.sh リネーム
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -54,7 +55,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer
 
 SHELL = /bin/bash
@@ -121,17 +122,39 @@ grub: ## grub・lightdm・logind の設定（P1のみ）
 	sudo update-grub2
 endif
 
-autostart: ## GUI起動時の自動処理設定（SSH鍵自動入力・mozc同期）
+autostart: emacs-start ## GUI起動時の自動処理設定（SSH鍵自動入力・mozc同期）
 	ln -vsf {${PWD},${HOME}}/.autostart.sh
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
-	sudo ln -vsfn ${PWD}/bin/emacs-start.sh /usr/local/bin/emacs-start.sh
-	sudo chmod +x /usr/local/bin/emacs-start.sh
 
-emacs-toggle: ## emacs-toggle スクリプトのシンボリックリンク作成（F12でEmacs最小化・復元）
-	sudo ln -vsfn ${PWD}/bin/emacs-toggle /usr/local/bin/emacs-toggle
-	sudo chmod +x /usr/local/bin/emacs-toggle
+########################################################
+## bin/ スクリプト（シンボリックリンク＋キーボードショートカット登録）
+########################################################
+BIN_LINK = sudo ln -vsfn ${PWD}/bin/$(1) /usr/local/bin/$(2) && sudo chmod +x /usr/local/bin/$(2)
+
+emacs-toggle: ## emacs-toggle のリンク作成 + F12ショートカット登録（Emacs最小化・復元）
+	$(call BIN_LINK,emacs-toggle,emacs-toggle)
 	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -n -t string -s "emacs-toggle"
+
+emacs-start: ## emacs-start.sh のリンク作成（autostart.sh から呼ばれる起動ラッパー）
+	$(call BIN_LINK,emacs-start.sh,emacs-start.sh)
+
+power-menu: ## power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー）
+	$(call BIN_LINK,power-menu.sh,power-menu.sh)
+	xfconf-query -c xfce4-keyboard-shortcuts \
+		-p "/commands/custom/Zenkaku_Hankaku" -n -t string \
+		-s 'gnome-terminal --window --geometry=80x24+2000+100 -- bash -c "power-menu.sh"'
+
+neomutt-bin: ## neomutt.sh のリンク作成 + Super+Zショートカット登録
+	$(call BIN_LINK,neomutt.sh,neomutt.sh)
+	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -n -t string -s "neomutt.sh"
+
+tile-toggle: ## tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替）
+	$(call BIN_LINK,tile-toggle.sh,tile-toggle)
+	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/F15" -n -t string -s "tile-toggle"
+
+make-run: ## make-run.sh のリンク作成（Emacs経由のmake実行を安全化）
+	$(call BIN_LINK,make-run.sh,make-run.sh)
 
 .PHONY: cron automerge autobackup
 
@@ -191,15 +214,13 @@ keyring: ## Gnome keyring の初期化（両機: Dropboxからコピー / P1: �
 	mkdir -p ${HOME}/.local/share/keyrings
 	rsync -av --delete ${HOME}/Dropbox/backup/keyrings/ ${HOME}/.local/share/keyrings/
 
-fzf-tools: ## fzf最新版インストール＋ツール群（power-menu.sh 等）のリンクと権限設定
+fzf-tools: power-menu ## fzf最新版インストール
 	sudo apt remove -y fzf 2>/dev/null || true
 	cd ${HOME}/Downloads && \
 	wget -q https://github.com/junegunn/fzf/releases/download/v0.72.0/fzf-0.72.0-linux_amd64.tar.gz && \
 	tar xzf fzf-0.72.0-linux_amd64.tar.gz && \
 	sudo mv fzf /usr/local/bin/fzf && \
 	rm -f fzf-0.72.0-linux_amd64.tar.gz
-	sudo ln -vsfn ${PWD}/bin/power-menu.sh /usr/local/bin/power-menu.sh
-	sudo chmod +x /usr/local/bin/power-menu.sh
 
 icons: ## アイコン・壁紙のシンボリックリンク作成
 	ln -vsf ${HOME}/Dropbox/backup/icons/* ${HOME}/Pictures
@@ -257,7 +278,7 @@ google-chrome: ## Google Chrome のインストール
 	$(APT) ./google-chrome-stable_current_amd64.deb
 	rm -f ./google-chrome-stable_current_amd64.deb
 
-filezilla: ## FileZilla のインストールと設定
+filezilla: ## FileZilla のインストールと設定 + filezilla.sh のリンク作成
 	$(APT) $@
 	rm -rf ${HOME}/.config/filezilla
 	mkdir -p ${HOME}/.config/filezilla
@@ -273,15 +294,15 @@ gitk: ## gitkのインストールと設定ファイル
 	mkdir -p ${HOME}/.config/git
 	sudo ln -vsfn ${PWD}/.config/git/gitk ${HOME}/.config/git/gitk
 
-neomutt: ## NeoMutt の設定
+neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショートカット登録
 	$(APT) $@ urlscan abook
 	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in mailcap certificates abook-add.sh; do \
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item; \
 	done
-	sudo ln -vsfn ${PWD}/bin/neomutt.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/neomutt.sh
+	$(call BIN_LINK,neomutt.sh,neomutt.sh)
+	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -n -t string -s "neomutt.sh"
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop
 	mkdir -p ${HOME}/.config/urlscan
 	ln -vsfn {${PWD},${HOME}}/.config/urlscan/config.toml
@@ -421,10 +442,9 @@ dracula-theme: ## gnome-terminal に Dracula テーマを dconf で適用
 	dconf reset -f /org/gnome/terminal/legacy/profiles:/
 	dconf load /org/gnome/terminal/legacy/profiles:/ < ${PWD}/etc/gnome-terminal/dracula.dconf
 
-keepassxc: ## KeePassXC のインストールと自動起動設定
+keepassxc: ## KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
 	$(APT) $@ libsecret-tools
-	sudo ln -vsfn ${PWD}/bin/keepass.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/keepass.sh
+	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
 # 初回セットアップ時に一度だけ実行してパスワードを登録する:
 #   sudo secret-tool store --label "KeePassXC master password" type kbd
@@ -525,10 +545,6 @@ git-fix: ## rebase失敗時の自動修復
 	git reset --hard origin/main
 	git pull
 
-
-make-run: ## make-run.sh のシンボリックリンク作成（Emacs経由のmake実行を安全化）
-	sudo ln -vsfn ${PWD}/bin/make-run.sh /usr/local/bin/make-run.sh
-	sudo chmod +x /usr/local/bin/make-run.sh
 
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
