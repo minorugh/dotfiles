@@ -41,9 +41,9 @@ if is_interactive && from_emacs; then
             echo
             echo \"# finished: \$(date '+%Y-%m-%d %H:%M:%S')\"
             if [ \"\$STATUS\" -eq 0 ]; then
-                echo '# ##> Compile successful.'
+                echo '##> Compile successful.'
             else
-                echo \"# ##> exited abnormally with code \$STATUS\"
+                echo \"##> exited abnormally with code \$STATUS\"
             fi
         } >> '$LOGFILE'
         echo \"\$STATUS\" > '$STATUSFILE'

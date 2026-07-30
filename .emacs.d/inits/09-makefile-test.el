@@ -65,9 +65,17 @@ invoked remotely via `emacsclient -e'."
                                (line-end-position)
                                'invisible t)))
         (setq buffer-read-only t))
-      (display-buffer buf)
       (if (zerop status)
-          (message "make: finished (see *compilation-log*)")
+          ;; 成功時: バッファは裏に留め、ミニバッファへメッセージのみ表示
+          (let ((msg (with-current-buffer buf
+                       (save-excursion
+                         (goto-char (point-max))
+                         (if (re-search-backward "^##>\\(.*\\)$" nil t)
+                             (string-trim (match-string 1))
+                           "Compile successful.")))))
+            (message "%s" (if (string= msg "") "Compile successful." msg)))
+        ;; 失敗時: ログを前面に出して確認できるようにする
+        (switch-to-buffer buf)
         (message "make: exited abnormally with code %d (see *compilation-log*)" status)))
     (when (file-exists-p logfile)
       (delete-file logfile))
