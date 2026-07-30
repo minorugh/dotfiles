@@ -63,7 +63,7 @@
    ("l" (my-open "~/Dropbox/CHANGELOG"))
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
-   ("]" my-make-git)  ; 09-makefile.el を参照
+   ("]" my-make-git)
    ("_" delete-other-windows)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
