@@ -2,7 +2,7 @@
 
 ## スクリーンショット
 ![Debian12 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg)
-![Emacs-30.1](https://live.staticflickr.com/65535/55267822600_07ae20cda9_h.jpg)
+![Emacs-30.1](https://live.staticflickr.com/65535/55430776452_f21a8498e6_b.jpg)
 
 
 ## 概要
@@ -119,18 +119,19 @@ chsh -s /usr/bin/zsh
 | `make keymap` | CapsLock→Ctrl（`/etc/default/keyboard`＋現セッション）・`.Xmodmap`展開 |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
 | `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
+| `make tig` | tig の設定展開 |
 | `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期・Emacs 自動起動＆最小化 |
 | `make autobackup` | バックアップスクリプト群の `/usr/local/bin/` へのシンボリックリンク作成 |
 | `make cron` | P1のみ: automerge/autobackup リンク作成 + crontab バックアップ＆反映 |
 | `make docker-install` | Docker Engine + Compose のインストール |
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |
-| `make filezilla` | FileZilla 設定（keychain ラッパー含む） |
+| `make filezilla` | FileZilla のインストールと設定 + filezilla.sh のリンク作成 |
 | `make keepassxc` | KeePassXC のインストールと自動起動設定 |
+| `make hugo` | Hugo（extended版）のインストール |
 | `make texlive` | TeX Live のインストール（scheme-medium + 日本語） |
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
 | `make emacs-stable` | Emacs 安定版のソースビルド |
-| `make emacs-devel` | Emacs 開発版のソースビルド（現在 30.1） |
 | `make emacs-toggle` | emacs-toggle スクリプトのシンボリックリンク作成 + F12ショートカット登録 |
 | `make power-menu` | power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー） |
 | `make tile-toggle` | tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替） |
@@ -216,6 +217,13 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 - マウントは `make env-setup`（初回構築時）と `.autostart.sh`（ログイン毎）が担当
 - 更新時は `cd ~/.env_source && make bundle` を実行
 
+サブ機側は `make git`（`git pull --rebase`）に連動して `env-sync` が自動実行され、
+`~/.env_source` と abook（addressbook）の差分を検知したうえで確認プロンプトを
+表示し、同意した場合のみDropbox bundleから同期します（`rm -rf` せず `git fetch`
++ `git reset --hard` で更新するため、bindfsマウントが壊れることもありません）。
+GPGキーのパスフレーズ入力が発生しうるため、Emacs経由の実行時も `bin/make-run.sh`
+経由で `gnome-terminal` に委譲され、対話可能な状態で実行されます。
+
 ---
 
 ## Emacs からの make 実行について
@@ -239,6 +247,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.07.31 | env-sync を導入・本番運用確定（サブ機の git pull連動で ~/.env_source・abook の差分を検知し確認のうえ同期。git ターゲットを ##! 化し、Emacs経由の実行でも対話プロンプトが機能するよう修正）。baseinstall/nextinstall の記載漏れを解消（make-run・tig・hugo を追加）。neomutt-bin を廃止し neomutt ターゲットに統合。「対話実行系」セクションの5ターゲットを ##! 化 |
 | 2026.07.30 | Emacsからのmake実行を安全化する bin/make-run.sh を導入（##!付きターゲットのみgnome-terminalへ委譲、結果は*compilation-log*バッファへ自動反映）。bin/スクリプトのMakefileターゲットを整理し tile-toggle.sh を新規登録（従来未登録だった）、keepass.sh を keepassxc.sh にリネーム |
 | 2026.07.29 | 秘密ファイル管理（dotfiles/env/ → ~/.env_source）をシンボリックリンクから bindfs バインドマウントに移行、新規ファイルの自動反映に対応。env_local を gpg_bundle_key にリネーム |
 | 2026.07.10 | Thunderbird 廃止（neomutt+Gmail Webへ移行）、make thunderbird ターゲット・autostart自動起動・thunderbird-backup 一式を削除 |

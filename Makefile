@@ -17,6 +17,10 @@
 # update 2026.07.25 emacs-stable を ##! に変更（対話確認ありターゲットの目印、09-makefile.el側で判定）
 # update 2026.07.30 bin/ スクリプト（シンボリックリンク＋xfconf-queryショートカット登録）を専用セクションに集約、tile-toggle 新規登録、keepass.sh→keepassxc.sh リネーム
 # update 2026.07.30 サブ機の git pull後に env-sync（env_source/abook差分同期）を自動呼び出し ※テスト版
+# update 2026.07.31 git ターゲットを ##! 化（Emacs経由でも env-sync の対話プロンプトが機能するように）
+# update 2026.07.31 baseinstall に make-run・tig を追加、nextinstall に hugo を追加（漏れの解消）
+# update 2026.07.31 neomutt-bin を廃止、neomutt ターゲットに一元化（重複処理の整理）
+# update 2026.07.31 「対話実行系」セクションの5ターゲット（dracula-theme・keepassxc・google-earth・slack・flatpak）を ##! 化（区分と目印の不整合を解消）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -57,8 +61,8 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle
-nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
 
 SHELL = /bin/bash
 
@@ -146,10 +150,6 @@ power-menu: ## power-menu.sh のリンク作成 + 全角半角ショートカッ
 	xfconf-query -c xfce4-keyboard-shortcuts \
 		-p "/commands/custom/Zenkaku_Hankaku" -n -t string \
 		-s 'gnome-terminal --window --geometry=80x24+2000+100 -- bash -c "power-menu.sh"'
-
-neomutt-bin: ## neomutt.sh のリンク作成 + Super+Zショートカット登録
-	$(call BIN_LINK,neomutt.sh,neomutt.sh)
-	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -n -t string -s "neomutt.sh"
 
 tile-toggle: ## tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替）
 	$(call BIN_LINK,tile-toggle.sh,tile-toggle)
@@ -440,11 +440,11 @@ github-remote-add: ## xsrv-GH / xsrv-minorugh に Gitea pushurl を追加（GitH
 ########################################################
 ## 対話実行系（個別に手動で実行するターゲット）
 ########################################################
-dracula-theme: ## gnome-terminal に Dracula テーマを dconf で適用
+dracula-theme: ##! gnome-terminal に Dracula テーマを dconf で適用
 	dconf reset -f /org/gnome/terminal/legacy/profiles:/
 	dconf load /org/gnome/terminal/legacy/profiles:/ < ${PWD}/etc/gnome-terminal/dracula.dconf
 
-keepassxc: ## KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
+keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
 	$(APT) $@ libsecret-tools
 	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
@@ -453,20 +453,20 @@ keepassxc: ## KeePassXC のインストールと自動起動設定 + keepassxc.s
 # 以降は以下で起動可能:
 #   secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
 
-google-earth: ## Google Earth のインストール
+google-earth: ##! Google Earth のインストール
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
 	$(APT) ./google-earth-pro-stable_current_amd64.deb
 	rm -f ./google-earth-pro-stable_current_amd64.deb
 
-slack: ## Slack デスクトップのインストール
+slack: ##! Slack デスクトップのインストール
 	cd ${HOME}/Downloads && \
 	wget https://slack.com/downloads/instructions/linux?ddl=1&build=deb
 	sudo gdebi slack-desktop-4.49.89-amd64.deb # ファイル名はダウンロード時に確認すること
 	rm -f slack-desktop-4.49.89-amd64.deb
 	ln -vsf {${PWD},${HOME}}/.config/autostart/slack.desktop
 
-flatpak: ## flatpak 経由で Pinta・Spotify をインストール
+flatpak: ##! flatpak 経由で Pinta・Spotify をインストール
 	$(APT) $@
 	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	flatpak install flathub com.github.PintaProject.Pinta
