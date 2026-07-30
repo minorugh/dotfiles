@@ -44,6 +44,35 @@ STRING is the exit status message from the compilation process."
         (put-text-property (line-beginning-position)
                            (line-end-position)
                            'invisible t))))
+
+  (defun my-make-show-log (logfile status)
+    "Load LOGFILE (produced by make-run.sh's gnome-terminal branch)
+into a compilation-mode buffer and display it. STATUS is the
+exit code of the underlying make invocation. Intended to be
+invoked remotely via `emacsclient -e'."
+    (let ((buf (get-buffer-create "*compilation-log*")))
+      (with-current-buffer buf
+        (let ((inhibit-read-only t))
+          (erase-buffer)
+          (when (file-readable-p logfile)
+            (insert-file-contents logfile))
+          (goto-char (point-max)))
+        (compilation-mode)
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward "^##>[ \t]*$" nil t)
+            (put-text-property (line-beginning-position)
+                               (line-end-position)
+                               'invisible t)))
+        (setq buffer-read-only t))
+      (display-buffer buf)
+      (if (zerop status)
+          (message "make: finished (see *compilation-log*)")
+        (message "make: exited abnormally with code %d (see *compilation-log*)" status)))
+    (when (file-exists-p logfile)
+      (delete-file logfile))
+    nil)
+
   :init
   (setq compilation-finish-functions #'compile-autoclose)
   (setq compilation-scroll-output    t)
