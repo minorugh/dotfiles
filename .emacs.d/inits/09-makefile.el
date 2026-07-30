@@ -182,8 +182,8 @@ invoked remotely via `emacsclient -e'."
                                      "")))
                 (push (cons (concat target-fmt " " desc-fmt mark-fmt)
                             (propertize target
-                                       'pos pos 'makefile makefile
-                                       'interactive-p interactive-p))
+					'pos pos 'makefile makefile
+					'interactive-p interactive-p))
                       candidates)))))
         (if (not candidates)
             (message "ターゲットが見つかりませんでした。")
@@ -228,7 +228,43 @@ invoked remotely via `emacsclient -e'."
           (when (and (derived-mode-p 'makefile-mode)
                      (not buffer-read-only))
             (read-only-mode 1)
-            (evil-normal-state)))))))
+            (evil-normal-state))))))
+
+  (defun my-make-git ()
+    "P1(メイン機)なら compile、それ以外(サブ機)なら gnome-terminal で
+`make git' を実行し、終了後は自動でログをEmacsのcompilation-modeバッファへ流し込む。"
+    (interactive)
+    (if (string= (system-name) "P1")
+	(my-make "git")
+      (let* ((dir      (expand-file-name default-directory))
+             (logfile  (make-temp-file "make-git-" nil ".log"))
+             (statusfile (concat logfile ".exit")))
+	(start-process
+	 "make-git-term" nil
+	 "gnome-terminal" "--wait" "--"
+	 "bash" "-c"
+	 (format "
+set -o pipefail
+{
+    echo \"# make -C %s git\"
+    echo \"# started at $(date '+%%Y-%%m-%%d %%H:%%M:%%S')\"
+    echo
+    make -C '%s' git
+} 2>&1 | tee '%s'
+STATUS=${PIPESTATUS[0]}
+{
+    echo
+    echo \"# finished at $(date '+%%Y-%%m-%%d %%H:%%M:%%S')\"
+    if [ \"$STATUS\" -eq 0 ]; then
+        echo '##> Compile successful.'
+    else
+        echo \"##> exited abnormally with code $STATUS\"
+    fi
+} >> '%s'
+echo \"$STATUS\" > '%s'
+emacsclient -e \"(my-make-show-log \\\"%s\\\" $STATUS)\" >/dev/null 2>&1
+"
+		 dir dir logfile logfile statusfile logfile))))))
 
 
 ;; Local Variables:
