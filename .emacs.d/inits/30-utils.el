@@ -131,26 +131,6 @@ If region isn't selected, post from the buffer."
 
 
 ;; ============================================================
-;;  PostScript Printing
-;; ============================================================
-
-;; my-ps-print: PostScript printing with Japanese support.
-(when (executable-find "lpr")
-  (setq ps-multibyte-buffer 'non-latin-printer)
-  (setq ps-paper-type       'a4)
-  (setq ps-printer-name      nil)
-  (setq ps-print-header      nil)
-  (setq ps-print-footer      nil)
-  (setq ps-font-size         10)
-  (setq ps-font-family      'Courier)
-  (setq ps-line-number-font 'Courier)
-  (setq ps-line-number       t)
-  (setq ps-show-n-of-n       t)
-  (setq ps-end-with-control-d t)
-  (defalias 'ps-mule-header-string-charsets 'ignore))
-
-
-;; ============================================================
 ;;  Changelog Search
 ;; ============================================================
 
@@ -192,6 +172,26 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
       (compilation-start cmd 'grep-mode (lambda (_mode) bufname))
       (when-let ((win (get-buffer-window bufname t)))
         (select-window win)))))
+
+
+;; ============================================================
+;;  PostScript Printing
+;; my-ps-print: PostScript printing with Japanese support.
+;; ============================================================
+
+(when (executable-find "lpr")
+  (setq ps-multibyte-buffer 'non-latin-printer)
+  (setq ps-paper-type       'a4)
+  (setq ps-printer-name      nil)
+  (setq ps-print-header      nil)
+  (setq ps-print-footer      nil)
+  (setq ps-font-size         10)
+  (setq ps-font-family      'Courier)
+  (setq ps-line-number-font 'Courier)
+  (setq ps-line-number       t)
+  (setq ps-show-n-of-n       t)
+  (setq ps-end-with-control-d t)
+  (defalias 'ps-mule-header-string-charsets 'ignore))
 
 
 ;; Local Variables:
