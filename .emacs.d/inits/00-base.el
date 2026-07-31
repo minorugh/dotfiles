@@ -98,6 +98,46 @@
             "/Dropbox/backup/"
             "/scp:"
             "neomutt-"))
+(add-hook 'after-init-hook #'savehist-mode)
+
+
+;; ============================================================
+;; Recent Files
+;; ============================================================
+
+;; (run-with-idle-timer 0.5 nil #'recentf-mode)
+(setq recentf-max-saved-items 100)
+(setq recentf-auto-cleanup 'never)
+(setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
+(setq recentf-exclude
+      (list (expand-file-name "elpa/" user-emacs-directory)
+            (expand-file-name "tmp/" user-emacs-directory)
+            "\\.howm-keys"
+            "/session\\."
+            "task.org"
+            "/Dropbox/backup/"
+            "/scp:"
+            "neomutt-"))
+(add-hook 'after-init-hook #'recentf-mode)
+
+
+;; ============================================================
+;; Recent Files
+;; ============================================================
+
+;; (run-with-idle-timer 0.5 nil #'recentf-mode)
+(setq recentf-max-saved-items 100)
+(setq recentf-auto-cleanup 'never)
+(setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
+(setq recentf-exclude
+      (list (expand-file-name "elpa/" user-emacs-directory)
+            (expand-file-name "tmp/" user-emacs-directory)
+            "\\.howm-keys"
+            "/session\\."
+            "task.org"
+            "/Dropbox/backup/"
+            "/scp:"
+            "neomutt-"))
 
 
 ;; ============================================================
