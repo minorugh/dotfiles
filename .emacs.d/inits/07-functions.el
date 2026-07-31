@@ -1,4 +1,4 @@
-;;; 07-funcstions.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 07-functions.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.

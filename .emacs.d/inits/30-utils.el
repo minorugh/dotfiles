@@ -99,8 +99,7 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 
   (leaf *my-gist-command
     :tag "local"
-    :bind (("C-x g" . gist-region-or-buffer)
-           ("C-x l" . my-open-lepton))
+    :bind (("C-x l" . my-open-lepton))
     :preface
     (defun gist-description ()
       "Add gist description."

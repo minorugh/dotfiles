@@ -40,7 +40,7 @@
 
   (defun my-neotree-toggle ()
     "Toggle Neotree, jumping to the current file or directory.
-Bound to F7; see 07-functions.el."
+Bound to F2; see 07-functions.el."
     (interactive)
     (if (neo-global--window-exists-p)
         (neotree-hide)

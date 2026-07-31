@@ -67,7 +67,6 @@
   :after mozc evil
   :require t
   :init
- :init
   (setq mozc-candidate-style (if (display-graphic-p) 'posframe 'overlay))
   :config
   (custom-set-faces

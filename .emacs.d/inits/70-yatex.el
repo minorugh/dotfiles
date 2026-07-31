@@ -19,7 +19,8 @@
   :ensure nil
   :doc "YaTeX process handler"
   :after yatex
-  :bind (("M-c" . YaTeX-typeset-buffer)
+  :bind (:YaTeX-mode-map
+	 ("M-c" . YaTeX-typeset-buffer)
 	 ("M-v" . YaTeX-lpr)))
 
 ;;-----------------------------

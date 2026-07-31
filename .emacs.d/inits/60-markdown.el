@@ -11,7 +11,8 @@
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode))
-  :bind (("C-c RET" . markdown-follow-link-at-point)
+  :bind (:markdown-mode-map
+	 ("C-c RET" . markdown-follow-link-at-point)
          ("C-c C-c" . markdown-do-command)
          ("M-RET"   . markdown-insert-list-item))
   :config
@@ -70,7 +71,8 @@
   (autoload 'my-howm-fix-code-comments "my-markdown" nil t)
   (autoload 'gen-toc-term              "my-markdown" nil t)
   :after markdown-mode
-  :bind (("C-c #" . my-howm-fix-code-comments)
+  :bind (:markdown-mode-map
+	 ("C-c #" . my-howm-fix-code-comments)
          ("C-c t" . gen-toc-term))
   :config
   (defun my-howm-fix-after-super-save (&rest _)
