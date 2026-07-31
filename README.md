@@ -199,6 +199,27 @@ make cron-start   # xsrv-backup 再開
 
 ---
 
+## git 運用について（世代管理）
+
+dotfiles リポジトリ自身の commit / push / pull は `git/` ディレクトリに
+実装を分離しています（`docker/` と同様、リストア用のトップレベル
+`Makefile` とは関心事を分けるため）。
+
+```bash
+make git       # 変更をauto commit（P1: push まで / サブ機: pull --rebase のみ）
+make git-fix   # サブ機で rebase 失敗時の自動修復
+```
+
+commit メッセージは `auto: 日時` の機械的な形式に統一し、日々の作業経緯は
+別途 changelog 等で記録、git はあくまで世代管理の道具と割り切って運用して
+います。過去の差分は [git-peek](https://github.com/minorugh/git-peek) や
+`tig` で追跡できます。
+
+詳細（`env-sync` の挙動、P1/サブ機の分岐など）は `git/README.md` を
+参照してください。
+
+---
+
 ## 秘密ファイルの管理（~/.env_source）
 
 SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` で管理します。
@@ -219,10 +240,8 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 
 サブ機側は `make git`（`git pull --rebase`）に連動して `env-sync` が自動実行され、
 `~/.env_source` と abook（addressbook）の差分を検知したうえで確認プロンプトを
-表示し、同意した場合のみDropbox bundleから同期します（`rm -rf` せず `git fetch`
-+ `git reset --hard` で更新するため、bindfsマウントが壊れることもありません）。
-GPGキーのパスフレーズ入力が発生しうるため、Emacs経由の実行時も `bin/make-run.sh`
-経由で `gnome-terminal` に委譲され、対話可能な状態で実行されます。
+表示し、同意した場合のみDropbox bundleから同期します。実装や詳細な挙動は
+上記「git 運用について（世代管理）」および `git/README.md` を参照してください。
 
 ---
 
@@ -247,6 +266,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.07.31 | git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離、git/README.md 新設） |
 | 2026.07.31 | env-sync を導入・本番運用確定（サブ機の git pull連動で ~/.env_source・abook の差分を検知し確認のうえ同期。git ターゲットを ##! 化し、Emacs経由の実行でも対話プロンプトが機能するよう修正）。baseinstall/nextinstall の記載漏れを解消（make-run・tig・hugo を追加）。neomutt-bin を廃止し neomutt ターゲットに統合。「対話実行系」セクションの5ターゲットを ##! 化 |
 | 2026.07.30 | Emacsからのmake実行を安全化する bin/make-run.sh を導入（##!付きターゲットのみgnome-terminalへ委譲、結果は*compilation-log*バッファへ自動反映）。bin/スクリプトのMakefileターゲットを整理し tile-toggle.sh を新規登録（従来未登録だった）、keepass.sh を keepassxc.sh にリネーム |
 | 2026.07.29 | 秘密ファイル管理（dotfiles/env/ → ~/.env_source）をシンボリックリンクから bindfs バインドマウントに移行、新規ファイルの自動反映に対応。env_local を gpg_bundle_key にリネーム |
