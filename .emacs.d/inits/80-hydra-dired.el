@@ -27,7 +27,7 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_reload
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly-err  chg-_l_og
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  2pn_;__:_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  c_l_.srch
 "
    ("@" browse-at-remote)
    ("t" my-open-tig)
@@ -60,8 +60,8 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("l" (my-open "~/Dropbox/CHANGELOG"))
-   ("L" my-changelog-search)
+   ("L" (my-open "~/Dropbox/CHANGELOG"))
+   ("l" my-changelog-search)
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
@@ -207,8 +207,8 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    (:hint nil :exit t :body-pre (require 'my-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption._u_p.d_o_wn^   Chang_L_og
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale^  _S_ertch-cl
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
