@@ -527,16 +527,13 @@ docker-setup: polkit ## 【Step1】データディレクトリ作成＋Dropbox�
 ########################################################
 ## git（実体は git/Makefile。日々の運用ワークフロー）
 ########################################################
-.PHONY: git git-fix env-sync
+.PHONY: git git-fix
 
 git: ##! Auto commit+push（詳細は git/Makefile 参照）
 	$(MAKE) -s -C git git
 
 git-fix: ## rebase失敗時の自動修復
 	$(MAKE) -s -C git git-fix
-
-env-sync: ## env_source / abook の更新同期
-	$(MAKE) -s -C git env-sync
 
 
 # ------------------------------------------------------------
