@@ -78,6 +78,7 @@
 (setq history-delete-duplicates t)
 (setq savehist-additional-variables
       '(extended-command-history my-describe-history))
+
 (add-hook 'after-init-hook #'savehist-mode)
 
 
@@ -85,7 +86,6 @@
 ;; Recent Files
 ;; ============================================================
 
-;; (run-with-idle-timer 0.5 nil #'recentf-mode)
 (setq recentf-max-saved-items 100)
 (setq recentf-auto-cleanup 'never)
 (setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
@@ -94,30 +94,10 @@
             (expand-file-name "tmp/" user-emacs-directory)
             "\\.howm-keys"
             "/session\\."
-            "task.org"
             "/Dropbox/backup/"
             "/scp:"
             "neomutt-"))
-(add-hook 'after-init-hook #'savehist-mode)
 
-
-;; ============================================================
-;; Recent Files
-;; ============================================================
-
-;; (run-with-idle-timer 0.5 nil #'recentf-mode)
-(setq recentf-max-saved-items 100)
-(setq recentf-auto-cleanup 'never)
-(setq recentf-save-file (locate-user-emacs-file "tmp/recentf"))
-(setq recentf-exclude
-      (list (expand-file-name "elpa/" user-emacs-directory)
-            (expand-file-name "tmp/" user-emacs-directory)
-            "\\.howm-keys"
-            "/session\\."
-            "task.org"
-            "/Dropbox/backup/"
-            "/scp:"
-            "neomutt-"))
 (add-hook 'after-init-hook #'recentf-mode)
 
 
