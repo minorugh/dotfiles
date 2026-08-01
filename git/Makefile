@@ -6,7 +6,7 @@
 # Main: commit + push / others (sub): pull --rebase only
 # Note: Also synchronizes the secret '~/.env_source' repository on the maine machine.
 
-# NOTE: 将来メイン機を変更した時は忘れずに修正すること
+# NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
 

@@ -15,7 +15,7 @@
 ## 緊急停止:      make cron-stop
 ## 再開:          make cron-start
 
-# NOTE: 将来メイン機を変更した時は忘れずに修正すること
+# NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
 

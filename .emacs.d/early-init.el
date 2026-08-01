@@ -4,7 +4,9 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; NOTE: 将来メイン機を変更した時は忘れずに修正すること
+;; True when running on the primary machine.
+;; Used for machine-specific configuration.
+;; NOTE: 将来メイン機を変更した時はここを書き換えること。
 (defconst my-main-machine-p (string= (system-name) "P1"))
 
 
