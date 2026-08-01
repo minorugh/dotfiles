@@ -6,7 +6,8 @@
 # Main: commit + push / others (sub): pull --rebase only
 # Note: Also synchronizes the secret '~/.env_source' repository on the maine machine.
 
-include ../machine.mk
+# NOTE: 将来メイン機を変更した時は忘れずに修正すること
+MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
 DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source

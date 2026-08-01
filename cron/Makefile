@@ -15,8 +15,9 @@
 ## 緊急停止:      make cron-stop
 ## 再開:          make cron-start
 
-include ../machine.mk
-HOSTNAME := $(shell hostname)
+# NOTE: 将来メイン機を変更した時は忘れずに修正すること
+MAIN_HOSTNAME  := P1
+HOSTNAME       := $(shell hostname)
 
 all: xsrv-log
 
