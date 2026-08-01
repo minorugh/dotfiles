@@ -1,6 +1,6 @@
 #!/bin/bash
 # mozc-backup.sh
-# P1 の ~/.mozc を毎晩 Dropbox にバックアップする
+# メイン機の ~/.mozc を毎晩 Dropbox にバックアップする
 
 BACKUP_DIR="${HOME}/Dropbox/backup/mozc"
 

@@ -15,6 +15,7 @@
 ## 緊急停止:      make cron-stop
 ## 再開:          make cron-start
 
+include ../machine.mk
 HOSTNAME := $(shell hostname)
 
 all: xsrv-log
@@ -55,7 +56,7 @@ xsrv-run: ## xsrv-backup を今すぐ手動実行
 	/usr/local/bin/xsrv-backup.sh
 
 ## -------------------------------------------------------------------------
-## バッテリーメンテ（TLP / ThinkPad P1 + Debian12）
+## バッテリーメンテ（TLP / ThinkPad P1 + Debian13）
 ## -------------------------------------------------------------------------
 ## 常時AC接続運用のため、充電量を抑えてバッテリー劣化を防ぐ。
 ## /etc/tlp.conf に START=40 / STOP=60 を設定済み（再起動後も永続）。
@@ -73,7 +74,7 @@ bat-set-60: ## 充電上限を60%に変更（長期AC接続時推奨）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=60/' /etc/tlp.conf
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=60/' /etc/tlp.conf
 	sudo tlp start
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@echo "##> BAT0 charge threshold: START=40 STOP=60" >&2
 else
 	@echo "##> BAT0/BAT1 charge threshold: START=40 STOP=60" >&2
@@ -83,14 +84,14 @@ bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=80/' /etc/tlp.conf
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=80/' /etc/tlp.conf
 	sudo tlp start
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@echo "##> BAT0 charge threshold: START=40 STOP=80" >&2
 else
 	@echo "##> BAT0/BAT1 charge threshold: START=40 STOP=80" >&2
 endif
 
 bat-discharge: ## 強制放電開始（P1=BAT0:force-discharge / x250=BAT0:inhibit+BAT1:force）
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	echo force-discharge | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
 	@echo "##> BAT0: force-discharge started. Run 'make bat-discharge-stop' when below 60%." >&2
 else
@@ -100,7 +101,7 @@ else
 endif
 
 bat-discharge-stop: ## 強制放電停止（autoに戻す）
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	echo auto | sudo tee /sys/class/power_supply/BAT0/charge_behaviour
 	@echo "##> BAT0: charge_behaviour restored to auto." >&2
 else
@@ -110,7 +111,7 @@ else
 endif
 
 bat-capacity: ## 現在の充電残量を確認
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@cat /sys/class/power_supply/BAT0/capacity
 else
 	@cat /sys/class/power_supply/BAT0/capacity
@@ -146,7 +147,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 git: ## Auto commit+push (main only, sub: pull only)
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	git push
 else
 	@echo "##> $(HOSTNAME): サブ機からはpushしません" >&2
