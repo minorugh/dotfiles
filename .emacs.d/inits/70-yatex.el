@@ -1,4 +1,4 @@
-;;; 70-yatex.el --- Yatex configurations.	-*- lexical-binding: t -*-
+;;; 70-yatex.el --- Yatex configurations.       -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -19,9 +19,10 @@
   :ensure nil
   :doc "YaTeX process handler"
   :after yatex
+  :require t
   :bind (:YaTeX-mode-map
 	 ("M-c" . YaTeX-typeset-buffer)
-	 ("M-v" . YaTeX-lpr)))
+         ("M-v" . YaTeX-lpr)))
 
 ;;-----------------------------
 ;; dvpd.sh for Linux
