@@ -4,16 +4,8 @@
 ;;; Code:
 ;; (setq debug-on-error t)
 
-;; ============================================================
-;;  Machine
-;; ============================================================
-
 ;; NOTE: 将来メイン機を変更した時は忘れずに修正すること
-(defconst my-main-hostname "P1")
-
-;; Non-nil when running on the primary machine
-(defconst my-main-machine-p
-  (string= (system-name) my-main-hostname))
+(defconst my-main-machine-p (string= (system-name) "P1"))
 
 
 ;; ============================================================
