@@ -5,14 +5,15 @@
 ;; (setq debug-on-error t)
 
 ;; ============================================================
-;;  Primary Machine Detection
+;;  Machine
 ;; ============================================================
-;; Set the hostname of the primary machine here.
-;; If you need to switch machines in the future, you only need to change this one line.
-;; In subsequent configuration files, refer to `my-main-machine-p` instead of `system-name`.
 
+;; NOTE: 将来メイン機を変更した時は忘れずに修正すること
 (defconst my-main-hostname "P1")
-(defconst my-main-machine-p (string= (system-name) my-main-hostname))
+
+;; Non-nil when running on the primary machine
+(defconst my-main-machine-p
+  (string= (system-name) my-main-hostname))
 
 
 ;; ============================================================

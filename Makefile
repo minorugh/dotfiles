@@ -29,11 +29,12 @@
 ########################################################
 ## 変数定義
 ########################################################
-ENV_SOURCE_DIR := $(HOME)/.env_source
-ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 # NOTE: 将来メイン機を変更した時は忘れずに修正すること
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
+
+ENV_SOURCE_DIR := $(HOME)/.env_source
+ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme

@@ -9,6 +9,7 @@
 # NOTE: 将来メイン機を変更した時は忘れずに修正すること
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
+
 DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
