@@ -1,11 +1,12 @@
 ########################################################
-## git 世代管理（P1: commit+push / サブ機: pull only）
+## git 世代管理（メイン機: commit+push / サブ機: pull only）
 ########################################################
 # 個人の日々の作業運用のためのターゲット群。
 # リストア用のトップレベル Makefile とは切り離して管理する。
-# P1 (main): commit + push / others (sub): pull --rebase only
-# Note: Also synchronizes the secret '~/.env_source' repository on P1.
+# Main: commit + push / others (sub): pull --rebase only
+# Note: Also synchronizes the secret '~/.env_source' repository on the maine machine.
 
+include ../machine.mk
 HOSTNAME       := $(shell hostname)
 DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source
@@ -16,7 +17,7 @@ ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 git: ##! Auto commit+push (main only, sub: pull only)
 	cd $(DOTFILES_DIR) && git add -A
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-ifeq ($(HOSTNAME),P1)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi

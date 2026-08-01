@@ -31,6 +31,7 @@
 ########################################################
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
+include machine.mk
 HOSTNAME := $(shell hostname)
 
 PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
@@ -97,8 +98,8 @@ init: ## dotfiles のシンボリックリンク展開
 zsh-restore: ## zsh履歴を Dropbox からリストア
 	cp -p ${HOME}/Dropbox/backup/env/zsh/.zsh_history ${HOME}/.zsh_history
 
-init-sub: ## サブ機のgit push封鎖（x250のみ実行）
-ifeq ($(HOSTNAME),x250)
+init-sub: ## サブ機のgit push封鎖（メイン機以外で実行）
+ifneq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	git -C ~/src/github.com/minorugh/dotfiles remote set-url --push origin no-push
 	@echo "サブ機push封鎖完了"
 else
@@ -121,8 +122,8 @@ keymap: ## キーマップのカスタマイズ（CapsLock→Ctrl / .Xmodmap展�
 	sudo dpkg-reconfigure -f noninteractive keyboard-configuration
 	setxkbmap -layout jp -option ctrl:nocaps
 
-ifeq ($(shell uname -n),P1)
-grub: ## grub・lightdm・logind の設定（P1のみ）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+grub: ## grub・lightdm・logind の設定（メイン機のみ）
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
@@ -161,11 +162,11 @@ make-run: ## make-run.sh のリンク作成（Emacs経由のmake実行を安全�
 
 .PHONY: cron automerge autobackup
 
-automerge: ## automerge.sh のシンボリックリンク作成（cron自動実行用、P1のみ）
+automerge: ## automerge.sh のシンボリックリンク作成（cron自動実行用、メイン機のみ）
 	sudo ln -vsfn ${PWD}/backup/automerge.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/automerge.sh
 
-autobackup: ## cron スクリプト群のシンボリックリンク作成（cron自動実行用、P1のみ）
+autobackup: ## cron スクリプト群のシンボリックリンク作成（cron自動実行用、メイン機のみ）
 	sudo ln -vsfn ${PWD}/backup/autobackup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/autobackup.sh
 	sudo ln -vsfn ${PWD}/backup/mozc-backup.sh /usr/local/bin
@@ -185,8 +186,8 @@ emacs-trash: ## Emacs ゴミ箱スイープスクリプトのリンク作成
 	sudo ln -vsfn ${PWD}/backup/emacs-trash-sweep.sh /usr/local/bin/emacs-trash-sweep.sh
 	sudo chmod +x /usr/local/bin/emacs-trash-sweep.sh
 
-cron: ## メイン機 (P1) のみ実行: automerge/autobackup のリンク作成 + crontab バックアップ＆反映
-	@if [ "$$(hostname)" = "P1" ]; then \
+cron: ## メイン機のみ実行: automerge/autobackup のリンク作成 + crontab バックアップ＆反映
+	@if [ "$$(hostname)" = "$(MAIN_HOSTNAME)" ]; then \
 		$(MAKE) automerge; \
 		$(MAKE) autobackup; \
 		BACKUP_FILE=${PWD}/cron/crontab.backup.$$(date +%Y%m%d); \
@@ -211,7 +212,7 @@ tlp: ## 省電力・バッテリー劣化防止設定（TLP）
 # TLP 1.4以降の正式設定ファイルは /etc/tlp.conf（旧 /etc/default/tlp は廃止）
 # 充電しきい値の変更は dotfiles/cron/Makefile の bat-set-60 / bat-set-80 を使うこと
 
-keyring: ## Gnome keyring の初期化（両機: Dropboxからコピー / P1: 夜間バックアップcron登録）
+keyring: ## Gnome keyring の初期化（両機: Dropboxからコピー / メイン機: 夜間バックアップcron登録）
 	$(APT) seahorse libsecret-tools
 	test -L ${HOME}/.local/share/keyrings && rm -f ${HOME}/.local/share/keyrings || true
 	mkdir -p ${HOME}/.local/share/keyrings

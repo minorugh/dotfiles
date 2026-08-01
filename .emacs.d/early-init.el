@@ -5,6 +5,18 @@
 ;; (setq debug-on-error t)
 
 ;; ============================================================
+;;  Primary Machine Detection
+;; ============================================================
+;; The hostname of the primary machine. When switching machines,
+;; only this one line needs to be changed.
+;; All other files should reference `my-main-machine-p`, not
+;; `system-name` directly.
+(defconst my-main-hostname "P1")
+
+(defconst my-main-machine-p (string= (system-name) my-main-hostname))
+
+
+;; ============================================================
 ;;  Startup Performance
 ;; ============================================================
 
@@ -32,7 +44,7 @@
 (prefer-coding-system 'utf-8)
 
 ;; "P1" is the hostname of the main machine.
-(let ((font-size (if (string= (system-name) "P1") 18 16)))
+(let ((font-size (if my-main-machine-p 18 16)))
   (push `(font . ,(format "Cica-%d" font-size)) default-frame-alist))
 
 (setq inhibit-compacting-font-caches t)

@@ -68,7 +68,7 @@
                '(haiku . dashboard-insert-haiku))
 
   ;; Items: P1 shows haiku + recents; other machines show recents only
-  (if (string-match "P1" (system-name))
+  (if my-main-machine-p
       (setq dashboard-items '((haiku . 1) (recents . 5)))
     (setq dashboard-items '((haiku . 1))))
 

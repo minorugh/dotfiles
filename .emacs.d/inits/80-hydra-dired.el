@@ -81,7 +81,7 @@
 gnome-terminal 実行に委譲する(Makefileの`git'ターゲットは##!済み前提)。
 実際の make-run.sh 呼び出しは 09-makefile.el の my-make-run-async に委譲。"
     (interactive)
-    (if (string= (system-name) "P1")
+    (if my-main-machine-p
         (my-make "git")
       (my-make-run-async default-directory "git")))
 

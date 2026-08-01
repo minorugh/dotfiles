@@ -121,11 +121,11 @@ title: Emacs Configuration
 
 #### 2.1.2. エンコーディングとフォント
 
-マシン名が `P1` かどうかでフォントサイズを切り替えます。
+メイン機かどうかでフォントサイズを切り替えます。判定は `my-main-hostname` / `my-main-machine-p`（本ファイル冒頭で定義）に集約しており、機種変更時は `my-main-hostname` の1行を書き換えるだけで済みます。
 
 ```elisp
 (prefer-coding-system 'utf-8)
-(let ((font-size (if (string= (system-name) "P1") 18 16)))
+(let ((font-size (if my-main-machine-p 18 16)))
   (push `(font . ,(format "Cica-%d" font-size)) initial-frame-alist))
 (setq inhibit-compacting-font-caches t)
 ```
@@ -333,10 +333,10 @@ alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
 
 ### 4.1. 今日の一句（seiho-haiku）
 
-`seiho-haiku.el`（`elisp/` 配下のローカルパッケージ）に阿波野青畝の俳句データ 366 句が収録されています。P1 マシンでは dashboard に「今日の一句」を表示します。
+`seiho-haiku.el`（`elisp/` 配下のローカルパッケージ）に阿波野青畝の俳句データ 366 句が収録されています。メイン機では dashboard に「今日の一句」を表示します。
 
 ```elisp
-(if (string-match "P1" (system-name))
+(if my-main-machine-p
     (setq dashboard-items '((haiku . 1) (recents . 5)))
   (setq dashboard-items '((recents . 5))))
 ```
