@@ -11,7 +11,7 @@ Debian Linux 用の dotfiles です。
 [masasam/dotfiles](https://github.com/masasam/dotfiles) を参考に構築しました。
 
 Makefile による自動化を採用しており、環境の再構築・カスタマイズが簡単にできます。
-ThinkPad 2台（P1 親機 / X250 サブ機）での運用を想定した分岐処理も含んでいます。
+ThinkPad 2台（P1 メイン機 / X250 サブ機）での運用を想定した分岐処理も含んでいます。
 
 ---
 

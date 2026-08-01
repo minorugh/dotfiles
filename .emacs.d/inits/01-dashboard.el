@@ -67,7 +67,7 @@
   (add-to-list 'dashboard-item-generators
                '(haiku . dashboard-insert-haiku))
 
-  ;; Items: P1 shows haiku + recents; other machines show recents only
+  ;; Items: main machine shows haiku + recents; other machines show haiku only
   (if my-main-machine-p
       (setq dashboard-items '((haiku . 1) (recents . 5)))
     (setq dashboard-items '((haiku . 1))))

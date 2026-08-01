@@ -7,12 +7,10 @@
 ;; ============================================================
 ;;  Primary Machine Detection
 ;; ============================================================
-;; ここにプライマリマシンのホスト名を設定してください。
-;; 将来、マシンを切り替える必要が生じた場合は、この1行を変更するだけで済みます。
-;; 以降の設定ファイルでは、`system-name` の代わりに `my-main-machine-p` を参照してください。
 ;; Set the hostname of the primary machine here.
 ;; If you need to switch machines in the future, you only need to change this one line.
 ;; In subsequent configuration files, refer to `my-main-machine-p` instead of `system-name`.
+
 (defconst my-main-hostname "P1")
 (defconst my-main-machine-p (string= (system-name) my-main-hostname))
 

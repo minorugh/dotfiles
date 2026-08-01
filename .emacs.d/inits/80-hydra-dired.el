@@ -77,7 +77,7 @@
       (compile (concat "make " target))))
 
   (defun my-make-git ()
-    "P1なら compile で軽量実行、それ以外(サブ機)は make-run.sh 経由で
+    "メイン機なら compile で軽量実行、それ以外(サブ機)は make-run.sh 経由で
 gnome-terminal 実行に委譲する(Makefileの`git'ターゲットは##!済み前提)。
 実際の make-run.sh 呼び出しは 09-makefile.el の my-make-run-async に委譲。"
     (interactive)
