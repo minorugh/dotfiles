@@ -70,6 +70,9 @@
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
   :init
+  ;; ------------------------------------------------------------
+  ;;  File / Directory Helpers
+  ;; ------------------------------------------------------------
   (defun my-make (target &optional dir)
     "Run make TARGET in DIR (default: current directory)."
     (interactive "sTarget: ")
@@ -101,41 +104,58 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
+
+  ;; ------------------------------------------------------------
+  ;;  Quit Handling (q key)
+  ;; ------------------------------------------------------------
   (defvar my-2pane-origin-buffer nil
     "Buffer to return to when quitting 2-pane view.")
 
-  (defvar my-2pane-quit-hook nil
-    "Hook run at the end of `my-2pane-quit'.
+  (defvar my-q-quit-hook nil
+    "Hook run at the end of `my-q-quit'.
 個人用の追加処理（例: my-xsrv.el の divider 解除など）を
 ここから差し込めるようにするための空の拡張ポイント。
 このファイル単体では何も登録されておらず、デフォルトでは何も起きない。")
 
-  (defun my-2pane-quit ()
-    "Close both panes and return to the original buffer."
+  (defun my--close-2pane ()
+    "2ペインを閉じて元バッファに戻る（内部ヘルパー）。"
+    (let ((bufs (mapcar #'window-buffer (window-list))))
+      (delete-other-windows)
+      (mapc #'kill-buffer bufs)
+      (when (buffer-live-p my-2pane-origin-buffer)
+        (switch-to-buffer my-2pane-origin-buffer)
+        (setq my-2pane-origin-buffer nil))))
+
+  (defun my-q-quit ()
+    "qキー(normal-state)で発火する、状況に応じたquit処理。
+2ペイン中ならそれを閉じ、special-mode/view-modeなら quit-window、
+それ以外の通常編集バッファでは何もしない。"
     (interactive)
-    (when (= (length (window-list)) 2)
-      (let ((bufs (mapcar #'window-buffer (window-list))))
-        (delete-other-windows)
-        (mapc #'kill-buffer bufs)
-        (when (buffer-live-p my-2pane-origin-buffer)
-          (switch-to-buffer my-2pane-origin-buffer)
-          (setq my-2pane-origin-buffer nil))))
+    (cond
+     ((= (length (window-list)) 2) (my--close-2pane))
+     ((or (derived-mode-p 'special-mode)
+          (bound-and-true-p view-mode))
+      (quit-window))
+     (t nil))
     (when (fboundp 'my-update-modeline-for-split)
       (my-update-modeline-for-split))
-    (run-hooks 'my-2pane-quit-hook))  ; 個人設定からの追加処理用フック
+    (run-hooks 'my-q-quit-hook))
 
   (defun my-dired-quit ()
-    "2ペイン中なら my-2pane-quit、それ以外は quit-window。"
+    "2ペイン中なら my-q-quit、それ以外は quit-window。"
     (interactive)
     (if (buffer-live-p my-2pane-origin-buffer)
-        (my-2pane-quit)
+        (my-q-quit)
       (quit-window)))
 
-  (keymap-set evil-normal-state-map "q" #'my-2pane-quit)
+  (keymap-set evil-normal-state-map "q" #'my-q-quit)
   (add-hook 'dired-mode-hook
             (lambda ()
               (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
+  ;; ------------------------------------------------------------
+  ;;  External Tools / System
+  ;; ------------------------------------------------------------
   (defun my-restart-emacs ()
     "Save buffers, stop server, kill this Emacs, then launch emacs-start.sh."
     (interactive)
@@ -251,6 +271,9 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :init
+  ;; ------------------------------------------------------------
+  ;;  Word Case Helpers
+  ;; ------------------------------------------------------------
   (defun my-upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
     (interactive "p")

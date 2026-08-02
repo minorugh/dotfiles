@@ -48,6 +48,7 @@
   (setq evil-undo-system 'undo-fu)     ; use undo-fu for undo/redo
   (setq evil-visual-char 'exclusive)   ; exclude cursor position from visual selection (emacs-like)
   :config
+  ;; Cheat-Sheetを表示させる自作関数の読込
   (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
 
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
@@ -63,18 +64,22 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose major modes
-  (dolist (mode '(howm-view-summary-mode
-                  easy-hugo-mode neotree-mode fundamental-mode))
+  (dolist (mode '(howm-view-summary-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
-  ;; Open new files in Emacs state
+  ;; 現在のevil-stateをVim風にechoエリアへ一時表示する
+  (defun my-evil-echo-state ()
+    "Echo the current evil state, Vim-style, in the echo area."
+    (message "-- %s --" (upcase (symbol-name evil-state))))
+
+  ;; バッファが未存在ファイルなら evil-emacs-state に切り替える
   (defun my-evil-emacs-state-for-new-file ()
-    "バッファが未存在ファイルなら evil-emacs-state に切り替える."
+    "Open new files in Emacs state."
     (when (and (buffer-file-name)
                (not (file-exists-p (buffer-file-name))))
       (evil-emacs-state)))
 
-  ;; Switch to Emacs state and enable Mozc.
+  ;; Emacs モードに切り替えて、Mozc を有効にする。
   (defun my-emacs-state-mozc ()
     "If it's at the end of a line, shift it one character to the right and execute."
     (interactive)
@@ -82,6 +87,7 @@
                (save-excursion (forward-char) (eolp)))
       (forward-char))
     (evil-emacs-state)
+    (my-evil-echo-state)
     (activate-input-method "japanese-mozc"))
 
 
@@ -130,6 +136,8 @@
   ;; Make paste behave like Emacs (p at point, P after point).
   (my-evil-swap-key evil-normal-state-map "p" "P")
 
+  ;;  (evil-define-key 'normal view-mode-map "q" #'quit-window)
+
 
   ;; ============================================================
   ;; ESC: Toggle Normal/Emacs State
@@ -141,8 +149,8 @@
     (if (evil-normal-state-p)
         (progn
           (evil-force-normal-state) (evil-emacs-state))  ; Normal→Emacs
-      (deactivate-input-method) (evil-normal-state)))    ; Emacs→Normal
-
+      (deactivate-input-method) (evil-normal-state))     ; Emacs→Normal
+    (my-evil-echo-state))
 
   ;; ============================================================
   ;;  muhenkan: Universal escape & Quit
@@ -175,9 +183,12 @@
      ((not (one-window-p))
       (delete-other-windows))
      ;; Normal → Emacs、それ以外 → Normal
-     ((evil-normal-state-p) (evil-emacs-state))
+     ((evil-normal-state-p)
+      (evil-emacs-state)
+      (my-evil-echo-state))
      (t (deactivate-input-method)
-        (evil-normal-state))))
+        (evil-normal-state)
+        (my-evil-echo-state))))
 
   ;; mozc起動中は mozc-modeが無変換キーを奪うため my-quit-dwimで上書きする
   (with-eval-after-load 'mozc
