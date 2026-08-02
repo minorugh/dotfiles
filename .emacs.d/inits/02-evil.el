@@ -63,8 +63,8 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose major modes
-  (dolist (mode '(howm-view-summary-mode easy-hugo-mode
-                                         yatex-mode neotree-mode fundamental-mode))
+  (dolist (mode '(howm-view-summary-mode
+                  easy-hugo-mode neotree-mode fundamental-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Open new files in Emacs state
