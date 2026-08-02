@@ -111,12 +111,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defvar my-2pane-origin-buffer nil
     "Buffer to return to when quitting 2-pane view.")
 
-  (defvar my-q-quit-hook nil
-    "Hook run at the end of `my-q-quit'.
-個人用の追加処理（例: my-xsrv.el の divider 解除など）を
-ここから差し込めるようにするための空の拡張ポイント。
-このファイル単体では何も登録されておらず、デフォルトでは何も起きない。")
-
   (defun my--close-2pane ()
     "2ペインを閉じて元バッファに戻る（内部ヘルパー）。"
     (let ((bufs (mapcar #'window-buffer (window-list))))
@@ -125,6 +119,13 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
       (when (buffer-live-p my-2pane-origin-buffer)
         (switch-to-buffer my-2pane-origin-buffer)
         (setq my-2pane-origin-buffer nil))))
+
+  ;; my-2pane-divider-active は 40-remote.el で定義されている
+  (defun my-2pane-divider-off ()
+    "Restore window-divider to its default (disabled) state."
+    (when my-2pane-divider-active
+      (window-divider-mode -1)
+      (setq my-2pane-divider-active nil))) 
 
   (defun my-q-quit ()
     "qキー(normal-state)で発火する、状況に応じたquit処理。
@@ -139,7 +140,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
      (t nil))
     (when (fboundp 'my-update-modeline-for-split)
       (my-update-modeline-for-split))
-    (run-hooks 'my-q-quit-hook))
+    (my-2pane-divider-off))
 
   (defun my-dired-quit ()
     "2ペイン中なら my-q-quit、それ以外は quit-window。"

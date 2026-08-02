@@ -130,12 +130,6 @@
   (set-face-foreground 'window-divider-last-pixel "#61bfff")
   (setq my-2pane-divider-active t))
 
-(defun my-2pane-divider-off ()
-  "Restore window-divider to its default (disabled) state."
-  (when my-2pane-divider-active
-    (window-divider-mode -1)
-    (setq my-2pane-divider-active nil)))
-
 
 ;; ============================================================
 ;; 4. バッファ識別  (背景色)
@@ -233,12 +227,6 @@
   (my-xsrv-2pane-enable-ui)
   (other-window 1)
   (my-2pane-divider-on))
-
-;; my-2pane-quit-hook は 80-hydra-dired.el 側で defvar される拡張ポイント。
-;; ここでは divider 解除だけを差し込む。
-(add-hook 'my-2pane-quit-hook #'my-2pane-divider-off)
-
-;; -- hydra から呼ぶための薄いラッパー (80-hydra-dired.el の ":" ";" から参照) --
 
 (defun my-open-xsrv-2pane-gh ()
   "Xsrv-GH と Dropbox/GH を 2ペインで開く."
