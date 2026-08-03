@@ -39,8 +39,8 @@
    ("g" counsel-git)
    ("S" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
-   (":" my-open-xsrv-2pane-gh)        ; 40-remote.el を参照
-   (";" my-open-xsrv-2pane-minorugh)  ; 40-remote.el を参照
+   (":" my-open-xsrv-2pane-gh)
+   (";" my-open-xsrv-2pane-minorugh)
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
