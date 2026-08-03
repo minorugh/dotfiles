@@ -78,8 +78,7 @@
 (setq history-delete-duplicates t)
 (setq savehist-additional-variables
       '(extended-command-history my-describe-history))
-
-(add-hook 'after-init-hook #'savehist-mode)
+(add-hook 'after-init-hook #'savehist-mode) ; 初期化後に有効化
 
 
 ;; ============================================================
@@ -97,14 +96,14 @@
             "/Dropbox/backup/"
             "/scp:"
             "neomutt-"))
-
-(add-hook 'after-init-hook #'recentf-mode)
+(add-hook 'after-init-hook #'recentf-mode); 初期化後に有効化
 
 
 ;; ============================================================
 ;; Global Minor Modes
 ;; ============================================================
 
+;; 初期化後に有効化
 (add-hook 'after-init-hook #'global-auto-revert-mode)
 (add-hook 'after-init-hook #'save-place-mode)
 
