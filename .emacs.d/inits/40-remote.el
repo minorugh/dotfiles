@@ -253,7 +253,7 @@
   (when (fboundp 'my-update-modeline-for-split)
     (my-update-modeline-for-split)))
 
-;; -- hydra から呼ぶための薄いラッパー (80-hydra-dired.el の ":" ";" から参照) --
+;; 80-hydra-dired.el の ":" ";" から参照されるラッパー
 (defun my-open-xsrv-2pane-gh ()
   "Xsrv-GH と Dropbox/GH を 2ペインで開く."
   (interactive)
