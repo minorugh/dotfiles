@@ -26,9 +26,9 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
-	# mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
-	# mkdir -p $(DOTFILES_DIR)/env
-	# mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
+	mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
+	mkdir -p $(DOTFILES_DIR)/env
+	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
 	cd $(DOTFILES_DIR) && git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
