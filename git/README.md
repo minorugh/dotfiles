@@ -30,6 +30,7 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 | `make git` | 変更を `add` → 差分があれば `auto: 日時` で commit → P1: push / サブ機: pull --rebase |
 | `make git-fix` | サブ機で rebase に失敗した際の自動修復（abort → reset --hard → pull） |
 | `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source`・abook の更新を検知して確認のうえ同期 |
+| `make env-remount` | `dotfiles/env/` の bindfs マウントをやり直す（sudo不要）。`git`（P1）・`env-sync`（サブ機）から共通で呼ばれる |
 
 ### `make git` の分岐（ホスト名で判定）
 
@@ -50,7 +51,11 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 変更がなければ何もせず終了します。
 
 `~/.env_source` は `rm -rf` せず `git fetch` + `git reset --hard` で更新するため、
-`dotfiles/env/` からの bindfs バインドマウントが壊れることはありません。
+ディレクトリ自体が消えて作り直されることはありません。ただし、内部の
+ファイル構成が変化した際に `dotfiles/env/` の bindfs マウントが古い状態の
+まま取り残され、中身が空に見える事象が実際に発生しています
+（2026.08.03、詳細は `changelog-20260802.md` 参照）。そのため `env-sync`
+は同期完了後に必ず `env-remount` を呼び、マウントを張り直します。
 
 GPG のパスフレーズ入力が発生しうるため、Emacs 経由での実行時も
 `bin/make-run.sh` 経由で `gnome-terminal` に委譲され、対話可能な状態で

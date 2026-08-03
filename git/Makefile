@@ -17,7 +17,12 @@ DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 
-.PHONY: git git-fix env-sync
+.PHONY: env-remount git git-fix env-sync
+
+env-remount: ## env/ の bindfs マウントをやり直す（sudo不要、メイン/サブ共通の保険）
+	mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
+	mkdir -p $(DOTFILES_DIR)/env
+	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
 
 git: ##! Auto commit+push (main only, sub: pull only)
 	cd $(DOTFILES_DIR) && git add -A
@@ -26,9 +31,7 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
-	mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
-	mkdir -p $(DOTFILES_DIR)/env
-	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
+	$(MAKE) -s env-remount
 	cd $(DOTFILES_DIR) && git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
@@ -71,6 +74,7 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 		rm /tmp/env_repo.bundle; \
 		echo "$$env_hash_new" > $(ENV_SYNC_CACHE)/env.hash; \
 		echo "✓ env_source 同期完了"; \
+		$(MAKE) -s env-remount; \
 	fi; \
 	if [ "$$abook_diff" = true ]; then \
 		mkdir -p ${HOME}/.abook; \
