@@ -41,7 +41,7 @@
 ;;;   3. window-divider
 ;;;   4. バッファ識別  (背景色)
 ;;;   5. Deploy / Download
-;;;   6. xsrv-2pane 本体
+;;;   6. xsrv-2pane 本体 (開始 / 終了)
 ;;;   7. git-peek 連携
 ;;;   8. 動的フォルダー保護 & rsync lock
 ;;; Code:
@@ -76,7 +76,8 @@
 ;; ============================================================
 ;; 2. xsrv-2pane 見た目  (ヘッダー)
 ;; 80-hydra-dired.el の hydra-dired から呼ばれる想定。
-;; ペイン終了処理(my-2pane-quit/my-dired-quit)は 80-hydra-dired.el 側の汎用機能。
+;; 2ペインの開始 (my-open-xsrv-2pane) と終了 (my-2pane-quit) は
+;; どちらも本ファイルの 6章にまとまっている。
 ;; ============================================================
 
 (defface my-xsrv-2pane-header-face
@@ -108,7 +109,8 @@
 (defun my-xsrv-2pane-enable-ui ()
   "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
   (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
-  (my-xsrv-2pane-refresh-ui))
+  (my-xsrv-2pane-refresh-ui)
+  (evil-local-set-key 'normal (kbd "q") #'my-2pane-quit))
 
 
 ;; ============================================================
@@ -129,6 +131,12 @@
   (set-face-foreground 'window-divider-first-pixel "#61bfff")
   (set-face-foreground 'window-divider-last-pixel "#61bfff")
   (setq my-2pane-divider-active t))
+
+(defun my-2pane-divider-off ()
+  "Restore window-divider to its default (disabled) state."
+  (when my-2pane-divider-active
+    (window-divider-mode -1)
+    (setq my-2pane-divider-active nil)))
 
 
 ;; ============================================================
@@ -211,8 +219,11 @@
 
 
 ;; ============================================================
-;; 6. xsrv-2pane 本体
+;; 6. xsrv-2pane 本体 (開始 / 終了)
 ;; ============================================================
+
+(defvar my-2pane-origin-buffer nil
+  "Buffer to return to when quitting 2-pane view.")
 
 (defun my-open-xsrv-2pane (src-dir pair-dir)
   "Open SRC-DIR and PAIR-DIR side by side."
@@ -228,6 +239,21 @@
   (other-window 1)
   (my-2pane-divider-on))
 
+(defun my-2pane-quit ()
+  "2ペインを閉じて元バッファに戻る.
+`my-xsrv-2pane-enable-ui' でのみ q に bind される."
+  (interactive)
+  (let ((bufs (mapcar #'window-buffer (window-list))))
+    (delete-other-windows)
+    (mapc #'kill-buffer bufs)
+    (when (buffer-live-p my-2pane-origin-buffer)
+      (switch-to-buffer my-2pane-origin-buffer)
+      (setq my-2pane-origin-buffer nil)))
+  (my-2pane-divider-off)
+  (when (fboundp 'my-update-modeline-for-split)
+    (my-update-modeline-for-split)))
+
+;; -- hydra から呼ぶための薄いラッパー (80-hydra-dired.el の ":" ";" から参照) --
 (defun my-open-xsrv-2pane-gh ()
   "Xsrv-GH と Dropbox/GH を 2ペインで開く."
   (interactive)

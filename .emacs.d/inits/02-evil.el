@@ -64,8 +64,15 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose major modes
-  (dolist (mode '(howm-view-summary-mode neotree-mode))
+  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode))
     (add-to-list 'evil-emacs-state-modes mode))
+
+  ;; Force Emacs state for specific buffer
+  (defun my-buffer-name-emacs-state ()
+    "If it's a specific buffer name, set it to `emacs-state`."
+    (when (member (buffer-name) '("*init log*"))
+      (evil-emacs-state)))
+  (add-hook 'window-configuration-change-hook #'my-buffer-name-emacs-state)
 
   ;; 現在のevil-stateをVim風にechoエリアへ一時表示する
   (defun my-evil-echo-state ()
@@ -135,8 +142,6 @@
 
   ;; Make paste behave like Emacs (p at point, P after point).
   (my-evil-swap-key evil-normal-state-map "p" "P")
-
-  ;;  (evil-define-key 'normal view-mode-map "q" #'quit-window)
 
 
   ;; ============================================================
