@@ -4,7 +4,10 @@
 # 個人の日々の作業運用のためのターゲット群。
 # リストア用のトップレベル Makefile とは切り離して管理する。
 # Main: commit + push / others (sub): pull --rebase only
-# Note: Also synchronizes the secret '~/.env_source' repository on the maine machine.
+#
+# 2026.08.03
+# .env_source 側の構造変化で dotfiles/env が空になることがあるのでメイン機側の実行コードに remount処理を追加した。
+# 経緯の詳細は changelog-20260802.md 参照。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -23,6 +26,9 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
+	mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
+	mkdir -p $(DOTFILES_DIR)/env
+	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
 	cd $(DOTFILES_DIR) && git push
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
