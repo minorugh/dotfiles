@@ -15,7 +15,8 @@
 (leaf neotree
   :ensure t
   :doc "Tree plugin like NerdTree for Vim."
-  ;; :hook (neotree-mode-hook . (lambda () (setq-local mode-line-format nil)))
+  :hook ((neotree-mode-hook . (lambda () (setq-local mode-line-format nil)))
+         (neo-after-create-hook . (lambda (_) (text-scale-set -1))))
   :bind (("<f2>" . my-neotree-toggle)
          (:neotree-mode-map
           ("RET"     . neotree-enter-hide)
@@ -35,7 +36,7 @@
 
 
   ;; ============================================================
-  ;;  Toggle & Text Scale
+  ;;  Custom Functions
   ;; ============================================================
 
   (defun my-neotree-toggle ()
@@ -49,22 +50,6 @@ Bound to F2; see 07-functions.el."
                            (dired-current-directory))
                       default-directory)))
         (neotree-find path))))
-
-  (defun neotree-text-scale ()
-    "Decrease text scale by 1 in Neotree buffer.
-See https://github.com/jaypei/emacs-neotree/issues/218"
-    (interactive)
-    (text-scale-adjust 0)
-    (text-scale-decrease 1)
-    (message nil))
-
-  (add-hook 'neo-after-create-hook
-            (lambda (_) (neotree-text-scale)))
-
-
-  ;; ============================================================
-  ;;  Enter & Hide
-  ;; ============================================================
 
   (defun neo-open-file-hide (full-path &optional arg)
     "Open FULL-PATH and hide the Neotree window."

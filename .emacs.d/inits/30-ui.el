@@ -169,17 +169,9 @@ Safe for use in `before-save-hook' — does not auto-indent."
     "Return non-nil if W is a popup that should not count as a real split."
     (or (window-minibuffer-p w)
         (string-match-p
-         (rx (or "*hydra"
-                 "lv"
-                 "*Flymake"
-		 "*changelog"
-                 "Calendar"
-                 "*Compilation"
-                 "which-key"
-                 "*evil-cheat*"
-                 "*YaTeX-typesetting*"
-                 "*dvi-printing*"
-                 "*Permission Help*"))
+         (rx (or "*hydra" "lv" "*Flymake" "*changelog" "Calendar"
+                 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
+                 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
          (buffer-name (window-buffer w)))))
 
   (defvar my-modeline-update-timer nil
