@@ -40,6 +40,7 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 	$(MAKE) -s env-remount
 	cd $(DOTFILES_DIR) && git push
+	@echo "##> ✓ push 完了"
 else
 	cd $(DOTFILES_DIR) && git add -A
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
@@ -65,21 +66,23 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 	fi; \
 	if [ -n "$$abook_name_new" ] && [ "$$abook_name_new" != "$$abook_name_old" ]; then abook_diff=true; fi; \
 	if [ "$$env_diff" = false ] && [ "$$abook_diff" = false ] && [ "$$env_pending" = false ]; then \
-		echo "✓ env_source / abook ともに変更なし"; \
+		echo "##> ✓ env_source / abook ともに変更なし"; \
 		exit 0; \
 	fi; \
-	if [ "$$env_pending" = true ]; then \
-		echo "⏳ env_source の更新を検知しましたが、Dropbox側の同期待ちです。しばらくしてから 'make git' を再実行してください"; \
+	if [ "$$env_diff" = false ] && [ "$$abook_diff" = false ]; then \
+		echo "##> ⏳ env_source の更新を検知しましたが、Dropbox側の同期待ちです。しばらくしてから 'make git' を再実行してください"; \
+		exit 0; \
 	fi; \
-	if [ "$$env_diff" = false ] && [ "$$abook_diff" = false ]; then exit 0; fi; \
 	echo ">>> 更新を検知しました:"; \
+	if [ "$$env_pending" = true ]; then echo "  - (参考) env_source も検知済みだがDropbox同期待ちのため今回は対象外"; fi; \
 	if [ "$$env_diff" = true ]; then echo "  - env_source (secretファイル群)"; fi; \
 	if [ "$$abook_diff" = true ]; then echo "  - abook (addressbook)"; fi; \
 	read -p "同期しますか? [y/N]: " ans; \
 	if [ "$$ans" != "y" ] && [ "$$ans" != "Y" ]; then \
-		echo "スキップしました"; \
+		echo "##> スキップしました"; \
 		exit 0; \
 	fi; \
+	result=""; \
 	if [ "$$env_diff" = true ]; then \
 		gpg -d ~/Dropbox/backup/env/env_repo.bundle.gpg > /tmp/env_repo.bundle; \
 		if [ -d $(ENV_SOURCE_DIR)/.git ]; then \
@@ -93,15 +96,18 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 		fi; \
 		rm /tmp/env_repo.bundle; \
 		echo "$$env_hash_flag" > $(ENV_SYNC_CACHE)/env.hash; \
-		echo "✓ env_source 同期完了"; \
+		echo "  ✓ env_source 同期完了"; \
+		result="$${result}env_source "; \
 		$(MAKE) -s env-remount; \
 	fi; \
 	if [ "$$abook_diff" = true ]; then \
 		mkdir -p ${HOME}/.abook; \
 		gpg --yes -d -o ${HOME}/.abook/addressbook "$$abook_name_new"; \
 		echo "$$abook_name_new" > $(ENV_SYNC_CACHE)/abook.name; \
-		echo "✓ abook 同期完了"; \
-	fi
+		echo "  ✓ abook 同期完了"; \
+		result="$${result}abook"; \
+	fi; \
+	echo "##> ✓ 同期完了: $$result"
 
 git-fix: ## rebase失敗時の自動修復
 	cd $(DOTFILES_DIR) && git rebase --abort 2>/dev/null || true
