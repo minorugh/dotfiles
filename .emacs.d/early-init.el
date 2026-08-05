@@ -73,7 +73,6 @@
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
 ;; X Session Management files (GUI Emacs, e.g. "session.123abc").
-;; No dedicated user variable exists for this, so redefine the function.
 (defvar my-session-dir (locate-user-emacs-file "tmp/session/"))
 (make-directory my-session-dir t)
 (defun emacs-session-filename (session-id)

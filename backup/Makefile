@@ -65,8 +65,9 @@ readmes-backup: ## 各所のREADMEをDropbox/READMESにコピー
 	@cp ${HOME}/src/github.com/minorugh/dotfiles/cron/README.md    ${HOME}/Dropbox/READMES/04-cron-README.md
 	@cp ${HOME}/src/github.com/minorugh/dotfiles/.mutt/README.md   ${HOME}/Dropbox/READMES/05-mutt-README.md
 	@cp ${HOME}/src/github.com/minorugh/dotfiles/bin/README.md     ${HOME}/Dropbox/READMES/06-bin-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/docker/README.md  ${HOME}/Dropbox/READMES/07-docker-README.md
-	@cp ${HOME}/Dropbox/backup/README.md                           ${HOME}/Dropbox/READMES/08-Dropbox-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/git/README.md     ${HOME}/Dropbox/READMES/07-git-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/docker/README.md  ${HOME}/Dropbox/READMES/08-docker-README.md
+	@cp ${HOME}/Dropbox/backup/README.md                           ${HOME}/Dropbox/READMES/09-Dropbox-README.md
 	@echo "$$(date '+%Y-%m-%d %H:%M:%S') readmes backup done"
 
 ## endfile
