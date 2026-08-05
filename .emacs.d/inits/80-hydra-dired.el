@@ -124,8 +124,9 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defun my-dropbox-restart ()
     "Dropboxデーモンを再起動して同期を再開する."
     (interactive)
-    (compile "(dropbox stop; sleep 1; dropbox start -i) && echo '##> Dropbox restarted'")
-    (message "Dropbox restart requested"))
+    (start-process-shell-command
+     "dropbox-restart" nil
+     "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1"))
 
   (defun my-reload-xenv ()
     "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
@@ -134,14 +135,14 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-        (with-temp-buffer
+	(with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
             (setenv (match-string 1)
                     (match-string 2))))))
     (my-dropbox-restart)
-    (message "xmodmap + SSH_AUTH_SOCK + Dropbox reloaded"))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded & Dropbox restarted"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
