@@ -1,0 +1,11 @@
+[Unit]
+Description=Restart Dropbox after system resume
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/src/github.com/minorugh/dotfiles/bin/dropbox-restart.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
