@@ -124,7 +124,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defun my-dropbox-restart ()
     "Dropboxデーモンを再起動して同期を再開する."
     (interactive)
-    (compile "(dropbox stop; sleep 1; dropbox start -i) &")
+    (compile "(dropbox stop; sleep 1; dropbox start -i) && echo '##> Dropbox restarted'")
     (message "Dropbox restart requested"))
 
   (defun my-reload-xenv ()
