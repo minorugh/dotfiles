@@ -30,6 +30,7 @@
          (","   . xsrv-download-dired)  ; see 40-remote.el
          ("i"   . my-sxiv))
   :config
+  (setq global-auto-revert-non-file-buffers t)
   (setq dired-dwim-target         t)
   (setq dired-recursive-copies   'always)
   (setq dired-recursive-deletes  'always)
