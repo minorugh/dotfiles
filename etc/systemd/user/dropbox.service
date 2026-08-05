@@ -1,0 +1,14 @@
+[Unit]
+Description=Dropbox
+After=graphical-session-pre.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/dropbox start -i
+ExecStop=/usr/bin/dropbox stop
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
