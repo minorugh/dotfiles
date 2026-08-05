@@ -122,7 +122,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
   (defun my-reload-xenv ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (let ((keychain-file (expand-file-name
