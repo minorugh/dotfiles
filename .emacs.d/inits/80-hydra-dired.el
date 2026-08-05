@@ -26,18 +26,18 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keyp_a_ss  _x_reload
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv._;__:_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keepass_x_  s.n_o_te
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_@_wm_,_  md._v_iew^^^^  b._a_t.rmt  _f_lym.err  xsrv_;__:_
 "
-   ("@" browse-at-remote)
+   ("a" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
-   ("a" keepassxc)
+   ("x" keepassxc)
    ("g" counsel-git)
-   ("S" (browse-url "https://app.simplenote.com/"))
+   ("o" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)
    (";" my-open-xsrv-2pane-minorugh)
@@ -47,7 +47,6 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("x" my-reload-xenv)
    ("s" (my-open "~/src/"))
    ("w" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
@@ -58,7 +57,7 @@
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
    ("v" markdown-preview)
-   ("o" howm-list-all)
+   ("@" howm-list-all)
    ("," my-howm-create-with-category)
    ("L" (my-open "~/Dropbox/CHANGELOG"))
    ("l" my-changelog-search)
@@ -186,9 +185,11 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    (:hint nil :exit t :body-pre (require 'my-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  db._r_est
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale  _x_reload
 "
+   ("x" my-reload-xenv)
+   ("r" my-dropbox-restart)
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
    ("u" my-upcase-word)
@@ -224,7 +225,6 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("F" my-dselext-new-post)
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
-   ("r" my-restart-emacs)
    ("q" top-level)
    ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
