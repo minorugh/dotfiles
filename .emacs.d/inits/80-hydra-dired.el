@@ -124,7 +124,8 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defun my-dropbox-restart ()
     "Dropboxデーモンを再起動して同期を再開する"
     (interactive)
-    (async-shell-command "dropbox stop; dropbox start -i" "*dropbox-restart*")
+    (let ((async-shell-command-display-buffer nil))
+      (async-shell-command "dropbox stop; dropbox start -i" "*dropbox-restart*"))
     (message "Dropbox restart requested"))
 
   (defun my-reload-xenv ()
@@ -134,7 +135,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-	(with-temp-buffer
+        (with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
