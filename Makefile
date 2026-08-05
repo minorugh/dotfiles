@@ -135,6 +135,14 @@ autostart: emacs-start ## GUI起動時の自動処理設定（SSH鍵自動入力
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
 
+dropbox-resume-watch: ## サスペンド復帰時にDropbox同期を自動再起動（PrepareForSleep監視、systemd --user）
+	chmod +x ${PWD}/bin/dropbox-sleep-watch.sh
+	mkdir -p ${HOME}/.config/systemd/user
+	ln -vsf ${PWD}/etc/systemd/user/dropbox-sleep-watch.service ${HOME}/.config/systemd/user/dropbox-sleep-watch.service
+	systemctl --user daemon-reload
+	systemctl --user enable --now dropbox-sleep-watch.service
+	systemctl --user status dropbox-sleep-watch.service --no-pager
+
 ########################################################
 ## bin/ スクリプト（シンボリックリンク＋キーボードショートカット登録）
 ########################################################
