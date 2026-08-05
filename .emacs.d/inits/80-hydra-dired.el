@@ -122,10 +122,9 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
   (defun my-dropbox-restart ()
-    "Dropboxデーモンを再起動して同期を再開する"
+    "Dropboxデーモンを再起動して同期を再開する."
     (interactive)
-    (let ((async-shell-command-display-buffer nil))
-      (async-shell-command "dropbox stop; dropbox start -i" "*dropbox-restart*"))
+    (shell-command "(dropbox stop; sleep 1; dropbox start -i) &")
     (message "Dropbox restart requested"))
 
   (defun my-reload-xenv ()
