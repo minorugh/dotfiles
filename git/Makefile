@@ -66,7 +66,7 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 	fi; \
 	if [ -n "$$abook_name_new" ] && [ "$$abook_name_new" != "$$abook_name_old" ]; then abook_diff=true; fi; \
 	if [ "$$env_diff" = false ] && [ "$$abook_diff" = false ] && [ "$$env_pending" = false ]; then \
-		echo "##> ✓ env_source / abook ともに変更なし"; \
+		echo "##> ✓ pull 完了 env_source / abook ともに変更なし"; \
 		exit 0; \
 	fi; \
 	if [ "$$env_diff" = false ] && [ "$$abook_diff" = false ]; then \
