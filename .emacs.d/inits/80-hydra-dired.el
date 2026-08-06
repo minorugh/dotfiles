@@ -26,9 +26,11 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kpass_x_c  s._n_ote
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv_;__:_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kpass_x_c  _x_reload
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv._;__:_
 "
+   ("x" my-reload-xenv)
+   ("D" my-dropbox-restart)
    ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
@@ -120,6 +122,29 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   ;; [ -f "$HOME/.keychain/$(hostname)-sh" ] && source "$HOME/.keychain/$(hostname)-sh"
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
+  (defun my-dropbox-restart ()
+    "Dropboxデーモンを再起動して同期を再開する."
+    (interactive)
+    (start-process-shell-command
+     "dropbox-restart" nil
+     "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1"))
+
+  (defun my-env-recover ()
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, dropbox restarted."
+    (interactive)
+    (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
+    (let ((keychain-file (expand-file-name
+                          (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+        (with-temp-buffer
+          (insert-file-contents keychain-file)
+          (goto-char (point-min))
+          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
+            (setenv (match-string 1)
+                    (match-string 2))))))
+    (my-dropbox-restart)
+    (message "xmodmap + SSH_AUTH_SOCK reloaded & Dropbox resterted."))
+
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
     (interactive)
@@ -163,11 +188,9 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    (:hint nil :exit t :body-pre (require 'my-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  db._r_est
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale  _x_reload
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
 "
-   ("x" my-reload-xenv)
-   ("r" my-dropbox-restart)
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
    ("u" my-upcase-word)
@@ -208,32 +231,6 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :init
-  ;; ------------------------------------------------------------
-  ;;  External Tools / System
-  ;; ------------------------------------------------------------
-  (defun my-dropbox-restart ()
-    "Dropboxデーモンを再起動して同期を再開する."
-    (interactive)
-    (start-process-shell-command
-     "dropbox-restart" nil
-     "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1")
-    (message "Dropbox restart requested"))
-
-  (defun my-reload-xenv ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
-    (interactive)
-    (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-    (let ((keychain-file (expand-file-name
-                          (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-        (with-temp-buffer
-          (insert-file-contents keychain-file)
-          (goto-char (point-min))
-          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
-            (setenv (match-string 1)
-                    (match-string 2))))))
-    (message "xmodmap + SSH_AUTH_SOCK reloaded"))
-
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers
   ;; ------------------------------------------------------------
