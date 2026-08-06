@@ -147,7 +147,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
     (interactive)
-    (call-process "setsid" nil 0 nil "keepass.sh"))
+    (call-process "setsid" nil 0 nil "keepassxc.sh"))
 
   (defun filezilla (&optional site)
     "Open FileZilla with SITE, detached from Emacs.
