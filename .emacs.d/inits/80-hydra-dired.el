@@ -26,7 +26,7 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kee_p_ass  _x_recover^^
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  _p_assxc  _x_env^^
   _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv._;_._:_
 "
    ("x" my-env-recover)
@@ -80,19 +80,18 @@
       (compile (concat "make " target))))
 
   (defun my-make-git ()
-    "メイン機なら compile で軽量実行、それ以外(サブ機)は make-run.sh 経由で
-gnome-terminal 実行に委譲する(Makefileの`git'ターゲットは##!済み前提)。
-実際の make-run.sh 呼び出しは 09-makefile.el の my-make-run-async に委譲。"
+    "Run the main using `compile`, run everything else in the terminal."
     (interactive)
     (if my-main-machine-p
         (my-make "git")
       (my-make-run-async default-directory "git")))
 
+  ;; OPTSIONS for my open path function
+  ;; :pos 'top | 'bottom | integer  :omit  :emacs
+  ;; :pos -10  → point-max then back 10 lines
+  ;; :pos  1   → point-min then forward 1 line
   (defun my-open (path &rest opts)
-    "Open PATH in dired or find-file.
-OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
-  :pos -10  → point-max then back 10 lines
-  :pos  1   → point-min then forward 1 line"
+    "Open PATH in dired or find-file."
     (find-file (expand-file-name (format-time-string path)))
     (pcase (plist-get opts :pos)
       ('top    (goto-char (point-min)))
@@ -135,7 +134,7 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-	(with-temp-buffer
+        (with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
