@@ -83,7 +83,7 @@ CHOICE=$( (
 
 
 case "$CHOICE" in
-    1.*) xset dpms force off; sleep 3; kill $PPID ;;
+    1.*) xset dpms force off; kill $PPID ;;
     2.*) systemctl poweroff ;;
     3.*) systemctl reboot ;;
     4.*)
