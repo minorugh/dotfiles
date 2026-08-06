@@ -26,18 +26,17 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kpass_x_c  _x_reload
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv._;__:_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kee_p_ass  _x_recover^^
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv._;_._:_
 "
-   ("x" my-reload-xenv)
-   ("D" my-dropbox-restart)
+   ("x" my-env-recover)
    ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
-   ("x" keepassxc)
+   ("p" keepassxc)
    ("g" counsel-git)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
@@ -123,27 +122,27 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
   (defun my-dropbox-restart ()
-    "Dropboxデーモンを再起動して同期を再開する."
+    "Restart the Dropbox daemon to resume syncing."
     (interactive)
     (start-process-shell-command
      "dropbox-restart" nil
      "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1"))
 
   (defun my-env-recover ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, dropbox restarted."
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (let ((keychain-file (expand-file-name
                           (concat "~/.keychain/" (system-name) "-sh"))))
       (when (file-exists-p keychain-file)
-        (with-temp-buffer
+	(with-temp-buffer
           (insert-file-contents keychain-file)
           (goto-char (point-min))
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
             (setenv (match-string 1)
                     (match-string 2))))))
     (my-dropbox-restart)
-    (message "xmodmap + SSH_AUTH_SOCK reloaded & Dropbox resterted."))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded & Dropbox restarted."))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
