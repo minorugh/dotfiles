@@ -26,10 +26,10 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  keepass_x_  s.n_o_te
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_@_wm_,_  md._v_iew^^^^  b._a_t.rmt  _f_lym.err  xsrv_;__:_
+  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz._8_._9_._0_  kpass_x_c  s._n_ote
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  b_@_remote^^^^  _f_ly.err  xsrv_;__:_
 "
-   ("a" browse-at-remote)
+   ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
@@ -37,7 +37,7 @@
    ("0" (filezilla "m"))
    ("x" keepassxc)
    ("g" counsel-git)
-   ("o" (browse-url "https://app.simplenote.com/"))
+   ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)
    (";" my-open-xsrv-2pane-minorugh)
@@ -57,7 +57,7 @@
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
    ("v" markdown-preview)
-   ("@" howm-list-all)
+   ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("L" (my-open "~/Dropbox/CHANGELOG"))
    ("l" my-changelog-search)
@@ -119,28 +119,6 @@ OPTS: :pos 'top | 'bottom | integer  :omit  :emacs
   ;; # keychain の SSH agent 環境変数を明示的に読み込むことで再起動後も引き継がれる
   ;; [ -f "$HOME/.keychain/$(hostname)-sh" ] && source "$HOME/.keychain/$(hostname)-sh"
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
-
-  (defun my-dropbox-restart ()
-    "Dropboxデーモンを再起動して同期を再開する."
-    (interactive)
-    (start-process-shell-command
-     "dropbox-restart" nil
-     "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1"))
-
-  (defun my-reload-xenv ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
-    (interactive)
-    (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-    (let ((keychain-file (expand-file-name
-                          (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-        (with-temp-buffer
-          (insert-file-contents keychain-file)
-          (goto-char (point-min))
-          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
-            (setenv (match-string 1)
-                    (match-string 2))))))
-    (message "xmodmap + SSH_AUTH_SOCK reloaded"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
@@ -230,6 +208,32 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :init
+  ;; ------------------------------------------------------------
+  ;;  External Tools / System
+  ;; ------------------------------------------------------------
+  (defun my-dropbox-restart ()
+    "Dropboxデーモンを再起動して同期を再開する."
+    (interactive)
+    (start-process-shell-command
+     "dropbox-restart" nil
+     "dropbox stop; sleep 1; dropbox start -i > /dev/null 2>&1")
+    (message "Dropbox restart requested"))
+
+  (defun my-reload-xenv ()
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
+    (interactive)
+    (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
+    (let ((keychain-file (expand-file-name
+                          (concat "~/.keychain/" (system-name) "-sh"))))
+      (when (file-exists-p keychain-file)
+        (with-temp-buffer
+          (insert-file-contents keychain-file)
+          (goto-char (point-min))
+          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
+            (setenv (match-string 1)
+                    (match-string 2))))))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded"))
+
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers
   ;; ------------------------------------------------------------
