@@ -121,11 +121,12 @@
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
   (defun my-dropbox-restart ()
-    "Restart the Dropbox daemon to resume syncing."
+    "Restart Dropbox only if sync look stuck (via dropbox-watch.sh)."
     (interactive)
     (start-process-shell-command
      "dropbox-restart" nil
-     "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1"))
+     "~/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh --now")
+    (message "Dropbox check requested"))
 
   (defun my-env-recover ()
     "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
