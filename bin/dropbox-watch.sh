@@ -1,4 +1,5 @@
 #!/bin/bash
+HOME="/home/minoru"
 STATE_FILE="$HOME/.cache/dropbox-watch.state"
 LOGFILE="$HOME/.cache/dropbox-watch.log"
 THRESHOLD=120
