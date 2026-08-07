@@ -109,20 +109,25 @@ make-run.sh <dir> <target...>
 ```
 
 ### dropbox-watch.sh
-サスペンド復帰後などにDropbox同期が止まったままになる問題への対策。
+サブ機(x250)専用。サスペンド復帰後にDropbox同期が「同期中…」のまま
+固まる問題への対策。`dropbox status`の文字列は固まっていても
+「最新の状態」と誤った自己申告をすることがあると判明したため、
+ステータス判定には頼らず、cronの実行間隔そのものでサスペンドを検知する
+heartbeat方式を採用している。
 
-cron（5分おき）から実行し、`dropbox status`を確認して`最新の状態`
-以外が10分以上続いていたら`pkill -x dropbox; sleep 3; dropbox start -i`
-で自動再起動する。`--now`を付けて実行すると、閾値を待たずに
-「異常なら即再起動、正常なら何もしない」判定だけを行う。
+cron（1分おき）から実行するたびに現在時刻を`heartbeat`ファイルへ書き込み、
+前回書き込みからの間隔（gap）が`GAP_THRESHOLD`（180秒）以上開いていたら
+「サスペンドがあった」とみなし、`dropbox status`を確認せず無条件で
+`pkill -x dropbox; sleep 3; dropbox start -i`を実行する。
 
 他のスクリプトと異なり `/usr/local/bin` 等へのリンクは作らず、
 `bin/dropbox-watch.sh`をフルパスのまま利用する（cron専用）。
 
-- cron登録: `cron/crontab.p1` / `cron/crontab.sub`（`make cron`で反映、
-  メイン機・サブ機で自動判別）
+- スクリプト本体はdotfiles管理下（メイン機で編集・git push、サブ機はgit pullのみ）
+- cron登録はdotfiles管理外。サブ機では`dotfiles/cron/`を経由せず、
+  サブ機上で直接`crontab -e`して登録する（メイン機はサスペンド運用がないため未登録）
 - ログ: `~/.cache/dropbox-watch.log`
-- 状態ファイル: `~/.cache/dropbox-watch.state`
+- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`
 
 ## シンボリックリンクの設定
 

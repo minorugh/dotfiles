@@ -8,7 +8,11 @@
 
 - メイン機 (P1) のみ cron スクリプトをセットアップして crontab を管理
 - 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
-- サブ機 (X250) ではスキップ
+- サブ機 (X250) ではスキップ（サブ機は dotfiles 自体を編集しない運用のため、
+  crontab も dotfiles 管理下に置かない）
+- 例外: `dropbox-watch.sh`（サブ機専用、サスペンド復帰対策）はこの管理体系の
+  対象外。スクリプト本体は dotfiles 経由でサブ機へ配布されるが、cron登録は
+  サブ機上で直接 `crontab -e` して行う（詳細は `bin/README.md` 参照）
 - 既存 crontab はバックアップし、dotfiles の crontab で上書き
 - `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
   自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
