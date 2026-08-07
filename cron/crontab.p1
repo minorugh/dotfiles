@@ -1,4 +1,4 @@
-# 2026-08-07 update
+# 2026-08-08 update
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -46,7 +46,8 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 
-# Dropbox同期停止をチェックし、10分以上続けば自動再起動（サスペンド復帰対策 5分ごと）
-* * * * * DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh >> /tmp/cron.log 2>&1
+# Dropbox同期停止をチェックし、サスペンド復帰を検知したら自動再起動（毎分・heartbeat方式）
+* * * * * sleep 30; /home/minoru/.../dropbox-watch.sh >> /tmp/cron.log 2>&1
+
 
 
