@@ -33,8 +33,7 @@ endif
 cron-edit: ## crontab を編集（$(CRONTAB_FILE) を直接編集、機体で自動判別）
 	gnome-terminal -- bash -c "nano ${PWD}/$(CRONTAB_FILE); exec bash"
 
-cron-update: ## 編集した crontab を反映（バックアップ→日付更新→適用→確認）
-	crontab -l > crontab.backup 2>/dev/null || true
+cron-update: ## 編集した crontab を反映（日付更新→適用→確認）
 	sed -i "1s|^# .* update$$|# $$(date +%F) update|" $(CRONTAB_FILE)
 	crontab $(CRONTAB_FILE)
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"

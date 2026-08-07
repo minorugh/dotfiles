@@ -187,8 +187,6 @@ emacs-trash: ## Emacs ゴミ箱スイープスクリプトのリンク作成
 	sudo chmod +x /usr/local/bin/emacs-trash-sweep.sh
 
 cron: ## メイン機: automerge/autobackup のリンク作成+crontab反映 / サブ機: crontab反映のみ
-	@BACKUP_FILE=${PWD}/cron/crontab.backup.$$(date +%Y%m%d); \
-	crontab -l > $$BACKUP_FILE 2>/dev/null || true
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	$(MAKE) automerge
 	$(MAKE) autobackup
