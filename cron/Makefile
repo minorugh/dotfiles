@@ -30,8 +30,11 @@ else
 CRONTAB_FILE := crontab.sub
 endif
 
-cron-edit: ## crontab を編集（$(CRONTAB_FILE) を直接編集、機体で自動判別）
-	gnome-terminal -- bash -c "nano ${PWD}/$(CRONTAB_FILE); exec bash"
+cron-edit-p1: ## crontab.p1 を編集（P1上で作業。反映は make cron-update）
+	gnome-terminal -- bash -c "nano ${PWD}/crontab.p1; exec bash"
+
+cron-edit-sub: ## crontab.sub を編集（P1上で編集→make git でpush→X250でpull後 make cron-update）
+	gnome-terminal -- bash -c "nano ${PWD}/crontab.sub; exec bash"
 
 cron-update: ## 編集した crontab を反映（日付更新→適用→確認）
 	sed -i "1s|^# .* update$$|# $$(date +%F) update|" $(CRONTAB_FILE)
