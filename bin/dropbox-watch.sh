@@ -1,7 +1,7 @@
 #!/bin/bash
 STATE_FILE="$HOME/.cache/dropbox-watch.state"
 LOGFILE="$HOME/.cache/dropbox-watch.log"
-THRESHOLD=600
+THRESHOLD=300
 
 restart_dropbox() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') $1, restarting" >> "$LOGFILE"
