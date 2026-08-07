@@ -125,8 +125,7 @@
     (interactive)
     (start-process-shell-command
      "dropbox-restart" nil
-     "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1")
-    (message "Dropbox restart requested"))
+     "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1"))
 
   (defun my-env-recover ()
     "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
