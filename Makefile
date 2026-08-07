@@ -186,15 +186,16 @@ emacs-trash: ## Emacs ゴミ箱スイープスクリプトのリンク作成
 	sudo ln -vsfn ${PWD}/backup/emacs-trash-sweep.sh /usr/local/bin/emacs-trash-sweep.sh
 	sudo chmod +x /usr/local/bin/emacs-trash-sweep.sh
 
-cron: ## メイン機のみ実行: automerge/autobackup のリンク作成 + crontab バックアップ＆反映
-	@if [ "$$(hostname)" = "$(MAIN_HOSTNAME)" ]; then \
-		$(MAKE) automerge; \
-		$(MAKE) autobackup; \
-		BACKUP_FILE=${PWD}/cron/crontab.backup.$$(date +%Y%m%d); \
-		crontab -l > $$BACKUP_FILE || true; \
-		crontab ${PWD}/cron/crontab; \
-	fi
-
+cron: ## メイン機: automerge/autobackup のリンク作成+crontab反映 / サブ機: crontab反映のみ
+	@BACKUP_FILE=${PWD}/cron/crontab.backup.$$(date +%Y%m%d); \
+	crontab -l > $$BACKUP_FILE 2>/dev/null || true
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	$(MAKE) automerge
+	$(MAKE) autobackup
+	crontab ${PWD}/cron/crontab.p1
+else
+	crontab ${PWD}/cron/crontab.sub
+endif
 
 ########################################################
 ## パッケージ・ツール・フォント
