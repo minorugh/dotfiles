@@ -108,6 +108,22 @@ picker（`@`キー、`my-make-ivy-integrated`）の `C-c C-c` から呼ばれる
 make-run.sh <dir> <target...>
 ```
 
+### dropbox-watch.sh
+サスペンド復帰後などにDropbox同期が止まったままになる問題への対策。
+
+cron（5分おき）から実行し、`dropbox status`を確認して`最新の状態`
+以外が10分以上続いていたら`pkill -x dropbox; sleep 3; dropbox start -i`
+で自動再起動する。`--now`を付けて実行すると、閾値を待たずに
+「異常なら即再起動、正常なら何もしない」判定だけを行う。
+
+他のスクリプトと異なり `/usr/local/bin` 等へのリンクは作らず、
+`bin/dropbox-watch.sh`をフルパスのまま利用する（cron専用）。
+
+- cron登録: `cron/crontab.p1` / `cron/crontab.sub`（`make cron`で反映、
+  メイン機・サブ機で自動判別）
+- ログ: `~/.cache/dropbox-watch.log`
+- 状態ファイル: `~/.cache/dropbox-watch.state`
+
 ## シンボリックリンクの設定
 
 各スクリプトのリンク設定は `Makefile` の対応ターゲットで行います。
