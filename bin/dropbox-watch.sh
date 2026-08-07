@@ -4,12 +4,17 @@ LOGFILE="$HOME/.cache/dropbox-watch.log"
 THRESHOLD=120
 
 restart_dropbox() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') $1, restarting" >> "$LOGFILE"
-    pkill -x dropbox
-    sleep 3
-    dropbox start -i > /dev/null 2>&1
+    echo "$(date '+%Y-%m-%d %H:%M:%S') $1, [DRY-RUN] would restart here" >> "$LOGFILE"
     rm -f "$STATE_FILE"
 }
+
+# restart_dropbox() {
+#     echo "$(date '+%Y-%m-%d %H:%M:%S') $1, restarting" >> "$LOGFILE"
+#     pkill -x dropbox
+#     sleep 3
+#     dropbox start -i > /dev/null 2>&1
+#     rm -f "$STATE_FILE"
+# }
 
 STATUS=$(dropbox status 2>/dev/null | tail -1)
 
