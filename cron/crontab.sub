@@ -5,4 +5,5 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 # Dropbox同期停止をチェックし、10分以上続けば自動再起動（サスペンド復帰対策 5分ごと）
-*/2 * * * * DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh
+*/2 * * * * DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh >> /tmp/cron.log 2>&1
+
