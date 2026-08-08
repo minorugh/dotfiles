@@ -19,9 +19,9 @@
 #       書き込んでいたため、直後の実行が古いheartbeatを読んで誤検知し、
 #       起動直後のdropboxを再度pkillしてしまう事象が発生していた
 #       (21:49:31の再起動から52秒後の21:50:23に再度gap9458s誤検知)。
-# 対策1: heartbeatは処理完了直前に再取得した時刻で書き込む(NOW使い回し廃止)
-# 対策2: 直近RESTART_COOLDOWN秒以内に再起動済みなら、再度gap超過を
-#        検知してもpkillは行わずスキップする(連続kill防止)
+# 対策: heartbeatは処理完了直前に再取得した時刻で書き込む(NOW使い回し廃止)
+#       これによりheartbeatが常に「その瞬間」の正しい値になり、
+#       直後の実行が古い値を読んで誤検知することがなくなる。
 #
 # Author: Minoru Yamada (aodamo)
 # Created: 2026-08-07
@@ -33,10 +33,8 @@ flock -n 9 || exit 0
 
 HOME_DIR=$(eval echo "~$USER")
 HEARTBEAT_FILE="$HOME_DIR/.cache/dropbox-watch.heartbeat"
-LAST_RESTART_FILE="$HOME_DIR/.cache/dropbox-watch.last_restart"
 LOGFILE="/tmp/dropbox-watch.log"
 GAP_THRESHOLD=180
-RESTART_COOLDOWN=300   # 直近の再起動からこの秒数以内は再pkillしない
 
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
@@ -47,22 +45,11 @@ if [ -f "$HEARTBEAT_FILE" ]; then
     LAST=$(cat "$HEARTBEAT_FILE")
     GAP=$(( NOW - LAST ))
     if [ "$GAP" -ge "$GAP_THRESHOLD" ]; then
-
-        # 直近で再起動済みならクールダウン期間内としてスキップ
-        LAST_RESTART=0
-        [ -f "$LAST_RESTART_FILE" ] && LAST_RESTART=$(cat "$LAST_RESTART_FILE")
-        SINCE_RESTART=$(( NOW - LAST_RESTART ))
-
-        if [ "$SINCE_RESTART" -lt "$RESTART_COOLDOWN" ]; then
-            echo "$(date '+%Y-%m-%d %H:%M:%S') gap ${GAP}s detected (LAST=${LAST}) but skipped: restarted ${SINCE_RESTART}s ago (< ${RESTART_COOLDOWN}s cooldown)" >> "$LOGFILE"
-        else
-            sleep 15
-            pkill -x dropbox
-            sleep 3
-            dropbox start -i > /dev/null 2>&1
-            echo "$(date '+%Y-%m-%d %H:%M:%S') gap ${GAP}s detected (LAST=${LAST}, suspend likely), dropbox restarted" >> "$LOGFILE"
-            date +%s > "$LAST_RESTART_FILE"
-        fi
+        sleep 15
+        pkill -x dropbox
+        sleep 3
+        dropbox start -i > /dev/null 2>&1
+        echo "$(date '+%Y-%m-%d %H:%M:%S') gap ${GAP}s detected (LAST=${LAST}, suspend likely), dropbox restarted" >> "$LOGFILE"
     fi
 fi
 
