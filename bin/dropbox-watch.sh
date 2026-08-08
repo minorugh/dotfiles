@@ -14,7 +14,7 @@
 # GAP_THRESHOLD は cron間隔を前提にした値。
 # cron間隔を変える場合は平常時の実行間隔の2〜3倍程度を目安に調整すること。
 #
-# Author: Minoru Yamada (aodamo)
+# Author: Minoru Yamada
 # Created: 2026-08-07
 #
 LOCKFILE="/tmp/dropbox-watch.lock"
