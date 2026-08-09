@@ -49,7 +49,7 @@ if [ -f "$HEARTBEAT_FILE" ]; then
         pkill -x dropbox
         sleep 3
         dropbox start -i > /dev/null 2>&1
-        echo "$(date '+%Y-%m-%d %H:%M:%S') gap=${GAP}s last=$(date -d @${LAST} '+%H:%M:%S') restarted" >> "$LOGFILE"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') gap=${GAP}s last=$(date -d @${LAST} '+%m/%d %H:%M:%S') restarted" >> "$LOGFILE"
     fi
 fi
 
