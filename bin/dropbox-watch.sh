@@ -45,7 +45,7 @@ if [ -f "$HEARTBEAT_FILE" ]; then
     LAST=$(cat "$HEARTBEAT_FILE")
     GAP=$(( NOW - LAST ))
     if [ "$GAP" -ge "$GAP_THRESHOLD" ]; then
-        sleep 5
+        sleep 10
         pkill -x dropbox
         sleep 3
         dropbox start -i > /dev/null 2>&1
