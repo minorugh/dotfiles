@@ -14,18 +14,8 @@
 # GAP_THRESHOLD は cron間隔を前提にした値。
 # cron間隔を変える場合は平常時の実行間隔の2〜3倍程度を目安に調整すること。
 #
-# --- 2026-08-09 修正 ---
-# 問題: サスペンド復帰直後のrestart処理中に古いNOW値でheartbeatを
-#       書き込んでいたため、直後の実行が古いheartbeatを読んで誤検知し、
-#       起動直後のdropboxを再度pkillしてしまう事象が発生していた
-#       (21:49:31の再起動から52秒後の21:50:23に再度gap9458s誤検知)。
-# 対策: heartbeatは処理完了直前に再取得した時刻で書き込む(NOW使い回し廃止)
-#       これによりheartbeatが常に「その瞬間」の正しい値になり、
-#       直後の実行が古い値を読んで誤検知することがなくなる。
-#
 # Author: Minoru Yamada (aodamo)
-# Created: 2026-08-07
-# Updated: 2026-08-09
+# Created: 2026-08-09
 #
 LOCKFILE="/tmp/dropbox-watch.lock"
 exec 9>"$LOCKFILE"
@@ -41,10 +31,12 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
 NOW=$(date +%s)
 
+# GAPがGAP_THRESHOLD以上なら dropbox を再起動する
 if [ -f "$HEARTBEAT_FILE" ]; then
     LAST=$(cat "$HEARTBEAT_FILE")
     GAP=$(( NOW - LAST ))
     if [ "$GAP" -ge "$GAP_THRESHOLD" ]; then
+	# 復帰直後のWi-Fi/DBUS安定待ち。環境により調整（目安: Wi-Fi復帰時間+マージン）
         sleep 10
         pkill -x dropbox
         sleep 3
@@ -53,5 +45,6 @@ if [ -f "$HEARTBEAT_FILE" ]; then
     fi
 fi
 
-# heartbeatは処理完了直前の時刻で書き込む（NOWの使い回しはしない）
-date +%s > "$HEARTBEAT_FILE"
+# if文の分岐に関わらず、cronが実行されるたびに必ず上書きする
+FINISH_TIME=$(date +%s)
+echo "$FINISH_TIME" > "$HEARTBEAT_FILE"
