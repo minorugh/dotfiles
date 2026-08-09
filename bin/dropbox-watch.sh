@@ -45,6 +45,6 @@ if [ -f "$HEARTBEAT_FILE" ]; then
     fi
 fi
 
-# if文の分岐に関わらず、cronが実行されるたびに必ず上書きする
+# 毎分のcron実行完了後の時間を上書きする
 FINISH_TIME=$(date +%s)
 echo "$FINISH_TIME" > "$HEARTBEAT_FILE"
