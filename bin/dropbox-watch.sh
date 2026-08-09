@@ -34,7 +34,7 @@ flock -n 9 || exit 0
 HOME_DIR=$(eval echo "~$USER")
 HEARTBEAT_FILE="$HOME_DIR/.cache/dropbox-watch.heartbeat"
 LOGFILE="$HOME_DIR/.cache/dropbox-watch.log"
-GAP_THRESHOLD=180
+GAP_THRESHOLD=120
 
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
@@ -45,7 +45,7 @@ if [ -f "$HEARTBEAT_FILE" ]; then
     LAST=$(cat "$HEARTBEAT_FILE")
     GAP=$(( NOW - LAST ))
     if [ "$GAP" -ge "$GAP_THRESHOLD" ]; then
-        sleep 15
+        sleep 5
         pkill -x dropbox
         sleep 3
         dropbox start -i > /dev/null 2>&1
