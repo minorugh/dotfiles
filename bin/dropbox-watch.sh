@@ -49,7 +49,7 @@ if [ -f "$HEARTBEAT_FILE" ]; then
         pkill -x dropbox
         sleep 3
         dropbox start -i > /dev/null 2>&1
-        echo "$(date '+%Y-%m-%d %H:%M:%S') gap ${GAP}s detected (LAST=${LAST} / $(date -d @${LAST} '+%Y-%m-%d %H:%M:%S %Z'), suspend likely), dropbox restarted" >> "$LOGFILE"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') gap=${GAP}s last=$(date -d @${LAST} '+%H:%M:%S') restarted" >> "$LOGFILE"
     fi
 fi
 
