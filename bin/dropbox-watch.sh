@@ -33,7 +33,7 @@ flock -n 9 || exit 0
 
 HOME_DIR=$(eval echo "~$USER")
 HEARTBEAT_FILE="$HOME_DIR/.cache/dropbox-watch.heartbeat"
-LOGFILE="/tmp/dropbox-watch.log"
+LOGFILE="$HOME_DIR/.cache/dropbox-watch.log"
 GAP_THRESHOLD=180
 
 export DISPLAY=:0
