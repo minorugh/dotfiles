@@ -45,6 +45,9 @@
 
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
+
+# Dropbox同期停止をチェックし、サスペンド復帰を検知したら自動再起動（毎分・heartbeat方式）
+* * * * * /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh >> /tmp/cron.log 2>&1
 ```
 
 ---

@@ -37,7 +37,7 @@ if [ -f "$HEARTBEAT_FILE" ]; then
         sleep 10
         pkill -x dropbox
         sleep 3
-        dropbox start -i > /dev/null 2>&1
+        dropbox start > /dev/null 2>&1
         echo "$(date '+%Y-%m-%d %H:%M:%S') last=$(date -d @${LAST} '+%m-%d %H:%M:%S') dropbox restarted" >> "$LOGFILE"
     fi
 fi

@@ -116,7 +116,7 @@ make-run.sh <dir> <target...>
 heartbeat方式を採用している。
 
 cron（1分おき）から実行するたびに現在時刻を`heartbeat`ファイルへ書き込み、
-前回書き込みからの間隔（gap）が`GAP_THRESHOLD`（180秒）以上開いていたら
+前回書き込みからの間隔（gap）が`GAP_THRESHOLD`（120秒）以上開いていたら
 「サスペンドがあった」とみなし、`dropbox status`を確認せず無条件で
 `pkill -x dropbox; sleep 3; dropbox start -i`を実行する。
 
