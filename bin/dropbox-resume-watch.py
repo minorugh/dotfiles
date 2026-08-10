@@ -22,6 +22,7 @@ import dbus.mainloop.glib
 from gi.repository import GLib
 
 LOGFILE = Path.home() / ".cache" / "dropbox-watch.log"
+HEARTBEAT_FILE = Path.home() / ".cache" / "dropbox-watch.heartbeat"  # sh と共有
 
 
 def restart_dropbox():
@@ -33,6 +34,9 @@ def restart_dropbox():
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+
+    # 再起動完了後に heartbeat を更新 → sh 側は「対処済み」とみなしスルーする
+    HEARTBEAT_FILE.write_text(str(int(time.time())))
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOGFILE, "a") as f:
         f.write(f"{timestamp} dropbox restarted (resume detected via dbus)\n")
