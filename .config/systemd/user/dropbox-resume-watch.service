@@ -1,0 +1,11 @@
+[Unit]
+Description=Restart Dropbox after resume from suspend (D-Bus PrepareForSleep watcher)
+After=graphical-session.target
+
+[Service]
+ExecStart=/home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-resume-watch.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
