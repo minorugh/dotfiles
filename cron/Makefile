@@ -14,6 +14,8 @@
 ## crontab反映:   make cron-update
 ## 緊急停止:      make cron-stop
 ## 再開:          make cron-start
+## dropbox-watch停止: make dropbox-watch-stop
+## dropbox-watch再開: make dropbox-watch-start
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -48,6 +50,14 @@ cron-stop: ## xsrv-backup.sh の定時実行を停止
 cron-start: ## xsrv-backup.sh の定時実行を再開
 	rm -f $(HOME)/.xsrv-backup-stop
 	@echo "##> xsrv-backup: started." >&2
+
+dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
+	systemctl --user stop dropbox-resume-watch.service
+	@echo "##> dropbox-resume-watch: stopped (cron gap-watch のみで稼働中)" >&2
+
+dropbox-watch-start: ## dropbox-resume-watch.service を再開
+	systemctl --user start dropbox-resume-watch.service
+	@echo "##> dropbox-resume-watch: started" >&2
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1

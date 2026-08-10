@@ -196,7 +196,7 @@ else
 	crontab ${PWD}/cron/crontab.sub
 endif
 
-dropbox-resume-watch: ## dropbox-resume-watch.service のリンク作成+有効化（D-Bus PrepareForSleepフック、サスペンド復帰時にDropbox再起動）
+dropbox-resume-watch: ## dropbox-resume-watch.service のリンク作成+有効化（P1は模擬テスト環境として意図的に有効化）
 	mkdir -p ${HOME}/.config/systemd/user
 	ln -vsf ${PWD}/.config/systemd/user/dropbox-resume-watch.service ${HOME}/.config/systemd/user/dropbox-resume-watch.service
 	systemctl --user daemon-reload
