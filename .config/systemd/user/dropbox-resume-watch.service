@@ -3,7 +3,7 @@ Description=Restart Dropbox after resume from suspend (D-Bus PrepareForSleep wat
 After=graphical-session.target
 
 [Service]
-ExecStart=/home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-resume-watch.sh
+ExecStart=/usr/bin/python3 /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-resume-watch.py
 Restart=always
 RestartSec=5
 
