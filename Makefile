@@ -22,6 +22,7 @@
 # update 2026.07.31 neomutt-bin を廃止、neomutt ターゲットに一元化（重複処理の整理）
 # update 2026.07.31 「対話実行系」セクションの5ターゲット（dracula-theme・keepassxc・google-earth・slack・flatpak）を ##! 化（区分と目印の不整合を解消）
 # update 2026.07.31 git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離）
+# update 2026.08.11 dropbox-resume-watch ターゲット追加（D-Bus PrepareForSleepフック、クリーンリストア対応）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -65,7 +66,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-resume-watch emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
 
 SHELL = /bin/bash
@@ -194,6 +195,12 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 else
 	crontab ${PWD}/cron/crontab.sub
 endif
+
+dropbox-resume-watch: ## dropbox-resume-watch.service のリンク作成+有効化（D-Bus PrepareForSleepフック、サスペンド復帰時にDropbox再起動）
+	mkdir -p ${HOME}/.config/systemd/user
+	ln -vsf ${PWD}/.config/systemd/user/dropbox-resume-watch.service ${HOME}/.config/systemd/user/dropbox-resume-watch.service
+	systemctl --user daemon-reload
+	systemctl --user enable --now dropbox-resume-watch.service
 
 ########################################################
 ## パッケージ・ツール・フォント
