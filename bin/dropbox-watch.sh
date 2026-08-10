@@ -9,13 +9,10 @@
 # 結果はLOGFILEに記録する。
 #
 # 使い方: cronで1分おきに実行する
-#   * * * * * sleep 30; /path/to/dropbox-watch.sh >> /tmp/cron.log 2>&1
+# * * * * * /path/to/dropbox-watch.sh >> /tmp/cron.log 2>&1
 #
 # GAP_THRESHOLD は cron間隔を前提にした値。
 # cron間隔を変える場合は平常時の実行間隔の2〜3倍程度を目安に調整すること。
-#
-# Author: Minoru Yamada (aodamo)
-# Created: 2026-08-09
 #
 LOCKFILE="/tmp/dropbox-watch.lock"
 exec 9>"$LOCKFILE"
@@ -48,3 +45,8 @@ fi
 # 毎分のcron実行完了後の時間を上書きする
 FINISH_TIME=$(date +%s)
 echo "$FINISH_TIME" > "$HEARTBEAT_FILE"
+
+# ログファイルの肥大化防止（1000行を超えたら直近200行を残してカット）
+if [ -f "$LOGFILE" ] && [ "$(wc -l < "$LOGFILE")" -gt 1000 ]; then
+    tail -n 200 "$LOGFILE" > "${LOGFILE}.tmp" && mv "${LOGFILE}.tmp" "$LOGFILE"
+fi
