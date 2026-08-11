@@ -22,23 +22,23 @@ my $HEARTBEAT_FILE = "$ENV{HOME}/.cache/dropbox-watch.heartbeat";  # dropbox-wat
 # Dropbox 再起動処理
 # ------------------------------------------------------------
 sub restart_dropbox {
-    sleep 10;  # 復帰直後のWi-Fi/DBUS安定待ち（dropbox-watch.shと同じ目安）
-    system("pkill", "-x", "dropbox");
-    sleep 3;
-    system("dropbox start >/dev/null 2>&1 &");
-
-    # 再起動完了後に heartbeat を更新 → dropbox-watch.sh による重複起動を避けるための処理
-    # (sh側は sleep 30 を前置しているため、この更新が先に間に合う)
+    # resumeを検知した瞬間に即座にheartbeatを更新する。
+    # cronの実行タイミングは壁時計基準でresumeイベントと非同期なため、
+    # 「N秒待てば間に合う」という設計は原理的に成立しない。
+    # 検知直後に「対応中」を明示することでのみ、このレースを解消できる。
     open(my $hb, '>', $HEARTBEAT_FILE) or die "heartbeat write failed: $!";
     print $hb time();
     close $hb;
+
+    sleep 10;
+    system("pkill", "-x", "dropbox");
+    sleep 3;
+    system("dropbox start >/dev/null 2>&1 &");
 
     my $ts = strftime("%Y-%m-%d %H:%M:%S", localtime);
     open(my $log, '>>', $LOGFILE) or die "log write failed: $!";
     print $log "$ts dropbox restarted (resume detected via dbus)\n";
     close $log;
-
-    rotate_log();
 }
 
 # ------------------------------------------------------------
