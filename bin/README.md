@@ -18,54 +18,40 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 /usr/local/bin/emacs-toggle → bin/emacs-toggle
 ```
 
-### dropbox-watch.sh
+### dropbox-watch.pl
 サブ機(x250)専用。サスペンド復帰後にDropbox同期が「同期中…」のまま
-固まる問題への対策。`dropbox status`の文字列は固まっていても
-「最新の状態」と誤った自己申告をすることがあると判明したため、
-ステータス判定には頼らず、cronの実行間隔そのものでサスペンドを検知する
-heartbeat方式を採用している。
+固まる問題への対策。systemd-logindが発する`PrepareForSleep`シグナルを、
+D-Busの正規購読機構（`add_signal_receiver`、eavesdropping方式ではない）
+で受信し、復帰の瞬間（false）に即座にDropboxを再起動する。一般ユーザー
+権限のsystemd --userサービスとして動作し、sudoは不要。
 
-cron（1分おき、`sleep 30;`を前置）から実行するたびに現在時刻を`heartbeat`
-ファイルへ書き込み、前回書き込みからの間隔（gap）が`GAP_THRESHOLD`
-（120秒）以上開いていたら「サスペンドがあった」とみなし、`dropbox status`
-を確認せず無条件で`pkill -x dropbox; sleep 3; dropbox start -i`を実行する。
+`dropbox status`の文字列は固まっていても「最新の状態」と誤った自己申告
+をすることがあると判明したため、ステータス判定には頼らず、D-Busの
+サスペンド/レジューム通知を直接購読する方式を採用している。
 
-2026-08-11、`dropbox-resume-watch.pl`（D-Bus即応版、下記参照）と併用開始。
-cron側に`sleep 30;`を前置することで、pyが先に処理して`heartbeat`を更新
-していればgapが小さく判定されスルーする。pyが失敗した場合のみ、本来の
-gap検知で単独フォールバックする（本体ロジックは無改修）。
+以前はcronのgap検知方式（`dropbox-watch.sh`、毎分ポーリング）と併用し、
+2分未満の短時間復帰の取りこぼしを補っていたが、実運用でcron側の出番が
+一度もなかったこと、両者の二重起動を防ぐためのheartbeat共有ロジックが
+かえって複雑さを増していたことから、2026-08-13にsystemd単独運用へ移行。
+`dropbox-watch.sh`本体は撤去せず、Gistへバックアップの上、必要であれば
+`crontab.sub`に登録行を復活させることでいつでも併用体制に戻せる。
 
-他のスクリプトと異なり `/usr/local/bin` 等へのリンクは作らず、
-`bin/dropbox-watch.sh`をフルパスのまま利用する（cron専用）。
-
-- スクリプト本体はdotfiles管理下（メイン機で編集・git push、サブ機はgit pullのみ）
-- cron登録は`dotfiles/cron/crontab.sub`で管理（メイン機で編集→push→サブ機で
-  `make cron-update`）。メイン機はサスペンド運用がないため未登録
-- ログ: `~/.cache/dropbox-watch.log`
-- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`（`dropbox-resume-watch.pl`と共有）
-
-### dropbox-resume-watch.pl
-`dropbox-watch.sh`の補助役。systemd-logindが発する`PrepareForSleep`
-シグナルを、D-Busの正規購読機構（`add_signal_receiver`、eavesdropping
-方式ではない）で受信し、サスペンド復帰の瞬間に即座にDropboxを再起動する。
-`dropbox-watch.sh`は毎分ポーリングのため2分未満の短時間復帰を取りこぼす
-弱点があり、それを補うために2026-08-11導入。
-
-再起動処理の完了後に`~/.cache/dropbox-watch.heartbeat`（sh側と共有）を
-更新することで、後発のcronジョブに「対応済み」と伝え、二重起動を防ぐ。
-watchdog等の自己監視機構は持たない軽量構成（pyが失敗しても、sh側が
-通常のgap検知で必ず拾うため）。
+プロセスが死んだ場合はsystemdの`Restart=always`が自動的に再起動する
+（`RestartSec=5`）。それ以外の失速パターン（D-Bus購読だけが内部的に
+死ぬ等）への対策は、実運用で発生実績がないため見送っている。万一の
+最終手段としてEmacsの`my-env-recover`（`<henkan>`→`x`、xmodmap再読込
++ keychain再import + dropbox再起動をまとめて行う手動リカバリ）が
+別途控えている。
 
 `/usr/local/bin`等へのリンクは作らず、systemd --userサービスとして
-`~/.config/systemd/user/dropbox-resume-watch.service`から
-dotfilesリポジトリ内のパスを直接参照して常駐する。
+`~/.config/systemd/user/dropbox-watch.service`からdotfilesリポジトリ内の
+パスを直接参照して常駐する。
 
-- 依存パッケージ: `libnet-dbus-perl`（`make dropbox-resume-watch` でインストール）
-- ログ: `~/.cache/dropbox-watch.log`（sh側と共通）
-- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`（sh側と共有）
+- 依存パッケージ: `libnet-dbus-perl`（`make dropbox-watch` でインストール）
+- ログ: `~/.cache/dropbox-watch.log`
 - サービス管理: `make -C cron dropbox-watch-stop` / `dropbox-watch-start`
-- クリーンリストア: `make dropbox-resume-watch`（ルートMakefile、
-  `baseinstall`に組込済み。P1は模擬テスト環境として意図的に有効化）
+- クリーンリストア: `make dropbox-watch`（ルートMakefile、`baseinstall`に
+  組込済み。P1は模擬テスト環境として意図的に有効化）
 
 ### filezilla.sh
 FileZilla を SSH エージェント付きで起動するラッパー。
@@ -146,27 +132,6 @@ picker（`@`キー、`my-make-ivy-integrated`）の `C-c C-c` から呼ばれる
 make-run.sh <dir> <target...>
 ```
 
-### dropbox-watch.sh
-サブ機(x250)専用。サスペンド復帰後にDropbox同期が「同期中…」のまま
-固まる問題への対策。`dropbox status`の文字列は固まっていても
-「最新の状態」と誤った自己申告をすることがあると判明したため、
-ステータス判定には頼らず、cronの実行間隔そのものでサスペンドを検知する
-heartbeat方式を採用している。
-
-cron（1分おき）から実行するたびに現在時刻を`heartbeat`ファイルへ書き込み、
-前回書き込みからの間隔（gap）が`GAP_THRESHOLD`（120秒）以上開いていたら
-「サスペンドがあった」とみなし、`dropbox status`を確認せず無条件で
-`pkill -x dropbox; sleep 3; dropbox start -i`を実行する。
-
-他のスクリプトと異なり `/usr/local/bin` 等へのリンクは作らず、
-`bin/dropbox-watch.sh`をフルパスのまま利用する（cron専用）。
-
-- スクリプト本体はdotfiles管理下（メイン機で編集・git push、サブ機はgit pullのみ）
-- cron登録はdotfiles管理外。サブ機では`dotfiles/cron/`を経由せず、
-  サブ機上で直接`crontab -e`して登録する（メイン機はサスペンド運用がないため未登録）
-- ログ: `~/.cache/dropbox-watch.log`
-- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`
-
 ## シンボリックリンクの設定
 
 各スクリプトのリンク設定は `Makefile` の対応ターゲットで行います。
@@ -181,5 +146,5 @@ cron（1分おき）から実行するたびに現在時刻を`heartbeat`ファ�
 | power-menu.sh | `make power-menu` |
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
-| dropbox-resume-watch.pl | `make dropbox-resume-watch` |
+| dropbox-watch.pl | `make dropbox-watch` |
 

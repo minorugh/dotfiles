@@ -3,7 +3,7 @@ Description=Restart Dropbox after resume from suspend (D-Bus PrepareForSleep wat
 After=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/perl /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-resume-watch.pl
+ExecStart=/usr/bin/perl /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.pl
 Restart=always
 RestartSec=5
 

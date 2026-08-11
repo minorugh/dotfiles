@@ -52,12 +52,12 @@ cron-start: ## xsrv-backup.sh の定時実行を再開
 	@echo "##> xsrv-backup: started." >&2
 
 dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
-	systemctl --user stop dropbox-resume-watch.service
-	@echo "##> dropbox-resume-watch: stopped (cron gap-watch のみで稼働中)" >&2
+	systemctl --user stop dropbox-watch.service
+	@echo "##> dropbox-watch: stopped (cron gap-watch のみで稼働中)" >&2
 
 dropbox-watch-start: ## dropbox-resume-watch.service を再開
-	systemctl --user start dropbox-resume-watch.service
-	@echo "##> dropbox-resume-watch: started" >&2
+	systemctl --user start dropbox-watch.service
+	@echo "##> dropbox-watch: started" >&2
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1

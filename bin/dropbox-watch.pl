@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-# dropbox-resume-watch.pl
+# dropbox-watch.pl
 #
 # 判定方法: systemd-logindが発する PrepareForSleep シグナルを、D-Busの
 # 正規の購読機構（connect_to_signal）で受信する。dbus-monitorのような
@@ -15,21 +15,12 @@ use Net::DBus;
 use Net::DBus::Reactor;
 use POSIX qw(strftime);
 
-my $LOGFILE        = "$ENV{HOME}/.cache/dropbox-watch.log";
-my $HEARTBEAT_FILE = "$ENV{HOME}/.cache/dropbox-watch.heartbeat";  # dropbox-watch.sh と共有
+my $LOGFILE = "$ENV{HOME}/.cache/dropbox-watch.log";
 
 # ------------------------------------------------------------
 # Dropbox 再起動処理
 # ------------------------------------------------------------
 sub restart_dropbox {
-    # resumeを検知した瞬間に即座にheartbeatを更新する。
-    # cronの実行タイミングは壁時計基準でresumeイベントと非同期なため、
-    # 「N秒待てば間に合う」という設計は原理的に成立しない。
-    # 検知直後に「対応中」を明示することでのみ、このレースを解消できる。
-    open(my $hb, '>', $HEARTBEAT_FILE) or die "heartbeat write failed: $!";
-    print $hb time();
-    close $hb;
-
     sleep 10;
     system("pkill", "-x", "dropbox");
     sleep 3;
@@ -39,6 +30,8 @@ sub restart_dropbox {
     open(my $log, '>>', $LOGFILE) or die "log write failed: $!";
     print $log "$ts dropbox restarted (resume detected via dbus)\n";
     close $log;
+
+    rotate_log();
 }
 
 # ------------------------------------------------------------

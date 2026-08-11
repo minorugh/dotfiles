@@ -66,7 +66,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-resume-watch emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
 
 SHELL = /bin/bash
@@ -196,12 +196,12 @@ else
 	crontab ${PWD}/cron/crontab.sub
 endif
 
-dropbox-resume-watch: ## dropbox-resume-watch.service のリンク作成+有効化（P1は模擬テスト環境として意図的に有効化）
+dropbox-watch: ## dropbox-watch.service のリンク作成+有効化（P1は模擬テスト環境として意図的に有効化）
 	$(APT) libnet-dbus-perl
 	mkdir -p ${HOME}/.config/systemd/user
-	ln -vsf ${PWD}/.config/systemd/user/dropbox-resume-watch.service ${HOME}/.config/systemd/user/dropbox-resume-watch.service
+	ln -vsf ${PWD}/.config/systemd/user/dropbox-watch.service ${HOME}/.config/systemd/user/dropbox-watch.service
 	systemctl --user daemon-reload
-	systemctl --user enable --now dropbox-resume-watch.service
+	systemctl --user enable --now dropbox-watch.service
 
 ########################################################
 ## パッケージ・ツール・フォント
