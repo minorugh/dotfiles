@@ -26,12 +26,12 @@ my $service = $bus->get_service("org.freedesktop.login1");
 my $manager = $service->get_object(
     "/org/freedesktop/login1",
     "org.freedesktop.login1.Manager",
-);
+    );
 
 $manager->connect_to_signal("PrepareForSleep", sub {
     my ($sleeping) = @_;
     restart_dropbox() unless $sleeping;
-});
+			    });
 
 Net::DBus::Reactor->main->run;
 
@@ -42,7 +42,7 @@ sub restart_dropbox {
     sleep 10;
     system("pkill", "-x", "dropbox");
     sleep 3;
-    system("dropbox start >/dev/null 2>&1 &");
+    system("dropbox", "start");
 
     my $ts = strftime("%Y-%m-%d %H:%M:%S", localtime);
     open(my $log, '>>', $LOGFILE) or die "log write failed: $!";
@@ -61,8 +61,9 @@ sub rotate_log {
     my @lines = <$fh>;
     close $fh;
     if (@lines > 1000) {
-        open(my $out, '>', $LOGFILE) or return;
-        print $out @lines[-200..$#lines];
-        close $out;
+	open(my $out, '>', $LOGFILE) or return;
+	# 配列の後ろから200件を取得
+	print $out @lines[@lines-200 .. $#lines];
+	close $out;
     }
 }
