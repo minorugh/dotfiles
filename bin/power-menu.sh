@@ -62,7 +62,7 @@ CHOICE=$( (
             echo "1. SLEEP"
             echo "2. POWEROFF"
             echo "3. REBOOT"
-            echo "4. BACKUP $BACKUP_STATUS"
+            echo "4. XSRV BACKUP $BACKUP_STATUS"
             echo "5. CHECK ENV_GPG"
             echo "6. VE (Open ~/.emacs.d in Vim)"
             echo "7. XSRV"

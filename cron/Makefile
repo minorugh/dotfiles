@@ -12,8 +12,6 @@
 ##
 ## crontab編集:   make cron-edit
 ## crontab反映:   make cron-update
-## 緊急停止:      make cron-stop
-## 再開:          make cron-start
 ## dropbox-watch停止: make dropbox-watch-stop
 ## dropbox-watch再開: make dropbox-watch-start
 ## dropbox-watch反映: make dropbox-watch-reload
@@ -43,14 +41,6 @@ cron-update: ## 編集した crontab を反映（日付更新→適用→確認�
 	sed -i "1s|^# .* update$$|# $$(date +%F) update|" $(CRONTAB_FILE)
 	crontab $(CRONTAB_FILE)
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
-
-cron-stop: ## xsrv-backup.sh の定時実行を停止
-	touch $(HOME)/.xsrv-backup-stop
-	@echo "##> xsrv-backup: stopped." >&2
-
-cron-start: ## xsrv-backup.sh の定時実行を再開
-	rm -f $(HOME)/.xsrv-backup-stop
-	@echo "##> xsrv-backup: started." >&2
 
 dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
 	systemctl --user stop dropbox-watch.service
