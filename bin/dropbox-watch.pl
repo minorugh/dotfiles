@@ -18,6 +18,24 @@ use POSIX qw(strftime);
 my $LOGFILE = "$ENV{HOME}/.cache/dropbox-watch.log";
 
 # ------------------------------------------------------------
+# メイン: システムD-Busに接続し、PrepareForSleepシグナルを購読して待機
+# sleeping=1: サスペンド開始直前 / 0: 復帰直後（復帰時のみ反応する）
+# ------------------------------------------------------------
+my $bus     = Net::DBus->system;
+my $service = $bus->get_service("org.freedesktop.login1");
+my $manager = $service->get_object(
+    "/org/freedesktop/login1",
+    "org.freedesktop.login1.Manager",
+);
+
+$manager->connect_to_signal("PrepareForSleep", sub {
+    my ($sleeping) = @_;
+    restart_dropbox() unless $sleeping;
+});
+
+Net::DBus::Reactor->main->run;
+
+# ------------------------------------------------------------
 # Dropbox 再起動処理
 # ------------------------------------------------------------
 sub restart_dropbox {
@@ -48,21 +66,3 @@ sub rotate_log {
         close $out;
     }
 }
-
-# ------------------------------------------------------------
-# メイン: システムD-Busに接続し、PrepareForSleepシグナルを購読して待機
-# sleeping=1: サスペンド開始直前 / 0: 復帰直後（復帰時のみ反応する）
-# ------------------------------------------------------------
-my $bus     = Net::DBus->system;
-my $service = $bus->get_service("org.freedesktop.login1");
-my $manager = $service->get_object(
-    "/org/freedesktop/login1",
-    "org.freedesktop.login1.Manager",
-);
-
-$manager->connect_to_signal("PrepareForSleep", sub {
-    my ($sleeping) = @_;
-    restart_dropbox() unless $sleeping;
-});
-
-Net::DBus::Reactor->main->run;
