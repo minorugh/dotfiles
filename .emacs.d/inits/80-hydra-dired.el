@@ -44,6 +44,7 @@
    (";" my-open-xsrv-2pane-minorugh)
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
+   ("D" my-dropbox-restart)
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
@@ -125,10 +126,11 @@
     (interactive)
     (start-process-shell-command
      "dropbox-restart" nil
-     "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1"))
+     "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1")
+    (message "Dropbox restarted."))
 
   (defun my-env-recover ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, and restart Dropbox sync."
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (let ((keychain-file (expand-file-name
@@ -140,8 +142,7 @@
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
             (setenv (match-string 1)
                     (match-string 2))))))
-    (my-dropbox-restart)
-    (message "xmodmap + SSH_AUTH_SOCK reloaded & Dropbox restarted."))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded."))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
