@@ -66,9 +66,6 @@ autobackup: ## autobackup.sh を今すぐ手動実行
 emacs-trash: ## emacs-trash-sweep.sh を今すぐ手動実行
 	/usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
 
-xsrv-log: ## xsrv-backup ログ表示
-	emacsclient -n -e '(progn (find-file "/tmp/xsrv-backup.log")(goto-char (point-max)) (delete-other-windows))'
-
 xsrv-run: ## xsrv-backup を今すぐ手動実行
 	/usr/local/bin/xsrv-backup.sh
 
