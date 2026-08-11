@@ -22,15 +22,6 @@ HOSTNAME       := $(shell hostname)
 
 all: xsrv-log
 
-cron-log: ## cron 実行ログ表示
-	emacsclient -n -e '(progn (find-file "/tmp/cron.log")(goto-char (point-max)) (delete-other-windows))'
-
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-CRONTAB_FILE := crontab.p1
-else
-CRONTAB_FILE := crontab.sub
-endif
-
 cron-edit-p1: ## crontab.p1 を編集（P1上で作業。反映は make cron-update）
 	gnome-terminal -- bash -c "nano ${PWD}/crontab.p1; exec bash"
 
