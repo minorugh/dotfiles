@@ -18,16 +18,55 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 /usr/local/bin/emacs-toggle → bin/emacs-toggle
 ```
 
-### emacs-start.sh
-Emacs 起動用ラッパー。autostart.sh から呼び出される。
+### dropbox-watch.sh
+サブ機(x250)専用。サスペンド復帰後にDropbox同期が「同期中…」のまま
+固まる問題への対策。`dropbox status`の文字列は固まっていても
+「最新の状態」と誤った自己申告をすることがあると判明したため、
+ステータス判定には頼らず、cronの実行間隔そのものでサスペンドを検知する
+heartbeat方式を採用している。
 
-keychain の SSH agent 環境変数を明示的に読み込んでから、
-`zsh -lc` 経由（ログインシェルを通す）で `emacs --maximized` を起動する。
-PATH が autostart 実行時に `.zshrc` から正しく引き継がれない問題への対処。
+cron（1分おき、`sleep 30;`を前置）から実行するたびに現在時刻を`heartbeat`
+ファイルへ書き込み、前回書き込みからの間隔（gap）が`GAP_THRESHOLD`
+（120秒）以上開いていたら「サスペンドがあった」とみなし、`dropbox status`
+を確認せず無条件で`pkill -x dropbox; sleep 3; dropbox start -i`を実行する。
 
-```bash
-/usr/local/bin/emacs-start.sh → bin/emacs-start.sh
-```
+2026-08-11、`dropbox-resume-watch.py`（D-Bus即応版、下記参照）と併用開始。
+cron側に`sleep 30;`を前置することで、pyが先に処理して`heartbeat`を更新
+していればgapが小さく判定されスルーする。pyが失敗した場合のみ、本来の
+gap検知で単独フォールバックする（本体ロジックは無改修）。
+
+他のスクリプトと異なり `/usr/local/bin` 等へのリンクは作らず、
+`bin/dropbox-watch.sh`をフルパスのまま利用する（cron専用）。
+
+- スクリプト本体はdotfiles管理下（メイン機で編集・git push、サブ機はgit pullのみ）
+- cron登録は`dotfiles/cron/crontab.sub`で管理（メイン機で編集→push→サブ機で
+  `make cron-update`）。メイン機はサスペンド運用がないため未登録
+- ログ: `~/.cache/dropbox-watch.log`
+- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`（`dropbox-resume-watch.py`と共有）
+
+### dropbox-resume-watch.py
+`dropbox-watch.sh`の補助役。systemd-logindが発する`PrepareForSleep`
+シグナルを、D-Busの正規購読機構（`add_signal_receiver`、eavesdropping
+方式ではない）で受信し、サスペンド復帰の瞬間に即座にDropboxを再起動する。
+`dropbox-watch.sh`は毎分ポーリングのため2分未満の短時間復帰を取りこぼす
+弱点があり、それを補うために2026-08-11導入。
+
+再起動処理の完了後に`~/.cache/dropbox-watch.heartbeat`（sh側と共有）を
+更新することで、後発のcronジョブに「対応済み」と伝え、二重起動を防ぐ。
+watchdog等の自己監視機構は持たない軽量構成（pyが失敗しても、sh側が
+通常のgap検知で必ず拾うため）。
+
+`/usr/local/bin`等へのリンクは作らず、systemd --userサービスとして
+`~/.config/systemd/user/dropbox-resume-watch.service`から
+dotfilesリポジトリ内のパスを直接参照して常駐する。
+
+- 依存パッケージ: `python3-dbus` `python3-gi`（`make dropbox-resume-watch`
+  でインストール、多くの場合Dropbox本体・印刷設定等の依存で既に導入済み）
+- ログ: `~/.cache/dropbox-watch.log`（sh側と共通）
+- 状態ファイル: `~/.cache/dropbox-watch.heartbeat`（sh側と共有）
+- サービス管理: `make -C cron dropbox-watch-stop` / `dropbox-watch-start`
+- クリーンリストア: `make dropbox-resume-watch`（ルートMakefile、
+  `baseinstall`に組込済み。P1は模擬テスト環境として意図的に有効化）
 
 ### filezilla.sh
 FileZilla を SSH エージェント付きで起動するラッパー。
@@ -143,3 +182,5 @@ cron（1分おき）から実行するたびに現在時刻を`heartbeat`ファ�
 | power-menu.sh | `make power-menu` |
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
+| dropbox-resume-watch.py | `make dropbox-resume-watch` |
+

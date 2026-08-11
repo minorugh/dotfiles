@@ -9,9 +9,6 @@
 #
 # 実行方法: systemd --user サービスとして常駐させる（sudo不要）
 #
-# Author: Minoru Yamada (aodamo)
-# Created: 2026-08-10
-#
 import subprocess
 import time
 from datetime import datetime
@@ -22,7 +19,7 @@ import dbus.mainloop.glib
 from gi.repository import GLib
 
 LOGFILE = Path.home() / ".cache" / "dropbox-watch.log"
-HEARTBEAT_FILE = Path.home() / ".cache" / "dropbox-watch.heartbeat"  # sh と共有
+HEARTBEAT_FILE = Path.home() / ".cache" / "dropbox-watch.heartbeat"  # dropbox-watch.sh と共有
 
 
 def restart_dropbox():
@@ -35,7 +32,7 @@ def restart_dropbox():
         stderr=subprocess.DEVNULL,
     )
 
-    # 再起動完了後に heartbeat を更新 → sh 側は「対処済み」とみなしスルーする
+    # 再起動完了後に heartbeat を更新 → dropbox-watch.sh による重複起動を避けるための処理
     HEARTBEAT_FILE.write_text(str(int(time.time())))
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOGFILE, "a") as f:

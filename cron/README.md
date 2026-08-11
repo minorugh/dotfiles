@@ -10,9 +10,13 @@
 - 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
 - サブ機 (X250) ではスキップ（サブ機は dotfiles 自体を編集しない運用のため、
   crontab も dotfiles 管理下に置かない）
-- 例外: `dropbox-watch.sh`（サブ機専用、サスペンド復帰対策）はこの管理体系の
-  対象外。スクリプト本体は dotfiles 経由でサブ機へ配布されるが、cron登録は
-  サブ機上で直接 `crontab -e` して行う（詳細は `bin/README.md` 参照）
+- 例外: `dropbox-watch.sh`（サブ機専用、サスペンド復帰対策）は
+  `dotfiles/cron/crontab.sub`で管理する（メイン機で編集→push→サブ機でpullの後
+  `make cron-update`）。2026-08-11以降は`dropbox-resume-watch.py`
+  （D-Bus即応版、systemd --user常駐）と併用しており、両者は
+  `~/.cache/dropbox-watch.heartbeat`を共有して二重起動を防いでいる。
+  詳細は`bin/README.md`参照。手動停止/再開は本ディレクトリの
+  `make dropbox-watch-stop` / `dropbox-watch-start`から行う
 - 既存 crontab はバックアップし、dotfiles の crontab で上書き
 - `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
   自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
@@ -46,8 +50,10 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 
-# Dropbox同期停止をチェックし、サスペンド復帰を検知したら自動再起動（毎分・heartbeat方式）
-* * * * * /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh >> /tmp/cron.log 2>&1
+# Dropbox同期停止をチェックし、サスペンド復帰を検知したら自動再起動
+# （毎分・heartbeat方式。sleep 30 は dropbox-resume-watch.py に先手を
+# 譲るための猶予。py が既に heartbeat を更新済みならこのジョブは無言でスルーする）
+* * * * * sleep 30; /home/minoru/src/github.com/minorugh/dotfiles/bin/dropbox-watch.sh >> /tmp/cron.log 2>&1
 ```
 
 ---
@@ -211,6 +217,9 @@ cron-edit:    # crontab を編集（dotfiles/cron/crontab を直接編集）
 cron-update:  # 編集した crontab を反映（バックアップ→適用→確認）
 cron-stop:    # xsrv-backup 緊急停止（~/.xsrv-backup-stop を作成）
 cron-start:   # xsrv-backup 再開（~/.xsrv-backup-stop を削除）
+
+dropbox-watch-stop:  # dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
+dropbox-watch-start: # dropbox-resume-watch.service を再開
 
 automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル実行）
 autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）

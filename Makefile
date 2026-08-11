@@ -197,6 +197,7 @@ else
 endif
 
 dropbox-resume-watch: ## dropbox-resume-watch.service のリンク作成+有効化（P1は模擬テスト環境として意図的に有効化）
+	$(APT) python3-dbus python3-gi
 	mkdir -p ${HOME}/.config/systemd/user
 	ln -vsf ${PWD}/.config/systemd/user/dropbox-resume-watch.service ${HOME}/.config/systemd/user/dropbox-resume-watch.service
 	systemctl --user daemon-reload
