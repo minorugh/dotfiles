@@ -16,6 +16,7 @@
 ## 再開:          make cron-start
 ## dropbox-watch停止: make dropbox-watch-stop
 ## dropbox-watch再開: make dropbox-watch-start
+## dropbox-watch反映: make dropbox-watch-reload
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -58,6 +59,13 @@ dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap
 dropbox-watch-start: ## dropbox-resume-watch.service を再開
 	systemctl --user start dropbox-watch.service
 	@echo "##> dropbox-watch: started" >&2
+
+dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
+	perl -c ${PWD}/../bin/dropbox-watch.pl
+	systemctl --user daemon-reload
+	systemctl --user restart dropbox-watch.service
+	@echo "##>" >&2
+	systemctl --user status dropbox-watch.service
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
