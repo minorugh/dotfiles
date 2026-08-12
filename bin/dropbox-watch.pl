@@ -45,7 +45,7 @@ sub restart_dropbox {
 
     sleep 8;
     system("pkill", "-x", "dropbox");
-    sleep 2;
+    sleep 1;
     system("dropbox", "start");
     sleep 1;
 
