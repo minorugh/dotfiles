@@ -39,9 +39,9 @@ Net::DBus::Reactor->main->run;
 # Dropbox 再起動処理
 # ------------------------------------------------------------
 sub restart_dropbox {
-    sleep 10;
+    sleep 8;
     system("pkill", "-x", "dropbox");
-    sleep 3;
+    sleep 2;
     system("dropbox", "start");
 
     my $ts = strftime("%Y-%m-%d %H:%M:%S", localtime);
