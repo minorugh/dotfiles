@@ -5,10 +5,6 @@
 # systemd-logindの PrepareForSleepシグナルを D-Busの正規購読で監視し、
 # サスペンドからの復帰を検知したら Dropboxを再起動する。
 #
-# 再起動前後の PIDを比較し、PIDが変化したことを再起動成功の判定子とする。
-# 再起動に失敗した場合は自身を終了し、systemdの Restart=alwaysに委ねる。
-# 一般ユーザー権限で動作し、systemd --user サービスとして常駐させる。
-#
 use strict;
 use warnings;
 use Net::DBus;
@@ -49,6 +45,9 @@ sub restart_dropbox {
     my $new_pid = `pgrep -x dropbox`;
     chomp $new_pid;
 
+    # 再起動前後の PIDを比較し、PIDが変化したことを再起動成功の判定子とする。
+    # 再起動に失敗した場合は自身を終了し、systemdの Restart=alwaysに委ねる。
+    # 一般ユーザー権限で動作し、systemd --user サービスとして常駐させる。
     if ($new_pid eq '' || $new_pid eq $old_pid) {
         write_log("dropbox restart FAILED (pid unchanged: $old_pid)");
         die "dropbox restart failed (pid unchanged: $old_pid)\n";
