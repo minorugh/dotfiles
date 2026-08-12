@@ -39,14 +39,28 @@ Net::DBus::Reactor->main->run;
 # Dropbox 再起動処理
 # ------------------------------------------------------------
 sub restart_dropbox {
+    # pkill前のdropboxのPIDを記録しておく（再起動できたかどうかの判定に使う）
+    my $old_pid = `pgrep -x dropbox`;
+    chomp $old_pid;
+
     sleep 10;
     system("pkill", "-x", "dropbox");
     sleep 3;
     system("dropbox", "start");
+    sleep 2;
+
+    # dropbox start後のPIDを取得
+    my $new_pid = `pgrep -x dropbox`;
+    chomp $new_pid;
+
+    # PIDが取得できない、または再起動前と同じPIDのままなら再起動失敗とみなし、
+    # 強制終了してsystemd（Restart=always）による自動再起動に委ねる
+    die "dropbox restart failed (pid unchanged: $old_pid)\n"
+        if $new_pid eq '' || $new_pid eq $old_pid;
 
     my $ts = strftime("%Y-%m-%d %H:%M:%S", localtime);
     open(my $log, '>>', $LOGFILE) or die "log write failed: $!";
-    print $log "$ts dropbox restarted (resume detected via dbus)\n";
+    print $log "$ts dropbox restarted (pid $old_pid -> $new_pid)\n";
     close $log;
 
     rotate_log();
