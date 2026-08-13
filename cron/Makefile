@@ -37,12 +37,10 @@ dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap
 	systemctl --user stop dropbox-watch.service
 	@echo "##> dropbox-watch: stopped (cron gap-watch のみで稼働中)" >&2
 
-dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status→dropbox復旧）
+dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
 	perl -c ${PWD}/../bin/dropbox-watch.pl
 	systemctl --user daemon-reload
 	systemctl --user restart dropbox-watch.service
-	sleep 2
-	pgrep -x dropbox > /dev/null || dropbox start
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
 
