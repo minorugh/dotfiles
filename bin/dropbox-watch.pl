@@ -14,7 +14,7 @@ use POSIX qw(strftime);
 my $LOGFILE = "$ENV{HOME}/.cache/dropbox-watch.log";
 
 # ------------------------------------------------------------
-# メイン: D-Busに接続して PrepareForSleepシグナルを購読して待機
+# メイン: D-Busに接続し PrepareForSleepシグナルを購読して待機
 # ------------------------------------------------------------
 my $bus     = Net::DBus->system;
 my $service = $bus->get_service("org.freedesktop.login1");
