@@ -57,7 +57,10 @@ sub restart_dropbox {
         exit 1;
     }
 
-    write_log("dropbox restarted (pid $old_pid -> $new_pid)");
+    my $dir_count = `find "$ENV{HOME}/Dropbox" -type d | wc -l`;
+    chomp $dir_count;
+
+    write_log("dropbox restarted (pid $old_pid -> $new_pid, dirs $dir_count)");
 }
 
 # ------------------------------------------------------------
