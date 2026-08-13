@@ -22,6 +22,13 @@
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
 
+# cron-update が反映するファイル（実行ホストに応じて自動判定）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+CRONTAB_FILE   := crontab.p1
+else
+CRONTAB_FILE   := crontab.sub
+endif
+
 all: xsrv-log
 
 cron-edit-p1: ## crontab.p1 を編集（P1上で作業。反映は make cron-update）

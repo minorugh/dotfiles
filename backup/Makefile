@@ -55,6 +55,8 @@ zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 abook-backup:  ## ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 	/usr/local/bin/abook-backup.sh
 
+dropbox-restart-p1:  ## Dropbox 強制再起動+サイズ記録
+	${HOME}/src/github.com/minorugh/dotfiles/bin/dropbox-restart-p1.sh
 
 readmes-backup: ## 各所のREADMEをDropbox/READMESにコピー
 	@mkdir -p ${HOME}/Dropbox/READMES

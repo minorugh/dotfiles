@@ -57,11 +57,7 @@ sub restart_dropbox {
         exit 1;
     }
 
-    my $size = `du -s -B1 "$ENV{HOME}/Dropbox"`;
-    my ($bytes) = $size =~ /^(\d+)/;
-    my $gb = sprintf("%.1f", $bytes / 1024**3);
-
-    write_log("dropbox restarted (pid $old_pid -> $new_pid, size ${gb}GB)");
+    write_log("dropbox restarted (pid $old_pid -> $new_pid)");
 
 }
 

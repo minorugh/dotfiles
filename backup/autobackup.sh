@@ -71,6 +71,7 @@ run_target "gitea"       gitea-backup
 run_target "filezilla"   filezilla-backup
 run_target "abook"       abook-backup
 run_target "readmes"     readmes-backup
+run_target "dropbox"     dropbox-restart-p1.sh
 
 rm -f "$TMPLOG"
 
