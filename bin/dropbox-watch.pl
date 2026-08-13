@@ -4,7 +4,6 @@
 #
 # systemd-logindの PrepareForSleepシグナルを D-Busの正規購読で監視。
 # サスペンドからの復帰を検知したら Dropboxを再起動する。
-# 一般ユーザー権限で動作し systemd --user サービスとして常駐させる。
 #
 use strict;
 use warnings;
