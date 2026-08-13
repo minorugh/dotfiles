@@ -3,6 +3,7 @@
 ## 作成: 2026-04-09
 ## 更新: 2026-06-16 systemd timer 廃止、cron に移行
 ## 更新: 2026-06-20 automerge / autobackup --check オプション追加
+## 更新: 2026-08-13 dropbox-watch-log ターゲット追加
 ##
 ## --- compilation バッファー表示ルール ----------------------------
 ## @echo "##>" >&2          → 全画面表示（q で閉じる）※出力を確認したいターゲット
@@ -15,7 +16,8 @@
 ## dropbox-watch停止: make dropbox-watch-stop
 ## dropbox-watch再開: make dropbox-watch-start
 ## dropbox-watch反映: make dropbox-watch-reload
-
+## dropbox-watchログ確認: make dropbox-watch-log
+#
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -44,9 +46,8 @@ dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チ�
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
 
-dropbox-watch-log: ## dropbox-watch.log を表示（直近50行、サイズ記録込み）
-	@echo "##>" >&2
-	tail -n 20 $$HOME/.cache/dropbox-watch.log
+dropbox-watch-log: ## dropbox-watch.log を別ターミナルで tail -f 表示（make はすぐ終了）
+	gnome-terminal -- bash -c "tail -n 20 -f $$HOME/.cache/dropbox-watch.log; exec bash"
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
