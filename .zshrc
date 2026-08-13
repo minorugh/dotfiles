@@ -249,7 +249,7 @@ function eq() {
 }
 
 # Show dropbox-watch.log
-function dw() {
+function dwl() {
     tail -n 20 -f ~/.cache/dropbox-watch.log
 }
 
