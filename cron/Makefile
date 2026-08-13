@@ -46,7 +46,7 @@ dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チ�
 
 dropbox-watch-log: ## dropbox-watch.log を表示（直近50行、サイズ記録込み）
 	@echo "##>" >&2
-	tail -n 50 $$HOME/.cache/dropbox-watch.log
+	tail -n 20 $$HOME/.cache/dropbox-watch.log
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
