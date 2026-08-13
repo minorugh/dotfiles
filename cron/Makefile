@@ -46,13 +46,6 @@ dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チ�
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
 
-dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
-	perl -c ${PWD}/../bin/dropbox-watch.pl
-	systemctl --user daemon-reload
-	systemctl --user restart dropbox-watch.service
-	@echo "##>" >&2
-	systemctl --user status dropbox-watch.service
-
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 
