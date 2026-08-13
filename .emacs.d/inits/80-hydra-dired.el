@@ -129,6 +129,12 @@
      "pkill -x dropbox; sleep 3; dropbox start -i > /dev/null 2>&1")
     (message "Dropbox restarted."))
 
+  (defun my-dropbox-watch-log ()
+  "Show dropbox-watch.log in a new terminal (tail -f dwlog)."
+  (interactive)
+  (start-process "dropbox-watch-log" nil
+                 "gnome-terminal" "--" "zsh" "-ic" "dwlog"))
+
   (defun my-env-recover ()
     "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
     (interactive)

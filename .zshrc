@@ -248,6 +248,11 @@ function eq() {
     emacs -q -l ~/.emacs.d/init-mini.el
 }
 
+# Show dropbox-watch.log
+function dwlog() {
+    tail -n 20 -f ~/.cache/dropbox-watch.log
+}
+
 # Restore configuration changes to the last saved state.
 # In this environment, "saved" means make git (commit + push).
 function gitb() {
