@@ -130,10 +130,10 @@
     (message "Dropbox restarted."))
 
   (defun my-dropbox-watch-log ()
-  "Show dropbox-watch.log in a new terminal (tail -f dwlog)."
+  "Show dropbox-watch.log in a new terminal (tail -f dwl)."
   (interactive)
   (start-process "dropbox-watch-log" nil
-                 "gnome-terminal" "--" "zsh" "-ic" "dwlog"))
+                 "gnome-terminal" "--" "zsh" "-ic" "dwl"))
 
   (defun my-env-recover ()
     "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
