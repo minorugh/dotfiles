@@ -185,7 +185,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
   (setq ps-printer-name      nil)
   (setq ps-print-header      nil)
   (setq ps-print-footer      nil)
-  (setq ps-font-size         9)
+  (setq ps-font-size         9.5)
   (setq ps-font-family      'Courier)
   (setq ps-line-number-font 'Courier)
   (setq ps-line-number       t)
