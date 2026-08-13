@@ -27,6 +27,7 @@ $manager->connect_to_signal("PrepareForSleep", sub {
     my ($sleeping) = @_;
     restart_dropbox() unless $sleeping;
                             });
+
 Net::DBus::Reactor->main->run;
 
 # ------------------------------------------------------------
