@@ -53,9 +53,6 @@ dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チ�
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
 
-dropbox-watch-log: ## dropbox-watch.log を別ターミナルで tail -f 表示（make はすぐ終了）
-	gnome-terminal -- bash -c "tail -n 20 -f $$HOME/.cache/dropbox-watch.log; exec bash"
-
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 
