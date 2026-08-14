@@ -41,11 +41,11 @@ sub restart_dropbox {
     my $old_pid = `pgrep -x dropbox`;
     chomp $old_pid;
 
-    sleep 8;
+    sleep 6;
     system("pkill", "-x", "dropbox");
-    sleep 1;
+    sleep 2;
     system("dropbox", "start");
-    sleep 1;
+    sleep 2;
 
     my $new_pid = `pgrep -x dropbox`;
     chomp $new_pid;
