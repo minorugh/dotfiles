@@ -224,6 +224,9 @@ even though no real `compile' process is involved."
 
 (leaf *make-target
   :after ivy
+  :config
+  ;; @ ピッカーの時だけミニバッファを高くする(他の ivy-read には影響しない)
+  (add-to-list 'ivy-height-alist '(my-make-ivy-integrated . 20))
   :preface
   ;; Resolve Makefile path from dired, buffer file, or default-directory
   (defun my-make--find-makefile ()
@@ -294,6 +297,7 @@ even though no real `compile' process is involved."
                                 (switch-to-buffer orig-buf)
                                 (goto-char orig-point)
                                 (recenter)))
+		    :update-fn 'auto
                     :caller 'my-make-ivy-integrated))))))
 
 

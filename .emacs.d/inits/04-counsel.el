@@ -13,6 +13,7 @@
   :bind (("C-:"     . counsel-switch-buffer)
          ("C-x C-f" . counsel-find-file)
          ("C-x f"   . counsel-find-file)
+         ("C-x m"   . counsel-imenu)
          ("C-x g"   . counsel-git)         ; プロジェクト内のファイルを検索
          ("s-a"     . counsel-git-grep)    ; プロジェクト内を全文検索 (ag の代わり)
          ("M-x"     . counsel-M-x)
@@ -22,6 +23,8 @@
   (setq search-default-mode             nil)
   (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
   (setq ivy-format-functions-alist      '((t . my-ivy-format-function-arrow)))
+  (ivy-configure 'counsel-imenu :update-fn 'auto)
+  (add-to-list 'ivy-height-alist '(counsel-imenu . 20))
 
   (defun my-ivy-format-function-arrow (cands)
     "Transform CANDS into a string for the minibuffer with a chevron indicator."

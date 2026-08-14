@@ -246,6 +246,7 @@
     (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
     (keymap-set m ";" #'comment-line)          ; コメントトグル
     (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+    (keymap-set m "i" #'counsel-imenu)         ; imenu picker
     (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
     (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
     (keymap-set m "@" #'my-insert-maru))       ; 行頭に ◎ 挿入（俳句選者用）

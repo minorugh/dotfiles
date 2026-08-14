@@ -130,7 +130,6 @@
   :hook ((find-file-hook . my-view-mode-maybe)
          (find-file-hook . my-read-only-maybe))
   :bind (("C-x b" . ibuffer)
-         ("C-x m" . counsel-imenu)
          ("M-,"   . xref-find-definitions)
          ("M-w"   . clipboard-kill-ring-save)
          ("C-w"   . my-clipboard-kill-region)

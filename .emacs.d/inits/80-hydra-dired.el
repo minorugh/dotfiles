@@ -29,7 +29,7 @@
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^
   _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_
 "
-   ("x" my-env-recover)
+   ("x" my-env-rcv-make-launch)
    ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
@@ -120,8 +120,14 @@
   ;; [ -f "$HOME/.keychain/$(hostname)-sh" ] && source "$HOME/.keychain/$(hostname)-sh"
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
-  (defun my-env-recover ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
+  (defun my-launch-cron ()
+    "Open the Makefile in `dotfiles/cron` to immediately launch the target picker."
+    (interactive)
+    (find-file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
+    (my-make-ivy-integrated))
+
+  (defun my-env-rcv-make-launch ()
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, make launch cron."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (let ((keychain-file (expand-file-name
@@ -133,7 +139,9 @@
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
             (setenv (match-string 1)
                     (match-string 2))))))
-    (message "xmodmap + SSH_AUTH_SOCK reloaded."))
+    (message "xmodmap + SSH_AUTH_SOCK reloaded.")
+    (sit-for 1)
+    (my-launch-cron))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
