@@ -29,7 +29,8 @@
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^
   _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_
 "
-   ("x" my-env-rcv-make-launch)
+   ("x" my-env-recover)
+   ("^" my-make-launch-cron)
    ("@" browse-at-remote)
    ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics)
@@ -120,14 +121,14 @@
   ;; [ -f "$HOME/.keychain/$(hostname)-sh" ] && source "$HOME/.keychain/$(hostname)-sh"
   ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
-  (defun my-launch-cron ()
+  (defun my-make-launch-cron ()
     "Open the Makefile in `dotfiles/cron` to immediately launch the target picker."
     (interactive)
     (find-file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
     (my-make-ivy-integrated))
 
-  (defun my-env-rcv-make-launch ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file, make launch cron."
+  (defun my-env-recover ()
+    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (let ((keychain-file (expand-file-name
@@ -139,116 +140,114 @@
           (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
             (setenv (match-string 1)
                     (match-string 2))))))
-    (message "xmodmap + SSH_AUTH_SOCK reloaded.")
-    (sit-for 1)
-    (my-launch-cron))
+    (message "ENV RECOVERED: xmodmap + SSH_AUTH_SOCK"))
 
-  (defun keepassxc ()
-    "Open KeePassXC via keepass.sh, detached from Emacs."
-    (interactive)
-    (call-process "setsid" nil 0 nil "keepassxc.sh"))
+    (defun keepassxc ()
+      "Open KeePassXC via keepass.sh, detached from Emacs."
+      (interactive)
+      (call-process "setsid" nil 0 nil "keepassxc.sh"))
 
-  (defun filezilla (&optional site)
-    "Open FileZilla with SITE, detached from Emacs.
+    (defun filezilla (&optional site)
+      "Open FileZilla with SITE, detached from Emacs.
 SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
+      (interactive)
+      (let* ((sites '(("g" . "0/gospel-haiku.com")
+                      ("m" . "0/minorugh.com")
+                      ("s" . "-s")))
+             (arg  (or (cdr (assoc site sites)) "-s"))
+             (args (if (string= arg "-s")
+                       '("-s")
+                     (list (format "--site=%s" arg)))))
+	(apply #'call-process "setsid" nil 0 nil "filezilla" args))))
+
+
+  ;; ============================================================
+  ;;  Hydra Work  (俳句作業メニュー)
+  ;; ============================================================
+
+  (defun my-hydra-work ()
+    "Disable mozc if active, leave `evil-emacs-state', then open hydra-work."
     (interactive)
-    (let* ((sites '(("g" . "0/gospel-haiku.com")
-                    ("m" . "0/minorugh.com")
-                    ("s" . "-s")))
-           (arg  (or (cdr (assoc site sites)) "-s"))
-           (args (if (string= arg "-s")
-                     '("-s")
-                   (list (format "--site=%s" arg)))))
-      (apply #'call-process "setsid" nil 0 nil "filezilla" args))))
+    (when current-input-method
+      (toggle-input-method))
+    (unless (evil-normal-state-p)
+      (evil-normal-state))
+    (hydra-work/body))
 
+  (with-eval-after-load 'mozc
+    (keymap-set mozc-mode-map "<f14>" #'my-hydra-work))
 
-;; ============================================================
-;;  Hydra Work  (俳句作業メニュー)
-;; ============================================================
-
-(defun my-hydra-work ()
-  "Disable mozc if active, leave `evil-emacs-state', then open hydra-work."
-  (interactive)
-  (when current-input-method
-    (toggle-input-method))
-  (unless (evil-normal-state-p)
-    (evil-normal-state))
-  (hydra-work/body))
-
-(with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<f14>" #'my-hydra-work))
-
-(leaf *hydra-work
-  :after evil
-  :bind ("<f14>" . my-hydra-work)
-  :hydra
-  (hydra-work
-   (:hint nil :exit t :body-pre (require 'my-template))
-   "
+  (leaf *hydra-work
+    :after evil
+    :bind ("<f14>" . my-hydra-work)
+    :hydra
+    (hydra-work
+     (:hint nil :exit t :body-pre (require 'my-template))
+     "
  Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
 "
-   ("+" text-scale-adjust)
-   ("c" my-capitalize-word)
-   ("u" my-upcase-word)
-   ("o" my-downcase-word)
-   ("n" yas-new-snippet)
-   ("v" yas-visit-snippet-file)
-   ("i" yas-insert-snippet)
-   ("p" ps-print-buffer)
-   ("P" ps-print-region)
-   ("y" (my-open "~/Dropbox/GH/year/%Y.txt" :pos -10))
-   (":" (my-open "~/Dropbox/GH/year/draft.dat" :pos 1))
-   ("Y" my-year-new-post)
-   ("M" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" :pos 'top))
-   ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
-   ("A" my-apvoice-new-post)
-   ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
-   ("e" easy-hugo)
-   ("j" (my-open "~/Dropbox/howm/junk/"))
-   ("h" (my-open "~/Dropbox/howm/"))
-   ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
-   ("D" my-diary-new-post)
-   ("g" gist-region-or-buffer)
-   ("G" (browse-url "https://gist.github.com/minorugh"))
-   ("l" my-open-lepton)
-   ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
-   ("T" my-teirei-new-post)
-   ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
-   ("S" my-swan-new-post)
-   ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
-   ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
-   ("w" (my-open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" :pos 'top))
-   ("f" (my-open "~/Dropbox/GH/d_selext/select.txt" :pos 'top))
-   ("F" my-dselext-new-post)
-   ("]" my-haiku-note)
-   ("[" my-haiku-note-post)
-   ("q" top-level)
-   ("<f14>"     hydra-dired/body)
-   ("<henkan>"  hydra-dired/body)
-   ("<muhenkan>" nil))
-  :init
-  ;; ------------------------------------------------------------
-  ;;  Word Case Helpers
-  ;; ------------------------------------------------------------
-  (defun my-upcase-word (arg)
-    "Convert previous word (or ARG words) to upper case."
-    (interactive "p")
-    (upcase-word (- arg)))
+     ("+" text-scale-adjust)
+     ("c" my-capitalize-word)
+     ("u" my-upcase-word)
+     ("o" my-downcase-word)
+     ("n" yas-new-snippet)
+     ("v" yas-visit-snippet-file)
+     ("i" yas-insert-snippet)
+     ("p" ps-print-buffer)
+     ("P" ps-print-region)
+     ("y" (my-open "~/Dropbox/GH/year/%Y.txt" :pos -10))
+     (":" (my-open "~/Dropbox/GH/year/draft.dat" :pos 1))
+     ("Y" my-year-new-post)
+     ("M" (my-open "~/Dropbox/GH/m_select/tex/mkukai.txt" :pos 'top))
+     ("a" (my-open "~/Dropbox/GH/apvoice/apvoice.txt" :pos 'top :emacs))
+     ("A" my-apvoice-new-post)
+     ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
+     ("e" easy-hugo)
+     ("j" (my-open "~/Dropbox/howm/junk/"))
+     ("h" (my-open "~/Dropbox/howm/"))
+     ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
+     ("D" my-diary-new-post)
+     ("g" gist-region-or-buffer)
+     ("G" (browse-url "https://gist.github.com/minorugh"))
+     ("l" my-open-lepton)
+     ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
+     ("T" my-teirei-new-post)
+     ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
+     ("S" my-swan-new-post)
+     ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
+     ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
+     ("w" (my-open "~/Dropbox/GH/w_select/tex/minoru_sen.txt" :pos 'top))
+     ("f" (my-open "~/Dropbox/GH/d_selext/select.txt" :pos 'top))
+     ("F" my-dselext-new-post)
+     ("]" my-haiku-note)
+     ("[" my-haiku-note-post)
+     ("q" top-level)
+     ("<f14>"     hydra-dired/body)
+     ("<henkan>"  hydra-dired/body)
+     ("<muhenkan>" nil))
+    :init
+    ;; ------------------------------------------------------------
+    ;;  Word Case Helpers
+    ;; ------------------------------------------------------------
+    (defun my-upcase-word (arg)
+      "Convert previous word (or ARG words) to upper case."
+      (interactive "p")
+      (upcase-word (- arg)))
 
-  (defun my-downcase-word (arg)
-    "Convert previous word (or ARG words) to lower case."
-    (interactive "p")
-    (downcase-word (- arg)))
+    (defun my-downcase-word (arg)
+      "Convert previous word (or ARG words) to lower case."
+      (interactive "p")
+      (downcase-word (- arg)))
 
-  (defun my-capitalize-word (arg)
-    "Capitalize previous word (or ARG words)."
-    (interactive "p")
-    (capitalize-word (- arg))))
+    (defun my-capitalize-word (arg)
+      "Capitalize previous word (or ARG words)."
+      (interactive "p")
+      (capitalize-word (- arg))))
 
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars docstrings unresolved)
-;; End:
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars docstrings unresolved)
+  ;; End:
 ;;; 80-hydra-dired.el ends here

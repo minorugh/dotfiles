@@ -225,7 +225,7 @@ even though no real `compile' process is involved."
 (leaf *make-target
   :after ivy
   :config
-  ;; @ ピッカーの時だけミニバッファを高くする(他の ivy-read には影響しない)
+  ;; @ Increase the mini-buffer height only when the picker is active
   (add-to-list 'ivy-height-alist '(my-make-ivy-integrated . 20))
   :preface
   ;; Resolve Makefile path from dired, buffer file, or default-directory
