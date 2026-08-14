@@ -41,7 +41,7 @@ sub restart_dropbox {
     my $old_pid = `pgrep -x dropbox`;
     chomp $old_pid;
 
-    sleep 6;
+    sleep 8;
     system("pkill", "-x", "dropbox");
     sleep 1;
     system("dropbox", "start");
