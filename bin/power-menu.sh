@@ -9,7 +9,7 @@
 #   2 キー : POWEROFF
 #   3 キー : REBOOT
 #   4 キー : XSRV BACKUP toggle（STOP⇔START）
-#   5 キー : NIGHT SUSPEND toggle（STOP⇔START）
+#   5 キー : NIGHT SUSPEND toggle（STOP⇔START、P1専用）
 #   6 キー : PEEK ENV_GPG
 #   7 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
 #   8 キー : XSRV-ROOT（xsrv home-root へ接続）
@@ -20,6 +20,7 @@
 
 XSRV_STOP="$HOME/.xsrv-backup-stop"
 NIGHT_SUSPEND_TIMER="night-suspend.timer"
+MAIN_HOSTNAME="P1"
 EMACS_ELC_DIRS=("$HOME/.emacs.d/elisp" "$HOME/.emacs.d/inits")
 
 # keychain(ssh-agent)を読み込む（.zshrcと同じ処理。bash -c起動のためここでも必要）
@@ -57,8 +58,10 @@ else
     BACKUP_STATUS=$'\e[32m[RUNNING]\e[0m'
 fi
 
-# NIGHT SUSPENDのラベルに現在状態を表示（トグル対象）
-if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
+# NIGHT SUSPENDのラベルに現在状態を表示（トグル対象、P1専用）
+if [[ "$HOSTNAME" != "$MAIN_HOSTNAME" ]]; then
+    NIGHT_STATUS=$'\e[90m[N/A]\e[0m'
+elif systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
     NIGHT_STATUS=$'\e[32m[RUNNING]\e[0m'
 else
     NIGHT_STATUS=$'\e[31m[STOPPED]\e[0m'
@@ -104,7 +107,9 @@ case "$CHOICE" in
         sleep 1
         kill $PPID ;;
     5.*)
-        if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
+        if [[ "$HOSTNAME" != "$MAIN_HOSTNAME" ]]; then
+            echo "night-suspend: N/A on $HOSTNAME (P1専用)"
+        elif systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
             systemctl --user stop "$NIGHT_SUSPEND_TIMER"
             systemctl --user disable "$NIGHT_SUSPEND_TIMER"
             echo "night-suspend: stopped."
