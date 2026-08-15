@@ -66,7 +66,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
 
 SHELL = /bin/bash
@@ -202,6 +202,15 @@ dropbox-watch: ## dropbox-watch.service のリンク作成+有効化
 	ln -vsf ${PWD}/.config/systemd/user/dropbox-watch.service ${HOME}/.config/systemd/user/dropbox-watch.service
 	systemctl --user daemon-reload
 	systemctl --user enable --now dropbox-watch.service
+
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+night-suspend: ## night-suspend.service/timer のリンク作成+有効化（メイン機のみ・復帰は手動）
+	mkdir -p ${HOME}/.config/systemd/user
+	ln -vsf ${PWD}/.config/systemd/user/night-suspend.service ${HOME}/.config/systemd/user/night-suspend.service
+	ln -vsf ${PWD}/.config/systemd/user/night-suspend.timer ${HOME}/.config/systemd/user/night-suspend.timer
+	systemctl --user daemon-reload
+	systemctl --user enable --now night-suspend.timer
+endif
 
 ########################################################
 ## パッケージ・ツール・フォント

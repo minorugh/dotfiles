@@ -123,6 +123,8 @@ chsh -s /usr/bin/zsh
 | `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期・Emacs 自動起動＆最小化 |
 | `make autobackup` | バックアップスクリプト群の `/usr/local/bin/` へのシンボリックリンク作成 |
 | `make cron` | P1のみ: automerge/autobackup リンク作成 + crontab バックアップ＆反映 |
+| `make dropbox-watch` | dropbox-watch.service のリンク作成+有効化（サスペンド復帰後のDropbox自動再起動、両機共通） |
+| `make night-suspend` | P1のみ: night-suspend.service/timer のリンク作成+有効化（深夜自動サスペンド、復帰は手動） |
 | `make docker-install` | Docker Engine + Compose のインストール |
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |
@@ -199,6 +201,23 @@ make cron-start   # xsrv-backup 再開
 
 ---
 
+## night-suspend について
+
+P1（メイン機）限定で、深夜01:00に自動サスペンドする仕組みです。
+
+- RTCアラームによる自動復帰はハードウェア/ファームウェアが非対応と判明したため
+  断念し、復帰は手動（キー入力／蓋を開ける）運用に確定しています
+- 常駐は systemd --user の `night-suspend.timer`（毎晩01:00発火）→
+  `night-suspend.service`（`Type=oneshot`）
+- 動作確認は `.zshrc` の `ns` 関数で即時実行できます
+- `.service` 修正後の反映は `make -C cron night-suspend-reload`
+- 旅行等で長期不在にする際は `power-menu.sh` の `5` キー（NIGHT SUSPEND toggle）
+  で事前に停止すること
+
+詳細は `bin/README.md`・`cron/README.md` を参照してください。
+
+---
+
 ## git 運用について（世代管理）
 
 dotfiles リポジトリ自身の commit / push / pull は `git/` ディレクトリに
@@ -266,6 +285,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.08.15 | night-suspend導入（深夜自動サスペンド、systemd --user timer、P1のみ）。RTCアラームによる自動復帰はハードウェア非対応のため断念し手動復帰運用に確定。power-menu.shにNIGHT SUSPENDトグル（5キー）追加、旧9キー（SSH minorugh.com）削除。dropbox-watch.plをP1でも有効化し両機共通運用に変更 |
 | 2026.07.31 | git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離、git/README.md 新設） |
 | 2026.07.31 | env-sync を導入・本番運用確定（サブ機の git pull連動で ~/.env_source・abook の差分を検知し確認のうえ同期。git ターゲットを ##! 化し、Emacs経由の実行でも対話プロンプトが機能するよう修正）。baseinstall/nextinstall の記載漏れを解消（make-run・tig・hugo を追加）。neomutt-bin を廃止し neomutt ターゲットに統合。「対話実行系」セクションの5ターゲットを ##! 化 |
 | 2026.07.30 | Emacsからのmake実行を安全化する bin/make-run.sh を導入（##!付きターゲットのみgnome-terminalへ委譲、結果は*compilation-log*バッファへ自動反映）。bin/スクリプトのMakefileターゲットを整理し tile-toggle.sh を新規登録（従来未登録だった）、keepass.sh を keepassxc.sh にリネーム |

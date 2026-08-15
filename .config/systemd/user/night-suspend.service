@@ -1,0 +1,5 @@
+[Unit]
+Description=Night auto-suspend (resume manually)
+[Service]
+Type=oneshot
+ExecStart=/home/minoru/src/github.com/minorugh/dotfiles/bin/night-suspend.sh

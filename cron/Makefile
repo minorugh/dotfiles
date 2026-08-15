@@ -48,10 +48,12 @@ dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チ�
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
 
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 night-suspend-reload: ## night-suspend.service 修正後のsystemd反映（daemon-reload→status）
 	systemctl --user daemon-reload
 	@echo "##>" >&2
 	systemctl --user status night-suspend.service || true
+endif
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
