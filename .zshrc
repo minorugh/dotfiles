@@ -250,7 +250,12 @@ function eq() {
 
 # Show dropbox-watch.log
 function dw() {
-    tail -n 20 -f ~/.cache/dropbox-watch.log
+    tail -n 20 ~/.cache/dropbox-watch.log
+}
+
+# night-suspend.service を今すぐ手動実行（動作確認用）
+function ns() {
+    systemctl --user start night-suspend.service
 }
 
 # Restore configuration changes to the last saved state.

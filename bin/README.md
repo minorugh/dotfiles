@@ -19,11 +19,12 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 ```
 
 ### dropbox-watch.pl
-サブ機(x250)専用。サスペンド復帰後にDropbox同期が「同期中…」のまま
-固まる問題への対策。systemd-logindが発する`PrepareForSleep`シグナルを、
-D-Busの正規購読機構（`add_signal_receiver`、eavesdropping方式ではない）
+元々サブ機(x250)専用として作成。サスペンド復帰後にDropbox同期が「同期中…」の
+まま固まる問題への対策。systemd-logindが発する`PrepareForSleep`シグナルを、
+D-Busの正規購読機構（`connect_to_signal`、eavesdropping方式ではない）
 で受信し、復帰の瞬間（false）に即座にDropboxを再起動する。一般ユーザー
-権限のsystemd --userサービスとして動作し、sudoは不要。
+権限のsystemd --userサービスとして動作し、sudoは不要。2026-08-15以降は
+P1でも有効化し、現在はP1・x250両機で稼働している。
 
 `dropbox status`の文字列は固まっていても「最新の状態」と誤った自己申告
 をすることがあると判明したため、ステータス判定には頼らず、D-Busの
@@ -42,9 +43,9 @@ D-Busの正規購読機構（`add_signal_receiver`、eavesdropping方式では�
 
 - 依存パッケージ: `libnet-dbus-perl`（`make dropbox-watch` でインストール）
 - ログ: `~/.cache/dropbox-watch.log`
-- サービス管理: `make -C cron dropbox-watch-stop` / `dropbox-watch-start`
+- サービス管理: `make -C cron dropbox-watch-reload`（`.pl`修正後の反映用）
 - クリーンリストア: `make dropbox-watch`（ルートMakefile、`baseinstall`に
-  組込済み。P1は模擬テスト環境として意図的に有効化）
+  組込済み）
 
 ### filezilla.sh
 FileZilla を SSH エージェント付きで起動するラッパー。
@@ -77,6 +78,20 @@ KeePassXC をパスワードなしで自動起動するラッパー。
 /usr/local/bin/keepass.sh → bin/keepass.sh
 ```
 
+### night-suspend.sh
+P1（メイン機）専用。深夜01:00に自動サスペンドするスクリプト。
+`automerge.sh`/`autobackup.sh`/`xsrv-backup.sh`が実行中の場合はサスペンドを
+見送る。RTCアラームによる自動復帰はハードウェア/ファームウェアが非対応と
+判明したため断念し、復帰は手動（キー入力／蓋を開ける）運用。
+
+systemd --userの`night-suspend.timer`（毎晩01:00発火）→`night-suspend.service`
+（`Type=oneshot`）から呼び出される。旅行等で長期不在にする際は
+`power-menu.sh`の5キー（NIGHT SUSPEND toggle）で事前に停止すること。
+
+- ログ: `~/.cache/night-suspend.log`
+- サービス管理: `make -C cron night-suspend-reload`（`.service`修正後の反映用）
+- 手動動作確認: `.zshrc`の`ns`関数（`systemctl --user start night-suspend.service`）
+
 ### power-menu.sh
 全角/半角キーで起動する Emacs/tmux プロセス管理＋電源メニュー。
 
@@ -86,9 +101,10 @@ KeePassXC をパスワードなしで自動起動するラッパー。
 - `2`: POWEROFF
 - `3`: REBOOT
 - `4`: XSRV BACKUP toggle（STOP⇔START）
-- `5`: CHECK ENV BACKUP（`~/.env_source/check-backup.sh` 実行）
-- `6`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
-- `7`〜`9`, `0`: xsrv/Docker への SSH・コンテナ接続
+- `5`: NIGHT SUSPEND toggle（STOP⇔START、P1のみ意味を持つ）
+- `6`: CHECK ENV BACKUP（`~/.env_source/check-backup.sh` 実行）
+- `7`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
+- `8`〜`9`, `0`: xsrv/Docker への SSH・コンテナ接続
 - `Enter`: 起動中の emacs プロセスを kill
 
 ```bash
@@ -140,4 +156,4 @@ make-run.sh <dir> <target...>
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
 | dropbox-watch.pl | `make dropbox-watch` |
-
+| night-suspend.sh | `make night-suspend` |

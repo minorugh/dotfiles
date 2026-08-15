@@ -9,16 +9,17 @@
 #   2 キー : POWEROFF
 #   3 キー : REBOOT
 #   4 キー : XSRV BACKUP toggle（STOP⇔START）
-#   5 キー : CHECK ENV BACKUP
-#   6 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
-#   7 キー : XSRV-ROOT（xsrv home-root へ接続）
-#   8 キー : GH（xsrv gospel-haiku.com へ接続）
-#   9 キー : minorugh.com（xsrv minorugh.com へ接続）
+#   5 キー : NIGHT SUSPEND toggle（STOP⇔START）
+#   6 キー : PEEK ENV_GPG
+#   7 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
+#   8 キー : XSRV-ROOT（xsrv home-root へ接続）
+#   9 キー : GH（xsrv gospel-haiku.com へ接続）
 #   0 キー : docker/httpd（コンテナへ接続）
 #   Enter  : emacsプロセスをkill
 #   ESC    : キャンセル
 
 XSRV_STOP="$HOME/.xsrv-backup-stop"
+NIGHT_SUSPEND_TIMER="night-suspend.timer"
 EMACS_ELC_DIRS=("$HOME/.emacs.d/elisp" "$HOME/.emacs.d/inits")
 
 # keychain(ssh-agent)を読み込む（.zshrcと同じ処理。bash -c起動のためここでも必要）
@@ -27,7 +28,6 @@ EMACS_ELC_DIRS=("$HOME/.emacs.d/elisp" "$HOME/.emacs.d/inits")
 # Remote (xsrv / Docker) ターゲット定義
 HOME_ROOT="/home/minorugh/"
 GH_ROOT="${HOME_ROOT}gospel-haiku.com/public_html/"
-MN_ROOT="${HOME_ROOT}minorugh.com/public_html/"
 
 EMACS_LINES=$(ps -u $USER -o pid,stat,time,command \
                   | grep -E "emacs-start|/usr/(local/)?bin/emacs" \
@@ -57,17 +57,24 @@ else
     BACKUP_STATUS=$'\e[32m[RUNNING]\e[0m'
 fi
 
+# NIGHT SUSPENDのラベルに現在状態を表示（トグル対象）
+if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
+    NIGHT_STATUS=$'\e[32m[RUNNING]\e[0m'
+else
+    NIGHT_STATUS=$'\e[31m[STOPPED]\e[0m'
+fi
+
 CHOICE=$( (
             [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
             echo "1. SLEEP"
             echo "2. POWEROFF"
             echo "3. REBOOT"
             echo "4. XSRV BACKUP $BACKUP_STATUS"
-            echo "5. PEEK ENV_GPG"
-            echo "6. VE"
-            echo "7. SSH XSRV"
-            echo "8. SSH GH"
-            echo "9. SSH minorugh.com"
+            echo "5. NIGHT SUSPEND $NIGHT_STATUS"
+            echo "6. PEEK ENV_GPG"
+            echo "7. VE"
+            echo "8. SSH XSRV"
+            echo "9. SSH GH"
             echo "0. SH docker/httpd"
         ) | fzf --ansi --reverse --color='pointer:white' \
                 --bind "1:pos(${POS1})+accept" \
@@ -97,19 +104,28 @@ case "$CHOICE" in
         sleep 1
         kill $PPID ;;
     5.*)
-        ~/.env_source/check-backup.sh
+        if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
+            systemctl --user stop "$NIGHT_SUSPEND_TIMER"
+            systemctl --user disable "$NIGHT_SUSPEND_TIMER"
+            echo "night-suspend: stopped."
+        else
+            systemctl --user enable --now "$NIGHT_SUSPEND_TIMER"
+            echo "night-suspend: started."
+        fi
+        sleep 1
         kill $PPID ;;
     6.*)
+        ~/.env_source/check-backup.sh
+        kill $PPID ;;
+    7.*)
         echo "Removing Emacs .elc files under elisp/ and inits/..."
         find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
         vim ~/.emacs.d/
         kill $PPID ;;
-    7.*)
-        exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il" ;;
     8.*)
-        exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il" ;;
+        exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il" ;;
     9.*)
-        exec ssh -t xsrv "cd '$MN_ROOT' && printf '%s\n' '${MN_ROOT%public_html/}' && exec \$SHELL -il" ;;
+        exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il" ;;
     0.*)
         exec docker exec -it httpd /bin/bash ;;
     "")  echo "Cancelled."; kill $PPID ;;

@@ -10,13 +10,14 @@
 - 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
 - サブ機 (X250) ではスキップ（サブ機は dotfiles 自体を編集しない運用のため、
   crontab も dotfiles 管理下に置かない）
-- 例外: `dropbox-watch.sh`（サブ機専用、サスペンド復帰対策）は
-  `dotfiles/cron/crontab.sub`で管理する（メイン機で編集→push→サブ機でpullの後
-  `make cron-update`）。2026-08-11以降は`dropbox-resume-watch.py`
-  （D-Bus即応版、systemd --user常駐）と併用しており、両者は
-  `~/.cache/dropbox-watch.heartbeat`を共有して二重起動を防いでいる。
-  詳細は`bin/README.md`参照。手動停止/再開は本ディレクトリの
-  `make dropbox-watch-stop` / `dropbox-watch-start`から行う
+- 例外: `dropbox-watch.pl`（D-Bus即応版、systemd --user常駐）は元々サブ機(x250)
+  専用として作成したが、2026-08-15以降はP1でも有効化し両機で稼働している。
+  詳細は`bin/README.md`参照
+- night-suspend（深夜自動サスペンド、`night-suspend.service`+`.timer`、
+  systemd --user常駐、P1のみ）も同様にdotfiles管理下だがcrontab本体とは別枠。
+  RTCアラームによる自動復帰は本体ハードウェアが非対応のため断念し、復帰は
+  手動（キー入力／蓋を開ける）運用に確定済み。長期不在（旅行等）の際は
+  `power-menu.sh`の5キーで事前に停止すること
 - 既存 crontab はバックアップし、dotfiles の crontab で上書き
 - `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
   自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
@@ -213,8 +214,8 @@ cron-update:  # 編集した crontab を反映（バックアップ→適用→�
 cron-stop:    # xsrv-backup 緊急停止（~/.xsrv-backup-stop を作成）
 cron-start:   # xsrv-backup 再開（~/.xsrv-backup-stop を削除）
 
-dropbox-watch-stop:  # dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
-dropbox-watch-start: # dropbox-resume-watch.service を再開
+dropbox-watch-reload:  # dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
+night-suspend-reload:  # night-suspend.service 修正後のsystemd反映（daemon-reload→status）
 
 automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル実行）
 autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）

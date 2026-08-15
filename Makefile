@@ -196,7 +196,7 @@ else
 	crontab ${PWD}/cron/crontab.sub
 endif
 
-dropbox-watch: ## dropbox-watch.service のリンク作成+有効化（P1は模擬テスト環境として意図的に有効化）
+dropbox-watch: ## dropbox-watch.service のリンク作成+有効化
 	$(APT) libnet-dbus-perl
 	mkdir -p ${HOME}/.config/systemd/user
 	ln -vsf ${PWD}/.config/systemd/user/dropbox-watch.service ${HOME}/.config/systemd/user/dropbox-watch.service

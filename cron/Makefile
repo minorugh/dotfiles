@@ -3,7 +3,8 @@
 ## 作成: 2026-04-09
 ## 更新: 2026-06-16 systemd timer 廃止、cron に移行
 ## 更新: 2026-06-20 automerge / autobackup --check オプション追加
-## 更新: 2026-08-13 dropbox-watch-log ターゲット追加
+## 更新: 2026-08-13 dropbox-watch-reload ターゲット追加
+## 更新: 2026-08-15 night-suspend-reload ターゲット追加
 ##
 ## --- compilation バッファー表示ルール ----------------------------
 ## @echo "##>" >&2          → 全画面表示（q で閉じる）※出力を確認したいターゲット
@@ -13,10 +14,8 @@
 ##
 ## crontab編集:   make cron-edit
 ## crontab反映:   make cron-update
-## dropbox-watch停止: make dropbox-watch-stop
-## dropbox-watch再開: make dropbox-watch-start
 ## dropbox-watch反映: make dropbox-watch-reload
-## dropbox-watchログ確認: make dropbox-watch-log
+## night-suspend反映: make night-suspend-reload
 #
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -42,16 +41,17 @@ cron-update: ## 編集した crontab を反映（日付更新→適用→確認�
 	crontab $(CRONTAB_FILE)
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
 
-dropbox-watch-stop: ## dropbox-resume-watch.service を一時停止（cronのgap監視のみで運用）
-	systemctl --user stop dropbox-watch.service
-	@echo "##> dropbox-watch: stopped (cron gap-watch のみで稼働中)" >&2
-
 dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
 	perl -c ${PWD}/../bin/dropbox-watch.pl
 	systemctl --user daemon-reload
 	systemctl --user restart dropbox-watch.service
 	@echo "##>" >&2
 	systemctl --user status dropbox-watch.service
+
+night-suspend-reload: ## night-suspend.service 修正後のsystemd反映（daemon-reload→status）
+	systemctl --user daemon-reload
+	@echo "##>" >&2
+	systemctl --user status night-suspend.service || true
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
