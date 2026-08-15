@@ -4,9 +4,26 @@
 # 全角/半角キーで起動するemacs/tmuxプロセス管理＋電源メニュー
 # xfce keyboard shortcut: gnome-terminal --window -- bash -c "power-menu.sh"
 #
-# メニュー項目はホストごとに異なる（P1: 全10項目 / それ以外: 1〜4のみ）
-# Enter  : emacsプロセスをkill
-# ESC    : キャンセル
+# P1の操作:
+#   1 キー : SLEEP（画面オフのみ・プロセス継続、任意キーで復帰）
+#   2 キー : POWEROFF
+#   3 キー : REBOOT
+#   4 キー : VE（.elc削除 + ~/.emacs.d/ をVimで開く）
+#   5 キー : XSRV BACKUP toggle（STOP⇔START）
+#   6 キー : NIGHT SUSPEND toggle（STOP⇔START）
+#   7 キー : PEEK ENV_GPG
+#   8 キー : SSH XSRV
+#   9 キー : SSH GH
+#   0 キー : docker/httpd
+#
+# x250の操作:
+#   1 キー : SLEEP
+#   2 キー : POWEROFF
+#   3 キー : REBOOT
+#   4 キー : VE
+#
+#   Enter  : emacsプロセスをkill
+#   ESC    : キャンセル
 
 XSRV_STOP="$HOME/.xsrv-backup-stop"
 NIGHT_SUSPEND_TIMER="night-suspend.timer"
@@ -28,6 +45,17 @@ else
     EMACS_COUNT=$(echo "$EMACS_LINES" | wc -l)
 fi
 
+POS1=$((EMACS_COUNT + 1))
+POS2=$((EMACS_COUNT + 2))
+POS3=$((EMACS_COUNT + 3))
+POS4=$((EMACS_COUNT + 4))
+POS5=$((EMACS_COUNT + 5))
+POS6=$((EMACS_COUNT + 6))
+POS7=$((EMACS_COUNT + 7))
+POS8=$((EMACS_COUNT + 8))
+POS9=$((EMACS_COUNT + 9))
+POS0=$((EMACS_COUNT + 10))
+
 if [[ -f "$XSRV_STOP" ]]; then
     BACKUP_STATUS=$'\e[31m[STOPPED]\e[0m'
 else
@@ -41,94 +69,108 @@ else
 fi
 
 if [[ "$HOSTNAME" == "$MAIN_HOSTNAME" ]]; then
-    LABELS=(
-        "SLEEP"
-        "POWEROFF"
-        "REBOOT"
-        "VE"
-        "XSRV BACKUP $BACKUP_STATUS"
-        "NIGHT SUSPEND $NIGHT_STATUS"
-        "PEEK ENV_GPG"
-        "SSH XSRV"
-        "SSH GH"
-        "SH docker/httpd"
-    )
-    ACTIONS=(sleep poweroff reboot ve xsrv_backup night_suspend peek_env ssh_xsrv ssh_gh docker)
-else
-    LABELS=("SLEEP" "POWEROFF" "REBOOT" "VE")
-    ACTIONS=(sleep poweroff reboot ve)
-fi
+    # ---- P1: フルメニュー ----
+    CHOICE=$( (
+                [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
+                echo "1. SLEEP"
+                echo "2. POWEROFF"
+                echo "3. REBOOT"
+                echo "4. VE"
+                echo "5. XSRV BACKUP $BACKUP_STATUS"
+                echo "6. NIGHT SUSPEND $NIGHT_STATUS"
+                echo "7. PEEK ENV_GPG"
+                echo "8. SSH XSRV"
+                echo "9. SSH GH"
+                echo "0. SH docker/httpd"
+            ) | fzf --ansi --reverse --color='pointer:white' \
+                    --bind "1:pos(${POS1})+accept" \
+                    --bind "2:pos(${POS2})+accept" \
+                    --bind "3:pos(${POS3})+accept" \
+                    --bind "4:pos(${POS4})+accept" \
+                    --bind "5:pos(${POS5})+accept" \
+                    --bind "6:pos(${POS6})+accept" \
+                    --bind "7:pos(${POS7})+accept" \
+                    --bind "8:pos(${POS8})+accept" \
+                    --bind "9:pos(${POS9})+accept" \
+                    --bind "0:pos(${POS0})+accept" )
 
-MENU_LINES=()
-BINDS=()
-for i in "${!LABELS[@]}"; do
-    n=$(( (i + 1) % 10 ))
-    MENU_LINES+=("${n}. ${LABELS[$i]}")
-    POS=$(( EMACS_COUNT + i + 1 ))
-    BINDS+=(--bind "${n}:pos(${POS})+accept")
-done
-
-CHOICE=$( (
-            [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
-            printf '%s\n' "${MENU_LINES[@]}"
-        ) | fzf --ansi --reverse --color='pointer:white' "${BINDS[@]}" )
-
-ACTION=""
-if [[ "$CHOICE" =~ ^([0-9])\.\  ]]; then
-    KEY="${BASH_REMATCH[1]}"
-    [[ "$KEY" == "0" ]] && idx=9 || idx=$((KEY - 1))
-    ACTION="${ACTIONS[$idx]}"
-fi
-
-case "$ACTION" in
-    sleep) xset dpms force off; kill $PPID ;;
-    poweroff) systemctl poweroff ;;
-    reboot) systemctl reboot ;;
-    ve)
-        echo "Removing Emacs .elc files under elisp/ and inits/..."
-        find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
-        vim ~/.emacs.d/
-        kill $PPID ;;
-    xsrv_backup)
-        if [[ -f "$XSRV_STOP" ]]; then
-            rm -f "$XSRV_STOP"
-            echo "xsrv-backup: started."
-        else
-            touch "$XSRV_STOP"
-            echo "xsrv-backup: stopped."
-        fi
-        sleep 1
-        kill $PPID ;;
-    night_suspend)
-        if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
-            systemctl --user stop "$NIGHT_SUSPEND_TIMER"
-            systemctl --user disable "$NIGHT_SUSPEND_TIMER"
-            echo "night-suspend: stopped."
-        else
-            systemctl --user enable --now "$NIGHT_SUSPEND_TIMER"
-            echo "night-suspend: started."
-        fi
-        sleep 1
-        kill $PPID ;;
-    peek_env)
-        ~/.env_source/check-backup.sh
-        kill $PPID ;;
-    ssh_xsrv)
-        exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il" ;;
-    ssh_gh)
-        exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il" ;;
-    docker)
-        exec docker exec -it httpd /bin/bash ;;
-    "")
-        if [[ -z "$CHOICE" ]]; then
-            echo "Cancelled."
-            kill $PPID
-        else
+    case "$CHOICE" in
+        1.*) xset dpms force off; kill $PPID ;;
+        2.*) systemctl poweroff ;;
+        3.*) systemctl reboot ;;
+        4.*)
+            echo "Removing Emacs .elc files under elisp/ and inits/..."
+            find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
+            vim ~/.emacs.d/
+            kill $PPID ;;
+        5.*)
+            if [[ -f "$XSRV_STOP" ]]; then
+                rm -f "$XSRV_STOP"
+                echo "xsrv-backup: started."
+            else
+                touch "$XSRV_STOP"
+                echo "xsrv-backup: stopped."
+            fi
+            sleep 1
+            kill $PPID ;;
+        6.*)
+            if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
+                systemctl --user stop "$NIGHT_SUSPEND_TIMER"
+                systemctl --user disable "$NIGHT_SUSPEND_TIMER"
+                echo "night-suspend: stopped."
+            else
+                systemctl --user enable --now "$NIGHT_SUSPEND_TIMER"
+                echo "night-suspend: started."
+            fi
+            sleep 1
+            kill $PPID ;;
+        7.*)
+            ~/.env_source/check-backup.sh
+            kill $PPID ;;
+        8.*)
+            exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il" ;;
+        9.*)
+            exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il" ;;
+        0.*)
+            exec docker exec -it httpd /bin/bash ;;
+        "")  echo "Cancelled."; kill $PPID ;;
+        *)
             PID=$(echo "$CHOICE" | awk '{print $1}')
             if [[ "$PID" =~ ^[0-9]+$ ]]; then
                 kill -9 "$PID" && echo "Killed $PID"
             fi
-            kill $PPID
-        fi
-        ;;
-esac
+            kill $PPID ;;
+    esac
+
+else
+    # ---- x250: 簡易メニュー ----
+    CHOICE=$( (
+                [[ -n "$EMACS_LINES" ]] && echo "$EMACS_LINES"
+                echo "1. SLEEP"
+                echo "2. POWEROFF"
+                echo "3. REBOOT"
+                echo "4. VE"
+            ) | fzf --ansi --reverse --color='pointer:white' \
+                    --bind "1:pos(${POS1})+accept" \
+                    --bind "2:pos(${POS2})+accept" \
+                    --bind "3:pos(${POS3})+accept" \
+                    --bind "4:pos(${POS4})+accept" )
+
+    case "$CHOICE" in
+        1.*) xset dpms force off; kill $PPID ;;
+        2.*) systemctl poweroff ;;
+        3.*) systemctl reboot ;;
+        4.*)
+            echo "Removing Emacs .elc files under elisp/ and inits/..."
+            find -L "${EMACS_ELC_DIRS[@]}" -name "*.elc" -print -delete
+            vim ~/.emacs.d/
+            kill $PPID ;;
+        "")  echo "Cancelled."; kill $PPID ;;
+        *)
+            PID=$(echo "$CHOICE" | awk '{print $1}')
+            if [[ "$PID" =~ ^[0-9]+$ ]]; then
+                kill -9 "$PID" && echo "Killed $PID"
+            fi
+            kill $PPID ;;
+    esac
+fi
