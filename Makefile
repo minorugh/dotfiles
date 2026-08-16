@@ -204,12 +204,15 @@ dropbox-watch: ## dropbox-watch.service のリンク作成+有効化
 	systemctl --user enable --now dropbox-watch.service
 
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-night-suspend: ## night-suspend.service/timer のリンク作成+有効化（メイン機のみ・復帰は手動）
+night-suspend: ## night-suspend.service/timer + USBハブwakeup設定のリンク作成+有効化（メイン機のみ・復帰は手動）
 	mkdir -p ${HOME}/.config/systemd/user
 	ln -vsf ${PWD}/.config/systemd/user/night-suspend.service ${HOME}/.config/systemd/user/night-suspend.service
 	ln -vsf ${PWD}/.config/systemd/user/night-suspend.timer ${HOME}/.config/systemd/user/night-suspend.timer
 	systemctl --user daemon-reload
 	systemctl --user enable --now night-suspend.timer
+	sudo ln -vsf ${PWD}/etc/udev/rules.d/keychron-hub-wakeup.rules /etc/udev/rules.d/keychron-hub-wakeup.rules
+	sudo udevadm control --reload-rules
+	sudo udevadm trigger --attr-match=idVendor=0424 --attr-match=idProduct=2816
 endif
 
 ########################################################

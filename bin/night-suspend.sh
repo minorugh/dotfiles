@@ -1,6 +1,4 @@
 #!/bin/bash
-# night-suspend.sh
-# 深夜サスペンド（復帰は手動）
 
 LOG="$HOME/.cache/night-suspend.log"
 
@@ -14,5 +12,18 @@ for pat in automerge.sh autobackup.sh xsrv-backup.sh; do
 done
 
 log "SUSPEND"
+
+exec 3< <(dbus-monitor --system "type='signal',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'")
+
 systemctl suspend
-log "RESUMED at $(date '+%F %T')"
+
+while read -r -u 3 line; do
+    if [[ "$line" == *"member=PrepareForSleep"* ]]; then
+        read -r -u 3 arg
+        [[ "$arg" == *"false"* ]] && break
+    fi
+done
+
+exec 3<&-
+
+log "RESUMED"
