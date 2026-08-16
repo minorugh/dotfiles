@@ -210,7 +210,7 @@ night-suspend: ## night-suspend.service/timer + USBハブwakeup設定のリン�
 	ln -vsf ${PWD}/.config/systemd/user/night-suspend.timer ${HOME}/.config/systemd/user/night-suspend.timer
 	systemctl --user daemon-reload
 	systemctl --user enable --now night-suspend.timer
-	sudo ln -vsf ${PWD}/etc/udev/rules.d/keychron-hub-wakeup.rules /etc/udev/rules.d/keychron-hub-wakeup.rules
+	sudo ln -vsf ${PWD}/etc/udev/rules.d/99-keychron-hub-wakeup.rules /etc/udev/rules.d/99-keychron-hub-wakeup.rules
 	sudo udevadm control --reload-rules
 	sudo udevadm trigger --attr-match=idVendor=0424 --attr-match=idProduct=2816
 endif
