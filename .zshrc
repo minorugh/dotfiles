@@ -250,7 +250,12 @@ function eq() {
 
 # Show dropbox-watch.log
 function dw() {
-    tail -n 20 -f ~/.cache/dropbox-watch.log
+    tail -n 10 ~/.cache/dropbox-watch.log
+}
+
+# Show night-suspend.log
+function nl() {
+    tail -n 10 ~/.cache/night-suspend.log
 }
 
 # night-suspend.service を今すぐ手動実行（動作確認用）

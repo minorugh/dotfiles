@@ -99,6 +99,11 @@ init: ## dotfiles のシンボリックリンク展開
 zsh-restore: ## zsh履歴を Dropbox からリストア
 	cp -p ${HOME}/Dropbox/backup/env/zsh/.zsh_history ${HOME}/.zsh_history
 
+keychron-restore: ## keychron の設定を Dropbox からリストア
+	sudo cp -p ${HOME}/Dropbox/backup/keychron/50-keychron.rules /etc/udev/rules.d/50-keychron.rules
+	sudo udevadm control --reload-rules
+	sudo udevadm trigger --action=add --attr-match=idVendor=3434 --attr-match=idProduct=0a3b
+
 init-sub: ## サブ機のgit push封鎖（メイン機以外で実行）
 ifneq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	git -C ~/src/github.com/minorugh/dotfiles remote set-url --push origin no-push
@@ -178,8 +183,6 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/backup/gitea-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/gitea-backup.sh
-	sudo ln -vsfn ${PWD}/backup/abook-backup.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/abook-backup.sh
 	sudo ln -vsfn ${PWD}/backup/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
 
@@ -212,7 +215,7 @@ night-suspend: ## night-suspend.service/timer + USBハブwakeup設定のリン�
 	systemctl --user enable --now night-suspend.timer
 	sudo ln -vsf ${PWD}/etc/udev/rules.d/99-keychron-hub-wakeup.rules /etc/udev/rules.d/99-keychron-hub-wakeup.rules
 	sudo udevadm control --reload-rules
-	sudo udevadm trigger --attr-match=idVendor=0424 --attr-match=idProduct=2816
+	sudo udevadm trigger --action=add --attr-match=idVendor=0424 --attr-match=idProduct=2816
 endif
 
 ########################################################
@@ -294,11 +297,13 @@ gitk: ## gitkのインストールと設定ファイル
 
 neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショートカット登録
 	$(APT) $@ urlscan abook
-	mkdir -p ${HOME}/.mutt/cache/headers ${HOME}/.mutt/cache/bodies
+	mkdir -p ${HOME}/.mutt/cache/bodies
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in mailcap certificates abook-add.sh; do \
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item; \
 	done
+	mkdir -p ${HOME}/.abook
+	ln -vsf ${ENV_SOURCE_DIR}/abook/addressbook ${HOME}/.abook/addressbook
 	$(call BIN_LINK,neomutt.sh,neomutt.sh)
 	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -n -t string -s "neomutt.sh"
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/neomutt.desktop

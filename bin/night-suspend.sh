@@ -27,3 +27,5 @@ done
 exec 3<&-
 
 log "RESUMED"
+[ "$(cat /sys/bus/usb/devices/1-4/power/wakeup 2>/dev/null)" = "disabled" ] && log "WARN: keychron-hub wakeup disabled"
+exit 0

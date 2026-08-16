@@ -18,7 +18,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup abook-backup readmes-backup
+all: melpa git-push mozc-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup
 
 .ONESHELL:
 
@@ -52,8 +52,10 @@ keyring-backup: ## Gnome keyring を Dropbox にバックアップ
 zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 	cp -p ${HOME}/.zsh_history ${HOME}/Dropbox/backup/env/zsh/.zsh_history
 
-abook-backup:  ## ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
-	/usr/local/bin/abook-backup.sh
+## Keychron udevルール（Launcherが書き換える実体）を Dropbox にバックアップ
+keychron-rules-backup: ## Keychron udevルールを Dropbox にバックアップ
+	mkdir -p ${HOME}/Dropbox/backup/keychron
+	cp -p /etc/udev/rules.d/50-keychron.rules ${HOME}/Dropbox/backup/keychron/50-keychron.rules
 
 readmes-backup: ## 各所のREADMEをDropbox/READMESにコピー
 	@mkdir -p ${HOME}/Dropbox/READMES
