@@ -17,19 +17,20 @@
 (with-eval-after-load 'mozc
   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
-(defvar my-hydra-caret-blue-cron
-   (concat (propertize "^" 'face 'hydra-face-blue) "cron"))
 
 (leaf *hydra-dired
   :after evil
   :bind (("<henkan>" . my-hydra-dired))
+  :init
+  (defvar my-cron-hint
+    (concat (propertize "^" 'face 'hydra-face-blue) "cron"))
   :hydra
   (hydra-dired
    (:hint nil :exit t)
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-hydra-caret-blue-cron
+  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -72,7 +73,7 @@
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
-  :init
+  :preface
   ;; ------------------------------------------------------------
   ;;  File / Directory Helpers
   ;; ------------------------------------------------------------
@@ -229,7 +230,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
-  :init
+  :preface
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers
   ;; ------------------------------------------------------------
