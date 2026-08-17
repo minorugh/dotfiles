@@ -14,6 +14,7 @@
           ("<f13>"               . my-toggle-input-method))
   :bind (("s-m" . my-mozc-config)
          ("s-d" . my-mozc-word-regist)
+         ("s-t" . my-mozc-dictionary-tool)
          (:mozc-mode-map
           ("," . (lambda () (interactive) (mozc-insert-str "、")))
           ("." . (lambda () (interactive) (mozc-insert-str "。")))))
