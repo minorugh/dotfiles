@@ -36,8 +36,8 @@
 5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
 
-# xserver 動的ファイルを Dropbox/GH へ rsync（07:00〜23:00 毎時 + 23:35）
-0 7-23 * * * /usr/local/bin/xsrv-backup.sh
+# xserver 動的ファイルを Dropbox/GH へ rsync（07:00〜22:00 毎時 + 23:35）
+0 7-22 * * * /usr/local/bin/xsrv-backup.sh
 35 23 * * * /usr/local/bin/xsrv-backup.sh
 
 # Emacs ゴミ箱をシステムゴミ箱へ移送（毎月1日 23:45）

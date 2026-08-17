@@ -93,18 +93,24 @@
           (visual    . "#F1FA8C")))
   (setq-default my-mozc-current-input-mode 'hiragana)
 
-  ;; Track mozc input mode changes
-  (advice-add 'mozc-session-execute-command :after
-              (lambda (return-value &rest _)
-                (when return-value
-                  (let ((mode (mozc-protobuf-get return-value 'mode)))
-                    (when mode
-                      (setq my-mozc-current-input-mode mode))))))
+  (advice-remove 'mozc-session-execute-command #'my-mozc-track-input-mode)
+  (advice-add 'mozc-session-execute-command :after #'my-mozc-track-input-mode)
 
-  ;; Update cursor color every 0.1 sec via idle timer
-  (run-with-idle-timer 0.1 t #'my-mozc-cursor-color-update)
+  (when (timerp my-mozc-cursor-timer)
+    (cancel-timer my-mozc-cursor-timer))
+  (setq my-mozc-cursor-timer
+        (run-with-idle-timer 0.1 t #'my-mozc-cursor-color-update))
 
   :preface
+  (defvar my-mozc-cursor-timer nil)
+
+  (defun my-mozc-track-input-mode (return-value &rest _)
+    "Track mozc input mode changes."
+    (when return-value
+      (let ((mode (mozc-protobuf-get return-value 'mode)))
+        (when mode
+          (setq my-mozc-current-input-mode mode)))))
+
   (defun my-mozc-cursor-color-update ()
     "Set cursor color according to current Evil state and Mozc mode."
     (set-cursor-color
