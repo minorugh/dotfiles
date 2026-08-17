@@ -1,8 +1,8 @@
 [Unit]
-Description=Trigger night-suspend at 00:15
+Description=Trigger night-suspend at 00:00
 
 [Timer]
-OnCalendar=*-*-* 00:15:00
+OnCalendar=*-*-* 00:00:00
 Persistent=true
 
 [Install]
