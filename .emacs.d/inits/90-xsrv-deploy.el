@@ -1,4 +1,4 @@
-;;; 40-remote.el --- Xserver deploy/backup/2pane operations. -*- lexical-binding: t -*-
+;;; 90-xsrv-deploy.el --- Xserver deploy/backup/2pane operations. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; xsrv-GH / xsrv-minorugh 関連の個人設定をすべてここに集約する。
 ;;;
@@ -277,7 +277,7 @@
   (autoload 'git-peek "git-peek" nil t)
   (autoload 'git-peek-deleted "git-peek" nil t)
   :config
-  (setq git-peek-save-dir (expand-file-name "~/Dropbox/tmp/"))
+  (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
 
   (defun my-git-peek-smart ()
     "Run `git-peek' with save-dir adjusted for xsrv dired context.
@@ -394,4 +394,4 @@ key-chord の内部表現に依存せず、自前で登録済みかどうかを�
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 40-remote.el ends here
+;;; 90-xsrv-deploy.el ends here

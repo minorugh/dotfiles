@@ -25,8 +25,8 @@
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
          ("p"   . my-dired-permission-help)
-         ("."   . xsrv-deploy-dired)    ; see 40-remote.el
-         (","   . xsrv-download-dired)  ; see 40-remote.el
+         ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
+         (","   . xsrv-download-dired)  ; see 90-xsrv-deploy.el
          ("i"   . my-sxiv))
   :config
   (setq global-auto-revert-non-file-buffers t)
