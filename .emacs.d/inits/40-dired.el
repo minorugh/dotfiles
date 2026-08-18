@@ -24,7 +24,6 @@
          ("n"   . my-dired-open-nano)
          ("["   . dired-hide-details-mode)
          ("t"   . my-open-tig)
-         ("]"   . my-dired-gitk)
          ("p"   . my-dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 40-remote.el
          (","   . xsrv-download-dired)  ; see 40-remote.el
@@ -142,15 +141,6 @@ Placed on the external monitor when one is connected."
     (let ((default-directory (dired-current-directory)))
       ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
       (my-launch-gnome-terminal "--" "bash" (dired-get-file-for-visit))))
-
-  (defun my-dired-gitk ()
-    "Run gitk for the current Git repository."
-    (interactive)
-    (let* ((file (dired-get-file-for-visit))
-           (root (locate-dominating-file file ".git")))
-      (if root
-          (start-process "gitk" nil "gitk")
-        (message "Not in a Git repository"))))
 
   (defun my-sxiv ()
     "Open all images in the current directory with sxiv (fullscreen tiling)."

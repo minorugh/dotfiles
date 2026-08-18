@@ -1011,7 +1011,6 @@ Emacs 30 の file-name 補完を dired のコピー時に上書きしないよ�
 | `a` | dired-omit-mode トグル |
 | `[` | hide-details-mode |
 | `t` | my-open-tig（my-tig-bridge.el） |
-| `]` | gitk（my-dired-gitk） |
 | `p` | パーミッション早見表 |
 | `.` | xsrv deploy（40-remote.el） |
 | `,` | xsrv download（40-remote.el） |

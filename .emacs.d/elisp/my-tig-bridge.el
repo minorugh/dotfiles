@@ -38,7 +38,6 @@ git 管理外の場合はエラーメッセージを表示する。"
      ((null root)
       (message "tig: git 管理下のファイルではありません"))
      (t
-      ;; コンテキストを書き出し（常に上書き）
       (write-region path nil my-tig-context-file nil 'silent)
       (start-process
        "tig" nil "gnome-terminal" "--maximize"
