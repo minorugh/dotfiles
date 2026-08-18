@@ -277,7 +277,7 @@
   (autoload 'git-peek "git-peek" nil t)
   (autoload 'git-peek-deleted "git-peek" nil t)
   :config
-  (setq git-peek-save-dir (expand-file-name "~/tmp/"))
+  (setq git-peek-save-dir (expand-file-name "~/Dropbox/tmp/"))
 
   (defun my-git-peek-smart ()
     "Run `git-peek' with save-dir adjusted for xsrv dired context.
