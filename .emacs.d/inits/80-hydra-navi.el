@@ -1,4 +1,4 @@
-;;; 80-hydra-menu.el --- Hydra dired/work configurations. -*- lexical-binding: t -*-
+;;; 80-hydra-navi.el --- Hydra navigation and work menus. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -250,7 +250,31 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
     (capitalize-word (- arg))))
 
 
+;; ============================================================
+;;  Package Management
+;; ============================================================
+
+(leaf *package
+  :tag "local"
+  :doc "Browse ELPA snapshots and manage packages via hydra."
+  :config
+  (key-chord-define-global "p@" 'hydra-package/body)
+  :hydra
+  (hydra-package
+   (:color red :hint nil)
+   "
+Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
+  "
+   ("l" (my-open "~/Dropbox/backup/elpa/LOG/elpa-changes.log" :pos 'bottom))
+   ("i" package-install)
+   ("u" package-upgrade)
+   ("d" package-delete)
+   ("a" package-upgrade-all)
+   ("v" package-vc-upgrade-all)
+   ("<muhenkan>" nil)))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 80-hydra-menu.el ends here
+;;; 80-hydra-navi.el ends here

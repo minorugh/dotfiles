@@ -65,35 +65,6 @@ keeping the terminal open afterward.  Otherwise (outside Dired), run
 
 
 ;; ============================================================
-;;  Package Management
-;; ============================================================
-
-(leaf *package
-  :tag "local"
-  :doc "Browse ELPA snapshots and manage packages via hydra."
-  :preface
-  (defun package-log-open ()
-    "Open elpa-changes.log."
-    (interactive)
-    (find-file "~/Dropbox/backup/elpa/LOG/elpa-changes.log"))
-  :config
-  (key-chord-define-global "p@" 'hydra-package/body)
-  :hydra
-  (hydra-package
-   (:color red :hint nil)
-   "
-Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
-  "
-   ("l" package-log-open)
-   ("i" package-install)
-   ("u" package-upgrade)
-   ("d" package-delete)
-   ("a" package-upgrade-all)
-   ("v" package-vc-upgrade-all)
-   ("<muhenkan>" nil)))
-
-
-;; ============================================================
 ;;  Gist / Lepton Integration
 ;; ============================================================
 
