@@ -107,10 +107,10 @@
     (my-xsrv-2pane--set-header-line)))
 
 (defun my-xsrv-2pane-enable-ui ()
-  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
+  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと.
+q のバインドはここでは行わない(6章の `my-dired-quit' が全 dired バッファ共通で処理する)."
   (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
-  (my-xsrv-2pane-refresh-ui)
-  (evil-local-set-key 'normal (kbd "q") #'my-2pane-quit))
+  (my-xsrv-2pane-refresh-ui))
 
 
 ;; ============================================================
@@ -241,17 +241,38 @@
 
 (defun my-2pane-quit ()
   "2ペインを閉じて元バッファに戻る.
-`my-xsrv-2pane-enable-ui' でのみ q に bind される."
+2ペイン中(window数が2)でなければ divider 解除以外は何もしない安全ガード付き."
   (interactive)
-  (let ((bufs (mapcar #'window-buffer (window-list))))
-    (delete-other-windows)
-    (mapc #'kill-buffer bufs)
-    (when (buffer-live-p my-2pane-origin-buffer)
-      (switch-to-buffer my-2pane-origin-buffer)
-      (setq my-2pane-origin-buffer nil)))
+  (when (= (length (window-list)) 2)
+    (let ((bufs (mapcar #'window-buffer (window-list))))
+      (delete-other-windows)
+      (mapc #'kill-buffer bufs)
+      (when (buffer-live-p my-2pane-origin-buffer)
+        (switch-to-buffer my-2pane-origin-buffer)
+        (setq my-2pane-origin-buffer nil))))
   (my-2pane-divider-off)
   (when (fboundp 'my-update-modeline-for-split)
     (my-update-modeline-for-split)))
+
+(defun my-dired-quit ()
+  "2ペイン中なら `my-2pane-quit'、それ以外は `quit-window'."
+  (interactive)
+  (if (buffer-live-p my-2pane-origin-buffer)
+      (my-2pane-quit)
+    (quit-window)))
+
+;; q を evil-normal-state-map にグローバルバインドしておくことで、
+;; 2ペイン中にファイルを開くなどして dired 以外のバッファへ移動しても
+;; q で 2ペインを閉じられるようにする(my-2pane-quit 側の window数ガードが安全弁)。
+;; evil-normal-state-map は evil 読み込み後に定義される変数なので、
+;; with-eval-after-load で評価タイミングを遅延させる。
+(with-eval-after-load 'evil
+  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit))
+
+;; 全 dired バッファに対して、2ペイン中かどうかで q の挙動を振り分ける。
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
 ;; 80-hydra-dired.el の ":" ";" から参照されるラッパー
 (defun my-open-xsrv-2pane-gh ()

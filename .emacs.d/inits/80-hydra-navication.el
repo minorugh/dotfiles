@@ -1,4 +1,4 @@
-;;; 80-hydra-navi.el --- Hydra navigation and work menus. -*- lexical-binding: t -*-
+;;; 80-hydra-navication.el --- Hydra navigation and work menus. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -277,4 +277,4 @@ Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; 80-hydra-navi.el ends here
+;;; 80-hydra-navication.el ends here

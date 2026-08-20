@@ -203,9 +203,18 @@ Safe for use in `before-save-hook' — does not auto-indent."
                                        :background (or my-modeline-default-bar-bg
                                                        my-modeline-default-bg)))))))))
 
+  (defun my-modeline-maybe-capture-defaults ()
+    "Capture default mode-line attributes once exactly 1 real window is visible.
+起動時に既に2ペイン(2ウィンドウ)状態が復元されていた場合、
+ハイライト済みの色をそのまま「デフォルト」として記録してしまう競合を防ぐため、
+実ウィンドウが1枚になるまで 1 秒間隔でリトライする。"
+    (if (<= (cl-count-if-not #'my-modeline-popup-window-p (window-list)) 1)
+        (my-modeline-capture-defaults)
+      (run-with-idle-timer 1 nil #'my-modeline-maybe-capture-defaults)))
+
   (add-hook 'doom-modeline-mode-hook
             (lambda ()
-              (run-with-idle-timer 2 nil #'my-modeline-capture-defaults)))
+              (run-with-idle-timer 2 nil #'my-modeline-maybe-capture-defaults)))
 
   ;; Update on window or buffer changes.
   (add-hook 'window-configuration-change-hook #'my-update-modeline-for-split)
