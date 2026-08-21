@@ -107,8 +107,7 @@
     (my-xsrv-2pane--set-header-line)))
 
 (defun my-xsrv-2pane-enable-ui ()
-  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと.
-q のバインドはここでは行わない(6章の `my-dired-quit' が全 dired バッファ共通で処理する)."
+  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
   (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
   (my-xsrv-2pane-refresh-ui))
 
@@ -251,8 +250,8 @@ q のバインドはここでは行わない(6章の `my-dired-quit' が全 dire
         (switch-to-buffer my-2pane-origin-buffer)
         (setq my-2pane-origin-buffer nil))))
   (my-2pane-divider-off)
-  (when (fboundp 'my-update-modeline-for-split)
-    (my-update-modeline-for-split)))
+  (when (fboundp 'my-modeline-apply-highlight-now)
+    (my-modeline-apply-highlight-now)))
 
 (defun my-dired-quit ()
   "2ペイン中なら `my-2pane-quit'、それ以外は `quit-window'."

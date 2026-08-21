@@ -166,19 +166,44 @@ Safe for use in `before-save-hook' — does not auto-indent."
           (or (face-background 'doom-modeline-bar nil t) "unspecified-bg")))
 
   (defun my-modeline-popup-window-p (w)
-    "Return non-nil if W is a popup that should not count as a real split."
     (or (window-minibuffer-p w)
-        (string-match-p
-         (rx (or "*hydra" "lv" "*Flymake" "*changelog" "Calendar"
-                 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
-                 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
-         (buffer-name (window-buffer w)))))
+	(and (string-match-p "\\`\\*Calendar\\*\\'" (buffer-name (window-buffer w)))
+             (< (window-height w) (/ (frame-height) 3)))
+	(string-match-p
+	 (rx (or "*hydra" "lv" "*Flymake" "*changelog"
+		 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
+		 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
+	 (buffer-name (window-buffer w)))))
 
   (defvar my-modeline-update-timer nil
     "Pending idle timer for `my-update-modeline-for-split'.")
 
+  (defun my-modeline-apply-highlight-now ()
+    "ウィンドウ数を判定し、mode-line のハイライト/リセットを即時(同期的)に適用する.
+`my-update-modeline-for-split' の debounce を経由せず、
+2ペイン終了直後など「今すぐ確実に反映したい」場面から直接呼ぶこと。"
+    (let ((wins (cl-count-if-not #'my-modeline-popup-window-p (window-list))))
+      (if (>= wins 2)
+          (progn
+            (set-face-attribute 'mode-line nil
+                                :background "#44475a"
+                                :box '(:line-width 2 :color "#bd93f9"))
+            (set-face-attribute 'doom-modeline-bar nil
+                                :background "#bd93f9"))
+        ;; 1ペインに戻ったら確実に復元する
+        (when my-modeline-default-bg
+          (set-face-attribute 'mode-line nil
+                              :background my-modeline-default-bg
+                              :box (or my-modeline-default-box 'unspecified))
+          (set-face-attribute 'doom-modeline-bar nil
+                              :background (or my-modeline-default-bar-bg
+                                              my-modeline-default-bg))))))
+
   (defun my-update-modeline-for-split ()
-    "Highlight active mode-line when 2 or more real windows are visible."
+    "Highlight active mode-line when 2 or more real windows are visible.
+`window-configuration-change-hook' 等、短時間に何度も発火しうる契機からの
+呼び出しを想定した debounce 版。今すぐ確実に反映したい場合は
+`my-modeline-apply-highlight-now' を直接呼ぶこと。"
     (when (timerp my-modeline-update-timer)
       (cancel-timer my-modeline-update-timer))
     (setq my-modeline-update-timer
@@ -186,22 +211,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
            0.2 nil
            (lambda ()
              (setq my-modeline-update-timer nil)
-             (let ((wins (cl-count-if-not #'my-modeline-popup-window-p (window-list))))
-               (if (>= wins 2)
-                   (progn
-                     (set-face-attribute 'mode-line nil
-                                         :background "#44475a"
-                                         :box '(:line-width 2 :color "#bd93f9"))
-                     (set-face-attribute 'doom-modeline-bar nil
-                                         :background "#bd93f9"))
-                 ;; 1ペインに戻ったら確実に復元する
-                 (when my-modeline-default-bg
-                   (set-face-attribute 'mode-line nil
-                                       :background my-modeline-default-bg
-                                       :box (or my-modeline-default-box 'unspecified))
-                   (set-face-attribute 'doom-modeline-bar nil
-                                       :background (or my-modeline-default-bar-bg
-                                                       my-modeline-default-bg)))))))))
+             (my-modeline-apply-highlight-now)))))
 
   (defun my-modeline-maybe-capture-defaults ()
     "Capture default mode-line attributes once exactly 1 real window is visible.

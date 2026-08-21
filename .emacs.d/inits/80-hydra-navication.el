@@ -182,7 +182,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
 
 (leaf *hydra-work
   :after evil
-  :bind ("<f14>" . my-hydra-work)
+  ;; :bind ("<f14>" . my-hydra-work)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'my-template))

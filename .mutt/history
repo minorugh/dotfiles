@@ -13,8 +13,6 @@
 2:source ~/.muttrc|
 0:tmux respawn-pane -k -t mail:0.0|
 0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
-0:tmux respawn-pane -k -t mail:0.0|
-0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|
 2:set sort|
 2:set sort?|
 2:set sort_re?|
@@ -321,3 +319,5 @@
 1:Ikuko Sawada <ikujune@gmail.com>, |
 5:Re: ひとり吟行句|
 3:S|
+0:tmux respawn-pane -k -t mail:0.0|
+0:wmctrl -c 'NeoMutt Mail' > /dev/null 2>&1|

@@ -27,7 +27,15 @@ EMACS_LINES=$(ps -u "$USER" -o pid,stat,time,command \
                   | grep -v -e "<defunct>" -e "grep" -e "emacs-kill" -e "mozc" -e "cmigemo")
 EMACS_COUNT=$([[ -z "$EMACS_LINES" ]] && echo 0 || wc -l <<< "$EMACS_LINES")
 
-action_sleep()   { xset dpms force off; kill "$PPID"; }
+action_sleep() {
+    systemd-run --user --quiet --collect -- bash -c '
+        for i in 1 2 3 4 5; do
+            sleep 0.3
+            xset dpms force off
+        done
+    '
+    kill "$PPID"
+}
 action_poweroff(){ systemctl poweroff; }
 action_reboot()  { systemctl reboot; }
 action_ve() {

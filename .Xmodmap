@@ -74,7 +74,7 @@ keycode 97 = underscore backslash
 !   ──────────────────────────────────────────────────────────────────
 !   右 Alt            MT(MOD_LALT, KC_F13)     F13 送出            Left Alt
 !   右 Ctrl           MT(MOD_RCTL, KC_F14)     F14 送出            Right Ctrl
-!   右 GUI (Win/Cmd)  MT(MOD_RGUI, KC_F15)     F15 送出            Right GUI
+!   右 GUI (Win/Cmd)  MT(MOD_RGUI, KC_UP)      UP  送出            Right GUI
 !   全角/半角キー     LT(3, KC_GRV)            全角/半角 (grave)   レイヤー3 有効化
 !   スペースバー      LT(3, KC_SPC)            Space               レイヤー3 有効化
 !
@@ -94,13 +94,12 @@ keycode 97 = underscore backslash
 !   keycode   Xorg 名   物理キー（QMK 単押し）  Linux 側の用途
 !   ──────────────────────────────────────────────────────────
 !   191       F13       右 Alt 単押し           mozc IME on/off トグル
-!   192       F14       右 Ctrl 単押し          hydra-menu 起動（Emacs）
-!   193       F15       右 GUI 単押し           hydra-browse 起動（Emacs）
+!   192       F14       右 Ctrl 単押し          tile-toggle
 !
 ! 確認済み (2026-05-12)
 !===============================================================
 keycode 191 = F13
 keycode 192 = F14
-keycode 193 = F15
+
 
 
