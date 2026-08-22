@@ -28,13 +28,9 @@ EMACS_LINES=$(ps -u "$USER" -o pid,stat,time,command \
 EMACS_COUNT=$([[ -z "$EMACS_LINES" ]] && echo 0 || wc -l <<< "$EMACS_LINES")
 
 action_sleep() {
-    systemd-run --user --quiet --collect -- bash -c '
-        for i in 1 2 3 4 5; do
-            sleep 0.3
-            xset dpms force off
-        done
-    '
-    kill "$PPID"
+    xset dpms force off
+    ( sleep 0.5; kill "$PPID" ) &
+    disown
 }
 action_poweroff(){ systemctl poweroff; }
 action_reboot()  { systemctl reboot; }
