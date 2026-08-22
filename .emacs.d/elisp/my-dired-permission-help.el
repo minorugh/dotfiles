@@ -1,4 +1,4 @@
-;;; my-dired-oermission-help.el --- Evil keybinding cheat sheet -*- lexical-binding: t -*-
+;;; my-dired-oermission-help.el --- dired permission help -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
