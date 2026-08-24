@@ -67,9 +67,21 @@
   (add-to-list 'dashboard-item-generators
                '(haiku . dashboard-insert-haiku))
 
-  ;; Items: main machine shows haiku + recents; other machines show haiku only
+  ;; ── Agenda widget (直近の予定リスト) ─────────────────────────
+  ;; 実体(diary取得・整形・描画)は 90-gcal-agenda.el の
+  ;; `my-calendar-agenda-insert' に集約してある。ここでは
+  ;; dashboard-item-generators に登録するための薄いラッパーのみ置く。
+  (defun dashboard-insert-agenda (_list-size)
+    "直近の予定を表示する. 実体は 90-gcal-agenda.el で定義."
+    (require 'calendar)   ;; 90-gcal-agenda.el の leaf:config をロードさせる
+    (my-calendar-agenda-insert #'dashboard-insert-heading))
+
+  (add-to-list 'dashboard-item-generators
+               '(agenda . dashboard-insert-agenda))
+
+  ;; Items: main machine shows haiku + agenda; other machines show haiku only
   (if my-main-machine-p
-      (setq dashboard-items '((haiku . 1) (recents . 5)))
+      (setq dashboard-items '((haiku . 1) (agenda . 1)))
     (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────
@@ -81,12 +93,6 @@
   ;; ============================================================
   ;;  Dashboard Helper Commands
   ;; ============================================================
-
-  (defun dashboard-goto-recent-files ()
-    "Jump to the recent-files widget."
-    (interactive)
-    (let ((func (local-key-binding "r")))
-      (and func (funcall func))))
 
   (defun dashboard-toggle ()
     "Toggle between *dashboard* and the previous buffer."
@@ -102,7 +108,6 @@
     (delete-other-windows)
     (switch-to-buffer (get-buffer-create "*dashboard*"))
     (dashboard-refresh-buffer)
-    (dashboard-goto-recent-files)
     (delete-other-windows))
 
 

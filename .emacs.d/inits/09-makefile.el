@@ -204,14 +204,27 @@ even though no real `compile' process is involved."
     (unless buffer-read-only (message "EDITABLE")))
 
   (defun my-makefile-buffer-list-update-hook ()
-    "カレントから外れた Makefile バッファを自動 read-only に戻す."
-    (dolist (buf (buffer-list))
-      (unless (eq buf (current-buffer))
-        (with-current-buffer buf
-          (when (and (derived-mode-p 'makefile-mode)
-                     (not buffer-read-only))
-            (read-only-mode 1)
-            (evil-normal-state)))))))
+    "カレントから外れた Makefile バッファを自動 read-only に戻す.
+  ミニバッファ操作中(M-x や保存確認など)は一時的な離脱に過ぎないので
+  判定をスキップする。"
+    (unless (window-minibuffer-p (selected-window))
+      (dolist (buf (buffer-list))
+        (unless (eq buf (current-buffer))
+          (with-current-buffer buf
+            (when (and (derived-mode-p 'makefile-mode)
+                       (not buffer-read-only))
+              (read-only-mode 1)
+              (evil-normal-state))))))))
+
+;; (defun my-makefile-buffer-list-update-hook ()
+;;   "カレントから外れた Makefile バッファを自動 read-only に戻す."
+;;   (dolist (buf (buffer-list))
+;;     (unless (eq buf (current-buffer))
+;;    (with-current-buffer buf
+;;         (when (and (derived-mode-p 'makefile-mode)
+;;                    (not buffer-read-only))
+;;           (read-only-mode 1)
+;;           (evil-normal-state)))))))
 
 
 ;; ============================================================
@@ -297,7 +310,7 @@ even though no real `compile' process is involved."
                                 (switch-to-buffer orig-buf)
                                 (goto-char orig-point)
                                 (recenter)))
-		    :update-fn 'auto
+                    :update-fn 'auto
                     :caller 'my-make-ivy-integrated))))))
 
 

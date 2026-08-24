@@ -39,6 +39,7 @@
           ("d"      . deepl-translate)
           ([insert] . my-iedit-toggle))
          (:evil-emacs-state-map
+	  ("g g"    . beginning-of-buffer)
           ("C-a"    . my-seq-home)
           ("C-e"    . my-seq-end)
           ([insert] . my-iedit-toggle)
@@ -64,7 +65,10 @@
   (evil-ex-define-cmd "wq[uit]" 'kill-current-buffer)
 
   ;; Force Emacs state for special-purpose major modes
-  (dolist (mode '(howm-view-summary-mode easy-hugo-mode neotree-mode))
+  (dolist (mode '(howm-view-summary-mode
+		  easy-hugo-mode
+		  neotree-mode
+		  lisp-interaction-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for specific buffer

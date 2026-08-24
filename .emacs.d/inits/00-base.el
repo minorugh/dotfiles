@@ -91,6 +91,7 @@
 (setq recentf-exclude
       (list (expand-file-name "elpa/" user-emacs-directory)
             (expand-file-name "tmp/" user-emacs-directory)
+            (regexp-quote temporary-file-directory)
             "\\.howm-keys"
             "/session\\."
             "/Dropbox/backup/"

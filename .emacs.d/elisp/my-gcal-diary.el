@@ -8,16 +8,14 @@
 ;; ------------------------------------------------------------
 ;; 全体構成
 ;; ------------------------------------------------------------
-;;   ~/.emacs.d/tmp/diary        … 手書き用。このファイルは直接編集する。
 ;;   ~/.emacs.d/tmp/diary-gcal   … Google Calendar由来。自動生成専用、
 ;;                                  手で編集しないこと(同期のたびに
 ;;                                  まるごと上書きされる「洗い替え」方式)。
 ;;
-;; diary の先頭に以下の1行を追加することで、diary-gcal の内容が
-;; #include され、calendar上でまとめて扱われる(この設定自体は
+;; 予定はスマホ等からGoogle Calendarに登録する運用を前提としており、
+;; Emacs側で手書きのdiaryを併用することは想定していない。そのため
+;; このファイルをそのまま `diary-file' として使う(利用側の設定は
 ;; 利用側のcalendar設定ファイルで行う)。
-;;
-;;   #include "/home/minoru/.emacs.d/tmp/diary-gcal"
 ;;
 ;; ------------------------------------------------------------
 ;; 同期の仕組み(M-x my-gcal-sync-to-diary)
@@ -27,20 +25,30 @@
 ;;   「非公開URL」(secret address in iCal format)を1行だけ書いて
 ;;   ~/.env_source 配下に保存する(dotfilesには含めない)。
 ;;
-;;   カレンダーごとに以下を繰り返し、結果をdiary-gcalへ追記していく:
+;;   カレンダーごとに以下を繰り返し、結果を一時diaryファイルへ
+;;   追記していく:
 ;;   1. 非公開URLから .ics をダウンロードする(認証不要、読み取り専用)。
 ;;   2. `icalendar-import-file' で .ics を diary形式のテキストに変換する。
 ;;   3. `my-diary-filter-recent' で「直近 my-gcal-months-back ヶ月分より
 ;;      新しい予定」だけに絞り込む(全履歴を毎回持ち込むと肥大化するため)。
 ;;      日付が判定できない繰り返し予定(diary-float等)は安全側に倒して残す。
 ;;
-;;   diary-gcalファイル自体は同期開始時に一旦空にしてから、各カレンダーの
-;;   結果を順に追記する(=全カレンダー分をまとめて洗い替え)。
+;;   全カレンダー分の処理が終わってから、一時diaryファイルの中身を
+;;   まとめて `my-diary-gcal-file' へ一括コピーする(=洗い替え)。
+;;   途中でエラーやタイムアウトが起きても本番ファイルには一切手を
+;;   付けないため、直前の(完全な)状態がそのまま保たれる。
 ;;   カレンダーを増やしたい場合は `my-gcal-calendars' に1行追加するだけでよい。
 ;;
 ;;   自動実行(after-save-hook等)はあえて行っていない。ネットワーク越しの
-;;   処理を保存のたびに走らせるのは事故のもとなので、diaryを編集した後は
-;;   手動で M-x my-gcal-sync-to-diary を実行する運用とする。
+;;   処理を毎回自動で走らせるのは事故のもとなので、
+;;   kill-emacs-hook(利用側で設定)による終了時同期か、
+;;   手動での M-x my-gcal-sync-to-diary 実行を基本の運用とする。
+;;
+;;   `icalendar-import-file' は内部で入力(.ics)・出力(diary形式)の
+;;   両ファイルを find-file 系でバッファに開くが、そのバッファ自体は
+;;   killしてくれない。一時ファイルを消してもバッファだけ残ると
+;;   ivy-switch-buffer等の候補が汚れるため、`my-gcal--kill-file-buffer'
+;;   で一時ファイル削除の直前に visit中バッファも合わせてkillする。
 ;;
 ;; ------------------------------------------------------------
 ;; Google Calendar側で直接追加した予定について
@@ -62,16 +70,57 @@
 
 ;; diary-gcalは同期のたびに丸ごと作り直される(洗い替え方式)ので、
 ;; 絶対に手で編集しないこと。
-;; パス自体は軽量な文字列計算のみなので、autoloadで起動時に評価しておき、
-;; 90-calendar.el側からファイル存在チェックに使えるようにしている。
+;; このファイルのパス・存在保証は自分自身(my-gcal-diary.el)の責務とし、
+;; 利用側(90-gcal-agenda.el)は `require' した上でこの変数を参照するだけにする。
 (defvar my-diary-gcal-file
   (locate-user-emacs-file "tmp/diary-gcal")
   "Auto-generated diary file synced from Google Calendar.
 Do not edit by hand.")
 
+;; このファイルの所有者はここ(my-gcal-diary.el)なので、
+;; 存在しない場合の初期化もここで面倒を見る。
+;; 利用側(90-gcal-agenda.el)は `my-diary-gcal-file' を参照するだけでよい。
+(unless (file-exists-p my-diary-gcal-file)
+  (make-empty-file my-diary-gcal-file t))
+
 ;; これより古い予定は同期時に除外される。
 (defvar my-gcal-months-back 12
   "Number of past months to keep when syncing from Google Calendar.")
+
+;; ------------------------------------------------------------
+;; 複数日イベントの終了日補正について
+;; ------------------------------------------------------------
+;; iCalendarの仕様(RFC5545)上、複数日イベントの `DTEND' は非包含
+;; (exclusive)、すなわち「最終日の翌日」を指す約束になっている
+;; (例: 9/1〜9/3の3日間イベントなら DTEND=9/4)。
+;; `icalendar-import-file' はこれを diary-block(両端含む=inclusive)
+;; に変換するが、実測したところ終日複数日イベントについて終了日が
+;; 実際の最終日より短く出る挙動が確認されたため、ここで補正する。
+;; 0にすれば補正なし。ズレの実測値が変わった場合はこの値を調整する。
+(defcustom my-gcal-block-end-date-correction 1
+  "diary-blockの終了日に加算する日数(実測でズレている日数)."
+  :type 'integer :group 'calendar)
+
+(defun my-gcal--fix-block-end-dates (input-file output-file days)
+  "INPUT-FILE中のdiary-blockの終了日にDAYS日加算してOUTPUT-FILEへ書き出す.
+DAYSが0の場合は補正せずそのままコピーする."
+  (if (zerop days)
+      (copy-file input-file output-file t)
+    (with-temp-buffer
+      (insert-file-contents input-file)
+      (goto-char (point-min))
+      (while (re-search-forward
+              "\\(diary-block [0-9]+ [0-9]+ [0-9]+ \\)\\([0-9]+\\) \\([0-9]+\\) \\([0-9]+\\)"
+              nil t)
+        (let* ((m (string-to-number (match-string 2)))
+               (d (string-to-number (match-string 3)))
+               (y (string-to-number (match-string 4)))
+               (fixed (calendar-gregorian-from-absolute
+                       (+ (calendar-absolute-from-gregorian (list m d y)) days))))
+          (replace-match (format "\\1%d %d %d"
+                                  (nth 0 fixed) (nth 1 fixed) (nth 2 fixed))
+                          t)))
+      (write-region (point-min) (point-max) output-file))))
 
 (defun my-gcal--read-url (file)
   "Read a secret iCal URL (single line) from FILE.
@@ -81,6 +130,18 @@ Return nil if FILE is missing."
       (with-temp-buffer
         (insert-file-contents f)
         (string-trim (buffer-string))))))
+
+;; icalendar-import-file等が一時ファイルをvisitして残したバッファを、
+;; ファイル削除の前にkillしておくためのヘルパー。
+;; 未保存扱いのまま残っているとkill時に確認プロンプトが出て
+;; kill-emacs-hook経由の自動同期が止まりかねないので、
+;; killする前に明示的に「未保存ではない」ことにしておく。
+(defun my-gcal--kill-file-buffer (file)
+  "Kill any buffer visiting FILE, without a save prompt."
+  (let ((buf (find-buffer-visiting file)))
+    (when buf
+      (with-current-buffer buf (set-buffer-modified-p nil))
+      (kill-buffer buf))))
 
 ;; diaryのエントリは「日付行 + インデントされた継続行」を1グループとして
 ;; 扱い、グループ単位で残す/捨てるを判定する。日付が
@@ -130,45 +191,65 @@ Return nil if FILE is missing."
       (write-region (point-min) (point-max) output-file))))
 
 ;; 処理の流れ(カレンダーごとに繰り返す):
-;;   ダウンロード → icalendar変換 → 直近分にフィルタ → diary-gcalへ追記
-;; diary-gcal自体は同期開始時に一旦空にする(=全カレンダー分をまとめて
-;; 洗い替え)。手書きのdiary本体には一切触れない。
+;;   ダウンロード → icalendar変換 → 直近分にフィルタ → 一時diaryへ追記
+;; 全カレンダー処理後にまとめて本番ファイルへコピーする(=洗い替え)。
+;; こうすることで、途中でタイムアウトやエラーが起きても本番ファイル
+;; (my-diary-gcal-file)には一切手を付けないまま終われるので、
+;; 「一部のカレンダー分だけ反映された中途半端な状態」が本番に
+;; 残ることがない。
 ;; URLファイルが見つからないカレンダーはエラーにせずスキップする。
-;; 一時ファイルはunwind-protectで必ず削除される。
+;; 一時ファイルとそれをvisitしていたバッファは、unwind-protectで必ず
+;; 削除・killされる。
 ;; 呼び出された時点でこのファイル全体がロードされるので、icalendarも
 ;; その時に一緒に読み込まれる(require不要)。
 (defun my-gcal-sync-to-diary ()
-  "Sync all calendars in `my-gcal-calendars' into `my-diary-gcal-file'."
+  "Sync all calendars in `my-gcal-calendars' into `my-diary-gcal-file'.
+Builds the merged result in a temp file first, and only replaces
+`my-diary-gcal-file' once every calendar has been processed
+successfully, so a mid-sync timeout or error never leaves the real
+diary file in a half-written state."
   (interactive)
   (require 'icalendar)
-  (write-region "" nil my-diary-gcal-file) ; 洗い替え開始:一旦空にする
-  (let ((count 0))
-    (dolist (cal my-gcal-calendars)
-      (let* ((name (car cal))
-             (url (my-gcal--read-url (cdr cal))))
-        (if (not url)
-            (message "my-gcal-sync-to-diary: %s のURLが見つかりません(%s), skip"
-                     name (cdr cal))
-          (let* ((tmp-ics      (make-temp-file "gcal-sync-" nil ".ics"))
-                 (tmp-raw      (make-temp-file "gcal-sync-raw-"))
-                 (tmp-filtered (make-temp-file "gcal-sync-filtered-")))
-            (unwind-protect
-                (progn
-                  ;; 1. ダウンロード
-                  (url-copy-file url tmp-ics t)
-                  ;; 2. icsをdiary形式へ変換(一時ファイルへ)
-                  (when (file-exists-p tmp-raw) (delete-file tmp-raw))
-                  (icalendar-import-file tmp-ics tmp-raw)
-                  ;; 3. 日付でフィルタ
-                  (my-diary-filter-recent tmp-raw tmp-filtered my-gcal-months-back)
-                  ;; 4. diary-gcalへ追記
-                  (write-region (with-temp-buffer
-                                  (insert-file-contents tmp-filtered)
-                                  (buffer-string))
-                                nil my-diary-gcal-file t)
-                  (setq count (1+ count)))
-              (dolist (f (list tmp-ics tmp-raw tmp-filtered))
-                (when (file-exists-p f) (delete-file f))))))))
+  (let ((count 0)
+        (tmp-diary (make-temp-file "gcal-sync-diary-")))
+    (unwind-protect
+        (progn
+          (dolist (cal my-gcal-calendars)
+            (let* ((name (car cal))
+                   (url (my-gcal--read-url (cdr cal))))
+              (if (not url)
+                  (message "my-gcal-sync-to-diary: %s のURLが見つかりません(%s), skip"
+                           name (cdr cal))
+                (let* ((tmp-ics      (make-temp-file "gcal-sync-" nil ".ics"))
+                       (tmp-raw      (make-temp-file "gcal-sync-raw-"))
+                       (tmp-fixed    (make-temp-file "gcal-sync-fixed-"))
+                       (tmp-filtered (make-temp-file "gcal-sync-filtered-")))
+                  (unwind-protect
+                      (progn
+                        ;; 1. ダウンロード
+                        (url-copy-file url tmp-ics t)
+                        ;; 2. icsをdiary形式へ変換(一時ファイルへ)
+                        (when (file-exists-p tmp-raw) (delete-file tmp-raw))
+                        (icalendar-import-file tmp-ics tmp-raw)
+                        ;; 3. 複数日イベントの終了日を補正
+                        (my-gcal--fix-block-end-dates
+                         tmp-raw tmp-fixed my-gcal-block-end-date-correction)
+                        ;; 4. 日付でフィルタ
+                        (my-diary-filter-recent tmp-fixed tmp-filtered my-gcal-months-back)
+                        ;; 5. 一時diaryへ追記(本番ファイルにはまだ触れない)
+                        (write-region (with-temp-buffer
+                                        (insert-file-contents tmp-filtered)
+                                        (buffer-string))
+                                      nil tmp-diary t)
+                        (setq count (1+ count)))
+                    (dolist (f (list tmp-ics tmp-raw tmp-fixed tmp-filtered))
+                      (my-gcal--kill-file-buffer f)
+                      (when (file-exists-p f) (delete-file f))))))))
+          ;; 1件以上成功していれば、まとめて本番ファイルへ反映する
+          (when (> count 0)
+            (copy-file tmp-diary my-diary-gcal-file t)))
+      (my-gcal--kill-file-buffer tmp-diary)
+      (when (file-exists-p tmp-diary) (delete-file tmp-diary)))
     (message "Google Calendar → diary 同期完了: %d件のカレンダー (%s)"
              count (format-time-string "%Y-%m-%d %H:%M"))))
 

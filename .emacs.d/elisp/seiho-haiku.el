@@ -453,7 +453,7 @@ HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
 	 (line   (format "    %s      %s    " ku author)))
 	 ;; (start  (point)))
 (funcall heading (format "%s 今日の一句  %d月%d日（%s）"
-                         (nerd-icons-faicon "nf-fa-heart_o" :face 'dashboard-heading :height 1.2)
+                         (nerd-icons-faicon "nf-fa-heart_o" :face 'nerd-icons-purple :height 1.0)
                          mon day youbi))
 ;; (funcall heading (format "今日の一句  %d月%d日（%s）" mon day youbi))
     (insert "\n\n")

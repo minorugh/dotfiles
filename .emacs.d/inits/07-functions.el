@@ -19,7 +19,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . my-quickrun)               ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . calendar)                  ; see 90-calendar.el
+         ;; ("<f7>"  . calendar)                  ; see 90-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
@@ -105,7 +105,6 @@ Only valid in a `dired-mode' buffer whose directory is under one of
 ;; ============================================================
 ;;  Scratch Buffer Persistence
 ;; ============================================================
-
 (leaf *scratch-buffer
   :hook ((after-init-hook . restore-scratch-buffer)
          (kill-emacs-hook . save-scratch-buffer))
@@ -115,21 +114,21 @@ Only valid in a `dired-mode' buffer whose directory is under one of
     (with-current-buffer "*scratch*"
       (write-region (point-min) (point-max)
                     (locate-user-emacs-file "tmp/scratch"))))
-
   (defun restore-scratch-buffer ()
     "Restore *scratch* contents from disk if the file exists."
     (let ((f (locate-user-emacs-file "tmp/scratch")))
-      (when (file-exists-p f)
-        (with-current-buffer "*scratch*"
+      (with-current-buffer "*scratch*"
+        (when (file-exists-p f)
           (erase-buffer)
-          (insert-file-contents f)))))
-
+          (insert-file-contents f))
+        (goto-char (point-max)))))
   (defun toggle-scratch-buffer ()
     "Toggle between *scratch* and the previous buffer."
     (interactive)
     (if (string= (buffer-name) "*scratch*")
         (switch-to-buffer (other-buffer))
-      (switch-to-buffer "*scratch*"))))
+      (switch-to-buffer "*scratch*")
+      (goto-char (point-max)))))
 
 
 ;; ============================================================
