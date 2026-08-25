@@ -37,10 +37,14 @@
 ;;   5. `my-gcal--diary-to-org' で、ここまでできたdiary形式のテキストを
 ;;      org形式(見出し+タイムスタンプ)に変換する。
 ;;      - 単日の予定 → 単一タイムスタンプ `<Y-M-D Day>'
-;;      - 複数日の予定(diary-block) → 範囲タイムスタンプ
-;;        `<開始日>--<終了日>' (org-agendaが (1/3) のような進捗表示で
-;;        自動的にまとめて表示してくれるため、diary運用時に必要だった
-;;        「日ごとに展開されたエントリを1行に再集約する」処理は不要になった)
+;;      - 複数日の予定(diary-block) → 日ごとに単日エントリを1件ずつ
+;;        並べる(M-x org-agenda自体は範囲タイムスタンプ
+;;        `<開始日>--<終了日>' を (1/3) のような進捗表示で正しく
+;;        扱えるが、dashboardパッケージのagendaウィジェットは
+;;        独自簡易実装(org-map-entries + `org-entry-get' の
+;;        特殊プロパティ"TIMESTAMP")で開始日しか拾えず、範囲の
+;;        終了日を無視してしまう。dashboard表示を優先し、
+;;        diary運用時と同じ「日ごとに展開」する方式に戻す)
 ;;      - それ以外のsexp形式(diary-cyclic等の繰り返し予定) →
 ;;        org は diary sexp をそのまま評価できるため、
 ;;        `<%%(SEXP)>' の形で素通しする(手動でorgのrepeater構文に
@@ -254,14 +258,24 @@ Return nil if FILE is missing."
   (format-time-string "%Y-%m-%d %a"
                        (encode-time 0 0 0 (nth 1 date) (nth 0 date) (nth 2 date))))
 
-(defun my-gcal--format-org-entry (text start &optional end)
-  "TEXTを見出しとして、START(〜END)の日付をタイムスタンプに持つ
-org形式のエントリ文字列(見出し+タイムスタンプの2行)を返す.
-ENDを省略した場合は単日の予定として扱う."
-  (format "* %s\n  <%s>%s\n"
-          text
-          (my-gcal--org-timestamp start)
-          (if end (format "--<%s>" (my-gcal--org-timestamp end)) "")))
+(defun my-gcal--format-org-entry (text date)
+  "TEXTを見出しとして、DATEの日付をタイムスタンプに持つ
+org形式の単日エントリ文字列(見出し+タイムスタンプの2行)を返す."
+  (format "* %s\n  <%s>\n" text (my-gcal--org-timestamp date)))
+
+(defun my-gcal--format-org-block-entries (text start end)
+  "TEXTを見出しとして、START〜END(両端含む)の日付ぶん、
+単日エントリを1日1件ずつ並べた文字列を返す(dashboardのagenda
+ウィジェットが範囲タイムスタンプの終了日を無視してしまうための
+回避策。M-x org-agendaでは同じ予定が日数分並ぶだけで実用上問題ない)."
+  (let ((day  (calendar-absolute-from-gregorian start))
+        (last (calendar-absolute-from-gregorian end))
+        (out ""))
+    (while (<= day last)
+      (setq out (concat out (my-gcal--format-org-entry
+                              text (calendar-gregorian-from-absolute day))))
+      (setq day (1+ day)))
+    out))
 
 (defun my-gcal--format-org-sexp-entry (text sexp)
   "TEXTを見出しとして、SEXPをそのままdiary sexpタイムスタンプとして
@@ -287,7 +301,7 @@ ENDを省略した場合は単日の予定として扱う."
                    (text  (cdr parsed))
                    (block (my-gcal--block-dates sexp)))
               (if block
-                  (my-gcal--format-org-entry
+                  (my-gcal--format-org-block-entries
                    text
                    (list (nth 0 block) (nth 1 block) (nth 2 block))
                    (list (nth 3 block) (nth 4 block) (nth 5 block)))

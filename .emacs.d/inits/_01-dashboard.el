@@ -48,6 +48,10 @@
   ;; Content left-aligned (haiku centering handled in seiho-haiku.el)
   (setq dashboard-center-content nil)
   (setq dashboard-week-agenda    t)
+  (defvar my-dashboard-agenda-days 60)
+
+  (defun dashboard-due-date-for-agenda ()
+    (time-add (current-time) (* 86400 my-dashboard-agenda-days)))
 
   ;; ── Separator ────────────────────────────────────────────────
   ;; Initialize separator; recomputed on each refresh via advice below.
@@ -67,21 +71,29 @@
   (add-to-list 'dashboard-item-generators
                '(haiku . dashboard-insert-haiku))
 
-  ;; ── Agenda widget (直近の予定リスト) ─────────────────────────
-  ;; 実体(diary取得・整形・描画)は 90-gcal-agenda.el の
-  ;; `my-calendar-agenda-insert' に集約してある。ここでは
-  ;; dashboard-item-generators に登録するための薄いラッパーのみ置く。
-  (defun dashboard-insert-agenda (_list-size)
-    "直近の予定を表示する. 実体は 90-gcal-agenda.el で定義."
-    (require 'calendar)   ;; 90-gcal-agenda.el の leaf:config をロードさせる
-    (my-calendar-agenda-insert #'dashboard-insert-heading))
+  ;; ── Agenda widget（直近の予定リスト） ─────────────────────────
+  ;; Google Calendar → org の同期ロジックは my-gcal-diary.el に
+  ;; 集約してある。表示は自作せず、dashboard標準の org-agenda連携
+  ;; (組み込みの `dashboard-insert-agenda')にそのまま任せる。
+  ;; ここでは同期先ファイルを `org-agenda-files' に登録するのと、
+  ;; Emacs終了時の自動同期の設定だけを行う。
+  (require 'my-gcal-diary)
+  (require 'org)
 
-  (add-to-list 'dashboard-item-generators
-               '(agenda . dashboard-insert-agenda))
+  (setq org-agenda-files (list my-gcal-org-file))
+
+  (defun my-gcal-sync-on-exit ()
+    "Sync Google Calendar on Emacs exit, ignoring errors and timeouts."
+    (with-timeout (10 (message "my-gcal-sync-to-org: タイムアウトのためスキップ"))
+      (ignore-errors (my-gcal-sync-to-org))))
+
+  (add-hook 'kill-emacs-hook #'my-gcal-sync-on-exit)
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
+  ;; (agenda項目は dashboard パッケージ組み込みの生成子を使う。
+  ;;  独自の generator 登録は不要。)
   (if my-main-machine-p
-      (setq dashboard-items '((haiku . 1) (agenda . 1)))
+      (setq dashboard-items '((haiku . 1) (agenda . 5)))
     (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────
