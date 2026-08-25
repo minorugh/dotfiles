@@ -47,7 +47,6 @@
   ;; ── Layout ───────────────────────────────────────────────────
   ;; Content left-aligned (haiku centering handled in seiho-haiku.el)
   (setq dashboard-center-content nil)
-  (setq dashboard-week-agenda    t)
 
   ;; ── Separator ────────────────────────────────────────────────
   ;; Initialize separator; recomputed on each refresh via advice below.
@@ -67,21 +66,18 @@
   (add-to-list 'dashboard-item-generators
                '(haiku . dashboard-insert-haiku))
 
-  ;; ── Agenda widget (直近の予定リスト) ─────────────────────────
-  ;; 実体(diary取得・整形・描画)は 90-gcal-agenda.el の
-  ;; `my-calendar-agenda-insert' に集約してある。ここでは
-  ;; dashboard-item-generators に登録するための薄いラッパーのみ置く。
-  (defun dashboard-insert-agenda (_list-size)
-    "直近の予定を表示する. 実体は 90-gcal-agenda.el で定義."
-    (require 'calendar)   ;; 90-gcal-agenda.el の leaf:config をロードさせる
-    (my-calendar-agenda-insert #'dashboard-insert-heading))
-
-  (add-to-list 'dashboard-item-generators
-               '(agenda . dashboard-insert-agenda))
+  ;; ── Agenda widget (Google Calendar連携) ──────────────────────
+  ;; 予定データの取得(ダウンロード・org変換)、org-agenda-filesへの登録、
+  ;; dashboard標準agendaウィジェットのカスタマイズ(表示日数・ソート順・
+  ;; 見出し表記)、kill-emacs-hookでの同期は、すべて elisp/my-gcal-agenda.el
+  ;; に集約してある。ここではrequireするだけでよい。
+  (require 'my-gcal-agenda)
+  ;; 表示期間を60日に変更(既定値は my-gcal-agenda.el 側で定義)
+  (setq my-dashboard-agenda-days 60)
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
   (if my-main-machine-p
-      (setq dashboard-items '((haiku . 1) (agenda . 1)))
+      (setq dashboard-items '((haiku . 1) (agenda . 8)))
     (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────

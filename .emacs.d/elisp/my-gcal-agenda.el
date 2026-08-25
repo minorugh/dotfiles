@@ -1,9 +1,12 @@
-;;; my-gcal-diary.el --- One-way sync from Google Calendar to an org file.  -*- lexical-binding: t -*-
+;;; my-gcal-agenda.el --- Sync Google Calendar into an org file, and wire it into dashboard's Agenda.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; Google Calendar(複数カレンダー)から org ファイルへの一方向同期ロジック。
-;; UI(dashboard、org-agenda表示等)には一切関与しない、
-;; 「ダウンロード→変換→フィルタ→org化→書き込み」だけを行う自己完結モジュール。
+;; Google Calendar(複数カレンダー)から org ファイルへの一方向同期ロジック、
+;; および同期結果をdashboardのAgendaウィジェットに表示するための連携設定。
+;; 「ダウンロード→変換→フィルタ→org化→書き込み」の同期部分と、
+;; 「org-agenda-filesへの登録・dashboard標準agendaウィジェットの
+;; カスタマイズ」という表示連携部分の2つで構成されている
+;; (ファイル冒頭〜`(provide ...)'手前までが同期、それ以降が表示連携)。
 ;;
 ;; ------------------------------------------------------------
 ;; 全体構成
@@ -14,7 +17,8 @@
 ;;
 ;; 予定はスマホ等からGoogle Calendarに登録する運用を前提としており、
 ;; Emacs側で手書きのorgエントリをこのファイルに併用することは想定
-;; していない。利用側は `org-agenda-files' にこのファイルを加えるだけでよい。
+;; していない。org-agenda-filesへの登録もこのファイル内で完結するので、
+;; 利用側(01-dashboard.el)は `require' するだけでよい。
 ;;
 ;; ------------------------------------------------------------
 ;; 同期の仕組み(M-x my-gcal-sync-to-org)
@@ -58,7 +62,7 @@
 ;;
 ;;   自動実行(after-save-hook等)はあえて行っていない。ネットワーク越しの
 ;;   処理を毎回自動で走らせるのは事故のもとなので、
-;;   kill-emacs-hook(利用側で設定)による終了時同期か、
+;;   kill-emacs-hook(このファイル内で登録)による終了時同期か、
 ;;   手動での M-x my-gcal-sync-to-org 実行を基本の運用とする。
 ;;
 ;;   `icalendar-import-file' は内部で入力(.ics)・出力(diary形式)の
@@ -88,9 +92,9 @@
 
 ;; gcal.orgは同期のたびに丸ごと作り直される(洗い替え方式)ので、
 ;; 絶対に手で編集しないこと。
-;; このファイルのパス・存在保証は自分自身(my-gcal-diary.el)の責務とし、
-;; 利用側(01-dashboard.el)は `require' した上でこの変数を
-;; `org-agenda-files' に加えるだけにする。
+;; このファイルのパス・存在保証、および `org-agenda-files' への登録も
+;; すべて自分自身(my-gcal-agenda.el)の責務とする。
+;; 利用側(01-dashboard.el)は `require' するだけでよい。
 (defvar my-gcal-org-file
   (locate-user-emacs-file "tmp/gcal.org")
   "Auto-generated org file synced from Google Calendar.
@@ -387,5 +391,70 @@ org file in a half-written state."
     (message "Google Calendar → org 同期完了: %d件のカレンダー (%s)"
              count (format-time-string "%Y-%m-%d %H:%M"))))
 
-(provide 'my-gcal-diary)
-;;; my-gcal-diary.el ends here
+;; ------------------------------------------------------------
+;; dashboardのAgendaウィジェットとの連携
+;; ------------------------------------------------------------
+;; ここから下は「同期したorgファイルをdashboardにどう見せるか」という
+;; 表示側の設定。同期ロジック本体とは関心事が違うが、01-dashboard.el
+;; (01-dashboard.el)を薄く保つため、gcal関連の設定としてこちらに
+;; まとめて持たせている。
+;;
+;; dashboard.el標準のagendaウィジェット(org-map-entriesベース)を
+;; そのまま使い、以下の3点だけ差し替える:
+;;   1. 表示日数を「今日/週」の2択から `my-dashboard-agenda-days'
+;;      日数指定に拡張(標準の `dashboard-due-date-for-agenda' を再定義)
+;;   2. 複数カレンダーを使うとファイル順のまま出て日付順にならないため、
+;;      時刻順に明示的にソート
+;;   3. 見出しの "gcal:" のようなカテゴリ表示は不要なので消す
+(require 'org)
+(add-to-list 'org-agenda-files my-gcal-org-file)
+
+;; `dashboard-insert-section' はマクロ(内部で `el' を暗黙に束縛する
+;; anaphoricマクロ)なので、バイトコンパイル時にもこのマクロが
+;; 見えている必要がある。実行時だけの `require' だと、コンパイル時に
+;; マクロ未定義のまま「普通の関数」として誤ってコンパイルされ、
+;; 引数(下の `dashboard-insert-agenda' 内の `el' を使う式)が
+;; 先に評価されて "Symbol's value as variable is void: el" になる。
+(eval-and-compile (require 'dashboard-widgets))
+
+(defcustom my-dashboard-agenda-days 30
+  "DashboardのAgendaウィジェットで何日先までの予定を表示するか."
+  :type 'integer :group 'dashboard)
+
+(defun dashboard-due-date-for-agenda ()
+  "Agendaに含める予定の上限日時(`my-dashboard-agenda-days' 日後)を返す.
+dashboard.el標準の「今日/週」の2択(`dashboard-week-agenda')の
+代わりに、日数を自由に指定できるようにするための再定義."
+  (time-add (current-time) (* 86400 (1+ my-dashboard-agenda-days))))
+
+(defun dashboard-insert-agenda (list-size)
+  "直近 `my-dashboard-agenda-days' 日分のAgendaを一覧表示する.
+dashboard.el標準の `dashboard-insert-agenda' を、見出し文言だけ
+日数に合わせて差し替えたもの(本体の処理は標準のものをそのまま利用)."
+  (require 'org-agenda)
+  (dashboard-insert-section
+   (format "Agenda for the coming %d days:" my-dashboard-agenda-days)
+   (dashboard-agenda--sorted-agenda)
+   list-size
+   'agenda
+   (dashboard-get-shortcut 'agenda)
+   `(lambda (&rest _)
+      (let ((file (get-text-property 0 'dashboard-agenda-file ,el))
+            (point (get-text-property 0 'dashboard-agenda-loc ,el)))
+        (funcall dashboard-agenda-action file point)))
+   (format "%s" el)))
+
+;; 複数カレンダー(=複数org)をファイル順のまま並べると順序が
+;; バラバラになるため、時刻順に明示的にソートする。
+(setq dashboard-agenda-sort-strategy '(time-up))
+;; 既定の "%-12:c"(カテゴリ名, 例 "gcal:")のプレフィックスは不要。
+(setq dashboard-agenda-prefix-format " %s ")
+
+;; Emacs終了時にGoogle Calendarと同期する(タイムアウト・エラーは無視).
+(add-hook 'kill-emacs-hook
+          (lambda ()
+            (with-timeout (10 (message "my-gcal-sync-to-org: タイムアウトのためスキップ"))
+              (ignore-errors (my-gcal-sync-to-org)))))
+
+(provide 'my-gcal-agenda)
+;;; my-gcal-agenda.el ends here
