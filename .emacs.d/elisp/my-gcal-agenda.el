@@ -84,6 +84,7 @@
 
 ;; 同期対象カレンダーのリスト。(名前 . 非公開URLファイルパス) の形式。
 ;; URL自体は ~/.env_source で秘密管理し、dotfilesには含めない。
+;; このパスは一例であり、置き場所自体はどこでも構わない。
 ;; カレンダーを増やす場合はこのリストに1行追加するだけでよい。
 (defvar my-gcal-calendars
   '(("private" . "~/.env_source/tokens/gcal-diary-url")
