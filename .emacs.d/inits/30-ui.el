@@ -170,7 +170,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
 	(and (string-match-p "\\`\\*Calendar\\*\\'" (buffer-name (window-buffer w)))
              (< (window-height w) (/ (frame-height) 3)))
 	(string-match-p
-	 (rx (or "*hydra" "lv" "*Flymake" "*changelog"
+	 (rx (or "*hydra" "lv" "*Flymake" "*changelog" "*git-diff-preview" 
 		 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
 		 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
 	 (buffer-name (window-buffer w)))))

@@ -99,23 +99,56 @@
     (or (locate-dominating-file default-directory ".git")
         (user-error "Gitリポジトリが見つかりません")))
 
-  (defun my-git--run (cmd &optional confirm)
-    "CMD を git root で別の gnome-terminal ウィンドウとして実行する.
-CONFIRM が非nilなら実行前に y-or-n-p で確認する。
-コマンド完了後は Enter キーで閉じるまで結果を確認できる。"
-    (let ((default-directory (my-git--root)))
-      (when (or (not confirm) (y-or-n-p (format "%s を実行しますか? " cmd)))
-        (start-process "git-menu-terminal" nil
-                       "gnome-terminal" "--maximize" "--"
-                       "bash" "-c"
-                       (format "%s; echo; read -n1 -r -p '-- Enterキーで閉じます --'" cmd)))))
+  (defun my-git--colorize-diff-line ()
+    "行頭の記号に応じて前景色だけのfaceを付ける."
+    (let* ((bol (line-beginning-position))
+           (eol (line-end-position))
+           (face (pcase (char-after bol)
+                   (?@ 'diff-hunk-header)
+                   (?+ (if (looking-at-p "\\+\\+\\+") 'diff-file-header 'diff-added))
+                   (?- (if (looking-at-p "---") 'diff-file-header 'diff-removed)))))
+      (when face
+	(put-text-property bol eol 'face (list :foreground (face-foreground face nil t))))))
+
+  (defun my-git--colorize-diff-buffer ()
+    "バッファ内の各行に `my-git--colorize-diff-line' を適用する."
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (my-git--colorize-diff-line)
+        (forward-line 1))))
 
   (defun my-git-discard-changes ()
-    "このファイルを直近のコミットの内容に戻す(要確認)."
+    "このファイルのdiffを表示し、確認の上で直近のコミット内容に戻す."
     (interactive)
-    (my-git--run (format "git checkout -- %s"
-                         (shell-quote-argument buffer-file-name))
-                 t))
+    (let* ((orig-buf (current-buffer))
+           (file buffer-file-name)
+           (default-directory (my-git--root))
+           (diff-output (shell-command-to-string
+                         (format "git --no-pager diff -- %s"
+                                 (shell-quote-argument file)))))
+      (if (string-empty-p (string-trim diff-output))
+          (message "変更なし")
+        (let ((buf (get-buffer-create "*git-diff-preview*")))
+          (with-current-buffer buf
+            (let ((inhibit-read-only t))
+              (erase-buffer)
+              (insert diff-output)
+              (fundamental-mode)
+              (my-git--colorize-diff-buffer)
+              (setq buffer-read-only t)
+              (goto-char (point-min))))
+          (display-buffer buf)
+          (if (y-or-n-p "Discardしますか? ")
+              (progn
+                (shell-command (format "git checkout -- %s"
+                                       (shell-quote-argument file)))
+                (with-current-buffer orig-buf (revert-buffer t t t))
+                (message "discardしました"))
+            (message "discardをキャンセルしました"))
+          (let ((win (get-buffer-window buf)))
+            (when win (delete-window win)))
+          (kill-buffer buf)))))
 
 
   ;; ------------------------------------------------------------
