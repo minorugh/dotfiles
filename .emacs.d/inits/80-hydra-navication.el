@@ -90,6 +90,10 @@
         (my-make "git")
       (my-make-run-async default-directory "git")))
 
+
+  ;; ------------------------------------------------------------
+  ;;  Git Helpers (discard changes)
+  ;; ------------------------------------------------------------
   (defun my-git--root ()
     "Return the git root directory for the current buffer, or error."
     (or (locate-dominating-file default-directory ".git")
@@ -113,7 +117,11 @@ CONFIRM が非nilなら実行前に y-or-n-p で確認する。
                          (shell-quote-argument buffer-file-name))
                  t))
 
-  ;; OPTSIONS for my open path function
+
+  ;; ------------------------------------------------------------
+  ;;  Open Path Helper
+  ;; ------------------------------------------------------------
+  ;; OPTIONS for my open path function
   ;; :pos 'top | 'bottom | integer  :omit  :emacs
   ;; :pos -10  → point-max then back 10 lines
   ;; :pos  1   → point-min then forward 1 line
