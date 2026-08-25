@@ -21,7 +21,6 @@
 ;;   <up> / k / b      前のコミット＋プレビュー更新
 ;;   RET           プレビューバッファへフォーカス移動
 ;;   s             確定・保存
-;;   C-d           diff/full切り替え
 ;;   ?             キーガイドをミニバッファに表示
 ;;   q / C-g       キャンセル・終了
 ;;
@@ -64,12 +63,6 @@
 
 (defvar git-peek-finish-hook nil
   "Hook run after `git-peek--finish' completes.")
-
-(defvar git-peek-show-diff nil
-  "When non-nil, preview shows diff against current file instead of full content.")
-
-(defvar git-peek-toggle-diff-key (kbd "C-d")
-  "Key to toggle diff/full-content preview during commit selection.")
 
 (defvar git-peek-next-key nil
   "Additional key to move to next commit, nil = disabled.")
@@ -166,35 +159,18 @@ Never changes window focus - sidebar remains selected."
   (when (string-match-p "^[0-9a-f]\\{7,\\}" commit)
     (condition-case err
         (let* ((hash (car (split-string commit " ")))
-               (current-file (expand-file-name git-peek--file git-peek--root))
                (npath (git-peek--normalize-path git-peek--file))
-               (content
-                (if (and git-peek-show-diff
-                         (not git-peek--deleted)
-                         (file-exists-p current-file))
-                    (let ((tmpfile (make-temp-file "git-peek-")))
-                      (shell-command
-                       (format "git -C %s show %s:%s > %s"
-                               git-peek--root hash npath tmpfile))
-                      (prog1
-                          (shell-command-to-string
-                           (format "diff %s %s" current-file tmpfile))
-                        (delete-file tmpfile)))
-                  (shell-command-to-string
-                   (format "git -C %s show %s:%s" git-peek--root hash npath))))
+               (content (shell-command-to-string
+                        (format "git -C %s show %s:%s" git-peek--root hash npath)))
                (date (git-peek--git git-peek--root
                                     "show -s --format=%cd --date=format:%Y%m%d" hash))
                (label (format "%s_%s" date (file-name-nondirectory git-peek--file))))
           (with-current-buffer (get-buffer-create "*git-peek-preview*")
             (let ((inhibit-read-only t))
               (erase-buffer)
-              (insert (if (string-empty-p content)
-                          "(no diff - identical to current)"
-                        content))
+              (insert content)
               (goto-char (point-min)))
-            (let ((mode (if git-peek-show-diff
-                            #'diff-mode
-                          (assoc-default git-peek--file auto-mode-alist #'string-match))))
+            (let ((mode (assoc-default git-peek--file auto-mode-alist #'string-match)))
               (when mode (funcall mode)))
             (setq-local mode-line-buffer-identification
                         (list (propertize (format " [preview] %s" label)
@@ -214,7 +190,7 @@ Never changes window focus - sidebar remains selected."
 (defun git-peek--show-help ()
   "Show a brief key guide in the minibuffer."
   (interactive)
-  (message "[sidebar] ↓/j/SPC:next  ↑/k/b:prev  RET:preview  s:save  C-d:diff  q:quit  |  [preview] RET/f:back  s:save  q:quit"))
+  (message "[sidebar] ↓/j/SPC:next  ↑/k/b:prev  RET:preview  s:save  q:quit  |  [preview] RET/f:back  s:save  q:quit"))
 
 (defun git-peek--highlight-filename ()
   "Apply overlay covering the full filename header line in the sidebar."
@@ -298,13 +274,6 @@ Keeps focus on the sidebar window throughout."
   "Move to previous commit and update preview."
   (interactive)
   (git-peek--move-and-preview -1))
-
-(defun git-peek--commit-toggle-diff ()
-  "Toggle diff/full preview and refresh."
-  (interactive)
-  (setq git-peek-show-diff (not git-peek-show-diff))
-  (message "git-peek: preview = %s" (if git-peek-show-diff "diff" "full"))
-  (git-peek--render-preview (git-peek--current-commit)))
 
 (defun git-peek--commit-go-preview ()
   "Move focus to preview buffer."
@@ -412,7 +381,7 @@ Inherits global map so normal scroll keys (\\[scroll-up-command], \\[scroll-down
   (when (fboundp 'evil-local-mode)
     (evil-local-mode -1))
   (setq-local mode-line-buffer-identification
-              (list (propertize " [git-peek] ↓/j/SPC:次 ↑/k/b:前 RET:プレビューへ s:保存 q:終了 C-d:diff ?:help"
+              (list (propertize " [git-peek] ↓/j/SPC:次 ↑/k/b:前 RET:プレビューへ s:保存 q:終了 ?:help"
                                 'face 'mode-line-buffer-id))))
 
 ;;; Layout setup
@@ -460,8 +429,7 @@ Inherits global map so normal scroll keys (\\[scroll-up-command], \\[scroll-down
           (goto-char (point-min))
           (forward-line 1))  ;; Skip filename line to first commit
         (git-peek-commit-mode)
-        ;; C-d/additional keys are dynamically set to keymap after mode activation
-        (local-set-key git-peek-toggle-diff-key #'git-peek--commit-toggle-diff)
+        ;; additional keys are dynamically set to keymap after mode activation
         (when git-peek-next-key (local-set-key git-peek-next-key #'git-peek--commit-next))
         (when git-peek-prev-key (local-set-key git-peek-prev-key #'git-peek--commit-prev))
         (git-peek--highlight-filename)
