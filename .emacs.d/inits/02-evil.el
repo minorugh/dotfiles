@@ -39,7 +39,6 @@
           ("d"      . deepl-translate)
           ([insert] . my-iedit-toggle))
          (:evil-emacs-state-map
-	  ("g g"    . beginning-of-buffer)
           ("C-a"    . my-seq-home)
           ("C-e"    . my-seq-end)
           ([insert] . my-iedit-toggle)

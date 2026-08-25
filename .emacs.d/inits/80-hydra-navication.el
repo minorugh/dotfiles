@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  Git:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -41,7 +41,7 @@
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("p" keepassxc)
-   ("g" counsel-git)
+   ("g" my-git-discard-changes)
    ("n" (browse-url "https://app.simplenote.com/"))
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)
@@ -89,6 +89,29 @@
     (if my-main-machine-p
         (my-make "git")
       (my-make-run-async default-directory "git")))
+
+  (defun my-git--root ()
+    "Return the git root directory for the current buffer, or error."
+    (or (locate-dominating-file default-directory ".git")
+        (user-error "Gitリポジトリが見つかりません")))
+
+  (defun my-git--run (cmd &optional confirm)
+    "CMD を git root で別の gnome-terminal ウィンドウとして実行する.
+CONFIRM が非nilなら実行前に y-or-n-p で確認する。
+コマンド完了後は Enter キーで閉じるまで結果を確認できる。"
+    (let ((default-directory (my-git--root)))
+      (when (or (not confirm) (y-or-n-p (format "%s を実行しますか? " cmd)))
+        (start-process "git-menu-terminal" nil
+                       "gnome-terminal" "--maximize" "--"
+                       "bash" "-c"
+                       (format "%s; echo; read -n1 -r -p '-- Enterキーで閉じます --'" cmd)))))
+
+  (defun my-git-discard-changes ()
+    "このファイルを直近のコミットの内容に戻す(要確認)."
+    (interactive)
+    (my-git--run (format "git checkout -- %s"
+                         (shell-quote-argument buffer-file-name))
+                 t))
 
   ;; OPTSIONS for my open path function
   ;; :pos 'top | 'bottom | integer  :omit  :emacs
@@ -177,12 +200,12 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
     (evil-normal-state))
   (hydra-work/body))
 
-(with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<f7>" #'my-hydra-work))
+;; (with-eval-after-load 'mozc
+;;   (keymap-set mozc-mode-map "<f7>" #'my-hydra-work))
 
 (leaf *hydra-work
   :after evil
-  :bind ("<f7>" . my-hydra-work)
+  ;; :bind ("<f7>" . my-hydra-work)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'my-template))
@@ -227,7 +250,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<f7>"     hydra-dired/body)
+   ;; ("<f7>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
