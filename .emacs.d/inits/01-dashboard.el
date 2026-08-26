@@ -71,19 +71,19 @@
   ;; dashboard標準agendaウィジェットのカスタマイズ(表示日数・ソート順・
   ;; 見出し表記)、kill-emacs-hookでの同期は、すべて elisp/my-gcal-agenda.el
   ;; に集約してある。ここではrequireするだけでよい。
-  (require 'my-gcal-agenda)
-  ;; 表示期間を60日に変更(既定値は my-gcal-agenda.el 側で定義)
-  (setq my-dashboard-agenda-days 60)
+  (require 'gcal-dashboard)
+  ;; 表示期間を60日に変更(既定値は gcal-dashboard.el 側で定義)
+  (setq gcal-dashboard-agenda-days 60)
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
   (if my-main-machine-p
-      (setq dashboard-items '((haiku . 1) (agenda . 5)))
+      (setq dashboard-items '((haiku . 1) (gcal-agenda . 5)))
     (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────
   (setq dashboard-footer-messages '("God Bless Our Home And All Who Enter Here."))
   (setq dashboard-footer-icon
-        (nerd-icons-octicon "nf-oct-home" :height 1.0 :face 'nerd-icons-lred))
+        (nerd-icons-octicon "nf-oct-home" :height 1.2 :face 'dashboard-heading))
 
 
   ;; ============================================================

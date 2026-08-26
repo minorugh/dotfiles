@@ -1,4 +1,11 @@
-;;; my-gcal-agenda.el --- Sync Google Calendar into an org file, and wire it into dashboard's Agenda.  -*- lexical-binding: t -*-
+;;; gcal-dashboard.el --- Sync Google Calendar into an org file, and wire it into dashboard's Agenda.  -*- lexical-binding: t -*-
+
+;; Author: minorugh
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "27.1") (dashboard "1.8.0"))
+;; URL: https://github.com/minorugh/gcal-dashboard
+;; Keywords: calendar, org, convenience
+
 ;;; Commentary:
 ;;
 ;; Google Calendar(複数カレンダー)から org ファイルへの一方向同期ロジック、
@@ -18,57 +25,34 @@
 ;; 予定はスマホ等からGoogle Calendarに登録する運用を前提としており、
 ;; Emacs側で手書きのorgエントリをこのファイルに併用することは想定
 ;; していない。org-agenda-filesへの登録もこのファイル内で完結するので、
-;; 利用側(01-dashboard.el)は `require' するだけでよい。
+;; 利用側は `require' した上で `dashboard-items' に
+;; `(gcal-agenda . N)' を追加するだけでよい(dashboard.el標準の
+;; `agenda' とは別キーとして登録してあるため、両方を並べて
+;; 使うこともできる)。
 ;;
 ;; ------------------------------------------------------------
-;; 同期の仕組み(M-x my-gcal-sync-to-org)
+;; 同期の仕組み(M-x gcal-dashboard-sync)
 ;; ------------------------------------------------------------
-;;   対象カレンダーは `my-gcal-calendars' に (名前 . URLファイルパス) の
+;;   対象カレンダーは `gcal-dashboard-calendars' に (名前 . URLファイルパス) の
 ;;   リストとして登録する。各URLファイルには Google Calendarの
 ;;   「非公開URL」(secret address in iCal format)を1行だけ書いて
 ;;   ~/.env_source 配下に保存する(dotfilesには含めない)。
 ;;
-;;   カレンダーごとに以下を繰り返し、結果を一時orgファイルへ
-;;   追記していく:
-;;   1. 非公開URLから .ics をダウンロードする(認証不要、読み取り専用)。
-;;   2. `icalendar-import-file' で .ics を diary形式のテキストに変換する
-;;      (org形式への直接変換は行わず、実績のあるdiary変換を経由する)。
-;;   3. `my-gcal--fix-block-end-dates' で複数日イベントの終了日を補正する
-;;      (iCalendarのDTENDは非包含のため)。
-;;   4. `my-diary-filter-recent' で「直近 my-gcal-months-back ヶ月分より
-;;      新しい予定」だけに絞り込む(全履歴を毎回持ち込むと肥大化するため)。
-;;      日付が判定できない繰り返し予定(diary-cyclic等)は安全側に倒して残す。
-;;   5. `my-gcal--diary-to-org' で、ここまでできたdiary形式のテキストを
-;;      org形式(見出し+タイムスタンプ)に変換する。
-;;      - 単日の予定 → 単一タイムスタンプ `<Y-M-D Day>'
-;;      - 複数日の予定(diary-block) → 日ごとに単日エントリを1件ずつ
-;;        並べる(M-x org-agenda自体は範囲タイムスタンプ
-;;        `<開始日>--<終了日>' を (1/3) のような進捗表示で正しく
-;;        扱えるが、dashboardパッケージのagendaウィジェットは
-;;        独自簡易実装(org-map-entries + `org-entry-get' の
-;;        特殊プロパティ"TIMESTAMP")で開始日しか拾えず、範囲の
-;;        終了日を無視してしまう。dashboard表示を優先し、
-;;        diary運用時と同じ「日ごとに展開」する方式に戻す)
-;;      - それ以外のsexp形式(diary-cyclic等の繰り返し予定) →
-;;        org は diary sexp をそのまま評価できるため、
-;;        `<%%(SEXP)>' の形で素通しする(手動でorgのrepeater構文に
-;;        変換する必要はない)
-;;
 ;;   全カレンダー分の処理が終わってから、一時orgファイルの中身を
-;;   まとめて `my-gcal-org-file' へ一括コピーする(=洗い替え)。
+;;   まとめて `gcal-dashboard-org-file' へ一括コピーする(=洗い替え)。
 ;;   途中でエラーやタイムアウトが起きても本番ファイルには一切手を
 ;;   付けないため、直前の(完全な)状態がそのまま保たれる。
-;;   カレンダーを増やしたい場合は `my-gcal-calendars' に1行追加するだけでよい。
+;;   カレンダーを増やしたい場合は `gcal-dashboard-calendars' に1行追加するだけでよい。
 ;;
 ;;   自動実行(after-save-hook等)はあえて行っていない。ネットワーク越しの
 ;;   処理を毎回自動で走らせるのは事故のもとなので、
 ;;   kill-emacs-hook(このファイル内で登録)による終了時同期か、
-;;   手動での M-x my-gcal-sync-to-org 実行を基本の運用とする。
+;;   手動での M-x gcal-dashboard-sync 実行を基本の運用とする。
 ;;
 ;;   `icalendar-import-file' は内部で入力(.ics)・出力(diary形式)の
 ;;   両ファイルを find-file 系でバッファに開くが、そのバッファ自体は
 ;;   killしてくれない。一時ファイルを消してもバッファだけ残ると
-;;   ivy-switch-buffer等の候補が汚れるため、`my-gcal--kill-file-buffer'
+;;   ivy-switch-buffer等の候補が汚れるため、`gcal-dashboard--kill-file-buffer'
 ;;   で一時ファイル削除の直前に visit中バッファも合わせてkillする。
 ;;
 ;; ------------------------------------------------------------
@@ -82,33 +66,39 @@
 ;;; Code:
 (require 'calendar)
 
+(defgroup gcal-dashboard nil
+  "Sync Google Calendar into an org file and show it in dashboard's Agenda."
+  :group 'applications
+  :prefix "gcal-dashboard-")
+
 ;; 同期対象カレンダーのリスト。(名前 . 非公開URLファイルパス) の形式。
 ;; URL自体は ~/.env_source で秘密管理し、dotfilesには含めない。
 ;; このパスは一例であり、置き場所自体はどこでも構わない。
 ;; カレンダーを増やす場合はこのリストに1行追加するだけでよい。
-(defvar my-gcal-calendars
+(defcustom gcal-dashboard-calendars
   '(("private" . "~/.env_source/tokens/gcal-diary-url")
     ("kukai"   . "~/.env_source/tokens/gcal-kukai-url"))
-  "Alist of (calendar-name . secret-ical-url-file).")
+  "Alist of (calendar-name . secret-ical-url-file)."
+  :type '(alist :key-type string :value-type file)
+  :group 'gcal-dashboard)
 
 ;; gcal.orgは同期のたびに丸ごと作り直される(洗い替え方式)ので、
 ;; 絶対に手で編集しないこと。
-;; このファイルのパス・存在保証、および `org-agenda-files' への登録も
-;; すべて自分自身(my-gcal-agenda.el)の責務とする。
-;; 利用側(01-dashboard.el)は `require' するだけでよい。
-(defvar my-gcal-org-file
+;; gcal.orgの生成・管理はこのファイルで行う。
+;; ファイルが存在しない場合の初期化と `org-agenda-files' への登録も
+;; ここで行う。利用側は `require' するだけでよい.
+(defvar gcal-dashboard-org-file
   (locate-user-emacs-file "tmp/gcal.org")
   "Auto-generated org file synced from Google Calendar.
 Do not edit by hand.")
 
-;; このファイルの所有者はここ(my-gcal-diary.el)なので、
-;; 存在しない場合の初期化もここで面倒を見る。
-(unless (file-exists-p my-gcal-org-file)
-  (make-empty-file my-gcal-org-file t))
+(unless (file-exists-p gcal-dashboard-org-file)
+  (make-empty-file gcal-dashboard-org-file t))
 
-;; これより古い予定は同期時に除外される。
-(defvar my-gcal-months-back 12
-  "Number of past months to keep when syncing from Google Calendar.")
+(defcustom gcal-dashboard-months-back 12
+  "Number of past months to keep when syncing from Google Calendar."
+  :type 'integer
+  :group 'gcal-dashboard)
 
 ;; ------------------------------------------------------------
 ;; 複数日イベントの終了日補正について
@@ -122,13 +112,12 @@ Do not edit by hand.")
 ;; 0にすれば補正なし。ズレの実測値が変わった場合はこの値を調整する。
 ;; (この補正はdiary形式の段階で行うため、後段のorg変換では
 ;; 補正済みの終了日をそのまま使うだけでよい)
-(defcustom my-gcal-block-end-date-correction 1
-  "diary-blockの終了日に加算する日数(実測でズレている日数)."
-  :type 'integer :group 'calendar)
+(defcustom gcal-dashboard-block-end-date-correction 1
+  "Number of days to add to diary-block end dates."
+  :type 'integer :group 'gcal-dashboard)
 
-(defun my-gcal--fix-block-end-dates (input-file output-file days)
-  "INPUT-FILE中のdiary-blockの終了日にDAYS日加算してOUTPUT-FILEへ書き出す.
-DAYSが0の場合は補正せずそのままコピーする."
+(defun gcal-dashboard--fix-block-end-dates (input-file output-file days)
+  "Write INPUT-FILE to OUTPUT-FILE with DAYS added to block end dates."
   (if (zerop days)
       (copy-file input-file output-file t)
     (with-temp-buffer
@@ -147,7 +136,7 @@ DAYSが0の場合は補正せずそのままコピーする."
                           t)))
       (write-region (point-min) (point-max) output-file))))
 
-(defun my-gcal--read-url (file)
+(defun gcal-dashboard--read-url (file)
   "Read a secret iCal URL (single line) from FILE.
 Return nil if FILE is missing."
   (let ((f (expand-file-name file)))
@@ -161,19 +150,16 @@ Return nil if FILE is missing."
 ;; 未保存扱いのまま残っているとkill時に確認プロンプトが出て
 ;; kill-emacs-hook経由の自動同期が止まりかねないので、
 ;; killする前に明示的に「未保存ではない」ことにしておく。
-(defun my-gcal--kill-file-buffer (file)
+(defun gcal-dashboard--kill-file-buffer (file)
   "Kill any buffer visiting FILE, without a save prompt."
   (let ((buf (find-buffer-visiting file)))
     (when buf
       (with-current-buffer buf (set-buffer-modified-p nil))
       (kill-buffer buf))))
 
-;; diaryのエントリは「日付行 + インデントされた継続行」を1グループとして
-;; 扱う。フィルタとorg変換の両方で使うため、グループ化処理だけ共通化する。
-(defun my-gcal--group-diary-lines (lines)
-  "LINES(diary形式のファイル内容を行分割したもの)を、
-「日付行 + インデントされた継続行」のグループ単位でまとめて返す.
-各要素は行のリスト(先頭が日付行)."
+;; フィルタとorg変換の両方で使うため、グループ化処理だけ共通化する。
+(defun gcal-dashboard--group-diary-lines (lines)
+  "Group diary LINES by entries."
   (let (groups cur)
     (dolist (line lines)
       (if (and cur (or (string= line "") (string-match-p "^[ \t]" line)))
@@ -188,7 +174,7 @@ Return nil if FILE is missing."
 ;; - `%%(and (diary-block M D Y M D Y)) ...' 形式(期間指定)
 ;; のどちらにもマッチしない場合は、日付判定不能とみなし安全側に倒して残す
 ;; (例: diary-cyclic を使った繰り返し予定など)。
-(defun my-diary-filter-recent (input-file output-file months-back)
+(defun gcal-dashboard--filter-recent (input-file output-file months-back)
   "Write entries from INPUT-FILE newer than MONTHS-BACK months to OUTPUT-FILE."
   (let* ((cutoff-abs (- (calendar-absolute-from-gregorian
                          (calendar-current-date))
@@ -196,7 +182,7 @@ Return nil if FILE is missing."
          (lines (with-temp-buffer
                   (insert-file-contents input-file)
                   (split-string (buffer-string) "\n")))
-         (groups (my-gcal--group-diary-lines lines)))
+         (groups (gcal-dashboard--group-diary-lines lines)))
     (with-temp-buffer
       (dolist (g groups)
         (let* ((head (car g))
@@ -231,18 +217,20 @@ Return nil if FILE is missing."
 ;;   - `%%(and (diary-block M D Y M D Y)) TEXT'      … 複数日の予定
 ;;   - それ以外の `%%(SEXP) TEXT'(diary-cyclic等)    … 繰り返し予定
 ;;
-;; 複数日の予定だけは、org のタイムスタンプ範囲
-;; `<開始日>--<終了日>' に変換する。それ以外のsexp形式(繰り返し予定等)は、
-;; org が diary sexp をそのまま評価できる機能を使い、
+;; 複数日の予定は、冒頭のCommentaryで述べた通り「日ごとに単日
+;; エントリを1件ずつ展開する」方式に変換する
+;; (dashboardのAgendaウィジェットが範囲タイムスタンプ
+;; `<開始日>--<終了日>' の終了日を拾えないための対応。詳細は
+;; ファイル冒頭のCommentary参照)。それ以外のsexp形式(繰り返し
+;; 予定等)は、org が diary sexp をそのまま評価できる機能を使い、
 ;; `<%%(SEXP)>' の形で素通しする。
 ;;
 ;; どちらのパターンにも一致しない行は変換不能として読み飛ばし、
 ;; メッセージでログを残す(diary運用時の「安全側に倒して残す」とは
 ;; 異なり、org化できない情報を無理に残しても後段で解釈できないため)。
 
-(defun my-gcal--parse-sexp-line (line)
-  "diary sexpエントリ行(\"%%(...) TEXT\")をパースする.
-戻り値は (SEXP . TEXT) のcons。sexp形式でなければnil."
+(defun gcal-dashboard--parse-sexp-line (line)
+  "Parse LINE as a diary sexp entry."
   (when (string-match "\\`%+(" line)
     (let* ((start  (1- (match-end 0)))
            (parsed (read-from-string line start))
@@ -250,98 +238,86 @@ Return nil if FILE is missing."
            (end    (cdr parsed)))
       (cons sexp (string-trim (substring line end))))))
 
-(defun my-gcal--block-dates (sexp)
-  "SEXP が `(and (diary-block M1 D1 Y1 M2 D2 Y2))' 形式なら
-(M1 D1 Y1 M2 D2 Y2) を返す。そうでなければnil."
+(defun gcal-dashboard--block-dates (sexp)
+  "Return block dates from SEXP, or nil."
   (let ((inner (and (eq (car-safe sexp) 'and) (cadr sexp))))
     (when (eq (car-safe inner) 'diary-block)
       (cdr inner))))
 
-(defun my-gcal--org-timestamp (date)
-  "DATE(calendar形式の (M D Y))をorgタイムスタンプの中身の文字列
-(例: \"2026-09-01 Tue\")に変換する."
+(defun gcal-dashboard--org-timestamp (date)
+  "Format DATE as an Org timestamp."
   (format-time-string "%Y-%m-%d %a"
                        (encode-time 0 0 0 (nth 1 date) (nth 0 date) (nth 2 date))))
 
-(defun my-gcal--format-org-entry (text date)
-  "TEXTを見出しとして、DATEの日付をタイムスタンプに持つ
-org形式の単日エントリ文字列(見出し+タイムスタンプの2行)を返す."
-  (format "* %s\n  <%s>\n" text (my-gcal--org-timestamp date)))
+(defun gcal-dashboard--format-org-entry (text date)
+  "Format TEXT and DATE as an Org entry."
+  (format "* %s\n  <%s>\n" text (gcal-dashboard--org-timestamp date)))
 
-(defun my-gcal--format-org-block-entries (text start end)
-  "TEXTを見出しとして、START〜END(両端含む)の日付ぶん、
-単日エントリを1日1件ずつ並べた文字列を返す(dashboardのagenda
-ウィジェットが範囲タイムスタンプの終了日を無視してしまうための
-回避策。M-x org-agendaでは同じ予定が日数分並ぶだけで実用上問題ない)."
+(defun gcal-dashboard--format-org-block-entries (text start end)
+  "Format TEXT as daily Org entries from START through END."
   (let ((day  (calendar-absolute-from-gregorian start))
         (last (calendar-absolute-from-gregorian end))
         (out ""))
     (while (<= day last)
-      (setq out (concat out (my-gcal--format-org-entry
+      (setq out (concat out (gcal-dashboard--format-org-entry
                               text (calendar-gregorian-from-absolute day))))
       (setq day (1+ day)))
     out))
 
-(defun my-gcal--format-org-sexp-entry (text sexp)
-  "TEXTを見出しとして、SEXPをそのままdiary sexpタイムスタンプとして
-埋め込んだorg形式のエントリ文字列を返す(繰り返し予定用)."
+(defun gcal-dashboard--format-org-sexp-entry (text sexp)
+  "Format TEXT and SEXP as an Org diary entry."
   (format "* %s\n  <%%%%%S>\n" text sexp))
 
-(defun my-gcal--diary-group-to-org (group)
-  "diaryのエントリ1件分(GROUP, 継続行込みの行リスト)をorg形式の
-文字列に変換する。認識できない形式であればnilを返す(=読み飛ばす)."
+(defun gcal-dashboard--diary-group-to-org (group)
+  "Convert GROUP from diary format to Org format."
   (let ((head (car group)))
     (cond
      ;; 単日: M/D/YYYY TEXT
      ((string-match "\\`\\([0-9]+\\)/\\([0-9]+\\)/\\([0-9]+\\) *\\(.*\\)\\'" head)
-      (my-gcal--format-org-entry
+      (gcal-dashboard--format-org-entry
        (match-string 4 head)
        (list (string-to-number (match-string 1 head))
              (string-to-number (match-string 2 head))
              (string-to-number (match-string 3 head)))))
      ;; sexp形式(diary-block / diary-cyclic 等)
-     (t (let ((parsed (my-gcal--parse-sexp-line head)))
+     (t (let ((parsed (gcal-dashboard--parse-sexp-line head)))
           (when parsed
             (let* ((sexp  (car parsed))
                    (text  (cdr parsed))
-                   (block (my-gcal--block-dates sexp)))
+                   (block (gcal-dashboard--block-dates sexp)))
               (if block
-                  (my-gcal--format-org-block-entries
+                  (gcal-dashboard--format-org-block-entries
                    text
                    (list (nth 0 block) (nth 1 block) (nth 2 block))
                    (list (nth 3 block) (nth 4 block) (nth 5 block)))
-                (my-gcal--format-org-sexp-entry text sexp)))))))))
+                (gcal-dashboard--format-org-sexp-entry text sexp)))))))))
 
-(defun my-gcal--diary-to-org (input-file output-file)
-  "INPUT-FILE(diary形式、変換・補正・フィルタ済み)をorg形式に
-変換してOUTPUT-FILEへ書き出す."
+(defun gcal-dashboard--diary-to-org (input-file output-file)
+  "Convert INPUT-FILE to Org format in OUTPUT-FILE."
   (let* ((lines  (with-temp-buffer
                     (insert-file-contents input-file)
                     (split-string (buffer-string) "\n")))
-         (groups (my-gcal--group-diary-lines lines)))
+         (groups (gcal-dashboard--group-diary-lines lines)))
     (with-temp-buffer
       (dolist (g groups)
-        (let ((org-entry (my-gcal--diary-group-to-org g)))
+        (let ((org-entry (gcal-dashboard--diary-group-to-org g)))
           (if org-entry
               (insert org-entry)
-            (message "my-gcal-sync-to-org: 未対応形式のためスキップ: %s" (car g)))))
+            (message "gcal-dashboard-sync: 未対応形式のためスキップ: %s" (car g)))))
       (write-region (point-min) (point-max) output-file))))
 
-;; 処理の流れ(カレンダーごとに繰り返す):
-;;   ダウンロード → icalendar変換 → 終了日補正 → 直近分にフィルタ
-;;   → org形式に変換 → 一時orgへ追記
 ;; 全カレンダー処理後にまとめて本番ファイルへコピーする(=洗い替え)。
 ;; こうすることで、途中でタイムアウトやエラーが起きても本番ファイル
-;; (my-gcal-org-file)には一切手を付けないまま終われるので、
+;; (gcal-dashboard-org-file)には一切手を付けないまま終われるので、
 ;; 「一部のカレンダー分だけ反映された中途半端な状態」が本番に
 ;; 残ることがない。
 ;; URLファイルが見つからないカレンダーはエラーにせずスキップする。
 ;; 一時ファイルとそれをvisitしていたバッファは、unwind-protectで必ず
 ;; 削除・killされる。
-(defun my-gcal-sync-to-org ()
-  "Sync all calendars in `my-gcal-calendars' into `my-gcal-org-file'.
+(defun gcal-dashboard-sync ()
+  "Sync all calendars in `gcal-dashboard-calendars' into `gcal-dashboard-org-file'.
 Builds the merged result in a temp file first, and only replaces
-`my-gcal-org-file' once every calendar has been processed
+`gcal-dashboard-org-file' once every calendar has been processed
 successfully, so a mid-sync timeout or error never leaves the real
 org file in a half-written state."
   (interactive)
@@ -350,11 +326,11 @@ org file in a half-written state."
         (tmp-org (make-temp-file "gcal-sync-org-")))
     (unwind-protect
         (progn
-          (dolist (cal my-gcal-calendars)
+          (dolist (cal gcal-dashboard-calendars)
             (let* ((name (car cal))
-                   (url (my-gcal--read-url (cdr cal))))
+                   (url (gcal-dashboard--read-url (cdr cal))))
               (if (not url)
-                  (message "my-gcal-sync-to-org: %s のURLが見つかりません(%s), skip"
+                  (message "gcal-dashboard-sync: %s のURLが見つかりません(%s), skip"
                            name (cdr cal))
                 (let* ((tmp-ics      (make-temp-file "gcal-sync-" nil ".ics"))
                        (tmp-raw      (make-temp-file "gcal-sync-raw-"))
@@ -369,12 +345,12 @@ org file in a half-written state."
                         (when (file-exists-p tmp-raw) (delete-file tmp-raw))
                         (icalendar-import-file tmp-ics tmp-raw)
                         ;; 3. 複数日イベントの終了日を補正
-                        (my-gcal--fix-block-end-dates
-                         tmp-raw tmp-fixed my-gcal-block-end-date-correction)
+                        (gcal-dashboard--fix-block-end-dates
+                         tmp-raw tmp-fixed gcal-dashboard-block-end-date-correction)
                         ;; 4. 日付でフィルタ
-                        (my-diary-filter-recent tmp-fixed tmp-filtered my-gcal-months-back)
+                        (gcal-dashboard--filter-recent tmp-fixed tmp-filtered gcal-dashboard-months-back)
                         ;; 5. org形式に変換
-                        (my-gcal--diary-to-org tmp-filtered tmp-org-part)
+                        (gcal-dashboard--diary-to-org tmp-filtered tmp-org-part)
                         ;; 6. 一時orgへ追記(本番ファイルにはまだ触れない)
                         (write-region (with-temp-buffer
                                         (insert-file-contents tmp-org-part)
@@ -382,12 +358,12 @@ org file in a half-written state."
                                       nil tmp-org t)
                         (setq count (1+ count)))
                     (dolist (f (list tmp-ics tmp-raw tmp-fixed tmp-filtered tmp-org-part))
-                      (my-gcal--kill-file-buffer f)
+                      (gcal-dashboard--kill-file-buffer f)
                       (when (file-exists-p f) (delete-file f))))))))
           ;; 1件以上成功していれば、まとめて本番ファイルへ反映する
           (when (> count 0)
-            (copy-file tmp-org my-gcal-org-file t)))
-      (my-gcal--kill-file-buffer tmp-org)
+            (copy-file tmp-org gcal-dashboard-org-file t)))
+      (gcal-dashboard--kill-file-buffer tmp-org)
       (when (file-exists-p tmp-org) (delete-file tmp-org)))
     (message "Google Calendar → org 同期完了: %d件のカレンダー (%s)"
              count (format-time-string "%Y-%m-%d %H:%M"))))
@@ -396,19 +372,24 @@ org file in a half-written state."
 ;; dashboardのAgendaウィジェットとの連携
 ;; ------------------------------------------------------------
 ;; ここから下は「同期したorgファイルをdashboardにどう見せるか」という
-;; 表示側の設定。同期ロジック本体とは関心事が違うが、01-dashboard.el
-;; (01-dashboard.el)を薄く保つため、gcal関連の設定としてこちらに
-;; まとめて持たせている。
+;; 表示側の設定。同期ロジック本体とは関心事が違うが、利用側の設定を
+;; 薄く保つため、gcal関連の設定としてこちらにまとめて持たせている。
 ;;
 ;; dashboard.el標準のagendaウィジェット(org-map-entriesベース)を
 ;; そのまま使い、以下の3点だけ差し替える:
-;;   1. 表示日数を「今日/週」の2択から `my-dashboard-agenda-days'
+;;   1. 表示日数を「今日/週」の2択から `gcal-dashboard-agenda-days'
 ;;      日数指定に拡張(標準の `dashboard-due-date-for-agenda' を再定義)
 ;;   2. 複数カレンダーを使うとファイル順のまま出て日付順にならないため、
 ;;      時刻順に明示的にソート
 ;;   3. 見出しの "gcal:" のようなカテゴリ表示は不要なので消す
 (require 'org)
-(add-to-list 'org-agenda-files my-gcal-org-file)
+(require 'org-agenda)
+(add-to-list 'org-agenda-files gcal-dashboard-org-file)
+
+;; gcal.orgは外部同期で書き換えられるため、
+;; visitしたバッファでauto-revertのメッセージを表示しない。
+(with-current-buffer (find-file-noselect gcal-dashboard-org-file)
+  (setq-local auto-revert-verbose nil))
 
 ;; `dashboard-insert-section' はマクロ(内部で `el' を暗黙に束縛する
 ;; anaphoricマクロ)なので、バイトコンパイル時にもこのマクロが
@@ -418,44 +399,95 @@ org file in a half-written state."
 ;; 先に評価されて "Symbol's value as variable is void: el" になる。
 (eval-and-compile (require 'dashboard-widgets))
 
-(defcustom my-dashboard-agenda-days 30
-  "DashboardのAgendaウィジェットで何日先までの予定を表示するか."
-  :type 'integer :group 'dashboard)
+(defcustom gcal-dashboard-agenda-days 30
+  "Number of days to show in the dashboard Agenda."
+  :type 'integer :group 'gcal-dashboard)
 
-(defun dashboard-due-date-for-agenda ()
-  "Agendaに含める予定の上限日時(`my-dashboard-agenda-days' 日後)を返す.
-dashboard.el標準の「今日/週」の2択(`dashboard-week-agenda')の
-代わりに、日数を自由に指定できるようにするための再定義."
-  (time-add (current-time) (* 86400 (1+ my-dashboard-agenda-days))))
+;; dashboard.el標準の `dashboard-due-date-for-agenda' は
+;; `dashboard-week-agenda' の「今日/週」の2択しか選べない。
+;; 生の関数再定義ではなく `advice-add' で差し替えることで、
+;; 何が差し替えたかを `describe-function' で追跡でき、
+;; `(advice-remove 'dashboard-due-date-for-agenda
+;;                  #'gcal-dashboard--due-date-for-agenda)'
+;; で元の挙動に戻せるようにしてある。
+(defun gcal-dashboard--due-date-for-agenda ()
+  "Return the upper time limit for the Agenda widget.
+Overrides dashboard.el's own day/week choice with
+`gcal-dashboard-agenda-days' via advice (see `gcal-dashboard-mode')."
+  (time-add (current-time) (* 86400 (1+ gcal-dashboard-agenda-days))))
 
-(defun dashboard-insert-agenda (list-size)
-  "直近 `my-dashboard-agenda-days' 日分のAgendaを一覧表示する.
-dashboard.el標準の `dashboard-insert-agenda' を、見出し文言だけ
-日数に合わせて差し替えたもの(本体の処理は標準のものをそのまま利用)."
+(advice-add 'dashboard-due-date-for-agenda :override
+            #'gcal-dashboard--due-date-for-agenda)
+
+;; dashboard.el標準の `dashboard-insert-agenda' を直接上書きするのではなく、
+;; 別名で定義して `dashboard-item-generators' に新しい項目
+;; (`gcal-agenda') として追加登録する。利用側は `dashboard-items' に
+;; `(agenda . N)' ではなく `(gcal-agenda . N)' と書けば、標準のAgenda
+;; ウィジェットと共存できる(標準の方は上書きされずそのまま残る)。
+(defun gcal-dashboard-insert-agenda (list-size)
+  "Insert the coming `gcal-dashboard-agenda-days' days of Agenda entries for LIST-SIZE items.
+A near-verbatim copy of dashboard.el's own `dashboard-insert-agenda',
+registered under a separate `gcal-agenda' key so the standard `agenda'
+item generator is left untouched."
   (require 'org-agenda)
   (dashboard-insert-section
-   (format "Agenda for the coming %d days:" my-dashboard-agenda-days)
+   (format "Agenda for the coming %d days:" gcal-dashboard-agenda-days)
    (dashboard-agenda--sorted-agenda)
    list-size
-   'agenda
-   (dashboard-get-shortcut 'agenda)
+   'gcal-agenda
+   (dashboard-get-shortcut 'gcal-agenda)
    `(lambda (&rest _)
       (let ((file (get-text-property 0 'dashboard-agenda-file ,el))
             (point (get-text-property 0 'dashboard-agenda-loc ,el)))
         (funcall dashboard-agenda-action file point)))
    (format "%s" el)))
 
+(add-to-list 'dashboard-item-generators
+             '(gcal-agenda . gcal-dashboard-insert-agenda))
+
+;; `gcal-agenda' はdashboard.el組み込みの `agenda' とは別のキーなので、
+;; ショートカットキーは既定では割り当てられない。必要であれば
+;; (add-to-list 'dashboard-item-shortcuts '(gcal-agenda . "a"))
+;; のように利用側で追加できる。
+
+;; 曜日をロケールに依存させず漢字1文字で表示するための対応表(calendar-day-of-week/
+;; format-time-string "%w" と同じく 0=日曜始まり)。
+(defcustom gcal-dashboard-weekday-kanji ["日" "月" "火" "水" "木" "金" "土"]
+  "Kanji weekday names indexed from Sunday."
+  :type '(vector string string string string string string string)
+  :group 'gcal-dashboard)
+
+;; dashboard-widgets標準の同名関数を直接上書きせず、adviceで差し替える
+;; (`gcal-dashboard--due-date-for-agenda' と同じ理由)。
+;; `dashboard-agenda-time-string-format' はそのまま日付部分のフォーマットに使う。
+(defun gcal-dashboard--formatted-time ()
+  "Format the agenda time with a Japanese weekday suffix."
+  (when-let* ((time (or (org-get-scheduled-time (point))
+                         (org-get-deadline-time (point))
+                         (dashboard-agenda--entry-timestamp (point)))))
+    (let ((dow (string-to-number (format-time-string "%w" time))))
+      (concat (format-time-string dashboard-agenda-time-string-format time)
+              (format "（%s）" (aref gcal-dashboard-weekday-kanji dow))))))
+
+(advice-add 'dashboard-agenda--formatted-time :override
+            #'gcal-dashboard--formatted-time)
+
 ;; 複数カレンダー(=複数org)をファイル順のまま並べると順序が
 ;; バラバラになるため、時刻順に明示的にソートする。
 (setq dashboard-agenda-sort-strategy '(time-up))
 ;; 既定の "%-12:c"(カテゴリ名, 例 "gcal:")のプレフィックスは不要。
-(setq dashboard-agenda-prefix-format " %s ")
+(setq dashboard-agenda-prefix-format "%s  ")
 
 ;; Emacs終了時にGoogle Calendarと同期する(タイムアウト・エラーは無視).
-(add-hook 'kill-emacs-hook
-          (lambda ()
-            (with-timeout (10 (message "my-gcal-sync-to-org: タイムアウトのためスキップ"))
-              (ignore-errors (my-gcal-sync-to-org)))))
+;; 無名関数ではなく名前付きにしておくことで、
+;; `(remove-hook 'kill-emacs-hook #'gcal-dashboard--sync-on-exit)'
+;; で誰でも簡単に無効化できるようにしてある。
+(defun gcal-dashboard--sync-on-exit ()
+  "Sync Google Calendar on exit, ignoring errors and timeouts."
+  (with-timeout (10 (message "gcal-dashboard-sync: タイムアウトのためスキップ"))
+    (ignore-errors (gcal-dashboard-sync))))
 
-(provide 'my-gcal-agenda)
-;;; my-gcal-agenda.el ends here
+(add-hook 'kill-emacs-hook #'gcal-dashboard--sync-on-exit)
+
+(provide 'gcal-dashboard)
+;;; gcal-dashboard.el ends here
