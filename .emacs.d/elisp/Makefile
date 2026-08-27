@@ -31,31 +31,27 @@ PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-transla
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
 publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
-	@copied=""; skipped=""; \
+	@skipped=""; \
 	for entry in $(PUBLISH_PKGS); do \
-		case "$$entry" in \
-			*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
-			*)   repo=$$entry;      pkg=$$entry ;; \
-		esac; \
-		src=$$pkg.el; \
-		dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
-		if [ ! -f $$src ]; then \
-			skipped="$$skipped $$pkg(not-found)"; \
-			continue; \
-		fi; \
-		if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
-			skipped="$$skipped $$pkg(repo-missing)"; \
-			continue; \
-		fi; \
-		if [ -f $$dest ] && cmp -s $$src $$dest; then \
-			skipped="$$skipped $$pkg"; \
-			continue; \
-		fi; \
-		cp $$src $$dest; \
-		copied="$$copied $$pkg"; \
-		$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
+	case "$$entry" in \
+	*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
+	*) repo=$$entry; pkg=$$entry ;; \
+	esac; \
+	src=$$pkg.el; \
+	dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
+	if [ ! -f $$src ]; then \
+	skipped="$$skipped $$pkg(not-found)"; continue; \
+	fi; \
+	if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
+	skipped="$$skipped $$pkg(repo-missing)"; continue; \
+	fi; \
+	if [ -f $$dest ] && cmp -s $$src $$dest; then \
+	skipped="$$skipped $$pkg"; continue; \
+	fi; \
+	cp $$src $$dest; \
+	$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
 	done; \
-	echo "##> publish: copied=[$$copied ] skipped=[$$skipped ]"
+	echo "##> skip:$$skipped"
 else
 	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
 endif
