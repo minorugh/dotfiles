@@ -327,14 +327,13 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
   (hydra-package
    (:color red :hint nil)
    "
-Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll  _v_c-up-all
+Package: _l_og  _i_nstall  _d_elete  _u_pgrade  up-_a_ll
   "
    ("l" (my-open "~/Dropbox/backup/elpa/LOG/elpa-changes.log" :pos 'bottom))
    ("i" package-install)
    ("u" package-upgrade)
    ("d" package-delete)
    ("a" package-upgrade-all)
-   ("v" package-vc-upgrade-all)
    ("<muhenkan>" nil)))
 
 
