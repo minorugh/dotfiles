@@ -16,6 +16,7 @@ git: ## Auto commit+push (main only, sub: pull only)
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 ifeq ($(HOSTNAME),P1)
 	git push
+	$(MAKE) publish
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません"
 	git pull --rebase
@@ -23,11 +24,13 @@ endif
 
 # ------------------------------------------------------------
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
+# P1 のみ実行可能
 # ------------------------------------------------------------
 PUBLISH_PKGS := git-peek gcal-dashboard deepl-translate tempbuf
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
 
 publish: ## Copy managed files to each local repo and push
+ifeq ($(HOSTNAME),P1)
 	@for pkg in $(PUBLISH_PKGS); do \
 		src=$$pkg.el; \
 		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
@@ -43,6 +46,10 @@ publish: ## Copy managed files to each local repo and push
 		echo "##> Copied $$pkg.el -> $$dest"; \
 		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
 	done
+else
+	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
+endif
+
 
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.

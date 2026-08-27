@@ -426,7 +426,7 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/git-peek.git; \
 	git clone git@github.com:minorugh/gcal-dashboard.git; \
 	git clone git@github.com:minorugh/tempbuf.git; \
-	git clone git@github.com:minorugh/deeple-translate.git; \
+	git clone git@github.com:minorugh/deepl-translate.git; \
 	git clone git@github.com:minorugh/xsrv-GH.git; \
 	git clone git@github.com:minorugh/xsrv-minorugh.git
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
