@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 
-(leaf *my-neomutt
+(leaf *neomutt
   :doc "NeoMutt integration with emacsclient."
   :hook ((server-visit-hook . my-neomutt-setup)
          (server-done-hook  . my-neomutt-server-done))

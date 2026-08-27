@@ -235,8 +235,8 @@
 
 (leaf *evil-leader-map
   :preface
-  (autoload 'my-sen-cleanup "my-sen-cleanup" nil t)
-  (autoload 'my-sen-restore "my-sen-cleanup" nil t)
+  (autoload 'my-sen-cleanup "haiku-sen-tools" nil t)
+  (autoload 'my-sen-restore "haiku-sen-tools" nil t)
   :after evil
   :config
   (setq echo-keystrokes 0)

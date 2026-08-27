@@ -54,18 +54,18 @@ Google Calendar(複数可)を org ファイルへ一方向同期し、dashboard.
 Evil キーバインドのチートシートを表示するバッファー。
 ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
 
-### my-markdown.el
+### markdown-utils.el
 Markdown・howm ファイル編集用ユーティリティ関数群。
 コードブロック内コメント変換（`my-howm-fix-code-comments`）や
 目次生成（`gen_toc.pl` 呼び出し）などを提供する。
 `(require 'my-markdown)` で読み込む。
 
-### my-sen-cleanup.el
+### haiku-sen-tools.el
 選句作業用コマンド。`sen_cleanup.pl` を非同期実行し、結果をストリーミング表示する。
 実行前に `.tmp` バックアップを作成し、`;b` で復元できる。
 キーバインドは `my-normal-leader-map` の `;c` / `;b`。
 
-### my-template.el
+### insert-template.el
 俳句関係の作業ファイルをヘッダー自動生成付きで開くテンプレート関数群。
 `80-hydra-navication.el` から `(require 'my-template)` で読み込む。
 

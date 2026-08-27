@@ -25,7 +25,7 @@
 ;;  Google Web  (ブラウザで Google-translate を開く)
 ;; ============================================================
 
-(leaf *my-google-translate
+(leaf *web-google-translate
   :bind (("C-c w" . my-google-translate))
   :init
   (defun my-google-translate (&optional string)

@@ -68,8 +68,8 @@
 (leaf *my-markdown-commands
   :tag "local"
   :preface
-  (autoload 'my-howm-fix-code-comments "my-markdown" nil t)
-  (autoload 'gen-toc-term              "my-markdown" nil t)
+  (autoload 'my-howm-fix-code-comments "markdown-utils" nil t)
+  (autoload 'gen-toc-term              "markdown-utils" nil t)
   :after markdown-mode
   :bind (:markdown-mode-map
 	 ("C-c #" . my-howm-fix-code-comments)
@@ -95,7 +95,8 @@
           (delete-file file)
           (message "Deleted temporary file: %s" file)))))
 
-  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
+  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
+
 
   (defun md2pdf ()
     "Generate PDF from the current markdown buffer via pandoc + lualatex."
@@ -121,7 +122,7 @@
                           " -V mainfont=IPAPGothic -V fontsize=16pt"
                           " --highlight-style=zenburn")))
           (call-process "xdg-open" nil nil nil docxfile)
-        (message "md2docx: pandoc failed")))))
+        (message "md2docx: pandoc failed"))))
 
 
 ;; Local Variables:

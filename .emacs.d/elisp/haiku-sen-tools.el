@@ -1,4 +1,4 @@
-;;; my-sen-cleanup.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
+;;; haiku-sen-tools.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; キーバインド（my-normal-leader-map）:
@@ -70,8 +70,8 @@
         (message "復元しました: %s" tmp)))))
 
 
-(provide 'my-sen-cleanup)
+(provide 'haiku-sen-tools)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; my-sen-cleanup.el ends here
+;;; haiku-sen-tools.el ends here
