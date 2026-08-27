@@ -13,7 +13,7 @@
 
 (leaf *deepl-translate
   :preface
-  (autoload 'deepl-translate "my-deepl-translate" nil t)
+  (autoload 'deepl-translate "deepl-translate" nil t)
   :doc "Translation in minibuffer & copy result to clipboard."
   :bind ("C-c d" . deepl-translate)
   :init

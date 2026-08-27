@@ -1,4 +1,4 @@
-;;; my-deepl-translate.el --- DeepL API translation.  -*- lexical-binding: t -*-
+;;; deepl-translate.el --- DeepL API translation.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; Translation in minibuffer & copy result to clipboard via DeepL API.
 ;; init.el 側からは autoload 経由で読み込む想定 (deepl-translate / deepl-ej / deepl-je)。
@@ -104,5 +104,5 @@ Result is shown in the echo area and added to the kill ring."
   (let ((region (buffer-substring start end)))
     (deepl-translate-internal region "JA" "EN" #'deepl--output-to-messages)))
 
-(provide 'my-deepl-translate)
-;;; my-deepl-translate.el ends here
+(provide 'deepl-translate)
+;;; deepl-translate.el ends here

@@ -61,12 +61,23 @@
 
 
 ;; ============================================================
+;;  Load Path Setup
+;; ============================================================
+
+;; Path to the local packages
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/elisp"))
+
+;; Path to self-published packages (GitHub repos cloned under ~/src/github.com/minorugh/)
+(let ((default-directory "~/src/github.com/minorugh/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+
+;; ============================================================
 ;;  Config Loader
 ;; ============================================================
 
 (leaf init-loader
   :ensure t
-  :load-path "~/.emacs.d/elisp"   ; Path to the local packages
   :config
   (setq init-loader-show-log-after-init 'error-only)
   (setq init-loader-byte-compile t)
