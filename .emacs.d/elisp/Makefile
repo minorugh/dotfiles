@@ -26,49 +26,12 @@ endif
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
 # P1 のみ実行可能
 # ------------------------------------------------------------
-# ------------------------------------------------------------
-# Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
-# P1 のみ実行可能
-# ------------------------------------------------------------
 PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
 PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
-
 publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
 	@for pkg in $(PUBLISH_PKGS); do \
-		src=$$pkg.el; \
-		name=$$(basename $$pkg); \
-		repo=$(PUBLISH_DEST)/$$(dirname $$pkg); \
-		dest=$$repo/$$name.el; \
-		if [ ! -f $$src ]; then \
-			echo "##> SKIP $$pkg: $$src not found"; \
-			continue; \
-		fi; \
-		if [ ! -d $$repo ]; then \
-			echo "##> SKIP $$pkg: repo $$repo not found"; \
-			continue; \
-		fi; \
-		if [ -f $$dest ] && cmp -s $$src $$dest; then \
-			echo "##> SKIP $$pkg: no changes"; \
-			continue; \
-		fi; \
-		cp $$src $$dest; \
-		echo "##> Copied $$src -> $$dest"; \
-		$(MAKE) -C $$repo git; \
-	done
-else
-	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
-endif
-
-
-
-# PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
-# PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate
-# PUBLISH_DEST := $(HOME)/src/github.com/minorugh
-# publish: ## Copy changed managed files to each local repo and push
-# ifeq ($(HOSTNAME),P1)
-# 	@for pkg in $(PUBLISH_PKGS); do \
 # 		src=$$pkg.el; \
 # 		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
 # 		if [ ! -f $$src ]; then \
@@ -87,9 +50,9 @@ endif
 # 		echo "##> Copied $$pkg.el -> $$dest"; \
 # 		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
 # 	done
-# else
-# 	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
-# endif
+else
+	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
+endif
 
 
 # ------------------------------------------------------------
