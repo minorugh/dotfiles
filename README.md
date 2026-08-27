@@ -2,7 +2,7 @@
 
 ## スクリーンショット
 ![Debian12 xfce4 desktop](https://live.staticflickr.com/65535/51395292747_c52f2dc3e8_b.jpg)
-![Emacs-30.1](https://live.staticflickr.com/65535/55430776452_f21a8498e6_b.jpg)
+![Emacs-30.2](https://minorugh.github.io/img/emacs30.2.png)
 
 
 ## 概要
