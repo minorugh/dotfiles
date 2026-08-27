@@ -9,8 +9,8 @@
 
 (leaf dired
   :preface
-  (autoload 'my-open-tig "my-tig-bridge" nil t)
-  (autoload 'my-dired-permission-help "my-dired-permission-help" nil t)
+  (autoload 'open-tig "tig-git-peek-bridge" nil t)
+  (autoload 'dired-permission-help "dired-permission-help" nil t)
   :hook ((dired-mode-hook . my-dired-omit-mode)
          (dired-mode-hook . my-dired-env-warning-face))
   :bind (:dired-mode-map
@@ -24,8 +24,8 @@
          ("v"   . my-dired-open-vim)
          ("n"   . my-dired-open-nano)
          ("["   . dired-hide-details-mode)
-         ("t"   . my-open-tig)
-         ("p"   . my-dired-permission-help)
+         ("t"   . open-tig)
+         ("p"   . dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
          (","   . xsrv-download-dired)  ; see 90-xsrv-deploy.el
          ("i"   . my-sxiv))

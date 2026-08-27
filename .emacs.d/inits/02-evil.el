@@ -26,7 +26,7 @@
           ("i"      . my-emacs-state-mozc)
           ("@"      . evil-visual-char)
           ("_"      . evil-visual-line)
-          ("?"      . my-evil-cheat-sheet)
+          ("?"      . evil-cheat-sheet)
           ([home]   . dashboard-toggle)
           ([escape] . my-evil-toggle-state))
          (:evil-visual-state-map
@@ -49,7 +49,7 @@
   (setq evil-visual-char 'exclusive)   ; exclude cursor position from visual selection (emacs-like)
   :config
   ;; Cheat-Sheetを表示させる自作関数の読込
-  (autoload 'my-evil-cheat-sheet "my-evil-cheat-sheet" nil t)
+  (autoload 'evil-cheat-sheet "evil-cheat-sheet" nil t)
 
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)

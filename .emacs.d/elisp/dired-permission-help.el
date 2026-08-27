@@ -1,4 +1,4 @@
-;;; my-dired-oermission-help.el --- dired permission help -*- lexical-binding: t -*-
+;;; dired-oermission-help.el --- dired permission help -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -14,7 +14,7 @@
                (window-parameters . ((no-delete-other-windows . t)
                                      (mode-line-format . none)))))
 
-(defun my-dired-permission-help ()
+(defun dired-permission-help ()
   "Show a quick permission reference."
   (interactive)
   (let ((help-window-select t))   ;; 表示後にヘルプウィンドウへフォーカスを移す
@@ -64,6 +64,6 @@
       (princ " +--> directory\n")
       (princ " => directory 755\n"))))
 
-(provide 'my-dired-permission-help)
-;;; my-dired-permission-help.el ends here
+(provide 'dired-permission-help)
+;;; dired-permission-help.el ends here
 

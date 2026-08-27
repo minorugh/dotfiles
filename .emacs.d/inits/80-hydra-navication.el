@@ -35,7 +35,7 @@
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
    ("@" browse-at-remote)
-   ("t" my-open-tig)
+   ("t" open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))

@@ -1,4 +1,4 @@
-;;; my-tig-bridge.el --- tig ↔ git-peek bridge -*- lexical-binding: t -*-
+;;; tig-git-peek-bridge.el --- tig ↔ git-peek bridge -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; tig を起動する際にコンテキスト（ファイルパス）を /tmp/tig-peek-context に書き出す。
@@ -12,13 +12,13 @@
 
 (require 'git-peek)
 
-(defvar my-tig-context-file "/tmp/tig-peek-context"
+(defvar tig-context-file "/tmp/tig-peek-context"
   "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
 
 ;;;###autoload
-(defun my-open-tig ()
+(defun open-tig ()
   "Run tig for the current file (`dired' or file buffer) in gnome-terminal.
-起動時に対象ファイルパスを `my-tig-context-file' に書き出す。
+起動時に対象ファイルパスを `tig-context-file' に書き出す。
 git 管理外の場合はエラーメッセージを表示する。"
   (interactive)
   (let* ((path (cond
@@ -38,7 +38,7 @@ git 管理外の場合はエラーメッセージを表示する。"
      ((null root)
       (message "tig: git 管理下のファイルではありません"))
      (t
-      (write-region path nil my-tig-context-file nil 'silent)
+      (write-region path nil tig-context-file nil 'silent)
       (start-process
        "tig" nil "gnome-terminal" "--maximize"
        "--working-directory" dir
@@ -47,10 +47,10 @@ git 管理外の場合はエラーメッセージを表示する。"
                (shell-quote-argument path)))))))
 
 (defun git-peek-from-hash (hash)
-  "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
+  "HASH を受け取り、`tig-context-file' のファイルを `git-peek' で開く.
 tig 上のキーバインドから emacsclient 経由で呼ばれることを想定。
 xsrv 配下なら `my-git-peek-smart' 相当の処理を自動適用する。"
-  (let* ((ctx-file my-tig-context-file)
+  (let* ((ctx-file tig-context-file)
          (target (when (file-exists-p ctx-file)
                    (string-trim (with-temp-buffer
                                   (insert-file-contents ctx-file)
@@ -99,5 +99,5 @@ xsrv 配下なら `my-git-peek-smart' 相当の処理を自動適用する。"
             (set-window-point git-peek--sidebar-win (point)))
           (git-peek--render-preview (git-peek--current-commit)))))))
 
-(provide 'my-tig-bridge)
-;;; my-tig-bridge.el ends here
+(provide 'tig-git-peek-bridge)
+;;; tig-git-peek-bridge.el ends here

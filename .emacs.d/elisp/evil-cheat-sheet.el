@@ -1,4 +1,4 @@
-;;; my-evil-cheat-sheet.el --- Evil keybinding cheat sheet -*- lexical-binding: t -*-
+;;; evil-cheat-sheet.el --- Evil keybinding cheat sheet -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; Claude-recommended evil keybindings, tailored for this config.
 ;; Bound to ? in normal-state.
@@ -20,7 +20,7 @@
     map)
   "Keymap for evil-cheat buffer.")
 
-(defun my-evil-cheat-sheet ()
+(defun evil-cheat-sheet ()
   "Toggle evil keybindings cheat sheet in right sidebar.
 ? to open/close q: quit."
   (interactive)
@@ -82,5 +82,5 @@
    (select-window (display-buffer "*evil-cheat*"))))
 
 
-(provide 'my-evil-cheat-sheet)
-;;; my-evil-cheat-sheet.el ends here
+(provide 'evil-cheat-sheet)
+;;; evil-cheat-sheet.el ends here

@@ -1,4 +1,4 @@
-;;; seiho-haiku.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
+;;; haiku-dashboard-widget.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; seihohaiku.cgi から自動変換
 ;;; Code:
@@ -468,5 +468,5 @@ HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
 			       :color ,seiho-haiku-box-color))))
     (insert "\n")))
 
-(provide 'seiho-haiku)
-;;; seiho-haiku.el ends here
+(provide 'haiku-dashboard-widget)
+;;; haiku-dashboard-widget.el ends here

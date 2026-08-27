@@ -60,7 +60,7 @@
   ;; ── Widgets & items ──────────────────────────────────────────
   (defun dashboard-insert-haiku (_list-size)
     "今日の一句を dashboard に挿入する. 表示設定は seiho-haiku.el で調整."
-    (require 'seiho-haiku)   ;; see ~/.emacs.d/elisp/seiho-haiku.el
+    (require 'haiku-dashboard-widget)   ;; see ~/.emacs.d/elisp/haiku-dashboard-widget.el
     (seiho-haiku-insert-today #'dashboard-insert-heading))
 
   (add-to-list 'dashboard-item-generators
@@ -71,7 +71,7 @@
   ;; dashboard標準agendaウィジェットのカスタマイズ(表示日数・ソート順・
   ;; 見出し表記)、kill-emacs-hookでの同期は、すべて elisp/my-gcal-agenda.el
   ;; に集約してある。ここではrequireするだけでよい。
-  (require 'gcal-dashboard)
+  (require 'gcal-dashboard-widget)
   ;; 表示期間を60日に変更(既定値は gcal-dashboard.el 側で定義)
   (setq gcal-dashboard-agenda-days 60)
 
