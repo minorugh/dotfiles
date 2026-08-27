@@ -28,8 +28,7 @@ endif
 # ------------------------------------------------------------
 PUBLISH_PKGS := git-peek gcal-dashboard deepl-translate tempbuf
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
-
-publish: ## Copy managed files to each local repo and push
+publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
 	@for pkg in $(PUBLISH_PKGS); do \
 		src=$$pkg.el; \
@@ -40,6 +39,10 @@ ifeq ($(HOSTNAME),P1)
 		fi; \
 		if [ ! -d $(PUBLISH_DEST)/$$pkg ]; then \
 			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$pkg not found"; \
+			continue; \
+		fi; \
+		if [ -f $$dest ] && cmp -s $$src $$dest; then \
+			echo "##> SKIP $$pkg: no changes"; \
 			continue; \
 		fi; \
 		cp $$src $$dest; \
