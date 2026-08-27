@@ -33,10 +33,22 @@ Claude との共同開発。
 
 ### git-peek.el
 git 管理下のファイルの過去バージョンを ivy で選択し、左右分割のサイドバーUIで
-プレビューしながら保存するツール。以前は GitHub で公開して `package-vc-install`
-していたが、メンテナンス負担を考慮して elisp 直置き + autoload に移行。
+プレビューしながら保存するツール。以前は GitHub リポジトリを `package-vc-install`
+で直接読み込んでいたが、メンテナンス負担を考慮して elisp 直置き + autoload に移行。
+GitHub リポジトリは公開用として維持し、`make publish` で同期している。
 `my-tig-bridge.el` と連携し、tig から探したコミットをそのまま開ける。
 Claude との共同開発。
+
+### deepl-translate.el
+DeepL API を使ったリージョン翻訳。ミニバッファに結果を表示し、kill-ring にコピーする。
+`deepl-translate` は日本語⇔英語を自動判定、`deepl-ej`/`deepl-je` は方向を明示指定。
+API キーは `80-translate.el` から外部の untracked ファイル経由で設定する。
+
+### gcal-dashboard.el
+Google Calendar(複数可)を org ファイルへ一方向同期し、dashboard.el の Agenda ウィジェットに
+`gcal-agenda` として表示する。同期は洗い替え方式(一時ファイルへ書き出し、全カレンダー成功後に
+本番ファイルへ反映)なので、途中でエラーやタイムアウトが起きても本番ファイルは壊れない。
+`kill-emacs-hook` で終了時に自動同期されるほか、`M-x gcal-dashboard-sync` で手動実行もできる。
 
 ### my-evil-cheat-sheet.el
 Evil キーバインドのチートシートを表示するバッファー。
@@ -71,3 +83,12 @@ tig 側から `emacsclient` 経由で `git-peek-from-hash` を呼べるように
 EmacsWiki 限定配布で `package-vc-install` できないため、自分の GitHub に
 fork した上でこのディレクトリに直接配置（原作: Michele Bini, 2001年〜）。
 無シャットダウン運用でバッファが溜まり続けるため必須。
+
+---
+
+## 公開用パッケージの同期
+
+git-peek / gcal-dashboard / deepl-translate / tempbuf の4ファイルは
+elisp/ が正のソース。編集後 `make publish` で各自の GitHub リポジトリ
+(`~/src/github.com/minorugh/<pkg>/`) へコピー・push する。elc は対象外
+（各リポジトリ側は `.gitignore` で `*.elc` を除外）。

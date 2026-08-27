@@ -34,10 +34,11 @@ title: Emacs Configuration
 │   ├── bin/
 │   ├── css/
 │   ├── img/
+│   ├── elpa-time-machine.el
 │   ├── git-peek.el
-│   ├── my-deepl-translate.el
+│   ├── deepl-translate.el
+│   ├── gcal-dashboard.el
 │   ├── my-evil-cheat-sheet.el
-│   ├── my-gcal-diary.el
 │   ├── my-markdown.el
 │   ├── my-sen-cleanup.el
 │   ├── my-template.el
@@ -61,7 +62,6 @@ title: Emacs Configuration
 │   ├── 30-ui.el
 │   ├── 30-utils.el
 │   ├── 40-dired.el
-│   ├── 40-remote.el
 │   ├── 50-howm.el
 │   ├── 60-markdown.el
 │   ├── 70-easy-hugo.el
@@ -70,9 +70,9 @@ title: Emacs Configuration
 │   ├── 70-translate.el
 │   ├── 70-yatex.el
 │   ├── 80-hydra-browse.el
-│   ├── 80-hydra-dired.el
-│   ├── 90-calendar.el
-│   └── 90-darkroom.el
+│   ├── 80-hydra-navication.el
+│   ├── 90-darkroom.el
+│   └── 90-xsrv-deploy.el
 ├── snippets/
 ├── tmp/                          ← 各種履歴・キャッシュ
 ├── early-init.el
@@ -88,12 +88,12 @@ title: Emacs Configuration
 | 10-19 | 構文チェック |
 | 20-29 | リージョン操作 |
 | 30-39 | UI・外観・ユーティリティ |
-| 40-49 | ファイラー・リモート連携 |
+| 40-49 | ファイラー |
 | 50-59 | メモ環境 |
 | 60-69 | 文書編集 |
 | 70-79 | 外部ツール・専用メジャーモード連携 |
 | 80-89 | Hydra メニュー |
-| 90-99 | カレンダー・執筆モード |
+| 90-99 | 執筆モード・リモート連携 |
 
 
 ## 2. 起動設定
@@ -707,7 +707,6 @@ F1〜F12 キーのバインドをここで一元管理しています。
 | `<f4>` | xsrv-open-this（SSH でサーバーに接続） |
 | `<f5>` | my-quickrun（30-utils.el） |
 | `<f6>` | thunar-open-this |
-| `<f7>` | calendar（90-calendar.el） |
 | `<f8>` | my-darkroom-toggle（90-darkroom.el） |
 | `<f9>` | display-line-numbers-mode（built-in） |
 | `<f10>` | toggle-scratch-buffer |
@@ -960,7 +959,7 @@ GitHub 上の対応ページをブラウザで開きます（hydra-dired の `@`
          (dired-mode-hook . turn-on-tempbuf-mode)))
 ```
 
-以前は GitHub からの `:vc` インストールでしたが、EmacsWiki 限定配布のためメンテナンス性を考慮し、フォーク版を `elisp/tempbuf.el` に直接配置する方式に変更しています。使われていないバッファをバックグラウンドで自動 kill します。xsrv の rsync lock 機能（40-remote.el）と連携しています。
+以前は GitHub からの `:vc` インストールでしたが、EmacsWiki 限定配布のためメンテナンス性を考慮し、フォーク版を `elisp/tempbuf.el` に直接配置する方式に変更しています。使われていないバッファをバックグラウンドで自動 kill します。xsrv の rsync lock 機能（90-xsrv-deploy.el）と連携しています。
 
 ### 14.5. パッケージ管理 hydra
 
@@ -1012,8 +1011,8 @@ Emacs 30 の file-name 補完を dired のコピー時に上書きしないよ�
 | `[` | hide-details-mode |
 | `t` | my-open-tig（my-tig-bridge.el） |
 | `p` | パーミッション早見表 |
-| `.` | xsrv deploy（40-remote.el） |
-| `,` | xsrv download（40-remote.el） |
+| `.` | xsrv deploy（90-xsrv-deploy.el） |
+| `,` | xsrv download（90-xsrv-deploy.el） |
 | `i` | sxiv で画像一覧表示（my-sxiv） |
 
 ### 15.3. omit モードの制御
@@ -1029,7 +1028,7 @@ Emacs 30 の file-name 補完を dired のコピー時に上書きしないよ�
 `p` キーで `*Permission Help*` バッファを右サイドバーに固定表示します。
 
 
-## 16. リモート・xsrv 連携（40-remote.el）
+## 16. リモート・xsrv 連携（90-xsrv-deploy.el）
 
 xsrv（Xserver）との連携設定をすべてここに集約しています。
 
@@ -1183,12 +1182,12 @@ markdown バッファを閉じると `/tmp/burl*.html` を自動削除します�
 
 #### DeepL API 翻訳
 
-実体は `~/.emacs.d/elisp/my-deepl-translate.el` に分離し、`70-translate.el` 側は autoload とキーバインドのみを行います。2026-03-10 の DeepL API 仕様変更（認証方式を `auth_key` POST ボディから `Authorization` ヘッダー方式に変更）に対応済みです。
+実体は `~/.emacs.d/elisp/deepl-translate.el` に分離し、`70-translate.el` 側は autoload とキーバインドのみを行います。2026-03-10 の DeepL API 仕様変更（認証方式を `auth_key` POST ボディから `Authorization` ヘッダー方式に変更）に対応済みです。
 
 ```elisp
 (leaf *deepl-translate
   :preface
-  (autoload 'deepl-translate "my-deepl-translate" nil t)
+  (autoload 'deepl-translate "deepl-translate" nil t)
   :bind ("C-c d" . deepl-translate)
   :init
   (load "~/.env_source/tokens/deepl-api.el"))
@@ -1247,7 +1246,7 @@ API キーは `~/.env_source/tokens/deepl-api.el` から読み込みます。日
 
 ## 20. Hydra メニュー（80番台）
 
-### 20.1. [hydra-dired] ファイルナビゲーター（80-hydra-dired.el）
+### 20.1. [hydra-dired] ファイルナビゲーター（80-hydra-navication.el）
 
 `<henkan>` で起動します。ディレクトリへのクイックアクセスと各種操作をまとめています。
 
@@ -1275,7 +1274,7 @@ API キーは `~/.env_source/tokens/deepl-api.el` から読み込みます。日
 * `keepassxc`：KeePassXC を起動
 * `filezilla`：FileZilla を特定サイトで起動（`g`=gospel-haiku、`m`=minorugh、`s`=サイトマネージャー）
 
-### 20.2. [hydra-work] 俳句作業メニュー（80-hydra-dired.el）
+### 20.2. [hydra-work] 俳句作業メニュー（80-hydra-navication.el）
 
 `<henkan>`（hydra-dired から遷移）または `<f14>` で起動します。俳句・文芸関係のワークスペースへのショートカットが中心です。
 
@@ -1299,40 +1298,13 @@ API キーは `~/.env_source/tokens/deepl-api.el` から読み込みます。日
 `my-github-deploy` で `~/Dropbox/Changelog/` の `changelog-YYYYMMDD.md` を選択し、`~/Dropbox/Changelog/github-deploy.pl` で `CHANGELOG.md` の先頭に追記して `make git` で push します。
 
 
-## 21. カレンダー（90-calendar.el）
-
-Emacs 標準の `calendar`/`diary` に、Google Calendar からの一方向同期機能を追加しています。
-
-```elisp
-(leaf calendar :tag "builtin"
-  :hook ((kill-emacs-hook . my-gcal-sync-on-exit)
-         (calendar-mode-hook . my-calendar-cursor-type))
-  :bind (("<f7>" . calendar)
-         (:calendar-mode-map
-          ("<f7>" . calendar-exit))))
-```
-
-### 21.1. Google Calendar 同期（my-gcal-diary.el）
-
-同期ロジック本体は `elisp/my-gcal-diary.el` に分離してあり、`90-calendar.el` からは autoload で呼び出すだけです。
-
-* `~/.emacs.d/tmp/diary`：手書き用。直接編集するファイル
-* `~/.emacs.d/tmp/diary-gcal`：Google Calendar 由来。同期のたびに全体を洗い替えるため、手で編集しない
-
-対象カレンダーは `my-gcal-calendars`（名前・URLファイルパスの alist）に登録し、各 URL ファイルには Google Calendar の非公開 URL（secret address in iCal format）を `~/.env_source` 配下に保存します。同期処理は「ダウンロード → `icalendar-import-file` で diary 形式に変換 → 直近数ヶ月分だけに絞り込み → 書き込み」を各カレンダーごとに繰り返します。`M-x my-gcal-sync-to-diary` で手動実行できるほか、`kill-emacs-hook`（`my-gcal-sync-on-exit`）で Emacs 終了時に自動同期されます（タイムアウトやエラーは無視して起動をブロックしません）。
-
-### 21.2. 日本の祝日・表示
-
-`japanese-holidays` パッケージで祝日を calendar に反映します。予定がある日は `diary` フェイス（`#d33682`）、当日は `calendar-today` フェイス（`#f2fa8c`・太字）で色分けします。`calendar-mode` ではカーソルを輪郭のみ（hollow）にして、下の日付の色を隠さないようにしています。`<f7>` で calendar の起動／終了をトグルします。
-
-
-## 22. 執筆モード（90-darkroom.el）
+## 21. 執筆モード（90-darkroom.el）
 
 以前は独自実装の `my-darkroom-mode` でしたが、現在は [`darkroom`](https://github.com/joaotavora/darkroom) パッケージをベースに、状態の保存・復元やフレーム全体の余白調整をラップする形に変更しています。mutt/markdown/howm など text-mode 系の日本語文章作成バッファ専用で、prog-mode 系バッファでの使用は想定していません。
 
 `<f8>`（`my-darkroom-toggle`）でトグルします。
 
-### 22.1. IN/OUT の動作
+### 21.1. IN/OUT の動作
 
 **IN 時（`my-darkroom-in`）：**
 * 現在の行番号・whitespace-mode・`line-spacing` の状態を保存
@@ -1346,18 +1318,22 @@ Emacs 標準の `calendar`/`diary` に、Google Calendar からの一方向同�
 * 保存しておいた行番号・whitespace-mode・`line-spacing` の状態を復元
 * IME を OFF にして evil-normal-state へ
 
-### 22.2. NeoMutt 連携
+### 21.2. NeoMutt 連携
 
 NeoMutt が外部エディタとして `neomutt-XXXX` バッファを開いたときの darkroom 終了処理は、`70-neomutt.el` の `my-neomutt-server-done`（`server-done-hook`）側で行っています。`C-x #`（`server-edit`）で抜けるときに darkroom が有効なら `my-darkroom-out` を呼んでから確実に終了します。
 
 
-## 23. ローカルパッケージ（elisp/）
+## 22. ローカルパッケージ（elisp/）
 
-### 23.1. seiho-haiku.el
+### 22.0. elpa-time-machine.el
+
+elpa バックアップ（rsync + git 管理）の過去スナップショットをサイドバーで閲覧するツールです。コミット一覧から選択してプレビューし、必要なものを `~/tmp/` に保存できます。
+
+### 22.1. seiho-haiku.el
 
 阿波野青畝の俳句データ 366 日分を収録したローカルパッケージです。`dashboard` の「今日の一句」ウィジェットから呼ばれます。フォント・ウェイト・ボックスカラーなどの表示設定は変数（`seiho-haiku-ku-height` など）でカスタマイズできます。
 
-### 23.2. my-template.el
+### 22.2. my-template.el
 
 俳句・文芸活動用のファイルテンプレート関数を定義しています。`hydra-work` から呼び出します。
 
@@ -1365,39 +1341,39 @@ NeoMutt が外部エディタとして `neomutt-XXXX` バッファを開いた�
 * `my-haiku-note-post` / `my-haiku-note`：俳句ノートに当日エントリを挿入（重複防止）
 * `my-teirei-new-post` / `my-swan-new-post` / `my-m_kukai-new-post` / `my-ap-new-post` / `my-apvoice-new-post` / `my-tselext-new-post` / `my-dselext-new-post` / `my-year-new-post` など：各句会テキストのテンプレート挿入
 
-### 23.3. my-sen-cleanup.el
+### 22.3. my-sen-cleanup.el
 
 俳句選者作業（`minoru_sen.txt`）用の Perl スクリプト連携パッケージです。normal state リーダーキー `;c` / `;r`（02-evil.el）から呼び出します。
 
 * `my-sen-cleanup`：`sen_cleanup.pl` を非同期実行し、`*sen-cleanup*` バッファにストリーミング表示。成功で元のバッファへ `revert-buffer`
 * `my-sen-restore`：`.tmp` ファイルから復元
 
-### 23.4. my-markdown.el
+### 22.4. my-markdown.el
 
 `my-howm-fix-code-comments`・`gen-toc-term` を定義しています。
 
-### 23.5. my-tig-bridge.el
+### 22.5. my-tig-bridge.el
 
 `my-open-tig`（dired の `t` キー）で tig を gnome-terminal で起動し、コンテキスト（ファイルパス）を `/tmp/tig-peek-context` に書き出します。tig 側の `E` キーで `emacsclient` 経由で `git-peek-from-hash` を呼び、選択コミットを git-peek で開きます。
 
-### 23.6. my-evil-cheat-sheet.el
+### 22.6. my-evil-cheat-sheet.el
 
 `?` キーで呼び出せる evil キーバインドチートシートです。右サイドバーに静的なリファレンステキストを表示し、`q` で閉じます。
 
-### 23.7. my-gcal-diary.el
+### 22.7. gcal-dashboard.el
 
-Google Calendar から Emacs diary への一方向同期ロジック本体です（詳細は「21. カレンダー」を参照）。
+Google Calendar（複数可）を org ファイルへ一方向同期し、dashboard.el の Agenda ウィジェットに `gcal-agenda` として表示します。同期は洗い替え方式で、一時ファイルへ書き出してから全カレンダー成功後に本番ファイル（`tmp/gcal.org`）へ反映するため、途中のエラーやタイムアウトで本番ファイルが壊れることはありません。`kill-emacs-hook` で終了時に自動同期されるほか、`M-x gcal-dashboard-sync` で手動実行もできます。以前の `my-gcal-diary.el`（Emacs 標準の `calendar`/`diary` への同期。`90-calendar.el` ごと廃止）から、dashboard 連携前提の構成へ移行しています。
 
-### 23.8. my-deepl-translate.el
+### 22.8. deepl-translate.el
 
 DeepL API を使った翻訳の実体です（詳細は「19.1. 翻訳」を参照）。以前は `deepl-translate` パッケージを `:vc` インストールしていましたが、規模が小さいためこのファイルへ直書きに移行しました。
 
-### 23.9. tempbuf.el
+### 22.9. tempbuf.el
 
 未使用バッファをバックグラウンドで自動 kill するマイナーモードです。EmacsWiki 限定配布で `package-vc-install` できないため、自分の GitHub にフォークした上でこのディレクトリに直接配置しています（原作: Michele Bini）。
 
 
-## 24. おわりに
+## 23. おわりに
 
 私の Emacs は、Web ページのメンテナンスや俳句・文芸活動がメインで、「賢くて多機能なワープロ」という存在です。
 

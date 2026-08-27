@@ -22,6 +22,29 @@ else
 endif
 
 # ------------------------------------------------------------
+# Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
+# ------------------------------------------------------------
+PUBLISH_PKGS := git-peek gcal-dashboard deepl-translate tempbuf
+PUBLISH_DEST := $(HOME)/src/github.com/minorugh
+
+publish: ## Copy managed files to each local repo and push
+	@for pkg in $(PUBLISH_PKGS); do \
+		src=$$pkg.el; \
+		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
+		if [ ! -f $$src ]; then \
+			echo "##> SKIP $$pkg: $$src not found"; \
+			continue; \
+		fi; \
+		if [ ! -d $(PUBLISH_DEST)/$$pkg ]; then \
+			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$pkg not found"; \
+			continue; \
+		fi; \
+		cp $$src $$dest; \
+		echo "##> Copied $$pkg.el -> $$dest"; \
+		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
+	done
+
+# ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
 # Toggle editable: C-c C-e  or  qq
 # ------------------------------------------------------------
