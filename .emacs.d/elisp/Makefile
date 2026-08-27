@@ -26,20 +26,24 @@ endif
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
 # P1 のみ実行可能
 # ------------------------------------------------------------
-PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
-PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate
+PUBLISH_PKGS := dashboard-widget-extensions/gcal-dashboard-widget git-peek tempbuf
+PUBLISH_PKGS += dashboard-widget-extensions/haiku-dashboard-widget deepl-translate
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
 publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
-	@for pkg in $(PUBLISH_PKGS); do \
+	@for entry in $(PUBLISH_PKGS); do \
+		case "$$entry" in \
+			*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
+			*)   repo=$$entry;      pkg=$$entry ;; \
+		esac; \
 		src=$$pkg.el; \
-		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
+		dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
 		if [ ! -f $$src ]; then \
 			echo "##> SKIP $$pkg: $$src not found"; \
 			continue; \
 		fi; \
-		if [ ! -d $(PUBLISH_DEST)/$$pkg ]; then \
-			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$pkg not found"; \
+		if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
+			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$repo not found"; \
 			continue; \
 		fi; \
 		if [ -f $$dest ] && cmp -s $$src $$dest; then \
@@ -48,7 +52,7 @@ ifeq ($(HOSTNAME),P1)
 		fi; \
 		cp $$src $$dest; \
 		echo "##> Copied $$pkg.el -> $$dest"; \
-		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
+		$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
 	done
 else
 	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
