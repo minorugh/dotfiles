@@ -64,16 +64,8 @@
 ;;  Config Loader
 ;; ============================================================
 
-(leaf init-loader
-  :ensure t
-  :load-path "~/.emacs.d/elisp"   ; Path to the local packages
-  :config
-  (setq init-loader-show-log-after-init 'error-only)
-  (setq init-loader-byte-compile t)
-  (key-chord-define-global "l;" 'init-loader-show-log)
-  (init-loader-load))
-
-(leaf *my-byte-compile-elisp
+(leaf *byte-compile-elisp
+  :load-path "~/.emacs.d/elisp"
   :hook (kill-emacs-hook . my-byte-compile-elisp-dir)
   :preface
   (defun my-byte-compile-elisp-dir ()
@@ -82,6 +74,15 @@
       (dolist (el (directory-files elisp-dir t "\\.el\\'"))
         (when (file-newer-than-file-p el (concat el "c"))
           (ignore-errors (byte-compile-file el)))))))
+
+(leaf init-loader
+  :ensure t
+  :doc "Load Emacs configuration files from the inits/ directory."
+  :config
+  (setq init-loader-show-log-after-init 'error-only)
+  (setq init-loader-byte-compile t)
+  (key-chord-define-global "l;" 'init-loader-show-log)
+  (init-loader-load))
 
 
 ;; ============================================================
