@@ -424,7 +424,7 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/upsftp.git; \
 	git clone git@github.com:minorugh/env-import.git; \
 	git clone git@github.com:minorugh/git-peek.git; \
-	git clone git@github.com:minorugh/gcal-dashboard.git; \
+	git clone git@github.com:minorugh/dashboard-widget-extensions.git; \
 	git clone git@github.com:minorugh/tempbuf.git; \
 	git clone git@github.com:minorugh/deepl-translate.git; \
 	git clone git@github.com:minorugh/xsrv-GH.git; \
