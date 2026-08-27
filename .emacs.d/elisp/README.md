@@ -36,7 +36,7 @@ git 管理下のファイルの過去バージョンを ivy で選択し、左�
 プレビューしながら保存するツール。以前は GitHub リポジトリを `package-vc-install`
 で直接読み込んでいたが、メンテナンス負担を考慮して elisp 直置き + autoload に移行。
 GitHub リポジトリは公開用として維持し、`make publish` で同期している。
-`my-tig-bridge.el` と連携し、tig から探したコミットをそのまま開ける。
+`tig-git-peek-bridge.el` と連携し、tig から探したコミットをそのまま開ける。
 Claude との共同開発。
 
 ### deepl-translate.el
@@ -67,7 +67,7 @@ Markdown・howm ファイル編集用ユーティリティ関数群。
 
 ### my-template.el
 俳句関係の作業ファイルをヘッダー自動生成付きで開くテンプレート関数群。
-`40-hydra-dired.el` および `40-hydra-menu.el` から `(require 'my-template)` で読み込む。
+`80-hydra-navication.el` から `(require 'my-template)` で読み込む。
 
 ### tig-git-peek-bridge.el
 tig と git-peek を連携させるブリッジ。tig 起動時にファイルパスをコンテキストファイルに書き出し、
@@ -88,7 +88,7 @@ fork した上でこのディレクトリに直接配置（原作: Michele Bini,
 
 ## 公開用パッケージの同期
 
-git-peek / gcal-dashboard-widget / deepl-translate / tempbuf の4ファイルは
-elisp/ が正のソース。編集後 `make publish` で各自の GitHub リポジトリ
-(`~/src/github.com/minorugh/<pkg>/`) へコピー・push する。elc は対象外
-（各リポジトリ側は `.gitignore` で `*.elc` を除外）。
+git-peek / gcal-dashboard-widget / deepl-translate / tempbuf の4ファイルは Github で公開。
+elisp/ が正のソース。
+編集後 `make publish` で各自の GitHub リポジトリ (`~/src/github.com/minorugh/<pkg>/`) へコピー・push する。
+elc は対象外。（各リポジトリ側は `.gitignore` で `*.elc` を除外）。
