@@ -26,8 +26,8 @@ endif
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
 # P1 のみ実行可能
 # ------------------------------------------------------------
-PUBLISH_PKGS := dashboard-widget-extensions/gcal-dashboard-widget git-peek tempbuf
-PUBLISH_PKGS += dashboard-widget-extensions/haiku-dashboard-widget deepl-translate
+PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
+PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate
 PUBLISH_DEST := $(HOME)/src/github.com/minorugh
 publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
