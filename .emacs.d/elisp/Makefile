@@ -33,13 +33,14 @@ publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
 	@for pkg in $(PUBLISH_PKGS); do \
 		src=$$pkg.el; \
-		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
+		dest=$(PUBLISH_DEST)/$$pkg.el; \
+		repo=$(PUBLISH_DEST)/$$(dirname $$pkg); \
 		if [ ! -f $$src ]; then \
 			echo "##> SKIP $$pkg: $$src not found"; \
 			continue; \
 		fi; \
-		if [ ! -d $(PUBLISH_DEST)/$$pkg ]; then \
-			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$pkg not found"; \
+		if [ ! -d $$repo ]; then \
+			echo "##> SKIP $$pkg: repo $$repo not found"; \
 			continue; \
 		fi; \
 		if [ -f $$dest ] && cmp -s $$src $$dest; then \
@@ -48,11 +49,35 @@ ifeq ($(HOSTNAME),P1)
 		fi; \
 		cp $$src $$dest; \
 		echo "##> Copied $$pkg.el -> $$dest"; \
-		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
+		$(MAKE) -C $$repo git; \
 	done
 else
 	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
 endif
+# publish: ## Copy changed managed files to each local repo and push
+# ifeq ($(HOSTNAME),P1)
+# 	@for pkg in $(PUBLISH_PKGS); do \
+# 		src=$$pkg.el; \
+# 		dest=$(PUBLISH_DEST)/$$pkg/$$pkg.el; \
+# 		if [ ! -f $$src ]; then \
+# 			echo "##> SKIP $$pkg: $$src not found"; \
+# 			continue; \
+# 		fi; \
+# 		if [ ! -d $(PUBLISH_DEST)/$$pkg ]; then \
+# 			echo "##> SKIP $$pkg: repo $(PUBLISH_DEST)/$$pkg not found"; \
+# 			continue; \
+# 		fi; \
+# 		if [ -f $$dest ] && cmp -s $$src $$dest; then \
+# 			echo "##> SKIP $$pkg: no changes"; \
+# 			continue; \
+# 		fi; \
+# 		cp $$src $$dest; \
+# 		echo "##> Copied $$pkg.el -> $$dest"; \
+# 		$(MAKE) -C $(PUBLISH_DEST)/$$pkg git; \
+# 	done
+# else
+# 	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
+# endif
 
 
 # ------------------------------------------------------------
