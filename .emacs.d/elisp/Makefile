@@ -33,23 +33,26 @@ publish: ## Copy changed managed files to each local repo and push
 ifeq ($(HOSTNAME),P1)
 	@skipped=""; \
 	for entry in $(PUBLISH_PKGS); do \
-	case "$$entry" in \
-	*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
-	*) repo=$$entry; pkg=$$entry ;; \
-	esac; \
-	src=$$pkg.el; \
-	dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
-	if [ ! -f $$src ]; then \
-	skipped="$$skipped $$pkg(not-found)"; continue; \
-	fi; \
-	if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
-	skipped="$$skipped $$pkg(repo-missing)"; continue; \
-	fi; \
-	if [ -f $$dest ] && cmp -s $$src $$dest; then \
-	skipped="$$skipped $$pkg"; continue; \
-	fi; \
-	cp $$src $$dest; \
-	$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
+		case "$$entry" in \
+			(*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
+			(*) repo=$$entry; pkg=$$entry ;; \
+		esac; \
+		src=$$pkg.el; \
+		dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
+		if [ ! -f $$src ]; then \
+			skipped="$$skipped $$pkg(not-found)"; \
+			continue; \
+		fi; \
+		if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
+			skipped="$$skipped $$pkg(repo-missing)"; \
+			continue; \
+		fi; \
+		if [ -f $$dest ] && cmp -s $$src $$dest; then \
+			skipped="$$skipped $$pkg"; \
+			continue; \
+		fi; \
+		cp $$src $$dest; \
+		$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
 	done; \
 	echo "##> skip:$$skipped"
 else
