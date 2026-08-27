@@ -1,9 +1,9 @@
-;;; gcal-dashboard-widget.el --- Sync Google Calendar into an org file, and wire it into dashboard's Agenda.  -*- lexical-binding: t -*-
+;;; dashboard-gcal-widget.el --- Sync Google Calendar into an org file, and wire it into dashboard's Agenda.  -*- lexical-binding: t -*-
 
 ;; Author: minorugh
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "27.1") (dashboard "1.8.0"))
-;; URL: https://github.com/minorugh/gcal-dashboard
+;; URL: https://github.com/minorugh/dashboard-widget-extensions
 ;; Keywords: calendar, org, convenience
 
 ;;; Commentary:
@@ -373,5 +373,5 @@ Overrides dashboard.el's own day/week choice with
 
 (add-hook 'kill-emacs-hook #'gcal-dashboard--sync-on-exit)
 
-(provide 'gcal-dashboard-widget)
-;;; gcal-dashboard-widget.el ends here
+(provide 'dashboard-gcal-widget)
+;;; dashboard-gcal-widget.el ends here

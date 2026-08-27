@@ -1,6 +1,12 @@
-;;; haiku-dashboard-widget.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
+;;; dashboard-haiku-widget.el --- 青畝俳句データ (366日分)  -*- lexical-binding: t -*-
+
+;; Author: minorugh
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "27.1") (dashboard "1.8.0"))
+;; URL: https://github.com/minorugh/dashboard-widget-extensions
+;; Keywords: haiku, dashboard, convenience
+
 ;;; Commentary:
-;; seihohaiku.cgi から自動変換
 ;;; Code:
 
 (defconst seiho-haiku-data
@@ -468,5 +474,5 @@ HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
 			       :color ,seiho-haiku-box-color))))
     (insert "\n")))
 
-(provide 'haiku-dashboard-widget)
-;;; haiku-dashboard-widget.el ends here
+(provide 'dashboard-haiku-widget)
+;;; dashboard-haiku-widget.el ends here
