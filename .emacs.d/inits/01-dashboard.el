@@ -77,7 +77,7 @@
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
   (if my-main-machine-p
-      (setq dashboard-items '((haiku . 1) (gcal-agenda . 5)))
+      (setq dashboard-items '((haiku . 1) (agenda . 5)))
     (setq dashboard-items '((haiku . 1))))
 
   ;; ── Footer ───────────────────────────────────────────────────

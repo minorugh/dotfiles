@@ -279,8 +279,17 @@ org file in a half-written state."
 ;; ------------------------------------------------------------
 ;; dashboardのAgendaウィジェットとの連携
 ;; ------------------------------------------------------------
-;; dashboard.el標準のagendaウィジェットをベースに、表示日数の拡張・
-;; 時刻順ソート・カテゴリ表示の削除だけを差し替える。
+;; 公開版としての汎用性のため、独自の item-generator(旧: `gcal-agenda')
+;; は作らず、dashboard.el標準の `agenda' アイテムをそのまま使う。
+;; 独自シンボルを新設すると、
+;;   - `dashboard-heading-icons' が recents/bookmarks/projects/agenda/
+;;     registers の5種類にしかアイコンを対応付けていないため、
+;;     見出しアイコンが表示されなくなる
+;;   - `dashboard-item-shortcuts' のショートカット("a"等)も
+;;     利用側で登録し直しが必要になる
+;; など、標準ウィジェットの恩恵を失うだけになるため。
+;; 表示日数・並び順・見出し文言は、すべてdashboard.elが公開している
+;; カスタマイズ変数経由で調整する。
 (require 'org)
 (require 'org-agenda)
 (add-to-list 'org-agenda-files gcal-dashboard-org-file)
@@ -290,54 +299,47 @@ org file in a half-written state."
 (with-current-buffer (find-file-noselect gcal-dashboard-org-file)
   (setq-local auto-revert-verbose nil))
 
-;; `dashboard-insert-section' はanaphoricマクロ(`el' を暗黙束縛)なので
-;; コンパイル時にも見えている必要がある。実行時requireだけだと
-;; 未定義のまま関数扱いでコンパイルされ "void: el" エラーになる。
 (eval-and-compile (require 'dashboard-widgets))
 
 (defcustom gcal-dashboard-agenda-days 30
-  "Number of days to show in the dashboard Agenda."
+  "Number of days to show in the dashboard Agenda.
+Change with a plain `setq'; the value is re-read every time the
+dashboard buffer is refreshed (see `gcal-dashboard--sync-agenda-heading')."
   :type 'integer :group 'gcal-dashboard)
 
 ;; 標準は「今日/週」の2択しかないため差し替える。生の関数再定義ではなく
 ;; advice-addにするのは、describe-functionで追跡でき
 ;; advice-removeで元に戻せるようにするため(以下のadvice-add共通の理由)。
+;; `dashboard-due-date-for-agenda' はdashboard.el側で"--"の付かない
+;; 通常の関数名で提供されており(READMEでも `dashboard-week-agenda' 経由で
+;; 言及される準公開的な関数)、上書き対象として比較的安定している。
 (defun gcal-dashboard--due-date-for-agenda ()
   "Return the upper time limit for the Agenda widget.
 Overrides dashboard.el's own day/week choice with
-`gcal-dashboard-agenda-days' via advice (see `gcal-dashboard-mode')."
+`gcal-dashboard-agenda-days' via advice."
   (time-add (current-time) (* 86400 (1+ gcal-dashboard-agenda-days))))
 
 (advice-add 'dashboard-due-date-for-agenda :override
             #'gcal-dashboard--due-date-for-agenda)
 
-;; 標準の `dashboard-insert-agenda' は上書きせず、別名で
-;; `dashboard-item-generators' に `gcal-agenda' として追加登録する。
-(defun gcal-dashboard-insert-agenda (list-size)
-  "Insert the coming `gcal-dashboard-agenda-days' days of Agenda entries for LIST-SIZE items.
-A near-verbatim copy of dashboard.el's own `dashboard-insert-agenda',
-registered under a separate `gcal-agenda' key so the standard `agenda'
-item generator is left untouched."
-  (require 'org-agenda)
-  (dashboard-insert-section
-   (format "Agenda for the coming %d days:" gcal-dashboard-agenda-days)
-   (dashboard-agenda--sorted-agenda)
-   list-size
-   'gcal-agenda
-   (dashboard-get-shortcut 'gcal-agenda)
-   `(lambda (&rest _)
-      (let ((file (get-text-property 0 'dashboard-agenda-file ,el))
-            (point (get-text-property 0 'dashboard-agenda-loc ,el)))
-        (funcall dashboard-agenda-action file point)))
-   (format "%s" el)))
+;; 見出し文言("Agenda for the coming week:")を、公式の
+;; `dashboard-item-names'(見出し文字列の置換辞書)経由で
+;; 日数入りの文言に差し替える。dashboard-refresh-buffer実行前に
+;; 毎回計算し直すことで、`gcal-dashboard-agenda-days' を単純な
+;; `setq' で変更しても(customize経由の:set関数を使わなくても)
+;; 次回のdashboard表示・更新時に反映される。
+(defun gcal-dashboard--sync-agenda-heading ()
+  "Sync the dashboard Agenda heading text with `gcal-dashboard-agenda-days'."
+  (setq dashboard-week-agenda t)
+  (setq dashboard-item-names
+        (cons (cons "Agenda for the coming week:"
+                    (format "Agenda for the coming %d days:"
+                            gcal-dashboard-agenda-days))
+              (assoc-delete-all "Agenda for the coming week:"
+                                 dashboard-item-names))))
 
-(add-to-list 'dashboard-item-generators
-             '(gcal-agenda . gcal-dashboard-insert-agenda))
-
-;; `gcal-agenda' はdashboard.el組み込みの `agenda' とは別のキーなので、
-;; ショートカットキーは既定では割り当てられない。必要であれば
-;; (add-to-list 'dashboard-item-shortcuts '(gcal-agenda . "a"))
-;; のように利用側で追加できる。
+(advice-add 'dashboard-refresh-buffer :before
+            (lambda (&rest _) (gcal-dashboard--sync-agenda-heading)))
 
 ;; ロケール非依存の曜日表示用(format-time-string "%w" と同じく0=日曜)。
 (defcustom gcal-dashboard-weekday-kanji ["日" "月" "火" "水" "木" "金" "土"]

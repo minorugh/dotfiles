@@ -1,13 +1,13 @@
 ;;; 70-translate.el --- DeepL / Google translate key bindings.  -*- lexical-binding: t -*-
 ;;; Commentary:
-;; DeepL API 翻訳の実体は ~/.emacs.d/elisp/my-deepl-translate.el に分離し、
+;; DeepL API 翻訳の実体は ~/.emacs.d/elisp/deepl-translate.el に分離し、
 ;; ここでは autoload 宣言とキーバインドのみを行う。
 ;; Google 翻訳は軽量なので分離せずこのファイルに直書きする。
 ;;; Code:
 
 ;; ============================================================
 ;;  DeepL API  (ミニバッファ翻訳 + クリップボードコピー)
-;;  実体: ~/.emacs.d/elisp/my-deepl-translate.el
+;;  実体: ~/.emacs.d/elisp/deepl-translate.el
 ;; ============================================================
 
 
