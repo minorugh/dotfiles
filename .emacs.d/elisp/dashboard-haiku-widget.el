@@ -2,7 +2,7 @@
 
 ;; Author: minorugh
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "27.1") (dashboard "1.8.0"))
+;; Package-Requires: ((emacs "27.1") (dashboard "1.8.0") (nerd-icons "0.0.1"))
 ;; URL: https://github.com/minorugh/dashboard-widget-extensions
 ;; Keywords: haiku, dashboard, convenience
 
@@ -446,6 +446,12 @@
 	 (entry (nth day month-list)))
     entry))
 
+(defun seiho-haiku--heading-icon ()
+  "Return the heading icon string, or \"\" if `nerd-icons' isn't installed."
+  (if (require 'nerd-icons nil t)
+      (nerd-icons-faicon "nf-fa-heart_o" :face 'dashboard-heading :height 1.2)
+    ""))
+
 (defun seiho-haiku-insert-today (heading)
   "今日の一句をdashboard用にフォーマットして挿入する.
 HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
@@ -457,11 +463,9 @@ HEADINGは `dashboard-insert-heading' を呼ぶ関数シンボル."
 	 (day    (nth 3 now))
 	 (youbi  (nth (nth 6 now) '("日" "月" "火" "水" "木" "金" "土")))
 	 (line   (format "    %s      %s    " ku author)))
-	 ;; (start  (point)))
 (funcall heading (format "%s 今日の一句  %d月%d日（%s）"
-                         (nerd-icons-faicon "nf-fa-heart_o" :face 'dashboard-heading :height 1.2)
+                         (seiho-haiku--heading-icon)
                          mon day youbi))
-;; (funcall heading (format "今日の一句  %d月%d日（%s）" mon day youbi))
     (insert "\n\n")
     (dashboard-insert-center
      (propertize line

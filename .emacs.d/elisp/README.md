@@ -44,26 +44,30 @@ DeepL API を使ったリージョン翻訳。ミニバッファに結果を表�
 `deepl-translate` は日本語⇔英語を自動判定、`deepl-ej`/`deepl-je` は方向を明示指定。
 API キーは `80-translate.el` から外部の untracked ファイル経由で設定する。
 
-### gcal-dashboard-widget.el
+### dashboard-gcal-widget.el
 Google Calendar(複数可)を org ファイルへ一方向同期し、dashboard.el の Agenda ウィジェットに
 `gcal-agenda` として表示する。同期は洗い替え方式(一時ファイルへ書き出し、全カレンダー成功後に
 本番ファイルへ反映)なので、途中でエラーやタイムアウトが起きても本番ファイルは壊れない。
-`kill-emacs-hook` で終了時に自動同期されるほか、`M-x gcal-dashboard-sync` で手動実行もできる。
+`kill-emacs-hook` で終了時に自動同期されるほか、`M-x gcal-widget-sync` で手動実行もできる。
+
+### dashboard-haiku-widget.el
+青畝俳句データ（366 日分）を定数として保持する elisp ファイル。
+`seihohaiku.cgi` から自動変換生成したもの。
 
 ### evil-cheat-sheet.el
 Evil キーバインドのチートシートを表示するバッファー。
 ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
+
+### evil-leader-tools.el
+選句作業用コマンド。`sen_cleanup.pl` を非同期実行し、結果をストリーミング表示する。
+実行前に `.tmp` バックアップを作成し、`;b` で復元できる。
+キーバインドは `my-normal-leader-map` の `;c` / `;b`。
 
 ### markdown-utils.el
 Markdown・howm ファイル編集用ユーティリティ関数群。
 コードブロック内コメント変換（`my-howm-fix-code-comments`）や
 目次生成（`gen_toc.pl` 呼び出し）などを提供する。
 `(require 'my-markdown)` で読み込む。
-
-### haiku-sen-tools.el
-選句作業用コマンド。`sen_cleanup.pl` を非同期実行し、結果をストリーミング表示する。
-実行前に `.tmp` バックアップを作成し、`;b` で復元できる。
-キーバインドは `my-normal-leader-map` の `;c` / `;b`。
 
 ### insert-template.el
 俳句関係の作業ファイルをヘッダー自動生成付きで開くテンプレート関数群。
@@ -73,10 +77,6 @@ Markdown・howm ファイル編集用ユーティリティ関数群。
 tig と git-peek を連携させるブリッジ。tig 起動時にファイルパスをコンテキストファイルに書き出し、
 tig 側から `emacsclient` 経由で `git-peek-from-hash` を呼べるようにする。
 `~/.tigrc` に `bind generic E` の設定が必要。
-
-### haiku-dashboard-wiget.el
-青畝俳句データ（366 日分）を定数として保持する elisp ファイル。
-`seihohaiku.cgi` から自動変換生成したもの。
 
 ### tempbuf.el
 未使用バッファをバックグラウンドで自動 kill するマイナーモード。
@@ -88,7 +88,10 @@ fork した上でこのディレクトリに直接配置（原作: Michele Bini,
 
 ## 公開用パッケージの同期
 
-git-peek / gcal-dashboard-widget / deepl-translate / tempbuf の4ファイルは Github で公開。
-elisp/ が正のソース。
-編集後 `make publish` で各自の GitHub リポジトリ (`~/src/github.com/minorugh/<pkg>/`) へコピー・push する。
+git-peek / dashboard-gcal-widget / dashboard-haiku-widget / deepl-translate / tempbuf の
+5ファイルは GitHub で公開。elisp/ が正のソース。
+編集後 `make publish` で各自の GitHub リポジトリへコピー・push する。
+git-peek / deepl-translate / tempbuf は `~/src/github.com/minorugh/<pkg>/` にそれぞれ1パッケージ1リポジトリ、
+dashboard-gcal-widget / dashboard-haiku-widget は `~/src/github.com/minorugh/dashboard-widget-extensions/` に
+2ファイルまとめて配置。
 elc は対象外。（各リポジトリ側は `.gitignore` で `*.elc` を除外）。

@@ -73,7 +73,7 @@
   ;; に集約してある。ここではrequireするだけでよい。
   (require 'dashboard-gcal-widget)
   ;; 表示期間を60日に変更(既定値は gcal-dashboard.el 側で定義)
-  (setq gcal-dashboard-agenda-days 60)
+  (setq gcal-widget-agenda-days 60)
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
   (if my-main-machine-p
