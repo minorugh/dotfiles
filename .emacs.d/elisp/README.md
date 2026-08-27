@@ -44,13 +44,13 @@ DeepL API を使ったリージョン翻訳。ミニバッファに結果を表�
 `deepl-translate` は日本語⇔英語を自動判定、`deepl-ej`/`deepl-je` は方向を明示指定。
 API キーは `80-translate.el` から外部の untracked ファイル経由で設定する。
 
-### gcal-dashboard.el
+### gcal-dashboard-widget.el
 Google Calendar(複数可)を org ファイルへ一方向同期し、dashboard.el の Agenda ウィジェットに
 `gcal-agenda` として表示する。同期は洗い替え方式(一時ファイルへ書き出し、全カレンダー成功後に
 本番ファイルへ反映)なので、途中でエラーやタイムアウトが起きても本番ファイルは壊れない。
 `kill-emacs-hook` で終了時に自動同期されるほか、`M-x gcal-dashboard-sync` で手動実行もできる。
 
-### my-evil-cheat-sheet.el
+### evil-cheat-sheet.el
 Evil キーバインドのチートシートを表示するバッファー。
 ノーマルステートの `?` にバインドし、ivy でセクションジャンプできる。
 
@@ -69,12 +69,12 @@ Markdown・howm ファイル編集用ユーティリティ関数群。
 俳句関係の作業ファイルをヘッダー自動生成付きで開くテンプレート関数群。
 `40-hydra-dired.el` および `40-hydra-menu.el` から `(require 'my-template)` で読み込む。
 
-### my-tig-bridge.el
+### tig-git-peek-bridge.el
 tig と git-peek を連携させるブリッジ。tig 起動時にファイルパスをコンテキストファイルに書き出し、
 tig 側から `emacsclient` 経由で `git-peek-from-hash` を呼べるようにする。
 `~/.tigrc` に `bind generic E` の設定が必要。
 
-### seiho-haiku.el
+### haiku-dashboard-wiget.el
 青畝俳句データ（366 日分）を定数として保持する elisp ファイル。
 `seihohaiku.cgi` から自動変換生成したもの。
 
@@ -88,7 +88,7 @@ fork した上でこのディレクトリに直接配置（原作: Michele Bini,
 
 ## 公開用パッケージの同期
 
-git-peek / gcal-dashboard / deepl-translate / tempbuf の4ファイルは
+git-peek / gcal-dashboard-widget / deepl-translate / tempbuf の4ファイルは
 elisp/ が正のソース。編集後 `make publish` で各自の GitHub リポジトリ
 (`~/src/github.com/minorugh/<pkg>/`) へコピー・push する。elc は対象外
 （各リポジトリ側は `.gitignore` で `*.elc` を除外）。
