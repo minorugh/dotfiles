@@ -86,10 +86,15 @@ fork した上でこのディレクトリに直接配置（原作: Michele Bini,
 
 ---
 
-## 公開用パッケージの同期
+## 公開パッケージの同期
 
-git-peek / dashboard-gcal-widget / dashboard-haiku-widget / deepl-translate / tempbuf の
-5ファイルは GitHub で公開。elisp/ が正のソース。
+- git-peek
+- dashboard-gcal-widget
+- dashboard-haiku-widget
+- deepl-translate
+- tempbuf
+
+の5ファイルは GitHub で公開。elisp/ が正のソース。
 編集後 `make publish` で各自の GitHub リポジトリへコピー・push する。
 git-peek / deepl-translate / tempbuf は `~/src/github.com/minorugh/<pkg>/` にそれぞれ1パッケージ1リポジトリ、
 dashboard-gcal-widget / dashboard-haiku-widget は `~/src/github.com/minorugh/dashboard-widget-extensions/` に
