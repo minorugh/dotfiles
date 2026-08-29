@@ -23,6 +23,8 @@
 # update 2026.07.31 「対話実行系」セクションの5ターゲット（dracula-theme・keepassxc・google-earth・slack・flatpak）を ##! 化（区分と目印の不整合を解消）
 # update 2026.07.31 git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離）
 # update 2026.08.11 dropbox-resume-watch ターゲット追加（D-Bus PrepareForSleepフック、クリーンリストア対応）
+# update 2026.08.29 github-dropbox-cleanup ターゲット追加（GH/minorugh.com のclone後.git以外を自動削除、Dropbox実体との競合回避）
+# update 2026.08.29 github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正（private repo保険の対象を整理、xsrv-GH/xsrv-minorugh・dotfiles・git-peekのxserver/Gitea pushurlは削除）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -415,7 +417,12 @@ latex: ## LaTeX 用スクリプト・スタイルファイルのシンボリッ�
 	sudo ln -vsfn ${PWD}/tex/platex/my-sty /usr/local/texlive/2024/texmf-dist/tex/platex
 	sudo mktexlsr
 
-github: ## GitHub リポジトリのクローン
+# 実体が ~/Dropbox 側にあり、ここには .git 本体のみを置くリポジトリ
+DROPBOX_GITDIR_REPOS := GH minorugh.com
+
+.PHONY: github-dropbox-cleanup
+
+github: ##! GitHub リポジトリのクローン
 	mkdir -p ${HOME}/src/github.com/minorugh
 	cd ${HOME}/src/github.com/minorugh; \
 	git clone git@github.com:minorugh/GH.git; \
@@ -429,16 +436,41 @@ github: ## GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/deepl-translate.git; \
 	git clone git@github.com:minorugh/xsrv-GH.git; \
 	git clone git@github.com:minorugh/xsrv-minorugh.git
+	$(MAKE) -s github-dropbox-cleanup
 # GH.git minorugh.com.git は .git のみ残して他は削除（本体は~/Dropbox）
 
-github-remote-add: ## xsrv-GH / xsrv-minorugh に Gitea pushurl を追加（GitHub + Gitea の両方に push）
-	git -C ${HOME}/src/github.com/minorugh/xsrv-GH remote set-url --push origin git@github.com:minorugh/xsrv-GH.git
-	git -C ${HOME}/src/github.com/minorugh/xsrv-minorugh remote set-url --push origin git@github.com:minorugh/xsrv-minorugh.git
-	git -C ${HOME}/src/github.com/minorugh/xsrv-GH remote set-url --add --push origin http://localhost:3000/minoru/xsrv-GH.git
-	git -C ${HOME}/src/github.com/minorugh/xsrv-minorugh remote set-url --add --push origin http://localhost:3000/minoru/xsrv-minorugh.git
-	@echo "Gitea pushurl added to xsrv-GH and xsrv-minorugh."
-# git clone 直後は GitHub のみが remote。このターゲットで Gitea を pushurl に追加する。
-# push 時は GitHub と Gitea 両方に送信される（fetch は GitHub のみ）
+github-dropbox-cleanup: ##! GH/minorugh.com は clone後 .git 以外を削除（実体はDropbox、競合回避）
+	@for repo in $(DROPBOX_GITDIR_REPOS); do \
+		dir=${HOME}/src/github.com/minorugh/$$repo; \
+		if [ -d "$$dir/.git" ]; then \
+			find "$$dir" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +; \
+			echo "✓ cleaned: $$dir (.git のみ残しました)"; \
+		else \
+			echo "⚠ skip: $$dir/.git が見つかりません（clone失敗の可能性）"; \
+		fi; \
+	done
+
+# GitHub private リポジトリの制限リスクに備え、xserver(bare repo)+Giteaを保険として追加するリポジトリ
+# ( xserverはbare repoのためGUIを持たない → Giteaがその代役 )
+PRIVATE_HEDGE_REPOS := GH minorugh.com env-import
+
+github-remote-add: ##! GH/minorugh.com/env-import に xserver + Gitea pushurl を追加（Docker/Gitea起動後に手動実行）
+	@read -p "Gitea は起動していますか？ xserver への疎通は確認済みですか？ [y/N]: " ans; \
+	[ "$$ans" = "y" ] || { echo "中止しました。"; exit 1; }
+	@for repo in $(PRIVATE_HEDGE_REPOS); do \
+		dir=${HOME}/src/github.com/minorugh/$$repo; \
+		if git -C "$$dir" remote get-url --push --all origin | grep -q "sv13268.xserver.jp"; then \
+			echo "⚠ skip: $$repo は既に設定済みです"; \
+		else \
+			git -C "$$dir" remote set-url --add --push origin ssh://minorugh@sv13268.xserver.jp:10022/home/minorugh/git/$$repo.git; \
+			git -C "$$dir" remote set-url --add --push origin http://localhost:3000/minoru/$$repo.git; \
+			echo "✓ pushurl added: $$repo (xserver + Gitea)"; \
+		fi; \
+	done
+# git clone 直後は GitHub のみが remote。このターゲットで xserver・Gitea を pushurl に追加する。
+# push 時は GitHub・xserver・Gitea の3箇所へ送信される（fetch は GitHub のみ）
+# 実行タイミング: xserver は常時到達可能な想定だが、Gitea は Docker+gitea起動後でないと push 失敗するため
+# docker-setup（Step0/1）完了後に手動実行すること。baseinstall/nextinstall からは自動チェーンしない。
 
 
 ########################################################

@@ -138,6 +138,9 @@ chsh -s /usr/bin/zsh
 | `make power-menu` | power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー） |
 | `make tile-toggle` | tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替） |
 | `make make-run` | make-run.sh のリンク作成（Emacs経由のmake実行を安全化） |
+| `make github` | GitHub上のリポジトリを一括clone（`##!`: 破壊的処理を含むため対話実行系） |
+| `make github-dropbox-cleanup` | Dropbox実体を持つリポジトリのclone後、作業ファイルを`.git`のみに整理 |
+| `make github-remote-add` | private リポジトリに自前サーバー・自前Git GUIのpushurlを追加（保険運用、`##!`） |
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -239,6 +242,53 @@ commit メッセージは `auto: 日時` の機械的な形式に統一し、日
 
 ---
 
+## GitHub private リポジトリの保険運用について
+
+GitHubの利用規約変更やアカウント制限など、private リポジトリが
+将来アクセス不能になるリスクに備え、一部のリポジトリは
+GitHub 以外にも remote を持たせています。
+
+### 考え方
+
+判断基準は「このリポジトリが private かどうか」の1点です。
+public リポジトリは GitHub 側の制限対象になり得ないため、
+GitHub 単独で十分という考え方をとっています。
+
+private のうち、特に失うと復旧作業自体が止まってしまう
+「致命傷インフラ」に該当するリポジトリだけ、以下の2つを
+追加の remote として持たせています。
+
+- **自前の Git サーバー**（bare リポジトリ）: 実データそのものの
+  第三の保管場所。GitHub が使えなくなった場合の最終防衛ライン。
+- **自前の Git GUI**（例: Gitea 等をセルフホスト）: bare リポジトリは
+  Web UI を持たないため、その代替として並行運用。
+
+`origin` に `pushurl` を複数登録することで、`git push` 一発で
+GitHub・自前サーバー・自前GUIの全てに同時送信されます。
+`fetch` は GitHub のみに固定し、取得元は単一に保っています。
+
+```bash
+git remote -v
+# origin  git@github.com:xxx/repo.git (fetch)
+# origin  git@github.com:xxx/repo.git (push)
+# origin  ssh://user@yourserver/path/repo.git (push)
+# origin  http://localhost:3000/user/repo.git (push)
+```
+
+### 注意点
+
+- 自前サーバー・自前GUI側の remote 追加（`make github-remote-add`）は、
+  対象サービスが起動済みであることが前提になるため、リストア処理
+  （`baseinstall`/`nextinstall`）には含めず、環境構築が一通り終わった
+  後に手動実行する運用にしています。
+- 一部のリポジトリ（実体を別ディレクトリで管理し、`.git`本体だけを
+  ここに置く構成のもの）では、clone直後に作業ファイル一式が展開
+  されてしまうため、`.git`以外を自動削除するクリーンアップ処理
+  （`make github-dropbox-cleanup`）を合わせて実行しています
+  （詳細はMakefile内コメント参照）。
+
+---
+
 ## 秘密ファイルの管理（~/.env_source）
 
 SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` で管理します。
@@ -285,6 +335,9 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.08.29 | GitHub private リポジトリの保険運用（自前サーバー+自前GUI併用）を整理。対象を精査し直し、誤って登録されていたリポジトリのremoteを削除。github/github-dropbox-cleanup/github-remote-addを##!化 |
+| 2026.08.29 | github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正。xserverの2スペース（Webサーバー鏡 / bare repoの保険）を整理し、private repo保険はGH/minorugh.com/env-importの3つのみに統一。xsrv-GH/xsrv-minorugh・dotfiles・git-peekの誤ったxserver/Gitea pushurlを削除 |
+| 2026.08.29 | github-dropbox-cleanup ターゲット追加（GH/minorugh.com は git clone後 .git 以外の作業ファイルを自動削除。実体は~/Dropbox側にあり、gitdirポインタ経由で参照する構成のため） |
 | 2026.08.15 | night-suspend導入（深夜自動サスペンド、systemd --user timer、P1のみ）。RTCアラームによる自動復帰はハードウェア非対応のため断念し手動復帰運用に確定。power-menu.shにNIGHT SUSPENDトグル（5キー）追加、旧9キー（SSH minorugh.com）削除。dropbox-watch.plをP1でも有効化し両機共通運用に変更 |
 | 2026.07.31 | git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離、git/README.md 新設） |
 | 2026.07.31 | env-sync を導入・本番運用確定（サブ機の git pull連動で ~/.env_source・abook の差分を検知し確認のうえ同期。git ターゲットを ##! 化し、Emacs経由の実行でも対話プロンプトが機能するよう修正）。baseinstall/nextinstall の記載漏れを解消（make-run・tig・hugo を追加）。neomutt-bin を廃止し neomutt ターゲットに統合。「対話実行系」セクションの5ターゲットを ##! 化 |
