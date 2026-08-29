@@ -57,18 +57,19 @@ keychron-rules-backup: ## Keychron udevルールを Dropbox にバックアッ�
 	mkdir -p ${HOME}/Dropbox/backup/keychron
 	cp -p /etc/udev/rules.d/50-keychron.rules ${HOME}/Dropbox/backup/keychron/50-keychron.rules
 
-readmes-backup: ## 各所のREADMEをDropbox/READMESにコピー
-	@mkdir -p ${HOME}/Dropbox/READMES
-	@cp ${HOME}/src/github.com/minorugh/env-import/README.md       ${HOME}/Dropbox/READMES/00-env-import-README.md
-	@cp ${HOME}/.env_source/README.md                              ${HOME}/Dropbox/READMES/01-env_source-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/README.md         ${HOME}/Dropbox/READMES/02-dotfiles-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/backup/README.md  ${HOME}/Dropbox/READMES/03-backup-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/cron/README.md    ${HOME}/Dropbox/READMES/04-cron-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/.mutt/README.md   ${HOME}/Dropbox/READMES/05-mutt-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/bin/README.md     ${HOME}/Dropbox/READMES/06-bin-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/git/README.md     ${HOME}/Dropbox/READMES/07-git-README.md
-	@cp ${HOME}/src/github.com/minorugh/dotfiles/docker/README.md  ${HOME}/Dropbox/READMES/08-docker-README.md
-	@cp ${HOME}/Dropbox/backup/README.md                           ${HOME}/Dropbox/READMES/09-Dropbox-README.md
+READMES_DIR := ${HOME}/Dropbox/backup/READMES
+
+readmes-backup: ## 各所のREADMEを$(READMES_DIR)にコピー
+	@mkdir -p $(READMES_DIR)
+	@cp ${HOME}/src/github.com/minorugh/env-import/README.md       $(READMES_DIR)/00-env-import-README.md
+	@cp ${HOME}/.env_source/README.md                              $(READMES_DIR)/01-env_source-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/README.md         $(READMES_DIR)/02-dotfiles-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/backup/README.md  $(READMES_DIR)/03-backup-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/cron/README.md    $(READMES_DIR)/04-cron-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/.mutt/README.md   $(READMES_DIR)/05-mutt-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/bin/README.md     $(READMES_DIR)/06-bin-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/git/README.md     $(READMES_DIR)/07-git-README.md
+	@cp ${HOME}/src/github.com/minorugh/dotfiles/docker/README.md  $(READMES_DIR)/08-docker-README.md
 	@echo "$$(date '+%Y-%m-%d %H:%M:%S') readmes backup done"
 
 ## endfile
