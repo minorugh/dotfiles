@@ -191,6 +191,9 @@ alias is='whois'
 # アーカイブ展開
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 
+# ディスク管理GUI（USBのフォーマット・パーティション確認等）
+alias gd='gnome-disks'
+
 # アプリ
 alias iv='sxiv'
 alias fz='filezilla -s'

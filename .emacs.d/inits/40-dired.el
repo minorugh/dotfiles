@@ -117,6 +117,15 @@ Placed on the external monitor when one is connected."
       ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
       (my-launch-gnome-terminal "--" "nano" (dired-get-file-for-visit))))
 
+  (with-eval-after-load 'dired
+    (define-key dired-mode-map (kbd "/")
+		(lambda ()
+		  (interactive)
+		  ;; 1. swiperを起動
+		  (call-interactively 'swiper)
+		  ;; 2. swiperが確定して終了したら、即座にファイルを開く
+		  (dired-find-file))))
+
   ;;  File Operations
   ;; ----------------------------------------------------------
   (defun my-dired-sudo-rm ()
