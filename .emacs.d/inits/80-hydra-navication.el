@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote  _v_ersion
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md.vie_w_^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -53,7 +53,6 @@
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("s" (my-open "~/src/"))
-   ("w" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
    ("c" (my-make "clean"))
    ("k" (my-make "-k"))
@@ -61,7 +60,7 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
-   ("v" markdown-preview)
+   ("w" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("L" (my-open "~/Dropbox/CHANGELOG"))
@@ -69,6 +68,7 @@
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
+   ;; ("v" my-check-all)
    ("_" delete-other-windows)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
@@ -90,6 +90,25 @@
         (my-make "git")
       (my-make-run-async default-directory "git")))
 
+  ;; ------------------------------------------------------------
+  ;;  
+  ;; ------------------------------------------------------------
+  (defun my-check--run-and-extract-marker (command)
+    "COMMAND を実行し、出力末尾の `##> ...' マーカーの中身を返す
+(マーカーが無ければ出力全体をそのまま返す)。"
+    (with-temp-buffer
+      (insert (shell-command-to-string command))
+      (or (my-make--marker-message (current-buffer))
+          (string-trim (buffer-string)))))
+
+  (defun my-check-all ()
+    "Debian iso と Emacs 安定版の最新情報をまとめてミニバッファに表示する。"
+    (interactive)
+    (let ((debian-msg (my-check--run-and-extract-marker
+                       "bash ~/Dropbox/RESTORE/make-install-usb/version-check.sh"))
+          (emacs-msg  (my-check--run-and-extract-marker
+                       "bash ~/src/github.com/minorugh/dotfiles/bin/emacs-check.sh")))
+      (message "[Debian] %s ｜ [Emacs] %s" debian-msg emacs-msg)))
 
   ;; ------------------------------------------------------------
   ;;  Git Helpers (discard changes)
@@ -108,7 +127,7 @@
                    (?+ (if (looking-at-p "\\+\\+\\+") 'diff-file-header 'diff-added))
                    (?- (if (looking-at-p "---") 'diff-file-header 'diff-removed)))))
       (when face
-	(put-text-property bol eol 'face (list :foreground (face-foreground face nil t))))))
+        (put-text-property bol eol 'face (list :foreground (face-foreground face nil t))))))
 
   (defun my-git--colorize-diff-buffer ()
     "バッファ内の各行に `my-git--colorize-diff-line' を適用する."
@@ -171,7 +190,7 @@
     (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
-
+ 
   ;; ------------------------------------------------------------
   ;;  External Tools / System
   ;; ------------------------------------------------------------

@@ -24,6 +24,8 @@ ThinkPad 2台（P1 メイン機 / X250 サブ機）での運用を想定した�
 #### 1. Debian クリーンインストール
 インストール USB を netinst iso から作成します（Windows の場合は [Rufus](https://rufus.ie/ja/) を使用）。
 
+USBが見当たらない・使えない場合は`~/Dropbox/RESTPRE/make-install-usb/README.md` を見て新規作成してください。
+
 #### 2. sudoers への登録
 root でログインして実行します。
 
