@@ -61,6 +61,8 @@
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
    ("w" markdown-preview)
+   ("v" emacs-version-check)
+   ("V" debian-version-check)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("L" (my-open "~/Dropbox/CHANGELOG"))
@@ -68,7 +70,6 @@
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
-   ;; ("v" my-check-all)
    ("_" delete-other-windows)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
@@ -89,26 +90,6 @@
     (if my-main-machine-p
         (my-make "git")
       (my-make-run-async default-directory "git")))
-
-  ;; ------------------------------------------------------------
-  ;;  
-  ;; ------------------------------------------------------------
-  (defun my-check--run-and-extract-marker (command)
-    "COMMAND を実行し、出力末尾の `##> ...' マーカーの中身を返す
-(マーカーが無ければ出力全体をそのまま返す)。"
-    (with-temp-buffer
-      (insert (shell-command-to-string command))
-      (or (my-make--marker-message (current-buffer))
-          (string-trim (buffer-string)))))
-
-  (defun my-check-all ()
-    "Debian iso と Emacs 安定版の最新情報をまとめてミニバッファに表示する。"
-    (interactive)
-    (let ((debian-msg (my-check--run-and-extract-marker
-                       "bash ~/Dropbox/RESTORE/make-install-usb/version-check.sh"))
-          (emacs-msg  (my-check--run-and-extract-marker
-                       "bash ~/src/github.com/minorugh/dotfiles/bin/emacs-check.sh")))
-      (message "[Debian] %s ｜ [Emacs] %s" debian-msg emacs-msg)))
 
   ;; ------------------------------------------------------------
   ;;  Git Helpers (discard changes)
@@ -190,7 +171,7 @@
     (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
- 
+
   ;; ------------------------------------------------------------
   ;;  External Tools / System
   ;; ------------------------------------------------------------
@@ -227,6 +208,26 @@
             (setenv (match-string 1)
                     (match-string 2))))))
     (message "ENV RECOVERED: xmodmap + SSH_AUTH_SOCK"))
+
+  (defun emacs-version-check ()
+    "GNU Emacsの最新安定版をミニバッファに表示する。"
+    (interactive)
+    (let ((latest (string-trim
+                   (shell-command-to-string
+                    "curl -sL https://ftp.gnu.org/gnu/emacs/ | grep -oE 'emacs-[0-9]+\\.[0-9]+(\\.[0-9]+)?\\.tar\\.gz' | sort -V | tail -1"))))
+      (if (string-empty-p latest)
+          (message "Emacs最新版の情報が取得できませんでした。")
+        (message "最新の安定版は %s です。" (string-remove-suffix ".tar.gz" latest)))))
+
+  (defun debian-version-check ()
+    "保存済みのDebian netinstall isoが最新版かどうかをミニバッファに表示する。"
+    (interactive)
+    (message "%s"
+             (with-temp-buffer
+               (insert (shell-command-to-string
+			"make -s -C ~/Dropbox/RESTORE/make-install-usb version-check"))
+               (or (my-make--marker-message (current-buffer))
+                   (string-trim (buffer-string))))))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
