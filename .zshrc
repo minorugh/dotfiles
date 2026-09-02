@@ -156,6 +156,8 @@ bindkey '^r' fzf-history
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/src/go"
 export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
+# Arch版サブ機（Let's note）のみ必要: mozc_serverがここに入るため
+export PATH="$PATH:/usr/lib/mozc"
 
 export EDITOR=emacsclient
 export VISUAL=emacsclient
