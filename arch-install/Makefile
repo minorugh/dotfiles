@@ -129,7 +129,7 @@ emacs-stable: ##! Emacs 安定版のソースビルド（pacman依存パッケ�
 	cd ~/src && \
 	wget -c https://ftp.gnu.org/gnu/emacs/emacs-31.1.tar.gz && \
 	tar xvfz emacs-31.1.tar.gz && \
-	cd emacs-31.12 && \
+	cd emacs-31.1 && \
 	./configure \
 	  --with-native-compilation=aot \
 	  --with-x-toolkit=gtk3 \
