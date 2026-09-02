@@ -127,7 +127,7 @@ emacs-stable: ##! Emacs 安定版のソースビルド（pacman依存パッケ�
 	  libjpeg-turbo libpng giflib libtiff librsvg libxpm zlib
 	mkdir -p ~/src
 	cd ~/src && \
-	wget -c https://ftp.gnu.org/gnu/emacs/emacs-30.2.tar.gz && \
+	wget -c https://ftp.gnu.org/gnu/emacs/emacs-31.1.tar.gz && \
 	tar xvfz emacs-30.2.tar.gz && \
 	cd emacs-30.2 && \
 	./configure \
