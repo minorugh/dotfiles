@@ -19,7 +19,7 @@
           ("," . (lambda () (interactive) (mozc-insert-str "、")))
           ("." . (lambda () (interactive) (mozc-insert-str "。")))))
   :config
-  (global-set-key (kbd "C-\\") nil)
+  (global-set-key (kbd "C-|") nil)
   (setq default-input-method "japanese-mozc")
   (setq mozc-leim-title       "あ")
   (custom-set-faces
