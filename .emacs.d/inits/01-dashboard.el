@@ -39,10 +39,12 @@
   ;; ── Banner & title ───────────────────────────────────────────
   (setq dashboard-startup-banner  "~/.emacs.d/emacs.png")
   (setq dashboard-banner-logo-title
-        (let* ((uname  (split-string (shell-command-to-string "uname -rn")))
-               (debian (string-trim (shell-command-to-string "cat /etc/debian_version"))))
-          (format "GNU Emacs %s kernel %s Debian %s x86_64 GNU/Linux"
-                  emacs-version (cadr uname) debian)))
+	(let* ((uname (split-string (shell-command-to-string "uname -rn")))
+               (os-name (string-trim
+			 (shell-command-to-string
+                          ". /etc/os-release && echo \"$PRETTY_NAME\""))))
+          (format "GNU Emacs %s kernel %s %s x86_64 GNU/Linux"
+                  emacs-version (cadr uname) os-name)))
 
   ;; ── Layout ───────────────────────────────────────────────────
   ;; Content left-aligned (haiku centering handled in seiho-haiku.el)
