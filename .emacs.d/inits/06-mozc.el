@@ -21,6 +21,13 @@
   :config
   (setq default-input-method "japanese-mozc")
   (setq mozc-leim-title       "あ")
+  ;; Arch版サブ機（Let's note）のみ必要:
+  ;; mozc_serverが /usr/lib/mozc にあり、GUIメニュー起動のEmacsだと
+  ;; .zshrcのPATH設定が読み込まれないため、ここで明示的に追加する。
+  ;; Debianではこのディレクトリが存在しないため何もしない。
+  (when (file-directory-p "/usr/lib/mozc")
+    (add-to-list 'exec-path "/usr/lib/mozc")
+    (setenv "PATH" (concat (getenv "PATH") ":/usr/lib/mozc")))
   (custom-set-faces
    '(mozc-preedit-selected-face
      ((t (:background "#1E2029" :foreground "#bd93f9" :weight bold)))))
