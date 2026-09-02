@@ -119,6 +119,34 @@ push-block: ## env-import・dotfiles ともpushを封鎖（サブ機と同じく
 	git -C $(DOTFILES_DIR) remote set-url --push origin no-push
 	@echo "✓ push封鎖完了（pull専用）"
 
+emacs-stable: ##! Emacs 安定版のソースビルド（pacman依存パッケージを事前インストール）
+	sudo pacman -S --needed --noconfirm \
+	  base-devel autoconf texinfo pkgconf \
+	  gnutls jansson harfbuzz libxml2 gtk3 libgccjit \
+	  ncurses sqlite tree-sitter \
+	  libjpeg-turbo libpng giflib libtiff librsvg libxpm zlib
+	mkdir -p ~/src
+	cd ~/src && \
+	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.2.tar.gz && \
+	tar xvfz emacs-30.2.tar.gz && \
+	cd emacs-30.2 && \
+	./configure \
+	  --with-native-compilation=aot \
+	  --with-x-toolkit=gtk3 \
+	  --without-xim \
+	  --without-gsettings \
+	  --without-dbus \
+	  --without-toolkit-scroll-bars \
+	  --without-imagemagick \
+	  --without-mailutils \
+	  --without-pop \
+	  --without-gpm \
+	  --without-selinux \
+	  --without-compress-install && \
+	NATIVE_FULL_AOT=1 make -j$(nproc) && \
+	sudo make install
+	@echo "## アンインストール: ~/src/emacs-30.2 で sudo make uninstall && make distclean"
+
 # ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
 # Toggle editable: C-c C-e  or  qq
