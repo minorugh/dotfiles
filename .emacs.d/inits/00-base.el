@@ -177,12 +177,6 @@
       (cond ((> numfrs 1) (delete-frame frame t))
             ((iconify-frame))))))
 
-(define-advice message (:filter-args (args) ignore-vfork-warning)
-  "Suppress the harmless 'Doing vfork' custom-initialize-reset message."
-  (if (and (stringp (car args))
-           (string-match-p "Doing vfork" (car args)))
-      (list "")
-    args))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)

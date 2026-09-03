@@ -47,6 +47,10 @@ else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	@cd $(DOTFILES_DIR) && git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
+ifeq ($(HOSTNAME),archlinux)
+	@echo "archlinux: arch-install の commit/push もあわせて実行します"
+	@$(MAKE) -s -C $(HOME)/src/github.com/minorugh/arch-install git
+endif
 endif
 
 env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
