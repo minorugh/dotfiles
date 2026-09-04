@@ -209,8 +209,14 @@ alias mutt='/usr/local/bin/neomutt.sh'
 alias xsrv='ssh xsrv'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
 alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
-alias pinta='flatpak run com.github.PintaProject.Pinta'
 alias ifconfig='/sbin/ifconfig'
+
+# OS-specific
+if [[ -f /etc/arch-release ]]; then
+    alias pinta='/usr/bin/pinta'
+else
+    alias pinta='flatpak run com.github.PintaProject.Pinta'
+fi
 
 # パスワード生成
 alias pw12='pwgen 12 16'
