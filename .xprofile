@@ -28,15 +28,8 @@ setxkbmap -layout jp -option ctrl:nocaps
 # 再適用の保険は cron（毎分）と Emacs の my-reload-xenv（手動）で担う。
 # ThinkPad純正キーボード時代のイベント駆動ウォッチャーは
 # Keychron移行により失速が激減したため廃止（2026.07.08）。
-#
-# keycode 107 (ThinkPad PrtSc→Alt_R) はLet's note(archlinux)では
-# 物理PrtScキーの動作を変えてしまうため除外して適用する。
 if [ -f ~/.Xmodmap ]; then
-    if [ "$(hostname)" = "archlinux" ]; then
-        grep -v '^keycode 107' ~/.Xmodmap | xmodmap -
-    else
-        xmodmap ~/.Xmodmap
-    fi
+    xmodmap ~/.Xmodmap
 fi
 
 #------------------------------------------------------------
