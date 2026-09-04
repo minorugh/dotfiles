@@ -12,7 +12,7 @@
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'"       . markdown-mode))
   :bind (:markdown-mode-map
-	 ("C-c RET" . markdown-follow-link-at-point)
+         ("C-c RET" . markdown-follow-link-at-point)
          ("C-c C-c" . markdown-do-command)
          ("M-RET"   . markdown-insert-list-item))
   :config
@@ -23,8 +23,11 @@
   (setq markdown-command-needs-filename      t)
   (setq markdown-preview-use-browser         t)
   (setq browse-url-browser-function         'browse-url-generic)
-  (setq browse-url-generic-program          "google-chrome")
   (setq markdown-content-type               "application/xhtml+xml")
+  (setq browse-url-generic-program
+	(or (executable-find "google-chrome")
+            (executable-find "google-chrome-stable")
+            (executable-find "chromium")))
   (setq markdown-css-paths
         (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
 
@@ -72,7 +75,7 @@
   (autoload 'gen-toc-term              "markdown-utils" nil t)
   :after markdown-mode
   :bind (:markdown-mode-map
-	 ("C-c #" . my-howm-fix-code-comments)
+         ("C-c #" . my-howm-fix-code-comments)
          ("C-c t" . gen-toc-term))
   :config
   (defun my-howm-fix-after-super-save (&rest _)
@@ -98,31 +101,31 @@
   (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
 
 
-  (defun md2pdf ()
-    "Generate PDF from the current markdown buffer via pandoc + lualatex."
-    (interactive)
-    (let* ((filename (buffer-file-name))
-           (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
-      (if (zerop (call-process-shell-command
-                  (concat "pandoc " filename
-                          " -o " pdffile
-                          " -V mainfont=IPAPGothic -V geometry:margin=20mm"
-                          " -V fontsize=14pt --pdf-engine=lualatex")))
-          (call-process "xdg-open" nil nil nil pdffile)
-        (message "md2pdf: pandoc failed"))))
+(defun md2pdf ()
+  "Generate PDF from the current markdown buffer via pandoc + lualatex."
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (pdffile  (concat (file-name-sans-extension filename) ".pdf")))
+    (if (zerop (call-process-shell-command
+                (concat "pandoc " filename
+                        " -o " pdffile
+                        " -V mainfont=IPAPGothic -V geometry:margin=20mm"
+                        " -V fontsize=14pt --pdf-engine=lualatex")))
+        (call-process "xdg-open" nil nil nil pdffile)
+      (message "md2pdf: pandoc failed"))))
 
-  (defun md2docx ()
-    "Generate DOCX from the current markdown buffer via pandoc."
-    (interactive)
-    (let* ((filename (buffer-file-name))
-           (docxfile  (concat (file-name-sans-extension filename) ".docx")))
-      (if (zerop (call-process-shell-command
-                  (concat "pandoc " filename
-                          " -t docx -o " docxfile
-                          " -V mainfont=IPAPGothic -V fontsize=16pt"
-                          " --highlight-style=zenburn")))
-          (call-process "xdg-open" nil nil nil docxfile)
-        (message "md2docx: pandoc failed"))))
+(defun md2docx ()
+  "Generate DOCX from the current markdown buffer via pandoc."
+  (interactive)
+  (let* ((filename (buffer-file-name))
+         (docxfile  (concat (file-name-sans-extension filename) ".docx")))
+    (if (zerop (call-process-shell-command
+                (concat "pandoc " filename
+                        " -t docx -o " docxfile
+                        " -V mainfont=IPAPGothic -V fontsize=16pt"
+                        " --highlight-style=zenburn")))
+        (call-process "xdg-open" nil nil nil docxfile)
+      (message "md2docx: pandoc failed"))))
 
 
 ;; Local Variables:
