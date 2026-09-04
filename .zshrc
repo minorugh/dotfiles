@@ -169,11 +169,11 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 ########################################
 # keychain
 ########################################
-# if [[ -f "$HOME/.ssh/id_ed25519_arch" ]]; then
-#     eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_arch")"
-# else
-#     [ -f "$HOME/.keychain/$HOST-sh" ] && source "$HOME/.keychain/$HOST-sh"
-# fi
+if [[ -f "$HOME/.ssh/id_ed25519_arch" ]]; then
+    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_arch")"
+else
+    [ -f "$HOME/.keychain/$HOST-sh" ] && source "$HOME/.keychain/$HOST-sh"
+fi
 
 ########################################
 # Aliases
