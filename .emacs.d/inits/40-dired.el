@@ -119,12 +119,12 @@ Placed on the external monitor when one is connected."
 
   (with-eval-after-load 'dired
     (define-key dired-mode-map (kbd "/")
-		(lambda ()
-		  (interactive)
-		  ;; 1. swiperを起動
-		  (call-interactively 'swiper)
-		  ;; 2. swiperが確定して終了したら、即座にファイルを開く
-		  (dired-find-file))))
+                (lambda ()
+                  (interactive)
+                  ;; 1. swiperを起動
+                  (call-interactively 'swiper)
+                  ;; 2. swiperが確定して終了したら、即座にファイルを開く
+                  (dired-find-file))))
 
   ;;  File Operations
   ;; ----------------------------------------------------------
@@ -153,13 +153,20 @@ Placed on the external monitor when one is connected."
       (my-launch-gnome-terminal "--" "bash" (dired-get-file-for-visit))))
 
   (defun my-sxiv ()
-    "Open all images in the current directory with sxiv (fullscreen tiling)."
+    "Open all images in the current directory with sxiv or nsxiv (fullscreen tiling)."
     (interactive)
-    (let* ((files (directory-files default-directory nil
-                                   "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$"))
-           (cmd (format "sxiv -t -f %s"
-                        (mapconcat #'shell-quote-argument files " "))))
-      (start-process-shell-command "sxiv" nil cmd))))
+    (let* ((viewer (or (executable-find "sxiv")
+                       (executable-find "nsxiv")))
+           (files (directory-files default-directory nil
+                                   "\\.\\(jpe?g\\|png\\|gif\\|bmp\\)$")))
+      (if (not viewer)
+          (message "sxiv も nsxiv も見つかりません")
+	(if (not files)
+            (message "画像ファイルが見つかりません")
+          (let ((cmd (format "%s -t -f %s"
+                             viewer
+                             (mapconcat #'shell-quote-argument files " "))))
+            (start-process-shell-command "sxiv" nil cmd)))))))
 
 
 ;; Local Variables:
