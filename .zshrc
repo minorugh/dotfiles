@@ -169,7 +169,11 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 ########################################
 # keychain
 ########################################
-[ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
+if [[ -f /etc/arch-release ]]; then
+    eval "$(keychain --eval --quiet ~/.ssh/id_ed25519_arch)"
+else
+    [ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
+fi
 
 ########################################
 # Aliases
