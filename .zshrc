@@ -169,7 +169,7 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 ########################################
 # keychain
 ########################################
-if [[ -f /etc/arch-release ]]; then
+if [[ "$(hostname)" == "archlinux" ]]; then
     eval "$(keychain --eval --quiet ~/.ssh/id_ed25519_arch)"
 else
     [ -f $HOME/.keychain/$HOST-sh ] && source $HOME/.keychain/$HOST-sh
