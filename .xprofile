@@ -35,11 +35,16 @@ fi
 #------------------------------------------------------------
 # SSH agent (keychain)
 #------------------------------------------------------------
+if [ -f "$HOME/.ssh/id_ed25519_arch" ]; then
+    # Arch Linux
+    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_arch")"
+else
+    # Debian
+    if [ -f "$HOME/.keychain/$(hostname)-sh" ]; then
+        source "$HOME/.keychain/$(hostname)-sh"
+    fi
+fi
+
 # systemd ユーザーセッションへ SSH agent 環境変数を伝える
 dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
-
-# keychain が保存した SSH agent 環境を読み込む
-if [ -f ~/.keychain/$(hostname)-sh ]; then
-    source "$HOME/.keychain/$(hostname)-sh"
-fi
 
