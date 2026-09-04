@@ -1,0 +1,45 @@
+#------------------------------------------------------------
+# X resources
+#------------------------------------------------------------
+if [ -f ~/.Xresources ]; then
+    xrdb -merge ~/.Xresources
+fi
+
+#------------------------------------------------------------
+# X keyboard settings
+#------------------------------------------------------------
+# X セッション情報をログに残す（デバッグ用・動作には影響なし）
+echo "$(date) xprofile start (DISPLAY=$DISPLAY, SESSION=$XDG_SESSION_TYPE)" >> "$HOME/.xprofile.log"
+
+# キーボードを日本語配列に設定し、CapsLockをCtrlに変更
+# ※ setxkbmap は XKB レイヤーを初期化するため、必ず xmodmap より先に実行する
+setxkbmap -layout jp -option ctrl:nocaps
+
+# .Xmodmap が存在する場合は読み込む
+# setxkbmap の直後に実行することで、XKB の初期化を上書きして反映させる
+#
+# 主な設定内容：
+#  - keycode 107 (ThinkPad PrtSc) → Alt_R として使用
+#  - keycode  97 (日本語「ろ」キー) → _ および \ を割り当て
+#  - keycode 191-195 (Keychron QMK 単押し送出) → F13-F17 として命名
+#  ※ F13-F15 は xmodmap で名前をつけないと 0xef8d 等の未定義 keysym になり
+#     Emacs・Xfce どちらも認識できないため必須
+#
+# 再適用の保険は cron（毎分）と Emacs の my-reload-xenv（手動）で担う。
+# ThinkPad純正キーボード時代のイベント駆動ウォッチャーは
+# Keychron移行により失速が激減したため廃止（2026.07.08）。
+if [ -f ~/.Xmodmap ]; then
+    xmodmap ~/.Xmodmap
+fi
+
+#------------------------------------------------------------
+# SSH agent (keychain)
+#------------------------------------------------------------
+# systemd ユーザーセッションへ SSH agent 環境変数を伝える
+dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
+
+# keychain が保存した SSH agent 環境を読み込む
+if [ -f ~/.keychain/$(hostname)-sh ]; then
+    source "$HOME/.keychain/$(hostname)-sh"
+fi
+
