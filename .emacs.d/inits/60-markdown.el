@@ -23,11 +23,8 @@
   (setq markdown-command-needs-filename      t)
   (setq markdown-preview-use-browser         t)
   (setq browse-url-browser-function         'browse-url-generic)
+  (setq browse-url-generic-program "chromium")
   (setq markdown-content-type               "application/xhtml+xml")
-  (setq browse-url-generic-program
-	(or (executable-find "google-chrome")
-            (executable-find "google-chrome-stable")
-            (executable-find "chromium")))
   (setq markdown-css-paths
         (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
 
