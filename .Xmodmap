@@ -19,7 +19,7 @@
 !   level3  Mode_switch
 !   level4  Mode_switch + Shift
 !-------------------------------
-keycode 107 = Alt_R Meta_R Print Sys_Req
+! keycode 107 = Alt_R Meta_R Print Sys_Req
 !   - 通常: Alt_R
 !   - Shift + PrtSc: Meta_R
 !   - Ctrl_R + PrtSc: Print (スクリーンショット)
