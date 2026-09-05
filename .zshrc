@@ -169,9 +169,10 @@ export LESS='-g -i -M -R -S -W -z-4 -x4'
 ########################################
 # keychain
 ########################################
-if [[ -f "$HOME/.ssh/id_ed25519_arch" ]]; then
-    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_arch")"
-else
+# Arch機はkeychainの起動・鍵ロードを.xprofileで完了させているため、
+# .zshrcでは何もしない。Debian機のみ、env-import経由で用意された
+# ~/.keychain/$HOST-shを読み込んでエージェント情報を引き継ぐ。
+if [[ ! -f "$HOME/.ssh/id_ed25519_arch" ]]; then
     [ -f "$HOME/.keychain/$HOST-sh" ] && source "$HOME/.keychain/$HOST-sh"
 fi
 
