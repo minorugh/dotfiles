@@ -314,6 +314,77 @@ even though no real `compile' process is involved."
                     :caller 'my-make-ivy-integrated))))))
 
 
+;; ============================================================
+;;  Makefile / README.md Copy / Apply Toggle
+;;  (for pasting into Claude sessions)
+;;
+;;  Claude等とのセッションでMakefileやREADME.mdの中身を貼る機会が
+;;  多いが、そのたびに手動でリネーム→貼る→戻す、を繰り返すのは
+;;  手間な上、リネームを戻し忘れると本体が存在しない状態のまま
+;;  気づかず作業を続けてしまう事故にもつながる。
+;;
+;;  そこで1キーのトグルにする: <basefile>_DIRNAME が無ければ「持ち出し
+;;  用コピーを作る」、既にあって本体より新しければ「本体へ反映する」。
+;;  反映前に既存の本体は必ず <basefile>.bak へ退避する(消さずに残す運用)。
+;;  押す時点で「今回はどちらの向きか」は意図して押すため、確認は挟まない。
+;;
+;;  C-x m (本来は未使用のcompose-mail) を Makefile 用、
+;;  C-x R を README.md 用に割り当てる(C-x r はレジスタ操作の
+;;  標準プレフィックスなので、大文字のC-x Rにして衝突を避ける)。
+;; ============================================================
+
+(leaf *my-make-readme-copy-apply
+  :bind (("C-x m" . my-make-toggle-dirname)
+         ("C-x r" . my-readme-toggle-dirname))
+  :preface
+  (defun my-copy-apply--variant-name (basefile dirname)
+    "Return the DIRNAME-suffixed variant filename for BASEFILE.
+E.g. (\"Makefile\" \"dotfiles\") -> \"Makefile_dotfiles\"
+     (\"README.md\" \"dotfiles\") -> \"README_dotfiles.md\""
+    (let ((ext (file-name-extension basefile)))
+      (if ext
+          (format "%s_%s.%s" (file-name-sans-extension basefile) dirname ext)
+        (format "%s_%s" basefile dirname))))
+
+  (defun my-copy-apply-toggle (basefile)
+    "Create BASEFILE's DIRNAME-suffixed variant if absent; apply it
+back into BASEFILE (backing up the old one as BASEFILE.bak) if newer."
+    (let* ((dir (if (derived-mode-p 'dired-mode)
+                     (dired-current-directory)
+                   default-directory))
+           (dirname (file-name-nondirectory (directory-file-name dir)))
+           (src (expand-file-name basefile dir))
+           (variant-name (my-copy-apply--variant-name basefile dirname))
+           (variant (expand-file-name variant-name dir))
+           (bak (expand-file-name (concat basefile ".bak") dir)))
+      (cond
+       ((not (file-exists-p src))
+        (message "この場所に %s がありません。" basefile))
+       ((not (file-exists-p variant))
+        (copy-file src variant t)
+        (message "コピーしました: %s" variant-name))
+       ((time-less-p (file-attribute-modification-time (file-attributes src))
+                      (file-attribute-modification-time (file-attributes variant)))
+        (rename-file src bak t)
+        (rename-file variant src t)
+        (message "反映しました: %s ← %s（旧版は %s）"
+                 basefile variant-name (file-name-nondirectory bak)))
+       (t
+        (message "%s は最新ではありません（変更なし）。" variant-name)))
+      (when (derived-mode-p 'dired-mode)
+        (revert-buffer))))
+
+  (defun my-make-toggle-dirname ()
+    "Toggle copy/apply for Makefile in the current directory."
+    (interactive)
+    (my-copy-apply-toggle "Makefile"))
+
+  (defun my-readme-toggle-dirname ()
+    "Toggle copy/apply for README.md in the current directory."
+    (interactive)
+    (my-copy-apply-toggle "README.md")))
+
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

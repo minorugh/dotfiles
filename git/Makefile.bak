@@ -35,7 +35,7 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
-	sha256sum $(HOME)/Dropbox/arch-restore/env.bundle.gpg 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
+	sha256sum $(HOME)/Dropbox/backup/env/env_repo.bundle.gpg 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
 	cd $(DOTFILES_DIR) && git add -A
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 	$(MAKE) -s env-remount
@@ -57,7 +57,7 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 	@mkdir -p $(ENV_SYNC_CACHE); \
 	env_hash_flag=$$(cat $(DOTFILES_DIR)/git/env.hash 2>/dev/null); \
 	env_hash_old=$$(cat $(ENV_SYNC_CACHE)/env.hash 2>/dev/null); \
-	env_hash_local=$$(sha256sum ~/Dropbox/arch-restore/env.bundle.gpg 2>/dev/null | awk '{print $$1}'); \
+	env_hash_local=$$(sha256sum ~/Dropbox/backup/env/env_repo.bundle.gpg 2>/dev/null | awk '{print $$1}'); \
 	abook_name_new=$$(ls -t ${HOME}/Dropbox/backup/abook/addressbook_*.gpg 2>/dev/null | head -1); \
 	abook_name_old=$$(cat $(ENV_SYNC_CACHE)/abook.name 2>/dev/null); \
 	env_diff=false; env_pending=false; abook_diff=false; \
@@ -88,7 +88,7 @@ env-sync: ## env_source / abook の更新を検知し、あれば確認のうえ
 	fi; \
 	result=""; \
 	if [ "$$env_diff" = true ]; then \
-		gpg -d ~/Dropbox/arch-restore/env.bundle.gpg > /tmp/env_repo.bundle; \
+		gpg -d ~/Dropbox/backup/env/env_repo.bundle.gpg > /tmp/env_repo.bundle; \
 		if [ -d $(ENV_SOURCE_DIR)/.git ]; then \
 			head_ref=$$(git bundle list-heads /tmp/env_repo.bundle | head -1 | awk '{print $$2}'); \
 			cd $(ENV_SOURCE_DIR) && \

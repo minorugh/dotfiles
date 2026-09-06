@@ -119,7 +119,8 @@
                   ("\\.\\(?:gitattributes\\|gitignore\\|vimrc\\)\\'"         . conf-mode)
                   ("/crontab\\(\\..*\\)?\\'" . conf-mode)
                   ("\\.cgi\\'"               . perl-mode)
-                  ("/passwd/.*\\.cgi\\'"     . text-mode)))
+                  ("/passwd/.*\\.cgi\\'"     . text-mode)
+                  ("/Makefile_[^/]*\\'"      . makefile-gmake-mode)))
     (add-to-list 'auto-mode-alist pair)))
 
 

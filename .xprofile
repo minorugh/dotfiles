@@ -38,9 +38,9 @@ fi
 # export SSH_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
 # export SSH_ASKPASS_REQUIRE=force
 
-if [ -f "$HOME/.ssh/id_ed25519_arch" ]; then
+if [ -f "$HOME/.ssh/id_ed25519_$(hostname)" ]; then
     # Arch Linux: ログイン直後にGUIダイアログでパスフレーズを1回だけ聞く
-    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_arch")"
+    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_$(hostname)")"
 else
     # Debian
     if [ -f "$HOME/.keychain/$(hostname)-sh" ]; then
