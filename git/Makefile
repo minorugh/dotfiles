@@ -14,6 +14,14 @@
 # 誤って「変更なし」と表示される問題があったため、判定基準を git 管理下の git/env.hash（メイン機が
 # bundle生成直後に書き出し、dotfiles push経由で即時配布）に変更。Dropbox側がまだ追いついていない
 # 場合は「同期待ち」と明示し、誤検知を無くした。
+#
+# 2026.09.08
+# サブ機側のpull前処理を「git add -A + auto commit」から「git stash」方式に変更。
+# 前者だと、サブ機で試しに書いただけの編集（コミットする意図のない変更）まで
+# 次のmake git実行時に問答無用でコミットされてしまい、pushしないためローカルに
+# 気づかれずコミットが蓄積、後日のpullで正規の変更とマージされて重複定義等の
+# 原因不明な不具合につながっていた。stash方式なら作業ツリーに戻るだけでコミット
+# 履歴を汚さない。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -42,10 +50,10 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ push 完了"
 else
-	cd $(DOTFILES_DIR) && git add -A
-	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
+	cd $(DOTFILES_DIR) && git stash --include-untracked -q
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	@cd $(DOTFILES_DIR) && git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
+	@cd $(DOTFILES_DIR) && git stash pop -q 2>/dev/null || true
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
 ifeq ($(HOSTNAME),archlinux)
 	@echo "archlinux: arch-install の commit/push もあわせて実行します"
