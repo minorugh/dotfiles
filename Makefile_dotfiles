@@ -480,10 +480,10 @@ dracula-theme: ##! gnome-terminal に Dracula テーマを dconf で適用
 	dconf reset -f /org/gnome/terminal/legacy/profiles:/
 	dconf load /org/gnome/terminal/legacy/profiles:/ < ${PWD}/etc/gnome-terminal/dracula.dconf
 
-# keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
-# 	$(APT) $@ libsecret-tools
-# 	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
-# 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
+keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
+	$(APT) $@ libsecret-tools
+	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
 # 初回セットアップ時に一度だけ実行してパスワードを登録する:
 #   sudo secret-tool store --label "KeePassXC master password" type kbd
 # 以降は以下で起動可能:
