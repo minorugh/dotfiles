@@ -19,7 +19,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . my-quickrun)               ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ;; ("<f7>"  . ssh-xsrv-this)             ; see 90-calendar.el
+         ("<f7>"  . ssh-xsrv-this)
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
@@ -99,8 +99,38 @@ Only valid in a `dired-mode' buffer whose directory is under one of
     "Open Thunar file manager at current directory."
     (interactive)
     (let* ((cmd (concat "thunar " default-directory)))
-      (start-process-shell-command "thunar" nil cmd))))
+      (start-process-shell-command "thunar" nil cmd)))
 
+  (defun ssh-xsrv-this ()
+  "Open the corresponding server directory in Vim + NERDTree via SSH."
+  (interactive)
+  (let* ((local-root (expand-file-name "~/Dropbox/GH/"))
+         (target (dired-get-file-for-visit))
+         ;; ファイルなら親ディレクトリ、ディレクトリならそのディレクトリ
+         (dir (if (file-directory-p target)
+                  target
+                (file-name-directory target)))
+         ;; ~/Dropbox/GH/ からの相対パスを取得
+         (relative (file-relative-name
+                    (expand-file-name dir)
+                    local-root))
+         ;; サーバー側の対応ディレクトリ
+         (remote-root "/home/minorugh/gospel-haiku.com/public_html")
+         (remote-dir (expand-file-name relative remote-root)))
+    ;; GH配下以外を誤操作しないためのチェック
+    (unless (file-in-directory-p (expand-file-name dir) local-root)
+      (user-error "Target is outside ~/Dropbox/GH/"))
+    ;; GNOME Terminal → SSH → 対応ディレクトリ → Vim
+    (start-process
+     "ssh-nerdtree"
+     nil
+     "gnome-terminal"
+     "--"
+     "ssh"
+     "-t"
+     "xsrv"
+     (format "cd %s && vim"
+             (shell-quote-argument remote-dir))))))
 
 ;; ============================================================
 ;;  Scratch Buffer Persistence

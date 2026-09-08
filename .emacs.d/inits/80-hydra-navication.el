@@ -262,11 +262,11 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
   (hydra-work/body))
 
 (with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<f7>" #'my-hydra-work))
+  (keymap-set mozc-mode-map "<f14>" #'my-hydra-work))
 
 (leaf *hydra-work
   :after evil
-  :bind ("<f7>" . my-hydra-work)
+  :bind ("<f14>" . my-hydra-work)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'insert-template))
@@ -311,7 +311,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<f7>"     hydra-dired/body)
+   ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :preface

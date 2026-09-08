@@ -139,37 +139,6 @@ Placed on the external monitor when one is connected."
               (message "sudo rm failed for: %s" file))))
         (revert-buffer))))
 
-(defun ssh-xsrv-this ()
-  "Open the corresponding server directory in Vim + NERDTree via SSH."
-  (interactive)
-  (let* ((local-root (expand-file-name "~/Dropbox/GH/"))
-         (target (dired-get-file-for-visit))
-         ;; ファイルなら親ディレクトリ、ディレクトリならそのディレクトリ
-         (dir (if (file-directory-p target)
-                  target
-                (file-name-directory target)))
-         ;; ~/Dropbox/GH/ からの相対パスを取得
-         (relative (file-relative-name
-                    (expand-file-name dir)
-                    local-root))
-         ;; サーバー側の対応ディレクトリ
-         (remote-root "/home/minorugh/gospel-haiku.com/public_html")
-         (remote-dir (expand-file-name relative remote-root)))
-    ;; GH配下以外を誤操作しないためのチェック
-    (unless (file-in-directory-p (expand-file-name dir) local-root)
-      (user-error "Target is outside ~/Dropbox/GH/"))
-    ;; GNOME Terminal → SSH → 対応ディレクトリ → Vim
-    (start-process
-     "ssh-nerdtree"
-     nil
-     "gnome-terminal"
-     "--"
-     "ssh"
-     "-t"
-     "xsrv"
-     (format "cd %s && vim"
-             (shell-quote-argument remote-dir)))))
-
   ;;  External Tools
   ;; ----------------------------------------------------------
   (defun my-dired-run-script ()
