@@ -25,6 +25,7 @@
 # update 2026.08.11 dropbox-resume-watch ターゲット追加（D-Bus PrepareForSleepフック、クリーンリストア対応）
 # update 2026.08.29 github-dropbox-cleanup ターゲット追加（GH/minorugh.com のclone後.git以外を自動削除、Dropbox実体との競合回避）
 # update 2026.08.29 github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正（private repo保険の対象を整理、xsrv-GH/xsrv-minorugh・dotfiles・git-peekのxserver/Gitea pushurlは削除）
+# update 2026.09.15 ssh ターゲットを廃止、arch-debian-restore の ssh-setup に統合（baseinstall の依存からも除去）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -68,7 +69,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup ssh install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
 
 SHELL = /bin/bash
@@ -80,17 +81,6 @@ env-setup: ## env/ を bindfs で ~/.env_source にマウント（新規ファ�
 	$(APT) bindfs
 	sudo ln -vsf ${PWD}/etc/fuse.conf /etc/fuse.conf
 	$(MAKE) -s -C git env-remount
-
-ssh: ## SSH設定の初期化（~/.env_source から展開）
-	for item in config known_hosts; do \
-		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item; \
-	done
-# ssh: ## SSH設定の初期化（~/.env_source から展開）
-# 	mkdir -p ${HOME}/.$@
-# 	for item in config known_hosts id_rsa xsrv; do \
-# 		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item; \
-# 	done
-# 	chmod 600 ${HOME}/.ssh/id_rsa
 
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
