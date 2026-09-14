@@ -65,9 +65,9 @@
 
   ;; Force Emacs state for special-purpose major modes
   (dolist (mode '(howm-view-summary-mode
-		  easy-hugo-mode
-		  neotree-mode
-		  lisp-interaction-mode))
+                  easy-hugo-mode
+                  neotree-mode
+                  lisp-interaction-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for specific buffer
@@ -249,6 +249,7 @@
     (keymap-set m "/" #'kill-current-buffer)   ; バッファを閉じる
     (keymap-set m ";" #'comment-line)          ; コメントトグル
     (keymap-set m "o" #'my-newline-above)      ; カーソル行の上に空行挿入
+    (keymap-set m "e" #'emacs-version-check)   ; emacs 最新バージョンチェック
     (keymap-set m "i" #'counsel-imenu)         ; imenu picker
     (keymap-set m "c" #'my-sen-cleanup)        ; cleanup sen markers
     (keymap-set m "r" #'my-sen-restore)        ; restore sen markers
@@ -260,6 +261,16 @@
     (save-excursion
       (beginning-of-line)
       (open-line 1)))
+
+  (defun emacs-version-check ()
+    "GNU Emacsの最新安定版をミニバッファに表示する。"
+    (interactive)
+    (let ((latest (string-trim
+                   (shell-command-to-string
+                    "curl -sL https://ftp.gnu.org/gnu/emacs/ | grep -oE 'emacs-[0-9]+\\.[0-9]+(\\.[0-9]+)?\\.tar\\.gz' | sort -V | tail -1"))))
+      (if (string-empty-p latest)
+          (message "Emacs最新版の情報が取得できませんでした。")
+        (message "最新の安定版は %s です。" (string-remove-suffix ".tar.gz" latest)))))
 
   (defun my-insert-maru ()
     "Insert ◎ at the beginning of the current line.  Bound to ;@."

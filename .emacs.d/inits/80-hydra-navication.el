@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote  _v_ersion
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md.vie_w_^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -60,9 +60,7 @@
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
    ("r" my-restart-emacs)
-   ("w" markdown-preview)
-   ("v" emacs-version-check)
-   ("V" debian-version-check)
+   ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("L" (my-open "~/Dropbox/CHANGELOG"))
@@ -71,6 +69,7 @@
    ("-" git-peek-deleted)
    ("]" my-make-git)
    ("_" delete-other-windows)
+   ("R" my-image-resize-dispatch)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
@@ -209,26 +208,6 @@
                     (match-string 2))))))
     (message "ENV RECOVERED: xmodmap + SSH_AUTH_SOCK"))
 
-  (defun emacs-version-check ()
-    "GNU Emacsの最新安定版をミニバッファに表示する。"
-    (interactive)
-    (let ((latest (string-trim
-                   (shell-command-to-string
-                    "curl -sL https://ftp.gnu.org/gnu/emacs/ | grep -oE 'emacs-[0-9]+\\.[0-9]+(\\.[0-9]+)?\\.tar\\.gz' | sort -V | tail -1"))))
-      (if (string-empty-p latest)
-          (message "Emacs最新版の情報が取得できませんでした。")
-        (message "最新の安定版は %s です。" (string-remove-suffix ".tar.gz" latest)))))
-
-  (defun debian-version-check ()
-    "保存済みのDebian netinstall isoが最新版かどうかをミニバッファに表示する。"
-    (interactive)
-    (message "%s"
-             (with-temp-buffer
-               (insert (shell-command-to-string
-			"make -s -C ~/Dropbox/RESTORE/make-install-usb version-check"))
-               (or (my-make--marker-message (current-buffer))
-                   (string-trim (buffer-string))))))
-
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
     (interactive)
@@ -272,8 +251,8 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    (:hint nil :exit t :body-pre (require 'insert-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  resize-_b_log
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  webp-to-_j_pg
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
@@ -292,7 +271,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("A" my-apvoice-new-post)
    ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
    ("e" easy-hugo)
-   ("j" (my-open "~/Dropbox/howm/junk/"))
+   ("J" (my-open "~/Dropbox/howm/junk/"))
    ("h" (my-open "~/Dropbox/howm/"))
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
@@ -302,6 +281,8 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
+   ("b" my-resize-blog)
+   ("j" my-webp-to-jpg)
    ("S" my-swan-new-post)
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
    ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
@@ -331,7 +312,35 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
   (defun my-capitalize-word (arg)
     "Capitalize previous word (or ARG words)."
     (interactive "p")
-    (capitalize-word (- arg))))
+    (capitalize-word (- arg)))
+
+  (defun my-resize-blog ()
+    "Resize marked image(s) in Dired to blog size (max width 800px)."
+    (interactive)
+    (dolist (file (dired-get-marked-files))
+      (let* ((base (file-name-sans-extension file))
+             (ext (file-name-extension file))
+             (output (format "%s_blog.%s" base ext)))
+	(call-process "convert" nil nil nil
+                      file
+                      "-resize" "800x>"
+                      "-strip"
+                      "-quality" "85"
+                      output)))
+    (revert-buffer))
+
+  (defun my-webp-to-jpg ()
+    "Convert marked WebP file(s) in Dired to JPG."
+    (interactive)
+    (dolist (file (dired-get-marked-files))
+      (let* ((base (file-name-sans-extension file))
+             (output (concat base ".jpg")))
+	(call-process "convert" nil nil nil
+                      file
+                      "-strip"
+                      "-quality" "85"
+                      output)))
+    (revert-buffer)))
 
 
 ;; ============================================================
