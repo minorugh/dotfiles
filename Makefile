@@ -82,11 +82,15 @@ env-setup: ## env/ を bindfs で ~/.env_source にマウント（新規ファ�
 	$(MAKE) -s -C git env-remount
 
 ssh: ## SSH設定の初期化（~/.env_source から展開）
-	mkdir -p ${HOME}/.$@
-	for item in config known_hosts id_rsa xsrv; do \
+	for item in config known_hosts; do \
 		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item; \
 	done
-	chmod 600 ${HOME}/.ssh/id_rsa
+# ssh: ## SSH設定の初期化（~/.env_source から展開）
+# 	mkdir -p ${HOME}/.$@
+# 	for item in config known_hosts id_rsa xsrv; do \
+# 		ln -vsf ${ENV_SOURCE_DIR}/.ssh/$$item ${HOME}/.ssh/$$item; \
+# 	done
+# 	chmod 600 ${HOME}/.ssh/id_rsa
 
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
