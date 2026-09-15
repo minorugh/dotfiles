@@ -48,11 +48,6 @@ gitea-backup: ## Gitea data を Dropbox にバックアップ
 keyring-backup: ## Gnome keyring を Dropbox にバックアップ
 	rsync -av --delete ${HOME}/.local/share/keyrings/ ${HOME}/Dropbox/backup/keyrings/
 
-## abookアドレス帳を Dropbox にバックアップ
-abook-backup: ## ~/.abook/addressbook を Dropbox にバックアップ
-	mkdir -p ${HOME}/Dropbox/backup/abook
-	cp -p ${HOME}/.abook/addressbook ${HOME}/Dropbox/backup/abook/addressbook
-
 ## zsh履歴を Dropbox にバックアップ
 zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 	cp -p ${HOME}/.zsh_history ${HOME}/Dropbox/backup/env/zsh/.zsh_history

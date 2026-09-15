@@ -71,7 +71,6 @@ run_target "gitea"       gitea-backup
 run_target "filezilla"   filezilla-backup
 run_target "keychron-rules" keychron-rules-backup
 run_target "readmes"     readmes-backup
-run_target "abook"       abook-backup
 
 rm -f "$TMPLOG"
 
