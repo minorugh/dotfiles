@@ -29,7 +29,7 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 |---|---|
 | `make git` | 変更を `add` → 差分があれば `auto: 日時` で commit → P1: push / サブ機: pull --rebase |
 | `make git-fix` | サブ機で rebase に失敗した際の自動修復（abort → reset --hard → pull） |
-| `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source` の更新を検知して確認のうえ同期（abookも統合済みのため自動的に含まれる） |
+| `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source`・abook の更新を検知して確認のうえ同期 |
 | `make env-remount` | `dotfiles/env/` の bindfs マウントをやり直す（sudo不要）。`git`（P1）・`env-sync`（サブ機）から共通で呼ばれる |
 
 ### `make git` の分岐（ホスト名で判定）
@@ -43,21 +43,12 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 誤って push してしまう事故を避ける目的で明示的に push を封鎖しています
 （`init-sub` ターゲットで remote の push URL も無効化済み）。
 
-（2026.09.15追記: サブ機のうちホスト名が `archlinux`（Let's note）の場合のみ、
-`env-sync` の後に `arch-install` リポジトリ自身の commit/push も連鎖して
-実行されます。`arch-install` は Arch機がメインという位置づけの独立リポジトリ
-のため、dotfiles とは逆に push が許可されています。）
-
 ### `env-sync` の挙動
 
-`~/Dropbox/backup/env/env.bundle.gpg`（秘密ファイル一式。abookもここに
-統合済み）の更新をハッシュ値で検知し、変更があった場合のみ確認プロンプトを
-出したうえで同期します。変更がなければ何もせず終了します。
-
-（2026.09.15追記: 以前はabookを`addressbook_*.gpg`という個別ファイルで
-別経路バックアップ・同期していましたが、abook自体が`~/.env_source`に
-git統合されたため廃止しました。abookの更新は`env_source`全体の同期に
-自動的に含まれます。）
+`~/Dropbox/backup/env/env_repo.bundle.gpg`（秘密ファイル一式）と
+`~/Dropbox/backup/abook/addressbook_*.gpg`（アドレス帳）の更新をハッシュ値・
+ファイル名で検知し、変更があった場合のみ確認プロンプトを出したうえで同期します。
+変更がなければ何もせず終了します。
 
 `~/.env_source` は `rm -rf` せず `git fetch` + `git reset --hard` で更新するため、
 ディレクトリ自体が消えて作り直されることはありません。ただし、内部の
