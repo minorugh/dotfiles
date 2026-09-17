@@ -359,6 +359,38 @@ Overrides dashboard.el's own day/week choice with
 (advice-add 'dashboard-agenda--formatted-time :override
             #'gcal-widget--formatted-time)
 
+;; dashboard.elの既定フィルタ(dashboard-filter-agenda-by-time)は、
+;; SCHEDULED/DEADLINEを持たないプレーンなタイムスタンプのエントリ
+;; (このウィジェットがorg変換で出力する形式)について
+;; 「now < entry-timestamp」を要求する。タイムスタンプに時刻指定が
+;; ないと00:00として解釈されるため、当日はどの時刻に実行しても
+;; 既にその00:00を過ぎている扱いになり、当日分のエントリだけが
+;; フィルタで弾かれてしまう(翌日以降は00:00がまだ未来なので通る)。
+;; 下限を「now」ではなく「当日0時」にしたフィルタへ差し替えて回避する。
+;; SCHEDULED/DEADLINEを持つ他のorgファイルのエントリの扱いは変えない。
+(defun gcal-widget--filter-agenda-by-time ()
+  "Like `dashboard-filter-agenda-by-time', but don't drop today's
+plain-timestamp entries just because their implicit midnight has
+already passed."
+  (let* ((scheduled-time (org-get-scheduled-time (point)))
+         (deadline-time (org-get-deadline-time (point)))
+         (entry-timestamp (dashboard-agenda--entry-timestamp (point)))
+         (due-date (dashboard-due-date-for-agenda))
+         (today-start (apply #'encode-time
+                              (append '(0 0 0) (nthcdr 3 (decode-time (current-time)))))))
+    (unless (and (not (org-entry-is-done-p))
+                 (not (org-in-archived-heading-p))
+                 (or (and scheduled-time
+                          (time-less-p scheduled-time due-date))
+                     (and deadline-time
+                          (time-less-p deadline-time due-date))
+                     (and entry-timestamp
+                          (not (time-less-p entry-timestamp today-start))
+                          (time-less-p entry-timestamp due-date))))
+      (point))))
+
+(setq dashboard-filter-agenda-entry #'gcal-widget--filter-agenda-by-time)
+
 ;; 複数カレンダー(=複数org)をファイル順のまま並べると順序が
 ;; バラバラになるため、時刻順に明示的にソートする。
 (setq dashboard-agenda-sort-strategy '(time-up))
