@@ -423,7 +423,6 @@ github: ##! GitHub リポジトリのクローン
 	git clone git@github.com:minorugh/minorugh.com.git; \
 	git clone git@github.com:minorugh/minorugh.github.io.git; \
 	git clone git@github.com:minorugh/upsftp.git; \
-	git clone git@github.com:minorugh/env-import.git; \
 	git clone git@github.com:minorugh/git-peek.git; \
 	git clone git@github.com:minorugh/dashboard-widget-extensions.git; \
 	git clone git@github.com:minorugh/tempbuf.git; \
@@ -453,10 +452,10 @@ github-remote-add: ##! GH/minorugh.com/env-import に xserver + Gitea pushurl �
 	[ "$$ans" = "y" ] || { echo "中止しました。"; exit 1; }
 	@for repo in $(PRIVATE_HEDGE_REPOS); do \
 		dir=${HOME}/src/github.com/minorugh/$$repo; \
-		if git -C "$$dir" remote get-url --push --all origin | grep -q "sv13268.xserver.jp"; then \
+		if git -C "$$dir" remote get-url --push --all origin | grep -q "xsrv"; then \
 			echo "⚠ skip: $$repo は既に設定済みです"; \
 		else \
-			git -C "$$dir" remote set-url --add --push origin ssh://minorugh@sv13268.xserver.jp:10022/home/minorugh/git/$$repo.git; \
+			git -C "$$dir" remote set-url --add --push origin xsrv:/home/minorugh/git/$$repo.git; \
 			git -C "$$dir" remote set-url --add --push origin http://localhost:3000/minoru/$$repo.git; \
 			echo "✓ pushurl added: $$repo (xserver + Gitea)"; \
 		fi; \
