@@ -8,7 +8,7 @@
 
 HOME=/home/minoru
 LOG_PREFIX="[xsrv-backup]"
-XSRV_HOST="minorugh@sv13268.xserver.jp"
+XSRV_HOST="xsrv"
 XSRV_GH_SRC="$XSRV_HOST:/home/minorugh/gospel-haiku.com/public_html/"
 XSRV_GH_DST="$HOME/src/github.com/minorugh/xsrv-GH"
 XSRV_minorugh_SRC="$XSRV_HOST:/home/minorugh/minorugh.com/public_html/"
