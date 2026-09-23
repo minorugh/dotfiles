@@ -50,35 +50,55 @@ minoru ALL=(ALL:ALL) NOPASSWD: ALL
 # Debian12 以降は xdg-user-dirs-gtk 不要
 LANG=C xdg-user-dirs-gtk-update --force
 sudo apt update
-sudo apt install -y nautilus
+sudo apt install -y make git nautilus
 ```
 
-（`git`・`make` はこの後の手順で自動的に導入されるため、ここでは入れません）
-
-#### 4. Dropbox のインストール・秘密鍵とdotfilesの復元・SSH鍵生成
-
-> ⚠️ 2026.09.16〜: 秘密鍵の配布方式を GPG個人鍵から共通パスフレーズ方式に、
-> SSH鍵を全機共有から機器ごとの新規生成に変更しました。以降の手順は
-> すべて [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-> リポジトリが担当します。
-
-[arch-debian-restore の README](https://github.com/minorugh/arch-debian-restore) の
-手順に沿って、以下を完了させてください。
-
-1. Dropboxのインストール・同期完了
-2. `make env-restore`（`~/.env_source`・abookの復元）
-3. `make ssh-setup`（このマシン専用のSSH鍵を新規生成、GitHub登録）
-4. `make dotfiles`（このリポジトリ自体をSSHでclone）
-
-ここまで完了すると、`~/src/github.com/minorugh/dotfiles` にこのリポジトリが
-展開された状態になっているので、以降は本README・本Makefileの手順に戻ります。
+#### 4. Dropbox のインストールと初期設定
+Synaptic でリポジトリを設定してからインストールします。
 
 ```bash
-cd ~/src/github.com/minorugh/dotfiles
-make baseinstall
+sudo apt install -y nautilus-dropbox
+# メニューから Dropbox を起動して初期設定を完了させる
 ```
 
-#### 5. シェルを zsh に変更
+#### 5. GPG 秘密鍵のインポートと dotfiles の展開
+
+> ⚠️ この段階ではまだ SSH が使えないため **HTTPS** でクローンします。
+
+```bash
+mkdir -p ~/src/github.com/minorugh
+cd ~/src/github.com/minorugh
+git clone https://github.com/minorugh/env-import.git
+cd env-import
+make gpg
+make dotfiles
+```
+
+`make gpg` でパスフレーズを求められます。
+`make dotfiles` は以下を一括実行します：
+1. dotfiles を HTTPS でクローン
+2. `~/.env_source/` を Dropbox bundle から復元
+3. `make baseinstall`（基本環境の構築）
+
+詳細は [env-import](https://github.com/minorugh/env-import) を参照してください。
+
+#### 6. 再起動して SSH に切り替え
+
+```bash
+reboot
+```
+
+再起動後に SSH 接続を確認してから git remote を切り替えてください。
+
+```bash
+ssh -T git@github.com
+# → "Hi minorugh! You've successfully authenticated..." と出ればOK
+
+cd ~/src/github.com/minorugh/env-import
+make switch-ssh
+```
+
+#### 7. シェルを zsh に変更
 
 ```bash
 chsh -s /usr/bin/zsh
@@ -120,10 +140,9 @@ chsh -s /usr/bin/zsh
 | `make power-menu` | power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー） |
 | `make tile-toggle` | tile-toggle.sh のリンク作成 + F15ショートカット登録（左右タイル切替） |
 | `make make-run` | make-run.sh のリンク作成（Emacs経由のmake実行を安全化） |
-
-`github`・`github-dropbox-cleanup`・`github-remote-add`（個人のリポジトリ群のclone・
-保険運用）は2026.09.16に [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-へ移管しました。
+| `make github` | GitHub上のリポジトリを一括clone（`##!`: 破壊的処理を含むため対話実行系） |
+| `make github-dropbox-cleanup` | Dropbox実体を持つリポジトリのclone後、作業ファイルを`.git`のみに整理 |
+| `make github-remote-add` | private リポジトリに自前サーバー・自前Git GUIのpushurlを追加（保険運用、`##!`） |
 
 詳細は Makefile 内のコメントを参照してください。
 
@@ -131,25 +150,16 @@ chsh -s /usr/bin/zsh
 
 ## SSH キー・keychain の仕組み
 
-2026.09.16〜、SSH鍵は全機共有をやめ、**機器ごとに独立した鍵**
-（`~/.ssh/id_ed25519_$(hostname)`）を持つ方式に変更しました。鍵の生成・
-GitHub登録は [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-の `ssh-setup` が担当します。
+GUI 起動時に `.autostart.sh` が実行され、SSH 鍵の自動入力に加えて Emacsの自動起動と最小化も行います。
 
-各鍵はパスフレーズを空で生成しているため、`.xprofile`経由の`keychain`起動時に
-入力を求められることなく、無言で`ssh-agent`にロードされます（Gnome keyringの
-secret-tool連携やDropbox経由でのパスフレーズ共有は廃止しました）。
+SSH 鍵の自動入力フロー：
 
-SSH 鍵の自動ロードフロー：
+1. `secret-tool` で Gnome keyring からパスフレーズを取得
+2. `keychain` に渡して `ssh-agent` を起動
+3. `.xprofile` 経由で `SSH_AUTH_SOCK` をセッションに伝搬
 
-1. `.xprofile`（GUIログイン時に一度だけ実行）が `keychain --eval --quiet <鍵>` で
-   `ssh-agent` を起動し、鍵をロード
-2. `.zshrc` が `~/.keychain/$HOST-sh` を `source` し、新しいターミナルにも
-   `SSH_AUTH_SOCK` 等を引き継ぐ
-
-各機の鍵は完全に独立しているため、1台が万一侵害されても他機には影響しません。
-鍵を紛失・漏洩した場合は、その機の `ssh-setup` を再実行し、GitHub・xserver側で
-古い鍵を削除するだけで復旧できます。
+パスフレーズの登録は P1 で一度だけ行い、Dropbox 経由でサブ機にも反映されます。
+`secret-tool store` は両マシンで同時実行しないこと（Dropbox 競合の原因になります）。
 
 ---
 
@@ -236,11 +246,48 @@ commit メッセージは `auto: 日時` の機械的な形式に統一し、日
 
 ## GitHub private リポジトリの保険運用について
 
-`GH`・`minorugh.com`（private リポジトリ）は、GitHub以外にも自前サーバー・
-自前Git GUI（Gitea）へのpushurlを保険として持たせています。この運用自体は
-2026.09.16に [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-へ移管しました（`make github-remote-add`）。考え方・注意点の詳細はそちらの
-READMEを参照してください。
+GitHubの利用規約変更やアカウント制限など、private リポジトリが
+将来アクセス不能になるリスクに備え、一部のリポジトリは
+GitHub 以外にも remote を持たせています。
+
+### 考え方
+
+判断基準は「このリポジトリが private かどうか」の1点です。
+public リポジトリは GitHub 側の制限対象になり得ないため、
+GitHub 単独で十分という考え方をとっています。
+
+private のうち、特に失うと復旧作業自体が止まってしまう
+「致命傷インフラ」に該当するリポジトリだけ、以下の2つを
+追加の remote として持たせています。
+
+- **自前の Git サーバー**（bare リポジトリ）: 実データそのものの
+  第三の保管場所。GitHub が使えなくなった場合の最終防衛ライン。
+- **自前の Git GUI**（例: Gitea 等をセルフホスト）: bare リポジトリは
+  Web UI を持たないため、その代替として並行運用。
+
+`origin` に `pushurl` を複数登録することで、`git push` 一発で
+GitHub・自前サーバー・自前GUIの全てに同時送信されます。
+`fetch` は GitHub のみに固定し、取得元は単一に保っています。
+
+```bash
+git remote -v
+# origin  git@github.com:xxx/repo.git (fetch)
+# origin  git@github.com:xxx/repo.git (push)
+# origin  ssh://user@yourserver/path/repo.git (push)
+# origin  http://localhost:3000/user/repo.git (push)
+```
+
+### 注意点
+
+- 自前サーバー・自前GUI側の remote 追加（`make github-remote-add`）は、
+  対象サービスが起動済みであることが前提になるため、リストア処理
+  （`baseinstall`/`nextinstall`）には含めず、環境構築が一通り終わった
+  後に手動実行する運用にしています。
+- 一部のリポジトリ（実体を別ディレクトリで管理し、`.git`本体だけを
+  ここに置く構成のもの）では、clone直後に作業ファイル一式が展開
+  されてしまうため、`.git`以外を自動削除するクリーンアップ処理
+  （`make github-dropbox-cleanup`）を合わせて実行しています
+  （詳細はMakefile内コメント参照）。
 
 ---
 
@@ -290,8 +337,6 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
-| 2026.09.16 | github/github-dropbox-cleanup/github-remote-add を arch-debian-restore へ移管（個人のリポジトリ群管理という関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する） |
-| 2026.09.15 | env-import を arch-debian-restore に置き換え。秘密鍵配布をGPG個人鍵の非対称暗号化から共通パスフレーズの対称暗号化に変更、SSH鍵を全機共有からPCごとの新規独立鍵に変更。ssh ターゲットを廃止（baseinstallの依存からも除去）。abookの個別GPGバックアップ（addressbook_*.gpg）を廃止し、~/.env_source本体への統合のみに一本化 |
 | 2026.08.29 | GitHub private リポジトリの保険運用（自前サーバー+自前GUI併用）を整理。対象を精査し直し、誤って登録されていたリポジトリのremoteを削除。github/github-dropbox-cleanup/github-remote-addを##!化 |
 | 2026.08.29 | github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正。xserverの2スペース（Webサーバー鏡 / bare repoの保険）を整理し、private repo保険はGH/minorugh.com/env-importの3つのみに統一。xsrv-GH/xsrv-minorugh・dotfiles・git-peekの誤ったxserver/Gitea pushurlを削除 |
 | 2026.08.29 | github-dropbox-cleanup ターゲット追加（GH/minorugh.com は git clone後 .git 以外の作業ファイルを自動削除。実体は~/Dropbox側にあり、gitdirポインタ経由で参照する構成のため） |
