@@ -2,6 +2,20 @@
 ;;; Commentary:
 ;;; xsrv-GH / xsrv-minorugh 関連の個人設定をすべてここに集約する。
 ;;;
+;;; ★ メイン機(P1)限定:
+;;;   この仕組みは「1台だけで運用する」前提で組まれている
+;;;   (rsync lock がマシンごとのローカルファイルである、ミラーがマシンごとに
+;;;   独立する、deploy が /home/minoru/ を直書きしている、など)。
+;;;   そのため `my-main-machine-p' が nil のマシン(サブ機)では、
+;;;   1〜6章 と 8章 の本体を一切定義しない。
+;;;   代わりに、40-dired.el / 80-hydra-navication.el から呼ばれる
+;;;   実行コマンド4つ(xsrv-deploy-dired, xsrv-download-dired,
+;;;   my-open-xsrv-2pane-gh, my-open-xsrv-2pane-minorugh)は
+;;;   `user-error' で実行を拒否するスタブとして定義する(本ファイル内の
+;;;   「P1 以外用スタブ」参照)。これにより 40/80 側は無改造で済む。
+;;;   サブ機では従来どおり FileZilla を使う。
+;;;   7章(git-peek)は xsrv 非依存でも使えるので、常に読み込む。
+;;;
 ;;; 脱 FileZilla のコンセプトと安全性:
 ;;;   FileZilla のようにサーバーへ直接繋いで転送するのではなく、
 ;;;   「サーバー → ミラー(xsrv-GH/xsrv-minorugh) → ローカル(Dropbox)」
@@ -46,245 +60,274 @@
 ;;;   8. 動的フォルダー保護 & rsync lock
 ;;; Code:
 
-;; ============================================================
-;; ▼ 共通
-;; ============================================================
+;; ▼ P1(メイン機)限定ブロック (1〜6章)
+(when (bound-and-true-p my-main-machine-p)
+  ;; ============================================================
+  ;; ▼ 共通
+  ;; ============================================================
 
-;; ============================================================
-;; 1. xsrv ルート判定  (共通ヘルパー)
-;; ============================================================
+  ;; ============================================================
+  ;; 1. xsrv ルート判定  (共通ヘルパー)
+  ;; ============================================================
 
-(defconst my-xsrv-roots
-  `((,(expand-file-name "~/src/github.com/minorugh/xsrv-GH/") . ,(expand-file-name "~/Dropbox/GH/"))
-    (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") . ,(expand-file-name "~/Dropbox/minorugh.com/")))
-  "Xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
+  (defconst my-xsrv-roots
+    `((,(expand-file-name "~/src/github.com/minorugh/xsrv-GH/") . ,(expand-file-name "~/Dropbox/GH/"))
+      (,(expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/") . ,(expand-file-name "~/Dropbox/minorugh.com/")))
+    "Xsrv 側ルートパスとローカル(Dropbox)側ルートパスの対応表.")
 
-(defun my-xsrv-root-for (path)
-  "PATH が xsrv-GH/xsrv-minorugh 配下なら (xsrv-root . local-root) を返す。それ以外は nil."
-  (let ((path (expand-file-name path)))
-    (cl-find-if (lambda (pair) (string-prefix-p (car pair) path)) my-xsrv-roots)))
+  (defun my-xsrv-root-for (path)
+    "PATH が xsrv-GH/xsrv-minorugh 配下なら (xsrv-root . local-root) を返す。それ以外は nil."
+    (let ((path (expand-file-name path)))
+      (cl-find-if (lambda (pair) (string-prefix-p (car pair) path)) my-xsrv-roots)))
 
-(defun my-xsrv-p (path)
-  "PATH が xsrv-GH/xsrv-minorugh 配下であれば t を返す."
-  (and path (my-xsrv-root-for path) t))
-
-
-;; ============================================================
-;; ▼ UI / 見た目系
-;; ============================================================
-
-;; ============================================================
-;; 2. xsrv-2pane 見た目  (ヘッダー)
-;; 80-hydra-dired.el の hydra-dired から呼ばれる想定。
-;; 2ペインの開始 (my-open-xsrv-2pane) と終了 (my-2pane-quit) は
-;; どちらも本ファイルの 6章にまとまっている。
-;; ============================================================
-
-(defface my-xsrv-2pane-header-face
-  '((t (:inherit dired-header :background "#1A2640" :box (:line-width 2))))
-  "Xsrv-2pane の `dired' バッファでヘッダー2行に使う face."
-  :group 'dired)
-
-(defun my-xsrv-2pane--set-header-line ()
-  "Dired バッファの上2行を `header-line-format' に固定表示し、本体から隠す."
-  (save-excursion
-    (goto-char (point-min))
-    (let* ((label (if (my-xsrv-p default-directory) "  [REMOTE]" "  [LOCAL]"))
-           (line1 (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
-           (line2 (progn (forward-line 1)
-                         (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
-           (end (progn (forward-line 1) (point))))
-      (setq-local header-line-format
-                  (list (propertize (concat label "  " line1 "  " line2
-                                            (make-string 200 ?\s))
-                                    'face 'my-xsrv-2pane-header-face)))
-      (with-silent-modifications
-        (put-text-property (point-min) end 'invisible t)))))
-
-(defun my-xsrv-2pane-refresh-ui ()
-  "Xsrv-2pane バッファの見た目（ヘッダー行表示）を適用する.`revert-buffer' 後にも呼べるよう冪等にしてある."
-  (when (derived-mode-p 'dired-mode)
-    (my-xsrv-2pane--set-header-line)))
-
-(defun my-xsrv-2pane-enable-ui ()
-  "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
-  (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
-  (my-xsrv-2pane-refresh-ui))
+  (defun my-xsrv-p (path)
+    "PATH が xsrv-GH/xsrv-minorugh 配下であれば t を返す."
+    (and path (my-xsrv-root-for path) t))
 
 
-;; ============================================================
-;; 3. window-divider
-;; ============================================================
+  ;; ============================================================
+  ;; ▼ UI / 見た目系
+  ;; ============================================================
 
-(defvar my-2pane-divider-active nil
-  "Non-nil while the xsrv-2pane window-divider highlight is active.")
+  ;; ============================================================
+  ;; 2. xsrv-2pane 見た目  (ヘッダー)
+  ;; 80-hydra-navication.el の hydra-dired から呼ばれる想定。
+  ;; 2ペインの開始 (my-open-xsrv-2pane) と終了 (my-2pane-quit) は
+  ;; どちらも本ファイルの 6章にまとまっている。
+  ;; ============================================================
 
-(defun my-2pane-divider-on ()
-  "Enable a prominent window-divider, scoped to xsrv-2pane usage."
-  (window-divider-mode -1)
-  (setq window-divider-default-right-width 4)
-  (setq window-divider-default-bottom-width 0)
-  (setq window-divider-default-places 'right-only)
-  (window-divider-mode 1)
-  (set-face-foreground 'window-divider "#61bfff")
-  (set-face-foreground 'window-divider-first-pixel "#61bfff")
-  (set-face-foreground 'window-divider-last-pixel "#61bfff")
-  (setq my-2pane-divider-active t))
+  (defface my-xsrv-2pane-header-face
+    '((t (:inherit dired-header :background "#1A2640" :box (:line-width 2))))
+    "Xsrv-2pane の `dired' バッファでヘッダー2行に使う face."
+    :group 'dired)
 
-(defun my-2pane-divider-off ()
-  "Restore window-divider to its default (disabled) state."
-  (when my-2pane-divider-active
+  (defun my-xsrv-2pane--set-header-line ()
+    "Dired バッファの上2行を `header-line-format' に固定表示し、本体から隠す."
+    (save-excursion
+      (goto-char (point-min))
+      (let* ((label (if (my-xsrv-p default-directory) "  [REMOTE]" "  [LOCAL]"))
+             (line1 (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+             (line2 (progn (forward-line 1)
+                           (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+             (end (progn (forward-line 1) (point))))
+        (setq-local header-line-format
+                    (list (propertize (concat label "  " line1 "  " line2
+                                              (make-string 200 ?\s))
+                                      'face 'my-xsrv-2pane-header-face)))
+        (with-silent-modifications
+          (put-text-property (point-min) end 'invisible t)))))
+
+  (defun my-xsrv-2pane-refresh-ui ()
+    "Xsrv-2pane バッファの見た目（ヘッダー行表示）を適用する.`revert-buffer' 後にも呼べるよう冪等にしてある."
+    (when (derived-mode-p 'dired-mode)
+      (my-xsrv-2pane--set-header-line)))
+
+  (defun my-xsrv-2pane-enable-ui ()
+    "現在のバッファを xsrv-2pane 対象として UI 調整を適用する.`my-open-xsrv-2pane' から呼ぶこと."
+    (add-hook 'dired-after-readin-hook #'my-xsrv-2pane-refresh-ui nil t)
+    (my-xsrv-2pane-refresh-ui))
+
+
+  ;; ============================================================
+  ;; 3. window-divider
+  ;; ============================================================
+
+  (defvar my-2pane-divider-active nil
+    "Non-nil while the xsrv-2pane window-divider highlight is active.")
+
+  (defun my-2pane-divider-on ()
+    "Enable a prominent window-divider, scoped to xsrv-2pane usage."
     (window-divider-mode -1)
-    (setq my-2pane-divider-active nil)))
+    (setq window-divider-default-right-width 4)
+    (setq window-divider-default-bottom-width 0)
+    (setq window-divider-default-places 'right-only)
+    (window-divider-mode 1)
+    (set-face-foreground 'window-divider "#61bfff")
+    (set-face-foreground 'window-divider-first-pixel "#61bfff")
+    (set-face-foreground 'window-divider-last-pixel "#61bfff")
+    (setq my-2pane-divider-active t))
+
+  (defun my-2pane-divider-off ()
+    "Restore window-divider to its default (disabled) state."
+    (when my-2pane-divider-active
+      (window-divider-mode -1)
+      (setq my-2pane-divider-active nil)))
 
 
-;; ============================================================
-;; 4. バッファ識別  (背景色)
-;; xsrv-GH / xsrv-minorugh 配下を背景色で示す。
-;; ============================================================
+  ;; ============================================================
+  ;; 4. バッファ識別  (背景色)
+  ;; xsrv-GH / xsrv-minorugh 配下を背景色で示す。
+  ;; ============================================================
 
-(defvar my-xsrv-buffer-color "#233B6C"
-  "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
+  (defvar my-xsrv-buffer-color "#233B6C"
+    "Background color applied to buffers under xsrv-GH or xsrv-minorugh.")
 
-(defun my-xsrv--maybe-colorize ()
-  "Xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
-  (when (my-xsrv-p default-directory)
-    (buffer-face-set `(:background ,my-xsrv-buffer-color))))
+  (defun my-xsrv--maybe-colorize ()
+    "Xsrv-GH/xsrv-minorugh 配下のバッファなら `buffer-face-mode' で背景色を適用する."
+    (when (my-xsrv-p default-directory)
+      (buffer-face-set `(:background ,my-xsrv-buffer-color))))
 
-(add-hook 'dired-mode-hook         #'my-xsrv--maybe-colorize)
-(add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
-(add-hook 'find-file-hook          #'my-xsrv--maybe-colorize)
-
-
-;; ============================================================
-;; ▼ 機能系
-;; ============================================================
-
-;; ============================================================
-;; 5. Deploy / Download  (local dired ⇄ xserver)
-;; キーバインドは 60-dired.el で定義。
-;; ============================================================
-
-(defun xsrv-deploy-dired ()
-  "Deploy file at point in `dired' to xserver via deploy.pl."
-  (interactive)
-  (let* ((file (dired-get-filename))
-         (name (file-name-nondirectory file)))
-    (cond
-     ((file-directory-p file)
-      (message "Error: ディレクトリは deploy できません。"))
-     ((string-match-p "\\(^Makefile$\\|^README\\|\\.mk$\\|\\.bak$\\)" name)
-      (message "Error: %s は deploy 対象外です。" name))
-     ((not (or (string-prefix-p "/home/minoru/Dropbox/GH/" file)
-               (string-prefix-p "/home/minoru/Dropbox/minorugh.com/" file)))
-      (message "Error: deploy 対象外のファイルです。"))
-     (t
-      (when (x-popup-dialog
-             t
-             `(,(format "本当に deploy しますか？\n\n  %s" name)
-               ("Deploy する" . t)
-               ("やめる"      . nil)))
-        (shell-command
-         (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
-
-(defun xsrv-download-dired ()
-  "Download file at point from xsrv-GH or xsrv-minorugh to local Dropbox."
-  (interactive)
-  (let* ((file      (dired-get-filename))
-         (name      (file-name-nondirectory file))
-         (root-pair (my-xsrv-root-for file)))
-    (unless root-pair
-      (user-error "Error: xsrv-GH/xsrv-minorugh の Dired から実行してください"))
-    (let* ((xsrv-root  (car root-pair))
-           (local-root (cdr root-pair))
-           (rel        (file-relative-name file xsrv-root))
-           (dest       (concat local-root rel)))
-      (when (x-popup-dialog
-             t
-             `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
-               ("Download する" . t)
-               ("やめる"        . nil)))
-        (if (and (file-exists-p dest)
-                 (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
-            (message "キャンセルしました。")
-          (copy-file file dest t)
-          (message "Downloaded: %s" rel)
-          (dolist (root (list xsrv-root local-root))
-            (let ((buf (get-buffer (file-name-nondirectory
-                                    (directory-file-name root)))))
-              (when buf
-                (with-current-buffer buf
-                  (revert-buffer))))))))))
+  (add-hook 'dired-mode-hook         #'my-xsrv--maybe-colorize)
+  (add-hook 'dired-after-readin-hook #'my-xsrv--maybe-colorize)
+  (add-hook 'find-file-hook          #'my-xsrv--maybe-colorize)
 
 
-;; ============================================================
-;; 6. xsrv-2pane 本体 (開始 / 終了)
-;; ============================================================
+  ;; ============================================================
+  ;; ▼ 機能系
+  ;; ============================================================
 
-(defvar my-2pane-origin-buffer nil
-  "Buffer to return to when quitting 2-pane view.")
+  ;; ============================================================
+  ;; 5. Deploy / Download  (local dired ⇄ xserver)
+  ;; キーバインド(. と ,)は 40-dired.el で定義。
+  ;; ============================================================
 
-(defun my-open-xsrv-2pane (src-dir pair-dir)
-  "Open SRC-DIR and PAIR-DIR side by side."
-  (setq my-2pane-origin-buffer (current-buffer))
-  (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
-  (delete-other-windows)
-  (dired src-dir)
-  (my-xsrv-2pane-enable-ui)
-  (split-window-right)
-  (other-window 1)
-  (dired pair-dir)
-  (my-xsrv-2pane-enable-ui)
-  (other-window 1)
-  (my-2pane-divider-on))
+  (defun xsrv-deploy-dired ()
+    "Deploy file at point in `dired' to xserver via deploy.pl."
+    (interactive)
+    (let* ((file (dired-get-filename))
+           (name (file-name-nondirectory file)))
+      (cond
+       ((file-directory-p file)
+        (message "Error: ディレクトリは deploy できません。"))
+       ((string-match-p "\\(^Makefile$\\|^README\\|\\.mk$\\|\\.bak$\\)" name)
+        (message "Error: %s は deploy 対象外です。" name))
+       ((not (or (string-prefix-p "/home/minoru/Dropbox/GH/" file)
+                 (string-prefix-p "/home/minoru/Dropbox/minorugh.com/" file)))
+        (message "Error: deploy 対象外のファイルです。"))
+       (t
+        (when (x-popup-dialog
+               t
+               `(,(format "本当に deploy しますか？\n\n  %s" name)
+                 ("Deploy する" . t)
+                 ("やめる"      . nil)))
+          (shell-command
+           (format "perl ~/Dropbox/GH/common/deploy.pl %s" file)))))))
 
-(defun my-2pane-quit ()
-  "2ペインを閉じて元バッファに戻る.
+  (defun xsrv-download-dired ()
+    "Download file at point from xsrv-GH or xsrv-minorugh to local Dropbox."
+    (interactive)
+    (let* ((file      (dired-get-filename))
+           (name      (file-name-nondirectory file))
+           (root-pair (my-xsrv-root-for file)))
+      (unless root-pair
+        (user-error "Error: xsrv-GH/xsrv-minorugh の Dired から実行してください"))
+      (let* ((xsrv-root  (car root-pair))
+             (local-root (cdr root-pair))
+             (rel        (file-relative-name file xsrv-root))
+             (dest       (concat local-root rel)))
+        (when (x-popup-dialog
+               t
+               `(,(format "ローカルにダウンロードしますか？\n\n  %s" name)
+                 ("Download する" . t)
+                 ("やめる"        . nil)))
+          (if (and (file-exists-p dest)
+                   (not (y-or-n-p (format "%s は既にあります。上書きしますか?" name))))
+              (message "キャンセルしました。")
+            (copy-file file dest t)
+            (message "Downloaded: %s" rel)
+            (dolist (root (list xsrv-root local-root))
+              (let ((buf (get-buffer (file-name-nondirectory
+                                      (directory-file-name root)))))
+                (when buf
+                  (with-current-buffer buf
+                    (revert-buffer))))))))))
+
+
+  ;; ============================================================
+  ;; 6. xsrv-2pane 本体 (開始 / 終了)
+  ;; ============================================================
+
+  (defvar my-2pane-origin-buffer nil
+    "Buffer to return to when quitting 2-pane view.")
+
+  (defun my-open-xsrv-2pane (src-dir pair-dir)
+    "Open SRC-DIR and PAIR-DIR side by side."
+    (setq my-2pane-origin-buffer (current-buffer))
+    (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
+    (delete-other-windows)
+    (dired src-dir)
+    (my-xsrv-2pane-enable-ui)
+    (split-window-right)
+    (other-window 1)
+    (dired pair-dir)
+    (my-xsrv-2pane-enable-ui)
+    (other-window 1)
+    (my-2pane-divider-on))
+
+  (defun my-2pane-quit ()
+    "2ペインを閉じて元バッファに戻る.
 2ペイン中(window数が2)でなければ divider 解除以外は何もしない安全ガード付き."
-  (interactive)
-  (when (= (length (window-list)) 2)
-    (let ((bufs (mapcar #'window-buffer (window-list))))
-      (delete-other-windows)
-      (mapc #'kill-buffer bufs)
-      (when (buffer-live-p my-2pane-origin-buffer)
-        (switch-to-buffer my-2pane-origin-buffer)
-        (setq my-2pane-origin-buffer nil))))
-  (my-2pane-divider-off)
-  (when (fboundp 'my-modeline-apply-highlight-now)
-    (my-modeline-apply-highlight-now)))
+    (interactive)
+    (when (= (length (window-list)) 2)
+      (let ((bufs (mapcar #'window-buffer (window-list))))
+        (delete-other-windows)
+        (mapc #'kill-buffer bufs)
+        (when (buffer-live-p my-2pane-origin-buffer)
+          (switch-to-buffer my-2pane-origin-buffer)
+          (setq my-2pane-origin-buffer nil))))
+    (my-2pane-divider-off)
+    (when (fboundp 'my-modeline-apply-highlight-now)
+      (my-modeline-apply-highlight-now)))
 
-(defun my-dired-quit ()
-  "2ペイン中なら `my-2pane-quit'、それ以外は `quit-window'."
-  (interactive)
-  (if (buffer-live-p my-2pane-origin-buffer)
-      (my-2pane-quit)
-    (quit-window)))
+  (defun my-dired-quit ()
+    "2ペイン中なら `my-2pane-quit'、それ以外は `quit-window'."
+    (interactive)
+    (if (buffer-live-p my-2pane-origin-buffer)
+        (my-2pane-quit)
+      (quit-window)))
 
-;; q を evil-normal-state-map にグローバルバインドしておくことで、
-;; 2ペイン中にファイルを開くなどして dired 以外のバッファへ移動しても
-;; q で 2ペインを閉じられるようにする(my-2pane-quit 側の window数ガードが安全弁)。
-;; evil-normal-state-map は evil 読み込み後に定義される変数なので、
-;; with-eval-after-load で評価タイミングを遅延させる。
-(with-eval-after-load 'evil
-  (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit))
+  ;; q を evil-normal-state-map にグローバルバインドしておくことで、
+  ;; 2ペイン中にファイルを開くなどして dired 以外のバッファへ移動しても
+  ;; q で 2ペインを閉じられるようにする(my-2pane-quit 側の window数ガードが安全弁)。
+  ;; evil-normal-state-map は evil 読み込み後に定義される変数なので、
+  ;; with-eval-after-load で評価タイミングを遅延させる。
+  (with-eval-after-load 'evil
+    (define-key evil-normal-state-map (kbd "q") #'my-2pane-quit))
 
-;; 全 dired バッファに対して、2ペイン中かどうかで q の挙動を振り分ける。
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
+  ;; 全 dired バッファに対して、2ペイン中かどうかで q の挙動を振り分ける。
+  (add-hook 'dired-mode-hook
+            (lambda ()
+              (evil-local-set-key 'normal (kbd "q") #'my-dired-quit)))
 
-;; 80-hydra-dired.el の ":" ";" から参照されるラッパー
-(defun my-open-xsrv-2pane-gh ()
-  "Xsrv-GH と Dropbox/GH を 2ペインで開く."
-  (interactive)
-  (let ((pair (car my-xsrv-roots)))
-    (my-open-xsrv-2pane (car pair) (cdr pair))))
+  ;; 80-hydra-navication.el の ":" ";" から参照されるラッパー
+  (defun my-open-xsrv-2pane-gh ()
+    "Xsrv-GH と Dropbox/GH を 2ペインで開く."
+    (interactive)
+    (let ((pair (car my-xsrv-roots)))
+      (my-open-xsrv-2pane (car pair) (cdr pair))))
 
-(defun my-open-xsrv-2pane-minorugh ()
-  "Xsrv-minorugh と Dropbox/minorugh.com を 2ペインで開く."
-  (interactive)
-  (let ((pair (cadr my-xsrv-roots)))
-    (my-open-xsrv-2pane (car pair) (cdr pair))))
+  (defun my-open-xsrv-2pane-minorugh ()
+    "Xsrv-minorugh と Dropbox/minorugh.com を 2ペインで開く."
+    (interactive)
+    (let ((pair (cadr my-xsrv-roots)))
+      (my-open-xsrv-2pane (car pair) (cdr pair)))))  ; end when my-main-machine-p
+
+
+;; ============================================================
+;; ▼ P1 以外(サブ機)用スタブ
+;; 40-dired.el の "." "," と 80-hydra-navication.el の ":" ";" は
+;; サブ機でも押せてしまうので、未定義による void-function ではなく
+;; 分かりやすいエラーで弾く。判定用の関数は常に nil を返す。
+;; ============================================================
+
+(unless (bound-and-true-p my-main-machine-p)
+  (defun my-xsrv-root-for (_path)
+    "P1 以外では常に nil (xsrv 配下として扱わない)."
+    nil)
+
+  (defun my-xsrv-p (_path)
+    "P1 以外では常に nil (xsrv 配下として扱わない)."
+    nil)
+
+  (dolist (cmd '(xsrv-deploy-dired
+                 xsrv-download-dired
+                 my-open-xsrv-2pane-gh
+                 my-open-xsrv-2pane-minorugh))
+    (defalias cmd
+      (lambda ()
+        (interactive)
+        (user-error "%s は P1(メイン機)専用です。このマシンでは実行できません" cmd))
+      "P1 以外では実行を拒否するスタブ.")))
 
 
 ;; ============================================================
@@ -321,94 +364,96 @@ xsrv 配下なら差分表示後に 2ペインを復元する。"
       (git-peek))))
 
 
-;; ============================================================
-;; 8. 動的フォルダー保護 & rsync lock
-;; Dropbox/GH 配下の動的フォルダーを自動 read-only 化。
-;; read-only 解除時に rsync lock を発行する。
-;; カレントから外れるか kill されたら自動で read-only に戻し、
-;; 全バッファが read-only になったら lock を解除する。
-;; 緊急停止は power-menu の BACKUP STOP/START で手動対応。
-;; ============================================================
+;; ▼ P1(メイン機)限定ブロック (8章)
+(when (bound-and-true-p my-main-machine-p)
+  ;; ============================================================
+  ;; 8. 動的フォルダー保護 & rsync lock
+  ;; Dropbox/GH 配下の動的フォルダーを自動 read-only 化。
+  ;; read-only 解除時に rsync lock を発行する。
+  ;; カレントから外れるか kill されたら自動で read-only に戻し、
+  ;; 全バッファが read-only になったら lock を解除する。
+  ;; 緊急停止は power-menu の BACKUP STOP/START で手動対応。
+  ;; ============================================================
 
-(defconst my-xsrv-dynamic-dirs
-  (mapcar (lambda (d) (expand-file-name (concat "~/Dropbox/GH/" d)))
-          '("apvoice/log/" "apvoice/voice/"
-            "danwa/data/" "danwa/html/"
-            "dia/divoice/"
-            "d_select/voice/" "m_select/voice/" "s_select/voice/" "w_select/voice/"
-            "d_kukai/back/" "d_kukai/data/" "d_kukai/html/" "d_kukai/score/"
-            "m_kukai/back/" "m_kukai/data/" "m_kukai/html/" "m_kukai/score/"
-            "s_kukai/back/" "s_kukai/data/" "s_kukai/html/" "s_kukai/score/"
-            "w_kukai/back/" "w_kukai/data/" "w_kukai/html/" "w_kukai/score/"))
-  "Rsync lock の対象となる動的フォルダーの絶対パスリスト.")
+  (defconst my-xsrv-dynamic-dirs
+    (mapcar (lambda (d) (expand-file-name (concat "~/Dropbox/GH/" d)))
+            '("apvoice/log/" "apvoice/voice/"
+              "danwa/data/" "danwa/html/"
+              "dia/divoice/"
+              "d_select/voice/" "m_select/voice/" "s_select/voice/" "w_select/voice/"
+              "d_kukai/back/" "d_kukai/data/" "d_kukai/html/" "d_kukai/score/"
+              "m_kukai/back/" "m_kukai/data/" "m_kukai/html/" "m_kukai/score/"
+              "s_kukai/back/" "s_kukai/data/" "s_kukai/html/" "s_kukai/score/"
+              "w_kukai/back/" "w_kukai/data/" "w_kukai/html/" "w_kukai/score/"))
+    "Rsync lock の対象となる動的フォルダーの絶対パスリスト.")
 
-(defconst my-xsrv-lockfile (expand-file-name "~/xsrv-rsync.lock"))
+  (defconst my-xsrv-lockfile (expand-file-name "~/xsrv-rsync.lock"))
 
-(defun my-xsrv-dynamic-p (file)
-  "FILE が動的フォルダー配下であれば t を返す."
-  (when file
-    (cl-some (lambda (dir) (string-prefix-p dir file))
-             my-xsrv-dynamic-dirs)))
+  (defun my-xsrv-dynamic-p (file)
+    "FILE が動的フォルダー配下であれば t を返す."
+    (when file
+      (cl-some (lambda (dir) (string-prefix-p dir file))
+               my-xsrv-dynamic-dirs)))
 
-(defun my-xsrv-lock ()
-  "Rsync lock ファイルを発行する."
-  (unless (file-exists-p my-xsrv-lockfile)
-    (write-region "" nil my-xsrv-lockfile)
-    (message "[xsrv] rsync lock ON")))
+  (defun my-xsrv-lock ()
+    "Rsync lock ファイルを発行する."
+    (unless (file-exists-p my-xsrv-lockfile)
+      (write-region "" nil my-xsrv-lockfile)
+      (message "[xsrv] rsync lock ON")))
 
-(defun my-xsrv-unlock-if-clean ()
-  "動的フォルダー配下の編集中バッファがゼロなら lock を解除する."
-  (unless (cl-some (lambda (buf)
-                     (with-current-buffer buf
-                       (and (buffer-file-name)
-                            (my-xsrv-dynamic-p (buffer-file-name))
-                            (not buffer-read-only))))
-                   (buffer-list))
-    (when (file-exists-p my-xsrv-lockfile)
-      (delete-file my-xsrv-lockfile)
-      (message "[xsrv] rsync lock OFF"))))
+  (defun my-xsrv-unlock-if-clean ()
+    "動的フォルダー配下の編集中バッファがゼロなら lock を解除する."
+    (unless (cl-some (lambda (buf)
+                       (with-current-buffer buf
+                         (and (buffer-file-name)
+                              (my-xsrv-dynamic-p (buffer-file-name))
+                              (not buffer-read-only))))
+                     (buffer-list))
+      (when (file-exists-p my-xsrv-lockfile)
+        (delete-file my-xsrv-lockfile)
+        (message "[xsrv] rsync lock OFF"))))
 
-(defvar my-xsrv--qq-chord-registered-maps nil
-  "`my-xsrv-find-file-hook' が qq の key-chord を登録済みのキーマップ一覧.
+  (defvar my-xsrv--qq-chord-registered-maps nil
+    "`my-xsrv-find-file-hook' が qq の key-chord を登録済みのキーマップ一覧.
 key-chord の内部表現に依存せず、自前で登録済みかどうかを判定するために使う。")
 
-(defun my-xsrv-find-file-hook ()
-  "動的フォルダー配下のファイルを自動 read-only にする."
-  (when (my-xsrv-dynamic-p (buffer-file-name))
-    (read-only-mode 1)
-    (let ((map (or (current-local-map) global-map)))
-      (unless (memq map my-xsrv--qq-chord-registered-maps)
-        (key-chord-define map "qq" #'my-makefile-toggle-readonly)
-        (push map my-xsrv--qq-chord-registered-maps)))))
+  (defun my-xsrv-find-file-hook ()
+    "動的フォルダー配下のファイルを自動 read-only にする."
+    (when (my-xsrv-dynamic-p (buffer-file-name))
+      (read-only-mode 1)
+      (let ((map (or (current-local-map) global-map)))
+        (unless (memq map my-xsrv--qq-chord-registered-maps)
+          (key-chord-define map "qq" #'my-makefile-toggle-readonly)
+          (push map my-xsrv--qq-chord-registered-maps)))))
 
-(defun my-xsrv-read-only-hook ()
-  "Read-only 解除時に lock を発行、復帰時に unlock チェックする."
-  (when (my-xsrv-dynamic-p (buffer-file-name))
-    (if buffer-read-only
-        (my-xsrv-unlock-if-clean)
-      (my-xsrv-lock))))
+  (defun my-xsrv-read-only-hook ()
+    "Read-only 解除時に lock を発行、復帰時に unlock チェックする."
+    (when (my-xsrv-dynamic-p (buffer-file-name))
+      (if buffer-read-only
+          (my-xsrv-unlock-if-clean)
+        (my-xsrv-lock))))
 
-(defun my-xsrv-kill-buffer-hook ()
-  "動的ファイルの kill 時に read-only 化してから unlock チェックする."
-  (when (my-xsrv-dynamic-p (buffer-file-name))
-    (read-only-mode 1)
-    (my-xsrv-unlock-if-clean)))
+  (defun my-xsrv-kill-buffer-hook ()
+    "動的ファイルの kill 時に read-only 化してから unlock チェックする."
+    (when (my-xsrv-dynamic-p (buffer-file-name))
+      (read-only-mode 1)
+      (my-xsrv-unlock-if-clean)))
 
-(defun my-xsrv-buffer-list-update-hook ()
-  "カレントから外れた動的バッファを自動 read-only に戻す."
-  (dolist (buf (buffer-list))
-    (unless (eq buf (current-buffer))
-      (with-current-buffer buf
-        (when (and (buffer-file-name)
-                   (my-xsrv-dynamic-p (buffer-file-name))
-                   (not buffer-read-only))
-          (read-only-mode 1)
-          (my-xsrv-unlock-if-clean))))))
+  (defun my-xsrv-buffer-list-update-hook ()
+    "カレントから外れた動的バッファを自動 read-only に戻す."
+    (dolist (buf (buffer-list))
+      (unless (eq buf (current-buffer))
+        (with-current-buffer buf
+          (when (and (buffer-file-name)
+                     (my-xsrv-dynamic-p (buffer-file-name))
+                     (not buffer-read-only))
+            (read-only-mode 1)
+            (my-xsrv-unlock-if-clean))))))
 
-(add-hook 'find-file-hook          #'my-xsrv-find-file-hook)
-(add-hook 'read-only-mode-hook     #'my-xsrv-read-only-hook)
-(add-hook 'kill-buffer-hook        #'my-xsrv-kill-buffer-hook)
-(add-hook 'buffer-list-update-hook #'my-xsrv-buffer-list-update-hook)
+  (add-hook 'find-file-hook          #'my-xsrv-find-file-hook)
+  (add-hook 'read-only-mode-hook     #'my-xsrv-read-only-hook)
+  (add-hook 'kill-buffer-hook        #'my-xsrv-kill-buffer-hook)
+  (add-hook 'buffer-list-update-hook #'my-xsrv-buffer-list-update-hook))  ; end when my-main-machine-p
 
 
 ;; Local Variables:
