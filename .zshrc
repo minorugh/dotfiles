@@ -349,11 +349,19 @@ function resize-all() {
 function md2pdf() {
     if [ $# = 1 ]; then
         fname="${1%.*}"
-        pandoc $1 -o $fname.pdf -V mainfont=IPAPGothic -V fontsize=16pt --pdf-engine=lualatex
+        pandoc $1 -o $fname.pdf -V CJKmainfont=IPAPGothic -V CJKmainfontoptions="BoldFont=IPAPGothic" -V CJKmonofont="Noto Sans Mono CJK JP" -V CJKmonofontoptions="BoldFont=Noto Sans Mono CJK JP" -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex
     else
         echo 'usage: md2pdf file.md'
     fi
 }
+# function md2pdf() {
+#     if [ $# = 1 ]; then
+#         fname="${1%.*}"
+#         pandoc $1 -o $fname.pdf -V mainfont=IPAPGothic -V fontsize=16pt --pdf-engine=lualatex
+#     else
+#         echo 'usage: md2pdf file.md'
+#     fi
+# }
 
 function md2docx() {
     if [ $# = 1 ]; then

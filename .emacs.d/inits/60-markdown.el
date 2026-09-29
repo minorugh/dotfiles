@@ -97,7 +97,6 @@
 
   (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
 
-
 (defun md2pdf ()
   "Generate PDF from the current markdown buffer via pandoc + lualatex."
   (interactive)
@@ -106,7 +105,10 @@
     (if (zerop (call-process-shell-command
                 (concat "pandoc " filename
                         " -o " pdffile
-                        " -V mainfont=IPAPGothic -V geometry:margin=20mm"
+                        " -V mainfont=IPAPGothic"
+                        " -V CJKmainfont=IPAPGothic"
+                        " -V monofont=\"Noto Sans Mono CJK JP\""
+                        " -V geometry:margin=20mm"
                         " -V fontsize=14pt --pdf-engine=lualatex")))
         (call-process "xdg-open" nil nil nil pdffile)
       (message "md2pdf: pandoc failed"))))
