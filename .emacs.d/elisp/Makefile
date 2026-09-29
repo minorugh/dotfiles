@@ -10,16 +10,17 @@ clean:
 
 HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
-# P1 (main): commit + push / others (sub): pull --rebase only
+# P1 (main): commit + push + publish
+# others (sub): pull --ff-only only (commit も push もしない)
 git: ## Auto commit+push (main only, sub: pull only)
+ifeq ($(HOSTNAME),P1)
 	git add -A
 	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-ifeq ($(HOSTNAME),P1)
 	git push
 	$(MAKE) publish
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません"
-	git pull --rebase
+	git pull --ff-only
 endif
 
 # ------------------------------------------------------------
