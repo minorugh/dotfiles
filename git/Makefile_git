@@ -3,7 +3,7 @@
 ########################################################
 # 個人の日々の作業運用のためのターゲット群。
 # リストア用のトップレベル Makefile とは切り離して管理する。
-# Main: commit + push / others (sub): pull --rebase only
+# Main: commit + push / others (sub): pull --ff-only only
 #
 # 2026.08.03
 # .env_source 側の構造変化で dotfiles/env が空になることがあるのでメイン機側の実行コードに remount処理を追加した。
@@ -29,6 +29,15 @@
 # に自動的に含まれるため、別経路での同期は不要かつ二重管理の原因になっていた。
 # env.bundle.gpg のパス表記ゆれ（arch-restore / arch-debian-restore 等）も
 # ~/Dropbox/backup/env/env.bundle.gpg に統一。
+#
+# 2026.09.30
+# サブ機の pull 処理を2点修正。
+# (1) git stash pop を「今回 stash を作った時だけ」実行する。従来は無条件だったため、作業ツリーが
+#     きれいで stash を作らなかった場合に、過去の失敗で残った古い stash が pop されて復活していた。
+# (2) pull --rebase を pull --ff-only に変更。サブ機は push しないので独自コミットは持たない前提。
+#     --rebase だと古い自動コミットが再適用されて混ざる（2026.09.08 の不具合と同じ型）。
+#     --ff-only なら、履歴が分岐していれば書き換えずにエラーで止まる。
+#     あわせて stash pop の競合を警告する（従来は競合しても || true で成功扱いのまま env-sync へ進んでいた）。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -58,10 +67,15 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ push 完了"
 else
-	cd $(DOTFILES_DIR) && git stash --include-untracked -q
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
-	@cd $(DOTFILES_DIR) && git pull --rebase || (echo "エラー: rebaseに失敗しました。'make git-fix' を実行してください" && exit 1)
-	@cd $(DOTFILES_DIR) && git stash pop -q 2>/dev/null || true
+	@cd $(DOTFILES_DIR) && \
+		before=$$(git stash list | wc -l); \
+		git stash --include-untracked -q; \
+		after=$$(git stash list | wc -l); \
+		git pull --ff-only || { echo "エラー: pull(ff-only)に失敗しました。独自コミットがあるか履歴が分岐しています。'git log origin/main..HEAD' で確認し、必要なら 'make git-fix' を実行してください（未commitの変更は stash に退避されたままです: git stash list）"; exit 1; }; \
+		if [ "$$after" -gt "$$before" ]; then \
+			git stash pop -q || echo "警告: stash pop で競合しました。'git status' と 'git stash list' を確認してください（stash は残っています）"; \
+		fi
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
 ifeq ($(HOSTNAME),archlinux)
 	@echo "archlinux: arch-install の commit/push もあわせて実行します"
