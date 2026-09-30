@@ -32,22 +32,4 @@ if [ -f ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
 
-#------------------------------------------------------------
-# SSH agent (keychain)
-#------------------------------------------------------------
-# export SSH_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
-# export SSH_ASKPASS_REQUIRE=force
-
-if [ -f "$HOME/.ssh/id_ed25519_$(hostname)" ]; then
-    # Arch Linux: ログイン直後にGUIダイアログでパスフレーズを1回だけ聞く
-    eval "$(keychain --eval --quiet "$HOME/.ssh/id_ed25519_$(hostname)")"
-else
-    # Debian
-    if [ -f "$HOME/.keychain/$(hostname)-sh" ]; then
-        source "$HOME/.keychain/$(hostname)-sh"
-    fi
-fi
-
-# systemd ユーザーセッションへ SSH agent 環境変数を伝える
-dbus-update-activation-environment --systemd SSH_AUTH_SOCK SSH_AGENT_PID
 
