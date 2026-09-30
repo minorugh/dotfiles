@@ -22,17 +22,18 @@
 ENV_MNT=~/src/github.com/minorugh/dotfiles/env
 mountpoint -q "$ENV_MNT" || bindfs ~/.env_source "$ENV_MNT"
 
-pkill ssh-agent
+# 2026-09-30 agent 廃止（空パスフレーズ + IdentityFile で ssh は agent 不要）。下の keychain ブロックとあわせて停止中。戻すときは # を外す
+# pkill ssh-agent
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
-ASKPASS_SCRIPT=$(mktemp /tmp/askpass.XXXXXX.sh)
-echo '#!/bin/bash' > "$ASKPASS_SCRIPT"
-echo 'secret-tool lookup ssh-key id_rsa' >> "$ASKPASS_SCRIPT"
-chmod +x "$ASKPASS_SCRIPT"
-DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force \
-	   /usr/bin/keychain --eval --quiet ~/.ssh/id_rsa
-rm -f "$ASKPASS_SCRIPT"
-source ~/.keychain/$(hostname)-sh
+# ASKPASS_SCRIPT=$(mktemp /tmp/askpass.XXXXXX.sh)
+# echo '#!/bin/bash' > "$ASKPASS_SCRIPT"
+# echo 'secret-tool lookup ssh-key id_rsa' >> "$ASKPASS_SCRIPT"
+# chmod +x "$ASKPASS_SCRIPT"
+# DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force \
+# 	   /usr/bin/keychain --eval --quiet ~/.ssh/id_rsa
+# rm -f "$ASKPASS_SCRIPT"
+# source ~/.keychain/$(hostname)-sh
 
 # Emacs を起動し、表示されたウィンドウを xdotool で最小化する
 # --iconic だとちらつくため、起動後に windowminimize で対処
