@@ -42,7 +42,7 @@ HOSTNAME       := $(shell hostname)
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 
-PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm keychain smartmontools lm-sensors
+PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm smartmontools lm-sensors
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
 PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
 PACKAGES	+= ruby gnome-terminal xclip vim xdotool
@@ -134,7 +134,7 @@ grub: ## grub・lightdm・logind の設定（メイン機のみ）
 	sudo update-grub2
 endif
 
-autostart: emacs-start ## GUI起動時の自動処理設定（SSH鍵自動入力・mozc同期）
+autostart: emacs-start ## GUI起動時の自動処理設定（mozc・keyring 復元、Emacs・neomutt 起動）
 	ln -vsf {${PWD},${HOME}}/.autostart.sh
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop

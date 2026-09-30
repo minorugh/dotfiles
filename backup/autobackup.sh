@@ -16,10 +16,6 @@ FLAG_FILE="$HOME/.cache/autobackup/last-success"
 TMPLOG=$(mktemp)
 ERRORS=0
 
-# SSHエージェントの設定を読み込む
-if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
-    source "$HOME/.keychain/$HOSTNAME-sh"
-fi
 
 log() {
     echo "${LOG_PREFIX} $1"

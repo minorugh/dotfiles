@@ -20,9 +20,6 @@ XSRV_BASE="$XSRV_HOST:/home/minorugh/gospel-haiku.com/public_html"
 DST="$HOME/Dropbox/GH"
 ERRORS=0
 
-if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
-    source "$HOME/.keychain/$HOSTNAME-sh"
-fi
 
 log() { echo "${LOG_PREFIX} $1" | tee -a "$LOGFILE"; }
 

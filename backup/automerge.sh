@@ -10,7 +10,6 @@
 ###########################################################################
 
 HOME=/home/minoru
-source $HOME/.keychain/$HOSTNAME-sh
 BACKUP_DIR="${HOME}/Dropbox/passwd/backup"
 PASSWD_DIR="${HOME}/Dropbox/passwd"
 MERGE_SCRIPT="${PASSWD_DIR}/lib/mergepasswd.pl"

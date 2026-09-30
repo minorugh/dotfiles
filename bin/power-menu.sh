@@ -16,7 +16,6 @@ EMACS_ELC_DIRS=("$HOME/.emacs.d/elisp" "$HOME/.emacs.d/inits")
 HOME_ROOT="/home/minorugh/"
 GH_ROOT="${HOME_ROOT}gospel-haiku.com/public_html/"
 
-[[ -f "$HOME/.keychain/${HOSTNAME}-sh" ]] && source "$HOME/.keychain/${HOSTNAME}-sh"
 
 # ═══════════════ P1/x250 共通設定 ═══════════════
 # ここは両ホストで全く同じコードが実行される部分。
