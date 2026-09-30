@@ -38,6 +38,11 @@
 #     --rebase だと古い自動コミットが再適用されて混ざる（2026.09.08 の不具合と同じ型）。
 #     --ff-only なら、履歴が分岐していれば書き換えずにエラーで止まる。
 #     あわせて stash pop の競合を警告する（従来は競合しても || true で成功扱いのまま env-sync へ進んでいた）。
+#
+# 2026.10.01
+# archlinux 用の分岐（arch-install の commit/push を呼ぶ処理）を削除。arch-install リポジトリは
+# 廃止され、現在は arch-debian-restore のサブディレクトリにある（そちらはサブ機では何もしない）。
+# 残すと、存在しないリポジトリへの push が失敗（Repository not found）して make git が異常終了する。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -77,10 +82,6 @@ else
 			git stash pop -q || echo "警告: stash pop で競合しました。'git status' と 'git stash list' を確認してください（stash は残っています）"; \
 		fi
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
-ifeq ($(HOSTNAME),archlinux)
-	@echo "archlinux: arch-install の commit/push もあわせて実行します"
-	@$(MAKE) -s -C $(HOME)/src/github.com/minorugh/arch-install git
-endif
 endif
 
 env-sync: ## env_source の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
