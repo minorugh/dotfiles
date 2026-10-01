@@ -106,6 +106,9 @@ set sort_re          # 件名の正規表現でスレッド整理
 macro index <F5> ":set use_threads=flat sort=reverse-date-received unset sort_re\n<refresh>" "スレッドOFF"
 macro index <F6> ":set sort=threads sort_aux=reverse-last-date-received uncollapse_jump sort_re\n<refresh>" "スレッドON"
 
+# 新着 N を全部既読にする
+macro index A "T~N<enter><tag-prefix><clear-flag>N" "mark all new messages as read"
+
 # --- ページャー表示 -----------------------------------------
 set pager_index_lines = 8
 set pager_context = 3

@@ -71,7 +71,7 @@ xsrv-run: ## xsrv-backup を今すぐ手動実行
 ## バッテリーメンテ（TLP / ThinkPad P1 + Debian13）
 ## -------------------------------------------------------------------------
 ## 常時AC接続運用のため、充電量を抑えてバッテリー劣化を防ぐ。
-## /etc/tlp.conf に START/STOP を設定（60モード: 40/60、80モード: 75/80）（再起動後も永続）。
+## /etc/tlp.conf に START=40 / STOP=60 を設定済み（再起動後も永続）。
 ##
 ## 通常確認:   make bat-status
 ## 節約モード: make bat-set-60  （長期AC接続・外出なし）
@@ -85,8 +85,6 @@ bat-status: ## バッテリー状態・しきい値を確認
 bat-set-60: ## 充電上限を60%に変更（長期AC接続時推奨）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=60/' /etc/tlp.conf
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=60/' /etc/tlp.conf
-	sudo sed -i 's/^START_CHARGE_THRESH_BAT0=.*/START_CHARGE_THRESH_BAT0=40/' /etc/tlp.conf
-	sudo sed -i 's/^START_CHARGE_THRESH_BAT1=.*/START_CHARGE_THRESH_BAT1=40/' /etc/tlp.conf
 	sudo tlp start
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@echo "##> BAT0 charge threshold: START=40 STOP=60" >&2
@@ -97,13 +95,11 @@ endif
 bat-set-80: ## 充電上限を80%に変更（外出前・標準運用）
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT0=.*/STOP_CHARGE_THRESH_BAT0=80/' /etc/tlp.conf
 	sudo sed -i 's/^STOP_CHARGE_THRESH_BAT1=.*/STOP_CHARGE_THRESH_BAT1=80/' /etc/tlp.conf
-	sudo sed -i 's/^START_CHARGE_THRESH_BAT0=.*/START_CHARGE_THRESH_BAT0=75/' /etc/tlp.conf
-	sudo sed -i 's/^START_CHARGE_THRESH_BAT1=.*/START_CHARGE_THRESH_BAT1=75/' /etc/tlp.conf
 	sudo tlp start
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-	@echo "##> BAT0 charge threshold: START=75 STOP=80" >&2
+	@echo "##> BAT0 charge threshold: START=40 STOP=80" >&2
 else
-	@echo "##> BAT0/BAT1 charge threshold: START=75 STOP=80" >&2
+	@echo "##> BAT0/BAT1 charge threshold: START=40 STOP=80" >&2
 endif
 
 bat-discharge: ## 強制放電開始（P1=BAT0:force-discharge / x250=BAT0:inhibit+BAT1:force）
