@@ -32,10 +32,8 @@ P1でも有効化し、現在はP1・x250両機で稼働している。
 
 プロセスが死んだ場合はsystemdの`Restart=always`が自動的に再起動する
 （`RestartSec=5`）。それ以外の失速パターン（D-Bus購読だけが内部的に
-死ぬ等）への対策は、実運用で発生実績がないため見送っている。万一の
-最終手段としてEmacsの`my-env-recover`（`<henkan>`→`x`、xmodmap再読込
-+ keychain再import + dropbox再起動をまとめて行う手動リカバリ）が
-別途控えている。
+死ぬ等）への対策は、実運用で発生実績がないため見送っている。
+なお Emacs の `my-env-recover`（`<henkan>`→`x`）は xmodmap の再読込のみで、dropbox の再起動は行わない。
 
 `/usr/local/bin`等へのリンクは作らず、systemd --userサービスとして
 `~/.config/systemd/user/dropbox-watch.service`からdotfilesリポジトリ内の
@@ -48,10 +46,10 @@ P1でも有効化し、現在はP1・x250両機で稼働している。
   組込済み）
 
 ### filezilla.sh
-FileZilla を SSH エージェント付きで起動するラッパー。
+FileZilla をバックグラウンドで起動するラッパー。
 
-keychain の `SSH_AUTH_SOCK` を引き継いでから FileZilla を起動することで、
-メニュー・Emacs どちらから起動してもパスフレーズなしで SFTP 接続できる。
+agent は使わない。FileZilla は `~/.ssh/config` の `IdentityFile` を読まないため、
+設定 → 接続 → SFTP の「鍵ファイルを追加」で `~/.ssh/id_ed25519_<ホスト名>` を登録しておく（P1・x250 は登録済み）。
 
 ```bash
 ~/.local/bin/filezilla.sh → bin/filezilla.sh

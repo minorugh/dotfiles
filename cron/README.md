@@ -278,7 +278,7 @@ git add cron/crontab && git commit -m "update crontab"
 - `cron` ターゲットは `.PHONY` 指定済みで毎回実行可能
 - crontab バックアップは日付付きで `cron/` 配下に保存（`crontab.backup.YYYYMMDD`）
 - サブ機では `cron` ターゲットはスキップされ、既存 crontab は保持される
-- xsrv-backup.sh は keychain 環境変数を自前で読み込むため cron から直接実行可能
+- xsrv-backup.sh は agent を使わず（~/.ssh/config の IdentityFile で接続）、cron から直接実行可能
 - **緊急停止は `dotfiles/cron/` で `make cron-stop` を実行**
 - Dropbox 90日バージョン管理が別途保険として機能している
 - 定時実行（23:40/23:50）が失敗・未実行だった場合は、翌朝 5-12時の `--check`

@@ -278,7 +278,7 @@ title: Emacs Configuration
                (server-start)))))
 ```
 
-`emacsclient` から NeoMutt や tig 連携（後述）を呼び出せるよう、起動時に Emacs server を自動起動します。`exec-path-from-shell` は現在の運用では使用しておらず、`SSH_AUTH_SOCK` の引き継ぎは `hydra-dired` の `my-reload-xenv`（後述）で必要な時に手動リロードする方式に切り替えています。
+`emacsclient` から NeoMutt や tig 連携（後述）を呼び出せるよう、起動時に Emacs server を自動起動します。`exec-path-from-shell` は現在の運用では使用していません。ssh は agent を使わないため、`SSH_AUTH_SOCK` の引き継ぎも不要です（`hydra-dired` の `my-env-recover`（後述）は `~/.Xmodmap` の再読込のみ）。
 
 ### 2.3. [init-mini.el] ミニマル起動
 
@@ -1263,7 +1263,7 @@ API キーは `~/.env_source/tokens/deepl-api.el` から読み込みます。日
 * `t`：my-open-tig、`v`：markdown-preview、`o`：howm-list-all、`,`：howm 新規メモ
 * `@`：browse-at-remote、`f`：flymake-show-buffer-diagnostics、`l`：my-changelog-search
 * `8`/`9`/`0`：FileZilla（サイトマネージャー／gospel-haiku／minorugh）、`a`：keepassxc
-* `r`：my-restart-emacs、`x`：my-reload-xenv、`<home>`：ホームディレクトリを開く
+* `r`：my-restart-emacs、`x`：my-env-recover、`<home>`：ホームディレクトリを開く
 
 `<henkan>` で hydra-work と相互トグルできます。
 
@@ -1274,7 +1274,7 @@ API キーは `~/.env_source/tokens/deepl-api.el` から読み込みます。日
 * `my-make-git`：P1 なら `compile` で軽量実行、それ以外（サブ機）は `my-make-run-async`（09-makefile.el）経由で gnome-terminal 実行に委譲
 * `my-2pane-quit`：2ペインを閉じて元のバッファに戻る（divider 解除フック `my-2pane-quit-hook` 付き）
 * `my-restart-emacs`：バッファ保存 → server 停止 → Emacs 終了 → `emacs-start.sh` を起動
-* `my-reload-xenv`：`~/.Xmodmap` と keychain の SSH_AUTH_SOCK を再読み込み
+* `my-env-recover`：`~/.Xmodmap` を再読み込み
 * `keepassxc`：KeePassXC を起動
 * `filezilla`：FileZilla を特定サイトで起動（`g`=gospel-haiku、`m`=minorugh、`s`=サイトマネージャー）
 

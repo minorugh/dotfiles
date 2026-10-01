@@ -182,10 +182,6 @@
     (call-process "bash" nil nil nil "-c"
                   "nohup bash -c 'emacs-start.sh' &>/dev/null &")
     (kill-emacs))
-  ;; # emacs-start.sh
-  ;; # keychain の SSH agent 環境変数を明示的に読み込むことで再起動後も引き継がれる
-  ;; [ -f "$HOME/.keychain/$(hostname)-sh" ] && source "$HOME/.keychain/$(hostname)-sh"
-  ;; exec zsh -lc "/usr/local/bin/emacs --maximized"
 
   (defun my-make-launch-cron ()
     "Open the Makefile in `dotfiles/cron` to immediately launch the target picker."
@@ -194,19 +190,10 @@
     (my-make-ivy-integrated))
 
   (defun my-env-recover ()
-    "Reload xmodmap, re-import SSH_AUTH_SOCK from keychain file."
+    "Reload xmodmap."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-    (let ((keychain-file (expand-file-name
-                          (concat "~/.keychain/" (system-name) "-sh"))))
-      (when (file-exists-p keychain-file)
-        (with-temp-buffer
-          (insert-file-contents keychain-file)
-          (goto-char (point-min))
-          (while (re-search-forward "^\\([^=]+\\)=\\([^;]+\\);" nil t)
-            (setenv (match-string 1)
-                    (match-string 2))))))
-    (message "ENV RECOVERED: xmodmap + SSH_AUTH_SOCK"))
+    (message "ENV RECOVERED: xmodmap"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."

@@ -176,7 +176,7 @@ CapsLock→Ctrl・PrtSc→Alt_R・「ろ」キーなどの変換は `make keymap
 xmodmapの設定は稀にXKBリセットで失われることがあるため、以下の2層で保険をかけています。
 
 - **自動**: cron で毎分 `xmodmap ~/.Xmodmap` を再適用（`crontab` 参照）
-- **手動**: Emacs の `my-reload-xenv`（以前は `SSH_AUTH_SOCK` の再読込も兼ねていたが、keychain 全廃後は不要）
+- **手動**: Emacs の `my-env-recover`（以前は `SSH_AUTH_SOCK` の再読込も兼ねていたが、keychain 全廃後は不要）
 
 以前は `keyd`（evdevレベルの変換）も併用していましたが、日本語の「ろ」キー変換に対応できず、xmodmapと機能が重複していたため2026.07.08に廃止しました。
 

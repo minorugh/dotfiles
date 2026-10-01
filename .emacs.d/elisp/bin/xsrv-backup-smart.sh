@@ -14,10 +14,6 @@ XSRV_GH_DST="$HOME/src/github.com/minorugh/xsrv-GH"
 XSRV_minorugh_SRC="$XSRV_HOST:/home/minorugh/minorugh.com/public_html/"
 XSRV_minorugh_DST="$HOME/src/github.com/minorugh/xsrv-minorugh"
 
-if [ -f "$HOME/.keychain/$HOSTNAME-sh" ]; then
-    source "$HOME/.keychain/$HOSTNAME-sh"
-fi
-
 echo "${LOG_PREFIX} START: $(date '+%Y-%m-%d %H:%M:%S')"
 rsync -a --delete --exclude='.git' --exclude='.gitignore' --exclude='Makefile' \
       -e "ssh -p 10022" "$XSRV_GH_SRC" "$XSRV_GH_DST/"

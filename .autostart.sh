@@ -7,33 +7,21 @@
 # 以下の処理を順に行う：
 #
 # 1. env/ を bindfs で ~/.env_source にマウント（新規ファイル自動反映）
-# 2. ssh-agent リセット
-# 3. mozc・keyring を Dropbox からリストア
-# 4. SSH 鍵を keychain + secret-tool で自動入力（パスフレーズ不要）
-# 5. keychain の環境変数をセッションに反映
-# 6. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
-# 7. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
-# 8. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
+# 2. mozc・keyring を Dropbox からリストア
+# 3. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
+# 4. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
+# 5. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
 #
-# 依存: keychain, secret-tool, rsync, xdotool
+# 依存: secret-tool, rsync, xdotool
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
 
 # env/ を ~/.env_source にbindfsで透過マウント（新規ファイル即反映のため）
 ENV_MNT=~/src/github.com/minorugh/dotfiles/env
 mountpoint -q "$ENV_MNT" || bindfs ~/.env_source "$ENV_MNT"
 
-# 2026-09-30 agent 廃止（空パスフレーズ + IdentityFile で ssh は agent 不要）。下の keychain ブロックとあわせて停止中。戻すときは # を外す
-# pkill ssh-agent
+# ssh-agent / keychain は使わない（2026-09-30 廃止）。空パスフレーズ + IdentityFile で ssh は agent 不要
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
-# ASKPASS_SCRIPT=$(mktemp /tmp/askpass.XXXXXX.sh)
-# echo '#!/bin/bash' > "$ASKPASS_SCRIPT"
-# echo 'secret-tool lookup ssh-key id_rsa' >> "$ASKPASS_SCRIPT"
-# chmod +x "$ASKPASS_SCRIPT"
-# DISPLAY=:0 SSH_ASKPASS="$ASKPASS_SCRIPT" SSH_ASKPASS_REQUIRE=force \
-# 	   /usr/bin/keychain --eval --quiet ~/.ssh/id_rsa
-# rm -f "$ASKPASS_SCRIPT"
-# source ~/.keychain/$(hostname)-sh
 
 # Emacs を起動し、表示されたウィンドウを xdotool で最小化する
 # --iconic だとちらつくため、起動後に windowminimize で対処
