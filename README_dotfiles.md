@@ -24,7 +24,7 @@ ThinkPad 2台（P1 メイン機 / X250 サブ機）での運用を想定した�
 #### 1. Debian クリーンインストール
 インストール USB を netinst iso から作成します（Windows の場合は [Rufus](https://rufus.ie/ja/) を使用）。
 
-USBが見当たらない・使えない場合は`~/Dropbox/RESTPRE/make-install-usb/README.md` を見て新規作成してください。
+USBが見当たらない・使えない場合は`~/Dropbox/backup/make-live-usb/debian-live-usb/README.md` を見て新規作成してください。
 
 #### 2. sudoers への登録
 root でログインして実行します。
@@ -95,16 +95,17 @@ chsh -s /usr/bin/zsh
 | ターゲット | 内容 |
 |---|---|
 | `make all` | `baseinstall` + `nextinstall` を一括実行 |
-| `make baseinstall` | 基本環境の構築（SSH・パッケージ・keyring など） |
+| `make baseinstall` | 基本環境の構築（パッケージ・keyring・autostart など） |
 | `make nextinstall` | アプリケーション群のインストール |
 | `make env-setup` | `dotfiles/env/` を bindfs で `~/.env_source` にマウント（新規ファイル自動反映） |
+| `make init-sub` | サブ機のみ: dotfiles の git push を封鎖（`git remote set-url --push origin no-push`）。`baseinstall` に含まれる |
 | `make keymap` | CapsLock→Ctrl（`/etc/default/keyboard`＋現セッション）・`.Xmodmap`展開 |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
-| `make keyring` | Gnome keyring の初期化（Dropbox からコピー・全機共通） |
+| `make keyring` | Gnome keyring の初期化（seahorse の導入と Dropbox からの復元。Debian 機の P1・X250 共通。Arch は別管理） |
 | `make tig` | tig の設定展開 |
-| `make autostart` | GUI起動時の SSH 鍵自動入力・mozc 同期・Emacs 自動起動＆最小化 |
+| `make autostart` | GUI起動時の mozc・keyring の復元、Emacs・neomutt の自動起動＆最小化（SSH 鍵の自動入力は廃止） |
 | `make autobackup` | バックアップスクリプト群の `/usr/local/bin/` へのシンボリックリンク作成 |
-| `make cron` | P1のみ: automerge/autobackup リンク作成 + crontab バックアップ＆反映 |
+| `make cron` | P1: automerge/autobackup のリンク作成 + crontab 反映 / サブ機: crontab 反映のみ |
 | `make dropbox-watch` | dropbox-watch.service のリンク作成+有効化（サスペンド復帰後のDropbox自動再起動、両機共通） |
 | `make night-suspend` | P1のみ: night-suspend.service/timer のリンク作成+有効化（深夜自動サスペンド、復帰は手動） |
 | `make docker-install` | Docker Engine + Compose のインストール |
@@ -123,29 +124,44 @@ chsh -s /usr/bin/zsh
 
 `github`・`github-dropbox-cleanup`・`github-remote-add`（個人のリポジトリ群のclone・
 保険運用）は2026.09.16に [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-へ移管しました。
+へ移管しました（`github-remote-add` はその後、削除しています）。
 
 詳細は Makefile 内のコメントを参照してください。
 
 ---
 
-## SSH キー・keychain の仕組み
+## SSH 鍵の仕組み（ssh-agent・keychain は使わない）
 
 2026.09.16〜、SSH鍵は全機共有をやめ、**機器ごとに独立した鍵**
 （`~/.ssh/id_ed25519_$(hostname)`）を持つ方式に変更しました。鍵の生成・
 GitHub登録は [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
 の `ssh-setup` が担当します。
 
-各鍵はパスフレーズを空で生成しているため、`.xprofile`経由の`keychain`起動時に
-入力を求められることなく、無言で`ssh-agent`にロードされます（Gnome keyringの
-secret-tool連携やDropbox経由でのパスフレーズ共有は廃止しました）。
+各鍵はパスフレーズを空で生成しているため、`ssh-agent` に載せる必要がありません。
+`~/.ssh/config` の `IdentityFile`（`id_ed25519_%l`）が鍵ファイルを直接使います。
+keychain は 2026.09.30〜10.01 に全廃し、P1・X250・Let's note（Arch）の3台で確認しました。
 
-SSH 鍵の自動ロードフロー：
+- `.xprofile`: keychain の起動と、`SSH_AUTH_SOCK` を systemd へ伝える行を削除
+- `.zshrc`: keychain の節を、ssh-agent は使わない旨の説明に置き換え
+- `.autostart.sh`: `pkill ssh-agent` と keychain の起動ブロックをコメントアウト
+- `backup/`・`bin/` の6つのスクリプト: `~/.keychain/<ホスト名>-sh` の読み込みを削除
 
-1. `.xprofile`（GUIログイン時に一度だけ実行）が `keychain --eval --quiet <鍵>` で
-   `ssh-agent` を起動し、鍵をロード
-2. `.zshrc` が `~/.keychain/$HOST-sh` を `source` し、新しいターミナルにも
-   `SSH_AUTH_SOCK` 等を引き継ぐ
+Debian の Xsession が起動時に立てる空の `ssh-agent` は残っていますが、鍵は載せておらず、
+害はありません。seahorse（gnome-keyring）は ssh とは別の用途（KeePassXC のマスター
+パスワードなど）で使っており、`--components=secrets` だけで動くため、ssh の鍵は扱いません。
+
+動作確認は、`SSH_AUTH_SOCK` を空にして行います。
+
+```bash
+SSH_AUTH_SOCK= ssh -o BatchMode=yes -T git@github.com
+```
+
+`ssh -T` だけでは、agent の有無は判定できません（agent が死んでいても、鍵ファイルで
+通るため）。
+
+FileZilla は `~/.ssh/config` の `IdentityFile` を読みません。agent を使わないため、
+FileZilla 側に鍵ファイルの登録が必要です（`編集 → 設定 → 接続 → SFTP → 鍵ファイルを追加`）。
+P1・X250 は登録済みです。
 
 各機の鍵は完全に独立しているため、1台が万一侵害されても他機には影響しません。
 鍵を紛失・漏洩した場合は、その機の `ssh-setup` を再実行し、GitHub・xserver側で
@@ -160,7 +176,7 @@ CapsLock→Ctrl・PrtSc→Alt_R・「ろ」キーなどの変換は `make keymap
 xmodmapの設定は稀にXKBリセットで失われることがあるため、以下の2層で保険をかけています。
 
 - **自動**: cron で毎分 `xmodmap ~/.Xmodmap` を再適用（`crontab` 参照）
-- **手動**: Emacs の `my-reload-xenv`（`SSH_AUTH_SOCK` の再読込も兼ねる）
+- **手動**: Emacs の `my-reload-xenv`（以前は `SSH_AUTH_SOCK` の再読込も兼ねていたが、keychain 全廃後は不要）
 
 以前は `keyd`（evdevレベルの変換）も併用していましたが、日本語の「ろ」キー変換に対応できず、xmodmapと機能が重複していたため2026.07.08に廃止しました。
 
@@ -180,7 +196,7 @@ xmodmapの設定は稀にXKBリセットで失われることがあるため、�
 
 シャットダウン中にスキップされた場合は `anacron-backup.sh` が起動時に補完する（`/etc/cron.daily/` 経由）。
 
-`make cron` は P1 でのみ実行されます（`hostname` による分岐）。
+`make cron` は `hostname` で分岐し、P1 では automerge/autobackup のリンクと `cron/crontab.p1`、サブ機では `cron/crontab.sub` だけを反映します。
 
 #### 緊急停止
 
@@ -220,9 +236,13 @@ dotfiles リポジトリ自身の commit / push / pull は `git/` ディレク�
 `Makefile` とは関心事を分けるため）。
 
 ```bash
-make git       # 変更をauto commit（P1: push まで / サブ機: pull --rebase のみ）
-make git-fix   # サブ機で rebase 失敗時の自動修復
+make git
+make git-fix
 ```
+
+- `make git`: 変更を auto commit する。P1 は push まで、サブ機は `git pull --ff-only` のみ（push はしない）
+- `make git-fix`: サブ機で pull（ff-only）に失敗したときの自動修復。`reset --hard` を使うため dotfiles 専用で、Dropbox 共有のリポジトリ（GH・minorugh.com・arch-debian-restore）には使わない
+- サブ機は X250 と Let's note（Arch）。どちらも pull のみで、`init-sub` で push を封鎖している
 
 commit メッセージは `auto: 日時` の機械的な形式に統一し、日々の作業経緯は
 別途 changelog 等で記録、git はあくまで世代管理の道具と割り切って運用して
@@ -239,8 +259,8 @@ commit メッセージは `auto: 日時` の機械的な形式に統一し、日
 `GH`・`minorugh.com`（private リポジトリ）は、GitHub以外にも自前サーバー・
 自前Git GUI（Gitea）へのpushurlを保険として持たせています。この運用自体は
 2026.09.16に [arch-debian-restore](https://github.com/minorugh/arch-debian-restore)
-へ移管しました（`make github-remote-add`）。考え方・注意点の詳細はそちらの
-READMEを参照してください。
+へ移管しました。設定用の `github-remote-add` ターゲットは削除済みで、新しいマシンでは
+push 先を手動で設定します。考え方・注意点の詳細はそちらのREADMEを参照してください。
 
 ---
 
@@ -262,8 +282,8 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 - マウントは `make env-setup`（初回構築時）と `.autostart.sh`（ログイン毎）が担当
 - 更新時は `cd ~/.env_source && make bundle` を実行
 
-サブ機側は `make git`（`git pull --rebase`）に連動して `env-sync` が自動実行され、
-`~/.env_source` と abook（addressbook）の差分を検知したうえで確認プロンプトを
+サブ機側は `make git`（`git pull --ff-only`）に連動して `env-sync` が自動実行され、
+`~/.env_source`（abook を含む）の差分を検知したうえで確認プロンプトを
 表示し、同意した場合のみDropbox bundleから同期します。実装や詳細な挙動は
 上記「git 運用について（世代管理）」および `git/README.md` を参照してください。
 
@@ -290,6 +310,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.10.01 | ssh-agent・keychain を全廃し、マシンごとの空パスフレーズ鍵を `IdentityFile` で直接使う方式に統一（`.xprofile`・`.zshrc`・`.autostart.sh`・スクリプト6か所を修正、3台で確認）。サブ機の git pull を `--ff-only` に変更し、archlinux 分岐を削除（git/Makefile）。README の SSH・git・cron・autostart の記述を実態に合わせて修正 |
 | 2026.09.16 | github/github-dropbox-cleanup/github-remote-add を arch-debian-restore へ移管（個人のリポジトリ群管理という関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する） |
 | 2026.09.15 | env-import を arch-debian-restore に置き換え。秘密鍵配布をGPG個人鍵の非対称暗号化から共通パスフレーズの対称暗号化に変更、SSH鍵を全機共有からPCごとの新規独立鍵に変更。ssh ターゲットを廃止（baseinstallの依存からも除去）。abookの個別GPGバックアップ（addressbook_*.gpg）を廃止し、~/.env_source本体への統合のみに一本化 |
 | 2026.08.29 | GitHub private リポジトリの保険運用（自前サーバー+自前GUI併用）を整理。対象を精査し直し、誤って登録されていたリポジトリのremoteを削除。github/github-dropbox-cleanup/github-remote-addを##!化 |
