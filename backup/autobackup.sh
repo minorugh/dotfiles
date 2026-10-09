@@ -58,7 +58,6 @@ run_target() {
 START=$(date '+%Y-%m-%d %H:%M:%S')
 log "START: ${START}"
 
-run_target "melpa"      melpa
 run_target "git-push (GH+minorugh.com)"   git-push
 run_target "mozc"        mozc-backup
 run_target "keyring"     keyring-backup
