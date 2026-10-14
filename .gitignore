@@ -1,9 +1,5 @@
-.htaccess
-cache
-.vim/plugged/
+# 秘密ファイル置き場（bindfs で ~/.env_source にマウント）
+/env/
 
-env/
-*.ppk
-
-.git-credentials
+# 変更が出続ける履歴ファイル
 .mutt/history
