@@ -6,3 +6,4 @@ env/
 *.ppk
 
 .git-credentials
+.mutt/history
