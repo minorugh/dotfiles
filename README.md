@@ -310,6 +310,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.10.14 | dotfiles 棚卸し。zoom・texlive-full ターゲット、cron/Makefile.bak、.mutt/history の追跡、未使用フォント(Republica Minor・Ricty・UD デジタル教科書体・旧アイコンフォント群・DroidSansM・0バイトの Blex)を削除。Makefile 冒頭の更新コメントを整理 |
 | 2026.10.01 | ssh-agent・keychain を全廃し、マシンごとの空パスフレーズ鍵を `IdentityFile` で直接使う方式に統一（`.xprofile`・`.zshrc`・`.autostart.sh`・スクリプト6か所を修正、3台で確認）。サブ機の git pull を `--ff-only` に変更し、archlinux 分岐を削除（git/Makefile）。README の SSH・git・cron・autostart の記述を実態に合わせて修正 |
 | 2026.09.16 | github/github-dropbox-cleanup/github-remote-add を arch-debian-restore へ移管（個人のリポジトリ群管理という関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する） |
 | 2026.09.15 | env-import を arch-debian-restore に置き換え。秘密鍵配布をGPG個人鍵の非対称暗号化から共通パスフレーズの対称暗号化に変更、SSH鍵を全機共有からPCごとの新規独立鍵に変更。ssh ターゲットを廃止（baseinstallの依存からも除去）。abookの個別GPGバックアップ（addressbook_*.gpg）を廃止し、~/.env_source本体への統合のみに一本化 |
