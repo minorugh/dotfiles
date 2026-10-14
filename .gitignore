@@ -1,7 +1,7 @@
 # 秘密ファイル置き場（bindfs で ~/.env_source にマウント）
 /env/
 
-# Claude セッション用の持ち出しコピーと退避ファイル（09-makefile.el のトグルが生成）
+# 開発・編集ツールが生成する一時ファイルやバックアップ
 README_*.md
 Makefile_*
 *.bak
