@@ -72,7 +72,7 @@ help:
 
 all: baseinstall nextinstall
 baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
-nextinstall: google-chrome filezilla gitk neomutt sxiv lepton zoom printer hugo
+nextinstall: google-chrome filezilla gitk neomutt sxiv lepton printer hugo
 
 SHELL = /bin/bash
 
@@ -320,12 +320,6 @@ lepton: ## Lepton（Gist クライアント）のインストール
 	sudo snap install snapd
 	sudo snap install lepton
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
-
-zoom: ## Zoom のインストール
-	cd ${HOME}/Downloads && \
-	wget https://zoom.us/client/latest/zoom_amd64.deb
-	sudo gdebi zoom_amd64.deb
-	rm -f ./zoom_amd64.deb
 
 printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2375DW）
 	sudo apt install -y cups cups-browsed
