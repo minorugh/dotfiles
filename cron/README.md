@@ -1,6 +1,6 @@
 # Cron 設定リファレンス (dotfiles/cron/)
 
-更新日: 2026-06-20
+更新日: 2026-10-14
 
 ---
 
@@ -8,8 +8,7 @@
 
 - メイン機 (P1) のみ cron スクリプトをセットアップして crontab を管理
 - 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
-- サブ機 (X250) ではスキップ（サブ機は dotfiles 自体を編集しない運用のため、
-  crontab も dotfiles 管理下に置かない）
+- サブ機 (X250) は `cron/crontab.sub` を反映する（P1 で編集 → `make git` で push → サブ機で pull 後に `make -C cron cron-update`）
 - 例外: `dropbox-watch.pl`（D-Bus即応版、systemd --user常駐）は元々サブ機(x250)
   専用として作成したが、2026-08-15以降はP1でも有効化し両機で稼働している。
   詳細は`bin/README.md`参照
@@ -17,8 +16,8 @@
   systemd --user常駐、P1のみ）も同様にdotfiles管理下だがcrontab本体とは別枠。
   RTCアラームによる自動復帰は本体ハードウェアが非対応のため断念し、復帰は
   手動（キー入力／蓋を開ける）運用に確定済み。長期不在（旅行等）の際は
-  `power-menu.sh`の5キーで事前に停止すること
-- 既存 crontab はバックアップし、dotfiles の crontab で上書き
+  `power-menu.sh`の6キー（NIGHT SUSPEND toggle）で事前に停止すること
+- dotfiles の crontab（P1: `crontab.p1` / サブ機: `crontab.sub`）で上書き反映する（バックアップは取らない）
 - `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
   自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
   （詳細は `dotfiles/backup/README.md` 参照）
@@ -41,9 +40,9 @@
 5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
 
-# xserver 動的ファイルを Dropbox/GH へ rsync（0:00 & 07:00〜23:00 毎時）
-0 7-23 * * * /usr/local/bin/xsrv-backup.sh
-0 0    * * * /usr/local/bin/xsrv-backup.sh
+# xserver 動的ファイルを Dropbox/GH へ rsync（07:00〜22:00 毎時 + 23:35）
+0 7-22 * * * /usr/local/bin/xsrv-backup.sh
+35 23 * * * /usr/local/bin/xsrv-backup.sh
 
 # Emacs ゴミ箱をシステムゴミ箱へ移送（毎月1日 23:45）
 45 23 1 * * /usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
@@ -127,7 +126,7 @@ mergepasswd.pl の動作: dmember をベースに wmember を毎回ゼロから�
 
 ---
 
-### 3.3 xsrv-backup.sh（0:00 & 07:00〜23:00 毎時）
+### 3.3 xsrv-backup.sh（07:00〜22:00 毎時 + 23:35）
 
 - xserver の動的ファイル（句会システム・掲示板等が自動生成するファイル群）を
   `Dropbox/GH` へ毎時 rsync する
@@ -160,11 +159,8 @@ w_kukai/_progfrag.dat
 
 #### 緊急停止
 
-```bash
-cd ~/src/github.com/minorugh/dotfiles/cron
-make cron-stop    # 停止（~/.xsrv-backup-stop を作成）
-make cron-start   # 再開（~/.xsrv-backup-stop を削除）
-```
+`power-menu.sh` の `5` キー（XSRV BACKUP toggle）で停止・再開する。
+`~/.xsrv-backup-stop` の作成・削除で切り替わる。
 
 #### ローカル編集時の安全対策
 
@@ -199,7 +195,7 @@ lock ファイルを発行する。Emacs の `60-xsrv-dired.el` と `tempbuf.el`
 ### dotfiles/Makefile の関連ターゲット
 
 ```makefile
-cron:         ## メイン機 (P1) のみ実行: automerge/autobackup/xsrv-backup のリンク作成 + crontab バックアップ＆反映
+cron:         ## メイン機: automerge/autobackup のリンク作成 + crontab.p1 反映 / サブ機: crontab.sub 反映のみ
 automerge:    ## automerge.sh のシンボリックリンク作成
 autobackup:   ## autobackup.sh + 各種backup.sh のシンボリックリンク作成
 emacs-trash:  ## Emacs ゴミ箱スイープスクリプトのリンク作成
@@ -208,11 +204,9 @@ emacs-trash:  ## Emacs ゴミ箱スイープスクリプトのリンク作成
 ### dotfiles/cron/Makefile（mente パネル）
 
 ```makefile
-cron-log:     # cron 実行ログ表示
-cron-edit:    # crontab を編集（dotfiles/cron/crontab を直接編集）
-cron-update:  # 編集した crontab を反映（バックアップ→適用→確認）
-cron-stop:    # xsrv-backup 緊急停止（~/.xsrv-backup-stop を作成）
-cron-start:   # xsrv-backup 再開（~/.xsrv-backup-stop を削除）
+cron-edit-p1:  # crontab.p1 を編集（P1上で作業。反映は make cron-update）
+cron-edit-sub: # crontab.sub を編集（P1上で編集 → make git で push → X250 で pull 後 make cron-update）
+cron-update:   # 編集した crontab を反映（日付更新 → 適用 → 確認。P1 は crontab.p1、サブ機は crontab.sub）
 
 dropbox-watch-reload:  # dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
 night-suspend-reload:  # night-suspend.service 修正後のsystemd反映（daemon-reload→status）
@@ -221,7 +215,6 @@ automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル
 autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）
 emacs-trash:  # emacs-trash-sweep.sh を今すぐ手動実行
 
-xsrv-log:     # xsrv-backup ログ表示
 xsrv-run:     # xsrv-backup を今すぐ手動実行
 
 bat-status:          # バッテリー状態・しきい値を確認
@@ -258,28 +251,24 @@ smart:  # SSD健康状態を確認（nvme0n1 / nvme1n1）
 cron/
   README.md              # このファイル
   Makefile                # mente パネル（crontab 編集・手動実行・ハード健康診断等）
-  crontab                  # P1 に適用する crontab 本体（Git 管理）
+  crontab.p1               # P1 に適用する crontab 本体（Git 管理）
+  crontab.sub              # サブ機に適用する crontab 本体（Git 管理）
 ```
 
 注: バックアップ処理スクリプト本体（autobackup.sh / automerge.sh / xsrv-backup.sh /
 emacs-trash-sweep.sh 等）は `dotfiles/backup/` に統合済み。詳細は `dotfiles/backup/README.md` 参照。
 
-crontab を更新した場合は以下で Git 管理ファイルに反映すること：
-
-```bash
-crontab -l > ${PWD}/cron/crontab
-git add cron/crontab && git commit -m "update crontab"
-```
+crontab を更新するときは、`make -C cron cron-edit-p1`（サブ機用は `cron-edit-sub`）で編集し、`make -C cron cron-update` で反映する。
+Git への反映は通常の `make git` に任せる。
 
 ---
 
 ## 6. 運用のポイント
 
 - `cron` ターゲットは `.PHONY` 指定済みで毎回実行可能
-- crontab バックアップは日付付きで `cron/` 配下に保存（`crontab.backup.YYYYMMDD`）
-- サブ機では `cron` ターゲットはスキップされ、既存 crontab は保持される
+- サブ機では `cron` ターゲットは `crontab.sub` を反映する（automerge/autobackup のリンク作成は P1 のみ）
 - xsrv-backup.sh は agent を使わず（~/.ssh/config の IdentityFile で接続）、cron から直接実行可能
-- **緊急停止は `dotfiles/cron/` で `make cron-stop` を実行**
+- **緊急停止は `power-menu.sh` の `5` キー（XSRV BACKUP toggle）で行う**
 - Dropbox 90日バージョン管理が別途保険として機能している
 - 定時実行（23:40/23:50）が失敗・未実行だった場合は、翌朝 5-12時の `--check`
   フォールバックが自動的に補完する（旧 anacron 方式は 2026-06-19 に廃止）
@@ -290,12 +279,11 @@ git add cron/crontab && git commit -m "update crontab"
 
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
-make cron         # P1のみ: 個別スクリプトリンク作成 + crontab バックアップ＆反映
+make cron         # P1: 個別スクリプトリンク作成 + crontab.p1 反映 / サブ機: crontab.sub 反映
 make emacs-trash  # Emacs ゴミ箱スイープスクリプトのリンク作成
 ```
 
-- `make cron` 実行後、`cron/crontab.backup.YYYYMMDD` が生成される
-- crontab の内容は `dotfiles/cron/crontab` のものに上書きされる（本実行・フォールバック含む）
+- crontab の内容は `cron/crontab.p1`（サブ機は `cron/crontab.sub`）のものに上書きされる（本実行・フォールバック含む）
 
 ---
 

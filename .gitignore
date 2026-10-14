@@ -3,3 +3,8 @@
 
 # 変更が出続ける履歴ファイル
 .mutt/history
+
+# Claude セッション用の持ち出しコピーと退避ファイル（09-makefile.el のトグルが生成）
+README_*.md
+Makefile_*
+*.bak

@@ -5,6 +5,7 @@
 ## 更新: 2026-06-20 automerge / autobackup --check オプション追加
 ## 更新: 2026-08-13 dropbox-watch-reload ターゲット追加
 ## 更新: 2026-08-15 night-suspend-reload ターゲット追加
+## 更新: 2026-10-14 xsrv-log・cron-stop・cron-start を廃止（power-menu の 5 キー XSRV BACKUP toggle へ移行）、all をメッセージ表示のみに変更
 ##
 ## --- compilation バッファー表示ルール ----------------------------
 ## @echo "##>" >&2          → 全画面表示（q で閉じる）※出力を確認したいターゲット
@@ -12,7 +13,7 @@
 ## echoなし                 → Compile successful. がminibufferに表示されるだけ
 ## ----------------------------------------------------------------
 ##
-## crontab編集:   make cron-edit
+## crontab編集:   make cron-edit-p1 / make cron-edit-sub
 ## crontab反映:   make cron-update
 ## dropbox-watch反映: make dropbox-watch-reload
 ## night-suspend反映: make night-suspend-reload
@@ -28,7 +29,8 @@ else
 CRONTAB_FILE   := crontab.sub
 endif
 
-all: xsrv-log
+all:
+	@echo "##> ターゲットを指定してください（例: cron-update / cron-edit-p1 / xsrv-run）" >&2
 
 cron-edit-p1: ## crontab.p1 を編集（P1上で作業。反映は make cron-update）
 	gnome-terminal -- bash -c "nano ${PWD}/crontab.p1; exec bash"

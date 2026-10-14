@@ -19,7 +19,7 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 ```
 
 ### emacs-start.sh
-Emacs を最大化状態で起動するラッパー。`autostart.sh` から呼ばれる。
+Emacs を最大化状態で起動するラッパー。`.autostart.sh` から呼ばれる。
 
 `zsh -ic` 経由で起動し、`.zshrc` の環境設定を読み込んだ状態で
 `/usr/local/bin/emacs --maximized` を実行する。
@@ -100,7 +100,7 @@ P1（メイン機）専用。深夜01:00に自動サスペンドするスクリ�
 
 systemd --userの`night-suspend.timer`（毎晩01:00発火）→`night-suspend.service`
 （`Type=oneshot`）から呼び出される。旅行等で長期不在にする際は
-`power-menu.sh`の5キー（NIGHT SUSPEND toggle）で事前に停止すること。
+`power-menu.sh`の6キー（NIGHT SUSPEND toggle）で事前に停止すること。
 
 - ログ: `~/.cache/night-suspend.log`
 - サービス管理: `make -C cron night-suspend-reload`（`.service`修正後の反映用）
@@ -114,11 +114,14 @@ systemd --userの`night-suspend.timer`（毎晩01:00発火）→`night-suspend.s
 - `1`: SLEEP（画面オフのみ・プロセス継続）
 - `2`: POWEROFF
 - `3`: REBOOT
-- `4`: XSRV BACKUP toggle（STOP⇔START）
-- `5`: NIGHT SUSPEND toggle（STOP⇔START、P1のみ意味を持つ）
-- `6`: CHECK ENV BACKUP（`~/.env_source/check-backup.sh` 実行）
-- `7`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
-- `8`〜`9`, `0`: xsrv/Docker への SSH・コンテナ接続
+- `4`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
+- `5`: XSRV BACKUP toggle（STOP⇔START。`~/.xsrv-backup-stop` の作成・削除）
+- `6`: NIGHT SUSPEND toggle（STOP⇔START）
+- `7`: PEEK ENV_GPG（`~/.env_source/check-backup.sh` 実行）
+- `8`: SSH XSRV
+- `9`: SSH GH
+- `0`: docker/httpd のシェルに入る
+- `4`〜`0` は P1 のみ。X250 は `1`〜`3` のみ表示される
 - `Enter`: 起動中の emacs プロセスを kill
 
 ```bash

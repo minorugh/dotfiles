@@ -327,15 +327,11 @@ even though no real `compile' process is involved."
 ;;  用コピーを作る」、既にあって本体より新しければ「本体へ反映する」。
 ;;  反映前に既存の本体は必ず <basefile>.bak へ退避する(消さずに残す運用)。
 ;;  押す時点で「今回はどちらの向きか」は意図して押すため、確認は挟まない。
-;;
-;;  C-x m (本来は未使用のcompose-mail) を Makefile 用、
-;;  C-x R を README.md 用に割り当てる(C-x r はレジスタ操作の
-;;  標準プレフィックスなので、大文字のC-x Rにして衝突を避ける)。
 ;; ============================================================
 
 (leaf *my-make-readme-copy-apply
-  :bind (("C-x m" . my-make-toggle-dirname)
-         ("C-x r" . my-readme-toggle-dirname))
+  :bind (("C-c m" . my-make-toggle-dirname)
+         ("C-c r" . my-readme-toggle-dirname))
   :preface
   (defun my-copy-apply--variant-name (basefile dirname)
     "Return the DIRNAME-suffixed variant filename for BASEFILE.

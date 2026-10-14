@@ -192,21 +192,16 @@ xmodmapの設定は稀にXKBリセットで失われることがあるため、�
 |---|---|---|
 | 23:40 | `automerge.sh` | 句会パスワードの同期・マージ |
 | 23:50 | `autobackup.sh` | 各種バックアップ一式 |
-| 0:00 & 07:00〜23:00 毎時 | `xsrv-backup.sh` | xserver 動的ファイルを Dropbox/GH へ rsync |
+| 07:00〜22:00 毎時 & 23:35 | `xsrv-backup.sh` | xserver 動的ファイルを Dropbox/GH へ rsync |
 
-シャットダウン中にスキップされた場合は `anacron-backup.sh` が起動時に補完する（`/etc/cron.daily/` 経由）。
+シャットダウン中などで本実行が飛んだ場合は、翌朝 5〜12時の毎時 `--check` フォールバック（`automerge.sh --check` / `autobackup.sh --check`）が補完する。
 
 `make cron` は `hostname` で分岐し、P1 では automerge/autobackup のリンクと `cron/crontab.p1`、サブ機では `cron/crontab.sub` だけを反映します。
 
 #### 緊急停止
 
-xserver トラブル時は `dotfiles/cron/` で `make cron-stop` を実行します。
-
-```bash
-cd ~/src/github.com/minorugh/dotfiles/cron
-make cron-stop    # xsrv-backup 停止
-make cron-start   # xsrv-backup 再開
-```
+xserver トラブル時は `power-menu.sh` の `5` キー（XSRV BACKUP toggle）で停止・再開します。
+`~/.xsrv-backup-stop` の作成・削除で切り替わります。
 
 詳細は `cron/README.md` を参照してください。
 
@@ -222,7 +217,7 @@ P1（メイン機）限定で、深夜01:00に自動サスペンドする仕組�
   `night-suspend.service`（`Type=oneshot`）
 - 動作確認は `.zshrc` の `ns` 関数で即時実行できます
 - `.service` 修正後の反映は `make -C cron night-suspend-reload`
-- 旅行等で長期不在にする際は `power-menu.sh` の `5` キー（NIGHT SUSPEND toggle）
+- 旅行等で長期不在にする際は `power-menu.sh` の `6` キー（NIGHT SUSPEND toggle）
   で事前に停止すること
 
 詳細は `bin/README.md`・`cron/README.md` を参照してください。
@@ -310,6 +305,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.10.14 | README の整合性チェック。bin/README.md: dropbox-watch.pl を両機稼働の記述に修正、keepass.sh を keepassxc.sh に統一（/usr/local/bin の壊れたリンクも削除）、emacs-start.sh の節を追加、power-menu のキー番号を実物に合わせて訂正（5=XSRV BACKUP、6=NIGHT SUSPEND）。本README・cron/README.md: xsrv-backup の時刻を実際の crontab（07:00〜22:00 毎時 + 23:35）に、anacron 補完の記述を --check フォールバックに、cron-stop/cron-start を power-menu の 5 キーに、crontab の管理を crontab.p1/crontab.sub に合わせて修正。.gitignore にセッション用コピー（README_*.md・Makefile_*・*.bak）を追加 |
 | 2026.10.14 | dotfiles 棚卸し。zoom・texlive-full ターゲット、cron/Makefile.bak、.mutt/history の追跡、未使用フォント(Republica Minor・Ricty・UD デジタル教科書体・旧アイコンフォント群・DroidSansM・0バイトの Blex)を削除。Makefile 冒頭の更新コメントを整理、未使用の emacs.desktop を削除、.gitconfig の LFS・credential 設定を削除し defaultBranch を main に変更、elisp/img の画像を追跡から外した |
 | 2026.10.01 | ssh-agent・keychain を全廃し、マシンごとの空パスフレーズ鍵を `IdentityFile` で直接使う方式に統一（`.xprofile`・`.zshrc`・`.autostart.sh`・スクリプト6か所を修正、3台で確認）。サブ機の git pull を `--ff-only` に変更し、archlinux 分岐を削除（git/Makefile）。README の SSH・git・cron・autostart の記述を実態に合わせて修正 |
 | 2026.09.16 | github/github-dropbox-cleanup/github-remote-add を arch-debian-restore へ移管（個人のリポジトリ群管理という関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する） |
