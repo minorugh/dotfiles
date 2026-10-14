@@ -18,13 +18,27 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 /usr/local/bin/emacs-toggle → bin/emacs-toggle
 ```
 
+### emacs-start.sh
+Emacs を最大化状態で起動するラッパー。`autostart.sh` から呼ばれる。
+
+`zsh -ic` 経由で起動し、`.zshrc` の環境設定を読み込んだ状態で
+`/usr/local/bin/emacs --maximized` を実行する。
+
+```bash
+/usr/local/bin/emacs-start.sh → bin/emacs-start.sh
+```
+
 ### dropbox-watch.pl
-元々サブ機(x250)専用として作成。サスペンド復帰後にDropbox同期が「同期中…」の
-まま固まる問題への対策。systemd-logindが発する`PrepareForSleep`シグナルを、
+サスペンド復帰後にDropbox同期が「同期中…」のまま固まる問題への対策。
+P1（メイン機）・x250（サブ機）の両機で常駐稼働している。
+systemd-logindが発する`PrepareForSleep`シグナルを、
 D-Busの正規購読機構（`connect_to_signal`、eavesdropping方式ではない）
 で受信し、復帰の瞬間（false）に即座にDropboxを再起動する。一般ユーザー
-権限のsystemd --userサービスとして動作し、sudoは不要。2026-08-15以降は
-P1でも有効化し、現在はP1・x250両機で稼働している。
+権限のsystemd --userサービスとして動作し、sudoは不要。
+
+P1では`night-suspend.sh`による毎晩のサスペンドからの復帰時にも動作する。
+`night-suspend.sh`自体はDropboxの再起動を行わず、復帰検知と再起動は
+このスクリプトが別プロセスで担当する。
 
 `dropbox status`の文字列は固まっていても「最新の状態」と誤った自己申告
 をすることがあると判明したため、ステータス判定には頼らず、D-Busの
@@ -44,6 +58,8 @@ P1でも有効化し、現在はP1・x250両機で稼働している。
 - サービス管理: `make -C cron dropbox-watch-reload`（`.pl`修正後の反映用）
 - クリーンリストア: `make dropbox-watch`（ルートMakefile、`baseinstall`に
   組込済み）
+
+経緯: 元々はx250専用として作成し、2026-08-15以降にP1でも有効化した。
 
 ### filezilla.sh
 FileZilla をバックグラウンドで起動するラッパー。
@@ -66,14 +82,14 @@ neomutt メールクライアントを gnome-terminal で起動するラッパ�
 /usr/local/bin/neomutt.sh → bin/neomutt.sh
 ```
 
-### keepass.sh
+### keepassxc.sh
 KeePassXC をパスワードなしで自動起動するラッパー。
 
 `secret-tool` で Gnome keyring からマスターパスワードを取得し、
 `--pw-stdin` で KeePassXC に渡すことでパスワード入力を省略。
 
 ```bash
-/usr/local/bin/keepass.sh → bin/keepass.sh
+/usr/local/bin/keepassxc.sh → bin/keepassxc.sh
 ```
 
 ### night-suspend.sh
