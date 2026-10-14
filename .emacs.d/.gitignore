@@ -1,8 +1,5 @@
 *.elc
 /elpa/
-/_elpa/
 /eln-cache/
 /tmp
-/elisp/junk/
-/elisp/img
 
