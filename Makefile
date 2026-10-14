@@ -271,6 +271,7 @@ gitk: ## gitkのインストールと設定ファイル
 neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショートカット登録
 	$(APT) $@ urlscan abook
 	mkdir -p ${HOME}/.mutt/cache/bodies
+	mkdir -p ${HOME}/.local/state/neomutt
 	ln -vsf ${PWD}/.muttrc ${HOME}/.muttrc
 	for item in mailcap certificates abook-add.sh; do \
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item; \
