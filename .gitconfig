@@ -21,8 +21,6 @@
 	program = gpg
 [push]
 	default = simple
-[credential]
-	helper = store
 [github]
 	user = minorugh
 [init]
