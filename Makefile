@@ -2,32 +2,7 @@
 # author Minoru Yamada. 2021.10.11
 # update 2022.09.22 for Debian10
 # update 2024.10.01 for Debian12
-# update 2025.03.09 cleanup packages / sxiv→nsxiv移行メモ追加
-# update 2026.03.10 SSH/keychain サブ機対応・コメント日本語化
-# update 2026.03.18 Docker管理を docker/Makefile に分離
-# update 2026.03.19 polkit ターゲット追加（Docker認証ダイアログ抑制）
-# update 2026.03.26 filezilla/gitea バックアップ追加
-# update 2026.03.26 keyring を全機共通コピー方式に統一、autostart.sh の条件分岐を削除
 # update 2026.06.11 for Debian13
-# update 2026.06.11 fixed emacs-stable for Emacs-30.2
-# update 2026.06.14 xsrv-backup-data を xsrv-backup に統合（timer/service 一本化）
-# update 2026.06.16 xsrv-backup-data を廃止、xsrv-backup に一本化（動的ファイルのみ対象）
-# update 2026.06.16 xsrv-backup を cron に移行、xsrv-systemd ターゲット廃止
-# update 2026.07.10 Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird ターゲット・バックアップ関連を削除
-# update 2026.07.25 emacs-stable を ##! に変更（対話確認ありターゲットの目印、09-makefile.el側で判定）
-# update 2026.07.30 bin/ スクリプト（シンボリックリンク＋xfconf-queryショートカット登録）を専用セクションに集約、tile-toggle 新規登録、keepass.sh→keepassxc.sh リネーム
-# update 2026.07.30 サブ機の git pull後に env-sync（env_source/abook差分同期）を自動呼び出し ※テスト版
-# update 2026.07.31 git ターゲットを ##! 化（Emacs経由でも env-sync の対話プロンプトが機能するように）
-# update 2026.07.31 baseinstall に make-run・tig を追加、nextinstall に hugo を追加（漏れの解消）
-# update 2026.07.31 neomutt-bin を廃止、neomutt ターゲットに一元化（重複処理の整理）
-# update 2026.07.31 「対話実行系」セクションの5ターゲット（dracula-theme・keepassxc・google-earth・slack・flatpak）を ##! 化（区分と目印の不整合を解消）
-# update 2026.07.31 git/env-sync/git-fix を git/Makefile に分離、トップレベルはラッパー化（リストア用と日常運用用の関心事を分離）
-# update 2026.08.11 dropbox-resume-watch ターゲット追加（D-Bus PrepareForSleepフック、クリーンリストア対応）
-# update 2026.08.29 github-dropbox-cleanup ターゲット追加（GH/minorugh.com のclone後.git以外を自動削除、Dropbox実体との競合回避）
-# update 2026.08.29 github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正（private repo保険の対象を整理、xsrv-GH/xsrv-minorugh・dotfiles・git-peekのxserver/Gitea pushurlは削除）
-# update 2026.09.15 ssh ターゲットを廃止、arch-debian-restore の ssh-setup に統合（baseinstall の依存からも除去）
-# update 2026.09.16 github/github-dropbox-cleanup/github-remote-add を arch-debian-restore へ移管
-#                    （個人のリポジトリ群管理という関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -388,17 +363,6 @@ texlive: ##! TeX Live のインストール（scheme-medium + 日本語）
 		-repository http://mirror.ctan.org/systems/texlive/tlnet/
 	sudo /usr/local/texlive/2024/bin/x86_64-linux/tlmgr path add
 	sudo tlmgr install collection-langjapanese
-	sudo tlmgr update --self --all
-
-texlive-full: ##! TeX Live フルインストール（全パッケージ約7GB）
-	cd ${HOME}/Downloads && \
-	wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-	tar xvf install-tl-unx.tar.gz && \
-	rm -f install-tl-unx.tar.gz && \
-	cd install-tl* && \
-	sudo ./install-tl -no-gui -repository http://mirror.ctan.org/systems/texlive/tlnet/
-# Actions を聞かれたら `I` を入力してインストール開始
-	sudo /usr/local/texlive/2024/bin/x86_64-linux/tlmgr path add
 	sudo tlmgr update --self --all
 
 latex: ## LaTeX 用スクリプト・スタイルファイルのシンボリックリンク作成
