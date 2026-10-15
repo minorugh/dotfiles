@@ -43,6 +43,13 @@
 # archlinux 用の分岐（arch-install の commit/push を呼ぶ処理）を削除。arch-install リポジトリは
 # 廃止され、現在は arch-debian-restore のサブディレクトリにある（そちらはサブ機では何もしない）。
 # 残すと、存在しないリポジトリへの push が失敗（Repository not found）して make git が異常終了する。
+#
+# 2026.10.15
+# env/ の bindfs 失効対策。再起動やプロセス死亡でマウントが外れると env/ が空に見える。
+# env-check を新設し、make git の冒頭（メイン/サブ共通）で自動検知・復旧する。正常時は無音。
+# 判定: ~/.env_source が非空なのに、env/ が非マウントまたは空なら失効とみなして再マウント。
+# env-remount は、mountpoint で拾えない失効マウント（/proc/mounts に残る状態）も掃除する。
+# 従来メイン機の push 前に毎回実行していた env-remount 呼び出しは、env-check に一本化して削除。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -53,14 +60,31 @@ ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
 
-.PHONY: env-remount git git-fix env-sync
+.PHONY: env-remount env-check git git-fix env-sync
 
 env-remount: ## env/ の bindfs マウントをやり直す（sudo不要、メイン/サブ共通の保険）
-	mountpoint -q $(DOTFILES_DIR)/env && fusermount -u $(DOTFILES_DIR)/env || true
+	grep -qs ' $(DOTFILES_DIR)/env ' /proc/mounts && { fusermount -u $(DOTFILES_DIR)/env 2>/dev/null || fusermount -uz $(DOTFILES_DIR)/env; } || true
 	mkdir -p $(DOTFILES_DIR)/env
 	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
 
+env-check: ## env/ の失効（非マウント/空）を検知して自動復旧（正常時は無音）
+	@if [ -z "$$(ls -A $(ENV_SOURCE_DIR) 2>/dev/null)" ]; then \
+		echo "##> ⚠ $(ENV_SOURCE_DIR) が無いか空です。env-check をスキップ"; \
+		exit 0; \
+	fi; \
+	if mountpoint -q $(DOTFILES_DIR)/env && [ -n "$$(timeout 3 ls -A $(DOTFILES_DIR)/env 2>/dev/null)" ]; then \
+		exit 0; \
+	fi; \
+	echo "##> ⚠ env/ の失効を検知。再マウントします"; \
+	$(MAKE) -s env-remount; \
+	if [ -n "$$(timeout 3 ls -A $(DOTFILES_DIR)/env 2>/dev/null)" ]; then \
+		echo "##> ✓ env/ 復旧完了"; \
+	else \
+		echo "##> ✗ env/ の復旧に失敗しました。手動で確認してください"; \
+	fi
+
 git: ##! Auto commit+push (main only, sub: pull only)
+	-@$(MAKE) -s env-check
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
@@ -68,7 +92,6 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
 	cd $(DOTFILES_DIR) && git add -A
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-	$(MAKE) -s env-remount
 	cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ push 完了"
 else
