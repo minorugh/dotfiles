@@ -10,7 +10,7 @@
 .ONESHELL:
 SHELL = /bin/bash
 
-DOCKER_DIR := $(PWD)
+DOCKER_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 .PHONY: help
 help:
