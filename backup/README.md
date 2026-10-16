@@ -27,7 +27,6 @@ backup/
   melpa-backup.sh         # ELPAバックアップ（rsync + PAST世代退避 + CHANGELOG出力）
   mozc-backup.sh          # Mozc 辞書バックアップ
   filezilla-backup.sh     # FileZilla 設定バックアップ
-  gitea-backup.sh         # Gitea data バックアップ
   abook-backup.sh         # abook アドレス帳バックアップ
 ```
 
@@ -54,7 +53,6 @@ backup/
 [autobackup] mozc: OK
 [autobackup] keyring: OK
 [autobackup] zsh-history: OK
-[autobackup] gitea: OK
 [autobackup] filezilla: OK
 [autobackup] abook: OK
 [autobackup] readmes: OK
@@ -99,7 +97,6 @@ git-push:            # GH・minorugh.com・xsrv-GH・xsrv-minorugh を日次自�
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
-gitea-backup:        # Gitea data を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
 abook-backup:        # ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
@@ -114,7 +111,6 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
 | `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
-| `gitea-backup` | `~/Dropbox/backup/gitea/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
 | `abook-backup` | `~/Dropbox/backup/abook/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |

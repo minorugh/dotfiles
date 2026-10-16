@@ -154,8 +154,6 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/melpa-backup.sh
 	sudo ln -vsfn ${PWD}/backup/filezilla-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
-	sudo ln -vsfn ${PWD}/backup/gitea-backup.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/gitea-backup.sh
 	sudo ln -vsfn ${PWD}/backup/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
 
@@ -447,10 +445,7 @@ polkit: ## polkit認証ダイアログ抑制（docker-setup から自動実行�
 	sudo systemctl restart polkit
 	@echo "✓ polkit rules configured."
 
-docker-setup: polkit ## 【Step1】データディレクトリ作成＋Dropboxからrsyncで復元
-	mkdir -p /home/minoru/Docker/gitea/data
-	rsync -av /home/minoru/Dropbox/backup/gitea/ /home/minoru/Docker/gitea/data/
-	@echo "✓ 完了。次: make gitea（docker/Makefile）"
+docker-setup: polkit ## 【Step1】polkit設定
 
 ########################################################
 ## Debian インストール後の手動カスタマイズ覚書
