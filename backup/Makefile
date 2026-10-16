@@ -18,7 +18,7 @@
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup filezilla-backup gitea-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup abook-backup
+all: melpa git-push mozc-backup filezilla-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup abook-backup
 
 .ONESHELL:
 
@@ -40,9 +40,6 @@ mozc-backup: ## P1 の ~/.mozc を Dropbox にバックアップ
 filezilla-backup: ## FileZilla 設定を Dropbox にバックアップ
 	/usr/local/bin/filezilla-backup.sh
 
-## Gitea data を Dropbox にバックアップ
-gitea-backup: ## Gitea data を Dropbox にバックアップ
-	/usr/local/bin/gitea-backup.sh
 
 ## Gnome keyring を Dropbox にバックアップ（P1 の実体 → Dropbox）
 keyring-backup: ## Gnome keyring を Dropbox にバックアップ

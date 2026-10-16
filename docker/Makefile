@@ -3,8 +3,8 @@
 # author: Minoru Yamada
 #
 # 使い方:
-#   dotfiles/ 直下から: make -f docker/Makefile gitea
-#   docker/ 直下から:   make gitea
+#   dotfiles/ 直下から: make -f docker/Makefile httpd
+#   docker/ 直下から:   make httpd
 
 .DEFAULT_GOAL := help
 .ONESHELL:
@@ -17,19 +17,6 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	| sort \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-## ----------------------------------------
-## Gitea（ポート 3000）
-## ----------------------------------------
-.PHONY: gitea gitea-down gitea-log
-gitea: ## Gitea の起動
-	cd $(DOCKER_DIR)/gitea && docker compose up -d
-
-gitea-down: ## Gitea の停止
-	cd $(DOCKER_DIR)/gitea && docker compose down
-
-gitea-log: ## Gitea のログ表示
-	cd $(DOCKER_DIR)/gitea && docker compose logs -f
 
 ## ----------------------------------------
 ## Apache httpd（ポート 8080）
@@ -48,9 +35,9 @@ httpd-log: ## Apache httpd のログ表示
 ## 一括操作
 ## ----------------------------------------
 .PHONY: docker-start docker-stop docker-ps
-docker-start: gitea httpd ## 全Dockerサービス起動
+docker-start: httpd ## 全Dockerサービス起動
 
-docker-stop: gitea-down httpd-down ## 全Dockerサービス停止
+docker-stop: httpd-down ## 全Dockerサービス停止
 
 docker-ps: ## 起動中コンテナ一覧
 	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
