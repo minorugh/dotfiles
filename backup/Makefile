@@ -6,6 +6,9 @@
 ## 2026-06-16  git-push ターゲットに xsrv-GH・xsrv-minorugh を追加
 ## 2026-06-20  cronにあったスクリプトをbackup-dir に移動
 ## 2026-07-10  Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird-backup ターゲットを削除
+## 2026-10-16  Gitea 廃止に伴い gitea-backup ターゲットと gitea-backup.sh を削除
+## 2026-10-17  melpa-backup.sh 廃止に伴い melpa ターゲットを削除（all: からも除去）
+## 2026-10-17  abook は ~/.env_source の暗号化 bundle で保護されるため all: から abook-backup を削除
 
 a.out: all
 
