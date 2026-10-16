@@ -150,8 +150,6 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/autobackup.sh
 	sudo ln -vsfn ${PWD}/backup/mozc-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/mozc-backup.sh
-	sudo ln -vsfn ${PWD}/backup/melpa-backup.sh /usr/local/bin
-	sudo chmod +x /usr/local/bin/melpa-backup.sh
 	sudo ln -vsfn ${PWD}/backup/filezilla-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/backup/xsrv-backup.sh /usr/local/bin
@@ -372,7 +370,6 @@ latex: ## LaTeX 用スクリプト・スタイルファイルのシンボリッ�
 # github: / github-dropbox-cleanup: / github-remote-add: は
 # 2026.09.16 arch-debian-restore/Makefile へ移管（個人のリポジトリ群管理という
 # 関心事を一本化。dotfilesはdotfiles自身の中身・シンボリックリンクに専念する）
-# docker-setup（Step0/1）完了後に手動実行すること。baseinstall/nextinstall からは自動チェーンしない。
 
 
 ########################################################

@@ -3,27 +3,16 @@
 ##
 ## 修正履歴:
 ## 2026-03-14  dotfiles/gh ターゲットを rsync から git push 方式に移行
-## 2026-03-26  melpa を Dropbox makefile に直接統合（.emacs.d/Makefile 委譲廃止）
-##             rsync + git push（Gitea・Xserver）方式に変更
-## 2026-06-07  melpa ターゲットを melpa-backup.sh に移行
-##             ディレクトリ単位の変更ログを Dropbox/CHANGELOG/elpa/ に蓄積
 ## 2026-06-16  git-push ターゲットに xsrv-GH・xsrv-minorugh を追加
 ## 2026-06-20  cronにあったスクリプトをbackup-dir に移動
-## 2026-06-21  melpa-backup.sh から git管理を廃止
-##             PAST/<パッケージ名>/ への世代退避方式（最大5世代、FIFO）に変更
-##             変更ログの出力先を Dropbox/CHANGELOG/elpa/ から
-##             Dropbox/backup/elpa/LOG/ に変更## 詳細: dotfiles/backup/README.md
 ## 2026-07-10  Thunderbird廃止（neomutt+Gmail Webへ移行）に伴い thunderbird-backup ターゲットを削除
 
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: melpa git-push mozc-backup filezilla-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup abook-backup
+all: git-push mozc-backup filezilla-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup
 
 .ONESHELL:
-
-melpa: ## MELPAパッケージを ~/Dropbox/backup/elpa へ バックアップ
-	/usr/local/bin/melpa-backup.sh
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
 git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit

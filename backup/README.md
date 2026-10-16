@@ -24,10 +24,8 @@ backup/
   automerge.sh             # 句会パスワード同期・マージ（cron から毎日 23:40 に実行 + --check フォールバック）
   xsrv-backup.sh           # xserver 動的ファイルを Dropbox/GH へ rsync（毎時）
   emacs-trash-sweep.sh     # Emacs ゴミ箱をシステムゴミ箱へ移送（月1回）
-  melpa-backup.sh         # ELPAバックアップ（rsync + PAST世代退避 + CHANGELOG出力）
   mozc-backup.sh          # Mozc 辞書バックアップ
   filezilla-backup.sh     # FileZilla 設定バックアップ
-  abook-backup.sh         # abook アドレス帳バックアップ
 ```
 
 注: `automerge.sh` / `xsrv-backup.sh` / `emacs-trash-sweep.sh` は元々 `dotfiles/cron/` にあったが、
@@ -48,13 +46,11 @@ backup/
 
 ```
 [autobackup] START: 2026-04-06 23:50:01
-[autobackup] melpa: OK
 [autobackup] git-push (GH+minorugh.com): OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
 [autobackup] zsh-history: OK
 [autobackup] filezilla: OK
-[autobackup] abook: OK
 [autobackup] readmes: OK
 [autobackup] END: 2026-04-06 23:50:30 (OK)
 ```
@@ -92,13 +88,11 @@ backup/
 手動実行: `make -f ~/src/github.com/minorugh/dotfiles/backup/Makefile <ターゲット名>`
 
 ```makefile
-melpa:               # ELPAを Dropbox/backup/elpa へ rsync、消えるバージョンはPASTへ世代退避
 git-push:            # GH・minorugh.com・xsrv-GH・xsrv-minorugh を日次自動コミット＆push
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
 keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
-abook-backup:        # ~/.abook/addressbook を GPG 暗号化して Dropbox にバックアップ
 readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 ```
 
@@ -106,13 +100,11 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 
 | ターゲット | バックアップ先 |
 |---|---|
-| `melpa` | `~/Dropbox/backup/elpa/` へrsyncミラー。消えるバージョンは `PAST/<パッケージ名>/` へ退避（最大5世代）。変更ログを `~/Dropbox/backup/elpa/LOG/` に蓄積 |
 | `git-push` | GH・minorugh.com・xsrv-GH・xsrv-minorugh の変更を日次で自動コミット＆push |
 | `mozc-backup` | `~/Dropbox/backup/mozc/` |
 | `keyring-backup` | `~/Dropbox/backup/keyrings/` |
 | `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
-| `abook-backup` | `~/Dropbox/backup/abook/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |
 
 ---
