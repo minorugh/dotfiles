@@ -10,7 +10,7 @@ Emacs やデスクトップメニューから呼び出されます。
 
 ### changelog-rotate.sh
 
-トップ `README.md` の更新履歴が10件を超えたとき、古い分を `CHANGELOG.md` へ移す。
+トップ `README.md` の更新履歴の行のうち、`CHANGELOG.md`（全履歴）に未登録のものを先頭に追記し、README は直近10件に切り詰める。
 `git/Makefile` の `make git`（P1のみ）から `add` の前に呼ばれる。書式が想定外のときは何もせず警告のみ。
 
 ### emacs-toggle
