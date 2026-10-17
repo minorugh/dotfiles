@@ -5,23 +5,6 @@
 dotfiles リポジトリ自身の commit / push / pull を自動化するための Makefile です。
 リストア用のトップレベル `Makefile` とは関心事が異なるため、ここに分離しています。
 
-## `.git/` について
-
-dotfiles リポジトリの本体（履歴・ブランチ・リモート設定の保管庫）です。
-`.git/` 自体は Git が管理する内部ディレクトリで、追跡対象にならないため、
-ここには README などを置きません。説明は本ファイルに集約しています。
-
-- **作成**: 2024-10-26 に GitHub 上でリポジトリを作成し、`git clone` したもの
-  （`.git/config` に `origin` と `main` の追跡設定が最初から入っている）
-- **更新タイミング**: `make git` を実行したとき（commit・push、サブ機では pull）。
-  cron からは実行されない
-- **commit メッセージ**: `git/Makefile` の `git` ターゲットが `auto: 日時` を生成する。
-  差分がなければ commit しない（`git diff --cached --quiet ||` による判定）
-- **リモート**: `git@github.com:minorugh/dotfiles.git`。サブ機は `init-sub` ターゲットで
-  push URL を `no-push` に書き換え、push できないようにしている
-- **cron との関係**: `autobackup.sh` の `git-push` の対象は GH・minorugh.com・
-  xsrv-GH・xsrv-minorugh で、dotfiles は含まれない
-
 ## 運用方針
 
 このリポジトリは複数マシン（P1: 親機 / X250・Let's note: サブ機）で共有しており、

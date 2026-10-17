@@ -315,7 +315,6 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
-| 2026.10.17 | git/README.md に `.git/` の節を追加（作成時期、更新タイミング、auto コミットの出どころを明記） |
 | 2026.10.17 | etc/ の棚卸し。旧 tlp 設定（etc/default/tlp）と未使用の NetworkManager.conf を削除、/etc/default/tlp のリンクも削除、etc/README.md を新設 |
 | 2026.10.14 | README の整合性チェック。bin/README.md: dropbox-watch.pl を両機稼働の記述に修正、keepass.sh を keepassxc.sh に統一（/usr/local/bin の壊れたリンクも削除）、emacs-start.sh の節を追加、power-menu のキー番号を実物に合わせて訂正（5=XSRV BACKUP、6=NIGHT SUSPEND）。本README・cron/README.md: xsrv-backup の時刻を実際の crontab（07:00〜22:00 毎時 + 23:35）に、anacron 補完の記述を --check フォールバックに、cron-stop/cron-start を power-menu の 5 キーに、crontab の管理を crontab.p1/crontab.sub に合わせて修正。.gitignore にセッション用コピー（README_*.md・Makefile_*・*.bak）を追加 |
 | 2026.10.14 | dotfiles 棚卸し。zoom・texlive-full ターゲット、cron/Makefile.bak、.mutt/history の追跡、未使用フォント(Republica Minor・Ricty・UD デジタル教科書体・旧アイコンフォント群・DroidSansM・0バイトの Blex)を削除。Makefile 冒頭の更新コメントを整理、未使用の emacs.desktop を削除、.gitconfig の LFS・credential 設定を削除し defaultBranch を main に変更、elisp/img の画像を追跡から外した |
