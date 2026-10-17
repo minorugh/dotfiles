@@ -35,7 +35,7 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 ### `make git` の分岐（ホスト名で判定）
 
 - **P1（メイン機）**: `~/.env_source` 側の `make git` があれば呼び出し →
-  `git/env.hash` を書き出し → `add` → `commit`（差分があれば） →
+  `git/env.hash` を書き出し → `bin/changelog-rotate.sh` でトップ `README.md` の更新履歴を直近10件に保ち、超えた分を `CHANGELOG.md` へ移す → `add` → `commit`（差分があれば） →
   `env-remount` → `push`
 - **サブ機（X250・Let's note）**: push は行わず pull のみ。未commit の変更（未追跡を含む）は
   `git stash` で退避し、`git pull --ff-only` のあと、今回 stash を作ったときだけ

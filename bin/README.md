@@ -8,6 +8,11 @@ Emacs やデスクトップメニューから呼び出されます。
 
 ## スクリプト一覧
 
+### changelog-rotate.sh
+
+トップ `README.md` の更新履歴が10件を超えたとき、古い分を `CHANGELOG.md` へ移す。
+`git/Makefile` の `make git`（P1のみ）から `add` の前に呼ばれる。書式が想定外のときは何もせず警告のみ。
+
 ### emacs-toggle
 F12キーでEmacsの最小化・復元をトグルするスクリプト。
 

@@ -90,6 +90,7 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
 	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
+	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
 	cd $(DOTFILES_DIR) && git add -A
 	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
 	cd $(DOTFILES_DIR) && git push
