@@ -5,8 +5,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/src/github.com/minorugh/dotfiles}"
 README="$DOTFILES_DIR/README.md"
 CHANGELOG="$DOTFILES_DIR/CHANGELOG.md"
 KEEP=10
-OLD_FOOTER='これ以前の履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。'
-FOOTER='全履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。'
+FOOTER='※ 直近10件のみ掲載。全履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。'
 
 warn() {
     echo "changelog-rotate: $*" >&2
@@ -65,9 +64,6 @@ fi
 
 if grep -qxF -- "$FOOTER" "$README"; then
     :
-elif grep -qxF -- "$OLD_FOOTER" "$README"; then
-    awk -v o="$OLD_FOOTER" -v n="$FOOTER" '$0==o {print n; next} {print}' "$README" > "$out"
-    cat "$out" > "$README"
 else
     awk -v r="$lastrow" -v ft="$FOOTER" 'NR==r {print; print ""; print ft; next} {print}' "$README" > "$out"
     cat "$out" > "$README"

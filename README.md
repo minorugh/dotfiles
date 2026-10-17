@@ -326,4 +326,4 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 | 2026.08.29 | github-dropbox-cleanup ターゲット追加（GH/minorugh.com は git clone後 .git 以外の作業ファイルを自動削除。実体は~/Dropbox側にあり、gitdirポインタ経由で参照する構成のため） |
 | 2026.08.15 | night-suspend導入（深夜自動サスペンド、systemd --user timer、P1のみ）。RTCアラームによる自動復帰はハードウェア非対応のため断念し手動復帰運用に確定。power-menu.shにNIGHT SUSPENDトグル（5キー）追加、旧9キー（SSH minorugh.com）削除。dropbox-watch.plをP1でも有効化し両機共通運用に変更 |
 
-全履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。
+※ 直近10件のみ掲載。全履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。
