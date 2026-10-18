@@ -109,7 +109,7 @@ If region isn't selected, post from the buffer."
   :tag "local"
   :doc "Search ~/Dropbox/CHANGELOG interactively via search.pl (migemo対応)."
   :preface
-  (defvar my-changelog-dir "~/Dropbox/CHANGELOG/"
+  (defvar my-changelog-dir "~/Dropbox/backup/CHANGELOG/"
     "Changelog-*.md を管理しているディレクトリ.")
 
   (defvar my-changelog-search-script

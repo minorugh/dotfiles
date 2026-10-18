@@ -63,7 +63,7 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("L" (my-open "~/Dropbox/CHANGELOG"))
+   ("L" (my-open "~/Dropbox/backup/CHANGELOG/"))
    ("l" my-changelog-search)
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
