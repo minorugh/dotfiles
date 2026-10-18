@@ -230,6 +230,8 @@ alias upgrade='sudo apt -y upgrade'
 
 # crontab
 alias ce='crontab -e'
+alias clog='~/Dropbox/backup/CHANGELOG/search.pl'
+alias clog-index='~/Dropbox/backup/CHANGELOG/mkindex.pl'
 
 alias pm='power-menu.sh'
 
