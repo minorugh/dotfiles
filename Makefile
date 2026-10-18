@@ -271,9 +271,6 @@ neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショー
 	for item in mailcap certificates abook-add.sh; do \
 		ln -vsf {${PWD},${HOME}}/.mutt/$$item; \
 	done
-	if [ -d ${HOME}/.abook ] && [ ! -L ${HOME}/.abook ]; then \
-		mv ${HOME}/.abook ${HOME}/.abook.old.$$(date +%Y%m%d%H%M%S); \
-	fi
 	ln -vsfn ${ENV_SOURCE_DIR}/abook ${HOME}/.abook
 	$(call BIN_LINK,neomutt.sh,neomutt.sh)
 	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -n -t string -s "neomutt.sh"
