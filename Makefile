@@ -47,7 +47,7 @@ help:
 
 all: baseinstall nextinstall
 baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
-nextinstall: google-chrome filezilla gitk neomutt sxiv lepton printer hugo
+nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo
 
 SHELL = /bin/bash
 
@@ -258,11 +258,6 @@ filezilla: ## FileZilla のインストールと設定 + filezilla.sh のリン�
 	ln -vsf {${PWD},${HOME}/.local}/bin/filezilla.sh
 	chmod +x ${HOME}/.local/bin/filezilla.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/filezilla.desktop
-
-gitk: ## gitkのインストールと設定ファイル
-	$(APT) $@
-	mkdir -p ${HOME}/.config/git
-	sudo ln -vsfn ${PWD}/.config/git/gitk ${HOME}/.config/git/gitk
 
 neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショートカット登録
 	$(APT) $@ urlscan abook
