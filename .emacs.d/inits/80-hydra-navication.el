@@ -211,8 +211,47 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
            (args (if (string= arg "-s")
                      '("-s")
                    (list (format "--site=%s" arg)))))
-      (apply #'call-process "setsid" nil 0 nil "filezilla" args))))
+      (apply #'call-process "setsid" nil 0 nil "filezilla" args)))
 
+
+  ;; ------------------------------------------------------------
+  ;;  Changelog Search
+  ;;  Search CHANGELOG interactively via search.pl (migemo対応)
+  ;; ------------------------------------------------------------
+    (defvar my-changelog-dir "~/Dropbox/backup/CHANGELOG/"
+    "Changelog-*.md を管理しているディレクトリ.")
+
+  (defvar my-changelog-search-script
+    (expand-file-name "search.pl" my-changelog-dir)
+    "Changelog 全文検索用 Perl スクリプトのパス.")
+
+  (defvar my-changelog-search-history nil
+    "`my-changelog-search' の検索履歴。")
+
+  (defun my-changelog-search (query &optional case-sensitive)
+    "QUERY で ~/Dropbox/CHANGELOG 以下を全文検索してgrep-mode バッファに表示する,
+プレフィクス引数 (C-u) を付けると大文字小文字を区別する検索になる。
+カーソル位置の単語をデフォルト値として提案する。
+search.pl 側で migemo によるローマ字検索に対応済み。"
+    (interactive
+     (list (read-string
+            (format "Search changelog%s: "
+                    (if current-prefix-arg " (case-sensitive)" ""))
+            nil 'my-changelog-search-history
+            (thing-at-point 'word t))
+           current-prefix-arg))
+    (unless (file-exists-p my-changelog-search-script)
+      (user-error "Search.pl が見つかりません: %s" my-changelog-search-script))
+    (let* ((default-directory (expand-file-name my-changelog-dir))
+           (flag (if case-sensitive "-c" "-i"))
+           (bufname (format "*changelog-search: %s*" query))
+           (cmd (format "perl %s %s %s"
+                        (shell-quote-argument my-changelog-search-script)
+                        flag
+                        (shell-quote-argument query))))
+      (compilation-start cmd 'grep-mode (lambda (_mode) bufname))
+      (when-let ((win (get-buffer-window bufname t)))
+        (select-window win)))))
 
 ;; ============================================================
 ;;  Hydra Work  (俳句作業メニュー)
