@@ -8,6 +8,12 @@
 ## 【注意】~/xsrv-rsync.lock が存在する間はスキップする
 ## ローカルで動的ファイルを編集・deploy する際は lock を発行すること
 ## （Emacs の 60-xsrv-dired.el で自動連携）
+##
+## 【追加】*.dat は Dropbox の Web でプレビューできないため、
+## Dropbox/backup/xsrv/ に *.dat.txt のコピーを作る（内容が変わった時だけ）。
+## 対象は d_kukai / m_kukai / s_kukai / w_kukai の data/ 内の *.dat のみ。
+## 階層を浅くするため d_kukai/data/ → d_kukai.data/ のように保存する。
+## コピーは Dropbox/GH の git の外にあるので、履歴には影響しない。
 #######################################################################
 
 HOME=/home/minoru
@@ -18,6 +24,10 @@ XSRV_SSH="ssh -p 10022"
 XSRV_HOST="xsrv"
 XSRV_BASE="$XSRV_HOST:/home/minorugh/gospel-haiku.com/public_html"
 DST="$HOME/Dropbox/GH"
+PREVIEW="$HOME/Dropbox/backup/xsrv"
+## *.dat が UTF-8 / ASCII 以外の場合の元の文字コード（例: CP932 / EUC-JP）
+## 空のままなら変換せずそのままコピーする
+LEGACY_ENC=""
 ERRORS=0
 
 
@@ -74,6 +84,34 @@ for file in \
     w_kukai/_progfrag.dat; do
     run_rsync "$file" "$XSRV_BASE/${file}" "$DST/${file}"
 done
+
+# *.dat のプレビュー用コピーを作る（失敗しても本体の ERRORS には数えない）
+make_preview() {
+    local f dir out enc tmp updated=0
+    while IFS= read -r -d '' f; do
+        dir=$(dirname "$f")
+        out="$PREVIEW/${dir//\//.}/$(basename "$f").txt"
+        mkdir -p "$(dirname "$out")"
+        tmp=$(mktemp)
+        enc=$(file -b --mime-encoding "$DST/$f")
+        if [ -n "$LEGACY_ENC" ] && [ "$enc" != "us-ascii" ] && [ "$enc" != "utf-8" ]; then
+            iconv -f "$LEGACY_ENC" -t UTF-8 "$DST/$f" > "$tmp" 2>/dev/null || cp "$DST/$f" "$tmp"
+        else
+            cp "$DST/$f" "$tmp"
+        fi
+        if ! cmp -s "$tmp" "$out"; then
+            cp "$tmp" "$out" && updated=$((updated + 1))
+        fi
+        rm -f "$tmp"
+    done < <(cd "$DST" && find \
+        d_kukai/data m_kukai/data s_kukai/data w_kukai/data \
+        -type f -size +0 -name '*.dat' -print0 2>/dev/null)
+    log "preview: ${updated} updated"
+}
+
+if [ $ERRORS -eq 0 ]; then
+    make_preview
+fi
 
 # make -C "$DST" git >> /dev/null 2>&1 && log "git push: OK" || log "git push: ERROR"
 
