@@ -241,26 +241,6 @@ alias pm='power-menu.sh'
 ########################################
 # Functions
 ########################################
-# git-sync: 4 つのリポジトリについて、GitHub (origin) と xserver の HEAD が同じコミットか確認する
-# 一致なら OK、ずれ・通信失敗・pushurl 未設定なら NG をリポジトリ名ごとに 1 行出す
-# 前提: 各リポジトリで origin の pushurl の 2 つ目が xserver であること
-# 注意: HEAD は各 remote のデフォルトブランチ（main）を指す
-# 注意: git -C で各リポジトリを指定するので、どのディレクトリからでも実行できる
-# 注意: 前の alias gsync は削除すること（alias が残っていると関数より優先される）
-gsync() {
-    local d o x
-    echo "GitHub と xserver の同期チェック"
-    for d in ~/src/github.com/minorugh/GH ~/src/github.com/minorugh/minorugh.com ~/cl ~/i.minorugh.com; do
-	o=$(git -C $d ls-remote origin HEAD | cut -f1)
-	x=$(git -C $d ls-remote $(git -C $d config --get-all remote.origin.pushurl | tail -1) HEAD | cut -f1)
-	if [ -n "$o" ] && [ "$o" = "$x" ]; then
-	    printf "%-16s OK\n" ${d:t}
-	else
-	    printf "%-16s NG\n" ${d:t}
-	fi
-    done
-}
-
 # Remove Emacs byte-compiled cache files (*.elc) under elisp/ and inits/.
 # Does NOT touch elpa/ (installed packages) — only local/user config.
 # Used before troubleshooting Emacs configuration.
