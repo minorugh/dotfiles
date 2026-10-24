@@ -29,13 +29,13 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^^^  _._files^  make._b_._k_._m_._u_p  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_._w__S_  _<home>_^  h_o_wm_,_ md._v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^^^  _._files^  make._b_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_._w__S_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
    ("@" browse-at-remote)
-   ("t" open-tig)
+   ("T" open-tig)
    ("f" flymake-show-buffer-diagnostics)
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
@@ -54,7 +54,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
-   ;; ("c" (my-open "~/i.minorugh.com/"))
+   ("t" (my-make "tags"))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
@@ -79,10 +79,10 @@
   ;;  File / Directory Helpers
   ;; ------------------------------------------------------------
   (defun my-make (target &optional dir)
-    "Run make TARGET in DIR (default: current directory)."
+    "Run make TARGET in DIR (default: current directory) via make-run.sh.
+Targets marked ##! in the Makefile run in a terminal; others run in the compile buffer."
     (interactive "sTarget: ")
-    (let ((default-directory (expand-file-name (or dir default-directory))))
-      (compile (concat "make " target))))
+    (my-make-run-compile (expand-file-name (or dir default-directory)) target))
 
   (defun my-make-git ()
     "Run the main using `compile`, run everything else in the terminal."

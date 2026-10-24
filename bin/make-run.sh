@@ -29,6 +29,7 @@ if is_interactive && from_emacs; then
     # 終了コードは PIPESTATUS 経由でファイルへ書き出し、後で回収する
     # (gnome-terminal 自体の戻り値は make の終了コードと一致しない場合があるため)。
     gnome-terminal --wait -- bash -c "
+    	export MAKE_RUN_TERMINAL=1
         set -o pipefail
         {
             echo \"# make -C $DIR $TARGET\"

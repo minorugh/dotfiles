@@ -127,6 +127,16 @@
   :ensure t
   :mode "\\.php\\'")
 
+(leaf csv-mode
+  :ensure t
+  :defun ((csv-align-mode . csv-mode))
+  :hook (tsv-mode-hook . (lambda ()
+                           (csv-align-mode 1)
+                           (setq-local truncate-lines t)))
+  :config
+  (setq csv-align-max-width 80))
+
+
 ;; ============================================================
 ;;  User Commands
 ;; ============================================================
