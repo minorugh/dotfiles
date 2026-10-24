@@ -84,6 +84,12 @@ Targets marked ##! in the Makefile run in a terminal; others run in the compile 
     (interactive "sTarget: ")
     (my-make-run-compile (expand-file-name (or dir default-directory)) target))
 
+  ;; (defun my-make (target &optional dir)
+  ;;   "Run make TARGET in DIR (default: current directory)."
+  ;;   (interactive "sTarget: ")
+  ;;   (let ((default-directory (expand-file-name (or dir default-directory))))
+  ;;     (compile (concat "make " target))))
+
   (defun my-make-git ()
     "Run the main using `compile`, run everything else in the terminal."
     (interactive)
