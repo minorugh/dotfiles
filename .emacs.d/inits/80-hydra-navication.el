@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_  _._files^  make._c_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  ch_l_og  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^^^  _._files^  make._b_._k_._m_._u_p  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_._w__S_  _<home>_^  h_o_wm_,_ md._v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -54,7 +54,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
-   ("c" (my-make "clean"))
+   ;; ("c" (my-open "~/i.minorugh.com/"))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
@@ -63,8 +63,9 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("L" (my-open "~/Dropbox/backup/CHANGELOG/"))
-   ("l" my-changelog-search)
+   ("l" (my-open "~/cl/log/"))
+   ("w" (my-open "~/cl/"))
+   ("S" my-changelog-search)
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
@@ -218,7 +219,7 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
   ;;  Changelog Search
   ;;  Search CHANGELOG interactively via search.pl (migemo対応)
   ;; ------------------------------------------------------------
-    (defvar my-changelog-dir "~/Dropbox/backup/CHANGELOG/"
+  (defvar my-changelog-dir "~/cl/log/"
     "Changelog-*.md を管理しているディレクトリ.")
 
   (defvar my-changelog-search-script
@@ -277,8 +278,8 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    (:hint nil :exit t :body-pre (require 'insert-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  resize-_b_log
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  webp-to-_j_pg
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  i_._com
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  w2_j_pg
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
@@ -307,7 +308,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
-   ("b" my-resize-blog)
+   ("." (my-open "~/i.minorugh.com/"))
    ("j" my-webp-to-jpg)
    ("S" my-swan-new-post)
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
@@ -340,28 +341,13 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
     (interactive "p")
     (capitalize-word (- arg)))
 
-  (defun my-resize-blog ()
-    "Resize marked image(s) in Dired to blog size (max width 800px)."
-    (interactive)
-    (dolist (file (dired-get-marked-files))
-      (let* ((base (file-name-sans-extension file))
-             (ext (file-name-extension file))
-             (output (format "%s_blog.%s" base ext)))
-	(call-process "convert" nil nil nil
-                      file
-                      "-resize" "800x>"
-                      "-strip"
-                      "-quality" "85"
-                      output)))
-    (revert-buffer))
-
   (defun my-webp-to-jpg ()
     "Convert marked WebP file(s) in Dired to JPG."
     (interactive)
     (dolist (file (dired-get-marked-files))
       (let* ((base (file-name-sans-extension file))
              (output (concat base ".jpg")))
-	(call-process "convert" nil nil nil
+        (call-process "convert" nil nil nil
                       file
                       "-strip"
                       "-quality" "85"

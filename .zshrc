@@ -211,6 +211,8 @@ alias xsrv='ssh xsrv'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
 alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
 alias ifconfig='/sbin/ifconfig'
+# alias ig='CHROMIUM=google-chrome-stable sh ~/Dropbox/minorugh.com/i/open_public.sh &'
+alias ig='CHROMIUM=chromium sh ~/i.minorugh.com/open_public.sh &'
 
 # OS-specific
 if [[ -f /etc/arch-release ]]; then

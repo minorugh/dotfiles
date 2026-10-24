@@ -145,6 +145,7 @@ invoked remotely via `emacsclient -e'."
 ;; ============================================================
 
 (leaf *make-run
+  :bind (("C-c g" . cl-make-git))
   :preface
   (defun my-make--command (dir target)
     "Build the shell command string that runs TARGET in DIR via make-run.sh."
@@ -157,6 +158,23 @@ invoked remotely via `emacsclient -e'."
 Use this for interactively picked targets (e.g. the ivy picker), where
 a plain (non ##!) target's output should stream live into *compilation*."
     (compile (my-make--command dir target)))
+
+  (defun cl-make-git ()
+    "~/cl で make git を実行する（~/cl 配下のバッファから呼ぶ）。
+実行前に ~/cl 配下の未保存バッファを保存する。"
+    (interactive)
+    (let* ((root (file-name-as-directory (expand-file-name "~/cl")))
+           (here (expand-file-name (or buffer-file-name default-directory)))
+           (default-directory root))
+      (unless (string-prefix-p root here)
+        (user-error "~/cl 配下ではありません: %s" here))
+      (save-some-buffers
+       t (lambda ()
+           (and buffer-file-name
+                (string-prefix-p root
+                                 (expand-file-name buffer-file-name)))))
+      (let ((compilation-ask-about-save nil))
+        (compile "make git"))))
 
   (defun my-make-run-async (dir target)
     "Fire-and-forget: run TARGET in DIR via make-run.sh in the background,
@@ -215,16 +233,6 @@ even though no real `compile' process is involved."
                        (not buffer-read-only))
               (read-only-mode 1)
               (evil-normal-state))))))))
-
-;; (defun my-makefile-buffer-list-update-hook ()
-;;   "カレントから外れた Makefile バッファを自動 read-only に戻す."
-;;   (dolist (buf (buffer-list))
-;;     (unless (eq buf (current-buffer))
-;;    (with-current-buffer buf
-;;         (when (and (derived-mode-p 'makefile-mode)
-;;                    (not buffer-read-only))
-;;           (read-only-mode 1)
-;;           (evil-normal-state)))))))
 
 
 ;; ============================================================
@@ -346,8 +354,8 @@ E.g. (\"Makefile\" \"dotfiles\") -> \"Makefile_dotfiles\"
     "Create BASEFILE's DIRNAME-suffixed variant if absent; apply it
 back into BASEFILE (backing up the old one as BASEFILE.bak) if newer."
     (let* ((dir (if (derived-mode-p 'dired-mode)
-                     (dired-current-directory)
-                   default-directory))
+                    (dired-current-directory)
+                  default-directory))
            (dirname (file-name-nondirectory (directory-file-name dir)))
            (src (expand-file-name basefile dir))
            (variant-name (my-copy-apply--variant-name basefile dirname))
@@ -360,7 +368,7 @@ back into BASEFILE (backing up the old one as BASEFILE.bak) if newer."
         (copy-file src variant t)
         (message "コピーしました: %s" variant-name))
        ((time-less-p (file-attribute-modification-time (file-attributes src))
-                      (file-attribute-modification-time (file-attributes variant)))
+                     (file-attribute-modification-time (file-attributes variant)))
         (rename-file src bak t)
         (rename-file variant src t)
         (message "反映しました: %s ← %s（旧版は %s）"

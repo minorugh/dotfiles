@@ -123,6 +123,9 @@
                   ("/Makefile_[^/]*\\'"      . makefile-gmake-mode)))
     (add-to-list 'auto-mode-alist pair)))
 
+(leaf php-mode
+  :ensure t
+  :mode "\\.php\\'")
 
 ;; ============================================================
 ;;  User Commands
