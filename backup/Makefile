@@ -48,6 +48,14 @@ keychron-rules-backup: ## Keychron udevルールを Dropbox にバックアッ�
 
 READMES_DIR := ${HOME}/Dropbox/backup/READMES
 
+gsync: ## GitHub と xserver の HEAD が一致しているか確認（4 リポジトリ）
+	@for d in $$HOME/src/github.com/minorugh/GH $$HOME/src/github.com/minorugh/minorugh.com $$HOME/cl $$HOME/i.minorugh.com; do \
+		o=$$(git -C $$d ls-remote origin HEAD | cut -f1); \
+		x=$$(git -C $$d ls-remote $$(git -C $$d config --get-all remote.origin.pushurl | tail -1) HEAD | cut -f1); \
+		if [ -n "$$o" ] && [ "$$o" = "$$x" ]; then echo "$$(basename $$d) OK"; else echo "$$(basename $$d) NG"; ng=1; fi; \
+	done; \
+	[ -z "$$ng" ]
+
 readmes-backup: ## 各所のREADMEを$(READMES_DIR)にコピー
 	@mkdir -p $(READMES_DIR)
 	@cp ${HOME}/src/github.com/minorugh/env-import/README.md       $(READMES_DIR)/00-env-import-README.md

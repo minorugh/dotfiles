@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-07-10
+更新日: 2026-10-24
 
 ---
 
@@ -52,6 +52,7 @@ backup/
 [autobackup] zsh-history: OK
 [autobackup] filezilla: OK
 [autobackup] readmes: OK
+[autobackup] gsync: OK
 [autobackup] END: 2026-04-06 23:50:30 (OK)
 ```
 
@@ -94,6 +95,7 @@ keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
 readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
+gsync:              # GitHub と xserver の HEAD が一致しているか確認（4 リポジトリ）
 ```
 
 #### バックアップ対象詳細
@@ -106,6 +108,16 @@ readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー
 | `zsh-history-backup` | `~/Dropbox/backup/env/zsh/` |
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |
+| `gsync` | なし（確認のみ。コピーはしない） |
+
+#### gsync（GitHub と xserver の同期チェック）
+
+- 対象は GH・minorugh.com・cl・i.minorugh.com の4リポジトリ（`~/src/github.com/minorugh/GH`、`~/src/github.com/minorugh/minorugh.com`、`~/cl`、`~/i.minorugh.com`）
+- 各リポジトリで、`origin` の HEAD と、`remote.origin.pushurl` の2つ目（xserver）の HEAD を `git ls-remote` で比べる。前提は、`pushurl` を GitHub と xserver の2本登録していること
+- 全部一致なら終了コード 0。ずれ・通信失敗・`pushurl` 未設定のどれかがあれば、そのリポジトリを `NG` と表示して終了コード 1 になる（空と空は一致扱いにしない）
+- `autobackup.sh` が最後に `run_target "gsync" gsync` で呼ぶ。NG なら ERROR として `/tmp/cron.log` に残り、成功フラグは更新されない
+- 手動では `backup/` で `make gsync`
+- 確認するのは HEAD（main）だけ。リポジトリを増やすときは Makefile の `for` の行にパスを足す
 
 ---
 

@@ -30,31 +30,31 @@ zshaddhistory() {
     local line=${1%%$'\n'}
     local cmd=${line%% *}
     [[ ${#line} -ge 5
-       && ${cmd} != ll
-       && ${cmd} != ls
-       && ${cmd} != la
-       && ${cmd} != cd
-       && ${cmd} != man
-       && ${cmd} != scp
-       && ${cmd} != vim
-       && ${cmd} != nvim
-       && ${cmd} != less
-       && ${cmd} != ping
-       && ${cmd} != open
-       && ${cmd} != file
-       && ${cmd} != which
-       && ${cmd} != whois
-       && ${cmd} != drill
-       && ${cmd} != uname
-       && ${cmd} != md5sum
-       && ${cmd} != pacman
-       && ${cmd} != blog-jpg
-       && ${cmd} != xdg-open
-       && ${cmd} != mpv-music
-       && ${cmd} != mpv-video
-       && ${cmd} != traceroute
-       && ${cmd} != speedtest-cli
-    ]]
+	   && ${cmd} != ll
+	   && ${cmd} != ls
+	   && ${cmd} != la
+	   && ${cmd} != cd
+	   && ${cmd} != man
+	   && ${cmd} != scp
+	   && ${cmd} != vim
+	   && ${cmd} != nvim
+	   && ${cmd} != less
+	   && ${cmd} != ping
+	   && ${cmd} != open
+	   && ${cmd} != file
+	   && ${cmd} != which
+	   && ${cmd} != whois
+	   && ${cmd} != drill
+	   && ${cmd} != uname
+	   && ${cmd} != md5sum
+	   && ${cmd} != pacman
+	   && ${cmd} != blog-jpg
+	   && ${cmd} != xdg-open
+	   && ${cmd} != mpv-music
+	   && ${cmd} != mpv-video
+	   && ${cmd} != traceroute
+	   && ${cmd} != speedtest-cli
+     ]]
 }
 
 unsetopt extended_history
@@ -211,6 +211,7 @@ alias xsrv='ssh xsrv'
 alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
 alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
 alias ifconfig='/sbin/ifconfig'
+
 # alias ig='CHROMIUM=google-chrome-stable sh ~/Dropbox/minorugh.com/i/open_public.sh &'
 alias ig='CHROMIUM=chromium sh ~/i.minorugh.com/open_public.sh &'
 
@@ -240,6 +241,26 @@ alias pm='power-menu.sh'
 ########################################
 # Functions
 ########################################
+# git-sync: 4 つのリポジトリについて、GitHub (origin) と xserver の HEAD が同じコミットか確認する
+# 一致なら OK、ずれ・通信失敗・pushurl 未設定なら NG をリポジトリ名ごとに 1 行出す
+# 前提: 各リポジトリで origin の pushurl の 2 つ目が xserver であること
+# 注意: HEAD は各 remote のデフォルトブランチ（main）を指す
+# 注意: git -C で各リポジトリを指定するので、どのディレクトリからでも実行できる
+# 注意: 前の alias gsync は削除すること（alias が残っていると関数より優先される）
+gsync() {
+    local d o x
+    echo "GitHub と xserver の同期チェック"
+    for d in ~/src/github.com/minorugh/GH ~/src/github.com/minorugh/minorugh.com ~/cl ~/i.minorugh.com; do
+	o=$(git -C $d ls-remote origin HEAD | cut -f1)
+	x=$(git -C $d ls-remote $(git -C $d config --get-all remote.origin.pushurl | tail -1) HEAD | cut -f1)
+	if [ -n "$o" ] && [ "$o" = "$x" ]; then
+	    printf "%-16s OK\n" ${d:t}
+	else
+	    printf "%-16s NG\n" ${d:t}
+	fi
+    done
+}
+
 # Remove Emacs byte-compiled cache files (*.elc) under elisp/ and inits/.
 # Does NOT touch elpa/ (installed packages) — only local/user config.
 # Used before troubleshooting Emacs configuration.
@@ -391,9 +412,9 @@ function mklink-readme() {
 ########################################
 # zsh-syntax-highlighting: sudo apt install zsh-syntax-highlighting
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # gh コマンド補完

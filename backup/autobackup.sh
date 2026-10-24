@@ -65,6 +65,7 @@ run_target "zsh-history" zsh-history-backup
 run_target "filezilla"   filezilla-backup
 run_target "keychron-rules" keychron-rules-backup
 run_target "readmes"     readmes-backup
+run_target "gsync"       gsync
 
 rm -f "$TMPLOG"
 
