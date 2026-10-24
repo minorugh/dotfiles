@@ -454,7 +454,7 @@ docker-setup: polkit ## 【Step1】polkit設定
 ########################################################
 .PHONY: git git-fix
 
-git: ##! Auto commit+push（詳細は git/Makefile 参照）
+git: ## Auto commit+push（詳細は git/Makefile 参照）
 	$(MAKE) -s -C git git
 
 git-fix: ## rebase失敗時の自動修復
