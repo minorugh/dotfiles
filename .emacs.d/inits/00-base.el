@@ -123,20 +123,6 @@
                   ("/Makefile_[^/]*\\'"      . makefile-gmake-mode)))
     (add-to-list 'auto-mode-alist pair)))
 
-(leaf php-mode
-  :ensure t
-  :mode "\\.php\\'")
-
-(leaf csv-mode
-  :ensure t
-  :hook (tsv-mode-hook . my-csv-mode-setup)
-  :config
-  (setq csv-align-max-width 80)
-
-  (defun my-csv-mode-setup ()
-    (csv-align-mode 1)
-    (setq-local truncate-lines t)))
-
 
 ;; ============================================================
 ;;  User Commands

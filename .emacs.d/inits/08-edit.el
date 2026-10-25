@@ -6,7 +6,6 @@
 ;; ============================================================
 ;;  Expand Region
 ;; ============================================================
-
 (leaf expand-region
   :ensure t
   :bind (("C-@"   . er/expand-region)
@@ -16,7 +15,6 @@
 ;; ============================================================
 ;;  Auto Save
 ;; ============================================================
-
 (leaf super-save
   :ensure t
   :doc "Smart auto-save buffers on focus loss and idle."
@@ -31,7 +29,6 @@
 ;; ============================================================
 ;;  Undo
 ;; ============================================================
-
 (leaf undo-fu
   :ensure t
   :bind (("C-_" . undo-fu-only-undo)
@@ -43,11 +40,9 @@
   :config
   (setq undo-fu-session-directory (locate-user-emacs-file "tmp/undo-session")))
 
-
 ;; ============================================================
 ;;  Diff / Ediff
 ;; ============================================================
-
 (leaf ediff
   :tag "builtin"
   :doc "Side-by-side diff editing."
@@ -56,11 +51,9 @@
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-diff-options          "-twB"))
 
-
 ;; ============================================================
 ;;  Electric Modes
 ;; ============================================================
-
 (leaf elec-pair
   :tag "builtin"
   :doc "Auto-pair parentheses.  Disabled in text-mode (yasnippet handles it)."
@@ -83,11 +76,9 @@
       (indent-region (point-min) (point-max))
       (message "Untabified and indented buffer."))))
 
-
 ;; ============================================================
 ;;  Sequential C-a / C-e
 ;; ============================================================
-
 (defvar my-seq--count 0)
 (defvar my-seq--start nil)
 
@@ -125,11 +116,26 @@
 (my-define-seq-command my-seq-end
                        end-of-line end-of-buffer my-seq-return)
 
+;; ============================================================
+;;  Major Modes for Editing
+;; ============================================================
+(leaf php-mode
+  :ensure t
+  :mode "\\.php\\'")
+
+(leaf csv-mode
+  :ensure t
+  :hook (tsv-mode-hook . my-csv-mode-setup)
+  :config
+  (setq csv-align-max-width 80)
+
+  (defun my-csv-mode-setup ()
+    (csv-align-mode 1)
+    (setq-local truncate-lines t)))
 
 ;; ============================================================
 ;;  Revert Buffer
 ;; ============================================================
-
 (defun my-revert-buffer ()
   "Revert current buffer without confirmation."
   (interactive)
