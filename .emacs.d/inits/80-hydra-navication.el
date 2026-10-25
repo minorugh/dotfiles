@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^^^  _._files^  make._b_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_._w__S_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_.i_c_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -63,9 +63,8 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("l" (my-open "~/cl/log/"))
-   ("w" (my-open "~/cl/"))
-   ("S" my-changelog-search)
+   ("l" (my-open "~/cl/"))
+   ("c" (my-open "~/i.minorugh.com/"))
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
@@ -279,7 +278,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    (:hint nil :exit t :body-pre (require 'insert-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  i_._com
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
   _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  w2_j_pg
 "
    ("+" text-scale-adjust)
@@ -309,7 +308,6 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
-   ("." (my-open "~/i.minorugh.com/"))
    ("j" my-webp-to-jpg)
    ("S" my-swan-new-post)
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
