@@ -129,12 +129,13 @@
 
 (leaf csv-mode
   :ensure t
-  :defun ((csv-align-mode . csv-mode))
-  :hook (tsv-mode-hook . (lambda ()
-                           (csv-align-mode 1)
-                           (setq-local truncate-lines t)))
+  :hook (tsv-mode-hook . my-csv-mode-setup)
   :config
-  (setq csv-align-max-width 80))
+  (setq csv-align-max-width 80)
+
+  (defun my-csv-mode-setup ()
+    (csv-align-mode 1)
+    (setq-local truncate-lines t)))
 
 
 ;; ============================================================
@@ -193,6 +194,6 @@
 
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 ;;; 00-base.el ends here
