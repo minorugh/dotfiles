@@ -54,7 +54,7 @@
    ("j" (my-open "~/Dropbox/minorugh.com/"))
    ("s" (my-open "~/src/"))
    ("/" (my-open "/" :omit))
-   ("t" (my-make "tags"))
+   ("t" (my-make-run-compile default-directory "tags"))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
@@ -78,23 +78,18 @@
   ;; ------------------------------------------------------------
   ;;  File / Directory Helpers
   ;; ------------------------------------------------------------
-  (defun my-make (target &optional dir)
-    "Run make TARGET in DIR (default: current directory) via make-run.sh.
-Targets marked ##! in the Makefile run in a terminal; others run in the compile buffer."
-    (interactive "sTarget: ")
-    (my-make-run-compile (expand-file-name (or dir default-directory)) target))
 
-  ;; (defun my-make (target &optional dir)
-  ;;   "Run make TARGET in DIR (default: current directory)."
-  ;;   (interactive "sTarget: ")
-  ;;   (let ((default-directory (expand-file-name (or dir default-directory))))
-  ;;     (compile (concat "make " target))))
+  (defun my-make (target &optional dir)
+    "Run make TARGET in DIR (default: current directory)."
+    (interactive "sTarget: ")
+    (let ((default-directory (expand-file-name (or dir default-directory))))
+      (compile (concat "make " target))))
 
   (defun my-make-git ()
     "Run the main using `compile`, run everything else in the terminal."
     (interactive)
     (if my-main-machine-p
-        (my-make "git")
+        (compile "make git")
       (my-make-run-async default-directory "git")))
 
   ;; ------------------------------------------------------------
