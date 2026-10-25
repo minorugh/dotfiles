@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=cl edit
+Comment=cl の「編集」リンクから Emacs でログを開く
+Exec=/home/minoru/cl/src/cl-edit %u
+NoDisplay=true
+Terminal=false
+MimeType=x-scheme-handler/cl-edit;

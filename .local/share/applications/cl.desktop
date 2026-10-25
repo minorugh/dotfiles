@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=cl（CHANGELOG）
+Comment=cl.minorugh.com を認証つきで開く
+Exec=make -C /home/minoru/cl up
+Icon=/home/minoru/Dropbox/backup/icons/icons/cl.png
+Terminal=false
+Categories=Network;
+Path=
+StartupNotify=false
