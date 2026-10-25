@@ -83,7 +83,7 @@ env-check: ## env/ の失効（非マウント/空）を検知して自動復旧
 		echo "##> ✗ env/ の復旧に失敗しました。手動で確認してください"; \
 	fi
 
-git: ##! Auto commit+push (main only, sub: pull only)
+git: ## Auto commit+push (main only, sub: pull only)
 	-@$(MAKE) -s env-check
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
