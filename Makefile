@@ -47,7 +47,7 @@ help:
 
 all: baseinstall nextinstall
 baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
-nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo
+nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
 
@@ -285,6 +285,15 @@ lepton: ## Lepton（Gist クライアント）のインストール
 	sudo snap install snapd
 	sudo snap install lepton
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
+
+launcher: ## cl・i.minorugh.com のメニュー用ランチャーのリンク作成（メイン機のみ。make up を呼ぶ）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	mkdir -p ${HOME}/.local/share/applications
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/cl.desktop
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/i-minorugh.desktop
+else
+	@echo "$(HOSTNAME): サブ機ではランチャーを作りません（cl・i.minorugh.com はメイン機 P1 で使います）"
+endif
 
 printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2375DW）
 	sudo apt install -y cups cups-browsed
