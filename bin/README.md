@@ -66,6 +66,28 @@ P1では`night-suspend.sh`による毎晩のサスペンドからの復帰時に
 
 経緯: 元々はx250専用として作成し、2026-08-15以降にP1でも有効化した。
 
+### dropbox-restart.sh
+ログイン時に Dropbox のトレイアイコンが出ない問題への対策。`.autostart.sh` から呼ばれる。
+
+新しい Dropbox（2026-10〜）はトレイに AppIndicator を必須とし、起動時の判定に
+失敗するとアイコンが出ない（同期は動く）。ログイン直後は xfce4-panel のトレイが
+未準備で、その時点で起動した Dropbox が失敗する（推定）。`dropbox.desktop` は
+Dropbox が起動のたびに再生成するため、起動を遅らせる設定は戻される。
+そこでパネルのトレイ（StatusNotifier host）の登録を待ち、Dropbox を止め、
+停止を確認してから起動し直す。
+
+`dropbox stop` は完了まで数秒かかるため、固定の sleep ではなく `pgrep` で
+停止を確認してから `dropbox start -i` を実行する。公式サポート外の
+Debian + Xfce4 で必要で、Dropbox 側が修正されたら不要になる。
+サスペンド復帰時の再起動は `dropbox-watch.pl` が担当する。
+
+```bash
+/usr/local/bin/dropbox-restart.sh → bin/dropbox-restart.sh
+```
+
+- ログ: `~/.cache/dropbox-restart.log`（待ち完了時刻と start の実行が残る。待ち中の ServiceUnknown エラーは想定内）
+- クリーンリストア: `make dropbox-restart`（`make autostart` の前提に組込済み）
+
 ### filezilla.sh
 FileZilla をバックグラウンドで起動するラッパー。
 
@@ -178,4 +200,5 @@ make-run.sh <dir> <target...>
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
 | dropbox-watch.pl | `make dropbox-watch` |
+| dropbox-restart.sh | `make dropbox-restart` |
 | night-suspend.sh | `make night-suspend` |
