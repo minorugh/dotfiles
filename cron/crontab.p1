@@ -1,4 +1,4 @@
-# 2026-10-19 update
+# 2026-10-29 update
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -46,4 +46,6 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 
+# KeePassXC master.kdbx の Google ドライブへの毎日自動バックアップ
+0 21 * * * rclone copy /home/minoru/Dropbox/backup/keepassxc/master.kdbx minorugh:KeePass_Backup/
 

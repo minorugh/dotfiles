@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-10-29
+# Updated : 2026-10-31
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -12,6 +12,7 @@
 # 4. Emacs を起動し xdotool で最小化（--iconic はちらつくため非採用）
 # 5. neomutt を tmux セッションで起動（古いセッションをクリアしてから）
 # 6. X スクリーンセーバー・DPMS タイマー無効化（xscreensaver 削除後のフリッカ対策）
+# 7. Dropbox を15秒後に再起動（トレイアイコンが出ない対策）
 #
 # 依存: secret-tool, rsync, xdotool, keepassxc
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
@@ -45,3 +46,6 @@ tmux set -t mail status off
 # xscreensaver 削除後に X 本体の timeout（デフォルト600秒）が直接発火しフリッカが起きるため
 xset s off
 xset dpms 0 0 0
+
+# Dropbox のトレイアイコン対策（理由は dropbox-restart.sh を参照）
+dropbox-restart.sh >> ~/.cache/dropbox-restart.log 2>&1 &

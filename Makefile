@@ -46,7 +46,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run kdb-pass tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
@@ -85,6 +85,17 @@ else
 	@echo "これはサブ機専用の処理です"
 endif
 
+rclone: ## Google ドライブ連携用の rclone 初期認証（ブラウザが起動します）
+	sudo apt update && sudo apt install -y rclone
+	@echo "--------------------------------------------------------"
+	@echo "自動的にブラウザが開きます。Googleアカウントでログインし、"
+	@echo "アクセスを【許可】してください。"
+	@echo "--------------------------------------------------------"
+	sleep 2
+	rclone config create minorugh drive scope=drive
+	@echo "✓ 認証が完了しました。Googleドライブにテストフォルダを作成します。"
+	rclone mkdir minorugh:KeePass_Backup
+
 ########################################################
 ## システム設定（キーマップ・起動・cron）
 ########################################################
@@ -109,7 +120,7 @@ grub: ## grub・lightdm・logind の設定（メイン機のみ）
 	sudo update-grub2
 endif
 
-autostart: emacs-start ## GUI起動時の自動処理設定（mozc・keyring 復元、Emacs・neomutt 起動）
+autostart: emacs-start dropbox-restart ## GUI起動時の自動処理設定（mozc・keyring 復元、Emacs・neomutt 起動）
 	ln -vsf {${PWD},${HOME}}/.autostart.sh
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
@@ -126,6 +137,9 @@ emacs-toggle: ## emacs-toggle のリンク作成 + F12ショートカット登�
 emacs-start: ## emacs-start.sh のリンク作成（autostart.sh から呼ばれる起動ラッパー）
 	$(call BIN_LINK,emacs-start.sh,emacs-start.sh)
 
+dropbox-restart: ## dropbox-restart.sh のリンク作成（autostart.sh から呼ばれる、トレイアイコン対策の再起動）
+	$(call BIN_LINK,dropbox-restart.sh,dropbox-restart.sh)
+
 power-menu: ## power-menu.sh のリンク作成 + 全角半角ショートカット登録（電源メニュー）
 	$(call BIN_LINK,power-menu.sh,power-menu.sh)
 	xfconf-query -c xfce4-keyboard-shortcuts \
@@ -138,6 +152,9 @@ tile-toggle: ## tile-toggle.sh のリンク作成 + F15ショートカット登�
 
 make-run: ## make-run.sh のリンク作成（Emacs経由のmake実行を安全化）
 	$(call BIN_LINK,make-run.sh,make-run.sh)
+
+kdb-pass: ## kdb-pass.sh のリンク作成（キーリング更新と Dropbox への反映を続けて実行）
+	$(call BIN_LINK,kdb-pass.sh,kdb-pass.sh)
 
 .PHONY: cron automerge autobackup
 
@@ -387,9 +404,9 @@ keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.
 	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
 # 初回セットアップ時に一度だけ実行してパスワードを登録する:
-#   sudo secret-tool store --label "KeePassXC master password" type kbd
+#   kdb-pass.sh
 # 以降は以下で起動可能:
-#   secret-tool lookup type kdb | keepassxc --pw-stdin /path/to/keepassxc.kdb
+#   secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx
 
 google-earth: ##! Google Earth のインストール
 	cd ${HOME}/Downloads && \
