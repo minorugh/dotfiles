@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-10-31
+# Updated : 2026-11-01
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -27,7 +27,7 @@ cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 
 # KeePassXC を起動する。keyring の復元後でないと secret-tool が引けない
 # 終了まで戻らないので & で background にする
-secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx &
+keepassxc.sh &
 
 # Emacs を起動し、表示されたウィンドウを xdotool で最小化する
 # --iconic だとちらつくため、起動後に windowminimize で対処

@@ -205,9 +205,6 @@
     (start-process-shell-command
      "keepassxc-restart" nil
      "pkill -x keepassxc; while pgrep -x keepassxc > /dev/null; do sleep 1; done; keepassxc.sh")
-    ;; (start-process-shell-command
-    ;;  "keepassxc-restart" nil
-    ;;  "pkill -x keepassxc; while pgrep -x keepassxc > /dev/null; do sleep 1; done; secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx")
     (message "ENV RECOVERED: xmodmap, dropbox, keepassxc"))
 
   (defun keepassxc ()
