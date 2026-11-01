@@ -191,10 +191,11 @@
     (my-make-ivy-integrated))
 
   (defun my-env-recover ()
-    "Reload xmodmap."
+    "Reload xmodmap and restart Dropbox."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-    (message "ENV RECOVERED: xmodmap"))
+    (start-process "dropbox-restart" nil "dropbox-restart.sh")
+    (message "ENV RECOVERED: xmodmap, dropbox"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."

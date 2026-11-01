@@ -52,7 +52,7 @@ P1では`night-suspend.sh`による毎晩のサスペンドからの復帰時に
 プロセスが死んだ場合はsystemdの`Restart=always`が自動的に再起動する
 （`RestartSec=5`）。それ以外の失速パターン（D-Bus購読だけが内部的に
 死ぬ等）への対策は、実運用で発生実績がないため見送っている。
-なお Emacs の `my-env-recover`（`<henkan>`→`x`）は xmodmap の再読込のみで、dropbox の再起動は行わない。
+なお Emacs の `my-env-recover`（`<henkan>`→`x`）は xmodmap の再読込に加え、復帰後にトレイアイコンが消えたときの手動復旧として dropbox を再起動する（自動では行わない）。
 
 `/usr/local/bin`等へのリンクは作らず、systemd --userサービスとして
 `~/.config/systemd/user/dropbox-watch.service`からdotfilesリポジトリ内の
