@@ -1,0 +1,10 @@
+[Unit]
+Description=Restart KeePassXC after suspend
+After=suspend.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/minoru/src/github.com/minorugh/dotfiles/bin/keepassxc-resume.sh
+
+[Install]
+WantedBy=suspend.target
