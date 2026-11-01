@@ -190,12 +190,22 @@
     (find-file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
     (my-make-ivy-integrated))
 
+  ;; (defun my-env-recover ()
+  ;;   "Reload xmodmap and restart Dropbox."
+  ;;   (interactive)
+  ;;   (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
+  ;;   (start-process "dropbox-restart" nil "dropbox-restart.sh")
+  ;;   (message "ENV RECOVERED: xmodmap, dropbox"))
+
   (defun my-env-recover ()
-    "Reload xmodmap and restart Dropbox."
+    "Reload xmodmap, restart Dropbox and KeePassXC."
     (interactive)
     (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
     (start-process "dropbox-restart" nil "dropbox-restart.sh")
-    (message "ENV RECOVERED: xmodmap, dropbox"))
+    (start-process-shell-command
+     "keepassxc-restart" nil
+     "pkill -x keepassxc; while pgrep -x keepassxc > /dev/null; do sleep 1; done; secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx")
+    (message "ENV RECOVERED: xmodmap, dropbox, keepassxc"))
 
   (defun keepassxc ()
     "Open KeePassXC via keepass.sh, detached from Emacs."
