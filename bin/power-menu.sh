@@ -5,12 +5,11 @@
 # xfce keyboard shortcut: gnome-terminal --window -- bash -c "power-menu.sh"
 #
 # x250: SLEEP/POWEROFF/REBOOT
-# P1  : 上記 + VE/XSRV BACKUP/NIGHT SUSPEND/PEEK ENV_GPG/SSH XSRV/SSH GH/docker
+# P1  : 上記 + VE/XSRV BACKUP/SUSPEND/PEEK ENV_GPG/SSH XSRV/SSH GH/docker
 # Enter: emacsプロセスをkill / ESC: キャンセル
 
 # ═══════════════ 環境設定 ═══════════════
 XSRV_STOP="$HOME/.xsrv-backup-stop"
-NIGHT_SUSPEND_TIMER="night-suspend.timer"
 MAIN_HOSTNAME="P1"
 EMACS_ELC_DIRS=("$HOME/.emacs.d/elisp" "$HOME/.emacs.d/inits")
 HOME_ROOT="/home/minorugh/"
@@ -51,14 +50,8 @@ action_xsrv_backup() {
     fi
     sleep 1; kill "$PPID"
 }
-action_night_suspend() {
-    if systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER"; then
-        systemctl --user disable --now "$NIGHT_SUSPEND_TIMER"
-        echo "night-suspend: stopped."
-    else
-        systemctl --user enable --now "$NIGHT_SUSPEND_TIMER"
-        echo "night-suspend: started."
-    fi
+action_suspend() {
+    systemctl suspend
     sleep 1; kill "$PPID"
 }
 action_peek_env() { ~/.env_source/check-backup.sh; kill "$PPID"; }
@@ -68,8 +61,6 @@ action_docker()   { exec docker exec -it httpd /bin/bash; }
 
 status_badge() { [[ "$1" == run ]] && echo $'\e[32m[RUNNING]\e[0m' || echo $'\e[31m[STOPPED]\e[0m'; }
 [[ -f "$XSRV_STOP" ]] && BACKUP_STATUS=$(status_badge stop) || BACKUP_STATUS=$(status_badge run)
-systemctl --user is-active --quiet "$NIGHT_SUSPEND_TIMER" \
-    && NIGHT_STATUS=$(status_badge run) || NIGHT_STATUS=$(status_badge stop)
 
 # 共通の基本3項目（x250はここまで）
 LABELS=("SLEEP" "POWEROFF" "REBOOT")
@@ -83,13 +74,13 @@ if [[ "$HOSTNAME" == "$MAIN_HOSTNAME" ]]; then
     LABELS+=(
         "VE"
         "XSRV BACKUP $BACKUP_STATUS"
-        "NIGHT SUSPEND $NIGHT_STATUS"
+        "SUSPEND"
         "PEEK ENV_GPG"
         "SSH XSRV"
         "SSH GH"
         "SH docker/httpd"
     )
-    ACTIONS+=(action_ve action_xsrv_backup action_night_suspend action_peek_env action_ssh_xsrv action_ssh_gh action_docker)
+    ACTIONS+=(action_ve action_xsrv_backup action_suspend action_peek_env action_ssh_xsrv action_ssh_gh action_docker)
 fi
 
 # ═══════════════ P1/x250 共通設定（メニュー構築〜実行） ═══════════════
