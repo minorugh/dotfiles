@@ -37,7 +37,6 @@
 35 23 * * * /usr/local/bin/xsrv-backup.sh
 
 # Emacs ゴミ箱をシステムゴミ箱へ移送（毎月1日 23:45）
-45 23 1 * * /usr/local/bin/emacs-trash-sweep.sh >> /tmp/cron.log 2>&1
 
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
@@ -165,23 +164,6 @@ lock ファイルを発行する。Emacs の `60-xsrv-dired.el` と `tempbuf.el`
 
 ---
 
-### 3.4 emacs-trash-sweep.sh (毎月1日 23:45)
-
-- Emacs 専用ゴミ箱（`~/.emacs.d/tmp/trash`）をシステムゴミ箱へ移送する
-- howm メモの削除・dired からの削除が対象
-- ゴミ箱が空の場合は `nothing to sweep` をログに記録して終了
-- 実体は `dotfiles/backup/emacs-trash-sweep.sh`（2026-06-19 に `cron/` から `backup/` へ移動）
-
-#### ログ形式
-
-```
-[emacs-trash] START: 2026-04-25 23:45:01
-[emacs-trash] swept: trash_20260425_234501: OK
-[emacs-trash] END: 2026-04-25 23:45:01
-```
-
----
-
 ## 4. Makefile ターゲット一覧
 
 ### dotfiles/Makefile の関連ターゲット
@@ -190,7 +172,6 @@ lock ファイルを発行する。Emacs の `60-xsrv-dired.el` と `tempbuf.el`
 cron:         ## メイン機: automerge/autobackup のリンク作成 + crontab.p1 反映 / サブ機: crontab.sub 反映のみ
 automerge:    ## automerge.sh のシンボリックリンク作成
 autobackup:   ## autobackup.sh + 各種backup.sh のシンボリックリンク作成
-emacs-trash:  ## Emacs ゴミ箱スイープスクリプトのリンク作成
 ```
 
 ### dotfiles/cron/Makefile（mente パネル）
@@ -203,7 +184,6 @@ cron-update:   # 編集した crontab を反映（日付更新 → 適用 → �
 
 automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル実行）
 autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）
-emacs-trash:  # emacs-trash-sweep.sh を今すぐ手動実行
 
 xsrv-run:     # xsrv-backup を今すぐ手動実行
 
@@ -245,8 +225,7 @@ cron/
   crontab.sub              # サブ機に適用する crontab 本体（Git 管理）
 ```
 
-注: バックアップ処理スクリプト本体（autobackup.sh / automerge.sh / xsrv-backup.sh /
-emacs-trash-sweep.sh 等）は `dotfiles/backup/` に統合済み。詳細は `dotfiles/backup/README.md` 参照。
+注: バックアップ処理スクリプト本体（autobackup.sh / automerge.sh / xsrv-backup.sh 等）は `dotfiles/backup/` に統合済み。詳細は `dotfiles/backup/README.md` 参照。
 
 crontab を更新するときは、`make -C cron cron-edit-p1`（サブ機用は `cron-edit-sub`）で編集し、`make -C cron cron-update` で反映する。
 Git への反映は通常の `make git` に任せる。
@@ -270,7 +249,6 @@ Git への反映は通常の `make git` に任せる。
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
 make cron         # P1: 個別スクリプトリンク作成 + crontab.p1 反映 / サブ機: crontab.sub 反映
-make emacs-trash  # Emacs ゴミ箱スイープスクリプトのリンク作成
 ```
 
 - crontab の内容は `cron/crontab.p1`（サブ機は `cron/crontab.sub`）のものに上書きされる（本実行・フォールバック含む）

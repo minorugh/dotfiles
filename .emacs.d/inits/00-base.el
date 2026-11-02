@@ -61,12 +61,22 @@
 ;; Trash
 ;; ============================================================
 
+
 (setq delete-by-moving-to-trash t)
 (setq trash-directory (locate-user-emacs-file "tmp/trash"))
 (advice-add 'move-file-to-trash :before
             (lambda (&rest _)
               (unless (file-exists-p trash-directory)
                 (make-directory trash-directory t))))
+
+;; ゴミ箱に入れて 90 日たったものを、Emacs 起動時に削除する。
+;; -mtime ではなく -ctime を使う理由: ゴミ箱へ移しても更新日時 (mtime) は
+;; 元のままなので、-mtime だと古いファイルが入れた直後に消えてしまう。
+;; 状態変更時刻 (ctime) は移した時刻になるため、入れてからの日数として使える。
+;; -maxdepth 1 は、ディレクトリを中身ごとではなく、ゴミ箱直下の単位で扱うため。
+(start-process "trash-sweep" nil "find" trash-directory
+               "-mindepth" "1" "-maxdepth" "1" "-ctime" "+90"
+               "-exec" "rm" "-rf" "{}" "+")
 
 
 ;; ============================================================

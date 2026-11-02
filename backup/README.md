@@ -23,12 +23,11 @@ backup/
   autobackup.sh           # オーケストレーター（cron から毎日 23:50 に実行 + --check フォールバック）
   automerge.sh             # 句会パスワード同期・マージ（cron から毎日 23:40 に実行 + --check フォールバック）
   xsrv-backup.sh           # xserver 動的ファイルを Dropbox/GH へ rsync（毎時）
-  emacs-trash-sweep.sh     # Emacs ゴミ箱をシステムゴミ箱へ移送（月1回）
   mozc-backup.sh          # Mozc 辞書バックアップ
   filezilla-backup.sh     # FileZilla 設定バックアップ
 ```
 
-注: `automerge.sh` / `xsrv-backup.sh` / `emacs-trash-sweep.sh` は元々 `dotfiles/cron/` にあったが、
+注: `automerge.sh` / `xsrv-backup.sh` は元々 `dotfiles/cron/` にあったが、
 2026-06-19 に「自動実行されるバックアップ処理本体」として性質が一致するため `backup/` へ統合した。
 `cron/` は crontab 設定および手動操作（mente）パネルとしての役割に純化している。
 詳細は `dotfiles/cron/README.md` を参照。
@@ -123,14 +122,13 @@ gsync:              # GitHub と xserver の HEAD が一致しているか確認
 
 ## 6. シンボリックリンク管理
 
-`dotfiles/Makefile` の `autobackup` / `automerge` / `emacs-trash` ターゲットで
+`dotfiles/Makefile` の `autobackup` / `automerge` ターゲットで
 `/usr/local/bin/` へのリンクを一括作成。
 
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
 make autobackup
 make automerge
-make emacs-trash
 ```
 
 ---
@@ -141,6 +139,5 @@ make emacs-trash
 cd ~/src/github.com/minorugh/dotfiles
 make autobackup   # autobackup.sh + 各種backup.sh のシンボリックリンク作成
 make automerge    # automerge.sh のシンボリックリンク作成
-make emacs-trash  # emacs-trash-sweep.sh のシンボリックリンク作成
 make cron         # crontab に本実行・フォールバック一式を反映
 ```

@@ -46,7 +46,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
@@ -168,10 +168,6 @@ autobackup: ## cron スクリプト群のシンボリックリンク作成（cro
 	sudo chmod +x /usr/local/bin/filezilla-backup.sh
 	sudo ln -vsfn ${PWD}/backup/xsrv-backup.sh /usr/local/bin
 	sudo chmod +x /usr/local/bin/xsrv-backup.sh
-
-emacs-trash: ## Emacs ゴミ箱スイープスクリプトのリンク作成
-	sudo ln -vsfn ${PWD}/backup/emacs-trash-sweep.sh /usr/local/bin/emacs-trash-sweep.sh
-	sudo chmod +x /usr/local/bin/emacs-trash-sweep.sh
 
 cron: ## メイン機: automerge/autobackup のリンク作成+crontab反映 / サブ機: crontab反映のみ
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
