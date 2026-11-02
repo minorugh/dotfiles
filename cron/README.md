@@ -9,14 +9,6 @@
 - メイン機 (P1) のみ cron スクリプトをセットアップして crontab を管理
 - 個別スクリプトのリンク作成と crontab の反映を Makefile で自動化
 - サブ機 (X250) は `cron/crontab.sub` を反映する（P1 で編集 → `make git` で push → サブ機で pull 後に `make -C cron cron-update`）
-- 例外: `dropbox-watch.pl`（D-Bus即応版、systemd --user常駐）は元々サブ機(x250)
-  専用として作成したが、2026-08-15以降はP1でも有効化し両機で稼働している。
-  詳細は`bin/README.md`参照
-- night-suspend（深夜自動サスペンド、`night-suspend.service`+`.timer`、
-  systemd --user常駐、P1のみ）も同様にdotfiles管理下だがcrontab本体とは別枠。
-  RTCアラームによる自動復帰は本体ハードウェアが非対応のため断念し、復帰は
-  手動（キー入力／蓋を開ける）運用に確定済み。長期不在（旅行等）の際は
-  `power-menu.sh`の6キー（NIGHT SUSPEND toggle）で事前に停止すること
 - dotfiles の crontab（P1: `crontab.p1` / サブ機: `crontab.sub`）で上書き反映する（バックアップは取らない）
 - `cron/` は crontab 設定本体および手動操作（mente）パネルとしての役割に純化している。
   自動実行されるバックアップ処理スクリプト本体は `dotfiles/backup/` に統合済み
@@ -208,8 +200,6 @@ cron-edit-p1:  # crontab.p1 を編集（P1上で作業。反映は make cron-upd
 cron-edit-sub: # crontab.sub を編集（P1上で編集 → make git で push → X250 で pull 後 make cron-update）
 cron-update:   # 編集した crontab を反映（日付更新 → 適用 → 確認。P1 は crontab.p1、サブ機は crontab.sub）
 
-dropbox-watch-reload:  # dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
-night-suspend-reload:  # night-suspend.service 修正後のsystemd反映（daemon-reload→status）
 
 automerge:    # automerge.sh を今すぐ手動実行（フラグ無視のフル実行）
 autobackup:   # autobackup.sh を今すぐ手動実行（フラグ無視のフル実行）

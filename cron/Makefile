@@ -15,8 +15,6 @@
 ##
 ## crontab編集:   make cron-edit-p1 / make cron-edit-sub
 ## crontab反映:   make cron-update
-## dropbox-watch反映: make dropbox-watch-reload
-## night-suspend反映: make night-suspend-reload
 #
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
@@ -42,20 +40,6 @@ cron-update: ## 編集した crontab を反映（日付更新→適用→確認�
 	sed -i "1s|^# .* update$$|# $$(date +%F) update|" $(CRONTAB_FILE)
 	crontab $(CRONTAB_FILE)
 	gnome-terminal -- bash -c "crontab -l; echo; read -p 'Press Enter to close...'"
-
-dropbox-watch-reload: ## dropbox-watch.pl 修正後のsystemd反映（構文チェック→daemon-reload→restart→status）
-	perl -c ${PWD}/../bin/dropbox-watch.pl
-	systemctl --user daemon-reload
-	systemctl --user restart dropbox-watch.service
-	@echo "##>" >&2
-	systemctl --user status dropbox-watch.service
-
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-night-suspend-reload: ## night-suspend.service 修正後のsystemd反映（daemon-reload→status）
-	systemctl --user daemon-reload
-	@echo "##>" >&2
-	systemctl --user status night-suspend.service || true
-endif
 
 automerge: ## automerge.sh を今すぐ手動実行
 	/usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1

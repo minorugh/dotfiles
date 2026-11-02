@@ -33,39 +33,6 @@ Emacs を最大化状態で起動するラッパー。`.autostart.sh` から呼�
 /usr/local/bin/emacs-start.sh → bin/emacs-start.sh
 ```
 
-### dropbox-watch.pl
-サスペンド復帰後にDropbox同期が「同期中…」のまま固まる問題への対策。
-P1（メイン機）・x250（サブ機）の両機で常駐稼働している。
-systemd-logindが発する`PrepareForSleep`シグナルを、
-D-Busの正規購読機構（`connect_to_signal`、eavesdropping方式ではない）
-で受信し、復帰の瞬間（false）に即座にDropboxを再起動する。一般ユーザー
-権限のsystemd --userサービスとして動作し、sudoは不要。
-
-P1では`night-suspend.sh`による毎晩のサスペンドからの復帰時にも動作する。
-`night-suspend.sh`自体はDropboxの再起動を行わず、復帰検知と再起動は
-このスクリプトが別プロセスで担当する。
-
-`dropbox status`の文字列は固まっていても「最新の状態」と誤った自己申告
-をすることがあると判明したため、ステータス判定には頼らず、D-Busの
-サスペンド/レジューム通知を直接購読する方式を採用している。
-
-プロセスが死んだ場合はsystemdの`Restart=always`が自動的に再起動する
-（`RestartSec=5`）。それ以外の失速パターン（D-Bus購読だけが内部的に
-死ぬ等）への対策は、実運用で発生実績がないため見送っている。
-なお Emacs の `my-env-recover`（`<henkan>`→`x`）は xmodmap の再読込に加え、復帰後にトレイアイコンが消えたときの手動復旧として dropbox を再起動する（自動では行わない）。
-
-`/usr/local/bin`等へのリンクは作らず、systemd --userサービスとして
-`~/.config/systemd/user/dropbox-watch.service`からdotfilesリポジトリ内の
-パスを直接参照して常駐する。
-
-- 依存パッケージ: `libnet-dbus-perl`（`make dropbox-watch` でインストール）
-- ログ: `~/.cache/dropbox-watch.log`
-- サービス管理: `make -C cron dropbox-watch-reload`（`.pl`修正後の反映用）
-- クリーンリストア: `make dropbox-watch`（ルートMakefile、`baseinstall`に
-  組込済み）
-
-経緯: 元々はx250専用として作成し、2026-08-15以降にP1でも有効化した。
-
 ### dropbox-restart.sh
 ログイン時に Dropbox のトレイアイコンが出ない問題への対策。`.autostart.sh` から呼ばれる。
 
@@ -79,7 +46,6 @@ Dropbox が起動のたびに再生成するため、起動を遅らせる設定
 `dropbox stop` は完了まで数秒かかるため、固定の sleep ではなく `pgrep` で
 停止を確認してから `dropbox start -i` を実行する。公式サポート外の
 Debian + Xfce4 で必要で、Dropbox 側が修正されたら不要になる。
-サスペンド復帰時の再起動は `dropbox-watch.pl` が担当する。
 
 ```bash
 /usr/local/bin/dropbox-restart.sh → bin/dropbox-restart.sh
@@ -119,20 +85,6 @@ KeePassXC をパスワードなしで自動起動するラッパー。
 /usr/local/bin/keepassxc.sh → bin/keepassxc.sh
 ```
 
-### night-suspend.sh
-P1（メイン機）専用。深夜01:00に自動サスペンドするスクリプト。
-`automerge.sh`/`autobackup.sh`/`xsrv-backup.sh`が実行中の場合はサスペンドを
-見送る。RTCアラームによる自動復帰はハードウェア/ファームウェアが非対応と
-判明したため断念し、復帰は手動（キー入力／蓋を開ける）運用。
-
-systemd --userの`night-suspend.timer`（毎晩01:00発火）→`night-suspend.service`
-（`Type=oneshot`）から呼び出される。旅行等で長期不在にする際は
-`power-menu.sh`の6キー（NIGHT SUSPEND toggle）で事前に停止すること。
-
-- ログ: `~/.cache/night-suspend.log`
-- サービス管理: `make -C cron night-suspend-reload`（`.service`修正後の反映用）
-- 手動動作確認: `.zshrc`の`ns`関数（`systemctl --user start night-suspend.service`）
-
 ### power-menu.sh
 全角/半角キーで起動する Emacs/tmux プロセス管理＋電源メニュー。
 
@@ -143,7 +95,7 @@ systemd --userの`night-suspend.timer`（毎晩01:00発火）→`night-suspend.s
 - `3`: REBOOT
 - `4`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
 - `5`: XSRV BACKUP toggle（STOP⇔START。`~/.xsrv-backup-stop` の作成・削除）
-- `6`: NIGHT SUSPEND toggle（STOP⇔START）
+- `6`: SUSPEND（確認なしで即サスペンド）
 - `7`: PEEK ENV_GPG（`~/.env_source/check-backup.sh` 実行）
 - `8`: SSH XSRV
 - `9`: SSH GH
@@ -199,6 +151,4 @@ make-run.sh <dir> <target...>
 | power-menu.sh | `make power-menu` |
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
-| dropbox-watch.pl | `make dropbox-watch` |
 | dropbox-restart.sh | `make dropbox-restart` |
-| night-suspend.sh | `make night-suspend` |

@@ -21,7 +21,6 @@
 | `systemd/logind.conf` | `/etc/systemd/logind.conf` | symlink | 107 |
 | `default/grub` | `/etc/default/grub` | symlink | 108 |
 | `tlp.conf` | `/etc/tlp.conf` | symlink | 201 |
-| `udev/rules.d/99-keychron-hub-wakeup.rules` | `/etc/udev/rules.d/` | symlink | 185 |
 | `gnome-terminal/dracula.dconf` | dconf に読み込み | `dconf load` | 380 |
 | `systemd/README.md` | なし | 経緯メモ | - |
 

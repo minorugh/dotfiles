@@ -46,7 +46,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron dropbox-watch night-suspend emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run kdb-pass tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run kdb-pass tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
@@ -183,25 +183,6 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	crontab ${PWD}/cron/crontab.p1
 else
 	crontab ${PWD}/cron/crontab.sub
-endif
-
-dropbox-watch: ## dropbox-watch.service のリンク作成+有効化
-	$(APT) libnet-dbus-perl
-	mkdir -p ${HOME}/.config/systemd/user
-	ln -vsf ${PWD}/.config/systemd/user/dropbox-watch.service ${HOME}/.config/systemd/user/dropbox-watch.service
-	systemctl --user daemon-reload
-	systemctl --user enable --now dropbox-watch.service
-
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-night-suspend: ## night-suspend.service/timer + USBハブwakeup設定のリンク作成+有効化（メイン機のみ・復帰は手動）
-	mkdir -p ${HOME}/.config/systemd/user
-	ln -vsf ${PWD}/.config/systemd/user/night-suspend.service ${HOME}/.config/systemd/user/night-suspend.service
-	ln -vsf ${PWD}/.config/systemd/user/night-suspend.timer ${HOME}/.config/systemd/user/night-suspend.timer
-	systemctl --user daemon-reload
-	systemctl --user enable --now night-suspend.timer
-	sudo ln -vsf ${PWD}/etc/udev/rules.d/99-keychron-hub-wakeup.rules /etc/udev/rules.d/99-keychron-hub-wakeup.rules
-	sudo udevadm control --reload-rules
-	sudo udevadm trigger --action=add --attr-match=idVendor=0424 --attr-match=idProduct=2816
 endif
 
 ########################################################

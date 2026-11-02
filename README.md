@@ -106,8 +106,6 @@ chsh -s /usr/bin/zsh
 | `make autostart` | GUI起動時の mozc・keyring の復元、Emacs・neomutt の自動起動＆最小化（SSH 鍵の自動入力は廃止） |
 | `make autobackup` | バックアップスクリプト群の `/usr/local/bin/` へのシンボリックリンク作成 |
 | `make cron` | P1: automerge/autobackup のリンク作成 + crontab 反映 / サブ機: crontab 反映のみ |
-| `make dropbox-watch` | dropbox-watch.service のリンク作成+有効化（サスペンド復帰後のDropbox自動再起動、両機共通） |
-| `make night-suspend` | P1のみ: night-suspend.service/timer のリンク作成+有効化（深夜自動サスペンド、復帰は手動） |
 | `make docker-install` | Docker Engine + Compose のインストール |
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |
@@ -214,23 +212,6 @@ xserver トラブル時は `power-menu.sh` の `5` キー（XSRV BACKUP toggle�
 `~/.xsrv-backup-stop` の作成・削除で切り替わります。
 
 詳細は `cron/README.md` を参照してください。
-
----
-
-## night-suspend について
-
-P1（メイン機）限定で、深夜01:00に自動サスペンドする仕組みです。
-
-- RTCアラームによる自動復帰はハードウェア/ファームウェアが非対応と判明したため
-  断念し、復帰は手動（キー入力／蓋を開ける）運用に確定しています
-- 常駐は systemd --user の `night-suspend.timer`（毎晩01:00発火）→
-  `night-suspend.service`（`Type=oneshot`）
-- 動作確認は `.zshrc` の `ns` 関数で即時実行できます
-- `.service` 修正後の反映は `make -C cron night-suspend-reload`
-- 旅行等で長期不在にする際は `power-menu.sh` の `6` キー（NIGHT SUSPEND toggle）
-  で事前に停止すること
-
-詳細は `bin/README.md`・`cron/README.md` を参照してください。
 
 ---
 

@@ -265,22 +265,6 @@ function eq() {
     emacs -q -l ~/.emacs.d/init-mini.el
 }
 
-# Show dropbox-watch.log / night-suspend.log
-function lv() {
-    echo "== dropbox-watch =="
-    tail -n 10 ~/.cache/dropbox-watch.log
-    echo
-    if [ -f ~/.cache/night-suspend.log ]; then
-        echo "== night-suspend =="
-        tail -n 10 ~/.cache/night-suspend.log
-    fi
-}
-
-# night-suspend.service を今すぐ手動実行（動作確認用）
-function ns() {
-    systemctl --user start night-suspend.service
-}
-
 # Restore configuration changes to the last saved state.
 # In this environment, "saved" means make git (commit + push).
 function gitb() {
