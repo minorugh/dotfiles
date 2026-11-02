@@ -110,7 +110,7 @@ chsh -s /usr/bin/zsh
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |
 | `make filezilla` | FileZilla のインストールと設定 + filezilla.sh のリンク作成 |
-| `make keepassxc` | KeePassXC のインストールと自動起動設定 |
+| `make keepassxc` | KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成（マスターパスワードの更新判定は keepassxc.sh が担当） |
 | `make hugo` | Hugo（extended版）のインストール |
 | `make texlive` | TeX Live のインストール（scheme-medium + 日本語） |
 | `make latex` | LaTeX 用スクリプト・スタイルファイルのリンク作成 |
@@ -296,6 +296,7 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 | 日付 | 内容 |
 |---|---|
+| 2026.11.03 | kdb-pass.sh を廃止し、マスターパスワードの更新判定を keepassxc.sh に統合。起動時に keepassxc-cli で確認し、P1 は更新ダイアログ、サブ機は make keyring の案内を出す。kdb-pass のリンク作成ターゲットと baseinstall の参照を削除 |
 | 2026.10.17 | etc/ の棚卸し。旧 tlp 設定（etc/default/tlp）と未使用の NetworkManager.conf を削除、/etc/default/tlp のリンクも削除、etc/README.md を新設 |
 | 2026.10.14 | README の整合性チェック。bin/README.md: dropbox-watch.pl を両機稼働の記述に修正、keepass.sh を keepassxc.sh に統一（/usr/local/bin の壊れたリンクも削除）、emacs-start.sh の節を追加、power-menu のキー番号を実物に合わせて訂正（5=XSRV BACKUP、6=NIGHT SUSPEND）。本README・cron/README.md: xsrv-backup の時刻を実際の crontab（07:00〜22:00 毎時 + 23:35）に、anacron 補完の記述を --check フォールバックに、cron-stop/cron-start を power-menu の 5 キーに、crontab の管理を crontab.p1/crontab.sub に合わせて修正。.gitignore にセッション用コピー（README_*.md・Makefile_*・*.bak）を追加 |
 | 2026.10.14 | dotfiles 棚卸し。zoom・texlive-full ターゲット、cron/Makefile.bak、.mutt/history の追跡、未使用フォント(Republica Minor・Ricty・UD デジタル教科書体・旧アイコンフォント群・DroidSansM・0バイトの Blex)を削除。Makefile 冒頭の更新コメントを整理、未使用の emacs.desktop を削除、.gitconfig の LFS・credential 設定を削除し defaultBranch を main に変更、elisp/img の画像を追跡から外した |
@@ -305,6 +306,5 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 | 2026.08.29 | GitHub private リポジトリの保険運用（自前サーバー+自前GUI併用）を整理。対象を精査し直し、誤って登録されていたリポジトリのremoteを削除。github/github-dropbox-cleanup/github-remote-addを##!化 |
 | 2026.08.29 | github-remote-add の対象を xsrv-GH/xsrv-minorugh → GH/minorugh.com/env-import に修正。xserverの2スペース（Webサーバー鏡 / bare repoの保険）を整理し、private repo保険はGH/minorugh.com/env-importの3つのみに統一。xsrv-GH/xsrv-minorugh・dotfiles・git-peekの誤ったxserver/Gitea pushurlを削除 |
 | 2026.08.29 | github-dropbox-cleanup ターゲット追加（GH/minorugh.com は git clone後 .git 以外の作業ファイルを自動削除。実体は~/Dropbox側にあり、gitdirポインタ経由で参照する構成のため） |
-| 2026.08.15 | night-suspend導入（深夜自動サスペンド、systemd --user timer、P1のみ）。RTCアラームによる自動復帰はハードウェア非対応のため断念し手動復帰運用に確定。power-menu.shにNIGHT SUSPENDトグル（5キー）追加、旧9キー（SSH minorugh.com）削除。dropbox-watch.plをP1でも有効化し両機共通運用に変更 |
 
 ※ 直近10件のみ掲載。全履歴は [CHANGELOG.md](CHANGELOG.md) を参照してください。

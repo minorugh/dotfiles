@@ -76,10 +76,21 @@ neomutt メールクライアントを gnome-terminal で起動するラッパ�
 ```
 
 ### keepassxc.sh
-KeePassXC をパスワードなしで自動起動するラッパー。
+KeePassXC をパスワード入力なしで自動起動するラッパー。
 
 `secret-tool` で Gnome keyring からマスターパスワードを取得し、
 `--pw-stdin` で KeePassXC に渡すことでパスワード入力を省略。
+
+起動前に `keepassxc-cli` でそのパスワードが kdbx を開けるか確認し、開けないときだけ
+更新を案内する（キーリングが空、または kdbx が読めないときは確認せずそのまま起動）。
+
+- P1: 「更新しますか？」ダイアログ（zenity）を出す。新パスワードで kdbx が開けたときだけ
+  キーリングに登録し、`keyring-backup` で Dropbox に反映する。
+- P1以外: 書き込みはしない。`make keyring` を実行する案内（zenity）だけを出す。
+
+マスターパスワードの変更は P1 でのみ行う。メイン機を変えるときは `MAIN_HOSTNAME` も書き換える。
+キーリングが空の機械での初回登録のみ手動で行う:
+`secret-tool store --label='keepassxc master' type kdb`
 
 ```bash
 /usr/local/bin/keepassxc.sh → bin/keepassxc.sh

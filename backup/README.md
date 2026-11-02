@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-10-24
+更新日: 2026-11-03
 
 ---
 
@@ -91,7 +91,7 @@ backup/
 ```makefile
 git-push:            # GH・minorugh.com・xsrv-GH・xsrv-minorugh を日次自動コミット＆push
 mozc-backup:         # ~/.mozc を Dropbox にバックアップ
-keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ
+keyring-backup:      # ~/.local/share/keyrings を Dropbox にバックアップ（keepassxc.sh がマスターパスワード更新後にも呼ぶ）
 zsh-history-backup:  # ~/.zsh_history を Dropbox にバックアップ
 filezilla-backup:    # FileZilla設定を Dropbox にバックアップ
 readmes-backup:      # 各所のREADMEをDropbox/READMESにコピー

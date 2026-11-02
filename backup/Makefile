@@ -9,6 +9,7 @@
 ## 2026-10-16  Gitea 廃止に伴い gitea-backup ターゲットと gitea-backup.sh を削除
 ## 2026-10-17  melpa-backup.sh 廃止に伴い melpa ターゲットを削除（all: からも除去）
 ## 2026-10-17  abook は ~/.env_source の暗号化 bundle で保護されるため all: から abook-backup を削除
+## 2026-11-03  bin/kdb-pass.sh を廃止（パスワード更新は keepassxc.sh が起動時に判定して案内。keyring-backup は keepassxc.sh から呼ばれる）
 
 a.out: all
 

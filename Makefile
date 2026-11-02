@@ -46,7 +46,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run kdb-pass tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron emacs-trash keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
@@ -152,9 +152,6 @@ tile-toggle: ## tile-toggle.sh のリンク作成 + F15ショートカット登�
 
 make-run: ## make-run.sh のリンク作成（Emacs経由のmake実行を安全化）
 	$(call BIN_LINK,make-run.sh,make-run.sh)
-
-kdb-pass: ## kdb-pass.sh のリンク作成（キーリング更新と Dropbox への反映を続けて実行）
-	$(call BIN_LINK,kdb-pass.sh,kdb-pass.sh)
 
 .PHONY: cron automerge autobackup
 
@@ -384,9 +381,10 @@ keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.
 	$(APT) $@ libsecret-tools
 	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
-# 初回セットアップ時に一度だけ実行してパスワードを登録する:
-#   kdb-pass.sh
-# 以降は以下で起動可能:
+# マスターパスワードの更新は keepassxc.sh が起動時に判定する（P1 でのみ変更すること）。
+# キーリングが空の機械での初回登録のみ手動で実行する:
+#   secret-tool store --label='keepassxc master' type kdb
+# 手動で起動する場合は以下:
 #   secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx
 
 google-earth: ##! Google Earth のインストール
