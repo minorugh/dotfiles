@@ -1,7 +1,7 @@
 #!/bin/bash
 #######################################################################
 ## Execute nightly makefile for backup
-## Updated 2026.7.10 (thunderbird-backup 廃止)
+## Updated 2026.11.3 (kdbx-gdrive 追加。旧: 2026.7.10 thunderbird-backup 廃止)
 ##
 ## cron 本実行:     50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 ## cron フォールバック: 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
@@ -61,6 +61,7 @@ log "START: ${START}"
 run_target "git-push (GH+minorugh.com)"   git-push
 run_target "mozc"        mozc-backup
 run_target "keyring"     keyring-backup
+run_target "kdbx-gdrive" kdbx-gdrive-backup
 run_target "zsh-history" zsh-history-backup
 run_target "filezilla"   filezilla-backup
 run_target "keychron-rules" keychron-rules-backup

@@ -106,6 +106,7 @@ chsh -s /usr/bin/zsh
 | `make autostart` | GUI起動時の mozc・keyring の復元、Emacs・neomutt の自動起動＆最小化（SSH 鍵の自動入力は廃止） |
 | `make autobackup` | バックアップスクリプト群の `/usr/local/bin/` へのシンボリックリンク作成 |
 | `make cron` | P1: automerge/autobackup のリンク作成 + crontab 反映 / サブ機: crontab 反映のみ |
+| `make rclone` | P1 のみ: Google ドライブ連携の rclone 初期認証（ブラウザで許可）と `KeePass_Backup` フォルダ作成。`baseinstall` の最後で実行される。KeePassXC の master.kdbx は `autobackup.sh` が毎夜コピーする。サブ機では何もしない |
 | `make docker-install` | Docker Engine + Compose のインストール |
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |

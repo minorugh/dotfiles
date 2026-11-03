@@ -48,6 +48,7 @@ backup/
 [autobackup] git-push (GH+minorugh.com): OK
 [autobackup] mozc: OK
 [autobackup] keyring: OK
+[autobackup] kdbx-gdrive: OK
 [autobackup] zsh-history: OK
 [autobackup] filezilla: OK
 [autobackup] readmes: OK

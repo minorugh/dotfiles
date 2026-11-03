@@ -43,6 +43,4 @@
 # xmodmap 毎分再適用（失速対策）
 * * * * * DISPLAY=:0 xmodmap ~/.Xmodmap 2>> /tmp/cron.log
 
-# KeePassXC master.kdbx の Google ドライブへの毎日自動バックアップ
-0 21 * * * rclone copy /home/minoru/Dropbox/backup/keepassxc/master.kdbx minorugh:KeePass_Backup/
 

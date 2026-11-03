@@ -46,7 +46,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig
+baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig rclone
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
 
 SHELL = /bin/bash
@@ -86,6 +86,7 @@ else
 endif
 
 rclone: ## Google ドライブ連携用の rclone 初期認証（ブラウザが起動します）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	sudo apt update && sudo apt install -y rclone
 	@echo "--------------------------------------------------------"
 	@echo "自動的にブラウザが開きます。Googleアカウントでログインし、"
@@ -95,6 +96,9 @@ rclone: ## Google ドライブ連携用の rclone 初期認証（ブラウザが
 	rclone config create minorugh drive scope=drive
 	@echo "✓ 認証が完了しました。Googleドライブにテストフォルダを作成します。"
 	rclone mkdir minorugh:KeePass_Backup
+else
+	@echo "$(HOSTNAME): サブ機ではrcloneの設定を行いません（KeePassのバックアップはメイン機 P1 のみ）"
+endif
 
 ########################################################
 ## システム設定（キーマップ・起動・cron）

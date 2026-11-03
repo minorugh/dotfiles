@@ -5,7 +5,7 @@
 # xfce keyboard shortcut: gnome-terminal --window -- bash -c "power-menu.sh"
 #
 # x250: SLEEP/POWEROFF/REBOOT
-# P1  : 上記 + VE/XSRV BACKUP/SUSPEND/PEEK ENV_GPG/SSH XSRV/SSH GH/docker
+# P1  : 上記 + SUSPEND/XSRV BACKUP/VE/SSH XSRV/SSH GH/docker
 # Enter: emacsプロセスをkill / ESC: キャンセル
 
 # ═══════════════ 環境設定 ═══════════════
@@ -54,7 +54,6 @@ action_suspend() {
     systemctl suspend
     sleep 1; kill "$PPID"
 }
-action_peek_env() { ~/.env_source/check-backup.sh; kill "$PPID"; }
 action_ssh_xsrv() { exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il"; }
 action_ssh_gh()   { exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il"; }
 action_docker()   { exec docker exec -it httpd /bin/bash; }
@@ -70,21 +69,20 @@ ACTIONS=(action_sleep action_poweroff action_reboot)
 # 分岐するのはここだけ。x250はこのif自体がスキップされ、
 # LABELS/ACTIONSは上の3項目のまま次のセクションへ進む。
 if [[ "$HOSTNAME" == "$MAIN_HOSTNAME" ]]; then
-    # P1だけ、ここから7項目を追加
+    # P1だけ、ここから6項目を追加
     LABELS+=(
-        "VE"
-        "XSRV BACKUP $BACKUP_STATUS"
         "SUSPEND"
-        "PEEK ENV_GPG"
+        "XSRV BACKUP $BACKUP_STATUS"
+        "VE"
         "SSH XSRV"
         "SSH GH"
         "SH docker/httpd"
     )
-    ACTIONS+=(action_ve action_xsrv_backup action_suspend action_peek_env action_ssh_xsrv action_ssh_gh action_docker)
+    ACTIONS+=(action_suspend action_xsrv_backup action_ve action_ssh_xsrv action_ssh_gh action_docker)
 fi
 
 # ═══════════════ P1/x250 共通設定（メニュー構築〜実行） ═══════════════
-# ここから先も両ホスト共通。LABELS/ACTIONSの中身が3個か10個かの違いだけで
+# ここから先も両ホスト共通。LABELS/ACTIONSの中身が3個か9個かの違いだけで
 # コードの分岐は一切ない。
 MENU_TEXT=""
 [[ -n "$EMACS_LINES" ]] && MENU_TEXT="$EMACS_LINES"$'\n'

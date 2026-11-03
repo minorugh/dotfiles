@@ -104,14 +104,13 @@ KeePassXC をパスワード入力なしで自動起動するラッパー。
 - `1`: SLEEP（画面オフのみ・プロセス継続）
 - `2`: POWEROFF
 - `3`: REBOOT
-- `4`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
+- `4`: SUSPEND（確認なしで即サスペンド）
 - `5`: XSRV BACKUP toggle（STOP⇔START。`~/.xsrv-backup-stop` の作成・削除）
-- `6`: SUSPEND（確認なしで即サスペンド）
-- `7`: PEEK ENV_GPG（`~/.env_source/check-backup.sh` 実行）
-- `8`: SSH XSRV
-- `9`: SSH GH
-- `0`: docker/httpd のシェルに入る
-- `4`〜`0` は P1 のみ。X250 は `1`〜`3` のみ表示される
+- `6`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
+- `7`: SSH XSRV
+- `8`: SSH GH
+- `9`: docker/httpd のシェルに入る
+- `4`〜`9` は P1 のみ。X250 は `1`〜`3` のみ表示される
 - `Enter`: 起動中の emacs プロセスを kill
 
 ```bash

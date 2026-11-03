@@ -10,11 +10,12 @@
 ## 2026-10-17  melpa-backup.sh 廃止に伴い melpa ターゲットを削除（all: からも除去）
 ## 2026-10-17  abook は ~/.env_source の暗号化 bundle で保護されるため all: から abook-backup を削除
 ## 2026-11-03  bin/kdb-pass.sh を廃止（パスワード更新は keepassxc.sh が起動時に判定して案内。keyring-backup は keepassxc.sh から呼ばれる）
+## 2026-11-03  kdbx-gdrive-backup ターゲットを追加（master.kdbx を Google ドライブへ。旧版は日付付きで退避）。cron 直書きから移行
 
 a.out: all
 
 ## 毎夜自動実行するバックアップ一式
-all: git-push mozc-backup filezilla-backup keyring-backup zsh-history-backup keychron-rules-backup readmes-backup
+all: git-push mozc-backup filezilla-backup keyring-backup kdbx-gdrive-backup zsh-history-backup keychron-rules-backup readmes-backup
 
 .ONESHELL:
 
@@ -46,6 +47,9 @@ zsh-history-backup: ## ~/.zsh_history を Dropbox にバックアップ
 keychron-rules-backup: ## Keychron udevルールを Dropbox にバックアップ
 	mkdir -p ${HOME}/Dropbox/backup/keychron
 	cp -p /etc/udev/rules.d/50-keychron.rules ${HOME}/Dropbox/backup/keychron/50-keychron.rules
+
+kdbx-gdrive-backup: ## KeePassXC master.kdbx を Google ドライブにバックアップ（旧版は日付付きで退避）
+	rclone copy ${HOME}/Dropbox/backup/keepassxc/master.kdbx minorugh:KeePass_Backup/ --backup-dir minorugh:KeePass_Backup_old --suffix .$$(date +%Y%m%d-%H%M%S) --suffix-keep-extension
 
 READMES_DIR := ${HOME}/Dropbox/backup/READMES
 
