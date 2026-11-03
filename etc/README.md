@@ -34,6 +34,13 @@
 - `usbcore.autosuspend=-1`：USB の自動サスペンドを切る。Keychron の試行錯誤で入れたもの。今はキーボードの電源を外部モニタから取っているため、不要かもしれない
 - 変更は etc/default/grub を編集し、`sudo update-grub` で反映する。`sed -i` は symlink を普通のファイルに置き換えるので使わない
 
+### 蓋閉じ運用
+
+- 外部モニタのみで使う運用。蓋の開閉は xfce4-power-manager が処理している（`logind-handle-lid-switch` が false、`systemd-inhibit --list` で `handle-lid-switch` を押さえている）。外部電源時は何もしない設定
+- `logind.conf` の蓋の設定は、xfce4-power-manager が動いていない間の予備
+- `/etc/UPower/UPower.conf` の `IgnoreLid=true` と `/etc/X11/Xsession.options` の `no-use-ssh-agent` は、効果が未確認のため管理外
+- 再インストール後に蓋を閉じたときの警告が出たら、xfce4-power-manager の設定から確認する
+
 ## etc/ に原本を持たないもの
 
 - `/etc/udev/rules.d/50-keychron.rules`: Keychron Launcher が書き換える実体のため、原本は
