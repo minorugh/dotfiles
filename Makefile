@@ -120,6 +120,8 @@ grub: ## grub・lightdm・logind の設定（メイン機のみ）
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
+	sudo ln -vsf ${PWD}/etc/systemd/system/ext-monitor.service /etc/systemd/system/ext-monitor.service
+	sudo systemctl enable ext-monitor.service
 	sudo update-grub2
 endif
 

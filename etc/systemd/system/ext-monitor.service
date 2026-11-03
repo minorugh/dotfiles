@@ -1,0 +1,12 @@
+[Unit]
+Description=External monitor on only while display manager runs
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'echo detect | tee /sys/class/drm/card*-DP-2/status'
+ExecStop=/bin/sh -c 'echo off | tee /sys/class/drm/card*-DP-2/status'
+
+[Install]
+WantedBy=graphical.target

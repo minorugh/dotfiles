@@ -29,12 +29,10 @@ cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/
 # 終了まで戻らないので & で background にする
 keepassxc.sh &
 
-# Emacs を起動し、表示されたウィンドウを xdotool で最小化する
-# --iconic だとちらつくため、起動後に windowminimize で対処
+# Emacs を起動し、ウィンドウが表示されたら xdotool で即座に最小化する
+# --iconic だとちらつくため、--sync --onlyvisible で表示を待ってから windowminimize
 emacs-start.sh &
-sleep 3
-wid=$(xdotool search --class Emacs 2>/dev/null | tail -n1)
-[ -n "$wid" ] && xdotool windowminimize "$wid"
+xdotool search --sync --onlyvisible --class Emacs windowminimize %@
 
 # neomutt を tmux セッションで起動
 # 再起動時に前回セッションが残っていればクリアしてから起動
