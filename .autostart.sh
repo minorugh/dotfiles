@@ -1,7 +1,7 @@
 #!/bin/bash
 # .autostart.sh
 # Created : 2024-10-01
-# Updated : 2026-11-01
+# Updated : 2026-11-03
 #
 # GUI ログイン時に autostart.desktop 経由で自動実行されるスクリプト。
 # 以下の処理を順に行う：
@@ -32,7 +32,7 @@ keepassxc.sh &
 # Emacs を起動し、ウィンドウが表示されたら xdotool で即座に最小化する
 # --iconic だとちらつくため、--sync --onlyvisible で表示を待ってから windowminimize
 emacs-start.sh &
-xdotool search --sync --onlyvisible --class Emacs windowminimize %@
+xdotool search --sync --onlyvisible --class Emacs windowminimize %@ &
 
 # neomutt を tmux セッションで起動
 # 再起動時に前回セッションが残っていればクリアしてから起動
