@@ -144,14 +144,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	@echo "##>" >&2
 
 git: ## Auto commit+push (main only, sub: pull only)
-	git add -A
-	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-	git push
-else
-	@echo "##> $(HOSTNAME): サブ機からはpushしません" >&2
-	git pull --rebase
-endif
+	$(MAKE) -s -C ../git git
 
 debug:
 	@echo "HOSTNAME=[$(HOSTNAME)]"

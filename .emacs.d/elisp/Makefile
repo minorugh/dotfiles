@@ -13,15 +13,8 @@ HOSTNAME := $(shell hostname)
 # P1 (main): commit + push + publish
 # others (sub): pull --ff-only only (commit も push もしない)
 git: ## Auto commit+push (main only, sub: pull only)
-ifeq ($(HOSTNAME),P1)
-	git add -A
-	git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
-	git push
+	$(MAKE) -s -C ../../git git
 	$(MAKE) publish
-else
-	@echo "$(HOSTNAME): サブ機からはpushしません"
-	git pull --ff-only
-endif
 
 # ------------------------------------------------------------
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
