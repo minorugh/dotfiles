@@ -159,14 +159,16 @@ Return nil if FILE is missing."
     (when (eq (car-safe inner) 'diary-block)
       (cdr inner))))
 
-(defun gcal-widget--org-timestamp (date)
-  "Format DATE as an Org timestamp."
-  (format-time-string "%Y-%m-%d %a"
-                       (encode-time 0 0 0 (nth 1 date) (nth 0 date) (nth 2 date))))
+(defun gcal-widget--org-timestamp (date &optional time)
+  "Format DATE as an Org timestamp, with TIME if given.
+TIME is a string such as \"10:00\" or \"10:00-11:00\"."
+  (concat (format-time-string "%Y-%m-%d %a"
+                              (encode-time 0 0 0 (nth 1 date) (nth 0 date) (nth 2 date)))
+          (and time (concat " " time))))
 
-(defun gcal-widget--format-org-entry (text date)
-  "Format TEXT and DATE as an Org entry."
-  (format "* %s\n  <%s>\n" text (gcal-widget--org-timestamp date)))
+(defun gcal-widget--format-org-entry (text date &optional time)
+  "Format TEXT, DATE and optional TIME as an Org entry."
+  (format "* %s\n  <%s>\n" text (gcal-widget--org-timestamp date time)))
 
 (defun gcal-widget--format-org-block-entries (text start end)
   "Format TEXT as daily Org entries from START through END."
@@ -187,13 +189,16 @@ Return nil if FILE is missing."
   "Convert GROUP from diary format to Org format."
   (let ((head (car group)))
     (cond
-     ;; 単日: M/D/YYYY TEXT
+     ;; 単日: M/D/YYYY [HH:MM[-HH:MM]] TEXT
      ((string-match "\\`\\([0-9]+\\)/\\([0-9]+\\)/\\([0-9]+\\) *\\(.*\\)\\'" head)
-      (gcal-widget--format-org-entry
-       (match-string 4 head)
-       (list (string-to-number (match-string 1 head))
-             (string-to-number (match-string 2 head))
-             (string-to-number (match-string 3 head)))))
+      (let ((date (list (string-to-number (match-string 1 head))
+                        (string-to-number (match-string 2 head))
+                        (string-to-number (match-string 3 head))))
+            (text (match-string 4 head)))
+        (gcal-widget--format-org-entry
+         text date
+         (and (string-match "\\`[0-9]+:[0-9]+\\(?:-[0-9]+:[0-9]+\\)?" text)
+              (match-string 0 text)))))
      ;; sexp形式(diary-block / diary-cyclic 等)
      (t (let ((parsed (gcal-widget--parse-sexp-line head)))
           (when parsed
