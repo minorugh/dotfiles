@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._c_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  mk._b_._c_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_  md._v_iew^^^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
