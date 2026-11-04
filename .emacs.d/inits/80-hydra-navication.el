@@ -64,8 +64,8 @@
    ("v" markdown-preview)
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
-   ("l" (my-open "~/cl/"))
-   ("w" (my-open "~/i.minorugh.com/"))
+   ("l" (my-open-main "~/cl/"))
+   ("w" (my-open-main "~/i.minorugh.com/"))
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
@@ -182,6 +182,11 @@
     (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
+    (defun my-open-main (path)
+    "Open PATH only on the main machine."
+    (if my-main-machine-p
+        (my-open path)
+      (user-error "P1 専用です: %s" path)))
 
   ;; ------------------------------------------------------------
   ;;  External Tools / System
