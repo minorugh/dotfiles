@@ -59,8 +59,9 @@ DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
+MSG            = auto: $(shell date '+%Y-%m-%d %H:%M:%S')
 
-.PHONY: env-remount env-check git git-fix env-sync
+.PHONY: env-remount env-check git commit git-fix env-sync
 
 env-remount: ## env/ の bindfs マウントをやり直す（sudo不要、メイン/サブ共通の保険）
 	grep -qs ' $(DOTFILES_DIR)/env ' /proc/mounts && { fusermount -u $(DOTFILES_DIR)/env 2>/dev/null || fusermount -uz $(DOTFILES_DIR)/env; } || true
@@ -92,7 +93,7 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
 	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
 	cd $(DOTFILES_DIR) && git add -A
-	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"
+	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "$(MSG)"
 	cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ push 完了"
 else
@@ -107,6 +108,9 @@ else
 		fi
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
 endif
+
+commit: ## Commit+push with MSG (same as git)
+	@$(MAKE) -s git MSG="$(MSG)"
 
 env-sync: ## env_source の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
 	@mkdir -p $(ENV_SYNC_CACHE); \

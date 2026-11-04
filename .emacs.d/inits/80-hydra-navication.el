@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_.i_c_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._c_._k_._m_._u_._t_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _T_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -64,7 +64,8 @@
    ("o" howm-list-all)
    ("," my-howm-create-with-category)
    ("l" (my-open "~/cl/"))
-   ("c" (my-open "~/i.minorugh.com/"))
+   ("w" (my-open "~/i.minorugh.com/"))
+   ("c" my-make-commit)
    ("[" my-git-peek-smart)
    ("-" git-peek-deleted)
    ("]" my-make-git)
@@ -90,6 +91,16 @@
     (if my-main-machine-p
         (compile "make git")
       (my-make-run-async default-directory "git")))
+
+  (defun my-make-commit ()
+    "Read a commit message in the minibuffer and run make commit."
+    (interactive)
+    (let* ((input (read-string "Commit message (RET only = auto): "))
+           (msg (if (string-empty-p input)
+                    (format-time-string "auto: %Y-%m-%d %H:%M:%S")
+                  input)))
+      (my-make (concat "commit MSG=" (shell-quote-argument msg))
+               "~/src/github.com/minorugh/dotfiles/git/")))
 
   ;; ------------------------------------------------------------
   ;;  Git Helpers (discard changes)
