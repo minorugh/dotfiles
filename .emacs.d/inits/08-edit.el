@@ -119,19 +119,26 @@
 ;; ============================================================
 ;;  Major Modes for Editing
 ;; ============================================================
-(leaf php-mode
-  :ensure t
-  :mode "\\.php\\'")
-
-(leaf csv-mode
-  :ensure t
-  :hook (tsv-mode-hook . my-csv-mode-setup)
+(leaf *auto-install-modes
+  :doc "Install php-mode and csv-mode on first use."
   :config
-  (setq csv-align-max-width 80)
+  (defun my-auto-install (pkg mode)
+    (unless (package-installed-p pkg)
+      (package-install pkg t))
+    (funcall mode))
+  (dolist (x '(("\\.php\\'" php-mode php-mode)
+               ("\\.csv\\'" csv-mode csv-mode)
+               ("\\.tsv\\'" csv-mode tsv-mode)))
+    (pcase-let ((`(,regexp ,pkg ,mode) x))
+      (add-to-list 'auto-mode-alist
+                   (cons regexp (lambda () (my-auto-install pkg mode)))))))
 
+(with-eval-after-load 'csv-mode
+  (setq csv-align-max-width 80)
   (defun my-csv-mode-setup ()
     (csv-align-mode 1)
-    (setq-local truncate-lines t)))
+    (setq-local truncate-lines t))
+  (add-hook 'tsv-mode-hook #'my-csv-mode-setup))
 
 ;; ============================================================
 ;;  Revert Buffer
