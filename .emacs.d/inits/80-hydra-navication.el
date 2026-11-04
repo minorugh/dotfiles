@@ -206,13 +206,6 @@
     (find-file (expand-file-name "~/src/github.com/minorugh/dotfiles/cron/Makefile"))
     (my-make-ivy-integrated))
 
-  ;; (defun my-env-recover ()
-  ;;   "Reload xmodmap and restart Dropbox."
-  ;;   (interactive)
-  ;;   (shell-command "xmodmap ~/.Xmodmap > /dev/null 2>&1")
-  ;;   (start-process "dropbox-restart" nil "dropbox-restart.sh")
-  ;;   (message "ENV RECOVERED: xmodmap, dropbox"))
-
   (defun my-env-recover ()
     "Reload xmodmap, restart Dropbox and KeePassXC."
     (interactive)
