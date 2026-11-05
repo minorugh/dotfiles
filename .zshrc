@@ -1,101 +1,48 @@
-# zshrc
+########################################################################
+##
+##   .zshrc  -  zsh configuration
+##
+##   Author  : Minoru Yamada
+##   Created : 2024-10-26
+##   Updated : 2026-11-05
+##   Version : 2.0
+##   Target  : Debian 13
+##   Repo    : ~/src/github.com/minorugh/dotfiles/.zshrc
+##             (~/.zshrc からシンボリックリンク)
+##
+##   Sections:
+##     Environment / Options / History / Completion / Prompt
+##     Key bindings / Aliases / Functions / Plugins
+##
+########################################################################
 
 ########################################
-# Initialization
+# Environment
 ########################################
-plugins=(… zsh-completions)
-autoload -U compinit promptinit
-compinit
-promptinit
-
 export LANG=ja_JP.UTF-8
-
-autoload -Uz colors
-colors
-
-# last line (\n) problem countermeasure
-unsetopt promptcr
-# Suppress "Couldn't connect to accessibility bus:" gnome-terminal on Emacs
+# gnome-terminal on Emacs: "Couldn't connect to accessibility bus:" を抑止
 export NO_AT_BRIDGE=1
 
-########################################
-# History
-########################################
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
-LISTMAX=10000
+export GOROOT="/usr/local/go"
+export GOPATH="$HOME/src/go"
+export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
 
-zshaddhistory() {
-    local line=${1%%$'\n'}
-    local cmd=${line%% *}
-    [[ ${#line} -ge 5
-	   && ${cmd} != ll
-	   && ${cmd} != ls
-	   && ${cmd} != la
-	   && ${cmd} != cd
-	   && ${cmd} != man
-	   && ${cmd} != scp
-	   && ${cmd} != vim
-	   && ${cmd} != nvim
-	   && ${cmd} != less
-	   && ${cmd} != ping
-	   && ${cmd} != open
-	   && ${cmd} != file
-	   && ${cmd} != which
-	   && ${cmd} != whois
-	   && ${cmd} != drill
-	   && ${cmd} != uname
-	   && ${cmd} != md5sum
-	   && ${cmd} != pacman
-	   && ${cmd} != blog-jpg
-	   && ${cmd} != xdg-open
-	   && ${cmd} != mpv-music
-	   && ${cmd} != mpv-video
-	   && ${cmd} != traceroute
-	   && ${cmd} != speedtest-cli
-     ]]
-}
+export EDITOR=emacsclient
+export VISUAL=emacsclient
+export SUDO_EDITOR=vim
+export XDG_CONFIG_HOME=$HOME/.config
+export PAGER=less
+export LESS='-g -i -M -R -S -W -z-4 -x4'
 
-unsetopt extended_history
-setopt hist_find_no_dups
-setopt hist_reduce_blanks
-setopt hist_no_store
-setopt share_history
-setopt hist_ignore_all_dups
-setopt hist_ignore_dups
-setopt hist_ignore_space
-unsetopt hist_verify
-setopt hist_save_no_dups
-setopt hist_expand
-
-########################################
-# Completion
-########################################
-setopt list_packed
-setopt list_types
-setopt auto_list
-setopt auto_menu
-setopt auto_param_keys
-setopt auto_param_slash
-setopt complete_in_word
-setopt complete_aliases
-setopt magic_equal_subst
-unsetopt auto_remove_slash
-unsetopt menu_complete
-
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-zstyle ':completion:*' use-cache true
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
-zstyle ':completion:*:cd:*' tag-order local-directories path-directories
-zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+umask 022
 eval `dircolors -b`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 ########################################
 # Options
 ########################################
+# 最終行の改行問題の対策
+unsetopt promptcr
+
 setopt auto_resume
 setopt auto_cd
 setopt auto_pushd
@@ -103,24 +50,90 @@ setopt pushd_ignore_dups
 setopt no_beep
 setopt brace_ccl
 setopt correct
-setopt equals
 setopt extended_glob
 setopt no_flow_control
-setopt hash_cmds
 setopt no_hup
 setopt long_list_jobs
 setopt numeric_glob_sort
 setopt path_dirs
 setopt print_eight_bit
-setopt multios
 setopt mark_dirs
-setopt prompt_subst
 
-umask 022
+########################################
+# History
+########################################
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+    [[ ${#line} -ge 5
+       && ${cmd} != ll
+       && ${cmd} != ls
+       && ${cmd} != la
+       && ${cmd} != cd
+       && ${cmd} != man
+       && ${cmd} != scp
+       && ${cmd} != vim
+       && ${cmd} != nvim
+       && ${cmd} != less
+       && ${cmd} != ping
+       && ${cmd} != open
+       && ${cmd} != file
+       && ${cmd} != which
+       && ${cmd} != whois
+       && ${cmd} != uname
+       && ${cmd} != md5sum
+       && ${cmd} != blog-jpg
+       && ${cmd} != xdg-open
+       && ${cmd} != mpv-music
+       && ${cmd} != mpv-video
+       && ${cmd} != traceroute
+       && ${cmd} != speedtest-cli
+    ]]
+}
+
+setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_no_store
+
+########################################
+# Completion
+########################################
+autoload -Uz compinit
+compinit
+
+setopt list_packed
+setopt list_types
+setopt complete_in_word
+setopt complete_aliases
+setopt magic_equal_subst
+unsetopt auto_remove_slash
+
+LISTMAX=10000
+
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:cd:*' tag-order local-directories path-directories
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
+eval "$(gh completion -s zsh)"
 
 ########################################
 # Prompt
 ########################################
+autoload -Uz colors
+colors
+
+setopt prompt_subst
+
 PROMPT="%{%(?.$fg_bold[cyan].$fg_bold[red])%}%m%{$fg_bold[white]%}%%%{$reset_color%} "
 PROMPT2="%{$fg[magenta]%}%_%{$reset_color%}%{$fg_bold[white]%}>>%{$reset_color%} "
 RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
@@ -141,36 +154,14 @@ precmd() { vcs_info }
 bindkey -e
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# 履歴をfzfでインクリメンタル検索
-function fzf-history() {
+# 履歴を fzf でインクリメンタル検索
+fzf-history() {
     BUFFER=$(fc -l -n 1 | tac | fzf --reverse --no-sort --query "$LBUFFER")
     CURSOR=$#BUFFER
     zle reset-prompt
 }
 zle -N fzf-history
 bindkey '^r' fzf-history
-
-########################################
-# PATH / Environment
-########################################
-export GOROOT="/usr/local/go"
-export GOPATH="$HOME/src/go"
-export PATH="$HOME/.local/bin:$GOROOT/bin:$GOPATH/bin:/usr/sbin:$PATH"
-# Arch版サブ機（Let's note）のみ必要: mozc_serverがここに入るため
-export PATH="$PATH:/usr/lib/mozc"
-
-export EDITOR=emacsclient
-export VISUAL=emacsclient
-export SUDO_EDITOR=vim
-export XDG_CONFIG_HOME=$HOME/.config
-export PAGER=less
-export LESS='-g -i -M -R -S -W -z-4 -x4'
-
-########################################
-# SSH
-########################################
-# ssh-agent は使わない。マシンごとの空パスフレーズ鍵
-# ~/.ssh/id_ed25519_<ホスト名> を、sshのconfigのIdentityFileで直接使う。
 
 ########################################
 # Aliases
@@ -187,136 +178,35 @@ alias du='du -h'
 alias df='df -h'
 alias free='free -h'
 alias open='xdg-open'
-alias ex='exit'
 alias myip="ip -4 a | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v 127"
-alias is='whois'
 
 # アーカイブ展開
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 
-# ディスク管理GUI（USBのフォーマット・パーティション確認等）
-alias gd='gnome-disks'
-
-# アプリ
-alias iv='sxiv'
-alias fz='filezilla -s'
+# アプリ・ツール
 alias e='emacs'
-alias ec='emacsclient -c --alternate-editor=emacs-start.sh'
-alias ekill='ps -u $USER -o pid,stat,time,command | grep -i emacs | grep -v "<defunct>" | fzf --reverse --header="[Kill Emacs]" --multi | awk "{print \$1}" | xargs kill -9'
 alias v='vim'
-alias svim='sudoedit'
-alias snano='sudo nano'
+alias gd='gnome-disks'
 alias mutt='/usr/local/bin/neomutt.sh'
-alias xsrv='ssh xsrv'
-alias pass='secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/passwd/keypassX/20191105.kdbx'
-alias lepton='~/Apps/Lepton-1.10.0.AppImage --no-sandbox --disable-gpu'
-alias ifconfig='/sbin/ifconfig'
-
-# alias ig='CHROMIUM=google-chrome-stable sh ~/Dropbox/minorugh.com/i/open_public.sh &'
+alias pinta='flatpak run com.github.PintaProject.Pinta'
 alias ig='CHROMIUM=chromium sh ~/i.minorugh.com/open_public.sh &'
-
-# OS-specific
-if [[ -f /etc/arch-release ]]; then
-    alias pinta='/usr/bin/pinta'
-else
-    alias pinta='flatpak run com.github.PintaProject.Pinta'
-fi
-
-# パスワード生成
-alias pw12='pwgen 12 16'
-alias pw24='pwgen 24 8'
-alias pw40='pwgen 40 4'
-
-# apt
-alias update='sudo apt update'
-alias upgrade='sudo apt -y upgrade'
-
-# crontab
-alias ce='crontab -e'
-alias clog='~/Dropbox/backup/CHANGELOG/search.pl'
-alias clog-index='~/Dropbox/backup/CHANGELOG/mkindex.pl'
-
-alias pm='power-menu.sh'
 
 ########################################
 # Functions
 ########################################
-# Remove Emacs byte-compiled cache files (*.elc) under elisp/ and inits/.
-# Does NOT touch elpa/ (installed packages) — only local/user config.
-# Used before troubleshooting Emacs configuration.
-function eclean() {
-    echo "Removing Emacs .elc files under elisp/ and inits/..."
-    find -L ~/.emacs.d/elisp ~/.emacs.d/inits -name "*.elc" -print -delete
-}
-
-# Open Emacs configuration with Vim for recovery
-# Use when normal Emacs startup fails.
-# (Removes .elc under elisp/ and inits/ first — see eclean)
-function ve() {
-    eclean
-    vim ~/.emacs.d/
-}
-
-# Start Emacs with minimal configuration for recovery
-# Skip init.el and load init-mini.el only.
-# (Removes .elc under elisp/ and inits/ first — see eclean)
-function eq() {
-    eclean
-    emacs -q -l ~/.emacs.d/init-mini.el
-}
-
-# Restore configuration changes to the last saved state.
-# In this environment, "saved" means make git (commit + push).
-function gitb() {
-    git status --short
-    echo
-    echo "⚠️  最後にpushした状態へ戻します"
-    echo "    ※ push 前のファイルは変更されません"
-    read -q "REPLY? (y/N) "
-    echo
-
-    if [[ "$REPLY" == "y" ]]; then
-        git restore .
-        echo "復元しました。"
-    else
-        echo "キャンセルしました。"
-    fi
-}
-
 # cd してから ls
-function chpwd() {
+chpwd() {
     ls -v -F --color=auto
 }
 
-# 画像変換
-function webm2gif() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        ffmpeg -i $1 -pix_fmt rgb24 $fname.gif
-    else
-        echo 'usage: webm2gif file.webm'
-    fi
+# 最小構成で Emacs を起動する（復旧用）
+# init.el を読まず init-mini.el だけを読む
+eq() {
+    emacs -q -l ~/.emacs.d/init-mini.el
 }
 
-function optimize-jpg() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        convert $1 -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB ${fname}_converted.jpg
-    else
-        echo 'usage: optimize-jpg sample.jpg'
-    fi
-}
-
-function optimize-png() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        convert $1 -strip ${fname}_converted.png
-    else
-        echo 'usage: optimize-png sample.png'
-    fi
-}
-
-function blog-jpg() {
+# ブログ用に画像を幅 800px へ縮小する
+blog-jpg() {
     if [ $# = 1 ]; then
         fname="${1%.*}"
         convert $1 -resize 800x re_${fname}.jpg
@@ -325,64 +215,9 @@ function blog-jpg() {
     fi
 }
 
-function resize-all() {
-    mkdir resize
-    mogrify -path ./resize -strip -format jpg -unsharp 0.125x1.0+1+0.05 -quality 90 -modulate 105 -contrast -resize 1024x\> *.*
-}
-
-# ドキュメント変換
-function md2pdf() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        pandoc $1 -o $fname.pdf -V CJKmainfont=IPAPGothic -V CJKmainfontoptions="BoldFont=IPAPGothic" -V CJKmonofont="Noto Sans Mono CJK JP" -V CJKmonofontoptions="BoldFont=Noto Sans Mono CJK JP" -V geometry:margin=20mm -V fontsize=14pt --pdf-engine=lualatex
-    else
-        echo 'usage: md2pdf file.md'
-    fi
-}
-# function md2pdf() {
-#     if [ $# = 1 ]; then
-#         fname="${1%.*}"
-#         pandoc $1 -o $fname.pdf -V mainfont=IPAPGothic -V fontsize=16pt --pdf-engine=lualatex
-#     else
-#         echo 'usage: md2pdf file.md'
-#     fi
-# }
-
-function md2docx() {
-    if [ $# = 1 ]; then
-        fname="${1%.*}"
-        pandoc $1 -t docx -o $fname.docx -V mainfont=Gothic -V fontsize=16pt --toc --highlight-style=zenburn
-    else
-        echo 'usage: md2docx file.md'
-    fi
-}
-
-# README をインデックスディレクトリにシンボリックリンクで集約する
-function mklink-readme() {
-    local INDEX_DIR="$HOME/Dropbox/READMES"
-    if [ ! -f "README.md" ]; then
-        echo "❌ エラー: このディレクトリに README.md は見つかりません。"
-        return 1
-    fi
-    mkdir -p "$INDEX_DIR"
-    local link_name="$(basename $PWD)-README.md"
-    local relative_target=$(python3 -c "import os; print(os.path.relpath('$PWD/README.md', '$INDEX_DIR'))")
-    ln -sf "$relative_target" "$INDEX_DIR/$link_name"
-    echo "✅ $INDEX_DIR/$link_name -> $relative_target"
-}
-
 ########################################
 # Plugins
 ########################################
 # zsh-syntax-highlighting: sudo apt install zsh-syntax-highlighting
-if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-# gh コマンド補完
-eval "$(gh completion -s zsh)"
-
-### end
-export PATH=~/.npm-global/bin:$PATH
+# 補完や bindkey の設定より後に読み込む
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
