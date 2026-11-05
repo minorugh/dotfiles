@@ -24,7 +24,7 @@ Xfce4のグローバルショートカット（F12）に登録して使用する
 ```
 
 ### emacs-start.sh
-Emacs を最大化状態で起動するラッパー。`.autostart.sh` から呼ばれる。
+Emacs を最大化状態で起動するラッパー。起動方法を1か所にまとめ、複数の呼び出し元から使う。
 
 `zsh -ic` 経由で起動し、`.zshrc` の環境設定を読み込んだ状態で
 `/usr/local/bin/emacs --maximized` を実行する。
@@ -32,6 +32,20 @@ Emacs を最大化状態で起動するラッパー。`.autostart.sh` から呼�
 ```bash
 /usr/local/bin/emacs-start.sh → bin/emacs-start.sh
 ```
+
+`emacsclient` の代替エディタ（`--alternate-editor=emacs-start.sh`）に使われるため、直書きにせずラッパーとして残している。
+
+| 呼び出し元 | 役割 |
+|---|---|
+| `.autostart.sh` | ログイン時に Emacs を起動する（直後に xdotool で最小化） |
+| `.zshrc` の `ec` | emacsclient が接続できないとき、Emacs を起動する |
+| `.local/share/applications/emacsclient.desktop` | ファイルマネージャなどから開くときの代替エディタ |
+| `bin/emacs-toggle` | Emacs のウィンドウがなければ起動する |
+| `.emacs.d/inits/80-hydra-navication.el` の `my-restart-emacs` | 終了後に起動し直す |
+| `bin/power-menu.sh` | 実行中の Emacs プロセスの検出条件に使う |
+| Makefile の `autostart` | `make emacs-start` で `/usr/local/bin` へのリンクを張る |
+
+`emacsclient.desktop` は、`emacs-common` が配る標準版の `--alternate-editor=` を `emacs-start.sh` に変えたコピーで、`make emacs-start` でリンクする。
 
 ### dropbox-restart.sh
 ログイン時に Dropbox のトレイアイコンが出ない問題への対策。`.autostart.sh` から呼ばれる。
