@@ -244,15 +244,12 @@ google-chrome: ## Google Chrome のインストール
 	$(APT) ./google-chrome-stable_current_amd64.deb
 	rm -f ./google-chrome-stable_current_amd64.deb
 
-filezilla: ## FileZilla のインストールと設定 + filezilla.sh のリンク作成
+filezilla: ## FileZilla のインストールと設定 + .desktop のリンク作成
 	$(APT) $@
 	rm -rf ${HOME}/.config/filezilla
 	mkdir -p ${HOME}/.config/filezilla
 	cp -a ${HOME}/Dropbox/backup/filezilla/config/. ${HOME}/.config/filezilla/
 	chmod 700 ${HOME}/.config/filezilla
-	mkdir -p ${HOME}/.local/bin
-	ln -vsf {${PWD},${HOME}/.local}/bin/filezilla.sh
-	chmod +x ${HOME}/.local/bin/filezilla.sh
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/filezilla.desktop
 
 neomutt: ## NeoMutt の設定 + neomutt.sh のリンク作成 + Super+Zショートカット登録

@@ -110,7 +110,7 @@ chsh -s /usr/bin/zsh
 | `make docker-install` | Docker Engine + Compose のインストール |
 | `make docker-setup` | Docker 初期セットアップ（polkit 設定含む） |
 | `make polkit` | polkit 認証ダイアログ抑制（Docker用） |
-| `make filezilla` | FileZilla のインストールと設定 + filezilla.sh のリンク作成 |
+| `make filezilla` | FileZilla のインストールと設定 + .desktop のリンク作成 |
 | `make keepassxc` | KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成（マスターパスワードの更新判定は keepassxc.sh が担当） |
 | `make hugo` | Hugo（extended版）のインストール |
 | `make texlive` | TeX Live のインストール（scheme-medium + 日本語） |
