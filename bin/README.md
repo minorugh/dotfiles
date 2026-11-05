@@ -38,7 +38,6 @@ Emacs を最大化状態で起動するラッパー。起動方法を1か所に�
 | 呼び出し元 | 役割 |
 |---|---|
 | `.autostart.sh` | ログイン時に Emacs を起動する（直後に xdotool で最小化） |
-| `.zshrc` の `ec` | emacsclient が接続できないとき、Emacs を起動する |
 | `.local/share/applications/emacsclient.desktop` | ファイルマネージャなどから開くときの代替エディタ |
 | `bin/emacs-toggle` | Emacs のウィンドウがなければ起動する |
 | `.emacs.d/inits/80-hydra-navication.el` の `my-restart-emacs` | 終了後に起動し直す |
