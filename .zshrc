@@ -8,7 +8,7 @@
 ##   Version : 2.0
 ##   Target  : Debian 13
 ##   Repo    : ~/src/github.com/minorugh/dotfiles/.zshrc
-##             (~/.zshrc からシンボリックリンク)
+##             (~/.zshrc へシンボリックリンク)
 ##
 ##   Sections:
 ##     Environment / Options / History / Completion / Prompt
