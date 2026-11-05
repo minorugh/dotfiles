@@ -54,16 +54,6 @@ Debian + Xfce4 で必要で、Dropbox 側が修正されたら不要になる。
 - ログ: `~/.cache/dropbox-restart.log`（待ち完了時刻と start の実行が残る。待ち中の ServiceUnknown エラーは想定内）
 - クリーンリストア: `make dropbox-restart`（`make autostart` の前提に組込済み）
 
-### filezilla.sh
-FileZilla をバックグラウンドで起動するラッパー。
-
-agent は使わない。FileZilla は `~/.ssh/config` の `IdentityFile` を読まないため、
-設定 → 接続 → SFTP の「鍵ファイルを追加」で `~/.ssh/id_ed25519_<ホスト名>` を登録しておく（P1・x250 は登録済み）。
-
-```bash
-~/.local/bin/filezilla.sh → bin/filezilla.sh
-```
-
 ### neomutt.sh
 neomutt メールクライアントを gnome-terminal で起動するラッパー。
 
@@ -155,7 +145,6 @@ make-run.sh <dir> <target...>
 |---|---|
 | emacs-toggle | `make emacs-toggle` |
 | emacs-start.sh | `make emacs-start` |
-| filezilla.sh | `make filezilla` |
 | neomutt.sh | `make neomutt` |
 | keepassxc.sh | `make keepassxc` |
 | power-menu.sh | `make power-menu` |
