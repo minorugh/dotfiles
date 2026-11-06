@@ -32,7 +32,7 @@ BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
 BASE_PKGS	+= libgtk-3-dev libncurses-dev libgnutls28-dev libdbus-1-dev
 BASE_PKGS	+= libtool flatpak python3-pip libnet-sftp-foreign-perl
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
-BASE_PKGS	+= libfontconfig1 libgl1-mesa-glx libxi6 libsm6 libxrender1 libpulse0
+BASE_PKGS	+= libfontconfig1 libxi6 libsm6 libxrender1 libpulse0
 
 APT		:= sudo apt install -y
 .DEFAULT_GOAL	:= help
