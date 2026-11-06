@@ -191,6 +191,9 @@ alias mutt='/usr/local/bin/neomutt.sh'
 alias pinta='flatpak run com.github.PintaProject.Pinta'
 alias ig='CHROMIUM=chromium sh ~/i.minorugh.com/open_public.sh &'
 
+# dotfiles/Makefile のチェック
+alias mfcheck='~/src/github.com/minorugh/dotfiles/bin/makefile-check.sh'
+
 ########################################
 # Functions
 ########################################

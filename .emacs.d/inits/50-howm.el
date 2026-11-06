@@ -68,7 +68,7 @@
 
   (defvar my-howm-categories
     '((?m " memo"  "memo: " my-howm-face-memo)
-      (?i " idea"  "idea: " my-howm-face-idea)
+      (?n " note"  "note: " my-howm-face-note)
       (?t " tech"  "tech: " my-howm-face-tech)
       (?d " 日記"  "日記: " my-howm-face-diary)
       (?g " 園芸"  "園芸: " my-howm-face-garden))
@@ -77,7 +77,7 @@
   (defvar my-howm-special-entries
     '((?c " code"  my-howm-face-church  my-junk-new)
       (?p " 創作"  my-howm-face-creative  my-haiku-note-post)
-      (?n " 推敲"  my-howm-face-note      my-haiku-note))
+      (?s " 推敲"  my-howm-face-note      my-haiku-note))
     "作成メニュー専用の特殊エントリ。動作は外部関数に委譲する。")
 
 
@@ -90,7 +90,7 @@
       (((background dark))  :foreground "#AFA9EC" :weight bold))
     "memo: — purple" :group 'howm)
 
-  (defface my-howm-face-idea
+  (defface my-howm-face-note
     '((((background light)) :foreground "#185FA5" :weight bold)
       (((background dark))  :foreground "#85B7EB" :weight bold))
     "idea: — blue" :group 'howm)
@@ -200,6 +200,7 @@
        ((assq key my-howm-categories)
         (my-howm--insert-category (nth 2 (assq key my-howm-categories))))
        ((assq key my-howm-special-entries)
+        (require 'insert-template)
         (funcall (nth 3 (assq key my-howm-special-entries)))
         (delete-other-windows)
         (message "")))))

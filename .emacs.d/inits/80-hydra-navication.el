@@ -249,7 +249,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
         (call-process "xdotool" nil nil nil "key" "ctrl+a" "ctrl+c")
         (sleep-for 0.3)
         (call-process "emacs-toggle")
-        (my-howm--insert-category "memo: ")
+        (my-howm--insert-category "note: ")
         (yank)
         (call-process "wmctrl" nil nil nil "-i" "-c" wid))))
 
