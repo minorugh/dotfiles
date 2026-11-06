@@ -61,31 +61,9 @@ ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
 MSG            = auto: $(shell date '+%Y-%m-%d %H:%M:%S')
 
-.PHONY: env-remount env-check git commit git-fix env-sync
-
-env-remount: ## env/ の bindfs マウントをやり直す（sudo不要、メイン/サブ共通の保険）
-	grep -qs ' $(DOTFILES_DIR)/env ' /proc/mounts && { fusermount -u $(DOTFILES_DIR)/env 2>/dev/null || fusermount -uz $(DOTFILES_DIR)/env; } || true
-	mkdir -p $(DOTFILES_DIR)/env
-	mountpoint -q $(DOTFILES_DIR)/env || bindfs $(ENV_SOURCE_DIR) $(DOTFILES_DIR)/env
-
-env-check: ## env/ の失効（非マウント/空）を検知して自動復旧（正常時は無音）
-	@if [ -z "$$(ls -A $(ENV_SOURCE_DIR) 2>/dev/null)" ]; then \
-		echo "##> ⚠ $(ENV_SOURCE_DIR) が無いか空です。env-check をスキップ"; \
-		exit 0; \
-	fi; \
-	if mountpoint -q $(DOTFILES_DIR)/env && [ -n "$$(timeout 3 ls -A $(DOTFILES_DIR)/env 2>/dev/null)" ]; then \
-		exit 0; \
-	fi; \
-	echo "##> ⚠ env/ の失効を検知。再マウントします"; \
-	$(MAKE) -s env-remount; \
-	if [ -n "$$(timeout 3 ls -A $(DOTFILES_DIR)/env 2>/dev/null)" ]; then \
-		echo "##> ✓ env/ 復旧完了"; \
-	else \
-		echo "##> ✗ env/ の復旧に失敗しました。手動で確認してください"; \
-	fi
+.PHONY: git commit git-fix env-sync
 
 git: ## Auto commit+push (main only, sub: pull only)
-	-@$(MAKE) -s env-check
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
@@ -151,7 +129,6 @@ env-sync: ## env_source の更新を検知し、あれば確認のうえ同期�
 	fi; \
 	rm /tmp/env_repo.bundle; \
 	echo "$$env_hash_flag" > $(ENV_SYNC_CACHE)/env.hash; \
-	$(MAKE) -s env-remount; \
 	echo "##> ✓ env_source 同期完了 (abook含む)"
 
 git-fix: ## rebase失敗時の自動修復

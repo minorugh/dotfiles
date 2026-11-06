@@ -18,19 +18,19 @@ HOSTNAME       := $(shell hostname)
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 
-PACKAGES	:= hugo nkf wget curl file unar unzip gcc npm smartmontools lm-sensors
+PACKAGES	:= nkf wget curl file unar unzip npm smartmontools lm-sensors
 PACKAGES	+= zsh-syntax-highlighting silversearcher-ag expect arc-theme
-PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl tig trash-cli
+PACKAGES	+= pandoc rsync cmigemo e2ps evince net-tools wmctrl trash-cli
 PACKAGES	+= ruby gnome-terminal xclip vim xdotool
 PACKAGES	+= autokey-gtk autokey-common lhasa tree aspell aspell-en
-PACKAGES	+= mosh nodejs sxiv
+PACKAGES	+= mosh nodejs
 PACKAGES	+= menulibre pwgen xfce4-screenshooter bluetooth blueman gdebi
-PACKAGES	+= gimp darktable inkscape shotwell cups cups-bsd vlc
+PACKAGES	+= gimp darktable inkscape shotwell vlc
 
 BASE_PKGS	:= automake autoconf openssl build-essential
 BASE_PKGS	+= libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev
 BASE_PKGS	+= libgtk-3-dev libncurses-dev libgnutls28-dev libdbus-1-dev
-BASE_PKGS	+= libtool flatpak python3-pip libnet-sftp-foreign-perl
+BASE_PKGS	+= libtool python3-pip libnet-sftp-foreign-perl
 BASE_PKGS	+= libxcb-shape0 libxcb-shm0 libxcb-xfixes0 libxcb-randr0 libxcb-image0
 BASE_PKGS	+= libfontconfig1 libxi6 libsm6 libxrender1 libpulse0
 
@@ -47,7 +47,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore keychron-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run simplenote tig
+baseinstall: install base init zsh-restore keychron-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run simplenote tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher keepassxc google-earth
 
 SHELL = /bin/bash
@@ -59,11 +59,6 @@ SHELL = /bin/bash
 ########################################################
 ## 環境初期化（dotfiles 展開・SSH・zsh）
 ########################################################
-env-setup: ## env/ を bindfs で ~/.env_source にマウント（新規ファイル自動反映）
-	$(APT) bindfs
-	sudo ln -vsf ${PWD}/etc/fuse.conf /etc/fuse.conf
-	$(MAKE) -s -C git env-remount
-
 init: ## dotfiles のシンボリックリンク展開
 	test -L ${HOME}/.emacs.d || rm -rf ${HOME}/.emacs.d
 	ln -vsfn ${PWD}/.emacs.d ${HOME}/.emacs.d
@@ -97,6 +92,7 @@ endif
 ## システム設定（キーマップ・起動・cron）
 ########################################################
 tig: ## tig の設定展開
+	$(APT) $@	
 	mkdir -p ${HOME}/.config/tig
 	ln -vsf ${PWD}/.config/tig/config ${HOME}/.config/tig/config
 
@@ -302,7 +298,7 @@ else
 endif
 
 printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2375DW）
-	sudo apt install -y cups cups-browsed
+	sudo apt install -y cups cups-bsd cups-browsed
 	grep -qF 'BrowseFilter NOT name Brother_HL_L2375DW_series' /etc/cups/cups-browsed.conf || \
 		echo 'BrowseFilter NOT name Brother_HL_L2375DW_series' | sudo tee -a /etc/cups/cups-browsed.conf
 	sudo systemctl restart cups-browsed
@@ -312,7 +308,7 @@ printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2
 # cups-browsed がアンダースコア版を自動追加して2枚印刷になる問題を抑制
 
 keepassxc: ## KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
-	$(APT) $@ libsecret-tools
+	$(APT) $@
 	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
 # マスターパスワードの更新は keepassxc.sh が起動時に判定する（P1 でのみ変更すること）。

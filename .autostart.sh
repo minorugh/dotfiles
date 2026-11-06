@@ -17,10 +17,6 @@
 # 依存: secret-tool, rsync, xdotool, keepassxc
 # 関連: .config/autostart/autostart.desktop, bin/emacs-toggle
 
-# env/ を ~/.env_source にbindfsで透過マウント（新規ファイル即反映のため）
-ENV_MNT=~/src/github.com/minorugh/dotfiles/env
-mountpoint -q "$ENV_MNT" || bindfs ~/.env_source "$ENV_MNT"
-
 # ssh-agent / keychain は使わない（2026-09-30 廃止）。空パスフレーズ + IdentityFile で ssh は agent 不要
 rsync -av --delete ~/Dropbox/backup/mozc/.mozc/ ~/.mozc/
 cp -a ~/Dropbox/backup/keyrings/. ~/.local/share/keyrings/

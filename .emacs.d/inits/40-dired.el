@@ -64,20 +64,18 @@
                              "~/.env_source/"
                              "~/src/github.com/minorugh/GH/"
                              "~/src/github.com/minorugh/minorugh.com/"
-                             "~/src/github.com/minorugh/dotfiles/"
-                             "~/src/github.com/minorugh/dotfiles/env/")))
+                             "~/src/github.com/minorugh/dotfiles/")))
            -1
          1))))
 
   ;;  Env Window Warning Face  (窓であることを視覚的に警告)
   ;; ----------------------------------------------------------
   (defun my-dired-env-warning-face ()
-    "Set a background color in Dired buffers under `~/.env_source' or `dotfiles/env/'.
-These directories hold the secrets repository and its bindfs-mounted
-window, so the color distinguishes them from ordinary working directories."
+    "Set a background color in Dired buffers under `~/.env_source'.
+The directory holds the secrets repository, so the color distinguishes
+it from ordinary working directories."
     (let ((current (file-name-as-directory (expand-file-name default-directory))))
-      (when (or (string-prefix-p (expand-file-name "~/.env_source/") current)
-                (string-prefix-p (expand-file-name "~/src/github.com/minorugh/dotfiles/env/") current))
+      (when (string-prefix-p (expand-file-name "~/.env_source/") current)
         (buffer-face-set '(:background "#3a1a1a")))))
 
   ;;  Navigation
