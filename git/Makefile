@@ -51,6 +51,9 @@
 # env-remount は、mountpoint で拾えない失効マウント（/proc/mounts に残る状態）も掃除する。
 # 従来メイン機の push 前に毎回実行していた env-remount 呼び出しは、env-check に一本化して削除。
 
+# 2026.11.06
+# env/ の bindfs 窓を廃止したため、env-remount と env-check を削除した。~/.env_source を直接参照する。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)

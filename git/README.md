@@ -30,13 +30,12 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 | `make git` | 変更を `add` → 差分があれば `auto: 日時` で commit → P1: push / サブ機: pull --ff-only |
 | `make git-fix` | サブ機で pull（ff-only）に失敗した際の自動修復（rebase 中なら abort → `reset --hard origin/main` → pull）。dotfiles 専用 |
 | `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source` の更新を検知して確認のうえ同期（abookも統合済みのため自動的に含まれる） |
-| `make env-remount` | `dotfiles/env/` の bindfs マウントをやり直す（sudo不要）。`git`（P1）・`env-sync`（サブ機）から共通で呼ばれる |
 
 ### `make git` の分岐（ホスト名で判定）
 
 - **P1（メイン機）**: `~/.env_source` 側の `make git` があれば呼び出し →
   `git/env.hash` を書き出し → `bin/changelog-rotate.sh` で更新履歴を `CHANGELOG.md`（全履歴）に反映し、トップ `README.md` は直近10件に保つ → `add` → `commit`（差分があれば） →
-  `env-remount` → `push`
+  `push`
 - **サブ機（X250・Let's note）**: push は行わず pull のみ。未commit の変更（未追跡を含む）は
   `git stash` で退避し、`git pull --ff-only` のあと、今回 stash を作ったときだけ
   `stash pop` する。成功後に `make env-sync` を自動実行
@@ -70,11 +69,7 @@ git統合されたため廃止しました。abookの更新は`env_source`全体
 自動的に含まれます。）
 
 `~/.env_source` は `rm -rf` せず `git fetch` + `git reset --hard` で更新するため、
-ディレクトリ自体が消えて作り直されることはありません。ただし、内部の
-ファイル構成が変化した際に `dotfiles/env/` の bindfs マウントが古い状態の
-まま取り残され、中身が空に見える事象が実際に発生しています
-（2026.08.03、詳細は `changelog-20260802.md` 参照）。そのため `env-sync`
-は同期完了後に必ず `env-remount` を呼び、マウントを張り直します。
+ディレクトリ自体が消えて作り直されることはありません。
 
 GPG のパスフレーズ入力が発生しうるため、Emacs 経由での実行時も
 `bin/make-run.sh` 経由で `gnome-terminal` に委譲され、対話可能な状態で

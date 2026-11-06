@@ -1020,11 +1020,11 @@ Emacs 30 の file-name 補完を dired のコピー時に上書きしないよ�
 
 ### 15.3. omit モードの制御
 
-`~/`・`~/.env_source/`・xsrv-GH/minorugh.com/dotfiles のミラー・`dotfiles/env/` など特定ディレクトリでは omit を無効化し、隠しファイルを表示します。
+`~/`・`~/.env_source/`・xsrv-GH/minorugh.com/dotfiles のミラーなど特定ディレクトリでは omit を無効化し、隠しファイルを表示します。
 
 ### 15.4. 秘密情報ディレクトリの視覚的警告
 
-`~/.env_source/` や `dotfiles/env/`（bindfs でマウントされた秘密情報リポジトリの窓）配下の dired バッファは、背景色（`#3a1a1a`）で通常の作業ディレクトリと区別できるようにしています。
+`~/.env_source/`（秘密情報リポジトリ）配下の dired バッファは、背景色（`#3a1a1a`）で通常の作業ディレクトリと区別できるようにしています。
 
 ### 15.5. パーミッション早見表
 

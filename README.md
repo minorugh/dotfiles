@@ -97,7 +97,6 @@ chsh -s /usr/bin/zsh
 | `make all` | `baseinstall` + `nextinstall` を一括実行 |
 | `make baseinstall` | 基本環境の構築（パッケージ・keyring・autostart など） |
 | `make nextinstall` | アプリケーション群のインストール |
-| `make env-setup` | `dotfiles/env/` を bindfs で `~/.env_source` にマウント（新規ファイル自動反映） |
 | `make init-sub` | サブ機のみ: dotfiles の git push を封鎖（`git remote set-url --push origin no-push`）。`baseinstall` に含まれる |
 | `make keymap` | CapsLock→Ctrl（`/etc/default/keyboard`＋現セッション）・`.Xmodmap`展開 |
 | `make emacs-mozc` | Emacs + Mozc のインストール |
@@ -264,9 +263,7 @@ SSH 鍵・.netrc・.config/hub などの秘密ファイルは `~/.env_source/` �
 
 - git-crypt 廃止（2026.04.28）に伴い導入
 - Dropbox に GPG 暗号化 bundle として保存
-- `dotfiles/env/` から `~/.env_source/` へ bindfs でバインドマウントして参照（窓として機能。
-  新規ファイルも自動反映され、シンボリックリンクの個別作成は不要）
-- マウントは `make env-setup`（初回構築時）と `.autostart.sh`（ログイン毎）が担当
+- `~/.env_source/` を直接参照する（`dotfiles/env/` の窓は 2026.11.06 に廃止）
 - 更新時は `cd ~/.env_source && make bundle` を実行
 
 サブ機側は `make git`（`git pull --ff-only`）に連動して `env-sync` が自動実行され、
