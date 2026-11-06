@@ -150,6 +150,17 @@ picker（`@`キー、`my-make-ivy-integrated`）の `C-c C-c` から呼ばれる
 make-run.sh <dir> <target...>
 ```
 
+### simplenote.sh
+Simplenote を app モードで起動するラッパー。
+
+hydra-dired の `n` から呼ばれる `my-simplenote`（`.emacs.d/inits/80-hydra-navication.el`）が、
+Simplenote のウィンドウがないときにこのスクリプトで起動する。ウィンドウがあるときは、
+開いているノートを howm の新規メモにコピーしてウィンドウを閉じる。
+
+```bash
+/usr/local/bin/simplenote.sh → bin/simplenote.sh
+```
+
 ## シンボリックリンクの設定
 
 各スクリプトのリンク設定は `Makefile` の対応ターゲットで行います。
@@ -164,3 +175,4 @@ make-run.sh <dir> <target...>
 | tile-toggle.sh | `make tile-toggle` |
 | make-run.sh | `make make-run` |
 | dropbox-restart.sh | `make dropbox-restart` |
+| simplenote.sh | `make simplenote` |

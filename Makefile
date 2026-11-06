@@ -3,6 +3,7 @@
 # update 2022.09.22 for Debian10
 # update 2024.10.01 for Debian12
 # update 2026.06.11 for Debian13
+# update 2026.11.06 リストアの仕分けを整理（baseinstall / nextinstall / 手動）
 #
 # make 実行前の手動準備手順は README.md を参照してください
 # https://github.com/minorugh/dotfiles
@@ -46,10 +47,14 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: env-setup install base init zsh-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run tig rclone
-nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher
+baseinstall: env-setup install base init zsh-restore keychron-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run simplenote tig
+nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher keepassxc google-earth
 
 SHELL = /bin/bash
+
+################################################################################
+## Part 1. 自動 baseinstall（システムに直結する非対話の処理）
+################################################################################
 
 ########################################################
 ## 環境初期化（dotfiles 展開・SSH・zsh）
@@ -71,10 +76,14 @@ init: ## dotfiles のシンボリックリンク展開
 zsh-restore: ## zsh履歴を Dropbox からリストア
 	cp -p ${HOME}/Dropbox/backup/env/zsh/.zsh_history ${HOME}/.zsh_history
 
-keychron-restore: ## keychron の設定を Dropbox からリストア
+keychron-restore: ## keychron の設定を Dropbox からリストア（メイン機のみ）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	sudo cp -p ${HOME}/Dropbox/backup/keychron/50-keychron.rules /etc/udev/rules.d/50-keychron.rules
 	sudo udevadm control --reload-rules
 	sudo udevadm trigger --action=add --attr-match=idVendor=3434 --attr-match=idProduct=0a3b
+else
+	@echo "$(HOSTNAME): サブ機では keychron の設定を行いません（keychron はメイン機 P1 のみ）"
+endif
 
 init-sub: ## サブ機のgit push封鎖（メイン機以外で実行）
 ifneq ($(HOSTNAME),$(MAIN_HOSTNAME))
@@ -82,21 +91,6 @@ ifneq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@echo "サブ機push封鎖完了"
 else
 	@echo "これはサブ機専用の処理です"
-endif
-
-rclone: ## Google ドライブ連携用の rclone 初期認証（ブラウザが起動します）
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-	sudo apt update && sudo apt install -y rclone
-	@echo "--------------------------------------------------------"
-	@echo "自動的にブラウザが開きます。Googleアカウントでログインし、"
-	@echo "アクセスを【許可】してください。"
-	@echo "--------------------------------------------------------"
-	sleep 2
-	rclone config create minorugh drive scope=drive
-	@echo "✓ 認証が完了しました。Googleドライブにテストフォルダを作成します。"
-	rclone mkdir minorugh:KeePass_Backup
-else
-	@echo "$(HOSTNAME): サブ機ではrcloneの設定を行いません（KeePassのバックアップはメイン機 P1 のみ）"
 endif
 
 ########################################################
@@ -115,14 +109,16 @@ keymap: ## キーマップのカスタマイズ（CapsLock→Ctrl / .Xmodmap展�
 	sudo dpkg-reconfigure -f noninteractive keyboard-configuration
 	setxkbmap -layout jp -option ctrl:nocaps
 
-ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 grub: ## grub・lightdm・logind の設定（メイン機のみ）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	sudo ln -vsf ${PWD}/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 	sudo ln -vsf ${PWD}/etc/systemd/logind.conf /etc/systemd/logind.conf
 	sudo ln -vsf ${PWD}/etc/default/grub /etc/default/grub
 	sudo ln -vsf ${PWD}/etc/systemd/system/ext-monitor.service /etc/systemd/system/ext-monitor.service
 	sudo systemctl enable ext-monitor.service
 	sudo update-grub2
+else
+	@echo "$(HOSTNAME): サブ機では grub・lightdm・logind の設定を行いません（外部モニタ対策はメイン機 P1 のみ）"
 endif
 
 autostart: emacs-start dropbox-restart ## GUI起動時の自動処理設定（mozc・keyring 復元、Emacs・neomutt 起動）
@@ -159,6 +155,9 @@ tile-toggle: ## tile-toggle.sh のリンク作成 + F15ショートカット登�
 
 make-run: ## make-run.sh のリンク作成（Emacs経由のmake実行を安全化）
 	$(call BIN_LINK,make-run.sh,make-run.sh)
+
+simplenote: ## simplenote.sh のリンク作成（hydra-dired の n から呼ばれる、Simplenote を app モードで起動）
+	$(call BIN_LINK,simplenote.sh,simplenote.sh)
 
 .PHONY: cron automerge autobackup
 
@@ -228,9 +227,6 @@ gist: ## gist コマンドのインストールと設定
 	sudo cp $$(ruby -e 'puts Gem.user_dir')/bin/gist /usr/local/bin/gist
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gist
 
-########################################################
-## アプリケーション（baseinstall / nextinstall 対象）
-########################################################
 emacs-mozc: ## Emacs + Mozc のインストール（Emacs本体もここで導入）
 	$(APT) $@ fcitx-mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
@@ -240,6 +236,13 @@ emacs-mozc: ## Emacs + Mozc のインストール（Emacs本体もここで導�
 # Debian13以降では emacs 30.1 が標準になる見込みのため自前ビルド不要になるかも
 # fcitx の設定: ターミナルで im-config を実行 → Enter → fcitx を選択
 
+################################################################################
+## Part 2. 自動 nextinstall（アプリのインストールと設定）
+################################################################################
+
+########################################################
+## アプリケーション（nextinstall 対象）
+########################################################
 google-chrome: ## Google Chrome のインストール
 	cd ${HOME}/Downloads && \
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -276,10 +279,18 @@ sxiv: ## sxiv の設定
 
 lepton: ## Lepton（Gist クライアント）のインストール
 	sudo apt update
-	sudo apt install snapd
+	sudo apt install -y snapd
 	sudo snap install snapd
 	sudo snap install lepton
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/lepton.desktop
+
+hugo: ## Hugo のインストール（extended版・GitHub releases経由）
+	cd ${HOME}/Downloads && \
+	wget https://github.com/gohugoio/hugo/releases/download/v0.147.0/hugo_extended_0.147.0_linux-amd64.deb
+	sudo dpkg -i hugo_extended_0.147.0_linux-amd64.deb
+	rm -f hugo_extended_0.147.0_linux-amd64.deb
+# バージョンアップ時はURLの数字を変更すること
+# 確認: hugo version
 
 launcher: ## cl・i.minorugh.com のメニュー用ランチャーのリンク作成（メイン機のみ。make up を呼ぶ）
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
@@ -300,8 +311,28 @@ printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2
 # Brother HL-L2375DW はドライバ不要（driverless対応）
 # cups-browsed がアンダースコア版を自動追加して2枚印刷になる問題を抑制
 
+keepassxc: ## KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
+	$(APT) $@ libsecret-tools
+	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
+# マスターパスワードの更新は keepassxc.sh が起動時に判定する（P1 でのみ変更すること）。
+# キーリングが空の機械での初回登録のみ手動で実行する:
+#   secret-tool store --label='keepassxc master' type kdb
+# 手動で起動する場合は以下:
+#   secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx
+
+google-earth: ## Google Earth のインストール
+	cd ${HOME}/Downloads && \
+	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
+	$(APT) ./google-earth-pro-stable_current_amd64.deb
+	rm -f ./google-earth-pro-stable_current_amd64.deb
+
+################################################################################
+## Part 3. 手動（対話が必要なもの・個別に実行する）
+################################################################################
+
 ########################################################
-## 言語・ビルド（Go / Hugo / Emacs / TeX）
+## 言語・ビルド（Go / Emacs / TeX）
 ########################################################
 go: ## Go 言語のインストール（v1.23.2）
 	cd ${HOME}/Downloads && \
@@ -314,14 +345,6 @@ go: ## Go 言語のインストール（v1.23.2）
 ghq: ## ghq のインストール（リポジトリ管理ツール）
 	go install github.com/x-motemen/ghq@latest
 # go 1.23 以上が必要（make go を先に実行すること）
-
-hugo: ## Hugo のインストール（extended版・GitHub releases経由）
-	cd ${HOME}/Downloads && \
-	wget https://github.com/gohugoio/hugo/releases/download/v0.147.0/hugo_extended_0.147.0_linux-amd64.deb
-	sudo dpkg -i hugo_extended_0.147.0_linux-amd64.deb
-	rm -f hugo_extended_0.147.0_linux-amd64.deb
-# バージョンアップ時はURLの数字を変更すること
-# 確認: hugo version
 
 emacs-stable: ##! Emacs 安定版のソースビルド（apt build-depで対話確認あり）
 	cd ~/src/ && \
@@ -373,25 +396,24 @@ latex: ## LaTeX 用スクリプト・スタイルファイルのシンボリッ�
 ########################################################
 ## 対話実行系（個別に手動で実行するターゲット）
 ########################################################
+rclone: ##! Google ドライブ連携用の rclone 初期認証（ブラウザが起動します）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	sudo apt update && sudo apt install -y rclone
+	@echo "--------------------------------------------------------"
+	@echo "自動的にブラウザが開きます。Googleアカウントでログインし、"
+	@echo "アクセスを【許可】してください。"
+	@echo "--------------------------------------------------------"
+	sleep 2
+	rclone config create minorugh drive scope=drive
+	@echo "✓ 認証が完了しました。Googleドライブにテストフォルダを作成します。"
+	rclone mkdir minorugh:KeePass_Backup
+else
+	@echo "$(HOSTNAME): サブ機ではrcloneの設定を行いません（KeePassのバックアップはメイン機 P1 のみ）"
+endif
+
 dracula-theme: ##! gnome-terminal に Dracula テーマを dconf で適用
 	dconf reset -f /org/gnome/terminal/legacy/profiles:/
 	dconf load /org/gnome/terminal/legacy/profiles:/ < ${PWD}/etc/gnome-terminal/dracula.dconf
-
-keepassxc: ##! KeePassXC のインストールと自動起動設定 + keepassxc.sh のリンク作成
-	$(APT) $@ libsecret-tools
-	$(call BIN_LINK,keepassxc.sh,keepassxc.sh)
-	ln -vsfn {${PWD},${HOME}}/.local/share/applications/keepass-auto.desktop
-# マスターパスワードの更新は keepassxc.sh が起動時に判定する（P1 でのみ変更すること）。
-# キーリングが空の機械での初回登録のみ手動で実行する:
-#   secret-tool store --label='keepassxc master' type kdb
-# 手動で起動する場合は以下:
-#   secret-tool lookup type kdb | keepassxc --pw-stdin ~/Dropbox/backup/keepassxc/master.kdbx
-
-google-earth: ##! Google Earth のインストール
-	cd ${HOME}/Downloads && \
-	wget https://dl.google.com/dl/earth/client/current/google-earth-pro-stable_current_amd64.deb
-	$(APT) ./google-earth-pro-stable_current_amd64.deb
-	rm -f ./google-earth-pro-stable_current_amd64.deb
 
 slack: ##! Slack デスクトップのインストール
 	cd ${HOME}/Downloads && \

@@ -42,7 +42,7 @@
    ("0" (filezilla "m"))
    ("p" keepassxc)
    ("g" my-git-discard-changes)
-   ("n" (browse-url "https://app.simplenote.com/"))
+   ("n" my-simplenote)
    ("<home>" (my-open "~/" :omit))
    (":" my-open-xsrv-2pane-gh)
    (";" my-open-xsrv-2pane-minorugh)
@@ -232,6 +232,26 @@ SITE: \"g\" = gospel-haiku.com, \"m\" = minorugh.com, \"s\" = site manager."
                      '("-s")
                    (list (format "--site=%s" arg)))))
       (apply #'call-process "setsid" nil 0 nil "filezilla" args)))
+
+  (defun my-simplenote ()
+    "Launch Simplenote, or copy its active note into a new howm memo.
+If no Simplenote window exists, start simplenote.sh detached from Emacs.
+Otherwise raise the window, send C-a C-c, return to Emacs with emacs-toggle,
+create a howm memo, paste the clipboard, then close the Simplenote window."
+    (interactive)
+    (let ((wid (string-trim
+                (shell-command-to-string
+                 "xdotool search --name '^Simplenote' | tail -n1"))))
+      (if (string-empty-p wid)
+          (call-process "setsid" nil 0 nil "simplenote.sh")
+        (call-process "xdotool" nil nil nil "windowactivate" "--sync" wid)
+        (sleep-for 0.3)
+        (call-process "xdotool" nil nil nil "key" "ctrl+a" "ctrl+c")
+        (sleep-for 0.3)
+        (call-process "emacs-toggle")
+        (my-howm--insert-category "memo: ")
+        (yank)
+        (call-process "wmctrl" nil nil nil "-i" "-c" wid))))
 
 
   ;; ------------------------------------------------------------
