@@ -77,7 +77,7 @@
   (defvar my-howm-special-entries
     '((?c " code"  my-howm-face-church  my-junk-new)
       (?p " 創作"  my-howm-face-creative  my-haiku-note-post)
-      (?s " 推敲"  my-howm-face-note      my-haiku-note))
+      (?s " 推敲"  my-howm-face-polish      my-haiku-note))
     "作成メニュー専用の特殊エントリ。動作は外部関数に委譲する。")
 
 
@@ -93,17 +93,17 @@
   (defface my-howm-face-note
     '((((background light)) :foreground "#185FA5" :weight bold)
       (((background dark))  :foreground "#85B7EB" :weight bold))
-    "idea: — blue" :group 'howm)
+    "note: — blue" :group 'howm)
 
   (defface my-howm-face-tech
     '((((background light)) :foreground "#3B6D11" :weight bold)
       (((background dark))  :foreground "#97C459" :weight bold))
     "tech: — green" :group 'howm)
 
-  (defface my-howm-face-note
+  (defface my-howm-face-polish
     '((((background light)) :foreground "#0F6E56" :weight bold)
       (((background dark))  :foreground "#5DCAA5" :weight bold))
-    "note: — teal" :group 'howm)
+    "推敲 — teal" :group 'howm)
 
   (defface my-howm-face-diary
     '((((background light)) :foreground "#854F0B" :weight bold)
