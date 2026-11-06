@@ -44,6 +44,9 @@
   (setq howm-migemo-client-option '("-q" "-d" "/usr/share/cmigemo/utf-8/migemo-dict"))
   (setq howm-view-title-header "=")
   (setq howm-directory         "~/Dropbox/howm")
+  (make-directory "~/.cache/howm" t)
+  (setq howm-keyword-file      "~/.cache/howm/howm-keys")
+  (setq howm-history-file      "~/.cache/howm/howm-history")
   (setq howm-file-name-format  "%Y/%m/%Y%m%d%H%M.md")
   :config
 
