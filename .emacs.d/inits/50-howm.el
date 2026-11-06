@@ -86,44 +86,36 @@
   ;; ============================================================
 
   (defface my-howm-face-memo
-    '((((background light)) :foreground "#534AB7" :weight bold)
-      (((background dark))  :foreground "#AFA9EC" :weight bold))
+    '((t :foreground "#AFA9EC" :weight bold))
     "memo: — purple" :group 'howm)
 
   (defface my-howm-face-note
-    '((((background light)) :foreground "#185FA5" :weight bold)
-      (((background dark))  :foreground "#85B7EB" :weight bold))
+    '((t :foreground "#85B7EB" :weight bold))
     "note: — blue" :group 'howm)
 
   (defface my-howm-face-tech
-    '((((background light)) :foreground "#3B6D11" :weight bold)
-      (((background dark))  :foreground "#97C459" :weight bold))
+    '((t :foreground "#97C459" :weight bold))
     "tech: — green" :group 'howm)
 
   (defface my-howm-face-polish
-    '((((background light)) :foreground "#0F6E56" :weight bold)
-      (((background dark))  :foreground "#5DCAA5" :weight bold))
-    "推敲 — teal" :group 'howm)
+    '((t :foreground "#4FC3D9" :weight bold))
+    "推敲 — cyan" :group 'howm)
 
   (defface my-howm-face-diary
-    '((((background light)) :foreground "#854F0B" :weight bold)
-      (((background dark))  :foreground "#EF9F27" :weight bold))
+    '((t :foreground "#EF9F27" :weight bold))
     "日記: — amber" :group 'howm)
 
   (defface my-howm-face-creative
-    '((((background light)) :foreground "#993556" :weight bold)
-      (((background dark))  :foreground "#ED93B1" :weight bold))
-    "創作: — pink" :group 'howm)
+    '((t :foreground "#E879C6" :weight bold))
+    "創作: — magenta" :group 'howm)
 
   (defface my-howm-face-church
-    '((((background light)) :foreground "#993C1D" :weight bold)
-      (((background dark))  :foreground "#F0997B" :weight bold))
-    "code: — orange" :group 'howm)
+    '((t :foreground "#F0716B" :weight bold))
+    "code: — red" :group 'howm)
 
   (defface my-howm-face-garden
-    '((((background light)) :foreground "#A32D2D" :weight bold)
-      (((background dark))  :foreground "#F09595" :weight bold))
-    "園芸: — red" :group 'howm)
+    '((t :foreground "#E5D05A" :weight bold))
+    "園芸: — yellow" :group 'howm)
 
 
   ;; ============================================================
