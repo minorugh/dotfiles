@@ -6,7 +6,12 @@
 ;; ============================================================
 ;;  Dashboard
 ;; ============================================================
+;; --- Widget Extensions (GitHub) -----------------------------
+(leaf dashboard-gcal-widget
+  :vc (:url "https://github.com/minorugh/dashboard-widget-extensions"
+       :rev :newest))
 
+;; --- Separator -----------------------------------------------
 ;; Replacement for page-break-lines: render widget separators as a
 ;; colored horizontal rule without depending on the ^L character.
 (defface my-dashboard-rule
@@ -19,7 +24,7 @@
          (line  (propertize (make-string width ?─) 'face 'my-dashboard-rule)))
     (concat "\n\n" line "\n\n")))
 
-
+;; --- Main ----------------------------------------------------
 (leaf dashboard
   :ensure t
   :doc "An extensible startup screen."
@@ -91,7 +96,6 @@
   ;; ============================================================
   ;;  Dashboard Helper Commands
   ;; ============================================================
-
   (defun dashboard-toggle ()
     "Toggle between *dashboard* and the previous buffer."
     (interactive)
@@ -112,7 +116,6 @@
   ;; ============================================================
   ;;  Startup Time Display
   ;; ============================================================
-
   (advice-add 'emacs-init-time :filter-return
               (lambda (_)
                 (format "%.3f seconds"
