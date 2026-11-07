@@ -16,45 +16,6 @@ git: ## Push (main only, sub: pull only)
 	$(MAKE) -s -C ../../git git
 
 # ------------------------------------------------------------
-# Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
-# P1 のみ実行可能
-# make git からは呼ばない。必要なときに手動で make publish を実行する
-# ------------------------------------------------------------
-PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
-PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate
-PUBLISH_DEST := $(HOME)/src/github.com/minorugh
-publish: ## Copy changed managed files to each local repo and push
-ifeq ($(HOSTNAME),P1)
-	@skipped=""; \
-	for entry in $(PUBLISH_PKGS); do \
-		case "$$entry" in \
-			(*/*) repo=$${entry%/*}; pkg=$${entry##*/} ;; \
-			(*) repo=$$entry; pkg=$$entry ;; \
-		esac; \
-		src=$$pkg.el; \
-		dest=$(PUBLISH_DEST)/$$repo/$$pkg.el; \
-		if [ ! -f $$src ]; then \
-			skipped="$$skipped $$pkg(not-found)"; \
-			continue; \
-		fi; \
-		if [ ! -d $(PUBLISH_DEST)/$$repo ]; then \
-			skipped="$$skipped $$pkg(repo-missing)"; \
-			continue; \
-		fi; \
-		if [ -f $$dest ] && cmp -s $$src $$dest; then \
-			skipped="$$skipped $$pkg"; \
-			continue; \
-		fi; \
-		cp $$src $$dest; \
-		$(MAKE) -C $(PUBLISH_DEST)/$$repo git; \
-	done; \
-	echo "##> skip:$$skipped"
-else
-	@echo "##> SKIP publish: $(HOSTNAME) is not P1"
-endif
-
-
-# ------------------------------------------------------------
 # [Read-only] This file opens in read-only mode automatically.
 # Toggle editable: C-c C-e  or  qq
 # ------------------------------------------------------------
