@@ -60,15 +60,6 @@
   :config
   (setq display-line-numbers-width-start t))
 
-(leaf display-fill-column-indicator
-  :tag "builtin"
-  :doc "Vertical rule at column 79."
-  :hook ((gfm-mode-hook  . display-fill-column-indicator-mode)
-         (text-mode-hook . display-fill-column-indicator-mode))
-  :config
-  (setopt display-fill-column-indicator-column 79)
-  (setq-default display-fill-column-indicator-character ?│))
-
 (leaf paren
   :tag "builtin"
   :doc "Highlight matching parentheses."
@@ -170,7 +161,7 @@ Safe for use in `before-save-hook' — does not auto-indent."
 	(and (string-match-p "\\`\\*Calendar\\*\\'" (buffer-name (window-buffer w)))
              (< (window-height w) (/ (frame-height) 3)))
 	(string-match-p
-	 (rx (or "*hydra" "lv" "*Flymake" "*changelog" "*git-diff-preview" 
+	 (rx (or "*hydra" "lv" "*Flymake" "*changelog" "*git-diff-preview"
 		 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
 		 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
 	 (buffer-name (window-buffer w)))))
