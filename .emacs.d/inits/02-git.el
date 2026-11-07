@@ -51,9 +51,7 @@
 ;;  Message buffer
 ;; ============================================================
 (define-derived-mode my-commit-msg-mode text-mode "CommitMsg"
-  "Major mode for writing a commit message."
-  (when (fboundp 'evil-local-mode)
-    (evil-local-mode -1)))
+  "Major mode for writing a commit message.")
 
 (define-key my-commit-msg-mode-map (kbd "C-c C-c") #'my-commit-msg-finish)
 (define-key my-commit-msg-mode-map (kbd "C-c C-k") #'my-commit-msg-cancel)
