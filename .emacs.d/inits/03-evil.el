@@ -67,7 +67,8 @@
   (dolist (mode '(howm-view-summary-mode
                   easy-hugo-mode
                   neotree-mode
-                  lisp-interaction-mode))
+                  lisp-interaction-mode
+                  my-commit-msg-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
   ;; Force Emacs state for specific buffer
