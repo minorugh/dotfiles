@@ -29,10 +29,9 @@
   ;; Mozc Helper Commands
   ;; ---------------------------------------------------
   (defun my-toggle-input-method ()
-    "Toggle input method in Emacs state or in the commit message buffer."
+    "Toggle input method only when in Emacs state."
     (interactive)
-    (when (or (evil-emacs-state-p)
-              (derived-mode-p 'my-commit-msg-mode))
+    (when (evil-emacs-state-p)
       (toggle-input-method)))
 
   (defun mozc-insert-str (str)
