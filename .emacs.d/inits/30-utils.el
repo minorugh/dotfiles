@@ -53,7 +53,7 @@ keeping the terminal open afterward.  Otherwise (outside Dired), run
 ;; ============================================================
 
 (leaf tempbuf
-  :tag "local"
+  :vc (:url "https://github.com/minorugh/tempbuf" :rev :newest)
   :doc "Kill unused buffers in the background."
   :preface
   (autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
