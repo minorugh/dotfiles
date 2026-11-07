@@ -66,7 +66,7 @@
    ("g" hydra-git/body)                 ; see 02-git.el
    ("[" my-commit-this-file)	        ; see 02-git.el
    ("]" my-make-git)                    ; see 02-git.el
-   ("-" my-git-peek-smart)              ; see 90-xsrv-deploy.el
+   ("-" git-peek)                       ; see 02-git.el
    ("_" delete-other-windows)
    ("R" my-image-resize-dispatch)
    ("q" top-level)
