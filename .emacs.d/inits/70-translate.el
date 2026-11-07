@@ -12,8 +12,7 @@
 
 
 (leaf *deepl-translate
-  :preface
-  (autoload 'deepl-translate "deepl-translate" nil t)
+  :vc (:url "https://github.com/minorugh/deepl-translate" :rev :newest)
   :doc "Translation in minibuffer & copy result to clipboard."
   :bind ("C-c d" . deepl-translate)
   :init
