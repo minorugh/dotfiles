@@ -25,6 +25,7 @@
          ("n"   . my-dired-open-nano)
          ("["   . dired-hide-details-mode)
          ("t"   . open-tig)
+         ("]"   . open-tig-project)
          ("p"   . dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
          (","   . xsrv-download-dired)  ; see 90-xsrv-deploy.el
