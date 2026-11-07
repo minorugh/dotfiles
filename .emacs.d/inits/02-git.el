@@ -16,6 +16,8 @@
 ;;   my-make-git          dotfiles/git の make git を実行（hydra-dired の ]）
 ;;                        メイン機は push のみ、サブ機は端末で pull する。
 ;;
+;;   open-tig-project     リポジトリ全体の履歴を tig で開く（hydra-git の l、Dired の ]）
+;;
 ;;; Code:
 
 (require 'seq)
@@ -283,6 +285,15 @@ terminal because env-sync asks for confirmation."
       (write-region file nil tig-context-file nil 'silent))
     (my-git--tig root "blame" (file-relative-name file root))))
 
+;;;###autoload
+(defun open-tig-project ()
+  "Open `tig' for the current directory within its Git repository."
+  (interactive)
+  (let* ((dir default-directory)
+         (root (my-commit-msg--root dir))
+         (path (file-relative-name dir root)))
+    (my-git--tig root "--" path)))
+
 ;; ============================================================
 ;;  Hydra Git
 ;; ============================================================
@@ -293,13 +304,14 @@ terminal because env-sync asks for confirmation."
    (:hint nil :exit t)
    "
  Git.menu
-  _a_ll.commit  _r_eword  _u_npushed  _s_tatus  _b_lame
+  _a_ll.commit  _r_eword  _u_npushed  _s_tatus  _b_lame  _d_eleted
 "
    ("a" my-commit-all)
    ("r" my-commit-reword)
    ("u" my-git-unpushed)
    ("s" my-git-status)
    ("b" my-git-blame)
+   ("d" git-peek-deleted)
    ("q" top-level)
    ("<muhenkan>" nil)))
 
