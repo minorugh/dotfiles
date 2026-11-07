@@ -340,6 +340,7 @@
   (autoload 'git-peek "git-peek" nil t)
   (autoload 'git-peek-deleted "git-peek" nil t)
   :config
+  (setq git-peek-sidebar-width 45)
   (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
 
   (defun my-git-peek-smart ()
