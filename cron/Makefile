@@ -143,7 +143,7 @@ smart: ## SSD健康状態を確認（nvme0n1 / nvme1n1）
 	sudo smartctl -a /dev/nvme1n1
 	@echo "##>" >&2
 
-git: ## Auto commit+push (main only, sub: pull only)
+git: ## Push (main only, sub: pull only)
 	$(MAKE) -s -C ../git git
 
 debug:

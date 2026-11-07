@@ -1,4 +1,4 @@
-;;; 08-edit.el --- Editing configurations.      -*- lexical-binding: t -*-
+;;; 09-edit.el --- Editing configurations.      -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -155,4 +155,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 08-edit.el ends here
+;;; 09-edit.el ends here

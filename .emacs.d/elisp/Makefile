@@ -10,15 +10,15 @@ clean:
 
 HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
-# P1 (main): commit + push + publish
+# P1 (main): push only (commit is done in Emacs)
 # others (sub): pull --ff-only only (commit も push もしない)
-git: ## Auto commit+push (main only, sub: pull only)
+git: ## Push (main only, sub: pull only)
 	$(MAKE) -s -C ../../git git
-	$(MAKE) publish
 
 # ------------------------------------------------------------
 # Publish: self-published packages を各ローカルリポジトリへコピーしてgit push
 # P1 のみ実行可能
+# make git からは呼ばない。必要なときに手動で make publish を実行する
 # ------------------------------------------------------------
 PUBLISH_PKGS := dashboard-widget-extensions/dashboard-gcal-widget git-peek tempbuf
 PUBLISH_PKGS += dashboard-widget-extensions/dashboard-haiku-widget deepl-translate

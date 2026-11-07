@@ -1,9 +1,9 @@
 ########################################################
-## git 世代管理（メイン機: commit+push / サブ機: pull only）
+## git 世代管理（メイン機: push のみ、commit は Emacs 側 / サブ機: pull only）
 ########################################################
 # 個人の日々の作業運用のためのターゲット群。
 # リストア用のトップレベル Makefile とは切り離して管理する。
-# Main: commit + push / others (sub): pull --ff-only only
+# Main: push only (commit is done in Emacs: 85-git.el) / others (sub): pull --ff-only only
 #
 # 2026.08.03
 # .env_source 側の構造変化で dotfiles/env が空になることがあるのでメイン機側の実行コードに remount処理を追加した。
@@ -54,6 +54,15 @@
 # 2026.11.06
 # env/ の bindfs 窓を廃止したため、env-remount と env-check を削除した。~/.env_source を直接参照する。
 
+# 2026.11.07
+# commit と push を分離した。commit は Emacs 側（85-git.el のメッセージバッファ）で行い、
+# auto commit と commit ターゲットは廃止した。
+# prep: メイン機の commit 前処理（env_source の bundle 更新、env.hash 更新、changelog-rotate）。
+#       Emacs の「すべて commit」から呼ばれる。env.hash は commit に含めるため push 側では更新しない。
+# git:  メイン機は未コミットの変更があれば警告して止め、なければ未 push の一覧を表示して push する。
+#       サブ機は従来どおり pull。Emacs の ] はこのターゲットを直接呼ぶ。
+# git-fix: 未 push のコミットが消えるため、メイン機では実行を止めるようにした（サブ機専用）。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -62,19 +71,18 @@ DOTFILES_DIR   := $(HOME)/src/github.com/minorugh/dotfiles
 ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
-MSG            = auto: $(shell date '+%Y-%m-%d %H:%M:%S')
 
-.PHONY: git commit git-fix env-sync
+.PHONY: git prep git-fix env-sync
 
-git: ## Auto commit+push (main only, sub: pull only)
+git: ## Push (main only, sub: pull only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
-	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
-		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
-	fi
-	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
-	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
-	cd $(DOTFILES_DIR) && git add -A
-	cd $(DOTFILES_DIR) && git diff --cached --quiet || git commit -m "$(MSG)"
+	@cd $(DOTFILES_DIR) && \
+		if [ -n "$$(git status --porcelain)" ]; then \
+			echo "##> ✗ 未コミットの変更があります。先に commit してください"; \
+			git status --short; \
+			exit 1; \
+		fi
+	@cd $(DOTFILES_DIR) && git log --oneline origin/main..HEAD
 	cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ push 完了"
 else
@@ -90,8 +98,12 @@ else
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
 endif
 
-commit: ## Commit+push with MSG (same as git)
-	@$(MAKE) -s git MSG="$(MSG)"
+prep: ## Prepare for commit (main only)
+	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
+		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
+	fi
+	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
+	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
 
 env-sync: ## env_source の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
 	@mkdir -p $(ENV_SYNC_CACHE); \
@@ -134,7 +146,12 @@ env-sync: ## env_source の更新を検知し、あれば確認のうえ同期�
 	echo "$$env_hash_flag" > $(ENV_SYNC_CACHE)/env.hash; \
 	echo "##> ✓ env_source 同期完了 (abook含む)"
 
-git-fix: ## rebase失敗時の自動修復
+git-fix: ## rebase失敗時の自動修復（サブ機のみ）
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	@echo "$(HOSTNAME): メイン機では実行しません（未pushのコミットが消えます）"
+	@exit 1
+else
 	cd $(DOTFILES_DIR) && git rebase --abort 2>/dev/null || true
 	cd $(DOTFILES_DIR) && git reset --hard origin/main
 	cd $(DOTFILES_DIR) && git pull
+endif

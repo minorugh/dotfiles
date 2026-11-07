@@ -1,4 +1,4 @@
-;;; 07-functions.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
+;;; 08-functions.el --- External tools & SSH launchers.  -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Interactive commands for launching external tools and managing SSH connections.
@@ -161,24 +161,7 @@ Only valid in a `dired-mode' buffer whose directory is under one of
       (goto-char (point-max)))))
 
 
-;; ============================================================
-;;  toggle-emacs.sh
-;; ============================================================
-
-;; toggle-emacs.sh
-;;   #!/bin/bash
-;;   for wid in $(xdotool search --class emacs 2>/dev/null); do
-;;       if xprop -id "$wid" _NET_WM_STATE 2>/dev/null | grep -q HIDDEN; then
-;;           xdotool windowmap --sync "$wid"
-;;           xdotool windowactivate "$wid"
-;;           exit
-;;       fi
-;;   done
-;;   wid=$(xdotool search --class emacs 2>/dev/null | tail -n1)
-;;   xdotool windowminimize "$wid"
-
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 07-functions.el ends here
+;;; 08-functions.el ends here

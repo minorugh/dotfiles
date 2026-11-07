@@ -1,7 +1,7 @@
 HOSTNAME := $(shell hostname)
 # Hostname-based git push control:
-# P1 (main): commit + push / others (sub): pull --rebase only
-git: ## Auto commit+push (main only, sub: pull only)
+# P1 (main): push only (commit is done in Emacs) / others (sub): pull --ff-only only
+git: ## Push (main only, sub: pull only)
 	$(MAKE) -s -C ../git git
 
 # ------------------------------------------------------------

@@ -1,4 +1,4 @@
-;;; 03-ivy.el --- Ivy core settings and describe helpers -*- lexical-binding: t -*-
+;;; 04-ivy.el --- Ivy core settings and describe helpers -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;;; Code:
@@ -66,4 +66,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 03-ivy.el ends here
+;;; 04-ivy.el ends here
