@@ -3,7 +3,7 @@
 ;;
 ;; commit と push を分ける運用のための設定。
 ;;
-;;   my-commit-this-file   開いているファイル（dired なら行のファイル）だけ commit
+;;   my-commit-this-file   開いているファイル（Dired なら行のファイル）だけ commit
 ;;   my-commit-all         すべての変更を commit（dotfiles では先に make prep）
 ;;   my-commit-reword      直前のコミットのメッセージだけ書き換える（push 済みは不可）
 ;;
@@ -11,7 +11,7 @@
 ;;   C-c C-c   確定
 ;;   C-c C-k   キャンセル
 ;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
-;;   # で始まる行はメッセージに含まれない。
+;;   メッセージは上に書く。下の情報ボックスは read-only。
 ;;
 ;;   my-make-git          dotfiles/git の make git を実行（hydra-dired の ]）
 ;;                        メイン機は push のみ、サブ機は端末で pull する。
@@ -22,9 +22,10 @@
 
 (defvar my-main-machine-p)
 (defvar tig-context-file)
+(declare-function my-modeline-apply-highlight-now "30-ui")
 
 (defvar my-commit-dotfiles-dir "~/src/github.com/minorugh/dotfiles/"
-  "Dotfiles repository. `make prep' runs only for this repository.")
+  "Dotfiles repository `make prep' runs only for this repository.")
 
 (defvar my-commit-msg-buffer "*commit-msg*"
   "Name of the commit message buffer.")
@@ -33,6 +34,16 @@
 (defvar-local my-commit-msg--file nil)
 (defvar-local my-commit-msg--wconf nil)
 (defvar-local my-commit-msg--amend nil)
+(defvar-local my-commit-msg--end nil)
+
+(defface my-commit-msg-box
+  '((((background dark)) :background "#2b3452" :extend t)
+    (t :background "#e8ecf5" :extend t))
+  "Background of the commit info box.")
+
+(defface my-commit-msg-title
+  '((t :inherit font-lock-keyword-face :weight bold))
+  "Title and labels of the commit info box.")
 
 ;; ============================================================
 ;;  Message buffer
@@ -55,11 +66,51 @@
   "Run git in ROOT with ARGS and return (STATUS . OUTPUT)."
   (apply #'my-commit-msg--run "git" "-C" root args))
 
+(defun my-commit-msg--status-face (st)
+  "Return a face for git status string ST."
+  (cond ((string-match-p "D" st) '(:foreground "#f0626a" :weight bold))
+        ((string-match-p "M" st) '(:foreground "#e5a64a" :weight bold))
+        (t '(:foreground "#7fd18b" :weight bold))))
+
+(defun my-commit-msg--header (target changes amend)
+  "Return the read-only info box string for TARGET and CHANGES.
+AMEND non-nil means the box is for rewording."
+  (let* ((align (propertize " " 'display '(space :align-to 16)))
+         (str (concat
+               "\n"
+               (propertize "  【 " 'face 'my-commit-msg-title)
+               (propertize (if amend "コミット書き換え" "コミット情報")
+                           'face 'my-commit-msg-title)
+               (propertize " 】\n" 'face 'my-commit-msg-title)
+               "\n"
+               "  " (propertize "対象" 'face 'my-commit-msg-title) align ": " target "\n"
+               "  " (propertize (if amend "直前の変更" "変更ファイル")
+                                'face 'my-commit-msg-title)
+               align ": "
+               (mapconcat
+                (lambda (line)
+                  (if (or amend (< (length line) 4))
+                      line
+                    (concat (propertize (string-trim (substring line 0 2))
+                                        'face (my-commit-msg--status-face
+                                               (substring line 0 2)))
+                            "  " (substring line 3))))
+                (split-string changes "\n")
+                (concat "\n" align "  "))
+               "\n\n  "
+               (make-string 44 ?─)
+               "\n  "
+               (propertize "C-c C-c" 'face 'my-commit-msg-title) ": 確定  "
+               (propertize "C-c C-k" 'face 'my-commit-msg-title) ": キャンセル"
+               (if amend "  (push 済みは不可)" "  (空のまま確定 = auto: timestamp)")
+               "\n\n")))
+    (add-face-text-property 0 (length str) 'my-commit-msg-box t str)
+    (add-text-properties 0 (length str) '(read-only t rear-nonsticky t) str)
+    str))
+
 (defun my-commit-msg--text ()
-  "Return the message in the current buffer without # lines."
-  (let ((lines (seq-remove (lambda (l) (string-prefix-p "#" l))
-                           (split-string (buffer-string) "\n"))))
-    (string-trim (mapconcat #'identity lines "\n"))))
+  "Return the message typed above the info box."
+  (string-trim (buffer-substring-no-properties (point-min) my-commit-msg--end)))
 
 (defun my-commit-msg--open (root file &optional amend)
   "Open the message buffer for ROOT.
@@ -74,35 +125,32 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
             (old (and amend
                       (cdr (my-commit-msg--git root "log" "-1" "--format=%B")))))
         (pop-to-buffer (get-buffer-create my-commit-msg-buffer))
-        (erase-buffer)
+        (let ((inhibit-read-only t))
+          (erase-buffer))
         (my-commit-msg-mode)
         (setq my-commit-msg--root root
               my-commit-msg--file file
               my-commit-msg--wconf wconf
               my-commit-msg--amend amend)
-        (insert (if old (concat old "\n") "")
-                "\n"
-                (if amend
-                    "# 直前のコミットのメッセージを書き換えます（push 済みは不可）\n"
-                  (concat "# 対象: " (or file "すべての変更") "\n"))
-                "# C-c C-c: 確定   C-c C-k: キャンセル"
-                (if amend "" "   空のまま確定 = auto:")
-                "\n#\n")
-        (dolist (line (split-string changes "\n"))
-          (insert "# " line "\n"))
-        (goto-char (point-min))))))
+        (insert (propertize "\n\n" 'read-only t 'rear-nonsticky t)
+                (my-commit-msg--header
+                 (if file (file-name-nondirectory file) "すべての変更")
+                 changes amend))
+        (setq my-commit-msg--end (copy-marker (point-min) t))
+        (goto-char (point-min))
+        (insert (or old ""))))))
 
 (defun my-commit-msg--target-path ()
-  "Return the true path of the file in this buffer or dired line."
+  "Return the true path of the file in this buffer or Dired line."
   (let ((path (cond ((derived-mode-p 'dired-mode) (dired-get-filename nil t))
                     (buffer-file-name buffer-file-name))))
-    (unless path (user-error "ファイルバッファまたは dired で実行してください"))
+    (unless path (user-error "ファイルバッファまたは Dired で実行してください"))
     (file-truename path)))
 
 (defun my-commit-msg--root (path)
   "Return the git root of PATH or signal an error."
   (let ((root (locate-dominating-file path ".git")))
-    (unless root (user-error "git 管理下のファイルではありません"))
+    (unless root (user-error "Git 管理下のファイルではありません"))
     (expand-file-name root)))
 
 (defun my-commit-msg--dotfiles-p (root)
@@ -121,13 +169,14 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (let ((res (my-commit-msg--run "make" "-s" "-C"
                                    (expand-file-name "git" root) "prep")))
       (unless (zerop (car res))
-        (user-error "make prep 失敗: %s" (cdr res))))))
+        (user-error "Make prep 失敗: %s" (cdr res))))))
 
 (defun my-commit-msg--close ()
   "Kill the message buffer and restore the window configuration."
   (let ((wconf my-commit-msg--wconf))
     (kill-buffer (current-buffer))
-    (set-window-configuration wconf)))
+    (set-window-configuration wconf)
+    (my-modeline-apply-highlight-now)))
 
 (defun my-commit-msg-finish ()
   "Commit (or reword) with the message in this buffer."
@@ -173,7 +222,7 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (my-commit-msg--open root file)))
 
 (defun my-commit-all ()
-  "Commit all changes in the repository of the current buffer."
+  "Commit all change in the repository of the current buffer."
   (interactive)
   (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
     (my-commit-msg--check-machine root)
@@ -192,19 +241,16 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
 ;; ============================================================
 ;;  Push
 ;; ============================================================
-(declare-function my-make-run-async "09-makefile")
+(declare-function my-make-run-async "10-makefile")
 
 (defun my-make-git ()
-  "Run `make git' in dotfiles/git.
+  "Run `make git' in the current directory.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
 terminal because env-sync asks for confirmation."
   (interactive)
-  (let ((dir (file-name-as-directory
-              (expand-file-name "git" my-commit-dotfiles-dir))))
-    (if my-main-machine-p
-        (let ((default-directory dir))
-          (compile "make git"))
-      (my-make-run-async dir "git"))))
+  (if my-main-machine-p
+      (compile "make git")
+    (my-make-run-async default-directory "git")))
 
 ;; ============================================================
 ;;  tig launchers
@@ -256,6 +302,18 @@ terminal because env-sync asks for confirmation."
    ("b" my-git-blame)
    ("q" top-level)
    ("<muhenkan>" nil)))
+
+;; ============================================================
+;; git-peek (差分プレビュー)
+;; ============================================================
+(leaf git-peek
+  :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
+  :preface
+  (autoload 'git-peek "git-peek" nil t)
+  (autoload 'git-peek-deleted "git-peek" nil t)
+  :config
+  (setq git-peek-sidebar-width 45)
+  (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/")))
 
 
 ;; Local Variables:
