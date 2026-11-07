@@ -29,23 +29,22 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._c_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_  md._v_iew^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
    ("@" browse-at-remote)
-   ("t" open-tig)
-   ("f" flymake-show-buffer-diagnostics)
+   ("t" open-tig)                        ; see elisp/tig-git-peek-bridge.el
+   ("f" flymake-show-buffer-diagnostics) ; see 20-flymake.el
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
    ("0" (filezilla "m"))
    ("p" keepassxc)
-   ("g" my-git-discard-changes)
    ("n" my-simplenote)
    ("<home>" (my-open "~/" :omit))
-   (":" my-open-xsrv-2pane-gh)
-   (";" my-open-xsrv-2pane-minorugh)
+   (":" my-open-xsrv-2pane-gh)          ; see 90-xsrv-deploy.el
+   (";" my-open-xsrv-2pane-minorugh)    ; see 90-xsrv-deploy.el
    ("." (my-open "~/src/github.com/minorugh/dotfiles/"))
    ("d" (my-open "~/Dropbox/"))
    ("i" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/inits/"))
@@ -58,16 +57,16 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("c" my-make-commit)
    ("r" my-restart-emacs)
-   ("v" markdown-preview)
-   ("o" howm-list-all)
-   ("," my-howm-create-with-category)
+   ("v" markdown-preview)               ; see 60-markdown.el
+   ("o" howm-list-all)                  ; see 50-howm.el
+   ("," my-howm-create-with-category)   ; see 50-howm.el
    ("l" (my-open-main "~/cl/"))
    ("w" (my-open-main "~/i.minorugh.com/"))
-   ("[" my-git-peek-smart)
-   ("-" git-peek-deleted)
-   ("]" my-make-git)
+   ("g" hydra-git/body)                 ; see 02-git.el
+   ("[" my-commit-this-file)	        ; see 02-git.el
+   ("]" my-make-git)                    ; see 02-git.el
+   ("-" my-git-peek-smart)              ; see 90-xsrv-deploy.el
    ("_" delete-other-windows)
    ("R" my-image-resize-dispatch)
    ("q" top-level)
@@ -83,83 +82,6 @@
     (interactive "sTarget: ")
     (let ((default-directory (expand-file-name (or dir default-directory))))
       (compile (concat "make " target))))
-
-  (defun my-make-git ()
-    "Run the main using `compile`, run everything else in the terminal."
-    (interactive)
-    (if my-main-machine-p
-        (compile "make git")
-      (my-make-run-async default-directory "git")))
-
-  (defun my-make-commit ()
-    "Read a commit message in the minibuffer and run make commit."
-    (interactive)
-    (let* ((input (read-string "Commit message (RET only = auto): "))
-           (msg (if (string-empty-p input)
-                    (format-time-string "auto: %Y-%m-%d %H:%M:%S")
-                  input)))
-      (my-make (concat "commit MSG=" (shell-quote-argument msg))
-               "~/src/github.com/minorugh/dotfiles/git/")))
-
-  ;; ------------------------------------------------------------
-  ;;  Git Helpers (discard changes)
-  ;; ------------------------------------------------------------
-  (defun my-git--root ()
-    "Return the git root directory for the current buffer, or error."
-    (or (locate-dominating-file default-directory ".git")
-        (user-error "Gitリポジトリが見つかりません")))
-
-  (defun my-git--colorize-diff-line ()
-    "行頭の記号に応じて前景色だけのfaceを付ける."
-    (let* ((bol (line-beginning-position))
-           (eol (line-end-position))
-           (face (pcase (char-after bol)
-                   (?@ 'diff-hunk-header)
-                   (?+ (if (looking-at-p "\\+\\+\\+") 'diff-file-header 'diff-added))
-                   (?- (if (looking-at-p "---") 'diff-file-header 'diff-removed)))))
-      (when face
-        (put-text-property bol eol 'face (list :foreground (face-foreground face nil t))))))
-
-  (defun my-git--colorize-diff-buffer ()
-    "バッファ内の各行に `my-git--colorize-diff-line' を適用する."
-    (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
-        (my-git--colorize-diff-line)
-        (forward-line 1))))
-
-  (defun my-git-discard-changes ()
-    "このファイルのdiffを表示し、確認の上で直近のコミット内容に戻す."
-    (interactive)
-    (let* ((orig-buf (current-buffer))
-           (file buffer-file-name)
-           (default-directory (my-git--root))
-           (diff-output (shell-command-to-string
-                         (format "git --no-pager diff -- %s"
-                                 (shell-quote-argument file)))))
-      (if (string-empty-p (string-trim diff-output))
-          (message "変更なし")
-        (let ((buf (get-buffer-create "*git-diff-preview*")))
-          (with-current-buffer buf
-            (let ((inhibit-read-only t))
-              (erase-buffer)
-              (insert diff-output)
-              (fundamental-mode)
-              (my-git--colorize-diff-buffer)
-              (setq buffer-read-only t)
-              (goto-char (point-min))))
-          (display-buffer buf)
-          (if (y-or-n-p "Discardしますか? ")
-              (progn
-                (shell-command (format "git checkout -- %s"
-                                       (shell-quote-argument file)))
-                (with-current-buffer orig-buf (revert-buffer t t t))
-                (message "discardしました"))
-            (message "discardをキャンセルしました"))
-          (let ((win (get-buffer-window buf)))
-            (when win (delete-window win)))
-          (kill-buffer buf)))))
-
 
   ;; ------------------------------------------------------------
   ;;  Open Path Helper
