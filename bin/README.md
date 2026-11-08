@@ -161,6 +161,25 @@ Simplenote のウィンドウがないときにこのスクリプトで起動す
 /usr/local/bin/simplenote.sh → bin/simplenote.sh
 ```
 
+### tig-git.sh
+tig の status・stage 画面から commit と push を行うランチャー。`.config/tig/config` の C・A・P から `>` で呼ばれる。
+
+| 引数 | キー | 動作 |
+|---|---|---|
+| `commit FILE` | C | カーソル位置のファイルだけを Emacs の `*commit-msg*` で commit |
+| `all` | A | 全変更を `*commit-msg*` で commit（dotfiles では先に `make prep`） |
+| `push` | P | `make git` で push |
+
+commit と all は、`emacsclient` で `02-git.el` の `my-commit-file-from-tig` / `my-commit-all-from-tig` を呼び、`*commit-msg*` が閉じるまで待つ。確定（`C-c C-c`）でもキャンセル（`C-c C-k`）でも、閉じたら開始時の端末ウィンドウを `xdotool` で前面に戻す。`>` により tig が再オープンされ、status が最新になる。
+
+push は `GIT_PAGER=cat` で `make git` を実行する。成功したら止まらず、失敗したときだけ Enter 待ちになる。Emacs は経由しない。
+
+tig は外部コマンドをリポジトリのルートで実行するので、スクリプトは `$PWD` がルートであることを前提にしている。
+
+```bash
+依存: emacsclient（Emacs サーバー） xdotool make
+```
+
 ## シンボリックリンクの設定
 
 各スクリプトのリンク設定は `Makefile` の対応ターゲットで行います。
@@ -176,3 +195,4 @@ Simplenote のウィンドウがないときにこのスクリプトで起動す
 | make-run.sh | `make make-run` |
 | dropbox-restart.sh | `make dropbox-restart` |
 | simplenote.sh | `make simplenote` |
+| tig-git.sh | リンクなし（`config` から `dotfiles/bin/` の絶対パスで呼ぶ） |
