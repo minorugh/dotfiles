@@ -122,6 +122,12 @@ autostart: emacs-start dropbox-restart ## GUI起動時の自動処理設定（mo
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
 
+devilspie2: ## devilspie2 のインストールと gnome-terminal を外部モニターへ出すルールの展開
+	$(APT) devilspie2
+	mkdir -p ${HOME}/.config/devilspie2
+	ln -vsf ${PWD}/devilspie2/gnome-terminal.lua ${HOME}/.config/devilspie2/gnome-terminal.lua
+	ln -vsf ${PWD}/devilspie2/devilspie2.desktop ${HOME}/.config/autostart/devilspie2.desktop
+
 ########################################################
 ## bin/ スクリプト（シンボリックリンク＋キーボードショートカット登録）
 ########################################################
