@@ -1,0 +1,2 @@
+#!/bin/sh
+emacsclient -n -e "(my-commit-file-from-tig \"$PWD/$1\")"

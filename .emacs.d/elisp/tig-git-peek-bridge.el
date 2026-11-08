@@ -41,6 +41,9 @@ git 管理外の場合はエラーメッセージを表示する。"
       (write-region path nil tig-context-file nil 'silent)
       (start-process
        "tig" nil "gnome-terminal" "--maximize"
+       "--title" (format "tig: %s"
+                         (file-name-nondirectory
+                          (directory-file-name root)))
        "--working-directory" dir
        "--" "bash" "-c"
        (format "tig %s; exec bash"

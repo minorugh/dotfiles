@@ -221,6 +221,25 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (my-commit-msg--check-machine root)
     (my-commit-msg--open root file)))
 
+(defun my-commit-file-from-tig (file)
+  "Open the commit message buffer for FILE.  Called from tig via emacsclient."
+  (let* ((path (file-truename file))
+         (root (my-commit-msg--root path))
+         (buf (find-buffer-visiting path)))
+    (when (and buf (buffer-modified-p buf))
+      (with-current-buffer buf (save-buffer)))
+    (my-commit-msg--check-machine root)
+    (my-commit-msg--open root path)
+    (select-frame-set-input-focus (selected-frame))))
+
+(defun my-commit-all-from-tig (root)
+  "Open the commit message buffer for all changes in ROOT.
+Called from tig via emacsclient."
+  (my-commit-msg--check-machine root)
+  (my-commit-msg--prep root)
+  (my-commit-msg--open root nil)
+  (select-frame-set-input-focus (selected-frame)))
+
 (defun my-commit-all ()
   "Commit all change in the repository of the current buffer."
   (interactive)
@@ -258,10 +277,21 @@ terminal because env-sync asks for confirmation."
 (defun my-git--tig (dir &rest args)
   "Run tig with ARGS in gnome-terminal at DIR."
   (start-process "tig" nil "gnome-terminal" "--maximize"
+                 "--title" (format "tig: %s"
+                                   (file-name-nondirectory
+                                    (directory-file-name dir)))
                  "--working-directory" dir
                  "--" "bash" "-c"
                  (format "tig %s; exec bash"
                          (mapconcat #'shell-quote-argument args " "))))
+
+;; (defun my-git--tig (dir &rest args)
+;;   "Run tig with ARGS in gnome-terminal at DIR."
+;;   (start-process "tig" nil "gnome-terminal" "--maximize"
+;;                  "--working-directory" dir
+;;                  "--" "bash" "-c"
+;;                  (format "tig %s; exec bash"
+;;                          (mapconcat #'shell-quote-argument args " "))))
 
 (defun my-git-status ()
   "Open `tig status' for the current repository."
