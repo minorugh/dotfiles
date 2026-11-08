@@ -21,8 +21,8 @@ all: git-push mozc-backup filezilla-backup keyring-backup kdbx-gdrive-backup zsh
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
 git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit
-	$(MAKE) -C ${HOME}/Dropbox/GH git
-	$(MAKE) -C ${HOME}/Dropbox/minorugh.com git
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/GH git
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/minorugh.com git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-GH git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-minorugh git
 
