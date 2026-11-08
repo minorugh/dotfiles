@@ -2,7 +2,7 @@
 set main-view = commit-title
 
 # blame ビューのファイル名列を消す（リネーム履歴があっても右を広く保つ）
-set blame-view = id:yes,author:full,date:default,file-name:no,line-number:yes,text
+set blame-view = id:yes,color author:full date:default file-name:no line-number:yes,interval=1 text
 
 # 起動時から垂直分割（Vertical）にする
 set vertical-split = yes
