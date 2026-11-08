@@ -29,3 +29,4 @@ bind stage C @/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-commit %(fil
 # commit-msg 連携：全変更を Emacs の commit-msg で commit する
 bind status A @/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-commit-all
 bind stage A @/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-commit-all
+bind stage  P >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh push
