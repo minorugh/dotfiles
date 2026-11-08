@@ -16,7 +16,7 @@
 ;;   my-make-git          dotfiles/git の make git を実行（hydra-dired の ]）
 ;;                        メイン機は push のみ、サブ機は端末で pull する。
 ;;
-;;   open-tig-project     リポジトリ全体の履歴を tig で開く（hydra-git の l、Dired の ]）
+;;   open-tig-project     リポジトリ全体の履歴を tig で開く（Dired の ]）
 ;;
 ;;; Code:
 
