@@ -47,7 +47,7 @@ help:
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 all: baseinstall nextinstall
-baseinstall: install base init zsh-restore keychron-restore init-sub keymap grub autostart cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run simplenote tig
+baseinstall: install base init zsh-restore keychron-restore init-sub keymap grub autostart devilspie2 cron keyring fzf-tools tlp emacs-mozc icons gist fonts emacs-toggle tile-toggle make-run simplenote tig
 nextinstall: google-chrome filezilla neomutt sxiv lepton printer hugo launcher keepassxc google-earth
 
 SHELL = /bin/bash
@@ -122,6 +122,7 @@ autostart: emacs-start dropbox-restart ## GUI起動時の自動処理設定（mo
 	chmod +x ${HOME}/.autostart.sh
 	ln -vsf {${PWD},${HOME}}/.config/autostart/autostart.desktop
 
+.PHONY: devilspie2
 devilspie2: ## devilspie2 のインストールと gnome-terminal を外部モニターへ出すルールの展開
 	$(APT) devilspie2
 	mkdir -p ${HOME}/.config/devilspie2
