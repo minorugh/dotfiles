@@ -34,3 +34,7 @@ bind status P >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh push
 bind stage  P >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh push
 
 
+bind generic U >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh unpushed
+bind generic R >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh reword
+bind generic h >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh help
+bind generic H view-help

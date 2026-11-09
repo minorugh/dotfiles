@@ -250,6 +250,12 @@ Called from tig via emacsclient."
   (my-commit-msg--open root nil)
   (select-frame-set-input-focus (selected-frame)))
 
+(defun my-commit-reword-from-tig (root)
+  "Open the commit message buffer to reword the last commit in ROOT.
+Called from tig via emacsclient."
+  (my-commit-msg--open root nil t)
+  (select-frame-set-input-focus (selected-frame)))
+
 (defun my-commit-all ()
   "Commit all change in the repository of the current buffer."
   (interactive)
@@ -370,11 +376,8 @@ terminal because env-sync asks for confirmation."
    (:hint nil :exit t)
    "
  Git.menu
-  _a_ll.commit  _r_eword  _u_npushed  _s_tatus  _b_lame  _d_eleted
+  _s_tatus  _b_lame  _d_eleted
 "
-   ("a" my-commit-all)
-   ("r" my-commit-reword)
-   ("u" my-git-unpushed)
    ("s" my-git-status)
    ("b" my-git-blame)
    ("d" git-peek-deleted)

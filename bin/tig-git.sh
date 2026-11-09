@@ -21,6 +21,28 @@ all) emacsclient -e "(my-commit-all-from-tig \"$PWD\")" > /dev/null ;;
 # 成功したら止めず、失敗したときだけ出力を残して Enter 待ちにする。
 # GIT_PAGER=cat は、git のページャで止まるのを避ける。Emacs は経由しない
 push) GIT_PAGER=cat make git || { printf '\nEnter で tig に戻る '; read x; }; exit ;;
+unpushed)
+  if [ "$(git rev-list --count origin/main..HEAD)" = 0 ]; then
+    echo "未 push のコミットはありません" | tig; exit
+  fi
+  tig origin/main..HEAD; exit ;;
+reword)
+  if git merge-base --is-ancestor HEAD @{upstream}; then
+    echo "直前のコミットは push 済みです" | tig; exit
+  fi
+  emacsclient -e "(my-commit-reword-from-tig \"$PWD\")" > /dev/null ;;
+help)
+  cat <<'HELP' | tig
+ E  選択コミットを git-peek で開く
+ C  このファイルだけ commit
+ A  全変更を commit
+ P  push
+ U  未 push のコミット一覧
+ R  直前コミットの reword（push 済みは不可）
+ h  このヘルプ
+ H  tig 標準のヘルプ
+HELP
+  exit ;;
 esac
 
 # *commit-msg* が閉じるまで待つ（C-c C-c の確定も C-c C-k のキャンセルも同じ）。
