@@ -330,41 +330,6 @@
       "P1 以外では実行を拒否するスタブ.")))
 
 
-;; ============================================================
-;; 7. git-peek (差分プレビュー、xsrv配下なら2pane復元と連携)
-;; ============================================================
-
-;; (leaf git-peek
-;;   :tag "local"
-;;   :preface
-;;   (autoload 'git-peek "git-peek" nil t)
-;;   (autoload 'git-peek-deleted "git-peek" nil t)
-;;   :config
-;;   (setq git-peek-sidebar-width 45)
-;;   (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
-
-;;   (defun my-git-peek-smart ()
-;;     "Run `git-peek' with save-dir adjusted for xsrv dired context.
-;; xsrv 配下なら差分表示後に 2ペインを復元する。"
-;;     (interactive)
-;;     (let* ((dir          (expand-file-name default-directory))
-;;            (orig         git-peek-save-dir)
-;;            (root-pair    (my-xsrv-root-for dir))
-;;            (new-save-dir (if root-pair
-;;                              (concat (cdr root-pair)
-;;                                      (file-relative-name dir (car root-pair)))
-;;                            orig)))
-;;       (setq git-peek-save-dir new-save-dir)
-;;       (let ((fn nil))
-;;         (setq fn (lambda ()
-;;                    (setq git-peek-save-dir orig)
-;;                    (when root-pair
-;;                      (my-open-xsrv-2pane dir new-save-dir))
-;;                    (remove-hook 'git-peek-finish-hook fn)))
-;;         (add-hook 'git-peek-finish-hook fn))
-;;       (git-peek))))
-
-
 ;; ▼ P1(メイン機)限定ブロック (8章)
 (when (bound-and-true-p my-main-machine-p)
   ;; ============================================================
