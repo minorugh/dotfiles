@@ -55,8 +55,6 @@ keeping the terminal open afterward.  Otherwise (outside Dired), run
 (leaf tempbuf
   :vc (:url "https://github.com/minorugh/tempbuf" :rev :newest)
   :doc "Kill unused buffers in the background."
-  :preface
-  (autoload 'turn-on-tempbuf-mode "tempbuf" nil t)
   :commands (tempbuf-mode turn-on-tempbuf-mode)
   :hook ((find-file-hook . turn-on-tempbuf-mode)
          (dired-mode-hook . turn-on-tempbuf-mode))
