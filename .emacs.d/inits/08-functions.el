@@ -25,7 +25,8 @@
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . toggle-emacs))             ; see below
+         ("<f12>" . toggle-emacs)
+	 ("<f14>" . my-git-status))             ; see below
 
   :preface
   (defun toggle-emacs ()

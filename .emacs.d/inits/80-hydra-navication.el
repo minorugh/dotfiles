@@ -234,7 +234,6 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
 
 (leaf *hydra-work
   :after evil
-  :bind ("<f14>" . my-hydra-work)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'insert-template))
@@ -280,7 +279,6 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<f14>"     hydra-dired/body)
    ("<henkan>"  hydra-dired/body)
    ("<muhenkan>" nil))
   :preface
