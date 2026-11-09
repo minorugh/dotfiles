@@ -35,7 +35,7 @@
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
    ("@" browse-at-remote)
-   ("t" open-tig)                        ; see elisp/tig-git-peek-bridge.el
+   ("t" my-open-tig)
    ("f" flymake-show-buffer-diagnostics) ; see 20-flymake.el
    ("8" (filezilla "s"))
    ("9" (filezilla "g"))
