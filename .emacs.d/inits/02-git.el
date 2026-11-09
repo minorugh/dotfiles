@@ -72,8 +72,8 @@
         ((string-match-p "M" st) '(:foreground "#e5a64a" :weight bold))
         (t '(:foreground "#7fd18b" :weight bold))))
 
-(defun my-commit-msg--header (target changes amend)
-  "Return the read-only info box string for TARGET and CHANGES.
+(defun my-commit-msg--header (target summary amend)
+  "Return the read-only info box string for TARGET and SUMMARY.
 AMEND non-nil means the box is for rewording."
   (let* ((align (propertize " " 'display '(space :align-to 16)))
          (str (concat
@@ -95,7 +95,7 @@ AMEND non-nil means the box is for rewording."
                                         'face (my-commit-msg--status-face
                                                (substring line 0 2)))
                             "  " (substring line 3))))
-                (split-string changes "\n")
+                (split-string summary "\n")
                 (concat "\n" align "  "))
                "\n\n  "
                (make-string 44 ?─)
@@ -233,7 +233,7 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (select-frame-set-input-focus (selected-frame))))
 
 (defun my-commit-all-from-tig (root)
-  "Open the commit message buffer for all changes in ROOT.
+  "Open the commit message buffer for all Change in ROOT.
 Called from tig via emacsclient."
   (my-commit-msg--check-machine root)
   (my-commit-msg--prep root)
@@ -264,12 +264,29 @@ Called from tig via emacsclient."
 
 (defun my-make-git ()
   "Run `make git' in the current directory.
+In the dotfiles repository, uncommitted changes open `tig status' instead.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
 terminal because env-sync asks for confirmation."
   (interactive)
   (if my-main-machine-p
-      (compile "make git")
+      (let* ((dir (file-truename default-directory))
+             (root (locate-dominating-file dir ".git")))
+        (if (and root
+                 (my-commit-msg--dotfiles-p (expand-file-name root))
+                 (not (string-empty-p
+                       (cdr (my-commit-msg--git root "status" "--porcelain")))))
+            (my-git--tig (expand-file-name root) "status")
+          (compile "make git")))
     (my-make-run-async default-directory "git")))
+
+;; (defun my-make-git ()
+;;   "Run `make git' in the current directory.
+;; The main machine pushes in a compile buffer.  A sub machine pulls in a
+;; terminal because env-sync asks for confirmation."
+;;   (interactive)
+;;   (if my-main-machine-p
+;;       (compile "make git")
+;;     (my-make-run-async default-directory "git")))
 
 ;; ============================================================
 ;;  tig launchers
