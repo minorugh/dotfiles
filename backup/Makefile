@@ -11,6 +11,7 @@
 ## 2026-10-17  abook は ~/.env_source の暗号化 bundle で保護されるため all: から abook-backup を削除
 ## 2026-11-03  bin/kdb-pass.sh を廃止（パスワード更新は keepassxc.sh が起動時に判定して案内。keyring-backup は keepassxc.sh から呼ばれる）
 ## 2026-11-03  kdbx-gdrive-backup ターゲットを追加（master.kdbx を Google ドライブへ。旧版は日付付きで退避）。cron 直書きから移行
+## 2026-11-09  git-push ターゲットに dotfiles（git nightly）を追加。commit と push の分離後も、未 commit を夜間に auto commit して push する
 
 a.out: all
 
@@ -20,11 +21,13 @@ all: git-push mozc-backup filezilla-backup keyring-backup kdbx-gdrive-backup zsh
 .ONESHELL:
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
-git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit
+## dotfiles は最後に置く（.ONESHELL のため、最後の行の失敗だけが autobackup に ERROR として出る）
+git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh dotfiles を auto commit
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/GH git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/minorugh.com git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-GH git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/xsrv-minorugh git
+	$(MAKE) -C ${HOME}/src/github.com/minorugh/dotfiles/git nightly
 
 ## P1 の ~/.mozc を Dropbox にバックアップ
 mozc-backup: ## P1 の ~/.mozc を Dropbox にバックアップ

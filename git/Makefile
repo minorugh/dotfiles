@@ -63,6 +63,14 @@
 #       サブ機は従来どおり pull。Emacs の ] はこのターゲットを直接呼ぶ。
 # git-fix: 未 push のコミットが消えるため、メイン機では実行を止めるようにした（サブ機専用）。
 
+# 2026.11.09
+# commit と push の分離で、env_source の auto commit と bundle が「すべて commit」（prep）のときだけ
+# 実行されるようになり、1ファイルだけの commit のあとに push しても Dropbox の bundle が更新されなかった。
+# prep の env_source 処理を env-backup に切り出し、git（メイン機の push）の冒頭でも実行するようにした。
+# env.hash が変わったときは、そのファイルだけを auto commit してから push する。
+# nightly を追加した。夜間の autobackup（backup/Makefile の git-push）から呼ばれ、メイン機で prep のあと
+# 全変更を auto commit して push する。日中の git の動き（未 commit は警告して止まる）は変えていない。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -72,10 +80,15 @@ ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
 
-.PHONY: git prep git-fix env-sync
+.PHONY: git prep git-fix env-sync env-backup nightly
 
 git: ## Push (main only, sub: pull only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	@$(MAKE) -s env-backup
+	@cd $(DOTFILES_DIR) && \
+		if ! git diff --quiet git/env.hash; then \
+			git commit -q -m "auto: env.hash $$(date '+%Y-%m-%d %H:%M:%S')" -- git/env.hash; \
+		fi
 	@cd $(DOTFILES_DIR) && \
 		if [ -n "$$(git status --porcelain)" ]; then \
 			echo "##> ✗ 未コミットの変更があります。先に commit してください"; \
@@ -98,12 +111,27 @@ else
 	@$(MAKE) -s -C $(DOTFILES_DIR)/git env-sync
 endif
 
-prep: ## Prepare for commit (main only)
+env-backup: ## env_source の auto commit と bundle、env.hash の更新（メイン機）
 	if [ -f $(ENV_SOURCE_DIR)/Makefile ]; then \
 		$(MAKE) -s -C $(ENV_SOURCE_DIR) git; \
 	fi
 	sha256sum $(ENV_BUNDLE) 2>/dev/null | awk '{print $$1}' > $(DOTFILES_DIR)/git/env.hash
+
+prep: ## Prepare for commit (main only)
+	@$(MAKE) -s env-backup
 	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
+
+nightly: ## Nightly auto commit and push (main only)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	@$(MAKE) -s prep
+	@cd $(DOTFILES_DIR) && \
+		git add -A && \
+		{ git diff --cached --quiet || git commit -q -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"; } && \
+		git push
+	@echo "##> ✓ nightly 完了"
+else
+	@echo "$(HOSTNAME): サブ機では実行しません"
+endif
 
 env-sync: ## env_source の更新を検知し、あれば確認のうえ同期（サブ機のgit pull連動用）
 	@mkdir -p $(ENV_SYNC_CACHE); \
