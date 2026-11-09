@@ -40,7 +40,10 @@ git 管理外の場合はエラーメッセージを表示する。"
      (t
       (write-region path nil tig-context-file nil 'silent)
       (start-process
-       "tig" nil "gnome-terminal" "--maximize"
+       "tig" nil "gnome-terminal"
+       "--geometry" (let ((wa (frame-monitor-workarea)))
+                      (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
+       "--maximize"
        "--title" (format "tig: %s"
                          (file-name-nondirectory
                           (directory-file-name root)))

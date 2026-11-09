@@ -274,16 +274,23 @@ terminal because env-sync asks for confirmation."
 ;; ============================================================
 ;;  tig launchers
 ;; ============================================================
-(defun my-git--tig (dir &rest args)
-  "Run tig with ARGS in gnome-terminal at DIR."
-  (start-process "tig" nil "gnome-terminal" "--maximize"
+(defun my-git--terminal (dir command)
+  "Run shell COMMAND in gnome-terminal at DIR."
+  (start-process "tig" nil "gnome-terminal"
+                 "--geometry" (let ((wa (frame-monitor-workarea)))
+                                (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
+                 "--maximize"
                  "--title" (format "tig: %s"
                                    (file-name-nondirectory
                                     (directory-file-name dir)))
                  "--working-directory" dir
                  "--" "bash" "-c"
-                 (format "tig %s; exec bash"
-                         (mapconcat #'shell-quote-argument args " "))))
+                 (format "%s; exec bash" command)))
+
+(defun my-git--tig (dir &rest args)
+  "Run tig with ARGS in gnome-terminal at DIR."
+  (my-git--terminal dir (format "tig %s"
+                                (mapconcat #'shell-quote-argument args " "))))
 
 ;; (defun my-git--tig (dir &rest args)
 ;;   "Run tig with ARGS in gnome-terminal at DIR."
@@ -301,8 +308,14 @@ terminal because env-sync asks for confirmation."
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet."
   (interactive)
-  (my-git--tig (my-commit-msg--root (my-commit-msg--target-path))
-               "origin/main..HEAD"))
+  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
+    (my-git--terminal
+     root
+     (if (string= (cdr (my-commit-msg--git root "rev-list" "--count"
+                                           "origin/main..HEAD"))
+                  "0")
+         "echo '未 push のコミットはありません' | tig"
+       "tig origin/main..HEAD"))))
 
 (defun my-git-blame ()
   "Open `tig blame' for the current file."
