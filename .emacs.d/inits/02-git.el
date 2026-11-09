@@ -292,7 +292,7 @@ terminal because env-sync asks for confirmation."
 ;;  tig launchers
 ;; ============================================================
 (defun my-git--terminal (dir command)
-  "Run shell COMMAND in gnome-terminal at DIR."
+  "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit."
   (start-process "tig" nil "gnome-terminal"
                  "--geometry" (let ((wa (frame-monitor-workarea)))
                                 (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
@@ -301,21 +301,12 @@ terminal because env-sync asks for confirmation."
                                    (file-name-nondirectory
                                     (directory-file-name dir)))
                  "--working-directory" dir
-                 "--" "bash" "-c"
-                 (format "%s; exec bash" command)))
+                 "--" "bash" "-c" command))
 
 (defun my-git--tig (dir &rest args)
   "Run tig with ARGS in gnome-terminal at DIR."
   (my-git--terminal dir (format "tig %s"
                                 (mapconcat #'shell-quote-argument args " "))))
-
-;; (defun my-git--tig (dir &rest args)
-;;   "Run tig with ARGS in gnome-terminal at DIR."
-;;   (start-process "tig" nil "gnome-terminal" "--maximize"
-;;                  "--working-directory" dir
-;;                  "--" "bash" "-c"
-;;                  (format "tig %s; exec bash"
-;;                          (mapconcat #'shell-quote-argument args " "))))
 
 (defun my-git-status ()
   "Open `tig status' for the current repository."
