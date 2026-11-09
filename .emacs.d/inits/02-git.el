@@ -386,9 +386,6 @@ terminal because env-sync asks for confirmation."
 ;; ============================================================
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
-  :preface
-  (autoload 'git-peek "git-peek" nil t)
-  (autoload 'git-peek-deleted "git-peek" nil t)
   :config
   (setq git-peek-sidebar-width 45)
   (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/")))
