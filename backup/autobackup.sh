@@ -32,8 +32,6 @@ if [ "$1" = "--check" ]; then
         exit 0
     fi
     if [ "$FLAG" = "$YESTERDAY" ]; then
-        mkdir -p "$(dirname "$FLAG_FILE")"
-        echo "$TODAY" > "$FLAG_FILE"
         log "skip: $(date '+%Y-%m-%d %H:%M')"
         rm -f "$TMPLOG"
         exit 0
