@@ -63,11 +63,10 @@
    ("," my-howm-create-with-category)   ; see 50-howm.el
    ("l" (my-open-main "~/cl/"))
    ("w" (my-open-main "~/i.minorugh.com/"))
-   ("g" hydra-git/body)                 ; see 02-git.el
-   ;; ("[" my-commit-this-file)	        ; see 02-git.el
-   ("[" my-git-status)	                ; see 02-git.el
+   ("g" git-peek)                       ; see 02-git.el
+   ("[" my-git-blame)	                ; see 02-git.el
    ("]" my-make-git)                    ; see 02-git.el
-   ("-" git-peek)                       ; see 02-git.el
+   ("-" git-peek-deleted)               ; see 02-git.el
    ("_" delete-other-windows)
    ("R" my-image-resize-dispatch)
    ("q" top-level)
