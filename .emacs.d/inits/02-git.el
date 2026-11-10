@@ -280,20 +280,29 @@ Called from tig via emacsclient."
 
 (defun my-make-git ()
   "Run `make git' in the current directory.
-In the dotfiles repository, uncommitted changes open `tig status' instead.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
 terminal because env-sync asks for confirmation."
   (interactive)
   (if my-main-machine-p
-      (let* ((dir (file-truename default-directory))
-             (root (locate-dominating-file dir ".git")))
-        (if (and root
-                 (my-commit-msg--dotfiles-p (expand-file-name root))
-                 (not (string-empty-p
-                       (cdr (my-commit-msg--git root "status" "--porcelain")))))
-            (my-git--tig (expand-file-name root) "status")
-          (compile "make git")))
+      (compile "make git")
     (my-make-run-async default-directory "git")))
+
+;; (defun my-make-git ()
+;;   "Run `make git' in the current directory.
+;; In the dotfiles repository, uncommitted changes open `tig status' instead.
+;; The main machine pushes in a compile buffer.  A sub machine pulls in a
+;; terminal because env-sync asks for confirmation."
+;;   (interactive)
+;;   (if my-main-machine-p
+;;       (let* ((dir (file-truename default-directory))
+;;              (root (locate-dominating-file dir ".git")))
+;;         (if (and root
+;;                  (my-commit-msg--dotfiles-p (expand-file-name root))
+;;                  (not (string-empty-p
+;;                        (cdr (my-commit-msg--git root "status" "--porcelain")))))
+;;             (my-git--tig (expand-file-name root) "status")
+;;           (compile "make git")))
+;;     (my-make-run-async default-directory "git")))
 
 ;; ============================================================
 ;;  tig launchers

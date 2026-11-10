@@ -71,6 +71,13 @@
 # nightly を追加した。夜間の autobackup（backup/Makefile の git-push）から呼ばれ、メイン機で prep のあと
 # 全変更を auto commit して push する。日中の git の動き（未 commit は警告して止まる）は変えていない。
 
+# 2026.11.10
+# nightly の呼び出し元を autobackup（backup/Makefile の git-push）から power-menu の NIGHT SUSPEND に移した。
+# dotfiles の auto commit と push は、寝る前に NIGHT SUSPEND を押したときだけ走る。
+# 押さずに寝た夜は push されないが、変更は P1 に残り、次回の NIGHT SUSPEND か tig の P で出る。
+# サブ機で pull する前は、メイン機で push する運用で補う。
+# 朝のフォールバックでは dotfiles を push しない（作業中の編集を auto commit しないため）。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -93,11 +100,11 @@ ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 		if [ -n "$$(git status --porcelain)" ]; then \
 			echo "##> ✗ 未コミットの変更があります。先に commit してください"; \
 			git status --short; \
-			exit 1; \
+		else \
+			git log --oneline origin/main..HEAD && \
+			git push && \
+			echo "##> ✓ push 完了"; \
 		fi
-	@cd $(DOTFILES_DIR) && git log --oneline origin/main..HEAD
-	cd $(DOTFILES_DIR) && git push
-	@echo "##> ✓ push 完了"
 else
 	@echo "$(HOSTNAME): サブ機からはpushしません（pullのみ）"
 	@cd $(DOTFILES_DIR) && \

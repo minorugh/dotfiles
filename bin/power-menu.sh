@@ -5,7 +5,7 @@
 # xfce keyboard shortcut: gnome-terminal --window -- bash -c "power-menu.sh"
 #
 # x250: SLEEP/POWEROFF/REBOOT
-# P1  : 上記 + SUSPEND/XSRV BACKUP/VE/SSH XSRV/SSH GH/docker
+# P1  : 上記 + NIGHT SUSPEND/XSRV BACKUP/VE/SSH XSRV/SSH GH/docker
 # Enter: emacsプロセスをkill / ESC: キャンセル
 
 # ═══════════════ 環境設定 ═══════════════
@@ -50,9 +50,14 @@ action_xsrv_backup() {
     fi
     sleep 1; kill "$PPID"
 }
-action_suspend() {
-    systemctl suspend
-    sleep 1; kill "$PPID"
+action_night_suspend() {
+    if make -C "$HOME/src/github.com/minorugh/dotfiles/git" nightly; then
+        systemctl suspend
+        sleep 1; kill "$PPID"
+    else
+        read -p "nightly に失敗しました。Enter で閉じる " x
+        kill "$PPID"
+    fi
 }
 action_ssh_xsrv() { exec ssh -t xsrv "cd '$HOME_ROOT' && exec \$SHELL -il"; }
 action_ssh_gh()   { exec ssh -t xsrv "cd '$GH_ROOT' && printf '%s\n' '${GH_ROOT%public_html/}' && exec \$SHELL -il"; }
@@ -71,14 +76,14 @@ ACTIONS=(action_sleep action_poweroff action_reboot)
 if [[ "$HOSTNAME" == "$MAIN_HOSTNAME" ]]; then
     # P1だけ、ここから6項目を追加
     LABELS+=(
-        "SUSPEND"
+        "NIGHT SUSPEND"
         "XSRV BACKUP $BACKUP_STATUS"
         "VE"
         "SSH XSRV"
         "SSH GH"
         "SH docker/httpd"
     )
-    ACTIONS+=(action_suspend action_xsrv_backup action_ve action_ssh_xsrv action_ssh_gh action_docker)
+    ACTIONS+=(action_night_suspend action_xsrv_backup action_ve action_ssh_xsrv action_ssh_gh action_docker)
 fi
 
 # ═══════════════ P1/x250 共通設定（メニュー構築〜実行） ═══════════════

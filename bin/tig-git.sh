@@ -20,7 +20,11 @@ commit) emacsclient -e "(my-commit-file-from-tig \"$PWD/$2\")" > /dev/null ;;
 all) emacsclient -e "(my-commit-all-from-tig \"$PWD\")" > /dev/null ;;
 # 成功したら止めず、失敗したときだけ出力を残して Enter 待ちにする。
 # GIT_PAGER=cat は、git のページャで止まるのを避ける。Emacs は経由しない
-push) GIT_PAGER=cat make git || { printf '\nEnter で tig に戻る '; read x; }; exit ;;
+push)
+  if [ -n "$(git status --porcelain)" ]; then
+    echo "未コミットの変更があります。先に commit してください" | tig; exit
+  fi
+  GIT_PAGER=cat make git || { printf '\nEnter で tig に戻る '; read x; }; exit ;;
 unpushed)
   if [ "$(git rev-list --count origin/main..HEAD)" = 0 ]; then
     echo "未 push のコミットはありません" | tig; exit
