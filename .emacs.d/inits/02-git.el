@@ -377,8 +377,9 @@ In Dired, use the displayed directory."
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
   :config
-  (setq git-peek-sidebar-width 45)
+  (setq git-peek-sidebar-width 40)
   (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
+  (setq git-peek-show-hash nil)
   :init
   (defun my-git-peek-from-hash (hash)
     "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
