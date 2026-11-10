@@ -295,15 +295,6 @@ terminal because env-sync asks for confirmation."
           (compile "make git")))
     (my-make-run-async default-directory "git")))
 
-;; (defun my-make-git ()
-;;   "Run `make git' in the current directory.
-;; The main machine pushes in a compile buffer.  A sub machine pulls in a
-;; terminal because env-sync asks for confirmation."
-;;   (interactive)
-;;   (if my-main-machine-p
-;;       (compile "make git")
-;;     (my-make-run-async default-directory "git")))
-
 ;; ============================================================
 ;;  tig launchers
 ;; ============================================================
@@ -367,82 +358,64 @@ terminal because env-sync asks for confirmation."
     (my-git--tig root "--" path)))
 
 ;; ============================================================
-;;  Hydra Git
-;; ============================================================
-(leaf *hydra-git
-  :after evil
-  :hydra
-  (hydra-git
-   (:hint nil :exit t)
-   "
- Git.menu
-  _s_tatus  _b_lame  _d_eleted
-"
-   ("s" my-git-status)
-   ("b" my-git-blame)
-   ("d" git-peek-deleted)
-   ("q" top-level)
-   ("<muhenkan>" nil)))
-
-;; ============================================================
 ;;  git-peek (差分プレビュー) and tig bridge
 ;; ============================================================
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
   :config
   (setq git-peek-sidebar-width 45)
-  (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/")))
-
-(defun my-git-peek-from-hash (hash)
-  "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
+  (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
+  :init
+  (defun my-git-peek-from-hash (hash)
+    "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
 tig 上のキーバインドから emacsclient 経由で呼ばれることを想定。
 xsrv 配下なら `my-git-peek-smart' 相当の処理を自動適用する。"
-  (require 'git-peek)
-  (let* ((ctx-file my-tig-context-file)
-         (target (when (file-exists-p ctx-file)
-                   (string-trim (with-temp-buffer
-                                  (insert-file-contents ctx-file)
-                                  (buffer-string))))))
-    (unless (and target (file-exists-p target))
-      (error "my-git-peek-from-hash: コンテキストファイルが見つかりません: %s" ctx-file))
-    (find-file target)
-    (let* ((dir          (expand-file-name default-directory))
-           (orig         git-peek-save-dir)
-           (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
-           (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
-           (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
-                             (string-prefix-p xsrv-mn-root dir)))
-           (new-save-dir (cond
-                          ((string-prefix-p xsrv-gh-root dir)
-                           (concat (expand-file-name "~/Dropbox/GH/")
-                                   (file-relative-name dir xsrv-gh-root)))
-                          ((string-prefix-p xsrv-mn-root dir)
-                           (concat (expand-file-name "~/Dropbox/minorugh.com/")
-                                   (file-relative-name dir xsrv-mn-root)))
-                          (t orig))))
-      (setq git-peek-save-dir new-save-dir)
-      (let ((fn nil))
-        (setq fn (lambda ()
-                   (setq git-peek-save-dir orig)
-                   (when xsrv-p
-                     (my-open-xsrv-2pane dir new-save-dir))
-                   (remove-hook 'git-peek-finish-hook fn)))
-        (add-hook 'git-peek-finish-hook fn))
-      (my-git-peek-from-hash--run hash))))
+    (require 'git-peek)
+    (let* ((ctx-file my-tig-context-file)
+           (target (when (file-exists-p ctx-file)
+                     (string-trim (with-temp-buffer
+                                    (insert-file-contents ctx-file)
+                                    (buffer-string))))))
+      (unless (and target (file-exists-p target))
+        (error "my-git-peek-from-hash: コンテキストファイルが見つかりません: %s" ctx-file))
+      (find-file target)
+      (let* ((dir          (expand-file-name default-directory))
+             (orig         git-peek-save-dir)
+             (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
+             (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
+             (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
+                               (string-prefix-p xsrv-mn-root dir)))
+             (new-save-dir (cond
+                            ((string-prefix-p xsrv-gh-root dir)
+                             (concat (expand-file-name "~/Dropbox/GH/")
+                                     (file-relative-name dir xsrv-gh-root)))
+                            ((string-prefix-p xsrv-mn-root dir)
+                             (concat (expand-file-name "~/Dropbox/minorugh.com/")
+                                     (file-relative-name dir xsrv-mn-root)))
+                            (t orig))))
+        (setq git-peek-save-dir new-save-dir)
+        (let ((fn nil))
+          (setq fn (lambda ()
+                     (setq git-peek-save-dir orig)
+                     (when xsrv-p
+                       (my-open-xsrv-2pane dir new-save-dir))
+                     (remove-hook 'git-peek-finish-hook fn)))
+          (add-hook 'git-peek-finish-hook fn))
+        (my-git-peek-from-hash--run hash))))
 
-(defun my-git-peek-from-hash--run (hash)
-  "Git-peek のサイドバーを開き、HASH の行にカーソルを移動する."
-  (git-peek)
-  (when (get-buffer "*git-peek-commits*")
-    (with-current-buffer "*git-peek-commits*"
-      (let ((inhibit-read-only t))
-        (goto-char (point-min))
-        (when (re-search-forward (regexp-quote (substring hash 0 7)) nil t)
-          (beginning-of-line)
-          (git-peek--highlight-current)
-          (when (window-live-p git-peek--sidebar-win)
-            (set-window-point git-peek--sidebar-win (point)))
-          (git-peek--render-preview (git-peek--current-commit)))))))
+  (defun my-git-peek-from-hash--run (hash)
+    "Git-peek のサイドバーを開き、HASH の行にカーソルを移動する."
+    (git-peek)
+    (when (get-buffer "*git-peek-commits*")
+      (with-current-buffer "*git-peek-commits*"
+        (let ((inhibit-read-only t))
+          (goto-char (point-min))
+          (when (re-search-forward (regexp-quote (substring hash 0 7)) nil t)
+            (beginning-of-line)
+            (git-peek--highlight-current)
+            (when (window-live-p git-peek--sidebar-win)
+              (set-window-point git-peek--sidebar-win (point)))
+            (git-peek--render-preview (git-peek--current-commit))))))))
 
 
 ;; Local Variables:
