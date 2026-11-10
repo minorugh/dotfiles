@@ -183,6 +183,11 @@ alias myip="ip -4 a | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v 127"
 # アーカイブ展開
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=aunpack
 
+# apt
+alias update='sudo apt update'
+alias upgrade='sudo apt -y upgrade'
+alias autoremove='sudo apt autoremove'
+
 # アプリ・ツール
 alias e='emacs'
 alias v='vim'
