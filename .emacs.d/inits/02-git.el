@@ -317,11 +317,6 @@ In Dired, use the displayed directory."
          (root (my-commit-msg--root (file-truename path))))
     (my-git--tig root "status")))
 
-;; (defun my-git-status ()
-;;   "Open `tig status' for the current repository."
-;;   (interactive)
-;;   (my-git--tig (my-commit-msg--root (my-commit-msg--target-path)) "status"))
-
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet, then open `tig status'."
   (interactive)
@@ -333,18 +328,6 @@ In Dired, use the displayed directory."
                   "0")
          "sh -c \"echo '未 push のコミットはありません' | tig; exec tig status\""
        "sh -c 'tig origin/main..HEAD; exec tig status'"))))
-
-;; (defun my-git-unpushed ()
-;;   "Open tig on the commits not pushed yet."
-;;   (interactive)
-;;   (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
-;;     (my-git--terminal
-;;      root
-;;      (if (string= (cdr (my-commit-msg--git root "rev-list" "--count"
-;;                                            "origin/main..HEAD"))
-;;                   "0")
-;;          "echo '未 push のコミットはありません' | tig"
-;;        "tig origin/main..HEAD"))))
 
 (defun my-git-blame ()
   "Open `tig blame' for the current file."

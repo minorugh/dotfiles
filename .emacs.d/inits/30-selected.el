@@ -76,4 +76,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; 20-selected.el ends here
+;;; 30-selected.el ends here
