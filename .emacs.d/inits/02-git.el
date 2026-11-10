@@ -287,23 +287,6 @@ terminal because env-sync asks for confirmation."
       (compile "make git")
     (my-make-run-async default-directory "git")))
 
-;; (defun my-make-git ()
-;;   "Run `make git' in the current directory.
-;; In the dotfiles repository, uncommitted changes open `tig status' instead.
-;; The main machine pushes in a compile buffer.  A sub machine pulls in a
-;; terminal because env-sync asks for confirmation."
-;;   (interactive)
-;;   (if my-main-machine-p
-;;       (let* ((dir (file-truename default-directory))
-;;              (root (locate-dominating-file dir ".git")))
-;;         (if (and root
-;;                  (my-commit-msg--dotfiles-p (expand-file-name root))
-;;                  (not (string-empty-p
-;;                        (cdr (my-commit-msg--git root "status" "--porcelain")))))
-;;             (my-git--tig (expand-file-name root) "status")
-;;           (compile "make git")))
-;;     (my-make-run-async default-directory "git")))
-
 ;; ============================================================
 ;;  tig launchers
 ;; ============================================================
@@ -325,9 +308,19 @@ terminal because env-sync asks for confirmation."
                                 (mapconcat #'shell-quote-argument args " "))))
 
 (defun my-git-status ()
-  "Open `tig status' for the current repository."
+  "Open `tig status' for the current repository.
+In Dired, use the displayed directory."
   (interactive)
-  (my-git--tig (my-commit-msg--root (my-commit-msg--target-path)) "status"))
+  (let* ((path (if (derived-mode-p 'dired-mode)
+                   default-directory
+                 (my-commit-msg--target-path)))
+         (root (my-commit-msg--root (file-truename path))))
+    (my-git--tig root "status")))
+
+;; (defun my-git-status ()
+;;   "Open `tig status' for the current repository."
+;;   (interactive)
+;;   (my-git--tig (my-commit-msg--root (my-commit-msg--target-path)) "status"))
 
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet, then open `tig status'."
