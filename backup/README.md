@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-11-03
+更新日: 2026-11-10
 
 ---
 
@@ -109,6 +109,9 @@ gsync:              # GitHub と xserver の HEAD が一致しているか確認
 | `filezilla-backup` | `~/Dropbox/backup/filezilla/` |
 | `readmes-backup` | `~/Dropbox/READMES/` |
 | `gsync` | なし（確認のみ。コピーはしない） |
+
+dotfiles は `git-push` に含めない。dotfiles の auto commit と push は、`git/Makefile` の `nightly` を
+power-menu の NIGHT SUSPEND（`4`）から呼んで行う（詳細は `git/README.md`）。
 
 #### gsync（GitHub と xserver の同期チェック）
 

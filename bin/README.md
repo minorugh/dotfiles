@@ -11,7 +11,7 @@ Emacs やデスクトップメニューから呼び出されます。
 ### changelog-rotate.sh
 
 トップ `README.md` の更新履歴の行のうち、`CHANGELOG.md`（全履歴）に未登録のものを先頭に追記し、README は直近10件に切り詰める。
-`git/Makefile` の `make git`（P1のみ）から `add` の前に呼ばれる。書式が想定外のときは何もせず警告のみ。
+`git/Makefile` の `prep`（P1 の commit 前処理）から呼ばれる。Emacs の「すべて commit」（tig の `A`）と `nightly` が `prep` を実行する。書式が想定外のときは何もせず警告のみ。
 
 ### emacs-toggle
 F12キーでEmacsの最小化・復元をトグルするスクリプト。
@@ -107,7 +107,7 @@ KeePassXC をパスワード入力なしで自動起動するラッパー。
 - `1`: SLEEP（画面オフのみ・プロセス継続）
 - `2`: POWEROFF
 - `3`: REBOOT
-- `4`: SUSPEND（確認なしで即サスペンド）
+- `4`: NIGHT SUSPEND（dotfiles の `make nightly` で auto commit と push をして、成功したらサスペンド。失敗したらサスペンドせず Enter 待ちで止まる）
 - `5`: XSRV BACKUP toggle（STOP⇔START。`~/.xsrv-backup-stop` の作成・削除）
 - `6`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
 - `7`: SSH XSRV
@@ -162,17 +162,20 @@ Simplenote のウィンドウがないときにこのスクリプトで起動す
 ```
 
 ### tig-git.sh
-tig の status・stage 画面から commit と push を行うランチャー。`.config/tig/config` の C・A・P から `>` で呼ばれる。
+tig の status・stage 画面から commit と push などを行うランチャー。`.config/tig/config` の C・A・P（status と stage）と U・R・h（どの画面でも）から `>` で呼ばれる。
 
 | 引数 | キー | 動作 |
 |---|---|---|
 | `commit FILE` | C | カーソル位置のファイルだけを Emacs の `*commit-msg*` で commit |
 | `all` | A | 全変更を `*commit-msg*` で commit（dotfiles では先に `make prep`） |
-| `push` | P | `make git` で push |
+| `push` | P | 未コミットがなければ `make git` で push |
+| `unpushed` | U | 未 push のコミット一覧を tig で開く（0件なら「未 push のコミットはありません」を表示） |
+| `reword` | R | 直前のコミットのメッセージを `*commit-msg*` で書き換える（push 済みなら「直前のコミットは push 済みです」を表示） |
+| `help` | h | キー一覧を tig で表示 |
 
 commit と all は、`emacsclient` で `02-git.el` の `my-commit-file-from-tig` / `my-commit-all-from-tig` を呼び、`*commit-msg*` が閉じるまで待つ。確定（`C-c C-c`）でもキャンセル（`C-c C-k`）でも、閉じたら開始時の端末ウィンドウを `xdotool` で前面に戻す。`>` により tig が再オープンされ、status が最新になる。
 
-push は `GIT_PAGER=cat` で `make git` を実行する。成功したら止まらず、失敗したときだけ Enter 待ちになる。Emacs は経由しない。
+push は、未コミットの変更があれば「未コミットの変更があります。先に commit してください」を tig で表示して終わる（`q` で元の tig に戻る）。なければ `GIT_PAGER=cat` で `make git` を実行し、成功したら止まらず、失敗したときだけ Enter 待ちになる。Emacs は経由しない。
 
 tig は外部コマンドをリポジトリのルートで実行するので、スクリプトは `$PWD` がルートであることを前提にしている。
 

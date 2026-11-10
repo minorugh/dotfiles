@@ -1,23 +1,27 @@
 # git（世代管理）
 
-> 作成日: 2026.07.31 / 最終更新: 2026.10.17
+> 作成日: 2026.07.31 / 最終更新: 2026.11.10
 
-dotfiles リポジトリ自身の commit / push / pull を自動化するための Makefile です。
+dotfiles リポジトリ自身の commit 前処理 / push / pull を扱う Makefile です。
 リストア用のトップレベル `Makefile` とは関心事が異なるため、ここに分離しています。
 
 ## 運用方針
 
 このリポジトリは複数マシン（P1: 親機 / X250・Let's note: サブ機）で共有しており、
-commit の粒度や書き方に手間をかけるより、変更を都度自動で記録して
-世代管理そのものに専念する方針にしています。
+commit と push を分けて運用しています。
 
-- commit メッセージは `auto: 日時` の機械的な形式に統一
-- 日々の作業経緯そのものは別途 changelog 等で記録し、git はあくまで
-  「その時点のスナップショットに戻れること」を担保する道具として割り切る
-- 過去の差分は [git-peek](https://github.com/minorugh/git-peek) や `tig` で
-  自在に追えるため、commit メッセージに意味を持たせる必要性は薄いと判断
-- magit での丁寧な commit 運用も試したが、こまめな commit を書く手間や
-  操作を誤ったときの事故リスクを踏まえ、自動コミット一本に断捨離した
+- **commit は Emacs 側で行う**。tig の status（`Ctrl_r` で開く）から `C`（ファイル単位）・`A`（全変更）で
+  `*commit-msg*` を開き、メッセージを書いて確定する。空のまま確定すると `auto: 日時` になる
+- **push は `make git`**（tig の status から `P`）。メイン機は未コミットの変更があると警告して止まり、
+  自動では commit しない
+- **夜は NIGHT SUSPEND**（power-menu の `4`）が `make nightly` を呼び、全変更を auto commit して
+  push してから suspend する。押さずに寝た夜は push されないが、変更は P1 に残り、
+  次回の NIGHT SUSPEND か tig の `P` で出す
+- **サブ機で pull する前は、メイン機で push する**
+- 朝のフォールバック（`autobackup.sh --check`）では dotfiles を push しない。
+  作業中の編集を auto commit しないため
+- 日々の作業経緯は別途 changelog に記録し、過去の差分は
+  [git-peek](https://github.com/minorugh/git-peek) や `tig` で追う
 
 ## ターゲット一覧
 
@@ -27,15 +31,22 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 
 | ターゲット | 内容 |
 |---|---|
-| `make git` | 変更を `add` → 差分があれば `auto: 日時` で commit → P1: push / サブ機: pull --ff-only |
-| `make git-fix` | サブ機で pull（ff-only）に失敗した際の自動修復（rebase 中なら abort → `reset --hard origin/main` → pull）。dotfiles 専用 |
+| `make git` | P1: 未コミットがなければ push（あれば警告して止まる） / サブ機: pull --ff-only |
+| `make prep` | P1 の commit 前処理。`env-backup` と `changelog-rotate.sh`。Emacs の「すべて commit」（tig の `A`）から呼ばれる |
+| `make env-backup` | `~/.env_source` の auto commit と bundle 更新、`git/env.hash` の更新（P1） |
+| `make nightly` | P1: `prep` のあと全変更を `auto: 日時` で commit して push。NIGHT SUSPEND から呼ばれる |
+| `make git-fix` | サブ機で pull（ff-only）に失敗した際の自動修復（rebase 中なら abort → `reset --hard origin/main` → pull）。dotfiles 専用。P1 では実行を止める |
 | `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source` の更新を検知して確認のうえ同期（abookも統合済みのため自動的に含まれる） |
 
 ### `make git` の分岐（ホスト名で判定）
 
-- **P1（メイン機）**: `~/.env_source` 側の `make git` があれば呼び出し →
-  `git/env.hash` を書き出し → `bin/changelog-rotate.sh` で更新履歴を `CHANGELOG.md`（全履歴）に反映し、トップ `README.md` は直近10件に保つ → `add` → `commit`（差分があれば） →
-  `push`
+- **P1（メイン機）**:
+  1. `env-backup` を実行する（`~/.env_source` 側の `make git` があれば呼び出し、bundle のハッシュを `git/env.hash` に書き出す）
+  2. `git/env.hash` が変わっていれば、そのファイルだけを `auto: env.hash 日時` で commit する
+  3. 未コミットの変更があれば、`##> ✗ 未コミットの変更があります。先に commit してください` と
+     `git status --short` を出して終わる。終了コードは 0（Emacs の compile バッファにエラー表示を出さないため。
+     push されたかどうかは、`##> ✗` の行と `##> ✓ push 完了` の行で見分ける）
+  4. なければ未 push の一覧を出して `push` し、`##> ✓ push 完了` を出す
 - **サブ機（X250・Let's note）**: push は行わず pull のみ。未commit の変更（未追跡を含む）は
   `git stash` で退避し、`git pull --ff-only` のあと、今回 stash を作ったときだけ
   `stash pop` する。成功後に `make env-sync` を自動実行
@@ -52,6 +63,21 @@ commit の粒度や書き方に手間をかけるより、変更を都度自動�
 `arch-install` リポジトリの廃止（内容は `arch-debian-restore` のサブディレクトリへ
 移行）に伴い、この分岐を削除しました。Let's note も他のサブ機と同じく pull のみで、
 push しません。）
+
+### `make prep` と `make nightly`
+
+`prep` は P1 の commit 前処理です。`env-backup` で `~/.env_source` の bundle と
+`git/env.hash` を更新し、`bin/changelog-rotate.sh` で更新履歴を `CHANGELOG.md`（全履歴）に
+反映します（トップ `README.md` は直近10件に保つ）。`env.hash` は commit に含めるため、
+`prep` は commit の前に実行します。Emacs の「すべて commit」（tig の `A`）が先にこれを呼びます。
+
+`nightly` は P1 だけの夜間用ターゲットです。`prep` のあと `git add -A` して、
+差分があれば `auto: 日時` で commit し、push します。サブ機では何もしません。
+
+呼び出し元は power-menu の NIGHT SUSPEND（`4`）です。成功したら suspend し、
+失敗したら suspend せずに Enter 待ちで止まります。以前は夜間の `autobackup` の
+`git-push` から呼んでいましたが、2026-11-10 に外しました。端末で
+`make -C ~/src/github.com/minorugh/dotfiles/git nightly` と手動で実行することもできます。
 
 ### `env-sync` の挙動
 
@@ -77,7 +103,16 @@ GPG のパスフレーズ入力が発生しうるため、Emacs 経由での実�
 
 ## 使い方
 
-普段は何かを試したり修正を加えたタイミングで手動実行します。
+P1（メイン機）の普段の流れ:
+
+1. `Ctrl_r` で tig の status を開く
+2. `C`（ファイル単位）または `A`（全変更）で commit する
+3. `P` で push する（端末から `make git` でも同じ）
+4. 寝る前に power-menu の `4`（NIGHT SUSPEND）で、取りこぼしを auto commit して push し、suspend する
+
+tig の `P` は、未コミットの変更があるとメッセージを出して止まります。`q` で status に戻ります。
+
+サブ機は、メイン機で push したあとに `make git`（pull）を実行します。
 
 ```bash
 cd ~/src/github.com/minorugh/dotfiles
