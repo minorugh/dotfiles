@@ -207,6 +207,21 @@ chpwd() {
     ls -v -F --color=auto
 }
 
+tigp() {
+    local repo
+    repo=$(find ~/src/github.com/minorugh \
+        -mindepth 1 -maxdepth 1 -type d |
+        while read -r dir; do
+            git -C "$dir" rev-parse --git-dir >/dev/null 2>&1 &&
+                printf '%s\n' "$dir"
+        done |
+        sed 's|.*/||' |
+        sort |
+        fzf --prompt="Git Repository> ")
+
+    [[ -n "$repo" ]] && tig ~/src/github.com/minorugh/"$repo"
+}
+
 # 最小構成で Emacs を起動する（復旧用）
 # init.el を読まず init-mini.el だけを読む
 eq() {

@@ -51,7 +51,7 @@
    ("e" (my-open "~/src/github.com/minorugh/dotfiles/.emacs.d/"))
    ("h" (my-open "~/Dropbox/GH/"))
    ("j" (my-open "~/Dropbox/minorugh.com/"))
-   ("s" (my-open "~/src/"))
+   ("s" (my-open "~/src/github.com/minorugh/"))
    ("/" (my-open "/" :omit))
    ("k" (my-make "-k"))
    ("b" (my-make "bk"))

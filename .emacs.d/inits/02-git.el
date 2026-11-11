@@ -347,13 +347,29 @@ terminal because env-sync asks for confirmation."
 ;; ---- リポジトリ全体 ----
 (defun my-git-status ()
   "Open `tig status' for the current repository.
-In Dired, use the displayed directory."
+In Dired, use the directory at point if it is a repository root,
+otherwise the displayed directory."
   (interactive)
-  (let* ((path (if (derived-mode-p 'dired-mode)
-                   default-directory
-                 (my-commit-msg--target-path)))
+  (let* ((line (and (derived-mode-p 'dired-mode)
+                    (dired-get-filename nil t)))
+         (path (cond ((and line
+                           (file-directory-p line)
+                           (file-exists-p (expand-file-name ".git" line)))
+                      line)
+                     ((derived-mode-p 'dired-mode) default-directory)
+                     (t (my-commit-msg--target-path))))
          (root (my-commit-msg--root (file-truename path))))
     (my-git--tig root "status")))
+
+;; (defun my-git-status ()
+;;   "Open `tig status' for the current repository.
+;; In Dired, use the displayed directory."
+;;   (interactive)
+;;   (let* ((path (if (derived-mode-p 'dired-mode)
+;;                    default-directory
+;;                  (my-commit-msg--target-path)))
+;;          (root (my-commit-msg--root (file-truename path))))
+;;     (my-git--tig root "status")))
 
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet, then open `tig status'."
