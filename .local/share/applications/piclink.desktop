@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=i.minorugh.com（画像）
-Comment=i.minorugh.com を認証つきで開く
-Exec=make -C /home/minoru/i.minorugh.com up
+Name=piclink（画像）
+Comment=piclink を認証つきで開く
+Exec=make -C /home/minoru/src/github.com/minorugh/piclink up
 Icon=/home/minoru/Dropbox/backup/icons/icons/i.png
 Terminal=false
 Categories=Network;

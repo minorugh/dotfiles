@@ -92,7 +92,7 @@ endif
 ## システム設定（キーマップ・起動・cron）
 ########################################################
 tig: ## tig の設定展開
-	$(APT) $@	
+	$(APT) $@
 	mkdir -p ${HOME}/.config/tig
 	ln -vsf ${PWD}/.config/tig/config ${HOME}/.config/tig/config
 
@@ -288,13 +288,15 @@ hugo: ## Hugo のインストール（extended版・GitHub releases経由）
 # バージョンアップ時はURLの数字を変更すること
 # 確認: hugo version
 
-launcher: ## cl・i.minorugh.com のメニュー用ランチャーのリンク作成（メイン機のみ。make up を呼ぶ）
+launcher: ## cl・piclink のメニュー用ランチャーのリンク作成（メイン機のみ。make up を呼ぶ）
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	mkdir -p ${HOME}/.local/share/applications
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/piclink.desktop
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/cl.desktop
-	ln -vsfn {${PWD},${HOME}}/.local/share/applications/i-minorugh.desktop
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/cl-edit.desktop
+	xdg-mime default cl-edit.desktop x-scheme-handler/cl-edit
 else
-	@echo "$(HOSTNAME): サブ機ではランチャーを作りません（cl・i.minorugh.com はメイン機 P1 で使います）"
+	@echo "$(HOSTNAME): サブ機ではランチャーを作りません（cl・piclink はメイン機 P1 で使います）"
 endif
 
 printer: ## CUPS導入＋cups-browsed重複プリンター対策（Brother HL-L2375DW）

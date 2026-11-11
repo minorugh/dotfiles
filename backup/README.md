@@ -115,7 +115,7 @@ power-menu の NIGHT SUSPEND（`4`）から呼んで行う（詳細は `git/READ
 
 #### gsync（GitHub と xserver の同期チェック）
 
-- 対象は GH・minorugh.com・cl・i.minorugh.com の4リポジトリ（`~/src/github.com/minorugh/GH`、`~/src/github.com/minorugh/minorugh.com`、`~/cl`、`~/i.minorugh.com`）
+- 対象は GH・minorugh.com・cl・piclink の4リポジトリ（`~/src/github.com/minorugh/GH`、`~/src/github.com/minorugh/minorugh.com`、`~/src/github.com/minorugh/cl`、`~/src/github.com/minorugh/piclink`）
 - 各リポジトリで、`origin` の HEAD と、`remote.origin.pushurl` の2つ目（xserver）の HEAD を `git ls-remote` で比べる。前提は、`pushurl` を GitHub と xserver の2本登録していること
 - 全部一致なら終了コード 0。ずれ・通信失敗・`pushurl` 未設定のどれかがあれば、そのリポジトリを `NG` と表示して終了コード 1 になる（空と空は一致扱いにしない）
 - `autobackup.sh` が最後に `run_target "gsync" gsync` で呼ぶ。NG なら ERROR として `/tmp/cron.log` に残り、成功フラグは更新されない
