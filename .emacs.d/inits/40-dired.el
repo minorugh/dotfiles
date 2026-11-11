@@ -7,9 +7,12 @@
 ;;  Dired Core
 ;; ============================================================
 
+(leaf dired-permission-help
+  :doc "パーミッション早見表を右サイドバーに表示"
+  :file "~/.emacs.d/elisp/dired-permission-help.el"
+  :commands dired-permission-help)
+
 (leaf dired
-  :preface
-  (autoload 'dired-permission-help "dired-permission-help" nil t)
   :hook ((dired-mode-hook . my-dired-omit-mode)
          (dired-mode-hook . my-dired-env-warning-face))
   :bind (:dired-mode-map
