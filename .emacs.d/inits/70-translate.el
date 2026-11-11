@@ -12,8 +12,8 @@
 
 
 (leaf *deepl-translate
-  :vc (:url "https://github.com/minorugh/deepl-translate"       :rev :newest)
   :doc "Translation in minibuffer & copy result to clipboard."
+  :commands deepl-translate
   :bind ("C-c d" . deepl-translate)
   :init
   ;; Load the DeepL API key for my-deepl-translate.el
