@@ -119,19 +119,15 @@
 ;; ============================================================
 ;;  Major Modes for Editing
 ;; ============================================================
-(leaf *auto-install-modes
-  :doc "Install php-mode and csv-mode on first use."
-  :config
-  (defun my-auto-install (pkg mode)
-    (unless (package-installed-p pkg)
-      (package-install pkg t))
-    (funcall mode))
-  (dolist (x '(("\\.php\\'" php-mode php-mode)
-               ("\\.csv\\'" csv-mode csv-mode)
-               ("\\.tsv\\'" csv-mode tsv-mode)))
-    (pcase-let ((`(,regexp ,pkg ,mode) x))
-      (add-to-list 'auto-mode-alist
-                   (cons regexp (lambda () (my-auto-install pkg mode)))))))
+
+(leaf php-mode
+  :ensure t
+  :mode ("\\.php\\'" . php-mode))
+
+(leaf csv-mode
+  :ensure t
+  :mode (("\\.csv\\'" . csv-mode)
+         ("\\.tsv\\'" . tsv-mode)))
 
 (with-eval-after-load 'csv-mode
   (setq csv-align-max-width 80)
