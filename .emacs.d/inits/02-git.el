@@ -1,28 +1,48 @@
 ;;; 02-git.el --- Git commit workflow: message buffer, reword, tig, git-peek bridge. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
-;; commit と push を分ける運用のための設定。
+;; commit と push を分ける運用の設定。tig を git 操作の入口にしている。
 ;;
-;;   my-commit-this-file   開いているファイル（Dired なら行のファイル）だけ commit
-;;   my-commit-all         すべての変更を commit（dotfiles では先に make prep）
-;;   my-commit-reword      直前のコミットのメッセージだけ書き換える（push 済みは不可）
+;; 構成（下の区画は、上の区画の部品を使う）
 ;;
-;; メッセージバッファ内:
-;;   C-c C-c   確定
-;;   C-c C-k   キャンセル
-;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
+;;   1. 共通部品          git の実行、対象ファイルと root の判定、dotfiles 用のガード
+;;   2. commit メッセージ  *commit-msg* バッファ
+;;   3. commit の入口      Emacs から呼ぶもの / tig から呼ぶもの
+;;   4. push              my-make-git
+;;   5. tig を開く         リポジトリ全体 / ファイル単位
+;;   6. git-peek 連携      tig の E で選んだコミットを git-peek で開く
+;;
+;; 2. commit メッセージ
+;;   C-c C-c で確定、C-c C-k でキャンセル。
 ;;   メッセージは上に書く。下の情報ボックスは read-only。
+;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
 ;;
-;;   my-make-git          dotfiles/git の make git を実行（hydra-dired の ]）
-;;                        メイン機は push のみ、サブ機は端末で pull する。
+;; 3. commit の入口
+;;   Emacs から:
+;;     my-commit-this-file   開いているファイル（Dired なら行のファイル）だけ commit
+;;     my-commit-all         すべての変更を commit（dotfiles では先に make prep）
+;;     my-commit-reword      直前のコミットのメッセージだけ書き換える（push 済みは不可）
+;;   tig から（tig-git.sh が emacsclient で呼ぶ。C・A・R に対応）:
+;;     my-commit-file-from-tig  my-commit-all-from-tig  my-commit-reword-from-tig
 ;;
-;;   open-tig-project     リポジトリ全体の履歴を tig で開く（Dired の ]）
-;;   my-open-tig          開いているファイル（Dired なら行のファイル）の履歴を tig で開く
-;;                        q で tig を終了すると terminal も閉じる。
+;; 4. push
+;;   my-make-git   カレントディレクトリの make git を実行する。
+;;                 メイン機は push のみ、サブ機は端末で pull する。
 ;;
+;; 5. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
+;;   リポジトリ全体:
+;;     my-git-status      tig status（git 操作の入口）
+;;     my-git-unpushed    未 push のコミット一覧。q で tig status に移る
+;;     open-tig-project   カレントディレクトリ配下の履歴
+;;   ファイル単位:
+;;     my-git-blame       tig blame
+;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴
+;;
+;; 6. git-peek 連携
 ;;   my-git-peek-from-hash  tig の E から emacsclient 経由で呼ばれ、選んだコミットを
 ;;                        git-peek で開く。tig 起動時に `my-tig-context-file' へ
-;;                        対象ファイルのパスを書き出して受け渡す。
+;;                        対象ファイルのパスを書き出して受け渡す
+;;                        （my-git-blame と my-open-tig が書き出す）。
 ;;                        ~/.tigrc:
 ;;                          bind generic E !sh -c "emacsclient --eval '(my-git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"
 ;;
@@ -31,21 +51,72 @@
 (require 'seq)
 
 (defvar my-main-machine-p)
-(declare-function my-modeline-apply-highlight-now "30-ui")
 
+;; ============================================================
+;;  1. 共通部品
+;;     git の実行、対象ファイルと root の判定、dotfiles 用のガード
+;; ============================================================
 (defvar my-commit-dotfiles-dir "~/src/github.com/minorugh/dotfiles/"
   "Dotfiles repository `make prep' runs only for this repository.")
+
+(defun my-commit-msg--run (program &rest args)
+  "Run PROGRAM with ARGS and return (STATUS . OUTPUT)."
+  (with-temp-buffer
+    (let ((status (apply #'call-process program nil t nil args)))
+      (cons status (string-trim (buffer-string))))))
+
+(defun my-commit-msg--git (root &rest args)
+  "Run git in ROOT with ARGS and return (STATUS . OUTPUT)."
+  (apply #'my-commit-msg--run "git" "-C" root args))
+
+(defun my-commit-msg--target-path ()
+  "Return the true path of the file in this buffer or Dired line."
+  (let ((path (cond ((derived-mode-p 'dired-mode) (dired-get-filename nil t))
+                    (buffer-file-name buffer-file-name))))
+    (unless path (user-error "ファイルバッファまたは Dired で実行してください"))
+    (file-truename path)))
+
+(defun my-commit-msg--root (path)
+  "Return the git root of PATH or signal an error."
+  (let ((root (locate-dominating-file path ".git")))
+    (unless root (user-error "Git 管理下のファイルではありません"))
+    (expand-file-name root)))
+
+(defun my-commit-msg--dotfiles-p (root)
+  "Return non-nil if ROOT is the dotfiles repository."
+  (file-equal-p root (expand-file-name my-commit-dotfiles-dir)))
+
+(defun my-commit-msg--check-machine (root)
+  "Refuse to commit dotfiles on a sub machine (ROOT is the repository)."
+  (when (and (my-commit-msg--dotfiles-p root)
+             (not my-main-machine-p))
+    (user-error "サブ機の dotfiles からは commit しません")))
+
+(defun my-commit-msg--prep (root)
+  "Run `make prep' when ROOT is the dotfiles repository."
+  (when (my-commit-msg--dotfiles-p root)
+    (let ((res (my-commit-msg--run "make" "-s" "-C"
+                                   (expand-file-name "git" root) "prep")))
+      (unless (zerop (car res))
+        (user-error "Make prep 失敗: %s" (cdr res))))))
+
+;; ============================================================
+;;  2. commit メッセージ
+;;     *commit-msg* バッファ（確定は C-c C-c、キャンセルは C-c C-k）
+;; ============================================================
+(declare-function my-modeline-apply-highlight-now "30-ui")
 
 (defvar my-commit-msg-buffer "*commit-msg*"
   "Name of the commit message buffer.")
 
-(defvar my-tig-context-file "/tmp/tig-peek-context"
-  "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
-
 (defvar-local my-commit-msg--root nil)
+
 (defvar-local my-commit-msg--file nil)
+
 (defvar-local my-commit-msg--wconf nil)
+
 (defvar-local my-commit-msg--amend nil)
+
 (defvar-local my-commit-msg--end nil)
 
 (defface my-commit-msg-box
@@ -57,24 +128,12 @@
   '((t :inherit font-lock-keyword-face :weight bold))
   "Title and labels of the commit info box.")
 
-;; ============================================================
-;;  Message buffer
-;; ============================================================
 (define-derived-mode my-commit-msg-mode text-mode "CommitMsg"
   "Major mode for writing a commit message.")
 
 (define-key my-commit-msg-mode-map (kbd "C-c C-c") #'my-commit-msg-finish)
+
 (define-key my-commit-msg-mode-map (kbd "C-c C-k") #'my-commit-msg-cancel)
-
-(defun my-commit-msg--run (program &rest args)
-  "Run PROGRAM with ARGS and return (STATUS . OUTPUT)."
-  (with-temp-buffer
-    (let ((status (apply #'call-process program nil t nil args)))
-      (cons status (string-trim (buffer-string))))))
-
-(defun my-commit-msg--git (root &rest args)
-  "Run git in ROOT with ARGS and return (STATUS . OUTPUT)."
-  (apply #'my-commit-msg--run "git" "-C" root args))
 
 (defun my-commit-msg--status-face (st)
   "Return a face for git status string ST."
@@ -150,37 +209,6 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
         (goto-char (point-min))
         (insert (or old ""))))))
 
-(defun my-commit-msg--target-path ()
-  "Return the true path of the file in this buffer or Dired line."
-  (let ((path (cond ((derived-mode-p 'dired-mode) (dired-get-filename nil t))
-                    (buffer-file-name buffer-file-name))))
-    (unless path (user-error "ファイルバッファまたは Dired で実行してください"))
-    (file-truename path)))
-
-(defun my-commit-msg--root (path)
-  "Return the git root of PATH or signal an error."
-  (let ((root (locate-dominating-file path ".git")))
-    (unless root (user-error "Git 管理下のファイルではありません"))
-    (expand-file-name root)))
-
-(defun my-commit-msg--dotfiles-p (root)
-  "Return non-nil if ROOT is the dotfiles repository."
-  (file-equal-p root (expand-file-name my-commit-dotfiles-dir)))
-
-(defun my-commit-msg--check-machine (root)
-  "Refuse to commit dotfiles on a sub machine (ROOT is the repository)."
-  (when (and (my-commit-msg--dotfiles-p root)
-             (not my-main-machine-p))
-    (user-error "サブ機の dotfiles からは commit しません")))
-
-(defun my-commit-msg--prep (root)
-  "Run `make prep' when ROOT is the dotfiles repository."
-  (when (my-commit-msg--dotfiles-p root)
-    (let ((res (my-commit-msg--run "make" "-s" "-C"
-                                   (expand-file-name "git" root) "prep")))
-      (unless (zerop (car res))
-        (user-error "Make prep 失敗: %s" (cdr res))))))
-
 (defun my-commit-msg--close ()
   "Kill the message buffer and restore the window configuration."
   (let ((wconf my-commit-msg--wconf))
@@ -219,8 +247,10 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
   (message "commit: キャンセル"))
 
 ;; ============================================================
-;;  Commands
+;;  3. commit の入口
+;;     Emacs から呼ぶもの / tig から呼ぶもの
 ;; ============================================================
+;; ---- Emacs から ----
 (defun my-commit-this-file ()
   "Commit only the file of the current buffer."
   (interactive)
@@ -231,6 +261,24 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (my-commit-msg--check-machine root)
     (my-commit-msg--open root file)))
 
+(defun my-commit-all ()
+  "Commit all change in the repository of the current buffer."
+  (interactive)
+  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
+    (my-commit-msg--check-machine root)
+    (my-commit-msg--prep root)
+    (my-commit-msg--open root nil)))
+
+(defun my-commit-reword ()
+  "Reword the last commit if it has not been pushed."
+  (interactive)
+  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
+    (when (zerop (car (my-commit-msg--git root "merge-base" "--is-ancestor"
+                                          "HEAD" "@{upstream}")))
+      (user-error "直前のコミットは push 済みです。書き換えません"))
+    (my-commit-msg--open root nil t)))
+
+;; ---- tig から（tig-git.sh が emacsclient で呼ぶ） ----
 (defun my-commit-file-from-tig (file)
   "Open the commit message buffer for FILE.  Called from tig via emacsclient."
   (let* ((path (file-truename file))
@@ -256,25 +304,9 @@ Called from tig via emacsclient."
   (my-commit-msg--open root nil t)
   (select-frame-set-input-focus (selected-frame)))
 
-(defun my-commit-all ()
-  "Commit all change in the repository of the current buffer."
-  (interactive)
-  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
-    (my-commit-msg--check-machine root)
-    (my-commit-msg--prep root)
-    (my-commit-msg--open root nil)))
-
-(defun my-commit-reword ()
-  "Reword the last commit if it has not been pushed."
-  (interactive)
-  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
-    (when (zerop (car (my-commit-msg--git root "merge-base" "--is-ancestor"
-                                          "HEAD" "@{upstream}")))
-      (user-error "直前のコミットは push 済みです。書き換えません"))
-    (my-commit-msg--open root nil t)))
-
 ;; ============================================================
-;;  Push
+;;  4. push
+;;     make git の実行（メイン機は push、サブ機は pull）
 ;; ============================================================
 (declare-function my-make-run-async "10-makefile")
 
@@ -288,8 +320,13 @@ terminal because env-sync asks for confirmation."
     (my-make-run-async default-directory "git")))
 
 ;; ============================================================
-;;  tig launchers
+;;  5. tig を開く
+;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
+(defvar my-tig-context-file "/tmp/tig-peek-context"
+  "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
+
+;; ---- 共通 ----
 (defun my-git--terminal (dir command)
   "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit."
   (start-process "tig" nil "gnome-terminal"
@@ -307,6 +344,7 @@ terminal because env-sync asks for confirmation."
   (my-git--terminal dir (format "tig %s"
                                 (mapconcat #'shell-quote-argument args " "))))
 
+;; ---- リポジトリ全体 ----
 (defun my-git-status ()
   "Open `tig status' for the current repository.
 In Dired, use the displayed directory."
@@ -329,6 +367,16 @@ In Dired, use the displayed directory."
          "sh -c \"echo '未 push のコミットはありません' | tig; exec tig status\""
        "sh -c 'tig origin/main..HEAD; exec tig status'"))))
 
+;;;###autoload
+(defun open-tig-project ()
+  "Open `tig' for the current directory within its Git repository."
+  (interactive)
+  (let* ((dir default-directory)
+         (root (my-commit-msg--root dir))
+         (path (file-relative-name dir root)))
+    (my-git--tig root "--" path)))
+
+;; ---- ファイル単位 ----
 (defun my-git-blame ()
   "Open `tig blame' for the current file."
   (interactive)
@@ -345,17 +393,9 @@ In Dired, use the displayed directory."
     (write-region path nil my-tig-context-file nil 'silent)
     (my-git--tig root path)))
 
-;;;###autoload
-(defun open-tig-project ()
-  "Open `tig' for the current directory within its Git repository."
-  (interactive)
-  (let* ((dir default-directory)
-         (root (my-commit-msg--root dir))
-         (path (file-relative-name dir root)))
-    (my-git--tig root "--" path)))
-
 ;; ============================================================
-;;  git-peek (差分プレビュー) and tig bridge
+;;  6. git-peek 連携
+;;     tig の E で選んだコミットを git-peek で開く
 ;; ============================================================
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
