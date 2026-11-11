@@ -13,7 +13,7 @@
                (window-width . 40)
                (window-parameters . ((no-delete-other-windows . t)
                                      (mode-line-format . none)))))
-
+;;;###autoload
 (defun dired-permission-help ()
   "Show a quick permission reference."
   (interactive)
