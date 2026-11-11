@@ -145,7 +145,6 @@ invoked remotely via `emacsclient -e'."
 ;; ============================================================
 
 (leaf *make-run
-  :bind (("C-c g" . cl-make-git))
   :preface
   (defun my-make--command (dir target)
     "Build the shell command string that runs TARGET in DIR via make-run.sh."
@@ -158,23 +157,6 @@ invoked remotely via `emacsclient -e'."
 Use this for interactively picked targets (e.g. the ivy picker), where
 a plain (non ##!) target's output should stream live into *compilation*."
     (compile (my-make--command dir target)))
-
-  (defun cl-make-git ()
-    "~/cl で make git を実行する（~/cl 配下のバッファから呼ぶ）。
-実行前に ~/cl 配下の未保存バッファを保存する。"
-    (interactive)
-    (let* ((root (file-name-as-directory (expand-file-name "~/cl")))
-           (here (expand-file-name (or buffer-file-name default-directory)))
-           (default-directory root))
-      (unless (string-prefix-p root here)
-        (user-error "~/cl 配下ではありません: %s" here))
-      (save-some-buffers
-       t (lambda ()
-           (and buffer-file-name
-                (string-prefix-p root
-                                 (expand-file-name buffer-file-name)))))
-      (let ((compilation-ask-about-save nil))
-        (compile "make git"))))
 
   (defun my-make-run-async (dir target)
     "Fire-and-forget: run TARGET in DIR via make-run.sh in the background,
