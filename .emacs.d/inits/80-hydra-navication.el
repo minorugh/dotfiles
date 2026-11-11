@@ -61,8 +61,8 @@
    ("v" markdown-preview)               ; see 60-markdown.el
    ("o" howm-list-all)                  ; see 50-howm.el
    ("," my-howm-create-with-category)   ; see 50-howm.el
-   ("l" (my-open-main "~/cl/"))
-   ("w" (my-open-main "~/i.minorugh.com/"))
+   ("l" (my-open-main "~/src/github.com/minorugh/cl/"))
+   ("w" (my-open-main "~/src/github.com/minorugh/piclink/"))
    ("g" git-peek)                       ; see 02-git.el
    ("[" my-git-blame)	                ; see 02-git.el
    ("]" my-make-git)                    ; see 02-git.el
@@ -180,7 +180,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
   ;;  Changelog Search
   ;;  Search CHANGELOG interactively via search.pl (migemo対応)
   ;; ------------------------------------------------------------
-  (defvar my-changelog-dir "~/cl/log/"
+  (defvar my-changelog-dir "~/src/github.com/minorugh/cl/log/"
     "Changelog-*.md を管理しているディレクトリ.")
 
   (defvar my-changelog-search-script
