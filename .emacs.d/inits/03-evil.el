@@ -234,10 +234,12 @@
 ;;  ESC でキャンセル、完了後も Normal state に留まる。
 ;; ============================================================
 
+(leaf evil-leader-tools
+  :doc "みのる選のための自動化ツール"
+  :file "~/.emacs.d/elisp/evil-leader-tools.el"
+  :commands evil-leader-tools)
+
 (leaf *evil-leader-map
-  :preface
-  (autoload 'my-sen-cleanup "evil-leader-tools" nil t)
-  (autoload 'my-sen-restore "evil-leader-tools" nil t)
   :after evil
   :config
   (setq echo-keystrokes 0)
