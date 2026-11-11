@@ -65,11 +65,13 @@
 ;;  Markdown Commands
 ;; ============================================================
 
+(leaf markdown-utils
+  :doc "gen-toc howm-fix-code-comments"
+  :file "~/.emacs.d/elisp/markdown-utils.el"
+  :commands markdown-utils)
+
 (leaf *my-markdown-commands
   :tag "local"
-  :preface
-  (autoload 'my-howm-fix-code-comments "markdown-utils" nil t)
-  (autoload 'gen-toc-term              "markdown-utils" nil t)
   :after markdown-mode
   :bind (:markdown-mode-map
          ("C-c #" . my-howm-fix-code-comments)
