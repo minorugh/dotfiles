@@ -36,7 +36,6 @@
           ("c"      . clipboard-kill-ring-save)
           ("s"      . swiper-region)
           ("g"      . my-google-search)
-          ("d"      . deepl-translate)
           ([insert] . my-iedit-toggle))
          (:evil-emacs-state-map
           ("C-a"    . my-seq-home)
@@ -50,6 +49,9 @@
   :config
   ;; Cheat-Sheetを表示させる自作関数の読込
   (autoload 'evil-cheat-sheet "evil-cheat-sheet" nil t)
+
+  ;; デフォルトの d:削除 を deepl-translate に置き換える
+  (keymap-set evil-visual-state-map "d" #'deepl-translate)
 
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)
