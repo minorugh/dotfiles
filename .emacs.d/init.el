@@ -69,8 +69,13 @@
   :hook (kill-emacs-hook . my-byte-compile-elisp-dir)
   :preface
   (defun my-byte-compile-elisp-dir ()
-    "Byte-compile newer Elisp files in ~/.emacs.d/elisp."
+    "Delete stale .elc files, then byte-compile newer .el files."
     (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
+      ;; Delete .elc files whose .el no longer exists
+      (dolist (elc (directory-files elisp-dir t "\\.elc\\'"))
+        (unless (file-exists-p (concat (file-name-sans-extension elc) ".el"))
+          (ignore-errors (delete-file elc))))
+      ;; Byte-compile .el files newer than their .elc
       (dolist (el (directory-files elisp-dir t "\\.el\\'"))
         (when (file-newer-than-file-p el (concat el "c"))
           (ignore-errors (byte-compile-file el)))))))
