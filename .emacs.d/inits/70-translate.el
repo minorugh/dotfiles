@@ -10,8 +10,7 @@
 ;;  実体: ~/.emacs.d/elisp/deepl-translate.el
 ;; ============================================================
 
-
-(leaf *deepl-translate
+(leaf deepl-translate
   :doc "Translation in minibuffer & copy result to clipboard."
   :commands deepl-translate
   :bind ("C-c d" . deepl-translate)
