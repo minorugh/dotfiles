@@ -69,21 +69,20 @@
   :hook (kill-emacs-hook . my-clean-and-compile-elisp)
   :preface
   (defun my-clean-and-compile-elisp ()
-    "Delete orphan .elc in elisp/ and inits/, then recompile elisp/."
+    "Clean orphan .elc files in elisp/ and inits/, then recompile."
     (dolist (dir '("elisp" "inits"))
       (dolist (elc (directory-files
-                    (expand-file-name dir user-emacs-directory) t "\\.elc\\'"))
+                    (concat "~/.emacs.d/" dir) t "\\.elc\\'"))
         (unless (file-exists-p (concat (file-name-sans-extension elc) ".el"))
           (delete-file elc))))
-    (byte-recompile-directory
-     (expand-file-name "elisp" user-emacs-directory) 0)))
+    (byte-recompile-directory "~/.emacs.d/elisp" 0)
+    (byte-recompile-directory "~/.emacs.d/inits" 0)))
 
 (leaf init-loader
   :ensure t
   :doc "Load Emacs configuration files from the inits/ directory."
   :config
   (setq init-loader-show-log-after-init 'error-only)
-  (setq init-loader-byte-compile t)
   (key-chord-define-global "l;" 'init-loader-show-log)
   (init-loader-load))
 

@@ -235,7 +235,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
   :after evil
   :hydra
   (hydra-work
-   (:hint nil :exit t :body-pre (require 'insert-template))
+   (:hint nil :exit t :body-pre (require 'my-insert-template))
    "
  Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn

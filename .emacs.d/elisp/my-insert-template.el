@@ -1,4 +1,4 @@
-;;; insert-template.el --- User template configuration. -*- lexical-binding: t -*-
+;;; my-insert-template.el --- User template configuration. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; Template functions for haiku writing files.
@@ -284,7 +284,7 @@
       (forward-line -2)
       (forward-char 6))))
 
-(provide 'insert-template)
+(provide 'my-insert-template)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
