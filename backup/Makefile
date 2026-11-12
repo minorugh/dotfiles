@@ -66,7 +66,7 @@ gsync: ## GitHub と xserver の HEAD が一致しているか確認（4 リポ�
 
 readmes-backup: ## 各所のREADMEを$(READMES_DIR)にコピー
 	@mkdir -p $(READMES_DIR)
-	@cp ${HOME}/src/github.com/minorugh/env-import/README.md       $(READMES_DIR)/00-env-import-README.md
+	@cp ${HOME}/src/github.com/minorugh/arch-debian-restore/README.md       $(READMES_DIR)/00-arch-debian-restore-README.md
 	@cp ${HOME}/.env_source/README.md                              $(READMES_DIR)/01-env_source-README.md
 	@cp ${HOME}/src/github.com/minorugh/dotfiles/README.md         $(READMES_DIR)/02-dotfiles-README.md
 	@cp ${HOME}/src/github.com/minorugh/dotfiles/backup/README.md  $(READMES_DIR)/03-backup-README.md
