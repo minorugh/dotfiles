@@ -66,19 +66,17 @@
 
 (leaf *byte-compile-elisp
   :load-path "~/.emacs.d/elisp"
-  :hook (kill-emacs-hook . my-byte-compile-elisp-dir)
+  :hook (kill-emacs-hook . my-clean-and-compile-elisp)
   :preface
-  (defun my-byte-compile-elisp-dir ()
-    "Delete stale .elc files, then byte-compile newer .el files."
-    (let ((elisp-dir (expand-file-name "elisp" user-emacs-directory)))
-      ;; Delete .elc files whose .el no longer exists
-      (dolist (elc (directory-files elisp-dir t "\\.elc\\'"))
+  (defun my-clean-and-compile-elisp ()
+    "Delete orphan .elc in elisp/ and inits/, then recompile elisp/."
+    (dolist (dir '("elisp" "inits"))
+      (dolist (elc (directory-files
+                    (expand-file-name dir user-emacs-directory) t "\\.elc\\'"))
         (unless (file-exists-p (concat (file-name-sans-extension elc) ".el"))
-          (ignore-errors (delete-file elc))))
-      ;; Byte-compile .el files newer than their .elc
-      (dolist (el (directory-files elisp-dir t "\\.el\\'"))
-        (when (file-newer-than-file-p el (concat el "c"))
-          (ignore-errors (byte-compile-file el)))))))
+          (delete-file elc))))
+    (byte-recompile-directory
+     (expand-file-name "elisp" user-emacs-directory) 0)))
 
 (leaf init-loader
   :ensure t
