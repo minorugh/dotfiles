@@ -361,16 +361,6 @@ otherwise the displayed directory."
          (root (my-commit-msg--root (file-truename path))))
     (my-git--tig root "status")))
 
-;; (defun my-git-status ()
-;;   "Open `tig status' for the current repository.
-;; In Dired, use the displayed directory."
-;;   (interactive)
-;;   (let* ((path (if (derived-mode-p 'dired-mode)
-;;                    default-directory
-;;                  (my-commit-msg--target-path)))
-;;          (root (my-commit-msg--root (file-truename path))))
-;;     (my-git--tig root "status")))
-
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet, then open `tig status'."
   (interactive)
