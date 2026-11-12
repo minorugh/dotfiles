@@ -1,12 +1,12 @@
 #!/bin/bash
 ###########################################################################
 ## Sync, merge and backup GH member password files
-## Updated 2026.6.19
+## Updated 2026.11.12 (フラグを日付から成功時刻に変更。NIGHT SUSPEND 運用でも毎朝補えるように。旧: 2026.6.19)
 ##
 ## cron 本実行:     40 23 * * * /usr/local/bin/automerge.sh >> /tmp/cron.log 2>&1
 ## cron フォールバック: 5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
-##   --check: フラグの日付が「今日」でも「昨日」でもなければ実行する
-##            （定時実行が飛んだ日だけ、5-12時のどこかで一度補う）
+##   --check: 昨夜 23:40 以降に成功していなければ実行する
+##            （本実行が飛んだ日、たとえば NIGHT SUSPEND した翌朝に、5-12時のどこかで一度補う）
 ###########################################################################
 
 HOME=/home/minoru
@@ -25,24 +25,16 @@ log() {
     echo "${LOG_PREFIX} $1"
 }
 
-TODAY=$(date '+%Y%m%d')
-YESTERDAY=$(date -d 'yesterday' '+%Y%m%d')
-
-## --check: フラグの状態に応じて判定する
+## --check: 昨夜の本実行の予定時刻以降に成功していれば skip
 if [ "$1" = "--check" ]; then
+    THRESHOLD=$(date -d 'yesterday 23:40' '+%s')
     FLAG=$(cat "$FLAG_FILE" 2>/dev/null)
-    if [ "$FLAG" = "$TODAY" ]; then
-        rm -f "$TMPLOG"
-        exit 0
-    fi
-    if [ "$FLAG" = "$YESTERDAY" ]; then
-        mkdir -p "$(dirname "$FLAG_FILE")"
-        echo "$TODAY" > "$FLAG_FILE"
+    if [ "${FLAG:-0}" -ge "$THRESHOLD" ]; then
         log "skip: $(date '+%Y-%m-%d %H:%M')"
         rm -f "$TMPLOG"
         exit 0
     fi
-    log "check: フラグは${FLAG:-未記録}、実行します"
+    log "check: 前回成功は${FLAG:-未記録}、実行します"
 fi
 
 run() {
@@ -95,7 +87,7 @@ END=$(date '+%Y-%m-%d %H:%M:%S')
 if [ $ERRORS -eq 0 ]; then
     log "END: ${END} (OK)"
     mkdir -p "$(dirname "$FLAG_FILE")"
-    echo "$TODAY" > "$FLAG_FILE"
+    date '+%s' > "$FLAG_FILE"
 else
     log "END: ${END} (ERRORS=${ERRORS})"
 fi
