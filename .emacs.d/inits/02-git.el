@@ -345,26 +345,29 @@ terminal because env-sync asks for confirmation."
                                 (mapconcat #'shell-quote-argument args " "))))
 
 ;; ---- リポジトリ全体 ----
-(defun my-git-status ()
-  "Open `tig status' for the current repository.
+(defun my-git--repo-path ()
+  "Return the path used to find the repository.
 In Dired, use the directory at point if it is a repository root,
 otherwise the displayed directory."
+  (if (derived-mode-p 'dired-mode)
+      (let ((line (dired-get-filename nil t)))
+        (if (and line
+                 (file-directory-p line)
+                 (file-exists-p (expand-file-name ".git" line)))
+            line
+          default-directory))
+    (my-commit-msg--target-path)))
+
+(defun my-git-status ()
+  "Open `tig status' for the current repository."
   (interactive)
-  (let* ((line (and (derived-mode-p 'dired-mode)
-                    (dired-get-filename nil t)))
-         (path (cond ((and line
-                           (file-directory-p line)
-                           (file-exists-p (expand-file-name ".git" line)))
-                      line)
-                     ((derived-mode-p 'dired-mode) default-directory)
-                     (t (my-commit-msg--target-path))))
-         (root (my-commit-msg--root (file-truename path))))
+  (let ((root (my-commit-msg--root (file-truename (my-git--repo-path)))))
     (my-git--tig root "status")))
 
 (defun my-git-unpushed ()
   "Open tig on the commits not pushed yet, then open `tig status'."
   (interactive)
-  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
+  (let ((root (my-commit-msg--root (file-truename (my-git--repo-path)))))
     (my-git--terminal
      root
      (if (string= (cdr (my-commit-msg--git root "rev-list" "--count"
