@@ -288,4 +288,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; insert-template.el ends here
+;;; my-insert-template.el ends here

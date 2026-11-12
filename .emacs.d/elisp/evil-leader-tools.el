@@ -74,4 +74,4 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
-;;; haiku-sen-tools.el ends here
+;;; evil-leader-tools.el ends here
