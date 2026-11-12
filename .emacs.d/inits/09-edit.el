@@ -119,7 +119,6 @@
 ;; ============================================================
 ;;  Major Modes for Editing
 ;; ============================================================
-
 (leaf php-mode
   :ensure t
   :mode ("\\.php\\'" . php-mode))
@@ -127,9 +126,8 @@
 (leaf csv-mode
   :ensure t
   :mode (("\\.csv\\'" . csv-mode)
-         ("\\.tsv\\'" . tsv-mode)))
-
-(with-eval-after-load 'csv-mode
+         ("\\.tsv\\'" . tsv-mode))
+  :config
   (setq csv-align-max-width 80)
   (defun my-csv-mode-setup ()
     (csv-align-mode 1)
