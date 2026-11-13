@@ -1,6 +1,6 @@
 # バックアップ設定リファレンス (dotfiles/backup/)
 
-更新日: 2026-11-10
+更新日: 2026-11-13
 
 ---
 
@@ -9,7 +9,7 @@
 - メイン機 (P1) の各種データを毎夜 Dropbox へ自動バックアップする
 - `autobackup.sh` がオーケストレーターとして `Makefile` の各ターゲットを順次呼び出す
 - 個別スクリプトのシンボリックリンク作成は `dotfiles/Makefile` の `autobackup` ターゲットで管理
-- シャットダウン等で定時実行が飛んだ場合は、`--check` 機構（日付フラグ方式）により
+- シャットダウンや NIGHT SUSPEND で定時実行が飛んだ場合は、`--check` 機構（成功時刻フラグ方式）により
   翌朝 5-12時の毎時チェックで自動的に補完される（旧 anacron 方式は廃止）
 
 ---
@@ -41,7 +41,7 @@ backup/
 #### 本実行（cron 23:50、引数なし）
 
 フラグの状態に関わらず無条件に実行する。成功時（全ターゲットエラーなし）のみ、
-成功フラグ（`~/.cache/autobackup/last-success`）に当日の日付（YYYYMMDD）を書き込む。
+成功フラグ（`~/.cache/autobackup/last-success`）に成功時刻（epoch 秒）を書き込む。
 
 ```
 [autobackup] START: 2026-04-06 23:50:01
@@ -58,18 +58,21 @@ backup/
 
 #### フォールバック（cron 5-12時 毎時、`--check` 付き）
 
-成功フラグの日付を見て、以下のように判定する。
+成功フラグの時刻を、昨夜の本実行の予定時刻（昨日 23:50）と比べて判定する。
 
-| フラグの日付 | 動作 |
+| 前回成功の時刻 | 動作 |
 |---|---|
-| 今日 | 何もせず無言で終了（既にその日の分は完了済み） |
-| 昨日 | フラグを今日に書き換え、skip ログをだけ出して終了（Skip判定が成功している証拠） |
-| それ以外（一昨日以前・未記録） | 通常実行する（本実行が実施されなかった場合の補完） |
+| 昨夜 23:50 以降 | skip ログだけ出して終了（昨夜の本実行、または今朝の補完が成功済み） |
+| それ以前・未記録 | 通常実行する（本実行が実施されなかった場合の補完） |
 
-「昨日」判定時のログ例（その日最初のチェック時にのみ出力、以降は無言）：
+skip 分岐ではフラグを書き換えない。フラグを書くのは、実行が成功したときだけ。
+以前は日付フラグ方式だったが、毎晩 NIGHT SUSPEND すると、前日朝の補完が書いた日付で
+翌朝が skip され、補完が2日に1回になるため、2026-11-12 に成功時刻方式に変えた。
+
+skip のログ例（5-12時の毎時チェックのたびに出る）：
 
 ```
-[autobackup] skip: 2026-06-20 05:05
+[autobackup] skip: 2026-11-13 08:05
 ```
 
 ログ出力先: `/tmp/cron.log`
@@ -79,7 +82,8 @@ backup/
 ## 4. automerge.sh (毎日 23:40 本実行 + 5-12時毎時 --check フォールバック)
 
 句会ウェブサイトの会員パスワードファイルを同期・マージしてサーバーに戻す。
-`--check` 機構は autobackup.sh と同じ仕組み（成功フラグ: `~/.cache/autobackup/automerge-last-success`）。
+`--check` 機構は autobackup.sh と同じ成功時刻方式（成功フラグ: `~/.cache/autobackup/automerge-last-success`）。
+判定の基準は、昨夜の本実行の予定時刻（昨日 23:40）。
 詳細は `dotfiles/cron/README.md` の 3.1 を参照。
 
 ---
@@ -110,8 +114,8 @@ gsync:              # GitHub と xserver の HEAD が一致しているか確認
 | `readmes-backup` | `~/Dropbox/READMES/` |
 | `gsync` | なし（確認のみ。コピーはしない） |
 
-dotfiles は `git-push` に含めない。dotfiles の auto commit と push は、`git/Makefile` の `nightly` を
-power-menu の NIGHT SUSPEND（`4`）から呼んで行う（詳細は `git/README.md`）。
+dotfiles は `git-push` に含めない。dotfiles の auto commit と push は、`git/Makefile` の `git-auto` を
+power-menu の NIGHT SUSPEND（`4`）と Emacs の `my-make-git` から呼んで行う（詳細は `git/README.md`）。
 
 #### gsync（GitHub と xserver の同期チェック）
 

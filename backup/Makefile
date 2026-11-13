@@ -13,6 +13,8 @@
 ## 2026-11-03  kdbx-gdrive-backup ターゲットを追加（master.kdbx を Google ドライブへ。旧版は日付付きで退避）。cron 直書きから移行
 ## 2026-11-09  git-push ターゲットに dotfiles（git nightly）を追加。commit と push の分離後も、未 commit を夜間に auto commit して push する
 ## 2026-11-10  dotfiles の nightly を git-push から外した（power-menu の NIGHT SUSPEND から呼ぶ。理由は git/Makefile の 2026.11.10 を参照）
+## 2026-11-12  readmes-backup のコピー元を env-import から arch-debian-restore に変更（改名のため。コピー先は 00-arch-debian-restore-README.md）
+## 2026-11-13  git/Makefile の nightly を git-auto に改名したのに合わせて、git-push のコメントを更新
 
 a.out: all
 
@@ -22,7 +24,7 @@ all: git-push mozc-backup filezilla-backup keyring-backup kdbx-gdrive-backup zsh
 .ONESHELL:
 
 ## 各リポジトリの日次 auto-commit + push（pushurl で GitHub・Xserver に同時送信）
-## .ONESHELL のため、最後の行の失敗だけが autobackup に ERROR として出る。dotfiles は含めない（nightly は power-menu の NIGHT SUSPEND から呼ぶ）
+## .ONESHELL のため、最後の行の失敗だけが autobackup に ERROR として出る。dotfiles は含めない（git-auto は power-menu の NIGHT SUSPEND と Emacs の my-make-git から呼ぶ）
 git-push: ## GH minorugh.com xsrv-GH xsrv-minorugh を auto commit
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/GH git
 	$(MAKE) -C ${HOME}/src/github.com/minorugh/minorugh.com git

@@ -51,11 +51,11 @@ action_xsrv_backup() {
     sleep 1; kill "$PPID"
 }
 action_night_suspend() {
-    if make -C "$HOME/src/github.com/minorugh/dotfiles/git" nightly; then
+    if make -C "$HOME/src/github.com/minorugh/dotfiles/git" git-auto; then
         systemctl suspend
         sleep 1; kill "$PPID"
     else
-        read -p "nightly に失敗しました。Enter で閉じる " x
+        read -p "git-auto に失敗しました。Enter で閉じる " x
         kill "$PPID"
     fi
 }

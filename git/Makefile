@@ -78,6 +78,11 @@
 # サブ機で pull する前は、メイン機で push する運用で補う。
 # 朝のフォールバックでは dotfiles を push しない（作業中の編集を auto commit しないため）。
 
+# 2026.11.13
+# nightly を git-auto に改名した。呼び出し元が power-menu の NIGHT SUSPEND だけでなく、
+# Emacs の my-make-git（dotfiles のメイン機のとき）にも増え、時間帯を表す名前が実態に合わなくなったため。
+# 動作は変えていない。git は push のみ、git-auto は prep のあと全変更を auto commit して push する。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -87,7 +92,7 @@ ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
 
-.PHONY: git prep git-fix env-sync env-backup nightly
+.PHONY: git prep git-fix env-sync env-backup git-auto
 
 git: ## Push (main only, sub: pull only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
@@ -128,14 +133,14 @@ prep: ## Prepare for commit (main only)
 	@$(MAKE) -s env-backup
 	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
 
-nightly: ## Nightly auto commit and push (main only)
+git-auto: ## Auto commit all changes and push (main only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@$(MAKE) -s prep
 	@cd $(DOTFILES_DIR) && \
 		git add -A && \
 		{ git diff --cached --quiet || git commit -q -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"; } && \
 		git push
-	@echo "##> ✓ nightly 完了"
+	@echo "##> ✓ git-auto 完了"
 else
 	@echo "$(HOSTNAME): サブ機では実行しません"
 endif

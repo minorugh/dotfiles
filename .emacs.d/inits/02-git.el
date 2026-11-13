@@ -28,6 +28,7 @@
 ;; 4. push
 ;;   my-make-git   カレントディレクトリの make git を実行する。
 ;;                 メイン機は push のみ、サブ機は端末で pull する。
+;;                 メイン機の dotfiles だけは make git-auto（auto commit + push）。
 ;;
 ;; 5. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
 ;;   リポジトリ全体:
@@ -312,12 +313,19 @@ Called from tig via emacsclient."
 
 (defun my-make-git ()
   "Run `make git' in the current directory.
+In the dotfiles repository on the main machine, run `make git-auto' so
+that all changes are committed automatically before the push.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
 terminal because env-sync asks for confirmation."
   (interactive)
-  (if my-main-machine-p
-      (compile "make git")
-    (my-make-run-async default-directory "git")))
+  (let* ((found (locate-dominating-file default-directory ".git"))
+         (root (and found (expand-file-name found))))
+    (cond ((not my-main-machine-p)
+           (my-make-run-async default-directory "git"))
+          ((and root (my-commit-msg--dotfiles-p root))
+           (compile (format "make -C %s git-auto"
+                            (expand-file-name "git" root))))
+          (t (compile "make git")))))
 
 ;; ============================================================
 ;;  5. tig を開く

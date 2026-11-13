@@ -11,7 +11,7 @@ Emacs やデスクトップメニューから呼び出されます。
 ### changelog-rotate.sh
 
 トップ `README.md` の更新履歴の行のうち、`CHANGELOG.md`（全履歴）に未登録のものを先頭に追記し、README は直近10件に切り詰める。
-`git/Makefile` の `prep`（P1 の commit 前処理）から呼ばれる。Emacs の「すべて commit」（tig の `A`）と `nightly` が `prep` を実行する。書式が想定外のときは何もせず警告のみ。
+`git/Makefile` の `prep`（P1 の commit 前処理）から呼ばれる。Emacs の「すべて commit」（tig の `A`）と `git-auto` が `prep` を実行する。書式が想定外のときは何もせず警告のみ。
 
 ### emacs-toggle
 F12キーでEmacsの最小化・復元をトグルするスクリプト。
@@ -107,7 +107,7 @@ KeePassXC をパスワード入力なしで自動起動するラッパー。
 - `1`: SLEEP（画面オフのみ・プロセス継続）
 - `2`: POWEROFF
 - `3`: REBOOT
-- `4`: NIGHT SUSPEND（dotfiles の `make nightly` で auto commit と push をして、成功したらサスペンド。失敗したらサスペンドせず Enter 待ちで止まる）
+- `4`: NIGHT SUSPEND（dotfiles の `make git-auto` で auto commit と push をして、成功したらサスペンド。失敗したらサスペンドせず Enter 待ちで止まる）
 - `5`: XSRV BACKUP toggle（STOP⇔START。`~/.xsrv-backup-stop` の作成・削除）
 - `6`: VE（.elc削除 + `~/.emacs.d/` を Vim で開く）
 - `7`: SSH XSRV

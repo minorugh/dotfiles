@@ -1,4 +1,4 @@
-# 2026-11-03 update
+# 2026-11-13 update
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -29,10 +29,9 @@
 50 23 * * * /usr/local/bin/autobackup.sh >> /tmp/cron.log 2>&1
 
 ## --- バックアップ フォールバック（24:00前後の本実行が失敗・未実行だった場合の保険） ---
-## 5-12時の毎時、フラグの日付が「今日」でも「昨日」でもなければ実行する。
-## 本実行（23:40 automerge / 23:50 autobackup）が成功していれば、
-## フラグは「昨日」になっているため何もせずスキップする。
-## シャットダウン等で本実行が飛んだ場合のみ、起動後の最初のチェック時刻で1回だけ実行する。
+## 5-12時の毎時、昨夜の本実行の予定時刻（23:40 automerge / 23:50 autobackup）以降に
+## 成功していなければ実行する。成功していれば skip ログを出すだけで何もしない。
+## NIGHT SUSPEND やシャットダウンで本実行が飛んだ翌朝は、起動後の最初のチェック時刻で1回だけ実行する。
 5 5-12 * * * /usr/local/bin/automerge.sh --check >> /tmp/cron.log 2>&1
 5 5-12 * * * /usr/local/bin/autobackup.sh --check >> /tmp/cron.log 2>&1
 

@@ -235,11 +235,11 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
   :after evil
   :hydra
   (hydra-work
-   (:hint nil :exit t :body-pre (require 'my-insert-template))
+   (:hint nil :exit t :body-pre (require 'post-template))
    "
  Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  w2_j_pg
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  webp2_j_
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
