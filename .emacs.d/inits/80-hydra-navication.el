@@ -230,7 +230,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
   (hydra-work/body))
 
 (with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<f14>" #'my-hydra-work))
+  (keymap-set mozc-mode-map "<f7>" #'my-hydra-work))
 
 (leaf *hydra-work
   :after evil
@@ -280,6 +280,7 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    ("[" my-haiku-note-post)
    ("q" top-level)
    ("<henkan>"  hydra-dired/body)
+   ("<f7>" nil)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------

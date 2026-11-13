@@ -19,7 +19,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . my-quickrun)               ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . my-open-tig)               ; see 02-git.el
+         ("<f7>"  . hydra-work/body)            ; see 80-hydra-navication.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
