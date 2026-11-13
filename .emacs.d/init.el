@@ -69,7 +69,7 @@
   :hook (kill-emacs-hook . my-clean-and-compile-elisp)
   :preface
   (defun my-clean-and-compile-elisp ()
-    "Clean orphan .elc in elisp/ and inits/, then recompile."
+    "Delete the orphaned .elc file, then byte-recompile."
     (dolist (dir '("~/.emacs.d/elisp" "~/.emacs.d/inits"))
       (dolist (elc (directory-files dir t "\\.elc\\'"))
         (unless (file-exists-p (concat (file-name-sans-extension elc) ".el"))
