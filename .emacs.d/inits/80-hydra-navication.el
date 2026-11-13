@@ -29,7 +29,7 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  make._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  mk._a_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
   _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
 "
    ("x" my-env-recover)
@@ -57,6 +57,7 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
+   ("a" (my-make "git-auto" "~/src/github.com/minorugh/dotfiles/git/"))
    ("r" my-restart-emacs)
    ("v" markdown-preview)               ; see 60-markdown.el
    ("o" howm-list-all)                  ; see 50-howm.el

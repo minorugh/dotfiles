@@ -80,7 +80,8 @@
 
 # 2026.11.13
 # nightly を git-auto に改名した。呼び出し元が power-menu の NIGHT SUSPEND だけでなく、
-# Emacs の my-make-git（dotfiles のメイン機のとき）にも増え、時間帯を表す名前が実態に合わなくなったため。
+# Emacs の hydra-dired の a（dotfiles/git で make git-auto）にも増え、時間帯を表す名前が実態に合わなくなったため。
+# サブ機で pull する前に、メイン機の push を済ませておくために使う。
 # 動作は変えていない。git は push のみ、git-auto は prep のあと全変更を auto commit して push する。
 
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
