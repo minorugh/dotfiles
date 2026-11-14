@@ -38,8 +38,8 @@ reword)
 help)
   cat <<'HELP' | tig
  E  選択コミットを git-peek で開く
- C  このファイルだけ commit
- A  全変更を commit
+ c  このファイルだけ commit
+ a  全変更を commit
  P  push
  U  未 push のコミット一覧
  R  直前コミットの reword（push 済みは不可）

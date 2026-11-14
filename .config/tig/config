@@ -26,13 +26,14 @@ color cursor        255  24     bold
 bind generic E !sh -c "emacsclient --eval '(my-git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"
 
 # commit-msg 連携（> はコマンド終了後に tig を再オープンする）
-bind status C >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh commit "%(file)"
-bind stage  C >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh commit "%(file)"
-bind status A >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh all
-bind stage  A >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh all
+bind status c >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh commit "%(file)"
+bind stage  c >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh commit "%(file)"
+bind status a >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh all
+bind stage  a >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh all
 bind status P >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh push
 bind stage  P >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh push
-
+bind status C none
+bind stage  C none
 
 bind generic U >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh unpushed
 bind generic R >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh reword
