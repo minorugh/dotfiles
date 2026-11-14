@@ -1,9 +1,9 @@
-;;; haiku-sen-tools.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
+;;; evil-leader-tools.el --- Minoru's selection: command to delete the lost clause. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; キーバインド（my-normal-leader-map）:
 ;;   ;c → sen_cleanup.pl 実行 → 成功でrevert-buffer・super-saveに委譲
-;;   ;b → .tmp から復元して revert-buffer
+;;   ;r → .tmp から復元して revert-buffer
 ;;
 ;; *sen-cleanup* バッファー:
 ;;   実行中はストリーミング表示。終了後は view-mode になり q で閉じる。
@@ -18,6 +18,7 @@
 (defvar my-sen-script "~/.emacs.d/elisp/bin/sen_cleanup.pl"
   "Path of sen_cleanup.pl.")
 
+;;;###autoload
 (defun my-sen-cleanup ()
   "On success, call `revert-buffer' to switch back to the source buffer."
   (interactive)
@@ -56,6 +57,7 @@
                  (view-mode 1)
                  (pop-to-buffer outbuf))))))))))
 
+;;;###autoload
 (defun my-sen-restore ()
   "Restore from .tmp file and `revert-buffer'."
   (interactive)
@@ -70,7 +72,7 @@
         (message "復元しました: %s" tmp)))))
 
 
-(provide 'haiku-sen-tools)
+(provide 'evil-leader-tools)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
