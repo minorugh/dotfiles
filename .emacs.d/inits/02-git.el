@@ -16,8 +16,9 @@
 ;;   メッセージは上に書く。下の情報ボックスは read-only。
 ;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
 ;;   C-c C-g: Claude に頼むためのプロンプト（直近の件名・変更ファイル・diff）を
-;;   クリップボードにコピーし、3分間クリップボードを見張る。Claude の返事（1行）を
-;;   コピーすると、上の欄が空なら自動で入り、Emacs が前面に戻る。C-/ で消せる。
+;;   クリップボードにコピーし、3分間クリップボードを見張る。Claude の返事
+;;   （1行、または件名＋空行＋箇条書き）をコピーすると、上の欄が空なら自動で入り、
+;;   Emacs が前面に戻る。C-/ で消せる。
 ;;
 ;; 3. commit の入口（tig から呼ぶ）
 ;;   tig-git.sh が emacsclient で呼ぶ。tig status の C・A・R に対応:
@@ -279,7 +280,10 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
                             (seq-take lines my-commit-msg-diff-max-lines) "\n")
                            "\n（以下省略）")
                  raw-diff)))
-    (format (concat "以下の変更に対するコミットメッセージを、1行だけ書いてください。\n"
+    (format (concat "以下の変更に対するコミットメッセージを書いてください。\n"
+                    "変更が1〜2点なら、件名の1行だけを書いてください。\n"
+                    "3点以上なら、1行目に件名、2行目を空行にし、3行目以降に変更点を"
+                    "「- 」で始まる箇条書きで、1項目1行で書いてください。\n"
                     "言語と書き方は、次の直近のコミットの件名に合わせてください。\n"
                     "説明、引用符、コードブロックは付けず、メッセージ本文だけを出力してください。\n"
                     "\n## 直近のコミットの件名\n%s\n"
@@ -299,6 +303,19 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
   (call-process "xdotool" nil nil nil "windowactivate"
                 (frame-parameter nil 'outer-window-id)))
 
+(defun my-commit-msg--reply-p (text)
+  "Return non-nil if TEXT looks like a commit message reply.
+One line up to 200 chars, or up to 15 lines whose second line is empty
+or starts a bullet list."
+  (let ((lines (split-string text "\n")))
+    (if (null (cdr lines))
+        (<= (length text) 200)
+      (and (<= (length lines) 15)
+           (<= (length text) 1000)
+           (let ((second (nth 1 lines)))
+             (or (string-empty-p second)
+                 (string-match-p "\\`\\(?:- \\|\\* \\|・\\)" second)))))))
+
 (defun my-commit-msg--watch-tick (buf prompt start)
   "Put a one-line clipboard reply into BUF, the message buffer.
 PROMPT is the copied prompt and START is the time the watch began."
@@ -310,8 +327,7 @@ PROMPT is the copied prompt and START is the time the watch began."
       (when (and text
                  (not (equal clip prompt))
                  (not (string-empty-p text))
-                 (not (string-match-p "\n" text))
-                 (<= (length text) 200))
+                 (my-commit-msg--reply-p text))
         (my-commit-msg--watch-stop)
         (let ((win (get-buffer-window buf)))
           (when win (select-window win)))
@@ -325,8 +341,8 @@ PROMPT is the copied prompt and START is the time the watch began."
 
 (defun my-commit-msg-copy-prompt ()
   "Copy a prompt asking Claude for a commit message, then watch the clipboard.
-Paste the prompt into Claude and copy its one-line reply: the reply is put
-into this buffer when the message area is empty."
+Paste the prompt into Claude and copy its reply: the reply is put into this
+buffer when the message area is empty."
   (interactive)
   (let ((prompt (my-commit-msg--prompt))
         (buf (current-buffer)))
@@ -335,7 +351,7 @@ into this buffer when the message area is empty."
     (setq my-commit-msg--watch-timer
           (run-with-timer 0.5 0.5 #'my-commit-msg--watch-tick
                           buf prompt (float-time)))
-    (message "プロンプトをコピーしました。Claude に貼り、返事の1行をコピーしてください")))
+    (message "プロンプトをコピーしました。Claude に貼り、返事をコピーしてください")))
 
 ;; ============================================================
 ;;  3. commit の入口（tig から呼ぶ）
