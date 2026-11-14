@@ -27,11 +27,11 @@
          ("n"   . my-dired-open-nano)
          ("["   . open-tig-project)     ; see 02-git.el
          ("]"   . my-open-tig)          ; see 02-git.el
-	 ("g"   . git-peek)
-	 ("-"   . git-peek-deleted)
-         ("p"   . dired-permission-help)
+         ("p"   . git-peek)             ; see 02-git.el
+         ("-"   . git-peek-deleted)     ; see 02-git.el
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
          (","   . xsrv-download-dired)  ; see 90-xsrv-deploy.el
+         ("P"   . dired-permission-help)
          ("i"   . my-sxiv))
   :config
   (setq global-auto-revert-non-file-buffers t)
