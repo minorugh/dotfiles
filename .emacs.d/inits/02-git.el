@@ -15,6 +15,9 @@
 ;;   C-c C-c で確定、C-c C-k でキャンセル。
 ;;   メッセージは上に書く。下の情報ボックスは read-only。
 ;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
+;;   C-c C-g: Claude に頼むためのプロンプト（直近の件名・変更ファイル・diff）を
+;;   クリップボードにコピーし、3分間クリップボードを見張る。Claude の返事（1行）を
+;;   コピーすると、上の欄が空なら自動で入り、Emacs が前面に戻る。C-/ で消せる。
 ;;
 ;; 3. commit の入口（tig から呼ぶ）
 ;;   tig-git.sh が emacsclient で呼ぶ。tig status の C・A・R に対応:
@@ -111,6 +114,9 @@
 
 (defvar-local my-commit-msg--end nil)
 
+(defvar my-commit-msg--watch-timer nil
+  "Timer that watches the clipboard for Claude's reply.")
+
 (defface my-commit-msg-box
   '((((background dark)) :background "#2b3452" :extend t)
     (t :background "#e8ecf5" :extend t))
@@ -126,6 +132,8 @@
 (define-key my-commit-msg-mode-map (kbd "C-c C-c") #'my-commit-msg-finish)
 
 (define-key my-commit-msg-mode-map (kbd "C-c C-k") #'my-commit-msg-cancel)
+
+(define-key my-commit-msg-mode-map (kbd "C-c C-g") #'my-commit-msg-copy-prompt)
 
 (defun my-commit-msg--status-face (st)
   "Return a face for git status string ST."
@@ -203,6 +211,7 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
 
 (defun my-commit-msg--close ()
   "Kill the message buffer and restore the window configuration."
+  (my-commit-msg--watch-stop)
   (let ((wconf my-commit-msg--wconf))
     (kill-buffer (current-buffer))
     (set-window-configuration wconf)
@@ -237,6 +246,96 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
   (interactive)
   (my-commit-msg--close)
   (message "commit: キャンセル"))
+
+;; ---- Claude に頼む（クリップボード経由） ----
+(defvar my-commit-msg-diff-max-lines 300
+  "Maximum number of diff lines put into the prompt.")
+
+(defvar my-commit-msg-watch-seconds 180
+  "Seconds to watch the clipboard for the reply after the prompt is copied.")
+
+(defun my-commit-msg--prompt ()
+  "Return the prompt that asks Claude for a commit message."
+  (let* ((root my-commit-msg--root)
+         (file my-commit-msg--file)
+         (subjects (seq-take
+                    (seq-remove
+                     (lambda (s) (string-prefix-p "auto:" s))
+                     (split-string
+                      (cdr (my-commit-msg--git root "log" "-30" "--format=%s"))
+                      "\n" t))
+                    10))
+         (status (cdr (apply #'my-commit-msg--git root "status" "--short"
+                             (and file (list "--" file)))))
+         (raw-diff (cdr (cond (my-commit-msg--amend
+                               (my-commit-msg--git root "show" "HEAD"))
+                              (file
+                               (my-commit-msg--git root "diff" "HEAD" "--" file))
+                              (t
+                               (my-commit-msg--git root "diff" "HEAD")))))
+         (lines (split-string raw-diff "\n"))
+         (diff (if (> (length lines) my-commit-msg-diff-max-lines)
+                   (concat (string-join
+                            (seq-take lines my-commit-msg-diff-max-lines) "\n")
+                           "\n（以下省略）")
+                 raw-diff)))
+    (format (concat "以下の変更に対するコミットメッセージを、1行だけ書いてください。\n"
+                    "言語と書き方は、次の直近のコミットの件名に合わせてください。\n"
+                    "説明、引用符、コードブロックは付けず、メッセージ本文だけを出力してください。\n"
+                    "\n## 直近のコミットの件名\n%s\n"
+                    "\n## 変更されたファイル\n%s\n"
+                    "\n## diff\n%s\n")
+            (string-join subjects "\n") status diff)))
+
+(defun my-commit-msg--watch-stop ()
+  "Stop watching the clipboard."
+  (when (timerp my-commit-msg--watch-timer)
+    (cancel-timer my-commit-msg--watch-timer))
+  (setq my-commit-msg--watch-timer nil))
+
+(defun my-commit-msg--raise-frame ()
+  "Bring the Emacs frame to the front."
+  (select-frame-set-input-focus (selected-frame))
+  (call-process "xdotool" nil nil nil "windowactivate"
+                (frame-parameter nil 'outer-window-id)))
+
+(defun my-commit-msg--watch-tick (buf prompt start)
+  "Put a one-line clipboard reply into BUF, the message buffer.
+PROMPT is the copied prompt and START is the time the watch began."
+  (if (or (not (buffer-live-p buf))
+          (> (- (float-time) start) my-commit-msg-watch-seconds))
+      (my-commit-msg--watch-stop)
+    (let* ((clip (gui-get-selection 'CLIPBOARD 'UTF8_STRING))
+           (text (and (stringp clip) (string-trim clip))))
+      (when (and text
+                 (not (equal clip prompt))
+                 (not (string-empty-p text))
+                 (not (string-match-p "\n" text))
+                 (<= (length text) 200))
+        (my-commit-msg--watch-stop)
+        (let ((win (get-buffer-window buf)))
+          (when win (select-window win)))
+        (with-current-buffer buf
+          (if (string-empty-p (my-commit-msg--text))
+              (progn (goto-char (point-min))
+                     (insert text)
+                     (message "コミットメッセージ案を入れました（C-/ で消せます）"))
+            (message "入力済みのため、案は入れませんでした")))
+        (my-commit-msg--raise-frame)))))
+
+(defun my-commit-msg-copy-prompt ()
+  "Copy a prompt asking Claude for a commit message, then watch the clipboard.
+Paste the prompt into Claude and copy its one-line reply: the reply is put
+into this buffer when the message area is empty."
+  (interactive)
+  (let ((prompt (my-commit-msg--prompt))
+        (buf (current-buffer)))
+    (kill-new prompt)
+    (my-commit-msg--watch-stop)
+    (setq my-commit-msg--watch-timer
+          (run-with-timer 0.5 0.5 #'my-commit-msg--watch-tick
+                          buf prompt (float-time)))
+    (message "プロンプトをコピーしました。Claude に貼り、返事の1行をコピーしてください")))
 
 ;; ============================================================
 ;;  3. commit の入口（tig から呼ぶ）
