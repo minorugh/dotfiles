@@ -2,10 +2,14 @@
 #
 # tig-git.sh - tig の status・stage 画面から commit と push を行う
 #
-# config の C・A・P から > で呼ばれる。
-#   tig-git.sh commit FILE   カーソル位置のファイルだけ commit（C）
-#   tig-git.sh all           全変更を commit（A）
+# config の c・a・P・U・R・h・E から > で呼ばれる。
+#   tig-git.sh commit FILE   カーソル位置のファイルだけ commit（c）
+#   tig-git.sh all           全変更を commit（a）
 #   tig-git.sh push          make git で push（P）
+#   tig-git.sh unpushed      未 push のコミット一覧（U）
+#   tig-git.sh reword        直前コミットの reword（R）
+#   tig-git.sh help          キー一覧（h）
+#   tig-git.sh peek HASH     選択コミットを git-peek で開く（E）
 #
 # > は、コマンド終了後に tig を再オープンする。そのとき status が最新になる。
 # tig は外部コマンドをリポジトリのルートで実行するので、$PWD はルートになる。
@@ -35,9 +39,17 @@ reword)
     echo "直前のコミットは push 済みです" | tig; exit
   fi
   emacsclient -e "(my-commit-reword-from-tig \"$PWD\")" > /dev/null ;;
+# TIG_PEEK_FILE は 02-git.el の my-open-tig が tig の起動時に渡す。
+# それ以外の画面で開いた tig では空なので、警告だけ出して何もしない
+peek)
+  if [ -z "$TIG_PEEK_FILE" ]; then
+    echo "E は my-open-tig（]）で開いた tig でだけ使えます" | tig; exit
+  fi
+  emacsclient -e "(my-git-peek-from-hash \"$2\" \"$TIG_PEEK_FILE\")" > /dev/null
+  xdotool windowminimize "$win"; exit ;;
 help)
   cat <<'HELP' | tig
- E  選択コミットを git-peek で開く
+ E  選択コミットを git-peek で開く（my-open-tig の tig のみ）
  c  このファイルだけ commit
  a  全変更を commit
  P  push

@@ -27,15 +27,16 @@
 ;;     open-tig-project   カレントディレクトリ配下の履歴（[）
 ;;   ファイル単位:
 ;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴（]）
+;;                        環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
 ;;
 ;; 5. git-peek 連携
-;;   my-git-peek-from-hash  tig の E から emacsclient 経由で呼ばれ、選んだコミットを
-;;                        git-peek で開く。tig 起動時に `my-tig-context-file' へ
-;;                        対象ファイルのパスを書き出して受け渡す
-;;                        （my-open-tig が書き出す。open-tig-project は書き出さないので、
-;;                        その画面では E を使わない）。
-;;                        ~/.tigrc:
-;;                          bind generic E !sh -c "emacsclient --eval '(my-git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"
+;;   my-git-peek-from-hash  tig の E から tig-git.sh と emacsclient 経由で呼ばれ、
+;;                        選んだコミットを git-peek で開く。対象ファイルは、
+;;                        my-open-tig が環境変数 TIG_PEEK_FILE で tig に渡す。
+;;                        他の画面の tig では TIG_PEEK_FILE が空なので、
+;;                        E は警告を出すだけで何もしない（tig-git.sh peek）。
+;;                        ~/.config/tig/config:
+;;                          bind generic E >…/tig-git.sh peek "%(commit)"
 ;;
 ;;; Code:
 
@@ -270,8 +271,6 @@ Called from tig via emacsclient."
 ;;  4. tig を開く
 ;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
-(defvar my-tig-context-file "/tmp/tig-peek-context"
-  "Tig 起動時にファイルパスを書き出す一時ファイル。常に上書きで一つだけ保持.")
 
 ;; ---- 共通 ----
 (defun my-git--terminal (dir command)
@@ -323,12 +322,14 @@ otherwise the displayed directory."
 
 ;; ---- ファイル単位 ----
 (defun my-open-tig ()
-  "Open `tig' for the file of the current buffer or Dired line."
+  "Open `tig' for the file of the current buffer or Dired line.
+TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
   (interactive)
   (let* ((path (my-commit-msg--target-path))
          (root (my-commit-msg--root path)))
-    (write-region path nil my-tig-context-file nil 'silent)
-    (my-git--tig root path)))
+    (my-git--terminal root (format "env TIG_PEEK_FILE=%s tig %s"
+                                   (shell-quote-argument path)
+                                   (shell-quote-argument path)))))
 
 ;; ============================================================
 ;;  5. git-peek 連携
@@ -341,42 +342,35 @@ otherwise the displayed directory."
   (setq git-peek-save-dir (expand-file-name "~/tmp/git-peek/"))
   (setq git-peek-show-hash nil)
   :init
-  (defun my-git-peek-from-hash (hash)
-    "HASH を受け取り、`my-tig-context-file' のファイルを `git-peek' で開く.
-tig 上のキーバインドから emacsclient 経由で呼ばれることを想定。
+  (defun my-git-peek-from-hash (hash file)
+    "HASH と FILE を受け取り、FILE を `git-peek' で開く.
+tig の E から tig-git.sh と emacsclient 経由で呼ばれることを想定。
 xsrv 配下なら `my-git-peek-smart' 相当の処理を自動適用する。"
     (require 'git-peek)
-    (let* ((ctx-file my-tig-context-file)
-           (target (when (file-exists-p ctx-file)
-                     (string-trim (with-temp-buffer
-                                    (insert-file-contents ctx-file)
-                                    (buffer-string))))))
-      (unless (and target (file-exists-p target))
-        (error "my-git-peek-from-hash: コンテキストファイルが見つかりません: %s" ctx-file))
-      (find-file target)
-      (let* ((dir          (expand-file-name default-directory))
-             (orig         git-peek-save-dir)
-             (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
-             (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
-             (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
-                               (string-prefix-p xsrv-mn-root dir)))
-             (new-save-dir (cond
-                            ((string-prefix-p xsrv-gh-root dir)
-                             (concat (expand-file-name "~/Dropbox/GH/")
-                                     (file-relative-name dir xsrv-gh-root)))
-                            ((string-prefix-p xsrv-mn-root dir)
-                             (concat (expand-file-name "~/Dropbox/minorugh.com/")
-                                     (file-relative-name dir xsrv-mn-root)))
-                            (t orig))))
-        (setq git-peek-save-dir new-save-dir)
-        (let ((fn nil))
-          (setq fn (lambda ()
-                     (setq git-peek-save-dir orig)
-                     (when xsrv-p
-                       (my-open-xsrv-2pane dir new-save-dir))
-                     (remove-hook 'git-peek-finish-hook fn)))
-          (add-hook 'git-peek-finish-hook fn))
-        (my-git-peek-from-hash--run hash))))
+    (find-file file)
+    (let* ((dir          (expand-file-name default-directory))
+           (orig         git-peek-save-dir)
+           (xsrv-gh-root (expand-file-name "~/src/github.com/minorugh/xsrv-GH/"))
+           (xsrv-mn-root (expand-file-name "~/src/github.com/minorugh/xsrv-minorugh/"))
+           (xsrv-p       (or (string-prefix-p xsrv-gh-root dir)
+                             (string-prefix-p xsrv-mn-root dir)))
+           (new-save-dir (cond
+                          ((string-prefix-p xsrv-gh-root dir)
+                           (concat (expand-file-name "~/Dropbox/GH/")
+                                   (file-relative-name dir xsrv-gh-root)))
+                          ((string-prefix-p xsrv-mn-root dir)
+                           (concat (expand-file-name "~/Dropbox/minorugh.com/")
+                                   (file-relative-name dir xsrv-mn-root)))
+                          (t orig))))
+      (setq git-peek-save-dir new-save-dir)
+      (let ((fn nil))
+        (setq fn (lambda ()
+                   (setq git-peek-save-dir orig)
+                   (when xsrv-p
+                     (my-open-xsrv-2pane dir new-save-dir))
+                   (remove-hook 'git-peek-finish-hook fn)))
+        (add-hook 'git-peek-finish-hook fn))
+      (my-git-peek-from-hash--run hash)))
 
   (defun my-git-peek-from-hash--run (hash)
     "Git-peek のサイドバーを開き、HASH の行にカーソルを移動する."

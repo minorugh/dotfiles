@@ -22,8 +22,8 @@ color status        255  234
 # 3. 選択行（カーソル）：どこを選んでいるか分かりやすくします
 color cursor        255  24     bold
 
-# git-peek 連携：選択中のコミットを emacsclient 経由で git-peek に渡す
-bind generic E !sh -c "emacsclient --eval '(my-git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"
+# git-peek 連携：my-open-tig で開いた tig でだけ動く（それ以外は tig-git.sh が警告を出す）
+bind generic E >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh peek "%(commit)"
 
 # commit-msg 連携（> はコマンド終了後に tig を再オープンする）
 bind status c >/home/minoru/src/github.com/minorugh/dotfiles/bin/tig-git.sh commit "%(file)"
