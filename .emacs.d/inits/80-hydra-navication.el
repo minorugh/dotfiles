@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^^^^^  _i_nits^^  _s_rc  root_/_^^  _._files^  mk._a_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  _g_it:_[__-__]_  GH._h__j_  _t_ig  c_l_.i_w_  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  %s`my-cron-hint
+  _d_ropbox  _e_macs.d^  _i_nits^^  _s_rc  _/_root^^  _._files^  mk._a_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  GH._h_._j_   tig_[__]_  _l_og  %s`my-cron-hint  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  ivie_w_
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -65,8 +65,8 @@
    ("l" (my-open-main "~/src/github.com/minorugh/cl/"))
    ("w" (my-open-main "~/src/github.com/minorugh/piclink/"))
    ("g" git-peek)                       ; see 02-git.el
-   ("[" my-git-blame)	                ; see 02-git.el
-   ("]" my-make-git)                    ; see 02-git.el
+   ("[" open-tig-project)               ; see 02-git.el
+   ("]" my-open-tig)                    ; see 02-git.el
    ("-" git-peek-deleted)               ; see 02-git.el
    ("_" delete-other-windows)
    ("R" my-image-resize-dispatch)

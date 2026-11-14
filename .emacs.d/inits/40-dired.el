@@ -25,9 +25,10 @@
          ("o"   . my-dired-open-xdg)
          ("v"   . my-dired-open-vim)
          ("n"   . my-dired-open-nano)
-         ("["   . dired-hide-details-mode)
-         ("t"   . my-open-tig)          ; see 02-git.el
-         ("]"   . my-git-unpushed)      ; see 02-git.el
+         ("["   . open-tig-project)     ; see 02-git.el
+         ("]"   . my-open-tig)          ; see 02-git.el
+	 ("g"   . git-peek)
+	 ("-"   . git-peek-deleted)
          ("p"   . dired-permission-help)
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
          (","   . xsrv-download-dired)  ; see 90-xsrv-deploy.el

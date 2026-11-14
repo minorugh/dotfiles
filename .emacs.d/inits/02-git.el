@@ -7,42 +7,33 @@
 ;;
 ;;   1. 共通部品          git の実行、対象ファイルと root の判定、dotfiles 用のガード
 ;;   2. commit メッセージ  *commit-msg* バッファ
-;;   3. commit の入口      Emacs から呼ぶもの / tig から呼ぶもの
-;;   4. push              my-make-git
-;;   5. tig を開く         リポジトリ全体 / ファイル単位
-;;   6. git-peek 連携      tig の E で選んだコミットを git-peek で開く
+;;   3. commit の入口      tig から呼ぶもの（tig-git.sh が emacsclient で呼ぶ）
+;;   4. tig を開く         リポジトリ全体 / ファイル単位
+;;   5. git-peek 連携      tig の E で選んだコミットを git-peek で開く
 ;;
 ;; 2. commit メッセージ
 ;;   C-c C-c で確定、C-c C-k でキャンセル。
 ;;   メッセージは上に書く。下の情報ボックスは read-only。
 ;;   空のまま確定すると "auto: 日時" の仮メッセージになる（reword は不可）。
 ;;
-;; 3. commit の入口
-;;   Emacs から:
-;;     my-commit-this-file   開いているファイル（Dired なら行のファイル）だけ commit
-;;     my-commit-all         すべての変更を commit（dotfiles では先に make prep）
-;;     my-commit-reword      直前のコミットのメッセージだけ書き換える（push 済みは不可）
-;;   tig から（tig-git.sh が emacsclient で呼ぶ。C・A・R に対応）:
+;; 3. commit の入口（tig から呼ぶ）
+;;   tig-git.sh が emacsclient で呼ぶ。tig status の C・A・R に対応:
 ;;     my-commit-file-from-tig  my-commit-all-from-tig  my-commit-reword-from-tig
 ;;
-;; 4. push
-;;   my-make-git   カレントディレクトリの make git を実行する。
-;;                 メイン機は push のみ、サブ機は端末で pull する。
-;;
-;; 5. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
+;; 4. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
 ;;   リポジトリ全体:
-;;     my-git-status      tig status（git 操作の入口）
-;;     my-git-unpushed    未 push のコミット一覧。q で tig status に移る
-;;     open-tig-project   カレントディレクトリ配下の履歴
+;;     my-git-status      tig status（git 操作の入口。F14 にバインド）
+;;   ディレクトリ単位:
+;;     open-tig-project   カレントディレクトリ配下の履歴（[）
 ;;   ファイル単位:
-;;     my-git-blame       tig blame
-;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴
+;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴（]）
 ;;
-;; 6. git-peek 連携
+;; 5. git-peek 連携
 ;;   my-git-peek-from-hash  tig の E から emacsclient 経由で呼ばれ、選んだコミットを
 ;;                        git-peek で開く。tig 起動時に `my-tig-context-file' へ
 ;;                        対象ファイルのパスを書き出して受け渡す
-;;                        （my-git-blame と my-open-tig が書き出す）。
+;;                        （my-open-tig が書き出す。open-tig-project は書き出さないので、
+;;                        その画面では E を使わない）。
 ;;                        ~/.tigrc:
 ;;                          bind generic E !sh -c "emacsclient --eval '(my-git-peek-from-hash \"%(commit)\")';xdotool getactivewindow windowminimize"
 ;;
@@ -247,38 +238,9 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
   (message "commit: キャンセル"))
 
 ;; ============================================================
-;;  3. commit の入口
-;;     Emacs から呼ぶもの / tig から呼ぶもの
+;;  3. commit の入口（tig から呼ぶ）
+;;     tig-git.sh が emacsclient で呼ぶ。C・A・R に対応
 ;; ============================================================
-;; ---- Emacs から ----
-(defun my-commit-this-file ()
-  "Commit only the file of the current buffer."
-  (interactive)
-  (when (and buffer-file-name (buffer-modified-p))
-    (save-buffer))
-  (let* ((file (my-commit-msg--target-path))
-         (root (my-commit-msg--root file)))
-    (my-commit-msg--check-machine root)
-    (my-commit-msg--open root file)))
-
-(defun my-commit-all ()
-  "Commit all change in the repository of the current buffer."
-  (interactive)
-  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
-    (my-commit-msg--check-machine root)
-    (my-commit-msg--prep root)
-    (my-commit-msg--open root nil)))
-
-(defun my-commit-reword ()
-  "Reword the last commit if it has not been pushed."
-  (interactive)
-  (let ((root (my-commit-msg--root (my-commit-msg--target-path))))
-    (when (zerop (car (my-commit-msg--git root "merge-base" "--is-ancestor"
-                                          "HEAD" "@{upstream}")))
-      (user-error "直前のコミットは push 済みです。書き換えません"))
-    (my-commit-msg--open root nil t)))
-
-;; ---- tig から（tig-git.sh が emacsclient で呼ぶ） ----
 (defun my-commit-file-from-tig (file)
   "Open the commit message buffer for FILE.  Called from tig via emacsclient."
   (let* ((path (file-truename file))
@@ -291,7 +253,7 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
     (select-frame-set-input-focus (selected-frame))))
 
 (defun my-commit-all-from-tig (root)
-  "Open the commit message buffer for all Change in ROOT.
+  "Open the commit message buffer for all changes in ROOT.
 Called from tig via emacsclient."
   (my-commit-msg--check-machine root)
   (my-commit-msg--prep root)
@@ -305,22 +267,7 @@ Called from tig via emacsclient."
   (select-frame-set-input-focus (selected-frame)))
 
 ;; ============================================================
-;;  4. push
-;;     make git の実行（メイン機は push、サブ機は pull）
-;; ============================================================
-(declare-function my-make-run-async "10-makefile")
-
-(defun my-make-git ()
-  "Run `make git' in the current directory.
-The main machine pushes in a compile buffer.  A sub machine pulls in a
-terminal because env-sync asks for confirmation."
-  (interactive)
-  (if my-main-machine-p
-      (compile "make git")
-    (my-make-run-async default-directory "git")))
-
-;; ============================================================
-;;  5. tig を開く
+;;  4. tig を開く
 ;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
 (defvar my-tig-context-file "/tmp/tig-peek-context"
@@ -363,20 +310,9 @@ otherwise the displayed directory."
   (interactive)
   (let ((root (my-commit-msg--root (file-truename (my-git--repo-path)))))
     (my-git--tig root "status")))
+(keymap-global-set "<f14>" #'my-git-status)
 
-(defun my-git-unpushed ()
-  "Open tig on the commits not pushed yet, then open `tig status'."
-  (interactive)
-  (let ((root (my-commit-msg--root (file-truename (my-git--repo-path)))))
-    (my-git--terminal
-     root
-     (if (string= (cdr (my-commit-msg--git root "rev-list" "--count"
-                                           "origin/main..HEAD"))
-                  "0")
-         "sh -c \"echo '未 push のコミットはありません' | tig; exec tig status\""
-       "sh -c 'tig origin/main..HEAD; exec tig status'"))))
-
-;;;###autoload
+;; ---- ディレクトリ単位 ----
 (defun open-tig-project ()
   "Open `tig' for the current directory within its Git repository."
   (interactive)
@@ -386,14 +322,6 @@ otherwise the displayed directory."
     (my-git--tig root "--" path)))
 
 ;; ---- ファイル単位 ----
-(defun my-git-blame ()
-  "Open `tig blame' for the current file."
-  (interactive)
-  (let* ((file (my-commit-msg--target-path))
-         (root (my-commit-msg--root file)))
-    (write-region file nil my-tig-context-file nil 'silent)
-    (my-git--tig root "blame" (file-relative-name file root))))
-
 (defun my-open-tig ()
   "Open `tig' for the file of the current buffer or Dired line."
   (interactive)
@@ -403,7 +331,7 @@ otherwise the displayed directory."
     (my-git--tig root path)))
 
 ;; ============================================================
-;;  6. git-peek 連携
+;;  5. git-peek 連携
 ;;     tig の E で選んだコミットを git-peek で開く
 ;; ============================================================
 (leaf git-peek
