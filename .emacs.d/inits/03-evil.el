@@ -238,8 +238,7 @@
 
 (leaf evil-leader-tools
   :doc "みのる選のための自動化ツール"
-  :file "~/.emacs.d/elisp/evil-leader-tools.el"
-  :commands evil-leader-tools)
+  :commands my-sen-cleanup my-sen-restore)
 
 (leaf *evil-leader-map
   :after evil
