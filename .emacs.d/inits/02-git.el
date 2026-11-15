@@ -12,7 +12,7 @@
 ;;
 ;; 2. commit
 ;;   commit メッセージバッファ、dotfiles 用のガード、Claude 連携は
-;;   elisp/my-commit.el にある。tig-git.sh が emacsclient で呼ぶ入口
+;;   elisp/commit.el にある。tig-git.sh が emacsclient で呼ぶ入口
 ;;   （my-commit-file-from-tig / my-commit-all-from-tig /
 ;;   my-commit-reword-from-tig）が最初に呼ばれたときに読み込まれる。
 ;;
@@ -57,7 +57,7 @@
 ;;  2. commit
 ;;     elisp/my-commit.el を、tig からの入口が呼ばれたときに読み込む
 ;; ============================================================
-(leaf my-commit
+(leaf commit
   :doc "commit メッセージバッファと Claude 連携"
   :commands my-commit-file-from-tig my-commit-all-from-tig my-commit-reword-from-tig)
 

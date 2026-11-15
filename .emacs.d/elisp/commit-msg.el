@@ -1,4 +1,4 @@
-;;; my-commit.el --- Commit message buffer, dotfiles guard, Claude bridge. -*- lexical-binding: t -*-
+;;; commit-msg.el --- Commit message buffer, dotfiles guard, Claude bridge. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;
 ;; commit と push を分ける運用の、commit 側の設定。
@@ -353,8 +353,8 @@ Called from tig via emacsclient."
   (my-commit-msg--open root nil t)
   (select-frame-set-input-focus (selected-frame)))
 
-(provide 'my-commit)
+(provide 'commit-msg)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars docstrings unresolved)
 ;; End:
-;;; my-commit.el ends here
+;;; commit-msg.el ends here
