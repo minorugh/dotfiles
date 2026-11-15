@@ -275,7 +275,7 @@ FILE nil means all changes.  AMEND non-nil rewords the last commit."
                 (frame-parameter nil 'outer-window-id)))
 
 (defun my-commit-msg--reply-p (text)
-  "Return non-nil if TEXT looks like a commit message reply.
+  "Return non-nil if TEXT look like a commit message reply.
 One line up to 200 chars, or up to 15 lines whose second line is empty
 or starts a bullet list."
   (let ((lines (split-string text "\n")))
@@ -340,7 +340,7 @@ buffer when the message area is empty."
     (select-frame-set-input-focus (selected-frame))))
 
 (defun my-commit-all-from-tig (root)
-  "Open the commit message buffer for all changes in ROOT.
+  "Open the commit message buffer for all change in ROOT.
 Called from tig via emacsclient."
   (my-commit-msg--check-machine root)
   (my-commit-msg--prep root)
