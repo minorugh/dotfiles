@@ -46,18 +46,11 @@
     :config
     (leaf-keywords-init)))
 
+;; Use the fixed fork: the MELPA version stops responding to chords after an
+;; input method is toggled. No my-key-chord-ensure workaround is needed.
 (leaf key-chord
-  :ensure t
-  :defun my-key-chord-ensure
-  :hook (after-init-hook . key-chord-mode)
-  :config
-  (defun my-key-chord-ensure ()
-    "Key-chord stall recovery."
-    (when key-chord-mode
-      (key-chord-mode -1)
-      (key-chord-mode 1)))
-  (add-hook 'input-method-activate-hook   #'my-key-chord-ensure)
-  (add-hook 'input-method-deactivate-hook #'my-key-chord-ensure))
+  :vc (:url "https://github.com/minorugh/key-chord")
+  :hook (after-init-hook . key-chord-mode))
 
 
 ;; ============================================================
