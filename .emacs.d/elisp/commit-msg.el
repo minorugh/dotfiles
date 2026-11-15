@@ -21,7 +21,7 @@
 ;;   Emacs が前面に戻る。C-/ で消せる。
 ;;
 ;; 3. commit の入口（tig から呼ぶ）
-;;   tig-git.sh が emacsclient で呼ぶ。tig status の C・A・R に対応:
+;;   tig-git.sh が emacsclient で呼ぶ。tig の c・a・R に対応:
 ;;     my-commit-file-from-tig  my-commit-all-from-tig  my-commit-reword-from-tig
 ;;
 ;;; Code:
