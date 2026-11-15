@@ -6,13 +6,13 @@
 ;; 構成
 ;;
 ;;   1. 共通部品          対象ファイルと root の判定
-;;   2. commit            elisp/my-commit.el を遅延ロード
+;;   2. commit            elisp/commit-msg.el を遅延ロード
 ;;   3. tig を開く         リポジトリ全体 / ファイル単位
 ;;   4. git-peek 連携      tig の E で選んだコミットを git-peek で開く
 ;;
 ;; 2. commit
 ;;   commit メッセージバッファ、dotfiles 用のガード、Claude 連携は
-;;   elisp/commit.el にある。tig-git.sh が emacsclient で呼ぶ入口
+;;   elisp/commit-msg.el にある。tig-git.sh が emacsclient で呼ぶ入口
 ;;   （my-commit-file-from-tig / my-commit-all-from-tig /
 ;;   my-commit-reword-from-tig）が最初に呼ばれたときに読み込まれる。
 ;;
@@ -55,9 +55,9 @@
 
 ;; ============================================================
 ;;  2. commit
-;;     elisp/my-commit.el を、tig からの入口が呼ばれたときに読み込む
+;;     elisp/commit-msg.el を、tig からの入口が呼ばれたときに読み込む
 ;; ============================================================
-(leaf commit
+(leaf commit-msg
   :doc "commit メッセージバッファと Claude 連携"
   :commands my-commit-file-from-tig my-commit-all-from-tig my-commit-reword-from-tig)
 
