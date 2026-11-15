@@ -26,7 +26,7 @@
 
 (defvar deepl-auth-key nil
   "API key issued by DeepL.
-Set from an external, untracked file by the caller (see 80-translate.el).")
+Set from an external, untracked file by the caller (see 70-translate.el).")
 
 (cl-defun deepl--confirm-send-long-string (&key retry)
   "Ask the user to confirm sending a long string.

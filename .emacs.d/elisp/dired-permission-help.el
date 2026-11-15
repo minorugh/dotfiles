@@ -1,5 +1,8 @@
-;;; dired-oermission-help.el --- dired permission help -*- lexical-binding: t -*-
+;;; dired-permission-help.el --- dired permission help -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; Show a quick permission reference (r=4, w=2, x=1 ...) in the right side window.
+;; Bound to P in Dired.  Loaded via autoload from 40-dired.el.
 ;;
 ;;; Code:
 

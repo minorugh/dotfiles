@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;
 ;; Template functions for haiku writing files.
-;; Loaded via (require 'my-template) in 40-hydra-dired.el and 40-hydra-menu.el
+;; Loaded via (require 'post-template) in :body-pre of the hydra in 80-hydra-navication.el
 ;;
 ;;; Code:
 
