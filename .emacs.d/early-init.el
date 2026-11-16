@@ -21,7 +21,7 @@
 ;; Disable JIT compilation to prevent background CPU spikes at startup
 (setq native-comp-jit-compilation nil)
 
-;; Skip automatic package activation; init.el does it, which shortens init-time.
+;; Skip automatic package activation; set `package-activate-all' in init.el
 (setq package-enable-at-startup nil)
 
 ;; Always prefer newer source files to prevent stale .elc bugs
