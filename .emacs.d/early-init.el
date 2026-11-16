@@ -1,6 +1,7 @@
 ;;; early-init.el --- Early initialization. -*- lexical-binding: t -*-
 ;;; Commentary:
 ;; X11 display settings (font scale, colors) are configured in ~/.Xresources.
+;; Package activation is deferred to init.el (see package-enable-at-startup).
 ;;; Code:
 ;; (setq debug-on-error t)
 
@@ -19,9 +20,6 @@
 
 ;; Disable JIT compilation to prevent background CPU spikes at startup
 (setq native-comp-jit-compilation nil)
-
-;; Skip package init here; handled manually in init.el
-(setq package-enable-at-startup nil)
 
 ;; Always prefer newer source files to prevent stale .elc bugs
 (setq load-prefer-newer t)

@@ -30,7 +30,8 @@
         '(("gnu"   . "https://elpa.gnu.org/packages/")
           ("melpa" . "https://melpa.org/packages/")))
 
-  ;; Activate installed packages only, to shorten startup time.
+  ;; Already done at startup by default; kept so that `leaf' is found
+  ;; when this file is checked or byte-compiled on its own.
   (package-activate-all)
 
   (use-package leaf :ensure t)
