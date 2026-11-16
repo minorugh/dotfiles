@@ -37,10 +37,7 @@
         '(("gnu"   . "https://elpa.gnu.org/packages/")
           ("melpa" . "https://melpa.org/packages/")))
 
-  ;; Activate installed packages only, without reading the archive contents.
-  ;; `package-initialize' also reads the gnu/melpa archive lists, which is
-  ;; slow at startup.  They are only needed by `package-install' and
-  ;; `list-packages', which load them on demand.
+  ;; Activate installed packages only, to shorten startup time.
   (package-activate-all)
 
   (use-package leaf :ensure t)
