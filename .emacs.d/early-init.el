@@ -69,15 +69,16 @@
 ;; Leave the initial buffer selection to dashboard.
 (setq initial-buffer-choice nil)
 
+
+;; ============================================================
+;;  Keep user-emacs-directory Clean
+;; ============================================================
+
 ;; Prevent Customize from writing directly to init.el
 (setq custom-file (locate-user-emacs-file "tmp/custom.el"))
 
-;; X Session Management files (GUI Emacs, e.g. "session.123abc").
-(defvar my-session-dir (locate-user-emacs-file "tmp/session/"))
-(make-directory my-session-dir t)
-(defun emacs-session-filename (session-id)
-  "Return the session file name for SESSION-ID under `my-session-dir'."
-  (expand-file-name (concat "session." session-id) my-session-dir))
+;; Do not write X session files (session.<id>) into the user emacs directory.
+(advice-add 'emacs-session-save :override #'ignore)
 
 
 (provide 'early-init)
