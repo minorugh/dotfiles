@@ -43,8 +43,9 @@
   (put 'dired-find-alternate-file 'disabled nil)
 
   ;; Don't let Ivy override Emacs 30 file-name completion in dired copy.
-  (add-to-list 'ivy-completing-read-handlers-alist
-               '(dired-do-copy . completing-read-default)))
+  (with-eval-after-load 'ivy
+    (add-to-list 'ivy-completing-read-handlers-alist
+                 '(dired-do-copy . completing-read-default))))
 
 
 ;; ============================================================
