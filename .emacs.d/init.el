@@ -1,15 +1,8 @@
 ;;; init.el --- User initialization.  -*- lexical-binding: t -*-
 ;;; Commentary:
+;; Requires Emacs 29.1 or later.
 ;;; Code:
 ;; (setq debug-on-error t)
-
-;; ============================================================
-;;  Version Guard
-;; ============================================================
-
-(when (version< emacs-version "29.1")
-  (error "This requires Emacs 29.1 and above!"))
-
 
 ;; ============================================================
 ;;  Startup Speed — Suppress File Handlers
