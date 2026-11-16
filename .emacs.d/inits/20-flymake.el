@@ -22,7 +22,7 @@
 
   ;; Remove the legacy backend that fails in buffers without a file.
   (with-eval-after-load 'flymake-proc
-    (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
+   (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
 
   ;; Swallow the user-error elisp-flymake-byte-compile signals for
   ;; untrusted content, so Flymake doesn't stop in the buffer.
