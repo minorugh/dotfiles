@@ -19,7 +19,7 @@
          ("<f4>"  . xsrv-open-this)            ; see below
          ("<f5>"  . my-quickrun)               ; see 30-utils.el
          ("<f6>"  . thunar-open-this)          ; see below
-         ("<f7>"  . my-calendar-toggle)        ; see below
+         ("<f7>"  . my-calendar-toggle)        ; see 99-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . toggle-scratch-buffer)     ; see below
@@ -159,43 +159,6 @@ Only valid in a `dired-mode' buffer whose directory is under one of
         (switch-to-buffer (other-buffer))
       (switch-to-buffer "*scratch*")
       (goto-char (point-max)))))
-
-;; ============================================================
-;;  Calendar
-;; ============================================================
-(leaf calendar
-  :hook ((calendar-today-visible-hook   . my-calendar-mark-weekends)
-         (calendar-today-invisible-hook . my-calendar-mark-weekends))
-  :preface
-  (defface my-calendar-sunday
-    '((t :foreground "#ff5555"))
-    "Face for Sunday dates in the calendar."
-    :group 'calendar)
-
-  (defface my-calendar-saturday
-    '((t :foreground "#8be9fd"))
-    "Face for Saturday dates in the calendar."
-    :group 'calendar)
-
-  (defun my-calendar-mark-weekends ()
-    "Color Saturdays and Sundays in the three displayed months."
-    (dolist (offset '(-1 0 1))
-      (let ((month (+ displayed-month offset))
-            (year  displayed-year))
-        (cond ((< month 1)  (setq month 12 year (1- year)))
-              ((> month 12) (setq month 1  year (1+ year))))
-        (dotimes (i (calendar-last-day-of-month month year))
-          (let* ((date (list month (1+ i) year))
-                 (dow  (calendar-day-of-week date)))
-            (cond ((= dow 0) (calendar-mark-visible-date date 'my-calendar-sunday))
-                  ((= dow 6) (calendar-mark-visible-date date 'my-calendar-saturday))))))))
-
-  (defun my-calendar-toggle ()
-    "Show the calendar, or hide it when it is already displayed."
-    (interactive)
-    (if (get-buffer-window "*Calendar*")
-        (calendar-exit)
-      (calendar))))
 
 
 ;; Local Variables:
