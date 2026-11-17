@@ -122,20 +122,29 @@
 ;; ============================================================
 ;;  Major Modes for Editing
 ;; ============================================================
-(leaf php-mode
-  :ensure t
-  :mode ("\\.php\\'" . php-mode))
+(leaf my-php-mode
+  :doc "PHP ハイライト専用の自作モード"
+  :mode ("\\.php\\'" . my-php-mode))
 
-(leaf csv-mode
-  :ensure t
-  :mode (("\\.csv\\'" . csv-mode)
-         ("\\.tsv\\'" . tsv-mode))
-  :config
-  (setq csv-align-max-width 80)
-  (defun my-csv-mode-setup ()
-    (csv-align-mode 1)
-    (setq-local truncate-lines t))
-  (add-hook 'tsv-mode-hook #'my-csv-mode-setup))
+(leaf my-csv-mode
+  :doc "CSV/TSV 桁揃え専用の自作モード"
+  :mode (("\\.csv\\'" . my-csv-mode)
+         ("\\.tsv\\'" . my-tsv-mode)))
+
+;; (leaf my-php-mode
+;;   :doc "PHP ハイライト専用の自作モード"
+;;   :mode ("\\.php\\'" . my-php-mode))
+
+;; (leaf csv-mode
+;;   :ensure t
+;;   :mode (("\\.csv\\'" . csv-mode)
+;;          ("\\.tsv\\'" . tsv-mode))
+;;   :config
+;;   (setq csv-align-max-width 80)
+;;   (defun my-csv-mode-setup ()
+;;     (csv-align-mode 1)
+;;     (setq-local truncate-lines t))
+;;   (add-hook 'tsv-mode-hook #'my-csv-mode-setup))
 
 ;; ============================================================
 ;;  Revert Buffer
