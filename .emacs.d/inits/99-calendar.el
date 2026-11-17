@@ -19,7 +19,6 @@
   :custom-face
   (calendar-today . '((t (:box t))))
   :config
-  :config
   (keymap-set calendar-mode-map "<mouse-1>" #'my-calendar-open-gcal)
   (keymap-set calendar-mode-map "RET" #'my-calendar-open-gcal)
   (evil-define-key 'motion calendar-mode-map (kbd "RET") #'my-calendar-open-gcal)
@@ -68,7 +67,8 @@
       (when date
         (browse-url-chromium
          (format "https://calendar.google.com/calendar/r/day/%d/%d/%d"
-                 (nth 2 date) (nth 0 date) (nth 1 date))))))
+                 (nth 2 date) (nth 0 date) (nth 1 date)))
+        (calendar-exit))))
 
   (defun my-calendar-toggle ()
     "Show the calendar, or hide it when it is already displayed."
