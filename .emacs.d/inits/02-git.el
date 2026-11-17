@@ -7,8 +7,9 @@
 ;;
 ;;   1. 共通部品          対象ファイルと root の判定
 ;;   2. commit            elisp/commit-msg.el を遅延ロード
-;;   3. tig を開く         リポジトリ全体 / ファイル単位
-;;   4. git-peek 連携      tig の E で選んだコミットを git-peek で開く
+;;   3. tig を開く        リポジトリ全体 / ファイル単位
+;;   4. push              my-make-git
+;;   5. git-peek 連携     tig の E で選んだコミットを git-peek で開く
 ;;
 ;; 2. commit
 ;;   commit メッセージバッファ、dotfiles 用のガード、Claude 連携は
@@ -25,7 +26,11 @@
 ;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴（]）
 ;;                        環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
 ;;
-;; 4. git-peek 連携
+;; 4. push
+;;   my-make-git   カレントディレクトリの make git を実行する。
+;;                 メイン機は push のみ、サブ機は端末で pull する。
+;;
+;; 5. git-peek 連携
 ;;   my-git-peek-from-hash  tig の E から tig-git.sh と emacsclient 経由で呼ばれ、
 ;;                        選んだコミットを git-peek で開く。対象ファイルは、
 ;;                        my-open-tig が環境変数 TIG_PEEK_FILE で tig に渡す。
@@ -126,7 +131,22 @@ TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
                                    (shell-quote-argument path)))))
 
 ;; ============================================================
-;;  4. git-peek 連携
+;;  4. push
+;;     make git の実行（メイン機は push、サブ機は pull）
+;; ============================================================
+(declare-function my-make-run-async "10-makefile")
+
+(defun my-make-git ()
+  "Run `make git' in the current directory.
+The main machine pushes in a compile buffer.  A sub machine pulls in a
+terminal because env-sync asks for confirmation."
+  (interactive)
+  (if my-main-machine-p
+      (compile "make git")
+    (my-make-run-async default-directory "git")))
+
+;; ============================================================
+;;  5. git-peek 連携
 ;;     tig の E で選んだコミットを git-peek で開く
 ;; ============================================================
 (leaf git-peek
