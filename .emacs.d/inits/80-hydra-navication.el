@@ -102,7 +102,7 @@
     (when (memq :omit  opts) (dired-omit-mode 0))
     (when (memq :emacs opts) (evil-emacs-state)))
 
-    (defun my-open-main (path)
+  (defun my-open-main (path)
     "Open PATH only on the main machine."
     (if my-main-machine-p
         (my-open path)
@@ -227,11 +227,10 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
     (evil-normal-state))
   (hydra-work/body))
 
-(with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<f7>" #'my-hydra-work))
-
 (leaf *hydra-work
   :after evil
+  :config
+  (keymap-set evil-normal-state-map "," #'hydra-work/body)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'post-template))
@@ -278,12 +277,17 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
    ("[" my-haiku-note-post)
    ("q" top-level)
    ("<henkan>"  hydra-dired/body)
-   ("<f7>" nil)
+   ("," nil)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers
   ;; ------------------------------------------------------------
+  (defun my-key-chord-reset ()
+    "Clear `key-chord-last-unmatched' so that the next chord is detected."
+    (interactive)
+    (setq key-chord-last-unmatched nil))
+
   (defun my-upcase-word (arg)
     "Convert previous word (or ARG words) to upper case."
     (interactive "p")
