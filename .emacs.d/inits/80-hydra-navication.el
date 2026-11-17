@@ -67,7 +67,6 @@
    ("[" open-tig-project)               ; see 02-git.el
    ("]" my-open-tig)                    ; see 02-git.el
    ("_" delete-other-windows)
-   ("R" my-image-resize-dispatch)
    ("q" top-level)
    ("<henkan>"  hydra-work/body)
    ("<muhenkan>" nil))
@@ -172,47 +171,8 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
         (call-process "emacs-toggle")
         (my-howm--insert-category "note: ")
         (yank)
-        (call-process "wmctrl" nil nil nil "-i" "-c" wid))))
+        (call-process "wmctrl" nil nil nil "-i" "-c" wid)))))
 
-
-  ;; ------------------------------------------------------------
-  ;;  Changelog Search
-  ;;  Search CHANGELOG interactively via search.pl (migemo対応)
-  ;; ------------------------------------------------------------
-  (defvar my-changelog-dir "~/src/github.com/minorugh/cl/log/"
-    "Changelog-*.md を管理しているディレクトリ.")
-
-  (defvar my-changelog-search-script
-    (expand-file-name "search.pl" my-changelog-dir)
-    "Changelog 全文検索用 Perl スクリプトのパス.")
-
-  (defvar my-changelog-search-history nil
-    "`my-changelog-search' の検索履歴。")
-
-  (defun my-changelog-search (query &optional case-sensitive)
-    "QUERY で ~/Dropbox/CHANGELOG 以下を全文検索してgrep-mode バッファに表示する,
-プレフィクス引数 (C-u) を付けると大文字小文字を区別する検索になる。
-カーソル位置の単語をデフォルト値として提案する。
-search.pl 側で migemo によるローマ字検索に対応済み。"
-    (interactive
-     (list (read-string
-            (format "Search changelog%s: "
-                    (if current-prefix-arg " (case-sensitive)" ""))
-            nil 'my-changelog-search-history
-            (thing-at-point 'word t))
-           current-prefix-arg))
-    (unless (file-exists-p my-changelog-search-script)
-      (user-error "Search.pl が見つかりません: %s" my-changelog-search-script))
-    (let* ((default-directory (expand-file-name my-changelog-dir))
-           (flag (if case-sensitive "-c" "-i"))
-           (bufname (format "*changelog-search: %s*" query))
-           (cmd (format "perl %s %s %s"
-                        (shell-quote-argument my-changelog-search-script)
-                        flag
-                        (shell-quote-argument query))))
-      (compilation-start cmd 'grep-mode (lambda (_mode) bufname))
-      (when-let ((win (get-buffer-window bufname t)))
-        (select-window win)))))
 
 ;; ============================================================
 ;;  Hydra Work  (俳句作業メニュー)
@@ -315,7 +275,6 @@ search.pl 側で migemo によるローマ字検索に対応済み。"
                       "-quality" "85"
                       output)))
     (revert-buffer)))
-
 
 ;; ============================================================
 ;;  Package Management
