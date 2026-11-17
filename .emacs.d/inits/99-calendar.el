@@ -19,7 +19,10 @@
   :custom-face
   (calendar-today . '((t (:box t))))
   :config
+  :config
   (keymap-set calendar-mode-map "<mouse-1>" #'my-calendar-open-gcal)
+  (keymap-set calendar-mode-map "RET" #'my-calendar-open-gcal)
+  (evil-define-key 'motion calendar-mode-map (kbd "RET") #'my-calendar-open-gcal)
   :preface
   (defface my-calendar-sunday
     '((t :foreground "#ff5555"))
@@ -57,15 +60,16 @@
             (calendar-mark-visible-date
              date (propertize "." 'face 'my-calendar-event)))))))
 
-  (defun my-calendar-open-gcal (event)
-    "Open the Google Calendar day view of the date clicked in EVENT."
-    (interactive "e")
+  (defun my-calendar-open-gcal (&optional event)
+    "Open the Google Calendar day view of the date at point, or clicked in EVENT."
+    (interactive (list (and (mouse-event-p last-command-event)
+                            last-command-event)))
     (let ((date (calendar-cursor-to-date nil event)))
       (when date
         (browse-url-chromium
          (format "https://calendar.google.com/calendar/r/day/%d/%d/%d"
                  (nth 2 date) (nth 0 date) (nth 1 date))))))
-  
+
   (defun my-calendar-toggle ()
     "Show the calendar, or hide it when it is already displayed."
     (interactive)
