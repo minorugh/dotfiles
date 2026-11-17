@@ -42,7 +42,7 @@ Evil キーバインドのチートシートを表示するバッファー。
 
 ### evil-leader-tools.el
 選句作業用コマンド。`sen_cleanup.pl` を非同期実行し、結果をストリーミング表示する。
-実行前に `.tmp` バックアップを作成し、`;b` で復元できる。
+実行前に `.tmp` バックアップを作成し、`;r` で復元できる。
 キーバインドは `my-normal-leader-map` の `;c` / `;b`。
 
 ### markdown-utils.el
