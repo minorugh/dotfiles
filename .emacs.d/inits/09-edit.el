@@ -38,7 +38,10 @@
   :ensure t
   :hook (after-init-hook . undo-fu-session-global-mode)
   :config
-  (setq undo-fu-session-directory (locate-user-emacs-file "tmp/undo-session")))
+  (setq undo-fu-session-directory
+        (locate-user-emacs-file "tmp/undo-session")
+        undo-fu-session-incompatible-files
+        '("/howm-keys\\'")))
 
 ;; ============================================================
 ;;  Diff / Ediff
