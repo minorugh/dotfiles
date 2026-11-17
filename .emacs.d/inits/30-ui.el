@@ -77,6 +77,15 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
+(leaf rainbow-mode
+  :ensure t
+  :hook ((css-mode-hook
+          web-mode-hook
+          emacs-lisp-mode-hook) . rainbow-mode)
+  :config
+  (setq rainbow-x-colors nil)
+  (setq rainbow-html-colors nil))
+
 (leaf whitespace
   :tag "builtin"
   :doc "Visualize trailing whitespace and provide safe cleanup."
@@ -158,13 +167,13 @@ Safe for use in `before-save-hook' — does not auto-indent."
 
   (defun my-modeline-popup-window-p (w)
     (or (window-minibuffer-p w)
-	(and (string-match-p "\\`\\*Calendar\\*\\'" (buffer-name (window-buffer w)))
+        (and (string-match-p "\\`\\*Calendar\\*\\'" (buffer-name (window-buffer w)))
              (< (window-height w) (/ (frame-height) 3)))
-	(string-match-p
-	 (rx (or "*hydra" "lv" "*Flymake" "*changelog" "*git-diff-preview"
-		 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
-		 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
-	 (buffer-name (window-buffer w)))))
+        (string-match-p
+         (rx (or "*hydra" "lv" "*Flymake" "*changelog" "*git-diff-preview"
+                 "*Compilation" "*NeoTree*" "which-key" "*evil-cheat*"
+                 "*YaTeX-typesetting*" "*dvi-printing*" "*Permission Help*"))
+         (buffer-name (window-buffer w)))))
 
   (defvar my-modeline-update-timer nil
     "Pending idle timer for `my-update-modeline-for-split'.")
