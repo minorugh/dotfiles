@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  mk._a_._b_._k_._m_._u_._]_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  picvie_w_  GH._h__j_  _l_og  %s`my-cron-hint  _<home>_^  h_o_wm_,_  md:_v_iew^^^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  tig:_[_
+  _d_ropbox  _e_macs.d^^  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  make._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  git:_[_._]_  GH._h__j_  _t_ig  %s`my-cron-hint  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  _l_og._w_
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -56,15 +56,15 @@
    ("b" (my-make "bk"))
    ("m" (my-make "mv"))
    ("u" (my-make "up"))
-   ("a" (my-make "git-auto" "~/src/github.com/minorugh/dotfiles/git/"))
    ("r" my-restart-emacs)
    ("v" markdown-preview)               ; see 60-markdown.el
    ("o" howm-list-all)                  ; see 50-howm.el
    ("," my-howm-create-with-category)   ; see 50-howm.el
    ("l" (my-open-main "~/src/github.com/minorugh/cl/"))
    ("w" (my-open-main "~/src/github.com/minorugh/piclink/"))
-   ("[" my-open-tig)                    ; see 02-git.el
-   ("]" my-make-git)                    ; see 02-git.el
+   ("[" (my-make "auto-commit" "~/src/github.com/minorugh/dotfiles/git/"))
+   ("]" my-make-git)
+   ("t" my-open-tig)
    ("_" delete-other-windows)
    ("q" top-level)
    ("<henkan>"  my-hydra-work)
