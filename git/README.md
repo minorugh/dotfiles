@@ -1,6 +1,6 @@
 # git（世代管理）
 
-> 作成日: 2026.07.31 / 最終更新: 2026.11.13
+> 作成日: 2026.07.31 / 最終更新: 2026.11.19
 
 dotfiles リポジトリ自身の commit 前処理 / push / pull を扱う Makefile です。
 リストア用のトップレベル `Makefile` とは関心事が異なるため、ここに分離しています。
@@ -12,11 +12,12 @@ commit と push を分けて運用しています。
 
 - **commit は Emacs 側で行う**。tig の status（`Ctrl_r` で開く）から `C`（ファイル単位）・`A`（全変更）で
   `*commit-msg*` を開き、メッセージを書いて確定する。空のまま確定すると `auto: 日時` になる
-- **push は `make git`**（tig の status から `P`）。メイン機は未コミットの変更があると警告して止まり、
-  自動では commit しない
-- **auto commit + push は `make git-auto`**。Emacs の `my-make-git`（メイン機の dotfiles で実行したとき）と、
-  夜の NIGHT SUSPEND（power-menu の `4`）が呼ぶ。全変更を auto commit して push する。
-  NIGHT SUSPEND は push してから suspend する。押さずに寝た夜は push されないが、変更は P1 に残り、
+- **軽い変更は `make auto-commit`**（hydra-dired の `[`）。`prep` のあと全変更を `auto: 日時` で commit する。
+  push はしない
+- **push は `make git`**（Emacs の `my-make-git`、hydra-dired の `]`、tig の status から `P`）。
+  メイン機は未コミットの変更があると警告して止まり、自動では commit しない
+- **auto commit + push は `make git-auto`**。夜の NIGHT SUSPEND（power-menu の `4`）だけが呼ぶ。
+  全変更を auto commit して push してから suspend する。押さずに寝た夜は push されないが、変更は P1 に残り、
   次回の NIGHT SUSPEND か tig の `P` で出す
 - **サブ機で pull する前は、メイン機で push する**
 - 朝のフォールバック（`autobackup.sh --check`）では dotfiles を push しない。
@@ -33,9 +34,10 @@ commit と push を分けて運用しています。
 | ターゲット | 内容 |
 |---|---|
 | `make git` | P1: 未コミットがなければ push（あれば警告して止まる） / サブ機: pull --ff-only |
-| `make prep` | P1 の commit 前処理。`env-backup` と `changelog-rotate.sh`。Emacs の「すべて commit」（tig の `A`）から呼ばれる |
+| `make prep` | P1 の commit 前処理。`env-backup` と `changelog-rotate.sh`。Emacs の「すべて commit」（tig の `A`）、`auto-commit`、`git-auto` から呼ばれる |
 | `make env-backup` | `~/.env_source` の auto commit と bundle 更新、`git/env.hash` の更新（P1） |
-| `make git-auto` | P1: `prep` のあと全変更を `auto: 日時` で commit して push。Emacs の `my-make-git` と NIGHT SUSPEND から呼ばれる |
+| `make auto-commit` | P1: `prep` のあと全変更を `auto: 日時` で commit する（push しない）。hydra-dired の `[` から呼ばれる |
+| `make git-auto` | P1: `auto-commit` のあと push。NIGHT SUSPEND から呼ばれる |
 | `make git-fix` | サブ機で pull（ff-only）に失敗した際の自動修復（rebase 中なら abort → `reset --hard origin/main` → pull）。dotfiles 専用。P1 では実行を止める |
 | `make env-sync` | サブ機の `git pull` 後に呼ばれ、`~/.env_source` の更新を検知して確認のうえ同期（abookも統合済みのため自動的に含まれる） |
 
@@ -59,30 +61,20 @@ commit と push を分けて運用しています。
 誤って push してしまう事故を避ける目的で明示的に push を封鎖しています
 （`init-sub` ターゲットで remote の push URL も無効化済み）。
 
-（2026.10.01訂正: 以前は、ホスト名が `archlinux`（Let's note）の場合に
-`arch-install` リポジトリの commit/push を連鎖して実行していましたが、
-`arch-install` リポジトリの廃止（内容は `arch-debian-restore` のサブディレクトリへ
-移行）に伴い、この分岐を削除しました。Let's note も他のサブ機と同じく pull のみで、
-push しません。）
-
-### `make prep` と `make git-auto`
+### `make prep` / `make auto-commit` / `make git-auto`
 
 `prep` は P1 の commit 前処理です。`env-backup` で `~/.env_source` の bundle と
 `git/env.hash` を更新し、`bin/changelog-rotate.sh` で更新履歴を `CHANGELOG.md`（全履歴）に
 反映します（トップ `README.md` は直近10件に保つ）。`env.hash` は commit に含めるため、
 `prep` は commit の前に実行します。Emacs の「すべて commit」（tig の `A`）が先にこれを呼びます。
 
-`git-auto` は P1 だけの auto commit + push 用ターゲットです。`prep` のあと `git add -A` して、
-差分があれば `auto: 日時` で commit し、push します。サブ機では何もしません。
-旧名は `nightly` でしたが、夜間以外の日中にも呼ぶようになったため、2026-11-13 に改名しました。
+`auto-commit` は P1 だけの auto commit 用ターゲットです。`prep` のあと `git add -A` して、
+差分があれば `auto: 日時` で commit します。push はしません。サブ機では何もしません。
+`git add -A` なので、作業中のファイルも同じ commit に入ります。軽い変更だけを積みたいときは、
+tig からファイル単位で commit します。呼び出し元は Emacs の hydra-dired の `[` です。
 
-呼び出し元は次の2つです。
-
-- Emacs の `my-make-git`（02-git.el）。メイン機の dotfiles で実行したときだけ `git-auto` を呼ぶ。
-  dotfiles 以外のリポジトリとサブ機は、これまでどおり `make git`
-- power-menu の NIGHT SUSPEND（`4`）。成功したら suspend し、失敗したら suspend せずに Enter 待ちで止まる
-
-以前は夜間の `autobackup` の `git-push` から呼んでいましたが、2026-11-10 に外しました。
+`git-auto` は `auto-commit` のあと push します。呼び出し元は power-menu の NIGHT SUSPEND（`4`）だけで、
+成功したら suspend し、失敗したら suspend せずに Enter 待ちで止まります。
 端末で `make -C ~/src/github.com/minorugh/dotfiles/git git-auto` と手動で実行することもできます。
 
 ### `env-sync` の挙動
@@ -94,11 +86,6 @@ push しません。）
 判定の基準は、git 管理下の `git/env.hash` です（P1 が bundle の生成直後に書き出し、
 dotfiles の push で配布）。サブ機の Dropbox 側の同期が追いついていない場合は、
 「同期待ち」と表示して終了します（Dropbox の同期遅延による誤検知を避けるため）。
-
-（2026.09.15追記: 以前はabookを`addressbook_*.gpg`という個別ファイルで
-別経路バックアップ・同期していましたが、abook自体が`~/.env_source`に
-git統合されたため廃止しました。abookの更新は`env_source`全体の同期に
-自動的に含まれます。）
 
 `~/.env_source` は `rm -rf` せず `git fetch` + `git reset --hard` で更新するため、
 ディレクトリ自体が消えて作り直されることはありません。
@@ -113,8 +100,8 @@ P1（メイン機）の普段の流れ:
 
 1. `Ctrl_r` で tig の status を開く
 2. `C`（ファイル単位）または `A`（全変更）で commit する
-3. `P` で push する（端末から `make git` でも同じ）。commit せずに auto commit + push したいときは、
-   Emacs で dotfiles のファイルから `my-make-git` を実行する
+3. `P` で push する（端末から `make git`、Emacs の `my-make-git` でも同じ）。軽い変更は、commit のかわりに
+   hydra-dired の `[` で auto commit してから push する
 4. 寝る前に power-menu の `4`（NIGHT SUSPEND）で、取りこぼしを auto commit して push し、suspend する
 
 tig の `P` は、未コミットの変更があるとメッセージを出して止まります。`q` で status に戻ります。
