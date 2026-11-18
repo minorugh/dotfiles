@@ -189,8 +189,6 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
 
 (leaf *hydra-work
   :after evil
-  :config
-  (keymap-set evil-normal-state-map "," #'hydra-work/body)
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'post-template))
@@ -237,7 +235,6 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("[" my-haiku-note-post)
    ("q" top-level)
    ("<henkan>"  hydra-dired/body)
-   ("," nil)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
