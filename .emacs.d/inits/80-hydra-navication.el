@@ -29,7 +29,7 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  mk._a_._g_._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _d_ropbox  _e_macs.d^^  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  mk._a_._b_._g_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
   _r_estart  tig:_[_._]_  GH._h__j_  _l_og  %s`my-cron-hint  _<home>_^  h_o_wm_,_  md:_v_iew^^^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  ivie_w_
 "
    ("x" my-env-recover)
