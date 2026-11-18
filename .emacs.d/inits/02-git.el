@@ -7,7 +7,7 @@
 ;;
 ;;   1. 共通部品          対象ファイルと root の判定
 ;;   2. commit            elisp/commit-msg.el を遅延ロード
-;;   3. tig を開く        リポジトリ全体 / ファイル単位
+;;   3. tig を開く        tig status / ファイル履歴
 ;;   4. push              my-make-git
 ;;   5. git-peek 連携     tig の E で選んだコミットを git-peek で開く
 ;;
@@ -18,16 +18,13 @@
 ;;   my-commit-reword-from-tig）が最初に呼ばれたときに読み込まれる。
 ;;
 ;; 3. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
-;;   リポジトリ全体:
-;;     my-git-status      tig status（git 操作の入口。F14 にバインド）
-;;   ディレクトリ単位:
-;;     open-tig-project   カレントディレクトリ配下の履歴（[）
-;;   ファイル単位:
-;;     my-open-tig        開いているファイル（Dired なら行のファイル）の履歴（]）
-;;                        環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
+;;   my-git-status  開いているファイル（Dired なら行のファイル）の repo の
+;;                  tig status。git 操作の入口（F10）
+;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の [）
+;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
 ;;
 ;; 4. push
-;;   my-make-git   カレントディレクトリの make git を実行する。
+;;   my-make-git   カレントディレクトリの make git を実行する（hydra-dired の ]）。
 ;;                 メイン機は push のみ、サブ機は端末で pull する。
 ;;
 ;; 5. git-peek 連携
@@ -71,7 +68,6 @@
 ;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
 
-;; ---- 共通 ----
 (defun my-git--terminal (dir command)
   "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit."
   (start-process "tig" nil "gnome-terminal"
@@ -84,42 +80,12 @@
                  "--working-directory" dir
                  "--" "bash" "-c" (concat "exec " command)))
 
-(defun my-git--tig (dir &rest args)
-  "Run tig with ARGS in gnome-terminal at DIR."
-  (my-git--terminal dir (format "tig %s"
-                                (mapconcat #'shell-quote-argument args " "))))
-
-;; ---- リポジトリ全体 ----
-(defun my-git--repo-path ()
-  "Return the path used to find the repository.
-In Dired, use the directory at point if it is a repository root,
-otherwise the displayed directory."
-  (if (derived-mode-p 'dired-mode)
-      (let ((line (dired-get-filename nil t)))
-        (if (and line
-                 (file-directory-p line)
-                 (file-exists-p (expand-file-name ".git" line)))
-            line
-          default-directory))
-    (my-git--target-path)))
-
 (defun my-git-status ()
-  "Open `tig status' for the current repository."
+  "Open `tig status' for the repository of the current file or Dired line."
   (interactive)
-  (let ((root (my-git--root (file-truename (my-git--repo-path)))))
-    (my-git--tig root "status")))
-(keymap-global-set "<f14>" #'my-git-status)
+  (let ((root (my-git--root (my-git--target-path))))
+    (my-git--terminal root "tig status")))
 
-;; ---- ディレクトリ単位 ----
-(defun open-tig-project ()
-  "Open `tig' for the current directory within its Git repository."
-  (interactive)
-  (let* ((dir default-directory)
-         (root (my-git--root dir))
-         (path (file-relative-name dir root)))
-    (my-git--tig root "--" path)))
-
-;; ---- ファイル単位 ----
 (defun my-open-tig ()
   "Open `tig' for the file of the current buffer or Dired line.
 TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."

@@ -25,8 +25,8 @@
          ("o"   . my-dired-open-xdg)
          ("v"   . my-dired-open-vim)
          ("n"   . my-dired-open-nano)
-         ("["   . open-tig-project)     ; see 02-git.el
-         ("]"   . my-open-tig)          ; see 02-git.el
+         ("["   . my-open-tig)          ; see 02-git.el
+         ("]"   . my-make-git)          ; see 02-git.el
          ("p"   . git-peek)             ; see 02-git.el
          ("-"   . git-peek-deleted)     ; see 02-git.el
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el

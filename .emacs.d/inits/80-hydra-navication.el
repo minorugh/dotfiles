@@ -29,8 +29,8 @@
    (:hint nil :exit t)
    "
  Quick.dired
-  _d_ropbox  _e_macs.d^^  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  mk._a_._b_._g_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  tig:_[_._]_  GH._h__j_  _l_og  %s`my-cron-hint  _<home>_^  h_o_wm_,_  md:_v_iew^^^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  ivie_w_
+  _d_ropbox  _e_macs.d  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  mk._a_._b_._k_._m_._u_._]_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
+  _r_estart  picvie_w_  GH._h__j_  _l_og  %s`my-cron-hint  _<home>_^  h_o_wm_,_  md:_v_iew^^^^^^  _@_remote^^^^  _f_lyerr  2p_;__:_  tig:_[_
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
@@ -63,12 +63,11 @@
    ("," my-howm-create-with-category)   ; see 50-howm.el
    ("l" (my-open-main "~/src/github.com/minorugh/cl/"))
    ("w" (my-open-main "~/src/github.com/minorugh/piclink/"))
-   ("g" my-make-git)                    ; see 02-git.el
-   ("[" open-tig-project)               ; see 02-git.el
-   ("]" my-open-tig)                    ; see 02-git.el
+   ("[" my-open-tig)                    ; see 02-git.el
+   ("]" my-make-git)                    ; see 02-git.el
    ("_" delete-other-windows)
    ("q" top-level)
-   ("<henkan>"  hydra-work/body)
+   ("<henkan>"  my-hydra-work)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
@@ -189,13 +188,14 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
 
 (leaf *hydra-work
   :after evil
+  :bind (("<f14>" . my-hydra-work))
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'post-template))
    "
  Work.menu
   _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _J_unk._h_owm._+_scale  webp2_j_
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
@@ -214,7 +214,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("A" my-apvoice-new-post)
    ("K" (my-open "~/Dropbox/GH/w_kukai/info/kendai.csv" :pos 'top :emacs))
    ("e" easy-hugo)
-   ("J" (my-open "~/Dropbox/howm/junk/"))
+   ("j" (my-open "~/Dropbox/howm/junk/"))
    ("h" (my-open "~/Dropbox/howm/"))
    ("d" (my-open "~/Dropbox/GH/dia/diary.txt" :pos 'top))
    ("D" my-diary-new-post)
@@ -224,7 +224,6 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("t" (my-open "~/Dropbox/GH/teirei/tex/teirei.txt" :pos 'top))
    ("T" my-teirei-new-post)
    ("s" (my-open "~/Dropbox/GH/s_select/tex/swan.txt" :pos 'top))
-   ("j" my-webp-to-jpg)
    ("S" my-swan-new-post)
    ("k" (my-open "~/Dropbox/GH/kinnei/draft.dat"))
    ("m" (my-open "~/Dropbox/GH/d_select/tex/minoru_sen.txt" :pos 'top))
@@ -234,7 +233,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
    ("q" top-level)
-   ("<henkan>"  hydra-dired/body)
+   ("<f14>" my-hydra-dired)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
@@ -258,20 +257,8 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
   (defun my-capitalize-word (arg)
     "Capitalize previous word (or ARG words)."
     (interactive "p")
-    (capitalize-word (- arg)))
+    (capitalize-word (- arg))))
 
-  (defun my-webp-to-jpg ()
-    "Convert marked WebP file(s) in Dired to JPG."
-    (interactive)
-    (dolist (file (dired-get-marked-files))
-      (let* ((base (file-name-sans-extension file))
-             (output (concat base ".jpg")))
-        (call-process "convert" nil nil nil
-                      file
-                      "-strip"
-                      "-quality" "85"
-                      output)))
-    (revert-buffer)))
 
 ;; ============================================================
 ;;  Package Management
