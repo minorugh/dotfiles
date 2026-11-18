@@ -30,7 +30,7 @@
    "
  Quick.dired
   _d_ropbox  _e_macs.d^^  _i_nits^^  _s_rc  _/_root^^^^^^^^  _._files^  make._b_._k_._m_._u_  fz_8_._9_._0_  _p_assxc  _x_env^^  S_n_ote
-  _r_estart  git:_[_._]_  GH._h__j_  _t_ig  %s`my-cron-hint  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  _l_og._w_
+  _r_estart  git:_[_._]_  GH._h__j_  _t_ig  %s`my-cron-hint  _<home>_^  h_o_wm_,_ md_v_iew^^  _@_remote^^^^  _f_lyerr  2p_;__:_  c_l_.i_w_
 "
    ("x" my-env-recover)
    ("^" my-make-launch-cron)
