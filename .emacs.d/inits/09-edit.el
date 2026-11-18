@@ -131,20 +131,34 @@
   :mode (("\\.csv\\'" . my-csv-mode)
          ("\\.tsv\\'" . my-tsv-mode)))
 
-;; (leaf my-php-mode
-;;   :doc "PHP ハイライト専用の自作モード"
-;;   :mode ("\\.php\\'" . my-php-mode))
-
-;; (leaf csv-mode
-;;   :ensure t
-;;   :mode (("\\.csv\\'" . csv-mode)
-;;          ("\\.tsv\\'" . tsv-mode))
-;;   :config
-;;   (setq csv-align-max-width 80)
-;;   (defun my-csv-mode-setup ()
-;;     (csv-align-mode 1)
-;;     (setq-local truncate-lines t))
-;;   (add-hook 'tsv-mode-hook #'my-csv-mode-setup))
+;; ============================================================
+;;  Scratch Buffer Persistence
+;; ============================================================
+(leaf *scratch-buffer
+  :hook ((after-init-hook . restore-scratch-buffer)
+         (kill-emacs-hook . save-scratch-buffer))
+:bind (("S-<return>" . toggle-scratch-buffer))
+:preface
+  (defun save-scratch-buffer ()
+    "Write *scratch* contents to disk."
+    (with-current-buffer "*scratch*"
+      (write-region (point-min) (point-max)
+                    (locate-user-emacs-file "tmp/scratch"))))
+  (defun restore-scratch-buffer ()
+    "Restore *scratch* contents from disk if the file exists."
+    (let ((f (locate-user-emacs-file "tmp/scratch")))
+      (with-current-buffer "*scratch*"
+        (when (file-exists-p f)
+          (erase-buffer)
+          (insert-file-contents f))
+        (goto-char (point-max)))))
+  (defun toggle-scratch-buffer ()
+    "Toggle between *scratch* and the previous buffer."
+    (interactive)
+    (if (string= (buffer-name) "*scratch*")
+        (switch-to-buffer (other-buffer))
+      (switch-to-buffer "*scratch*")
+      (goto-char (point-max)))))
 
 ;; ============================================================
 ;;  Revert Buffer
