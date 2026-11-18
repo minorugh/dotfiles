@@ -84,6 +84,12 @@
 # サブ機で pull する前に、メイン機の push を済ませておくために使う。
 # 動作は変えていない。git は push のみ、git-auto は prep のあと全変更を auto commit して push する。
 
+# 2026.11.18
+# auto-commit を git-auto から切り出した。prep のあと全変更を auto commit するだけで push はしない（メイン機専用）。
+# Emacs の hydra-dired の [ から呼ぶ。commit だけ手動で行い、push は ] の git か、NIGHT SUSPEND などの自動実行に任せる運用のため。
+# git-auto は auto-commit のあと push する形にした。動作は変えていない。
+# 呼び出し元は power-menu の NIGHT SUSPEND だけになった（hydra-dired の a は廃止）。
+
 # NOTE: 将来メイン機を変更した時はここを書き換えること。
 MAIN_HOSTNAME  := P1
 HOSTNAME       := $(shell hostname)
@@ -93,7 +99,7 @@ ENV_SOURCE_DIR := $(HOME)/.env_source
 ENV_SYNC_CACHE := $(HOME)/.cache/env-sync
 ENV_BUNDLE     := $(HOME)/Dropbox/backup/env/env.bundle.gpg
 
-.PHONY: git prep git-fix env-sync env-backup git-auto
+.PHONY: git prep git-fix env-sync env-backup auto-commit git-auto
 
 git: ## Push (main only, sub: pull only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
@@ -134,13 +140,21 @@ prep: ## Prepare for commit (main only)
 	@$(MAKE) -s env-backup
 	-@$(DOTFILES_DIR)/bin/changelog-rotate.sh
 
-git-auto: ## Auto commit all changes and push (main only)
+auto-commit: ## Auto commit all changes without push (main only)
 ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
 	@$(MAKE) -s prep
 	@cd $(DOTFILES_DIR) && \
 		git add -A && \
-		{ git diff --cached --quiet || git commit -q -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"; } && \
-		git push
+		{ git diff --cached --quiet || git commit -q -m "auto: $$(date '+%Y-%m-%d %H:%M:%S')"; }
+	@echo "##> ✓ auto-commit 完了"
+else
+	@echo "$(HOSTNAME): サブ機では実行しません"
+endif
+
+git-auto: ## Auto commit all changes and push (main only)
+ifeq ($(HOSTNAME),$(MAIN_HOSTNAME))
+	@$(MAKE) -s auto-commit
+	@cd $(DOTFILES_DIR) && git push
 	@echo "##> ✓ git-auto 完了"
 else
 	@echo "$(HOSTNAME): サブ機では実行しません"
