@@ -137,8 +137,8 @@
 (leaf *scratch-buffer
   :hook ((after-init-hook . restore-scratch-buffer)
          (kill-emacs-hook . save-scratch-buffer))
-:bind (("S-<return>" . toggle-scratch-buffer))
-:preface
+  :bind (("S-<return>" . toggle-scratch-buffer))
+  :preface
   (defun save-scratch-buffer ()
     "Write *scratch* contents to disk."
     (with-current-buffer "*scratch*"
