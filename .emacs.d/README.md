@@ -2,8 +2,9 @@
 
 ## 1. はじめに
 
+
 * ここは [@minoruGH](https://twitter.com/minorugh) の Emacs設定ファイルの一部を解説しているページです。
-* [init.el]本体は、[GitHub](https://github.com/minorugh/dotfiles/tree/main/.emacs.d) に公開しています。
+* [init.el](https://github.com/minorugh/dotfiles/blob/main/.emacs.d/init.el) 本体は、[GitHub](https://github.com/minorugh/dotfiles/tree/main/.emacs.d) に公開しています。
 
 
 ![emacs](https://minorugh.github.io/img/emacs30.2.png)
