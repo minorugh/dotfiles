@@ -149,8 +149,7 @@
          ("s-c"   . clipboard-kill-ring-save)
          ("s-v"   . clipboard-yank)
          ("C-q"   . other-window-or-split)
-         ("C-<tab>"    . quoted-insert)
-         ("S-<return>" . (lambda () (interactive) (end-of-line) (newline))))
+         ("C-<tab>"    . quoted-insert))
   :preface
   (defun my-view-mode-maybe ()
     "*.log ファイルなら `view-mode' にする."
