@@ -8,7 +8,7 @@
 ;;   1. 共通部品          対象ファイルと root の判定
 ;;   2. commit            elisp/commit-msg.el を遅延ロード
 ;;   3. tig を開く        tig status / ファイル履歴
-;;   4. push              my-make-git
+;;   4. make の実行       my-make-git / my-make-auto-commit
 ;;   5. git-peek 連携     tig の E で選んだコミットを git-peek で開く
 ;;
 ;; 2. commit
@@ -23,9 +23,10 @@
 ;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の t）
 ;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
 ;;
-;; 4. push
+;; 4. make の実行
 ;;   my-make-git   カレントディレクトリの make git を実行する（hydra-dired の ]）。
 ;;                 メイン機は push のみ、サブ機は端末で pull する。
+;;   my-make-auto-commit  dotfiles/git で make auto-commit を実行する（hydra-dired の [）。
 ;;
 ;; 5. git-peek 連携
 ;;   my-git-peek-from-hash  tig の E から tig-git.sh と emacsclient 経由で呼ばれ、
@@ -97,11 +98,9 @@ TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
                                    (shell-quote-argument path)))))
 
 ;; ============================================================
-;;  4. push
-;;     make git の実行（メイン機は push、サブ機は pull）
+;;  4. make の実行
+;;     make git（メイン機は push、サブ機は pull）と make auto-commit
 ;; ============================================================
-(declare-function my-make-run-async "10-makefile")
-
 (defun my-make-git ()
   "Run `make git' in the current directory.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
@@ -110,6 +109,11 @@ terminal because env-sync asks for confirmation."
   (if my-main-machine-p
       (compile "make git")
     (my-make-run-async default-directory "git")))
+
+(defun my-make-auto-commit ()
+  "Run `make auto-commit' in the dotfiles git directory."
+  (interactive)
+  (my-make "auto-commit" "~/src/github.com/minorugh/dotfiles/git/"))
 
 ;; ============================================================
 ;;  5. git-peek 連携

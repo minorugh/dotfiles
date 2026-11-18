@@ -62,7 +62,7 @@
    ("," my-howm-create-with-category)   ; see 50-howm.el
    ("l" (my-open-main "~/src/github.com/minorugh/cl/"))
    ("w" (my-open-main "~/src/github.com/minorugh/piclink/"))
-   ("[" (my-make "auto-commit" "~/src/github.com/minorugh/dotfiles/git/"))
+   ("[" my-make-auto-commit)
    ("]" my-make-git)
    ("g" my-git-status)
    ("t" my-open-tig)
