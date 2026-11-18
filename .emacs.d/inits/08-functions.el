@@ -22,7 +22,7 @@
          ("<f7>"  . my-calendar-toggle)        ; see 99-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
          ("<f9>"  . display-line-numbers-mode) ; built-in
-         ("<f10>" . toggle-scratch-buffer)     ; see below
+         ("<f10>" . my-git-status)             ; see 02-git.el
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))
 
@@ -131,34 +131,6 @@ Only valid in a `dired-mode' buffer whose directory is under one of
        "xsrv"
        (format "cd %s && vim"
                (shell-quote-argument remote-dir))))))
-
-;; ============================================================
-;;  Scratch Buffer Persistence
-;; ============================================================
-(leaf *scratch-buffer
-  :hook ((after-init-hook . restore-scratch-buffer)
-         (kill-emacs-hook . save-scratch-buffer))
-  :preface
-  (defun save-scratch-buffer ()
-    "Write *scratch* contents to disk."
-    (with-current-buffer "*scratch*"
-      (write-region (point-min) (point-max)
-                    (locate-user-emacs-file "tmp/scratch"))))
-  (defun restore-scratch-buffer ()
-    "Restore *scratch* contents from disk if the file exists."
-    (let ((f (locate-user-emacs-file "tmp/scratch")))
-      (with-current-buffer "*scratch*"
-        (when (file-exists-p f)
-          (erase-buffer)
-          (insert-file-contents f))
-        (goto-char (point-max)))))
-  (defun toggle-scratch-buffer ()
-    "Toggle between *scratch* and the previous buffer."
-    (interactive)
-    (if (string= (buffer-name) "*scratch*")
-        (switch-to-buffer (other-buffer))
-      (switch-to-buffer "*scratch*")
-      (goto-char (point-max)))))
 
 
 ;; Local Variables:
