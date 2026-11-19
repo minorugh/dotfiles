@@ -26,7 +26,7 @@
          ("v"   . my-dired-open-vim)
          ("n"   . my-dired-open-nano)
          ("t"   . my-open-tig)          ; see 02-git.el
-	 ("["   . my-make-auto-commit)  ; see 02-git.el
+         ("["   . my-make-auto-commit)  ; see 02-git.el
          ("]"   . my-make-git)          ; see 02-git.el
          ("p"   . git-peek)             ; see 02-git.el
          ("-"   . git-peek-deleted)     ; see 02-git.el
