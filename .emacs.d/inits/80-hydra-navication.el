@@ -195,8 +195,8 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    (:hint nil :exit t :body-pre (require 'post-template))
    "
  Work.menu
-  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn
-  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale
+  _d_:日記  _m_:毎日  _w_:若鮎  _t_:定例  _M_:月例^^  _p_rint.buf  yas._n_._v_._i_  _c_aption.._u_p.d_o_wn  _b_log2jpg
+  _a_:合評  _f_:週秀  _s_:吟行  _k_:近詠  _Y_:年度^^  _g_ist._l_ept  _e_asy-hugo^^  _j_unk._h_owm._+_scale  webp_2_jpg
 "
    ("+" text-scale-adjust)
    ("c" my-capitalize-word)
@@ -233,6 +233,8 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("F" my-dselext-new-post)
    ("]" my-haiku-note)
    ("[" my-haiku-note-post)
+   ("b" my-resize-blog)
+   ("2" my-webp-to-jpg)
    ("q" top-level)
    ("<f14>" my-hydra-dired)
    ("<muhenkan>" nil))
@@ -258,7 +260,35 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
   (defun my-capitalize-word (arg)
     "Capitalize previous word (or ARG words)."
     (interactive "p")
-    (capitalize-word (- arg))))
+    (capitalize-word (- arg)))
+
+  (defun my-resize-blog ()
+    "Resize marked image(s) in Dired to blog size (max width 800px)."
+    (interactive)
+    (dolist (file (dired-get-marked-files))
+      (let* ((base (file-name-sans-extension file))
+             (ext (file-name-extension file))
+             (output (format "%s_blog.%s" base ext)))
+        (call-process "convert" nil nil nil
+                      file
+                      "-resize" "800x>"
+                      "-strip"
+                      "-quality" "85"
+                      output)))
+    (revert-buffer))
+
+  (defun my-webp-to-jpg ()
+    "Convert marked WebP file(s) in Dired to JPG."
+    (interactive)
+    (dolist (file (dired-get-marked-files))
+      (let* ((base (file-name-sans-extension file))
+             (output (concat base ".jpg")))
+        (call-process "convert" nil nil nil
+                      file
+                      "-strip"
+                      "-quality" "85"
+                      output)))
+    (revert-buffer)))
 
 
 ;; ============================================================
