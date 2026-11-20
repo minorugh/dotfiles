@@ -2,8 +2,9 @@
 ;;; Commentary:
 
 ;; This will start with typing `eq' at shell with minimal Emacs.
-;; Write below at .zshrc or .bashrc.
-;; alias eq="emacs -q -l ~/.emacs.d/init-mini.el"
+;; `eq' is a shell function defined in .zshrc.
+;; It deletes stale .elc files in elisp/ and inits/, then runs:
+;;   Emacs -q -l ~/.emacs.d/init-mini.el
 ;; Use when test of package and my Emacs don't start.
 
 ;;; Code:
