@@ -1,7 +1,4 @@
 ;;; dashboard-gcal-widget.el --- Show Google Calendar in dashboard's Agenda.  -*- lexical-binding: t -*-
-
-;; Author: minorugh
-
 ;;; Commentary:
 ;;
 ;; `gcal-sync' が生成する gcal.org を、dashboard.el 標準の agenda
@@ -110,7 +107,10 @@ Overrides dashboard.el's own day/week choice with
 ;; 下限を「now」ではなく「当日0時」にしたフィルタへ差し替えて回避する。
 ;; SCHEDULED/DEADLINEを持つ他のorgファイルのエントリの扱いは変えない。
 (defun gcal-widget--filter-agenda-by-time ()
-  "Like `dashboard-filter-agenda-by-time', but don't drop today's
+"Filter agenda entries by time, keeping today's plain timestamps.
+Like `dashboard-filter-agenda-by-time', but don't drop today's
+plain-timestamp entries just because their implicit midnight has
+already passed."  "Like `dashboard-filter-agenda-by-time', but don't drop today's
 plain-timestamp entries just because their implicit midnight has
 already passed."
   (let* ((scheduled-time (org-get-scheduled-time (point)))

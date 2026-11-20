@@ -1,4 +1,7 @@
 ;;; my-php-mode.el --- PHP highlighting only  -*- lexical-binding: t; -*-
+;;; Commentary:
+;;
+;;; Code:
 
 (defvar my-php-mode-syntax-table
   (let ((st (make-syntax-table)))
@@ -57,4 +60,7 @@
 (add-to-list 'auto-mode-alist '("\\.php\\'" . my-php-mode))
 
 (provide 'my-php-mode)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; my-php-mode.el ends here

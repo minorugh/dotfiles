@@ -1,4 +1,7 @@
 ;;; my-csv-mode.el --- CSV/TSV column alignment only  -*- lexical-binding: t; -*-
+;;; Commentary:
+;;
+;;; Code:
 
 (defvar-local my-csv-separator ?,)
 
@@ -70,4 +73,7 @@
 (add-hook 'my-csv-mode-hook #'my-csv-setup)
 
 (provide 'my-csv-mode)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; my-csv-mode.el ends here
