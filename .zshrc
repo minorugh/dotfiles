@@ -217,14 +217,16 @@ tigp() {
         done |
         sed 's|.*/||' |
         sort |
-        fzf --prompt="Git Repository> ")
+        fzf --reverse --prompt="Git Repository> ")
 
-    [[ -n "$repo" ]] && tig ~/src/github.com/minorugh/"$repo"
+    [[ -n "$repo" ]] && env -C ~/src/github.com/minorugh/"$repo" tig
 }
 
 # 最小構成で Emacs を起動する（復旧用）
 # init.el を読まず init-mini.el だけを読む
+# 起動前に elisp/ inits/ の .elc を削除する（古い .elc による警告や誤動作を防ぐ）
 eq() {
+    find ~/.emacs.d/elisp ~/.emacs.d/inits -name '*.elc' -delete
     emacs -q -l ~/.emacs.d/init-mini.el
 }
 
