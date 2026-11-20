@@ -22,6 +22,8 @@
 ;;                  tig status。git 操作の入口（F10、hydra-dired の g）
 ;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の t）
 ;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
+;;   my-tigp        リポジトリを fzf で選んで tig を開く。.zshrc の tigp を
+;;                  zsh -ic で呼ぶ
 ;;
 ;; 4. make の実行
 ;;   my-make-git   カレントディレクトリの make git を実行する（hydra-dired の ]）。
@@ -96,6 +98,13 @@ TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
     (my-git--terminal root (format "env TIG_PEEK_FILE=%s tig %s"
                                    (shell-quote-argument path)
                                    (shell-quote-argument path)))))
+
+(defun my-tig-project ()
+  "Pick a repository with fzf and open `tig' in a new terminal.
+Run the `tigp' function of .zshrc through an interactive zsh."
+  (interactive)
+  (my-git--terminal (expand-file-name "~/src/github.com/minorugh/")
+                    "zsh -ic tigp"))
 
 ;; ============================================================
 ;;  4. make の実行
