@@ -6,11 +6,6 @@
 ;; ============================================================
 ;;  Dashboard
 ;; ============================================================
-;; --- Widget Extensions (GitHub) -----------------------------
-(leaf dashboard-gcal-widget
-  :vc (:url "https://github.com/minorugh/dashboard-widget-extensions"
-       :rev :newest))
-
 ;; --- Separator -----------------------------------------------
 ;; Replacement for page-break-lines: render widget separators as a
 ;; colored horizontal rule without depending on the ^L character.
@@ -52,7 +47,7 @@
                   emacs-version (cadr uname) os-name)))
 
   ;; ── Layout ───────────────────────────────────────────────────
-  ;; Content left-aligned (haiku centering handled in seiho-haiku.el)
+  ;; Content left-aligned (haiku centering handled in dashboard-haiku-widget.el)
   (setq dashboard-center-content nil)
 
   ;; ── Separator ────────────────────────────────────────────────
@@ -66,20 +61,20 @@
 
   ;; ── Widgets & items ──────────────────────────────────────────
   (defun dashboard-insert-haiku (_list-size)
-    "今日の一句を dashboard に挿入する. 表示設定は seiho-haiku.el で調整."
-    (require 'dashboard-haiku-widget)   ;; see ~/.emacs.d/elisp/haiku-dashboard-widget.el
+    "今日の一句を dashboard に挿入する. 表示設定は dashboard-haiku-widget.el で調整."
+    (require 'dashboard-haiku-widget)   ;; see ~/.emacs.d/elisp/dashboard-haiku-widget.el
     (seiho-haiku-insert-today #'dashboard-insert-heading))
 
   (add-to-list 'dashboard-item-generators
                '(haiku . dashboard-insert-haiku))
 
   ;; ── Agenda widget (Google Calendar連携) ──────────────────────
-  ;; 予定データの取得(ダウンロード・org変換)、org-agenda-filesへの登録、
-  ;; dashboard標準agendaウィジェットのカスタマイズ(表示日数・ソート順・
-  ;; 見出し表記)、kill-emacs-hookでの同期は、すべて elisp/my-gcal-agenda.el
-  ;; に集約してある。ここではrequireするだけでよい。
+  ;; 予定データの取得(ダウンロード・org変換)とkill-emacs-hookでの同期は
+  ;; elisp/gcal-sync.el、org-agenda-filesへの登録とdashboard標準agenda
+  ;; ウィジェットのカスタマイズ(表示日数・ソート順・見出し表記)は
+  ;; elisp/dashboard-gcal-widget.el に集約してある。ここではrequireするだけでよい。
   (require 'dashboard-gcal-widget)
-  ;; 表示期間を60日に変更(既定値は gcal-dashboard.el 側で定義)
+  ;; 表示期間を60日に変更(既定値は dashboard-gcal-widget.el 側で定義)
   (setq gcal-widget-agenda-days 60)
 
   ;; Items: main machine shows haiku + agenda; other machines show haiku only
