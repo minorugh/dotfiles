@@ -77,14 +77,15 @@
   :url "https://www.emacswiki.org/emacs/RainbowDelimiters"
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(leaf rainbow-mode
-  :ensure t
-  :hook ((css-mode-hook
-          web-mode-hook
-          emacs-lisp-mode-hook) . rainbow-mode)
-  :config
-  (setq rainbow-x-colors nil)
-  (setq rainbow-html-colors nil))
+;; Install only when needed
+;; (leaf rainbow-mode
+;;   :ensure t
+;;   :hook ((css-mode-hook
+;;           web-mode-hook
+;;           emacs-lisp-mode-hook) . rainbow-mode)
+;;   :config
+;;   (setq rainbow-x-colors nil)
+;;   (setq rainbow-html-colors nil))
 
 (leaf whitespace
   :tag "builtin"
