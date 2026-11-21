@@ -3,3 +3,9 @@
 README_*.md
 Makefile_*
 *.bak
+*.elc
+.emacs.d/elpa/
+.emacs.d/eln-cache/
+.emacs.d/tmp/
+.emacs.d/_elpa/
+.emacs.d/_eln-cache/
