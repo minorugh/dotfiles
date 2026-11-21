@@ -22,11 +22,12 @@
 ;;   *make-target ... @ で起動する ivy ターゲットピッカー本体。選択した
 ;;                     ターゲットを my-make-run-compile 経由で実行する。
 ;;
-;; 実行経路は最終的に3系統:
+;; 実行経路は最終的に4系統:
 ;;   (1) @ → ivy → C-c C-c            → my-make-run-compile → compile
 ;;   (2) hydra "]" (my-make-git)       → my-make-run-async   → start-process
 ;;   (3) ターミナルから make-run.sh を直接叩く(Emacs 非経由)
-;; いずれも make-run.sh 側で ##! 判定・gnome-terminal 委譲を行う。
+;;   (4) dired "b" (my-make-fzf, 暫定) → 端末で .zshrc の mk(fzf で選び y/N で実行)
+;; (1)〜(3)は make-run.sh 側で ##! 判定・gnome-terminal 委譲を行う。
 ;;
 ;;; Code:
 ;; (setq debug-on-error t)
@@ -167,7 +168,19 @@ INSIDE_EMACS is faked so make-run.sh's from_emacs check still succeeds
 even though no real `compile' process is involved."
     (let ((process-environment (cons "INSIDE_EMACS=t" process-environment)))
       (start-process "make-run" nil
-                     "make-run.sh" (expand-file-name dir) target))))
+                     "make-run.sh" (expand-file-name dir) target)))
+
+  (defun my-make-fzf ()
+    "Pick a Makefile target with fzf in a terminal and run it after confirming.
+Run the `mk' function of .zshrc through an interactive zsh in the directory
+of the Makefile.  The terminal waits for Enter so that the output stays readable."
+    (interactive)
+    (let* ((makefile (or (my-make--find-makefile)
+                         (user-error "Makefileが見つかりません")))
+           (default-directory (file-name-directory makefile)))
+      ;; my-launch-gnome-terminal は 07-functions.el で定義(外部モニター配置対応)
+      (my-launch-gnome-terminal
+       "--maximize" "--" "zsh" "-ic" "mk; printf '\\nEnter で閉じる '; read"))))
 
 
 ;; ============================================================
