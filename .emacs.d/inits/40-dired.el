@@ -28,6 +28,7 @@
          ("t"   . my-open-tig)          ; see 02-git.el
          ("["   . my-make-auto-commit)  ; see 02-git.el
          ("]"   . my-make-git)          ; see 02-git.el
+         ("b"   . my-make-fzf)          ; see 10-makefile.el (暫定)
          ("p"   . git-peek)             ; see 02-git.el
          ("-"   . git-peek-deleted)     ; see 02-git.el
          ("."   . xsrv-deploy-dired)    ; see 90-xsrv-deploy.el
