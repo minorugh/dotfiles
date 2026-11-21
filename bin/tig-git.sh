@@ -43,7 +43,7 @@ reword)
 # それ以外の画面で開いた tig では空なので、警告だけ出して何もしない
 peek)
   if [ -z "$TIG_PEEK_FILE" ]; then
-    echo "E は my-open-tig（]）で開いた tig でだけ使えます" | tig; exit
+    echo "E は my-open-tig（hydra-dired の t）で開いた tig でだけ使えます" | tig; exit
   fi
   emacsclient -e "(my-git-peek-from-hash \"$2\" \"$TIG_PEEK_FILE\")" > /dev/null
   xdotool windowminimize "$win"; exit ;;
