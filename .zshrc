@@ -222,6 +222,24 @@ tigp() {
     [[ -n "$repo" ]] && env -C ~/src/github.com/minorugh/"$repo" tig
 }
 
+# Makefile のターゲットを fzf で選び、確認してから make する
+# ## の付いたターゲットだけを候補にし、選んだターゲット周辺をプレビューする
+mk() {
+    local target
+    target=$(grep -nE '^[^:#[:space:]]+:.*##' Makefile |
+        sed -E 's/^([0-9]+):([^:]+):.*##(!?) *(.*)$/\2\t\1\t\3 \4/' |
+        awk -F'\t' '{printf "%-18s\t%s\t%s\n", $1, $2, $3}' |
+        fzf --reverse --delimiter='\t' --with-nth=1,3 \
+            --preview='sed -n {2},+12p Makefile' \
+            --prompt="Make Target> " |
+        awk '{print $1}')
+
+    [[ -n "$target" ]] || return
+    read -q "REPLY?make $target を実行しますか? [y/N] "
+    echo
+    [[ "$REPLY" == y ]] && make "$target"
+}
+
 # 最小構成で Emacs を起動する（復旧用）
 # init.el を読まず init-mini.el だけを読む
 # 起動前に elisp/ inits/ の .elc を削除する（古い .elc による警告や誤動作を防ぐ）
