@@ -66,12 +66,16 @@ for dir in \
     danwa/html \
     dia/divoice \
     d_kukai/data \
+    d_kukai/back \
     d_kukai/score \
     m_kukai/data \
+    m_kukai/back \
     m_kukai/score \
     s_kukai/data \
+    s_kukai/back \
     s_kukai/score \
     w_kukai/data \
+    w_kukai/back \
     w_kukai/score; do
     run_rsync "$dir" "$XSRV_BASE/${dir}/" "$DST/${dir}/"
 done
