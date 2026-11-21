@@ -75,6 +75,26 @@ let g:mapleader = "\<Space>"
 " Space+w で保存
 nnoremap <Leader>w :w<CR>
 
+" Space+e で NERDTree とファイル側を行き来
+nnoremap <silent><Leader>e :call <SID>ToggleFocus()<CR>
+function! s:ToggleFocus()
+  if exists("b:NERDTree")
+    wincmd p
+  else
+    NERDTreeFocus
+  endif
+endfunction
+
+" Space+f で今のファイルをツリー上で表示
+nnoremap <silent><Leader>f :NERDTreeFind<CR>
+
+" Space+q で閉じる
+nnoremap <Leader>q :qa<CR>
+
+" Space+c でコメント切替
+nmap <Leader>c gcc
+vmap <Leader>c gc
+
 " Esc 2回で検索ハイライト解除
 nnoremap <Esc><Esc> :noh<CR>
 
