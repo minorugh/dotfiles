@@ -207,6 +207,9 @@ chpwd() {
     ls -v -F --color=auto
 }
 
+# リポジトリを fzf で選んで tig を開く
+# 選んだリポジトリの worktree のルートを /tmp/tigp-last に書く（Emacs の my-tig-project が tig 終了後に dired で開く）
+# GH や minorugh.com のように git/ と worktree が別の場合は worktree 側のルートになる
 tigp() {
     local repo
     repo=$(find ~/src/github.com/minorugh \
@@ -219,7 +222,9 @@ tigp() {
         sort |
         fzf --reverse --prompt="Git Repository> ")
 
-    [[ -n "$repo" ]] && env -C ~/src/github.com/minorugh/"$repo" tig
+    [[ -n "$repo" ]] || return
+    git -C ~/src/github.com/minorugh/"$repo" rev-parse --show-toplevel > /tmp/tigp-last
+    env -C ~/src/github.com/minorugh/"$repo" tig
 }
 
 # Makefile のターゲットを fzf で選び、確認してから make する

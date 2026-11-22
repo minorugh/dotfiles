@@ -22,8 +22,9 @@
 ;;                  tig status。git 操作の入口（F10、hydra-dired の g）
 ;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の t）
 ;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
-;;   my-tigp        リポジトリを fzf で選んで tig を開く。.zshrc の tigp を
-;;                  zsh -ic で呼ぶ
+;;   my-tig-project リポジトリを fzf で選んで tig を開く。.zshrc の tigp を
+;;                  zsh -ic で呼ぶ。tig を終了すると、選んだリポジトリの
+;;                  ルートを Dired で開く（tigp が /tmp/tigp-last に書いたパスを読む）
 ;;
 ;; 4. make の実行
 ;;   my-make-git   カレントディレクトリの make git を実行する（hydra-dired の ]）。
@@ -71,17 +72,21 @@
 ;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
 
-(defun my-git--terminal (dir command)
-  "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit."
-  (start-process "tig" nil "gnome-terminal"
-                 "--geometry" (let ((wa (frame-monitor-workarea)))
-                                (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
-                 "--maximize"
-                 "--title" (format "tig: %s"
-                                   (file-name-nondirectory
-                                    (directory-file-name dir)))
-                 "--working-directory" dir
-                 "--" "bash" "-c" (concat "exec " command)))
+(defun my-git--terminal (dir command &optional on-exit)
+  "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit.
+When ON-EXIT is given, call it after the terminal has closed."
+  (let ((proc (start-process "tig" nil "gnome-terminal" "--wait"
+                             "--geometry" (let ((wa (frame-monitor-workarea)))
+                                            (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
+                             "--maximize"
+                             "--title" (format "tig: %s"
+                                               (file-name-nondirectory
+                                                (directory-file-name dir)))
+                             "--working-directory" dir
+                             "--" "bash" "-c" (concat "exec " command))))
+    (when on-exit
+      (set-process-sentinel proc (lambda (_proc _event) (funcall on-exit))))
+    proc))
 
 (defun my-git-status ()
   "Open `tig status' for the repository of the current file or Dired line."
@@ -99,12 +104,23 @@ TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
                                    (shell-quote-argument path)
                                    (shell-quote-argument path)))))
 
+(defvar my-tigp-last-file "/tmp/tigp-last"
+  "File where `tigp' of .zshrc writes the selected repository.")
+
 (defun my-tig-project ()
-  "Pick a repository with fzf and open `tig' in a new terminal.
+  "Pick a repository with fzf, open `tig', then open its root in Dired.
 Run the `tigp' function of .zshrc through an interactive zsh."
   (interactive)
-  (my-git--terminal (expand-file-name "~/src/github.com/minorugh/")
-                    "zsh -ic tigp"))
+  (when (file-exists-p my-tigp-last-file)
+    (delete-file my-tigp-last-file))
+  (my-git--terminal
+   (expand-file-name "~/src/github.com/minorugh/")
+   "zsh -ic tigp"
+   (lambda ()
+     (when (file-exists-p my-tigp-last-file)
+       (dired (with-temp-buffer
+                (insert-file-contents my-tigp-last-file)
+                (string-trim (buffer-string))))))))
 
 ;; ============================================================
 ;;  4. make の実行
