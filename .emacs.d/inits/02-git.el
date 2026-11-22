@@ -89,9 +89,11 @@ When ON-EXIT is given, call it after the terminal has closed."
     proc))
 
 (defun my-git-status ()
-  "Open `tig status' for the repository of the current file or Dired line."
+  "Open `tig status' for the repository of the current file or Dired line.
+Outside a Git repository, open it for the dotfiles repository."
   (interactive)
-  (let ((root (my-git--root (my-git--target-path))))
+  (let ((root (or (ignore-errors (my-git--root (my-git--target-path)))
+                  (expand-file-name "~/src/github.com/minorugh/dotfiles/"))))
     (my-git--terminal root "tig status")))
 
 (defun my-open-tig ()

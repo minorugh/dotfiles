@@ -21,7 +21,7 @@
          ("<f6>"  . thunar-open-this)          ; see below
          ("<f7>"  . my-calendar-toggle)        ; see 99-calendar.el
          ("<f8>"  . my-darkroom-toggle)        ; see 90-darkroom.el
-         ("<f9>"  . display-line-numbers-mode) ; built-in
+         ("<f9>"  . my-tig-project)            ; see 02-git.el
          ("<f10>" . my-git-status)             ; see 02-git.el
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
          ("<f12>" . toggle-emacs))
