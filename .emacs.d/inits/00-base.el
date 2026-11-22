@@ -142,6 +142,7 @@
   :hook ((find-file-hook . my-view-mode-maybe)
          (find-file-hook . my-read-only-maybe))
   :bind (("C-x b" . ibuffer)
+         ("M-n"   . display-line-numbers-mode)
          ("M-,"   . xref-find-definitions)
          ("M-w"   . clipboard-kill-ring-save)
          ("C-w"   . my-clipboard-kill-region)
