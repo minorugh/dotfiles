@@ -223,14 +223,13 @@ gist: ## gist コマンドのインストールと設定
 	sudo cp $$(ruby -e 'puts Gem.user_dir')/bin/gist /usr/local/bin/gist
 	ln -vsf ${ENV_SOURCE_DIR}/tokens/gist ${HOME}/.gist
 
-emacs-mozc: ## Emacs + Mozc のインストール（Emacs本体もここで導入）
-	$(APT) $@ fcitx-mozc
+emacs-mozc: ## Mozc のインストール（fcitx と mozc_emacs_helper）
+	$(APT) emacs-mozc-bin fcitx-mozc
 	test -L ${HOME}/.mozc || rm -rf ${HOME}/.mozc
 	ln -vsn ~/Dropbox/backup/mozc/.mozc ~/
-# Debian12: emacs 29.1 がインストールされる
-# 現在は emacs-stable/devel で自前ビルド(30.1)を使用中
-# Debian13以降では emacs 30.1 が標準になる見込みのため自前ビルド不要になるかも
+# Debian 13 の標準は emacs 30.1。競合を避けるため入れず、make emacs-stable の自前ビルド（31.1）を使う
 # fcitx の設定: ターミナルで im-config を実行 → Enter → fcitx を選択
+
 
 ################################################################################
 ## Part 2. 自動 nextinstall（アプリのインストールと設定）
@@ -346,9 +345,9 @@ ghq: ## ghq のインストール（リポジトリ管理ツール）
 
 emacs-stable: ##! Emacs 安定版のソースビルド（apt build-depで対話確認あり）
 	cd ~/src/ && \
-	wget -c https://ftpmirror.gnu.org/emacs/emacs-30.2.tar.gz && \
-	tar xvfz emacs-30.2.tar.gz && \
-	cd emacs-30.2 && \
+	wget -c https://ftpmirror.gnu.org/emacs/emacs-31.1.tar.gz && \
+	tar xvfz emacs-31.1.tar.gz && \
+	cd emacs-31.1 && \
 	sudo apt build-dep emacs-gtk && \
 	./configure \
 	  --with-native-compilation=aot \
@@ -363,9 +362,12 @@ emacs-stable: ##! Emacs 安定版のソースビルド（apt build-depで対話�
 	  --without-gpm \
 	  --without-selinux \
 	  --without-compress-install && \
-	NATIVE_FULL_AOT=1 make -j$(nproc) && \
+	NATIVE_FULL_AOT=1 make -j$$(nproc) && \
 	sudo make install
-	@echo "## アンインストール: ~/src/emacs-30.2 で sudo make uninstall && make distclean"
+	rm -rf ${HOME}/.emacs.d/elpa
+	rm -f ${HOME}/.emacs.d/elisp/*.elc ${HOME}/.emacs.d/inits/*.elc
+	@echo "## アンインストール: ~/src/emacs-31.1 で sudo make uninstall && make distclean"
+# メジャーバージョンの更新後は、elpa と .elc を作り直すため削除する（次回起動で再インストール・再コンパイルされる）
 
 texlive: ##! TeX Live のインストール（scheme-medium + 日本語）
 	cd ${HOME}/Downloads && \
