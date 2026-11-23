@@ -5,7 +5,7 @@
 * ここは [@minoruGH](https://twitter.com/minorugh) の Emacs設定ファイルの一部を解説しているページです。
 * [init.el](https://github.com/minorugh/dotfiles/blob/main/.emacs.d/init.el) 本体は、[GitHub](https://github.com/minorugh/dotfiles/tree/main/.emacs.d) に公開しています。
 
-![emacs](https://minorugh.github.io/img/emacs30.2.png)
+![emacs](https://minorugh.github.io/img/emacs31.1.png)
 
 ### 1.1. 動作確認環境
 
@@ -13,7 +13,7 @@
 
 * ThinkPad P1 Gen1 i7/32GB/1TB
 * Debian 13.x x86_64 GNU/Linux
-* 自分でビルドした GNU Emacs 30.2
+* 自分でビルドした GNU Emacs 31.1
 
 ### 1.2. ディレクトリ構成
 
