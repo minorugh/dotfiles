@@ -22,9 +22,9 @@
 ```
 ~/.emacs.d
 │
+├── bin/                          ← Emacs から呼ぶスクリプト
+├── css/                          ← Markdown プレビュー用の CSS・JS
 ├── elisp/                        ← ローカルパッケージ置き場
-│   ├── bin/
-│   ├── css/
 │   ├── Makefile
 │   ├── README.md
 │   ├── commit-msg.el
