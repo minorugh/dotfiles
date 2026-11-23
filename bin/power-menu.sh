@@ -44,11 +44,11 @@ action_ve() {
 }
 action_xsrv_backup() {
     if [[ -f "$XSRV_STOP" ]]; then
-        rm -f "$XSRV_STOP"; echo "xsrv-backup: started."
-    else
-        touch "$XSRV_STOP"; echo "xsrv-backup: stopped."
+        rm -f "$XSRV_STOP"
+    elif read -n 1 -p "xsrv-backup を停止しますか? [y+Enter で停止 / その他のキーで戻る] " ans && [[ "$ans" == y ]] && read -r; then
+        touch "$XSRV_STOP"
     fi
-    sleep 1; kill "$PPID"
+    exec "$0"
 }
 action_night_suspend() {
     if make -C "$HOME/src/github.com/minorugh/dotfiles/git" git-auto; then
