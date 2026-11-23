@@ -2,7 +2,7 @@
 #######################################################################
 ## xsrv-backup-smart.sh
 ## xserver → ローカルへ rsync のみ（gospel-haiku.com / minorugh.com）
-## 手動実行専用。~/.emacs.d/elisp/bin/ に置いて Emacs から呼ぶ。
+## 手動実行専用。~/.emacs.d/bin/ に置いて Emacs から呼ぶ。
 ## commit と push は夜間処理（autobackup.sh）が担当。
 #######################################################################
 

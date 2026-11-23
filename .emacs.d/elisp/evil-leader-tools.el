@@ -15,7 +15,7 @@
 ;;; Code:
 
 ;; Include an executable perl script
-(defvar my-sen-script "~/.emacs.d/elisp/bin/sen_cleanup.pl"
+(defvar my-sen-script "~/.emacs.d/bin/sen_cleanup.pl"
   "Path of sen_cleanup.pl.")
 
 ;;;###autoload

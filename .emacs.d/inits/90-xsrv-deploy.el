@@ -243,7 +243,7 @@
   (defun my-open-xsrv-2pane (src-dir pair-dir)
     "Open SRC-DIR and PAIR-DIR side by side."
     (setq my-2pane-origin-buffer (current-buffer))
-    (shell-command "~/.emacs.d/elisp/bin/xsrv-backup-smart.sh &")
+    (shell-command "~/.emacs.d/bin/xsrv-backup-smart.sh &")
     (delete-other-windows)
     (dired src-dir)
     (my-xsrv-2pane-enable-ui)

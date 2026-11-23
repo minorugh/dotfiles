@@ -29,7 +29,7 @@ Otherwise process whole file via Perl."
                (string-match (expand-file-name "~/Dropbox/howm/.*\\.md$")
                              buffer-file-name))
       (call-process "perl" nil nil nil
-                    (expand-file-name "~/.emacs.d/elisp/howm-fix-code-comments.pl")
+                    (expand-file-name "~/.emacs.d/bin/howm-fix-code-comments.pl")
                     buffer-file-name)
       (revert-buffer t t t)
       (message "howm-fix-code-comments: done"))))

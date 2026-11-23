@@ -16,27 +16,29 @@
          ("C-c C-c" . markdown-do-command)
          ("M-RET"   . markdown-insert-list-item))
   :config
+  (keymap-set markdown-mode-map "C-c #" #'my-howm-fix-code-comments)
+  (keymap-set markdown-mode-map "C-c t" #'gen-toc-term)
   (setq markdown-command                    "pandoc -f markdown+header_attributes-raw_html -t html5")
-  (setq markdown-fontify-code-blocks-natively t)  ; コードブロックにシンタックスハイライト
-  (setq markdown-header-scaling              t)    ; 見出しのサイズを段階的に
-  (setq markdown-hide-markup                 nil)  ; マークアップを表示 (t で隠す)
-  (setq markdown-command-needs-filename      t)
-  (setq markdown-preview-use-browser         t)
-  (setq browse-url-browser-function         'browse-url-generic)
+  (setq markdown-fontify-code-blocks-natively t)    ; コードブロックにシンタックスハイライト
+  (setq markdown-header-scaling               t)    ; 見出しのサイズを段階的に
+  (setq markdown-hide-markup                  nil)  ; マークアップを表示 (t で隠す)
+  (setq markdown-command-needs-filename       t)
+  (setq markdown-preview-use-browser          t)
+  (setq browse-url-browser-function          'browse-url-generic)
   (setq browse-url-generic-program "chromium")
   (setq markdown-content-type               "application/xhtml+xml")
   (setq markdown-css-paths
-        (list (expand-file-name "~/.emacs.d/elisp/css/markdown-cream.css")))
+        (list (expand-file-name "~/.emacs.d/css/markdown-cream.css")))
 
   ;; Preview HTML Header
   (setq markdown-xhtml-header-content
         (concat
          "<link rel='stylesheet' href='"
-         (expand-file-name "~/.emacs.d/elisp/css/highlight.min.css")
+         (expand-file-name "~/.emacs.d/css/highlight.min.css")
          "'>\n"
          "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
          "<script src='"
-         (expand-file-name "~/.emacs.d/elisp/css/highlight.min.js")
+         (expand-file-name "~/.emacs.d/css/highlight.min.js")
          "'></script>\n"
          "<script>\n"
          "document.addEventListener('DOMContentLoaded', () => {\n"
@@ -67,37 +69,29 @@
 
 (leaf markdown-utils
   :doc "gen-toc howm-fix-code-comments"
-  :file "~/.emacs.d/elisp/markdown-utils.el"
-  :commands markdown-utils)
+  :commands my-howm-fix-code-comments gen-toc-term)
 
-(leaf *my-markdown-commands
-  :tag "local"
-  :after markdown-mode
-  :bind (:markdown-mode-map
-         ("C-c #" . my-howm-fix-code-comments)
-         ("C-c t" . gen-toc-term))
-  :config
-  (defun my-howm-fix-after-super-save (&rest _)
-    "super-save 後に howm バッファのコードブロック内コメントを修正する."
-    (when (and (eq major-mode 'howm-mode)
-               (buffer-file-name))
-      (message "howm-fix running: %s" (buffer-file-name))
-      (shell-command
-       (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
-               (shell-quote-argument (buffer-file-name))))))
+(defun my-howm-fix-after-super-save (&rest _)
+  "super-save 後に howm バッファのコードブロック内コメントを修正する."
+  (when (and (eq major-mode 'howm-mode)
+             (buffer-file-name))
+    (message "howm-fix running: %s" (buffer-file-name))
+    (shell-command
+     (format "perl ~/.emacs.d/bin/howm-fix-code-comments.pl %s"
+             (shell-quote-argument (buffer-file-name))))))
 
-  (advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
+(advice-add 'super-save-command :after #'my-howm-fix-after-super-save)
 
-  (defun my-delete-tmp-markdown-html ()
-    "Delete /tmp/burl*.html when a markdown buffer is killed."
-    (when (and (derived-mode-p 'markdown-mode)
-               (buffer-file-name))
-      (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
-        (when (file-exists-p file)
-          (delete-file file)
-          (message "Deleted temporary file: %s" file)))))
+(defun my-delete-tmp-markdown-html ()
+  "Delete /tmp/burl*.html when a markdown buffer is killed."
+  (when (and (derived-mode-p 'markdown-mode)
+             (buffer-file-name))
+    (dolist (file (file-expand-wildcards "/tmp/burl*.html"))
+      (when (file-exists-p file)
+        (delete-file file)
+        (message "Deleted temporary file: %s" file)))))
 
-  (add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html))
+(add-hook 'kill-buffer-hook #'my-delete-tmp-markdown-html)
 
 (defun md2pdf ()
   "Generate PDF from the current markdown buffer via pandoc + lualatex."
