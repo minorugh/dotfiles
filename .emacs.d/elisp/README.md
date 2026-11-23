@@ -10,7 +10,6 @@ elisp や外部から呼び出すスクリプト群を収録。
 - **gen_toc.pl** --- Markdown ファイルの目次（TOC）を自動生成。`markdown-utils.el` から呼び出している。
 - **howm-fix-code-comments.pl** --- Markdown コードブロック内のコメント記号を変換。`markdown-utils.el` から呼び出している。
 - **sen_cleanup.pl** --- 選句データの没句削除。`evil-leader-tools.el` から呼び出している。
-- **tile-focus-toggle.sh** --- Simplenote と Emacs のフォーカスをトグル切り替えする。
 - **xsrv-backup-smart.sh** --- xserver からローカルへ rsync バックアップ。変更がなければスキップする。
 
 ### css/
