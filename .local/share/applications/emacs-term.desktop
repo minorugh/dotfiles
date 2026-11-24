@@ -5,9 +5,9 @@ GenericName=Text Editor
 Comment=Terminal
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
 TryExec=/usr/local/bin/emacs
-Exec=env GTK_IM_MODULE=none /usr/local/bin/emacs -nw %F
+Exec=gnome-terminal --maximize -- env GTK_IM_MODULE=none /usr/local/bin/emacs -nw %F
 Icon=emacs
 Type=Application
-Terminal=true
+Terminal=false
 Categories=Utility;Development;TextEditor;
 Keywords=Text;Editor;
