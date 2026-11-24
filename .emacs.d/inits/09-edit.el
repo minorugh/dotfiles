@@ -160,17 +160,6 @@
       (switch-to-buffer "*scratch*")
       (goto-char (point-max)))))
 
-;; ============================================================
-;;  Revert Buffer
-;; ============================================================
-(defun my-revert-buffer ()
-  "Revert current buffer without confirmation."
-  (interactive)
-  (unless (buffer-modified-p)
-    (revert-buffer :ignore-auto :noconfirm)))
-
-(key-chord-define-global "jk" #'my-revert-buffer)
-
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
