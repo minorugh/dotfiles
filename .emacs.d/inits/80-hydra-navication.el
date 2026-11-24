@@ -191,7 +191,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
 
 (leaf *hydra-work
   :after evil
-  :bind (("<f14>" . my-hydra-work))
+  ;; :bind (("<f14>" . my-hydra-work))
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'post-template))
@@ -239,7 +239,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("2" my-webp-to-jpg)
    ("_" my-hydra-dired)
    ("q" top-level)
-   ("<f14>" my-hydra-dired)
+   ;; ("<f14>" my-hydra-dired)
    ("<muhenkan>" nil)
    ("C-]" nil))
   :preface

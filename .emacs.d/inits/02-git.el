@@ -95,6 +95,7 @@ Outside a Git repository, open it for the dotfiles repository."
   (let ((root (or (ignore-errors (my-git--root (my-git--target-path)))
                   (expand-file-name "~/src/github.com/minorugh/dotfiles/"))))
     (my-git--terminal root "tig status")))
+(keymap-global-set "<f14>" 'my-git-status)
 
 (defun my-open-tig ()
   "Open `tig' for the file of the current buffer or Dired line.

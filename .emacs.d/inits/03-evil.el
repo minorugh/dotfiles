@@ -22,7 +22,7 @@
          (:evil-motion-state-map
           ("C-]"      . my-quit-dwim))      ; Override evil-jump-to-tag
          (:evil-normal-state-map
-          ("_"      . my-hydra-dired)       ; Quick.dired
+          ("_"      . my-hydra-work)        ; Work.menu
           ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
