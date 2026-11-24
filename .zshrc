@@ -208,7 +208,7 @@ chpwd() {
 }
 
 # リポジトリを fzf で選んで tig を開く
-# 選んだリポジトリの worktree のルートを /tmp/tigp-last に書く（Emacs の my-tig-project が tig 終了後に dired で開く）
+# 選んだリポジトリの worktree のルートを /tmp/tigp-last に書く
 # GH や minorugh.com のように git/ と worktree が別の場合は worktree 側のルートになる
 tigp() {
     local repo
