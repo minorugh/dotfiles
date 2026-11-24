@@ -135,6 +135,8 @@ emacs-start: ## emacs-start.sh と emacsclient.desktop のリンク作成（起�
 	$(call BIN_LINK,emacs-start.sh,emacs-start.sh)
 	mkdir -p ${HOME}/.local/share/applications
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacsclient.desktop
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacs-term.desktop
+	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacs.desktop
 
 dropbox-restart: ## dropbox-restart.sh のリンク作成（autostart.sh から呼ばれる、トレイアイコン対策の再起動）
 	$(call BIN_LINK,dropbox-restart.sh,dropbox-restart.sh)
