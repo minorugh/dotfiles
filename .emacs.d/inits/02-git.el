@@ -22,9 +22,6 @@
 ;;                  tig status。git 操作の入口（F10、hydra-dired の g）
 ;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の t）
 ;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
-;;   my-tig-project リポジトリを fzf で選んで tig を開く。.zshrc の tigp を
-;;                  zsh -ic で呼ぶ。tig を終了すると、選んだリポジトリの
-;;                  ルートを Dired で開く（tigp が /tmp/tigp-last に書いたパスを読む）
 ;;
 ;; 4. make の実行
 ;;   my-make-git   カレントディレクトリの make git を実行する（hydra-dired の ]）。
@@ -46,6 +43,7 @@
 ;;  1. 共通部品
 ;;     対象ファイルと root の判定
 ;; ============================================================
+
 (defun my-git--target-path ()
   "Return the true path of the file in this buffer or Dired line."
   (let ((path (cond ((derived-mode-p 'dired-mode) (dired-get-filename nil t))
@@ -59,34 +57,36 @@
     (unless root (user-error "Git 管理下のファイルではありません"))
     (expand-file-name root)))
 
+
 ;; ============================================================
 ;;  2. commit
 ;;     elisp/commit-msg.el を、tig からの入口が呼ばれたときに読み込む
 ;; ============================================================
+
 (leaf commit-msg
   :doc "commit メッセージバッファと Claude 連携"
   :commands my-commit-file-from-tig my-commit-all-from-tig my-commit-reword-from-tig)
+
 
 ;; ============================================================
 ;;  3. tig を開く
 ;;     どれも新しい端末で開き、tig を終了すると端末も閉じる
 ;; ============================================================
 
-(defun my-git--terminal (dir command &optional on-exit)
-  "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit.
-When ON-EXIT is given, call it after the terminal has closed."
-  (let ((proc (start-process "tig" nil "gnome-terminal" "--wait"
-                             "--geometry" (let ((wa (frame-monitor-workarea)))
-                                            (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
-                             "--maximize"
-                             "--title" (format "tig: %s"
-                                               (file-name-nondirectory
-                                                (directory-file-name dir)))
-                             "--working-directory" dir
-                             "--" "bash" "-c" (concat "exec " command))))
-    (when on-exit
-      (set-process-sentinel proc (lambda (_proc _event) (funcall on-exit))))
-    proc))
+;; On Keychron, tapping Right Ctrl sends F14
+(keymap-global-set "<f14>" #'my-git-status)
+
+(defun my-git--terminal (dir command)
+  "Run shell COMMAND in gnome-terminal at DIR and close terminal on exit."
+  (start-process "tig" nil "gnome-terminal" "--wait"
+                 "--geometry" (let ((wa (frame-monitor-workarea)))
+                                (format "80x24+%d+%d" (nth 0 wa) (nth 1 wa)))
+                 "--maximize"
+                 "--title" (format "tig: %s"
+                                   (file-name-nondirectory
+                                    (directory-file-name dir)))
+                 "--working-directory" dir
+                 "--" "bash" "-c" (concat "exec " command)))
 
 (defun my-git-status ()
   "Open `tig status' for the repository of the current file or Dired line.
@@ -95,7 +95,6 @@ Outside a Git repository, open it for the dotfiles repository."
   (let ((root (or (ignore-errors (my-git--root (my-git--target-path)))
                   (expand-file-name "~/src/github.com/minorugh/dotfiles/"))))
     (my-git--terminal root "tig status")))
-(keymap-global-set "<f14>" 'my-git-status)
 
 (defun my-open-tig ()
   "Open `tig' for the file of the current buffer or Dired line.
@@ -107,28 +106,12 @@ TIG_PEEK_FILE carries the file path to tig so that E opens `git-peek'."
                                    (shell-quote-argument path)
                                    (shell-quote-argument path)))))
 
-(defvar my-tigp-last-file "/tmp/tigp-last"
-  "File where `tigp' of .zshrc writes the selected repository.")
-
-(defun my-tig-project ()
-  "Pick a repository with fzf, open `tig', then open its root in Dired.
-Run the `tigp' function of .zshrc through an interactive zsh."
-  (interactive)
-  (when (file-exists-p my-tigp-last-file)
-    (delete-file my-tigp-last-file))
-  (my-git--terminal
-   (expand-file-name "~/src/github.com/minorugh/")
-   "zsh -ic tigp"
-   (lambda ()
-     (when (file-exists-p my-tigp-last-file)
-       (dired (with-temp-buffer
-                (insert-file-contents my-tigp-last-file)
-                (string-trim (buffer-string))))))))
 
 ;; ============================================================
 ;;  4. make の実行
 ;;     make git（メイン機は push、サブ機は pull）と make auto-commit
 ;; ============================================================
+
 (defun my-make-git ()
   "Run `make git' in the current directory.
 The main machine pushes in a compile buffer.  A sub machine pulls in a
@@ -143,10 +126,12 @@ terminal because env-sync asks for confirmation."
   (interactive)
   (my-make "auto-commit" "~/src/github.com/minorugh/dotfiles/git/"))
 
+
 ;; ============================================================
 ;;  5. git-peek 連携
 ;;     tig の E で選んだコミットを git-peek で開く
 ;; ============================================================
+
 (leaf git-peek
   :vc (:url "https://github.com/minorugh/git-peek" :rev :newest)
   :config
