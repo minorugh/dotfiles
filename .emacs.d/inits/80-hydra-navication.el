@@ -67,10 +67,11 @@
    ("-" git-peek)
    ("g" my-git-status)
    ("t" my-open-tig)
-   ("_" delete-other-windows)
+   ("_" my-hydra-work)
    ("q" top-level)
    ("<henkan>"  my-hydra-work)
-   ("<muhenkan>" nil))
+   ("<muhenkan>" nil)
+   ("C-]" nil))
   :preface
   ;; ------------------------------------------------------------
   ;;  File / Directory Helpers
@@ -236,9 +237,11 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("[" my-haiku-note-post)
    ("b" my-resize-blog)
    ("2" my-webp-to-jpg)
+   ("_" my-hydra-dired)
    ("q" top-level)
    ("<f14>" my-hydra-dired)
-   ("<muhenkan>" nil))
+   ("<muhenkan>" nil)
+   ("C-]" nil))
   :preface
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers

@@ -18,14 +18,18 @@
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind (([muhenkan]  . my-quit-dwim)       ; Universal escape (see below)
+         ("C-]"       . my-quit-dwim)       ; Same as muhenkan on Terminal (Keychron sends C-])
+         (:evil-motion-state-map
+          ("C-]"      . my-quit-dwim))      ; Override evil-jump-to-tag
          (:evil-normal-state-map
+          ("_"      . my-hydra-dired)       ; Quick.dired
           ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
           ("b"      . evil-scroll-page-up)
           ("i"      . my-emacs-state-mozc)
           ("@"      . evil-visual-char)
-          ("_"      . evil-visual-line)
+          ("v"      . evil-visual-line)
           ("?"      . evil-cheat-sheet)
           ([home]   . dashboard-toggle)
           ([escape] . my-evil-toggle-state))
@@ -50,6 +54,15 @@
   ;; Cheat-Sheetを表示させる自作関数の読込
   (autoload 'evil-cheat-sheet "evil-cheat-sheet" nil t)
 
+  ;; 端末の emacs state でも ESC 単独を escape として扱う
+  ;; evil-esc は emacs state では ESC を Meta prefix にするため、呼び出し中だけ normal とみなす
+  (defun my-evil-esc-in-emacs-state (orig-fn map)
+    "Call ORIG-FN with MAP while `evil-state' is treated as normal."
+    (defvar evil-state)
+    (let ((evil-state 'normal))
+      (funcall orig-fn map)))
+  (advice-add 'evil-esc :around #'my-evil-esc-in-emacs-state)
+
   ;; デフォルトの d:削除 を deepl-translate に置き換える
   (keymap-set evil-visual-state-map "d" #'deepl-translate)
 
@@ -69,7 +82,7 @@
   (dolist (mode '(howm-view-summary-mode
                   easy-hugo-mode
                   neotree-mode
-                  lisp-interaction-mode
+                  ;; lisp-interaction-mode
                   my-commit-msg-mode))
     (add-to-list 'evil-emacs-state-modes mode))
 
@@ -203,7 +216,8 @@
 
   ;; mozc起動中は mozc-modeが無変換キーを奪うため my-quit-dwimで上書きする
   (with-eval-after-load 'mozc
-    (keymap-set mozc-mode-map "<muhenkan>" #'my-quit-dwim)))
+    (keymap-set mozc-mode-map "<muhenkan>" #'my-quit-dwim)
+    (keymap-set mozc-mode-map "C-]" #'my-quit-dwim)))
 
 
 ;; ============================================================
