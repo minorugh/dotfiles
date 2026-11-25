@@ -70,8 +70,7 @@
    ("_" my-hydra-work)
    ("q" top-level)
    ("<henkan>"  my-hydra-work)
-   ("<muhenkan>" nil)
-   ("C-]" nil))
+   ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
   ;;  File / Directory Helpers
@@ -191,7 +190,6 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
 
 (leaf *hydra-work
   :after evil
-  ;; :bind (("<f14>" . my-hydra-work))
   :hydra
   (hydra-work
    (:hint nil :exit t :body-pre (require 'post-template))
@@ -239,9 +237,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("2" my-webp-to-jpg)
    ("_" my-hydra-dired)
    ("q" top-level)
-   ;; ("<f14>" my-hydra-dired)
-   ("<muhenkan>" nil)
-   ("C-]" nil))
+   ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
   ;;  Word Case Helpers
