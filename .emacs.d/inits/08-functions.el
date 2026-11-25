@@ -24,7 +24,9 @@
          ("<f9>"  . display-line-numbers-mode) ; built-in
          ("<f10>" . my-git-status)             ; see 02-git.el
          ("<f11>" . toggle-frame-fullscreen)   ; built-in
-         ("<f12>" . toggle-emacs))
+         ("<f12>" . toggle-emacs)
+	 ("<f13>" . toggle-input-method)
+	 ("<f14>" . my-git-status))
 
   :preface
   (defun toggle-emacs ()
