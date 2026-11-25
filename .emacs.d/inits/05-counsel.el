@@ -10,21 +10,36 @@
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
-  :bind (("C-:"     . counsel-switch-buffer)
-         ("C-x C-f" . counsel-find-file)
-         ("C-x f"   . counsel-find-file)
-         ("C-x m"   . counsel-imenu)
-         ("C-x g"   . counsel-git)         ; プロジェクト内のファイルを検索
-         ("s-a"     . counsel-git-grep)    ; プロジェクト内を全文検索 (ag の代わり)
+  :bind (("C-:"     . counsel-switch-buffer)  ; 開いているバッファを切り替える
+         ("C-x C-f" . counsel-find-file)      ; ファイルを開く
+         ("C-x f"   . counsel-find-file)      ; 同上（C-x C-f の短縮）
+         ("C-x m"   . counsel-imenu)          ; バッファ内の定義へ移動
+         ("C-x C-g" . counsel-git)            ; repo の追跡ファイルを名前で探して開く
+         ("C-x g"   . counsel-git-grep)       ; repo 全体の全文検索（追跡ファイルのみ）
+         ("s-a"     . my-counsel-rg-here)     ; 今のディレクトリ以下を全文検索（C-u で選択）
          ("M-x"     . counsel-M-x)
-         ("M-y"     . counsel-yank-pop)
-         ("C-,"     . counsel-mark-ring))
+         ("M-y"     . counsel-yank-pop)       ; kill-ring から選んで貼り付ける
+         ("C-,"     . counsel-mark-ring))     ; マークした位置へジャンプする
   :config
+  (setq counsel-rg-base-command
+        '("rg" "--max-columns" "1000" "--with-filename" "--no-heading"
+          "--line-number" "--color" "never" "--hidden" "-g" "!.git" "%s"))
   (setq search-default-mode             nil)
   (setq counsel-find-file-ignore-regexp (regexp-opt completion-ignored-extensions))
   (setq ivy-format-functions-alist      '((t . my-ivy-format-function-arrow)))
   (ivy-configure 'counsel-imenu :update-fn 'auto)
   (add-to-list 'ivy-height-alist '(counsel-imenu . 20))
+
+  (defun my-counsel-pcre-whitespace (re)
+    "Replace the Emacs-only `\\s-*' in RE with `\\s*' for PCRE."
+    (string-replace "\\s-*" "\\s*" re))
+  (advice-add 'counsel--elisp-to-pcre :filter-return #'my-counsel-pcre-whitespace)
+
+  (defun my-counsel-rg-here ()
+    "Search the current directory with `counsel-rg'.
+With a prefix argument, choose the directory."
+    (interactive)
+    (counsel-rg nil (unless current-prefix-arg default-directory)))
 
   (defun my-ivy-format-function-arrow (cands)
     "Transform CANDS into a string for the minibuffer with a chevron indicator."
@@ -87,7 +102,7 @@
   (setq migemo-coding-system   'utf-8-unix)
 
   (defun my-ivy-migemo-re-builder (str)
-    "Build a regexp for swiper using migemo for Japanese incremental search."
+    "Build a regexp for swiper and counsel-rg using migemo for Japanese search."
     (let* ((sep      " \\|\\^\\|\\.\\|\\*")     ; 区切り文字パターン（スペース・^・.・*）
            (chars    (split-string str "" t))    ; STR を1文字ずつ分割
            (splitted (let (result group)         ; 区切り文字で分割し、連続する非区切り文字をグループ化
@@ -108,9 +123,11 @@
                ((string-match-p sep s) s)        ; 区切り文字 → そのまま
                (t (migemo-get-pattern s))))      ; 日本語 → migemo 変換
        splitted "")))
-  ;; swiper のみ migemo re-builder を使用、他は標準の ivy--regex-plus
-  (setq ivy-re-builders-alist '((t      . ivy--regex-plus)
-                                (swiper . my-ivy-migemo-re-builder))))
+  ;; swiper と counsel-rg に migemo re-builder を使用、他は標準の ivy--regex-plus
+  ;; counsel-rg に渡す前の \s-* → \s* の変換は my-counsel-pcre-whitespace が行う
+  (setq ivy-re-builders-alist '((t          . ivy--regex-plus)
+                                (swiper     . my-ivy-migemo-re-builder)
+                                (counsel-rg . my-ivy-migemo-re-builder))))
 
 
 ;; Local Variables:

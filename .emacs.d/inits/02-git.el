@@ -19,7 +19,7 @@
 ;;
 ;; 3. tig を開く（どれも新しい端末で開き、tig を終了すると端末も閉じる）
 ;;   my-git-status  開いているファイル（Dired なら行のファイル）の repo の
-;;                  tig status。git 操作の入口（F10、hydra-dired の g）
+;;                  tig status。git 操作の入口（F10、F14）
 ;;   my-open-tig    開いているファイル（Dired なら行のファイル）の履歴（hydra-dired の t）
 ;;                  環境変数 TIG_PEEK_FILE に対象ファイルのパスを入れて tig を起動する
 ;;
