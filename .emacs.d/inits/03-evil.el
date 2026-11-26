@@ -17,9 +17,8 @@
   :ensure t
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
-  :bind (([muhenkan]  . my-quit-dwim)       ; Universal escape (see below)
-         (:evil-normal-state-map
-          ("_"      . my-hydra-work)        ; Work.menu
+  :bind ((:evil-normal-state-map
+          ("_"      . my-hydra-dired)       ; Quick.dired
           ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
@@ -202,9 +201,10 @@
         (evil-normal-state)
         (my-evil-echo-state))))
 
-  ;; mozc起動中は mozc-modeが無変換キーを奪うため my-quit-dwimで上書きする
-  (with-eval-after-load 'mozc
-    (keymap-set mozc-mode-map "<muhenkan>" #'my-quit-dwim)))
+  (with-eval-after-load 'evil
+    (evil-define-key '(normal insert visual emacs) 'global
+      (kbd "C-]")       #'my-quit-dwim
+      (kbd "<muhenkan>") #'my-quit-dwim)))
 
 
 ;; ============================================================
