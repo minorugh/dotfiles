@@ -14,13 +14,17 @@
     (evil-normal-state))
   (hydra-dired/body))
 
-(with-eval-after-load 'mozc
-  (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
+(with-eval-after-load 'evil
+  (evil-define-key '(normal insert visual emacs) 'global
+    (kbd "C-^")       #'my-hydra-dired
+    (kbd "<henkan>") #'my-hydra-dired))
+;; (with-eval-after-load 'mozc
+;;   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
 
 
 (leaf *hydra-dired
   :after evil
-  :bind (("<henkan>" . my-hydra-dired))
+  ;; :bind (("<henkan>" . my-hydra-dired))
   :init
   (defvar my-cron-hint
     (concat (propertize "^" 'face 'hydra-face-blue) "cron"))
@@ -69,6 +73,7 @@
    ("t" my-open-tig)
    ("_" my-hydra-work)
    ("q" top-level)
+   ("C-^" my-hydra-work)
    ("<henkan>"  my-hydra-work)
    ("<muhenkan>" nil))
   :preface
