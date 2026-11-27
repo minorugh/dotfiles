@@ -201,12 +201,9 @@
         (evil-normal-state)
         (my-evil-echo-state))))
 
-  ;; GUI: <muhenkan>、TTY: Keychron のマクロが送る M-]
-  ;; C-] は evil の state マップに負けるため、counsel の :bind ではなくここで束縛する
   (with-eval-after-load 'evil
-    (evil-define-key '(normal insert visual emacs motion) 'global
-      (kbd "C-]")        #'counsel-switch-buffer
-      (kbd "M-]")        #'my-quit-dwim
+    (evil-define-key '(normal insert visual emacs) 'global
+      (kbd "C-]")        #'my-quit-dwim
       (kbd "<muhenkan>") #'my-quit-dwim)))
 
 
