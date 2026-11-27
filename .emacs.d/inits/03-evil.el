@@ -18,7 +18,7 @@
   :hook ((after-init-hook . evil-mode)
          (find-file-hook  . my-evil-emacs-state-for-new-file))
   :bind ((:evil-normal-state-map
-          ("_"      . my-hydra-dired)       ; Quick.dired
+          ("_"      . my-hydra-work)        ; Work.menu
           ("C-a"    . my-seq-home)          ; Smart beginning-o-line (see 08-edit.el)
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
@@ -201,9 +201,12 @@
         (evil-normal-state)
         (my-evil-echo-state))))
 
+  ;; GUI: <muhenkan>、TTY: Keychron のマクロが送る M-]
+  ;; C-] は evil の state マップに負けるため、counsel の :bind ではなくここで束縛する
   (with-eval-after-load 'evil
     (evil-define-key '(normal insert visual emacs) 'global
-      (kbd "C-]")       #'my-quit-dwim
+      (kbd "C-]")        #'counsel-switch-buffer
+      (kbd "M-]")        #'my-quit-dwim
       (kbd "<muhenkan>") #'my-quit-dwim)))
 
 

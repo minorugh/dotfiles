@@ -14,13 +14,11 @@
     (evil-normal-state))
   (hydra-dired/body))
 
+;; GUI: <henkan>、TTY: Keychron のマクロが送る M-^
 (with-eval-after-load 'evil
   (evil-define-key '(normal insert visual emacs) 'global
-    (kbd "C-^")       #'my-hydra-dired
+    (kbd "M-^")       #'my-hydra-dired
     (kbd "<henkan>") #'my-hydra-dired))
-;; (with-eval-after-load 'mozc
-;;   (keymap-set mozc-mode-map "<henkan>" #'my-hydra-dired))
-
 
 (leaf *hydra-dired
   :after evil
@@ -73,8 +71,9 @@
    ("t" my-open-tig)
    ("_" my-hydra-work)
    ("q" top-level)
-   ("C-^" my-hydra-work)
+   ("M-^" my-hydra-work)
    ("<henkan>"  my-hydra-work)
+   ("M-]" nil)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------
@@ -242,6 +241,7 @@ create a howm memo, paste the clipboard, then close the Simplenote window."
    ("2" my-webp-to-jpg)
    ("_" my-hydra-dired)
    ("q" top-level)
+   ("M-]" nil)
    ("<muhenkan>" nil))
   :preface
   ;; ------------------------------------------------------------

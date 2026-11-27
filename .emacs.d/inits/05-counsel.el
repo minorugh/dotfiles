@@ -10,8 +10,7 @@
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
-  :bind (("C-:"     . counsel-switch-buffer)  ; 開いているバッファを切り替える
-         ("C-x C-f" . counsel-find-file)      ; ファイルを開く
+  :bind (("C-x C-f" . counsel-find-file)      ; ファイルを開く
          ("C-x f"   . counsel-find-file)      ; 同上（C-x C-f の短縮）
          ("C-x m"   . counsel-imenu)          ; バッファ内の定義へ移動
          ("C-x C-g" . counsel-git)            ; repo の追跡ファイルを名前で探して開く
