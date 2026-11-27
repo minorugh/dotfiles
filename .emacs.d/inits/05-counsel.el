@@ -10,7 +10,7 @@
 (leaf counsel
   :ensure t
   :doc "Various completion functions using Ivy."
-  :bind (("C-:"     . counsel-switch-buffer)
+  :bind (("C-c b"   . counsel-switch-buffer)
 	 ("C-x C-f" . counsel-find-file)      ; ファイルを開く
          ("C-x f"   . counsel-find-file)      ; 同上（C-x C-f の短縮）
          ("C-x m"   . counsel-imenu)          ; バッファ内の定義へ移動
