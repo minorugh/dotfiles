@@ -66,7 +66,7 @@
    ("[" my-make-auto-commit)
    ("]" my-make-git)
    ("-" git-peek)
-   ("g" counsel-git-grep)
+   ("g" my-git-status)
    ("t" my-open-tig)
    ("_" my-hydra-work)
    ("q" top-level)
