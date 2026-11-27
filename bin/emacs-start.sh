@@ -10,4 +10,5 @@
 # - Makefile の autostart: make emacs-start で /usr/local/bin にリンクを張る
 # 詳細は bin/README.md を参照
 
+pkill -x emacs
 exec zsh -ic "/usr/local/bin/emacs --maximized"
