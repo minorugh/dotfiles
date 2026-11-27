@@ -16,7 +16,7 @@
 
 ;; GUI: <henkan>、TTY: Keychron のマクロが送る M-^
 (with-eval-after-load 'evil
-  (evil-define-key '(normal insert visual emacs) 'global
+  (evil-define-key '(normal insert visual emacs motion) 'global
     (kbd "M-^")       #'my-hydra-dired
     (kbd "<henkan>") #'my-hydra-dired))
 
