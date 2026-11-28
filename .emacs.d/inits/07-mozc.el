@@ -29,10 +29,16 @@
   ;; Mozc Helper Commands
   ;; ---------------------------------------------------
   (defun my-toggle-input-method ()
-    "Toggle input method only when in Emacs state."
+    "Normal state: switch to Emacs state and turn Mozc on.
+Emacs state: toggle input method.
+The normal state branch relies on `my-emacs-state-mozc' (evil config);
+it is shared with the `i' key, so keep the two in sync."
     (interactive)
-    (when (evil-emacs-state-p)
-      (toggle-input-method)))
+    (cond
+     ((evil-normal-state-p)
+      (my-emacs-state-mozc))
+     ((evil-emacs-state-p)
+      (toggle-input-method))))
 
   (defun mozc-insert-str (str)
     "Commit current preedit and insert STR immediately."

@@ -93,8 +93,10 @@
       (evil-emacs-state)))
 
   ;; Emacs モードに切り替えて、Mozc を有効にする。
+  ;; Also called from `my-toggle-input-method' in 07-mozc.el.
   (defun my-emacs-state-mozc ()
-    "If it's at the end of a line, shift it one character to the right and execute."
+    "Switch to Emacs state and turn Mozc on.
+If point is one character before the end of line, move it to the end first."
     (interactive)
     (when (and (not (bolp))
                (save-excursion (forward-char) (eolp)))
