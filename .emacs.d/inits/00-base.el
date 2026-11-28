@@ -147,8 +147,8 @@
          ("M-w"   . clipboard-kill-ring-save)
          ("C-w"   . my-clipboard-kill-region)
          ("M-/"   . kill-current-buffer)
-         ("s-c"   . clipboard-kill-ring-save)
-         ("s-v"   . clipboard-yank)
+         ("M-c"   . clipboard-kill-ring-save)
+         ("M-v"   . clipboard-yank)
          ("C-q"   . other-window-or-split)
          ("C-<tab>"    . quoted-insert))
   :preface
