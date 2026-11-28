@@ -290,6 +290,34 @@ Emacs 側の `*compilation-log*` バッファに自動で流し込まれます�
 
 ---
 
+## term 版 Emacs の F13 と fcitx について
+
+### 背景
+- term 版 Emacs（emacs-nw）は gnome-terminal で動かす
+- mozc 本体の設定に F13 があり、普通の gnome-terminal では F13 が端末に届く前に fcitx が取って、端末側の mozc が起動してしまう
+- Emacs の設定では直せない
+
+### 対応
+- emacs-nw 専用の gnome-terminal サーバー（app-id: `local.emacsnw.Terminal`）を、fcitx を通さない設定（`GTK_IM_MODULE=gtk-im-context-simple`）で起動する
+- 起動方法は D-Bus のサービス定義に登録し、`emacs-nw-start.sh` が `--app-id` で指定する
+- 普段の gnome-terminal と GUI の Emacs には影響しない
+
+### 構成
+| 場所 | 役割 |
+|---|---|
+| `.local/share/dbus-1/services/local.emacsnw.Terminal.service` | 専用サーバーの起動定義（`make emacs-start` で symlink） |
+| emacs-nw リポジトリの `bin/emacs-nw-start.sh` | `--app-id local.emacsnw.Terminal` で端末を開く |
+
+### 確認方法
+- `gnome-terminal --app-id local.emacsnw.Terminal` で専用の端末を開き、`cat -v` で F13 を押すと `^[[25~` が出る
+- 普通の gnome-terminal では、F13 で mozc が起動して何も出ない
+
+### 注意
+- `.service` がないと、`--app-id` は「not provided by any .service files」で失敗する
+- サーバーのパス `/usr/libexec/gnome-terminal-server` は Debian 13 のもの
+
+---
+
 ## 更新履歴
 
 | 日付 | 内容 |

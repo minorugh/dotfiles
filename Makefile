@@ -131,12 +131,14 @@ emacs-toggle: ## emacs-toggle のリンク作成 + F12ショートカット登�
 	$(call BIN_LINK,emacs-toggle,emacs-toggle)
 	xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/F12" -n -t string -s "emacs-toggle"
 
-emacs-start: ## emacs-start.sh と emacsclient.desktop のリンク作成（起動ラッパー・emacsclient の代替エディタ）
+emacs-start: ## emacs-start.sh と emacsclient.desktop のリンク作成（起動ラッパー・emacsclient の代替エディタ）+ term 版用 gnome-terminal のサービス定義リンク
 	$(call BIN_LINK,emacs-start.sh,emacs-start.sh)
 	mkdir -p ${HOME}/.local/share/applications
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacsclient.desktop
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacs-term.desktop
 	ln -vsfn {${PWD},${HOME}}/.local/share/applications/emacs.desktop
+	mkdir -p ${HOME}/.local/share/dbus-1/services
+	ln -vsfn {${PWD},${HOME}}/.local/share/dbus-1/services/local.emacsnw.Terminal.service
 
 dropbox-restart: ## dropbox-restart.sh のリンク作成（autostart.sh から呼ばれる、トレイアイコン対策の再起動）
 	$(call BIN_LINK,dropbox-restart.sh,dropbox-restart.sh)
