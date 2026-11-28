@@ -28,11 +28,20 @@
   :preface
   ;; Mozc Helper Commands
   ;; ---------------------------------------------------
+  (defun my-emacs-state-mozc ()
+    "Switch to Emacs state and turn Mozc on.
+If point is one character before the end of line, move it to the end first."
+    (interactive)
+    (when (and (not (bolp))
+               (save-excursion (forward-char) (eolp)))
+      (forward-char))
+    (evil-emacs-state)
+    (my-evil-echo-state)
+    (activate-input-method "japanese-mozc"))
+
   (defun my-toggle-input-method ()
     "Normal state: switch to Emacs state and turn Mozc on.
-Emacs state: toggle input method.
-The normal state branch relies on `my-emacs-state-mozc' (evil config);
-it is shared with the `i' key, so keep the two in sync."
+Emacs state: toggle input method."
     (interactive)
     (cond
      ((evil-normal-state-p)

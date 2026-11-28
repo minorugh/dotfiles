@@ -23,7 +23,6 @@
           ("C-e"    . my-seq-end)           ; Smart end-of-line (see 08-edit.el)
           ("SPC"    . evil-scroll-page-down)
           ("b"      . evil-scroll-page-up)
-          ("i"      . my-emacs-state-mozc)
           ("@"      . evil-visual-char)
           ("v"      . evil-visual-line)
           ("?"      . evil-cheat-sheet)
@@ -56,9 +55,9 @@
   ;; Route Insert state → Emacs state to enforce Emacs-state workflow
   (defalias 'evil-insert-state 'evil-emacs-state)
 
-  ;; Disable edit-entry keys to prevent accidental Insert-state entry.
-  ;; 編集トリガーを 'i' に限定し、Insert-state への誤進入を完全にシャットアウトする。
-  (dolist (key '("I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
+  ;; Disable all edit-entry keys to prevent accidental Insert-state entry.
+  ;; Normal state からの編集トリガーは全封印。入口は ESC と変換キー。
+  (dolist (key '("i" "I" "a" "A" "o" "O" "s" "S" "c" "C" "R"))
     (keymap-set evil-normal-state-map key #'ignore))
 
   ;; Map :q and :wq to kill-buffer instead of quitting Emacs
@@ -91,19 +90,6 @@
     (when (and (buffer-file-name)
                (not (file-exists-p (buffer-file-name))))
       (evil-emacs-state)))
-
-  ;; Emacs モードに切り替えて、Mozc を有効にする。
-  ;; Also called from `my-toggle-input-method' in 07-mozc.el.
-  (defun my-emacs-state-mozc ()
-    "Switch to Emacs state and turn Mozc on.
-If point is one character before the end of line, move it to the end first."
-    (interactive)
-    (when (and (not (bolp))
-               (save-excursion (forward-char) (eolp)))
-      (forward-char))
-    (evil-emacs-state)
-    (my-evil-echo-state)
-    (activate-input-method "japanese-mozc"))
 
 
   ;; ============================================================
