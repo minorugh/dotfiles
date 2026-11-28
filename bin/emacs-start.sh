@@ -1,6 +1,7 @@
 #!/bin/bash
 # /usr/local/bin/emacs-start.sh
-# Updated : 2026-11-05
+# Updated : 2026-11-28
+# 外部モニターがあれば x=1920 に最大化して起動する。なければ内蔵画面で起動する。
 # 使われている場所:
 # - .autostart.sh: ログイン時に Emacs を起動する
 # - emacsclient.desktop: emacsclient の --alternate-editor。サーバーがないとき起動する
@@ -11,4 +12,9 @@
 # 詳細は bin/README.md を参照
 
 pkill -x emacs
-exec zsh -ic "/usr/local/bin/emacs --maximized"
+
+if xrandr --listmonitors | grep -q '^ 1:'; then
+  exec zsh -ic "/usr/local/bin/emacs --maximized --geometry=+1920+0"
+else
+  exec zsh -ic "/usr/local/bin/emacs --maximized"
+fi

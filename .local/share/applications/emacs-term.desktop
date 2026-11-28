@@ -6,9 +6,11 @@ Comment=Terminal
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
 TryExec=/usr/local/bin/emacs
 Exec=/home/minoru/src/github.com/minorugh/emacs-nw/.emacs.d/bin/emacs-nw-start.sh %F
-Icon=emacs
+Icon=emacs-tty
 Type=Application
 Terminal=false
 Categories=Utility;Development;TextEditor;
 Keywords=Text;Editor;
+Path=
+StartupNotify=false
 
